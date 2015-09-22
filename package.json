@@ -1,0 +1,16 @@
+{
+  "name": "pagination",
+  "version": "0.1.0",
+  "devDependencies": {
+    "angular": "^1.4.6",
+    "angular-loader": "^1.4.6",
+    "angular-mocks": "^1.4.6",
+    "angular-route": "^1.4.6",
+    "bootstrap": "^3.3.5",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "jquery": "^2.1.4"
+  }
+}
