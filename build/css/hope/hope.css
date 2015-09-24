@@ -1,0 +1,20 @@
+.input-none {
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+}
+.inputStyle {
+  border: 0;
+  height: 35px;
+  line-height: 35px;
+}
+.nopadding {
+  padding: 0 0!important;
+  vertical-align: middle!important;
+  width: 990px;
+}
+.hope-info {
+  margin: 15px 0;
+}
+/*# sourceMappingURL=hope.css.map */

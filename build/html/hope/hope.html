@@ -1,3 +1,433 @@
-<div class="container">
-<p>填表</p>
+<div class="container text-center">
+    <h1>{{subject}}考生志愿意向表</h1>
+    <h4>【第{{stage}}阶段填报{{subject}}第{{stage}}批本科院校志愿用表】</h4>
+
+    <div class="form-inline">
+        <div class="row hope-info text-left">
+            <div class="form-group">
+                <label for="username">姓名</label>
+                <input type="text" id="username" class="form-control input-none" name="username" placeholder="请输入姓名"/>
+            </div>
+            <div class="form-group">
+                <label for="number">考生号</label>
+                <input type="text" id="number" class="form-control input-none" name="number" placeholder="请输入考生号"/>
+            </div>
+            <div class="form-group">
+                <input type="text" id="city" class="form-control input-none" name="city" placeholder="请输入所在市"/>
+                <label for="city">市</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="city" class="form-control input-none" name="city" placeholder="请输入所在县（级、市）"/>
+                <label for="city">县（级、市）</label>
+            </div>
+        </div>
+        <div class="row hope-info  text-left">
+            <div class="form-group">
+                <label for="username">选测科目等级   {{result1}}</label>
+
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="result1"/>A+</label>
+                    <label class="radio-inline"><input type="radio" name="result1"/>A-</label>
+                    <label class="radio-inline"><input type="radio" name="result1"/>B+</label>
+                    <label class="radio-inline"><input type="radio" name="result1"/>B-</label>
+                    <label class="radio-inline"><input type="radio" name="result1"/>C</label>
+                    <label class="radio-inline"><input type="radio" name="result1"/>D</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="result2"/>A+</label>
+                    <label class="radio-inline"><input type="radio" name="result2"/>A-</label>
+                    <label class="radio-inline"><input type="radio" name="result2"/>B+</label>
+                    <label class="radio-inline"><input type="radio" name="result2"/>B-</label>
+                    <label class="radio-inline"><input type="radio" name="result2"/>C</label>
+                    <label class="radio-inline"><input type="radio" name="result2"/>D</label>
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <label for="score">考分</label>
+                <input type="text" id="score" class="form-control input-none" name="score" placeholder="考分"/>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td class="text-center">
+                <input type="text" class="inputStyle" placeholder="请输入高校编号"/>
+            </td>
+            <td class="text-center">
+                <input type="text" class="inputStyle" placeholder="请输入高校名称"/>
+            </td>
+            <td class="text-center">
+                <input type="text" class="inputStyle" placeholder="请输入专业代码"/>
+            </td>
+            <td class="text-center">
+                <input type="text"class="inputStyle" placeholder="请输入专业名称"/>
+            </td>
+            <td class="text-center">
+                <a href="javascript:;;" class="btn btn-default">录取概率</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <colleges role="高考志愿"></colleges>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="text-center nopadding">
+                    符合上述要求的高校情况
+                </td>
+                <td class="text-center">
+                    <a href="javascript:;;" class="btn btn-default">查询</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>毕业去向方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">就业</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">考研</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">出国</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>专业要求方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">语种</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">加试</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">多收费</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>学习愿望方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">学文</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">学理</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">学工</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>兴趣爱好方面：</label>
+        </div>
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;">喜欢与物打交道</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-7 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;">喜欢与人打交道</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-7 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;">喜欢关注大小事</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-7 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>能力特长方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">强项</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">弱项</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>能力特长方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">强项</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">弱项</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>性格倾向方面：</label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">外向型</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label></label>
+        </div>
+        <div class="col-sm-1 text-right menu-list">
+            <li><a href="javascript:;;">内向型</a></li>
+        </div>
+        <div class="col-sm-1 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 text-left menu-list">
+            <li><a href="javascript:;;">211 工程</a></li>
+            <li><a href="javascript:;;">985 高校</a></li>
+            <li><a href="javascript:;;">C9 联盟</a></li>
+            <li><a href="javascript:;;">中外合作</a></li>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="text-center nopadding">
+                    符合上述要求的高校、专业情况
+                </td>
+                <td class="text-center">
+                    <a href="javascript:;;" class="btn btn-default">查询</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="text-center nopadding">
+                    符合上述要求的高校、专业情况
+                </td>
+                <td class="text-center">
+                    <a href="javascript:;;" class="btn btn-default">查询</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
 </div>
