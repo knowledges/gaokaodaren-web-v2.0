@@ -1,0 +1,26 @@
+@list-li:#05A;
+@border-ccc:#ccc;
+@color-000:#FFF;
+@active:#55C4B8;
+.menu-list{
+    li{
+        display: inline-block;
+        padding: 5px 10px ;
+        color: @list-li;
+    }
+}
+.borselected{
+    border: 1px solid @border-ccc;
+    > .row{
+        margin: 0 20px;
+        border-bottom: 1px dashed @border-ccc;
+    }
+}
+.lab-active{
+    padding: 2px 5px;
+    background: @active;
+    color: @color-000;
+    &:hover{
+        color: @color-000;
+    }
+}

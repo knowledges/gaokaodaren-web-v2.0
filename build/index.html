@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="gaokaoAPP">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
+    <meta name="Keywords" content="高考,志愿填报,江苏达人网,招生政策,毕业去向,分数分析,城市介绍,资讯平台,江苏省今年普通高校招生考生志愿表">
+    <!--<meta name="baidu-site-verification" content="J6qe6Ox6BK" />-->
     <title>高考志愿填报——江苏达人网</title>
-    <meta charset="UTF-8">
-    <META name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
-    <META name="Keywords" content="高考,志愿填报,江苏达人网,招生政策,毕业去向,分数分析,城市介绍,资讯平台,江苏省今年普通高校招生考生志愿表">
-    <meta name="baidu-site-verification" content="J6qe6Ox6BK" />
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     <link rel="stylesheet" href="css/home/home.css"/>
     <link rel="stylesheet" href="css/home/homeContent.css"/>
+    <link rel="stylesheet" href="css/login/login.css"/>
+    <link rel="stylesheet" href="templete/model-selected/modelSelected.css"/>
+    <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
 </head>
 <body>
-    <nav class="head navbar navbar-default">
+    <nav class="navbar navbar-default head">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="javascript:;;">江苏达人网</a>
+                <a class="navbar-brand" href="javascript:;;">
+                    江苏达人网
+                </a>
             </div>
-
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#/home">首页</a></li>
-                    <li><a href="#">填志愿</a></li>
+                    <li><a href="#/hope">填志愿</a></li>
                     <li class="dropdown">
                         <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查数据 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -43,7 +50,7 @@
                             <li><a href="#">咨询线路</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#/about">关于我们</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <form class="navbar-form navbar-left " action="javascript:;;" role="search">
@@ -54,7 +61,7 @@
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </form>
-                    <li><a href="#">登陆/注册</a></li>
+                    <li><a href="#/login">登陆/注册</a></li>
                 </ul>
             </div>
         </div>
@@ -68,8 +75,6 @@
         <p>QQ：2930491038</p>
         <p>版权所有，侵权必究，苏ICP备15016324</p>
     </div>
-
-
 </body>
 <script src="../node_modules/angular/angular.js"></script>
 <script src="../node_modules/angular-route/angular-route.js"></script>
@@ -77,4 +82,7 @@
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="app.js"></script>
 <script src="html/home/home.js"></script>
+<script src="html/hope/hope.js"></script>
+<script src="html/about/about.js"></script>
+<script src="html/login/login.js"></script>
 </html>

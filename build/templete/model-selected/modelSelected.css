@@ -1,0 +1,21 @@
+.menu-list li {
+  display: inline-block;
+  padding: 5px 10px ;
+  color: #0055aa;
+}
+.borselected {
+  border: 1px solid #cccccc;
+}
+.borselected > .row {
+  margin: 0 20px;
+  border-bottom: 1px dashed #cccccc;
+}
+.lab-active {
+  padding: 2px 5px;
+  background: #55c4b8;
+  color: #ffffff;
+}
+.lab-active:hover {
+  color: #ffffff;
+}
+/*# sourceMappingURL=modelSelected.css.map */

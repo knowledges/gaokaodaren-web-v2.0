@@ -5,8 +5,10 @@
 
 angular.module("gaokaoAPP",[
     'ngRoute',
-    'gaokaoAPP.home'
-    //'gaokaoAPP.hope'
+    'gaokaoAPP.home',
+    'gaokaoAPP.hope',
+    'gaokaoAPP.about',
+    'gaokaoAPP.login'
     //'gaokaoAPP.required',
     //'gaokaoAPP.analyse',
     //'gaokaoAPP.policy',
@@ -19,5 +21,5 @@ angular.module("gaokaoAPP",[
     //'gaokaoAPP.about'
 ]).
 config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo:"/html"})
+        $routeProvider.otherwise({redirectTo:"/home"})
 }]);

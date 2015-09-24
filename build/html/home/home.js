@@ -5,7 +5,7 @@
 
 angular.module("gaokaoAPP.home",['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/html',{
+    $routeProvider.when('/home',{
         templateUrl:"html/home/home.html",
         controller:"homeCtr"
     });
