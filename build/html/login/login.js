@@ -22,7 +22,8 @@ angular.module("gaokaoAPP.login",['ngRoute'])
             img:"",
             remember:false,
             isShowRegistered:false,
-            isShowForget:false
+            isShowForget:false,
+            islogin:true
         }
 
         $scope.check = function(val){
@@ -74,11 +75,20 @@ angular.module("gaokaoAPP.login",['ngRoute'])
             }
             var URL = "/login?time="+new Date().getTime();
 
+            $http({
+                url:URL,
+                method:"POST",
+                data: $.param({"j_username":name,"j_password":pwd,"code":code}),
+                dataType: "json",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+            }).success(function(data, status, headers, config){
+                alert("登陆成功");
+                $scope.user.name = data.response.name;
+                localStorage.setItem("userInfo",JSON.stringify(data.response));
+            })
 
-            $http.post(URL,{j_username:name,j_password:pwd,code:code})
-                .success(function(data,status,headers,config){
-                    debugger;
-                }).error(function(data,status,headers,config){});
         }
 
         $scope.registered = function(){
@@ -117,7 +127,9 @@ angular.module("gaokaoAPP.login",['ngRoute'])
             var URL = "/user/register";
 
 
-            $http.post(URL,{username:name,password:pwd,code:code,mobile:mobile})
+            $http.post(URL,{username:name,password:pwd,code:code,mobile:mobile},{
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            })
                 .success(function(data,status,headers,config){
                     debugger;
                 }).error(function(data,status,headers,config){});

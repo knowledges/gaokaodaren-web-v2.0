@@ -22,4 +22,11 @@ angular.module("gaokaoAPP",[
 ]).
 config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo:"/home"})
+}]).controller("appCtr",['$scope',function($scope){
+        var userInfo =localStorage.getItem("userInfo");
+        if(userInfo =="" || userInfo == null){
+            console.log("¿ÕÊý¾Ý");
+        }else{
+
+        }
 }]);
