@@ -9,21 +9,53 @@ angular.module("gaokaoAPP.login",['ngRoute'])
     })
 }])
 .controller("loginCtr",['$scope','$http',function($scope,$http){
+
+        getValidCode();
+
         $scope.user = {
-            username:"",
-            password:"",
+            isShowLogin:true,
+            username:"14321111111113",
+            password:"123456",
+            mobile:"15952592727",
+            pwd:"123456",
             validate:"",
-            remember:false
+            img:"",
+            remember:false,
+            isShowRegistered:false,
+            isShowForget:false
         }
 
         $scope.check = function(val){
             $scope.user.remember = val;
         }
 
+        $scope.repeat = function(){
+            getValidCode();
+        }
+
+        $scope.showlogin = function(){
+            $scope.user.isShowLogin = true;
+            $scope.user.isShowRegistered = false;
+            $scope.user.isShowForget = false;
+        }
+
+        $scope.showRegistered = function(){
+            $scope.user.isShowRegistered = true;
+            $scope.user.isShowLogin = false;
+            $scope.user.isShowForget = false;
+        }
+
+        $scope.forgetpwd = function(){
+            $scope.user.isShowForget = true;
+            $scope.user.isShowLogin = false;
+            $scope.user.isShowRegistered = false;
+        }
+
         $scope.login = function(){
 
             var name = $scope.user.username,
                 pwd = $scope.user.password,
+                code = $scope.user.validate,
                 remember = $scope.user.remember;
 
             if(name.length<=0){
@@ -35,24 +67,66 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 console.log("密码不能为空");
                 return;
             }
-            getValidCode();
-            //var URL = "/login?time="+new Date().getTime();
+
+            if(code.length<=0){
+                console.log("code不能为空");
+                return;
+            }
+            var URL = "/login?time="+new Date().getTime();
 
 
-            //$http.post(URL,{j_username:name,j_password:pwd,code:code})
-
-
+            $http.post(URL,{j_username:name,j_password:pwd,code:code})
+                .success(function(data,status,headers,config){
+                    debugger;
+                }).error(function(data,status,headers,config){});
         }
 
+        $scope.registered = function(){
+            var name = $scope.user.username,
+                pwd = $scope.user.password,
+                newpwd = $scope.user.pwd,
+                code = $scope.user.validate,
+                mobile = $scope.user.mobile;
+
+            if(name.length<=0){
+                console.log("用户名不能为空");
+                return;
+            }
+
+            if(code.length<=0){
+                console.log("code不能为空");
+                return;
+            }
+
+            if(pwd.length<=0){
+                console.log("密码不能为空");
+                return;
+            }
+
+            if(newpwd.length<=0){
+                console.log("密码不能为空");
+                return;
+            }else if(newpwd!=pwd){
+                console.log("密码不相等");
+                return;
+            }
+
+            if(mobile.length<=0){
+                console.log("密码不能为空");
+            }
+            var URL = "/user/register";
+
+
+            $http.post(URL,{username:name,password:pwd,code:code,mobile:mobile})
+                .success(function(data,status,headers,config){
+                    debugger;
+                }).error(function(data,status,headers,config){});
+        }
 
         function getValidCode(){
             $http.get("/user/code?time="+new Date().getTime())
-                .success(function(data,status,headers,config){
-                    $scope.user.validate = data;
-                })
-                .error(function(data,status,headers,config){
-
-                });
+            .success(function(data,status,headers,config){
+                $scope.user.img = data;
+            }).error(function(data,status,headers,config){});
         }
-
 }]);
