@@ -23,10 +23,19 @@ angular.module("gaokaoAPP",[
 config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo:"/home"})
 }]).controller("appCtr",['$scope',function($scope){
+        $scope.user = {
+            name:"",
+            password:"",
+            mobile:""
+        }
         var userInfo =localStorage.getItem("userInfo");
         if(userInfo =="" || userInfo == null){
             console.log("¿ÕÊý¾Ý");
         }else{
-
+            var obj = JSON.parse(localStorage.getItem("userInfo"));
+            $scope.user.name;
+            $scope.user.password;
+            $scope.user.mobile;
         }
+
 }]);
