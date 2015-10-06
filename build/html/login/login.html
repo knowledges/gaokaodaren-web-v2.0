@@ -14,9 +14,11 @@
                     登陆
                 </h1>
                 <label class="src-only" for="username"></label>
-                <input type="text" id="username" name="username" ng-model="user.username" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+                <input type="text" id="username" ng-model="user.username" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+                <label ng-if="user.isName">{{user.regName}}</label>
                 <lable class="src-only" for="password"></lable>
-                <input type="password" id="password" name="password"  ng-model="user.password" class="form-control login-input" placeholder="请输入密码">
+                <input type="password" id="password"  ng-model="user.password" class="form-control login-input" placeholder="请输入密码">
+                <label ng-if="user.isPwd">{{user.regPwd}}</label>
                 <div class="row">
                     <div class="col-sm-5  login-input">
                         <lable class="src-only" for="validate"></lable>
@@ -31,6 +33,7 @@
                         </a>
                     </div>
                 </div>
+                <label ng-if="user.isCode">{{user.regCode}}</label>
                 <div class="checkbox login-remember">
                     <lable>
                         <input type="checkbox" value="记住我" name="remember" ng-model="user.remember" ng-click="check(user.remember)" id="isRemember">
@@ -56,6 +59,7 @@
                 </h1>
                 <label class="src-only" for="username"></label>
                 <input type="text" id="username" name="username" ng-model="user.username" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+                <label ng-if="user.isName">{{user.regName}}</label>
                 <div class="row">
                     <div class="col-sm-5  login-input">
                         <lable class="src-only" for="validate"></lable>
@@ -70,12 +74,16 @@
                         </a>
                     </div>
                 </div>
+                <label ng-if="user.isCode">{{user.regCode}}</label>
                 <lable class="src-only" for="password"></lable>
                 <input type="password" id="password" name="password" ng-model="user.password" class="form-control login-input" placeholder="请输入密码">
+                <label ng-if="user.isPwd">{{user.regPwd}}</label>
                 <lable class="src-only" for="newpwd"></lable>
                 <input type="password" id="newpwd" name="newpwd" ng-model="user.pwd" class="form-control login-input" placeholder="请输入确认密码">
+                <label ng-if="user.isnewPwd">{{user.regNewPwd}}</label>
                 <lable class="src-only" for="mobile"></lable>
                 <input type="text" id="mobile" name="mobile" ng-model="user.mobile" class="form-control login-input" placeholder="请输入手机号">
+                <label ng-if="user.isMobile">{{user.regMobile}}</label>
                 <div class="row login-input">
                     <div class="col-sm-6">
                         <a href="javascript:;;" class="btn btn-success btn-lg btn-block" ng-click="registered()">注册</a>
@@ -94,22 +102,29 @@
                 </h1>
                 <label class="src-only" for="username"></label>
                 <input type="text" id="username" name="username" ng-model="user.username" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+                <label ng-if="user.isName">{{user.regName}}</label>
                 <lable class="src-only" for="password"></lable>
                 <input type="text" id="password" name="password" ng-model="user.password" class="form-control login-input" placeholder="请输入密码">
+                <label ng-if="user.isName">{{user.regName}}</label>
                 <lable class="src-only" for="newpwd"></lable>
                 <input type="text" id="newpwd" name="newpwd" ng-model="user.pwd" class="form-control login-input" placeholder="请输入确认密码">
                 <div class="row">
-                    <div class="col-sm-7  login-input">
-                        <lable class="src-only" for="validate"></lable>
-                        <input type="text" id="validate" name="validate" ng-model="validate" class="form-control" placeholder="请输入验证码">
-                    </div>
                     <div class="col-sm-5  login-input">
-                        <a href="" class="btn btn-default btn-block">获取验证码</a>
+                        <lable class="src-only" for="validate"></lable>
+                        <input type="text" id="validate" name="validate" ng-model="user.validate" class="form-control" placeholder="请输入验证码">
+                    </div>
+                    <div class="col-sm-4  login-input">
+                        <img ng-src="{{user.img}}" alt="高考"/>
+                    </div>
+                    <div class="col-sm-3 login-input">
+                        <a href="javascript:;;" class="btn btn-default btn-block" ng-click="repeat();">
+                            <i class="icon-repeat"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row login-input">
                     <div class="col-sm-6">
-                        <a href="javascript:;;" class="btn btn-success btn-lg btn-block">提交</a>
+                        <a href="javascript:;;" ng-click="referin()" class="btn btn-success btn-lg btn-block">提交</a>
                     </div>
                     <div class="col-sm-6">
                         <a href="javascript:;;" class="btn btn-default btn-lg btn-block">注册</a>

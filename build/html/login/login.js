@@ -8,7 +8,7 @@ angular.module("gaokaoAPP.login",['ngRoute'])
         controller:'loginCtr'
     })
 }])
-.controller("loginCtr",['$scope','$http',function($scope,$http){
+.controller("loginCtr",['$scope','$http','$location',function($scope,$http,$location){
 
         getValidCode();
 
@@ -23,7 +23,17 @@ angular.module("gaokaoAPP.login",['ngRoute'])
             remember:false,
             isShowRegistered:false,
             isShowForget:false,
-            islogin:true
+            islogin:true,
+            isName:false,
+            regName:"",
+            isPwd:false,
+            regPwd:"",
+            isnewPwd:false,
+            regNewPwd:"",
+            isCode:false,
+            regCode:"",
+            isMobile:false,
+            regMobile:""
         }
 
         $scope.check = function(val){
@@ -35,18 +45,21 @@ angular.module("gaokaoAPP.login",['ngRoute'])
         }
 
         $scope.showlogin = function(){
+            getValidCode();
             $scope.user.isShowLogin = true;
             $scope.user.isShowRegistered = false;
             $scope.user.isShowForget = false;
         }
 
         $scope.showRegistered = function(){
+            getValidCode();
             $scope.user.isShowRegistered = true;
             $scope.user.isShowLogin = false;
             $scope.user.isShowForget = false;
         }
 
         $scope.forgetpwd = function(){
+            getValidCode();
             $scope.user.isShowForget = true;
             $scope.user.isShowLogin = false;
             $scope.user.isShowRegistered = false;
@@ -59,36 +72,23 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 code = $scope.user.validate,
                 remember = $scope.user.remember;
 
-            if(name.length<=0){
-                console.log("用户名不能为空");
-                return;
+            if(regName(name) && regPwd(pwd) && regCode(code)){
+                var URL = "/login?time="+new Date().getTime();
+
+                $http({
+                    url:URL,
+                    method:"POST",
+                    data: $.param({"j_username":name,"j_password":pwd,"code":code}),
+                    dataType: "json",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    }
+                }).success(function(data, status, headers, config){
+                    $scope.user.name = data.response.name;
+                    localStorage.setItem("userInfo",JSON.stringify(data.response));
+                    locationHref();
+                })
             }
-
-            if(pwd.length<=0){
-                console.log("密码不能为空");
-                return;
-            }
-
-            if(code.length<=0){
-                console.log("code不能为空");
-                return;
-            }
-            var URL = "/login?time="+new Date().getTime();
-
-            $http({
-                url:URL,
-                method:"POST",
-                data: $.param({"j_username":name,"j_password":pwd,"code":code}),
-                dataType: "json",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                }
-            }).success(function(data, status, headers, config){
-                alert("登陆成功");
-                $scope.user.name = data.response.name;
-                localStorage.setItem("userInfo",JSON.stringify(data.response));
-            })
-
         }
 
         $scope.registered = function(){
@@ -98,47 +98,130 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 code = $scope.user.validate,
                 mobile = $scope.user.mobile;
 
-            if(name.length<=0){
-                console.log("用户名不能为空");
-                return;
-            }
-
-            if(code.length<=0){
-                console.log("code不能为空");
-                return;
-            }
-
-            if(pwd.length<=0){
-                console.log("密码不能为空");
-                return;
-            }
-
-            if(newpwd.length<=0){
-                console.log("密码不能为空");
-                return;
-            }else if(newpwd!=pwd){
-                console.log("密码不相等");
-                return;
-            }
-
-            if(mobile.length<=0){
-                console.log("密码不能为空");
-            }
-            var URL = "/user/register";
-
-
-            $http.post(URL,{username:name,password:pwd,code:code,mobile:mobile},{
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-            })
-                .success(function(data,status,headers,config){
-                    debugger;
+            if(regName(name) && regPwd(pwd) && regnewPassword(newpwd) && regCode(code) && regMobile(mobile)){
+                var URL = "/user/register";
+                $http({
+                    url:URL,
+                    method:"POST",
+                    data: $.param({"username":name,"password":pwd,"code":code,"mobile":mobile}),
+                    dataType: "json",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    }
+                }).success(function(data,status,headers,config){
+                    if(data.status==-1){
+                        alert("验证码有错误");
+                        return;
+                    }else if (data.status == 3){
+                        alert("此账户已存在");
+                        return;
+                    }
+                    var parame = {};
+                    parame.name = $scope.user.username;
+                    parame.user.password = $scope.user.password;
+                    parame.user.mobile =  $scope.user.mobile;
+                    localStorage.setItem("userInfo",JSON.stringify(parame));
+                    locationHref();
                 }).error(function(data,status,headers,config){});
+            }
         }
 
+        $scope.referin = function(){
+            var name = $scope.user.username,
+                pwd = $scope.user.password,
+                newpwd = $scope.user.pwd,
+                code = $scope.user.validate;
+
+            if(regName(name) && regPwd(pwd) && regnewPassword(newpwd) && regCode(code)){
+                var URL ="/user/reset";
+
+                $http({
+                    url:URL,
+                    method:"POST",
+                    data:$.param({"username":name,"old_pwd":pwd,"code":code,"new_pwd":newpwd}),
+                    dataType: "json",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    }
+                }).success(function(data,status,headers,config){
+                    $scope.user.password=pwd;
+                    $scope.showlogin();
+                })
+            }
+        }
+
+        function locationHref(){
+            $location.path("/home");
+        }
+///////////////////////== validate ==///////////////////////////////////////////////////////////////////
         function getValidCode(){
             $http.get("/user/code?time="+new Date().getTime())
             .success(function(data,status,headers,config){
                 $scope.user.img = data;
             }).error(function(data,status,headers,config){});
+        }
+
+        function regName(name){
+            if(name == undefined || name.length <=0 ){
+                $scope.user.regName="用户名不能为空";
+                $scope.user.isName = true;
+                return false;
+            }else{
+                $scope.user.regName="";
+                $scope.user.isName = false;
+                return true;
+            }
+        }
+
+        function regPwd(password){
+            if(password.length<=0){
+                $scope.user.regPwd = "密码不能为空";
+                $scope.user.isPwd=true;
+                return false;
+            }else{
+                $scope.user.regPwd = "";
+                $scope.user.isPwd=false;
+                return true;
+            }
+        }
+
+        function regnewPassword(newPassword){
+            if(newPassword.length<=0){
+                $scope.user.regNewPwd = "新密码不能为空";
+                $scope.user.isnewPwd = true;
+                return false;
+            }else if(newPassword!=$scope.user.password){
+                $scope.user.regNewPwd = "新密码与旧密码不一致";
+                $scope.user.isnewPwd = true;
+                return false;
+            }else{
+                $scope.user.regNewPwd = "";
+                $scope.user.isnewPwd = false;
+                return true;
+            }
+        }
+
+        function regMobile(mobile){
+            if(mobile.length<=0){
+                $scope.user.regMobile ="手机号码不能为空";
+                $scope.user.isMobile = true;
+                return false;
+            }else {
+                $scope.user.regMobile ="";
+                $scope.user.isMobile = false;
+                return true;
+            }
+        }
+
+        function regCode (code){
+            if(code.length<=0){
+                $scope.user.regCode = "验证码不能为空";
+                $scope.user.isCode = true;
+                return false;
+            }else {
+                $scope.user.regCode = "";
+                $scope.user.isCode = false;
+                return true;
+            }
         }
 }]);
