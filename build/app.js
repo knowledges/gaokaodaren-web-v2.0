@@ -22,7 +22,7 @@ angular.module("gaokaoAPP",[
 ]).
 config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo:"/home"})
-}]).controller("appCtr",['$scope',function($scope){
+}]).controller("appCtr",['$scope','$http',function($scope,$http){
         $scope.user = {
             islogin : false,
             name : "",
@@ -30,8 +30,14 @@ config(['$routeProvider', function ($routeProvider) {
             mobile:""
         }
         var userInfo =JSON.parse(localStorage.getItem("userInfo"));
-        $scope.user.name = userInfo.name;
-        $scope.user.islogin = true;
+        if(userInfo =="" || userInfo == null){
+            $scope.user.islogin = false;
+            $scope.user.name = "";
+        }else{
+            $scope.user.name = userInfo.name;
+            $scope.user.islogin = true;
+        }
+
 
         $scope.logoff  = function(){
             var URL = "/logout";
@@ -43,7 +49,9 @@ config(['$routeProvider', function ($routeProvider) {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
-            }).success(function(){
+            }).success(function(data,status,headers,config){
+                debugger;
+                $scope.user.islogin = false;
 
             })
         }

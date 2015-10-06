@@ -8,12 +8,12 @@
                         <label>学科：</label>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                <input type="radio" name="subject" autocomplete="off" checked>文科
+                        <div class="radio">
+                            <label>
+                                <input type="radio" ng-model="table.subject" value="1">文科
                             </label>
-                            <label class="btn btn-primary">
-                                <input type="radio" name="subject" autocomplete="off" checked>理科
+                            <label>
+                                <input type="radio" ng-model="table.subject" value="2">理科
                             </label>
                         </div>
                     </div>
@@ -25,22 +25,22 @@
                     <div class="col-sm-8 text-left">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="Batch" checked="true"/>本一
+                                <input type="radio" ng-model="table.Batch" value="1"/>本一
                             </label>
                             <label>
-                                <input type="radio" name="Batch"/>本二
+                                <input type="radio" ng-model="table.Batch" value="2"/>本二
                             </label>
                             <label>
-                                <input type="radio" name="Batch"/>本三
+                                <input type="radio" ng-model="table.Batch" value="3"/>本三
                             </label>
                             <label>
-                                <input type="radio" name="Batch"/>高职
+                                <input type="radio" ng-model="table.Batch" value="4"/>高职
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn btn-success btn-lg" onclick="javascript:alert('去填报');">开始填表</button>
+                    <button class="btn btn-success btn-lg" ng-click="startTable()">开始填表</button>
                 </div>
             </div>
         </div>

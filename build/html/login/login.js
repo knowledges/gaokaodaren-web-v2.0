@@ -1,6 +1,8 @@
 /**
  * Created by qbl on 2015/9/24.
  */
+'use strict';
+
 angular.module("gaokaoAPP.login",['ngRoute'])
 .config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/login',{
@@ -8,7 +10,7 @@ angular.module("gaokaoAPP.login",['ngRoute'])
         controller:'loginCtr'
     })
 }])
-.controller("loginCtr",['$scope','$http','$location',function($scope,$http,$location){
+.controller("loginCtr",['$scope','$http','$window',function($scope,$http,$window){
 
         getValidCode();
 
@@ -151,7 +153,8 @@ angular.module("gaokaoAPP.login",['ngRoute'])
         }
 
         function locationHref(){
-            $location.path("/home");
+            $window.location.href="#/home";
+            $window.location.reload();
         }
 ///////////////////////== validate ==///////////////////////////////////////////////////////////////////
         function getValidCode(){
