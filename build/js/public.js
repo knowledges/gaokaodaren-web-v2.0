@@ -4,9 +4,10 @@
 'use strict';
 
 (function(){
+
     $.getParam = function(name, scope) {
         var arr,
-            reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            reg = new RegExp("(^|&|\\?)" + name + "=([^&]*)(&|$)");
 
         if (scope) {
             arr = scope.match(reg);

@@ -1,10 +1,7 @@
 <div class="container text-center">
-    <div class="alet alert-default">
-        江苏达人网
-    </div>
 
-    <h1>{{table.subject}}{{table.berch}}考生志愿意向表</h1>
-    <h4>【{{table.stage}}填报{{table.subject}}{{table.berch}}院校志愿用表】</h4>
+    <h1>{{table.subject}}{{table.batch}}考生志愿意向表</h1>
+    <h4>【{{table.stage}}填报{{table.subject}}类{{table.batchStage}}院校志愿用表】</h4>
 
     <div class="form-inline" role="高考-基本成绩">
         <div class="row hope-info text-left">
@@ -30,23 +27,23 @@
                 <label for="username">选测科目等级   {{result1}}</label>
 
                 <div class="radio">
-                    <label class="radio-inline"><input type="radio" name="result1"/>A+</label>
-                    <label class="radio-inline"><input type="radio" name="result1"/>A-</label>
-                    <label class="radio-inline"><input type="radio" name="result1"/>B+</label>
-                    <label class="radio-inline"><input type="radio" name="result1"/>B-</label>
-                    <label class="radio-inline"><input type="radio" name="result1"/>C</label>
-                    <label class="radio-inline"><input type="radio" name="result1"/>D</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1" ng-checked="" />A+</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1"/>A-</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1"/>B+</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1"/>B-</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1"/>C</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result1" value="1"/>D</label>
                 </div>
             </div>
             <div class="form-group">
                 <label for="username">&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
                 <div class="radio">
-                    <label class="radio-inline"><input type="radio" name="result2"/>A+</label>
-                    <label class="radio-inline"><input type="radio" name="result2"/>A-</label>
-                    <label class="radio-inline"><input type="radio" name="result2"/>B+</label>
-                    <label class="radio-inline"><input type="radio" name="result2"/>B-</label>
-                    <label class="radio-inline"><input type="radio" name="result2"/>C</label>
-                    <label class="radio-inline"><input type="radio" name="result2"/>D</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>A+</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>A-</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>B+</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>B-</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>C</label>
+                    <label class="radio-inline"><input type="radio" ng-model="table.result2" value="1"/>D</label>
                 </div>
             </div>
 

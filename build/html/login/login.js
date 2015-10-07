@@ -4,13 +4,18 @@
 'use strict';
 
 angular.module("gaokaoAPP.login",['ngRoute'])
+.constant("loginURL","/user/code?time="+new Date().getTime())
+.constant("loginURL","/login?time="+new Date().getTime())
+.constant("registerURL","/user/register")
+.constant("referinURL","/user/reset")
 .config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/login',{
         templateUrl:"html/login/login.html",
         controller:'loginCtr'
     })
 }])
-.controller("loginCtr",['$scope','$http','$window',function($scope,$http,$window){
+.controller("loginCtr",['$scope','$http','$window',"loginURL","registerURL",function($scope,$http,$window,loginURL,registerURL){
+
 
         getValidCode();
 
@@ -68,17 +73,14 @@ angular.module("gaokaoAPP.login",['ngRoute'])
         }
 
         $scope.login = function(){
-
             var name = $scope.user.username,
                 pwd = $scope.user.password,
                 code = $scope.user.validate,
                 remember = $scope.user.remember;
 
             if(regName(name) && regPwd(pwd) && regCode(code)){
-                var URL = "/login?time="+new Date().getTime();
-
                 $http({
-                    url:URL,
+                    url:loginURL,
                     method:"POST",
                     data: $.param({"j_username":name,"j_password":pwd,"code":code}),
                     dataType: "json",
@@ -90,6 +92,7 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                     localStorage.setItem("userInfo",JSON.stringify(data.response));
                     locationHref();
                 })
+
             }
         }
 
@@ -101,9 +104,8 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 mobile = $scope.user.mobile;
 
             if(regName(name) && regPwd(pwd) && regnewPassword(newpwd) && regCode(code) && regMobile(mobile)){
-                var URL = "/user/register";
                 $http({
-                    url:URL,
+                    url:registerURL,
                     method:"POST",
                     data: $.param({"username":name,"password":pwd,"code":code,"mobile":mobile}),
                     dataType: "json",
@@ -135,10 +137,9 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 code = $scope.user.validate;
 
             if(regName(name) && regPwd(pwd) && regnewPassword(newpwd) && regCode(code)){
-                var URL ="/user/reset";
 
                 $http({
-                    url:URL,
+                    url:referinURL,
                     method:"POST",
                     data:$.param({"username":name,"old_pwd":pwd,"code":code,"new_pwd":newpwd}),
                     dataType: "json",

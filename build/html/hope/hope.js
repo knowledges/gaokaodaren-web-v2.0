@@ -15,6 +15,7 @@ angular.module("gaokaoAPP.hope",['ngRoute'])
             subject:"",
             stage:"",
             batch:"",
+            batchStage:"",
             result1:"",
             user_level:"",
             type:""
@@ -25,47 +26,54 @@ angular.module("gaokaoAPP.hope",['ngRoute'])
         showTableName($scope.table.type,$scope.table.user_level);
 
         function showTableName(type,user_level){
-            debugger;
             switch (type){
                 case "1":
-                    $scope.table.subject = "文科";
-                    $scope.table.batch = "本一";
-                    $scope.table.stage = "第一阶段";
+                    $scope.table.subject = "鏂囩";
+                    $scope.table.batch = "鏈竴";
+                    $scope.table.stage = "绗竴闃舵";
+                    $scope.table.batchStage = "绗竴鎵规鏈"
                     break;
                 case "2":
-                    $scope.table.subject = "理科";
-                    $scope.table.batch = "本一";
-                    $scope.table.stage = "第一阶段";
+                    $scope.table.subject = "鐞嗙";
+                    $scope.table.batch = "鏈竴";
+                    $scope.table.stage = "绗竴闃舵";
+                    $scope.table.batchStage = "绗竴鎵规鏈"
                     break;
                 case "3":
-                    $scope.table.subject = "文科";
-                    $scope.table.batch = "本二";
-                    $scope.table.stage = "第一阶段";
+                    $scope.table.subject = "鏂囩";
+                    $scope.table.batch = "鏈簩";
+                    $scope.table.stage = "绗竴闃舵";
+                    $scope.table.batchStage = "绗竴鎵规鏈"
                     break;
                 case "4":
-                    $scope.table.subject = "理科";
-                    $scope.table.batch = "本二";
-                    $scope.table.stage = "第一阶段";
+                    $scope.table.subject = "鐞嗙";
+                    $scope.table.batch = "鏈簩";
+                    $scope.table.stage = "绗竴闃舵";
+                    $scope.table.batchStage = "绗竴鎵规鏈"
                     break;
                 case "5":
-                    $scope.table.subject = "文科";
-                    $scope.table.batch = "本三";
-                    $scope.table.stage = "第二阶段";
+                    $scope.table.subject = "鏂囩";
+                    $scope.table.batch = "鏈笁";
+                    $scope.table.stage = "绗簩闃舵";
+                    $scope.table.batchStage = "绗簩鎵规鏈"
                     break;
                 case "6":
-                    $scope.table.subject = "理科";
-                    $scope.table.batch = "本三";
-                    $scope.table.stage = "第二阶段";
+                    $scope.table.subject = "鐞嗙";
+                    $scope.table.batch = "鏈笁";
+                    $scope.table.stage = "绗簩闃舵";
+                    $scope.table.batchStage = "绗簩鎵规鏈"
                     break;
                 case "7":
-                    $scope.table.subject = "文科";
-                    $scope.table.batch = "高职（专科）";
-                    $scope.table.stage = "第二阶段";
+                    $scope.table.subject = "鏂囩";
+                    $scope.table.batch = "楂樿亴锛堜笓绉戯級";
+                    $scope.table.stage = "绗簩闃舵";
+                    $scope.table.batchStage = "绗簩鎵规楂樿亴锛堜笓绉戯級"
                     break;
                 case "8":
-                    $scope.table.subject = "理科";
-                    $scope.table.batch = "高职（专科）";
-                    $scope.table.stage = "第二阶段";
+                    $scope.table.subject = "鐞嗙";
+                    $scope.table.batch = "楂樿亴锛堜笓绉戯級";
+                    $scope.table.stage = "绗簩闃舵";
+                    $scope.table.batchStage = "绗簩鎵规楂樿亴锛堜笓绉戯級"
                     break;
             }
         }

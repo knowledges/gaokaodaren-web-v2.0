@@ -19,10 +19,12 @@ angular.module("gaokaoAPP",[
     //'gaokaoAPP.Personality',
     //'gaokaoAPP.consult',
     //'gaokaoAPP.about'
-]).
-config(['$routeProvider', function ($routeProvider) {
+])
+.constant("logoutURL","/logout")
+.config(['$routeProvider' ,function ($routeProvider) {
         $routeProvider.otherwise({redirectTo:"/home"})
-}]).controller("appCtr",['$scope','$http',function($scope,$http){
+}])
+.controller("appCtr",['$scope','$http','logoutURL',function($scope,$http,logoutURL){
         $scope.user = {
             islogin : false,
             name : "",
@@ -38,22 +40,18 @@ config(['$routeProvider', function ($routeProvider) {
             $scope.user.islogin = true;
         }
 
-
         $scope.logoff  = function(){
-            var URL = "/logout";
 
             $http({
-                url:URL,
+                url:logoutURL,
                 method:"GET",
                 dataType: "json",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
             }).success(function(data,status,headers,config){
-                debugger;
                 $scope.user.islogin = false;
 
             })
         }
-
 }]);
