@@ -4,18 +4,25 @@
 'use strict';
 
 angular.module("gaokaoAPP.login",['ngRoute'])
-.constant("loginURL","/user/code?time="+new Date().getTime())
 .constant("loginURL","/login?time="+new Date().getTime())
 .constant("registerURL","/user/register")
 .constant("referinURL","/user/reset")
 .config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/login',{
         templateUrl:"html/login/login.html",
-        controller:'loginCtr'
+        controller: "loginCtr"
     })
 }])
-.controller("loginCtr",['$scope','$http','$window',"loginURL","registerURL",function($scope,$http,$window,loginURL,registerURL){
-
+.service('userInfo',function(){
+    this.username = "";
+    this.setUserName = function(name){
+        this.username = name;
+    }
+    this.getUsername = function(){
+        return this.username;
+    }
+})
+.controller("loginCtr",['$scope','$http','$window',"loginURL","registerURL",'userInfo',function($scope,$http,$window,loginURL,registerURL,userInfo){
 
         getValidCode();
 
@@ -88,7 +95,12 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                     }
                 }).success(function(data, status, headers, config){
+                    if(data.status == -1){
+                        alert('登录失败');
+                        return;
+                    }
                     $scope.user.name = data.response.name;
+                    userInfo.setNumber(data.response.name);
                     localStorage.setItem("userInfo",JSON.stringify(data.response));
                     locationHref();
                 })
@@ -137,9 +149,10 @@ angular.module("gaokaoAPP.login",['ngRoute'])
                 code = $scope.user.validate;
 
             if(regName(name) && regPwd(pwd) && regnewPassword(newpwd) && regCode(code)){
+                var URL ="/user/reset";
 
                 $http({
-                    url:referinURL,
+                    url:URL,
                     method:"POST",
                     data:$.param({"username":name,"old_pwd":pwd,"code":code,"new_pwd":newpwd}),
                     dataType: "json",
