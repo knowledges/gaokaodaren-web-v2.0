@@ -33,7 +33,7 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/home">首页</a></li>
+                    <li><a ui-sref="home" href="">首页</a></li>
                     <li><a data-toggle="modal" data-target=".bs-example-modal-lg">填志愿</a></li>
                     <li class="dropdown">
                         <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查数据 <span class="caret"></span></a>
@@ -53,7 +53,8 @@
                     </li>
                     <li><a href="#/about">关于我们</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--ng-controller="appCtr"-->
                     <form class="navbar-form navbar-left " action="javascript:;;" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入搜索内容..."/>
@@ -62,7 +63,8 @@
                             <i class="glyphicon glyphicon-search"></i>
                         </a>
                     </form>
-                    <li><a href="#/login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
+                    <li><a ui-sref="login">登陆/注册</a></li>
+                    <!--<li><a href="#/login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>-->
                     <li><a href="#/all" ng-if="user.islogin">我的足迹</a></li>
                     <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
                 </ul>
@@ -110,7 +112,8 @@
             </div>
         </div>
     </nav>
-    <div ng-view></div>
+    <!--<div ng-view></div>-->
+    <div ui-view=""></div>
     <div class="foolter alert alert-success">
         <p>江苏达人高考志愿填报网站工作室地址：南京市鼓楼区新模范马路5号A座2407</p>
         <p>邮箱地址：jsdrcsl@163.com</p>
@@ -121,14 +124,16 @@
     </div>
 </body>
 <script src="../node_modules/angular/angular.js"></script>
-<script src="../node_modules/angular-route/angular-route.js"></script>
+<!--<script src="../node_modules/angular-route/angular-route.js"></script>-->
+<script src="../node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>
 <script src="../node_modules/jquery/dist/jquery-1.11.3.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="lib/AES.js"></script>
+<script src="js/login/login.js"></script>
 <script src="app.js"></script>
-<script src="js/public.js"></script>
-<script src="html/home/home.js"></script>
-<script src="html/hope/hope.js"></script>
-<script src="html/about/about.js"></script>
-<script src="html/login/login.js"></script>
+<!--<script src="js/public.js"></script>-->
+<!--<script src="js/home/home.js"></script>-->
+<!--<script src="js/hope/hope.js"></script>-->
+<!--<script src="html/about/about.js"></script>-->
+
 </html>
