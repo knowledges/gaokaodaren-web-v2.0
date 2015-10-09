@@ -3,21 +3,56 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.hope",['ngRoute'])
-.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/hope', {
-        templateUrl: "html/hope/hope.html",
-        controller: "hopeCtr"
-    })
+angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
+.constant("admintURL","/exam/school/admit")
+.factory("ZYBinfoDATA",[function(){
+    return {
+        name:"球包",
+        u_level:"",
+        number:"14321111111113",
+        city:"11",
+        cityarea:"11",
+        scroe:"366",
+        devision:"",
+        obl:"5",
+        sel:"5",
+        school_code:"1101",
+        school:"南京大学",
+        depart_code:"",
+        depart:""
+    }
 }])
-.directive('colleges',function(){
-        return{
-            restrict:'E',
-            templateUrl:"templete/model-selected/selected.html",
-            replace: true
-        }
-})
-.controller("hopeCtr", ['$scope','$location',function ($scope,$location) {
+.factory("queryResults",['$http',function ($http) {
+    var reqChance = function(option,path){ /**获取概率 2015年10月9日17:58:10*/
+
+        var param = {};
+            param.name = option.name;
+            param.u_level = option.u_level;
+            param.devision = option.devision;
+            param.number = option.number;
+            param.city = option.city;
+            param.cityarea = option.cityarea;
+            param.obl = option.obl;
+            param.sel = option.sel;
+            param.score = option.score;
+            param.school_code=option.school_code;
+            param.school = option.school;
+            param.depart = option.depart;
+            param.depart_code = option.depart_code;
+        debugger;
+        return $http({
+            url:path,
+            method:"GET",
+            data: param
+        })
+    }
+    return{
+       admint:function(option,path){
+           return reqChance(option,path);
+       }
+    }
+}])
+.controller("wishTabCtr-info", ['$scope','$location','ZYBinfoDATA',function ($scope,$location,ZYBinfoDATA) {
 
         var yxb = [
             "",
@@ -47,8 +82,18 @@ angular.module("gaokaoAPP.hope",['ngRoute'])
             yxb_title:""
         }
 
-        $scope.table.yxb = yxb[$.getParam("types",window.location.hash)];
-        $scope.table.yxb_title = yxb_title[$.getParam("types",window.location.hash)];
+        ZYBinfoDATA.types = $location.$$search.types == true ? 1 :$location.$$search.types;
+        ZYBinfoDATA.u_level = $location.$$search.user_level == true ? 1 :$location.$$search.user_level;
+
+        $scope.table.yxb = yxb[ ZYBinfoDATA.types];
+        $scope.table.yxb_title = yxb_title[ZYBinfoDATA.u_level];
+
+        $scope.info = ZYBinfoDATA;
+
+}])
+.controller("wishTabCtr-chance",['$scope',"ZYBinfoDATA","admintURL","queryResults",function($scope,ZYBinfoDATA,admintURL,queryResults){
+
+        $scope.info = ZYBinfoDATA;
 
         $scope.validate = {
             isPass:false,
@@ -56,28 +101,12 @@ angular.module("gaokaoAPP.hope",['ngRoute'])
             title:"",
             str :""
         }
-
-        $scope.info = {
-            name:"qiubaolin",
-            number:"15321111111113",
-            city:"11",
-            cityarea:"11",
-            obl:"5",
-            sel:"5",
-            scroe:"366",
-            school:"南京大学",
-            school_code:"1101",
-            depart_code:"",
-            depart:"",
-            isChance:false,
-            chance:""
-        }
-
         $scope.close = function(){
             $scope.validate.regShow = false;
         }
 
         $scope.changePay = function(){
+            debugger;
             var name = $scope.info.name,
                 number = $scope.info.number,
                 city = $scope.info.city,
@@ -93,7 +122,14 @@ angular.module("gaokaoAPP.hope",['ngRoute'])
                 console.log($scope.validate.isPass);
             }
         }
-///////////////////////////////////validate//////////////////////////////////////////////////////////////////////
+
+        $scope.payChance = function(){
+            queryResults.admint(ZYBinfoDATA,admintURL)
+                .success(function(data,status){
+                    debugger;
+                });
+        }
+
         function regIsEmpey(element,str){
             if(element.length<=0){
                 $scope.validate.str = str+"不能为空";

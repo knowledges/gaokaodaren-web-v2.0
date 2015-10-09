@@ -53,8 +53,7 @@
                     </li>
                     <li><a href="#/about">关于我们</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <!--ng-controller="appCtr"-->
+                <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
                     <form class="navbar-form navbar-left " action="javascript:;;" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入搜索内容..."/>
@@ -63,8 +62,8 @@
                             <i class="glyphicon glyphicon-search"></i>
                         </a>
                     </form>
-                    <li><a ui-sref="login">登陆/注册</a></li>
-                    <!--<li><a href="#/login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>-->
+                    <!--<li><a ui-sref="login">登陆/注册</a></li>-->
+                    <li><a ui-sref="login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
                     <li><a href="#/all" ng-if="user.islogin">我的足迹</a></li>
                     <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
                 </ul>
@@ -129,11 +128,13 @@
 <script src="../node_modules/jquery/dist/jquery-1.11.3.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="lib/AES.js"></script>
-<script src="js/login/login.js"></script>
+<!--<script src="js/login/login.js"></script>-->
 <script src="app.js"></script>
-<!--<script src="js/public.js"></script>-->
-<!--<script src="js/home/home.js"></script>-->
-<!--<script src="js/hope/hope.js"></script>-->
+<script src="js/Controller/loginCtl/login.js"></script>
+<script src="js/Controller/selectCtl/select.js"></script>
+<script src="js/public.js"></script>
+<script src="js/home/home.js"></script>
+<script src="js/hope/hope.js"></script>
 <!--<script src="html/about/about.js"></script>-->
 
 </html>

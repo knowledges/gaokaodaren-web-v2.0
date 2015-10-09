@@ -3,37 +3,22 @@
             <div class="col-sm-2 text-right">
                 <label>已选择 <i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-10 menu-list">
+            <div class="col-sm-10 menu-list text-left">
                 <li><a href="javascript:;;" class="btn btn-default btn-xs">北京 <i class="icon-remove"></i> </a></li>
                 <li><a href="javascript:;;" class="btn btn-danger btn-xs">清除所有</a></li>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-controller="wishTabCtr-attr">
             <div class="col-sm-2 text-right">
                 <label>院校属地 <i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-1 text-right menu-list">
+            <div class="col-sm-2 text-right menu-list">
                 <li><a href="javascript:;;" class="lab-active">不限</a></li>
             </div>
-            <div class="col-sm-9 menu-list">
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
-                <li><a href="javascript:;;">北京</a></li>
+            <div class="col-sm-8 menu-list text-left">
+
+                <li  ng-repeat="list in attr.responseList"><a href="javascript:;;" responseId="{{list.id}}">{{list.name}}</a></li>
+
             </div>
         </div>
         <div class="row">

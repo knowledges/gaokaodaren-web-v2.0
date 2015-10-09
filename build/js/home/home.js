@@ -3,13 +3,7 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.home",['ngRoute'])
-.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/home',{
-        templateUrl:"html/home/home.html",
-        controller:"homeCtr"
-    });
-}])
+angular.module("gaokaoAPP.home",[])
 .controller("homeCtr",['$scope','$window',function($scope,$window) {
         $scope.table = {
             subject:"1",
@@ -54,7 +48,6 @@ angular.module("gaokaoAPP.home",['ngRoute'])
 
         }
 
-//////////////////////////menthod///////////////////////////////////////////////////////////////////////////
         function locationHref(type,user_level){
             $window.location.href="#/hope?types="+type+"&user_level="+user_level;
             $window.location.reload();
