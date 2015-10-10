@@ -18,4 +18,10 @@
 .lab-active:hover {
   color: #ffffff;
 }
+.row {
+  padding: 2px;
+}
+.btn-group {
+  margin: 2px;
+}
 /*# sourceMappingURL=modelSelected.css.map */

@@ -19,7 +19,20 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
         school_code:"1101",
         school:"南京大学",
         depart_code:"",
-        depart:""
+        depart:"",
+
+        style_prefer:"",//类型
+        style_ignore:"",
+        belongs_prefer:"",//属管
+        belongs_ignore:"",
+        attr_prefer:"",//类别
+        attr_ignore:"",
+        prop3:"",//属性
+        prop4:"",
+        prop7:"",
+        prop8:"",
+        city_prefer:[38],//城市
+        city_ignore:""
     }
 }])
 .factory("queryResults",['$http',function ($http) {
@@ -39,12 +52,12 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
             param.school = option.school;
             param.depart = option.depart;
             param.depart_code = option.depart_code;
-        debugger;
+
         return $http({
             url:path,
             method:"GET",
             data: param
-        })
+        });
     }
     return{
        admint:function(option,path){

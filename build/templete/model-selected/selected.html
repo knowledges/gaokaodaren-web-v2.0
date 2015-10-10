@@ -1,14 +1,14 @@
-    <div class="borselected">
+    <div class="borselected" ng-controller="wishTabCtr-attr">
         <div class="row">
             <div class="col-sm-2 text-right">
                 <label>已选择 <i class="icon-angle-right"></i></label>
             </div>
             <div class="col-sm-10 menu-list text-left">
-                <li><a href="javascript:;;" class="btn btn-default btn-xs">北京 <i class="icon-remove"></i> </a></li>
+                <li ng-repeat="name in list_style"><a href="javascript:;;" class="btn btn-default btn-xs">{{name}}<i class="icon-remove"></i> </a></li>
                 <li><a href="javascript:;;" class="btn btn-danger btn-xs">清除所有</a></li>
             </div>
         </div>
-        <div class="row" ng-controller="wishTabCtr-attr">
+        <div class="row">
             <div class="col-sm-2 text-right">
                 <label>院校属地 <i class="icon-angle-right"></i></label>
             </div>
@@ -17,7 +17,12 @@
             </div>
             <div class="col-sm-8 menu-list text-left">
 
-                <li  ng-repeat="list in attr.responseList"><a href="javascript:;;" responseId="{{list.id}}">{{list.name}}</a></li>
+                <div class="btn-group" data-toggel="buttons" ng-repeat="list in area" >
+                    <label class="btn btn-primary btn-sm">
+                        <input type="checkbox" autocomplete="off" ng-checked="isCheckdbox({{list.id}})" value="{{list.id}}"/>{{list.name}}
+                    </label>
+                </div>
+                <!--<li ng-repeat="list in attr.responseList" singleClick><a href="javascript:;;" responseId="{{list.id}}">{{list.name}}</a></li>-->
 
             </div>
         </div>
@@ -25,58 +30,61 @@
             <div class="col-sm-2 text-right">
                 <label>院校分类 <i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-1 text-right menu-list">
+            <div class="col-sm-2 text-right menu-list">
                 <li><a href="javascript:;;"  class="lab-active">不限</a></li>
             </div>
-            <div class="col-sm-9 menu-list">
-                <li><a href="javascript:;;">综合类</a></li>
-                <li><a href="javascript:;;">理工类</a></li>
-                <li><a href="javascript:;;">财经类</a></li>
-                <li><a href="javascript:;;">农林类</a></li>
-                <li><a href="javascript:;;">林业类</a></li>
-                <li><a href="javascript:;;">医药类</a></li>
-                <li><a href="javascript:;;">师范类</a></li>
-                <li><a href="javascript:;;">体育类</a></li>
-                <li><a href="javascript:;;">语言类</a></li>
-                <li><a href="javascript:;;">政法类</a></li>
-                <li><a href="javascript:;;">艺术类</a></li>
-                <li><a href="javascript:;;">民族类</a></li>
-                <li><a href="javascript:;;">军事类</a></li>
-                <li><a href="javascript:;;">商学院</a></li>
+            <div class="col-sm-8 menu-list text-left">
+
+                <div class="btn-group" data-toggel="buttons" ng-repeat="list in style" >
+                    <label class="btn btn-primary btn-sm">
+                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                    </label>
+                </div>
+
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">
                 <label>办学性质 <i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-1 text-right menu-list">
+            <div class="col-sm-2 text-right menu-list">
                 <li><a href="javascript:;;"  class="lab-active">不限</a></li>
             </div>
-            <div class="col-sm-9 menu-list">
-                <li><a href="javascript:;;">公办</a></li>
-                <li><a href="javascript:;;">民办</a></li>
+            <div class="col-sm-8 menu-list text-left">
+
+                <div class="btn-group" data-toggel="buttons" ng-repeat="list in attribute" >
+                    <label class="btn btn-primary btn-sm">
+                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                    </label>
+                </div>
+
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">
-                <label>办学性质 <i class="icon-angle-right"></i></label>
+                <label>院校属管<i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-1 text-right menu-list">
+            <div class="col-sm-2 text-right menu-list">
                 <li><a href="javascript:;;"  class="lab-active">不限</a></li>
             </div>
-            <div class="col-sm-9 menu-list">
-                <li><a href="javascript:;;">本科</a></li>
-                <li><a href="javascript:;;">专科</a></li>
+            <div class="col-sm-8 menu-list  text-left">
+
+                <div class="btn-group" data-toggel="buttons" ng-repeat="list in belongs" >
+                    <label class="btn btn-primary btn-sm">
+                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                    </label>
+                </div>
+
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2 text-right">
                 <label>院校特色 <i class="icon-angle-right"></i></label>
             </div>
-            <div class="col-sm-1 text-right menu-list">
+            <div class="col-sm-2 text-right menu-list">
                 <li><a href="javascript:;;"  class="lab-active">不限</a></li>
             </div>
-            <div class="col-sm-9 menu-list">
+            <div class="col-sm-8 menu-list text-left">
                 <li><a href="javascript:;;">211 工程</a></li>
                 <li><a href="javascript:;;">985 高校</a></li>
                 <li><a href="javascript:;;">C9 联盟</a></li>
