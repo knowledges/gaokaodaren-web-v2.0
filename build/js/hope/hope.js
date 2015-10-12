@@ -5,6 +5,7 @@
 
 angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
 .constant("admintURL","/exam/school/admit")
+.constant("ZYBURL","")
 .factory("ZYBinfoDATA",[function(){
     return {
         name:"球包",
@@ -21,11 +22,11 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
         depart_code:"",
         depart:"",
 
-        style_prefer:"",//类型
+        style_prefer:[1,2],//类型
         style_ignore:"",
-        belongs_prefer:"",//属管
+        belongs_prefer:[14],//属管
         belongs_ignore:"",
-        attr_prefer:"",//类别
+        attr_prefer:[17],//类别
         attr_ignore:"",
         prop3:"",//属性
         prop4:"",

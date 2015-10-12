@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="demoCtr">
+<input type="text" ng-model="name"/>
+<span>{{name}}</span>
+
+<input type="checkbox" name="aihao" ng-model="aihao" ng-checked="ischeckbox(1)" value="1" />1
+<input type="checkbox" name="aihao" ng-model="aihao" ng-checked="ischeckbox(2)" value="2"/>2
+</body>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    angular.module("app",[])
+    .controller("demoCtr",['$scope',function($scope){
+                $scope.name = 'hello';
+                $scope.aihao = [2];
+
+            var watch = $scope.$watch('name',function(newvalue,oldvalue){
+                console.log(newvalue);
+                console.log(oldvalue);
+            })
+
+            $scope.ischeckbox = function(num){
+                var isTrue = false;
+                for(var i =0; i <$scope.aihao.length;i++){
+                    if(num == $scope.aihao[i]){
+                        isTrue = true;
+                        break;
+                    }
+                }
+                return isTrue ;
+            }
+    }])
+
+</script>
+</html>

@@ -4,8 +4,11 @@
                 <label>已选择 <i class="icon-angle-right"></i></label>
             </div>
             <div class="col-sm-10 menu-list text-left">
-                <li ng-repeat="name in list_style"><a href="javascript:;;" class="btn btn-default btn-xs">{{name}}<i class="icon-remove"></i> </a></li>
-                <li><a href="javascript:;;" class="btn btn-danger btn-xs">清除所有</a></li>
+                <li ng-repeat="name in area_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{name}}<i class="icon-remove" ng-click="removeThis(name,1)"></i> </a></li>
+                <li ng-repeat="style in style_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}<i class="icon-remove" ng-click="removeThis(style,2)"></i> </a></li>
+                <li ng-repeat="attribute in attribute_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{attribute}}<i class="icon-remove" ng-click="removeThis(attribute,3)"></i></a></li>
+                <li ng-repeat="belongs in belongs_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{belongs}}<i class="icon-remove" ng-click="removeThis(belongs,4)"></i></a></li>
+                <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
             </div>
         </div>
         <div class="row">
@@ -16,14 +19,11 @@
                 <li><a href="javascript:;;" class="lab-active">不限</a></li>
             </div>
             <div class="col-sm-8 menu-list text-left">
-
                 <div class="btn-group" data-toggel="buttons" ng-repeat="list in area" >
                     <label class="btn btn-primary btn-sm">
-                        <input type="checkbox" autocomplete="off" ng-checked="isCheckdbox({{list.id}})" value="{{list.id}}"/>{{list.name}}
+                        <input type="checkbox" autocomplete="off" ng-checked="isCheckedCity({{list.id}})" name="attr.city_prefer" value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
                     </label>
                 </div>
-                <!--<li ng-repeat="list in attr.responseList" singleClick><a href="javascript:;;" responseId="{{list.id}}">{{list.name}}</a></li>-->
-
             </div>
         </div>
         <div class="row">
@@ -37,7 +37,7 @@
 
                 <div class="btn-group" data-toggel="buttons" ng-repeat="list in style" >
                     <label class="btn btn-primary btn-sm">
-                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                        <input type="checkbox" autocomplete="off" ng-checked="isCheckedStyle({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,2)"/>{{list.name}}
                     </label>
                 </div>
 
@@ -54,7 +54,7 @@
 
                 <div class="btn-group" data-toggel="buttons" ng-repeat="list in attribute" >
                     <label class="btn btn-primary btn-sm">
-                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                        <input type="checkbox" autocomplete="off" ng-checked="isCheckedAttr({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,3)"/>{{list.name}}
                     </label>
                 </div>
 
@@ -71,7 +71,7 @@
 
                 <div class="btn-group" data-toggel="buttons" ng-repeat="list in belongs" >
                     <label class="btn btn-primary btn-sm">
-                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                        <input type="checkbox" autocomplete="off" ng-checked="isCheckedBelongs({{list.id}})" value="{{list.id}}"  ng-click="inputClick(list.id,list.name,4)"/>{{list.name}}
                     </label>
                 </div>
 
