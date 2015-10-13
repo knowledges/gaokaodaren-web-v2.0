@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
+angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.college','gaokaoAPP.hope.personality'
 .constant("admintURL","/exam/school/admit")
 .constant("ZYBURL","")
 .factory("ZYBinfoDATA",[function(){
@@ -28,12 +28,32 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
         belongs_ignore:"",
         attr_prefer:[17],//类别
         attr_ignore:"",
-        prop3:"",//属性
-        prop4:"",
-        prop7:"",
-        prop8:"",
+        prop3:"",//属性 985
+        prop4:"",//211
+        prop7:"",//C9
+        prop8:"",//中外
         city_prefer:[38],//城市
-        city_ignore:""
+        city_ignore:"",
+
+        depart_prefer:[35,193,2096,2101,2107],
+        depart_ignore:[],
+
+        graduate_option:[294,300],//毕业去向
+        depart_prefer2:[275],//专业
+        depart_ignore2:[163],
+        course_prefer:[],//强弱方面
+        course_ignore:[],
+        wish_prefer:[], //学习愿望方面
+        wish_ignore:[],
+        user_prefer:[],//兴趣爱好方面
+        user_ignore:[],
+        gift_prefer:[],//能力特长方面
+        gift_ignore:[],
+        nature_prefer:[],//性格倾向方面
+        economy_option:false,//家庭经济
+        prop5:true,//政策照顾加分
+        prop6:true,//等级级差加分
+        physical_ignore:[] //体检
     }
 }])
 .factory("queryResults",['$http',function ($http) {
@@ -182,3 +202,4 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])
             }
         }
 }]);
+//.controller("")

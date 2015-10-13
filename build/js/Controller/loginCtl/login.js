@@ -76,7 +76,7 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
             isSigin:"14321111111113",
         }
     })
-    .controller("logonCtr",["$scope","$rootScope","$window","codeURL","regCode","loginURL","loginStatus","isShowModel",function($scope,$rootScope,$window,codeURL,regCode,loginURL,loginStatus,isShowModel){
+    .controller("logonCtr",["$scope","$rootScope","$window","codeURL","regCode","loginURL","loginStatus","isShowModel","DATA",function($scope,$rootScope,$window,codeURL,regCode,loginURL,loginStatus,isShowModel,DATA){
         $scope.user = {
             username:"14321111111113",
             password:"123456",
@@ -97,6 +97,7 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
         };
 
         function getCodes(){
+            DATA.getRequest()
             regCode.getCode(codeURL)
                 .success(function(data,status){
                     $scope.user.img = data;

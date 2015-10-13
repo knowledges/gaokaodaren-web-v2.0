@@ -4,6 +4,7 @@
 angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 //.constant("provinceURL","/city/province")
 .constant("provinceURL","../JSON/province.JSON")
+.constant("tubeURL","../JSON/attribute.JSON")
 //.constant("propURL","/school/prop?depart_type=1")
 .constant("propURL","../JSON/prop.JSON")
 .factory("attr",['$http',function($http){
@@ -17,7 +18,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             }
         });
     }
-    var prop = function(path,num){
+    var prop = function(path){
         return $http({
             url:path,
             method:"GET",
@@ -27,22 +28,36 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             }
         });
     }
+    var tube = function(path){
+        return $http({
+            url:path,
+            method:"GET",
+            dateType:"json",
+            header:{
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
+        })
+    }
     return {
         getProvince : function(path){
             return reqProvince(path);
         },
         getProp : function(path){
             return prop(path);
+        },
+        getTube : function(path){
+            return tube(path);
         }
     }
 }])
-.controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","attr",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,attr){
+.controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","attr","tubeURL",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,attr,tubeURL){
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
         $scope.areaArr = [];
         $scope.style="";
         $scope.attribute="";
         $scope.belongs="";
+        $scope.tube = "";
 
         attr.getProvince(provinceURL)
             .success(function(data,status){
@@ -69,6 +84,20 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                 $scope.style = arr_style;
                 $scope.attribute = arr_attr;
                 $scope.belongs = attr_belongs;
+            });
+
+
+        attr.getTube(tubeURL)
+            .success(function(data,status){
+                var list = data.response;
+                var tube_list = [];
+                for(var i = 0; i< list.length;i++){
+                    if(list[i].type == 1){
+                        tube_list.push(list[i]);
+                    }
+                }
+                tube_list.join(',');
+                $scope.tube = tube_list ;
             });
 
         $timeout(function(){
@@ -186,6 +215,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             $scope.belongs_id = belongs_id;
         }
 
+
 /////////////////////////////Event/////////////////////////////////////////////////////////////////////
 
         $scope.inputClick = function(id,name,number){
@@ -219,7 +249,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                 }
                 $scope.attr.attribute_prefer = $scope.attribute_id;
                 console.log($scope.attr.attr_prefer);
-            }else {
+            }else if(number == 4){
                 if($.inArray(name,$scope.belongs_list)>=0){
                     $scope.belongs_list.splice($.inArray(name,$scope.belongs_list),1);
                     $scope.belongs_id.splice($.inArray(id,$scope.belongs_id),1);

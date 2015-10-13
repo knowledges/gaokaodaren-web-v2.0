@@ -1,0 +1,48 @@
+<div class="borselected">
+    <!--// ng-controller="wishTabCtr-colleges"-->
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>已选择 <i class="icon-angle-right"></i></label>
+        </div>
+        <div class="col-sm-10 menu-list text-left">
+            <li ng-repeat="depart in depart_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{depart}}<i class="icon-remove" ng-click="removeThis(depart)"></i> </a></li>
+            <!--<li ng-repeat="style in style_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}<i class="icon-remove" ng-click="removeThis(style,2)"></i> </a></li>-->
+            <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-right">
+            <label>具体专业 <i class="icon-angle-right"></i></label>
+        </div>
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in marjor_list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedMarjor({{list.id}})" ng-click="inputClick(list.id,list.name)" value="{{list.id}}" />{{list.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-left">
+            <label>专业类别 <i class="icon-angle-right"></i></label>
+        </div>
+    </div>
+    <div class="row hope-line"  ng-repeat="lists in marjorType">
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;"><label>{{lists.class_name}}</label></a></li>
+        </div>
+        <div class="col-sm-2 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-6 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off"  ng-checked="isCheckedMarjor({{list.id}})"  ng-click="inputClick(list.id,list.name)" />{{list.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

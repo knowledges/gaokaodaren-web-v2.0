@@ -85,10 +85,13 @@
                 <li><a href="javascript:;;"  class="lab-active">不限</a></li>
             </div>
             <div class="col-sm-8 menu-list text-left">
-                <li><a href="javascript:;;">211 工程</a></li>
-                <li><a href="javascript:;;">985 高校</a></li>
-                <li><a href="javascript:;;">C9 联盟</a></li>
-                <li><a href="javascript:;;">中外合作</a></li>
+                <!--<li><a href="javascript:;;" >211 工程</a></li>-->
+
+                <div class="btn-group" data-toggel="buttons" ng-repeat="list in tube" >
+                    <label class="btn btn-primary btn-sm">
+                        <input type="checkbox" autocomplete="off" value="{{list.id}}"/>{{list.name}}
+                    </label>
+                </div>
             </div>
         </div>
     </div>

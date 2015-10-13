@@ -28,6 +28,24 @@ angular.module("gaokaoAPP",[
                 templateUrl: "html/login/login.html"
             });
 })
+.factory('DATA',['$http',function($http){
+    var request = function(path,method,data){
+        return $http({
+            url:path,
+            method: method,
+            dataType: "json",
+            data:data,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
+        })
+    }
+    return {
+        getRequest : function(path,method,data){
+            return request(path,method,data);
+        }
+    }
+}])
 .controller("appCtr",['$scope','$http','logoutURL','isShowModel',function($scope,$http,logoutURL,isShowModel){
         $scope.user = {
             islogin : false,
