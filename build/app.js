@@ -28,13 +28,13 @@ angular.module("gaokaoAPP",[
                 templateUrl: "html/login/login.html"
             });
 })
-.factory('DATA',['$http',function($http){
+.factory('AJAX',['$http',function($http){
     var request = function(path,method,data){
         return $http({
             url:path,
-            method: method,
+            method: method == undefined ? 'GET':method,
             dataType: "json",
-            data:data,
+            data:data == undefined ? "":data,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
             }
@@ -46,7 +46,7 @@ angular.module("gaokaoAPP",[
         }
     }
 }])
-.controller("appCtr",['$scope','$http','logoutURL','isShowModel',function($scope,$http,logoutURL,isShowModel){
+.controller("appCtr",['$scope','$http','logoutURL','isShowModel',"AJAX",function($scope,$http,logoutURL,isShowModel,AJAX){
         $scope.user = {
             islogin : false,
             name : "",
@@ -59,17 +59,12 @@ angular.module("gaokaoAPP",[
         }
 
         $scope.logoff = function(){
-            $http({
-                url:logoutURL,
-                method:"GET",
-                dataType: "json",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                }
-            }).success(function(data,status){
-                debugger;
-                isShowModel.isSigin = "";
-                $scope.user.islogin = false;
-            });
+            AJAX.getRequest(logoutURL,'GET',"")
+                .success(function(data,status){
+                    debugger;
+                    isShowModel.isSigin = "";
+                    $scope.user.islogin = false;
+                });
         }
+
 }]);

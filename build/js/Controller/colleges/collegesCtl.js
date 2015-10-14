@@ -5,41 +5,11 @@ angular.module("gaokaoAPP.hope.college",[])
 .constant("marjorURL","../JSON/marjor.json")
 .constant("departURL","../JSON/marjorType.json")
 //.constant("departURL","/depart/new")
-.factory("DATA",['$http',function($http){
-    var request = function(path){
-        return $http({
-            url: path,
-            method: "GET",
-            dataType: "json",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        });
-    }
-    var paramterRequest = function(path,option){
-        return $http({
-            url: path,
-            method: "GET",
-            dataType: "json",
-            data:$.param({"depart_type":option.depar_type}),
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        })
-    }
-    return{
-        getRequest:function(path){
-            return request(path);
-        },
-        getParmRequest:function(path,option){
-            return paramterRequest(path,option);
-        }
-    }
-}])
-.controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","DATA",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,DATA){        $scope.marjor = ZYBinfoDATA;
+.controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX){
+
         $scope.marjor = ZYBinfoDATA;
-        console.log(marjorURL);
-        DATA.getRequest(marjorURL)
+
+        AJAX.getRequest(marjorURL,'GET',"")
             .success(function(data,status){
                 $scope.marjorList = data.response;
                 var marjor_list = [];
@@ -51,7 +21,7 @@ angular.module("gaokaoAPP.hope.college",[])
                 $scope.marjor_list = marjor_list;
             });
 
-        DATA.getParmRequest(departURL,{"depart_type":ZYBinfoDATA.types})
+        AJAX.getRequest(departURL,'GET', $.param({"depart_type":ZYBinfoDATA.types}))
             .success(function(data,status){
                 $scope.marjorType = data.response;
             })

@@ -3,9 +3,8 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.college','gaokaoAPP.hope.personality'
+angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.college','gaokaoAPP.hope.personality'])
 .constant("admintURL","/exam/school/admit")
-.constant("ZYBURL","")
 .factory("ZYBinfoDATA",[function(){
     return {
         name:"球包",
@@ -38,53 +37,37 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
         depart_prefer:[35,193,2096,2101,2107],
         depart_ignore:[],
 
-        graduate_option:[294,300],//毕业去向
-        depart_prefer2:[275],//专业
+        graduate_option:[294,300,302],//毕业去向
+        depart_prefer2:[275,162],//专业
         depart_ignore2:[163],
-        course_prefer:[],//强弱方面
-        course_ignore:[],
-        wish_prefer:[], //学习愿望方面
+        course_prefer:[106],//强弱方面
+        course_ignore:[107],
+        wish_prefer:[291,285,287,280], //学习愿望方面
         wish_ignore:[],
-        user_prefer:[],//兴趣爱好方面
+        user_prefer:[115,117,121,122],//兴趣爱好方面
         user_ignore:[],
-        gift_prefer:[],//能力特长方面
-        gift_ignore:[],
-        nature_prefer:[],//性格倾向方面
+        gift_prefer:[123,126,127,128,129],//能力特长方面
+        gift_ignore:[124],
+        nature_prefer:[141,142],//性格倾向方面
         economy_option:false,//家庭经济
         prop5:true,//政策照顾加分
         prop6:true,//等级级差加分
-        physical_ignore:[] //体检
+        physical_ignore:[148,150,152,153] //体检
     }
 }])
-.factory("queryResults",['$http',function ($http) {
-    var reqChance = function(option,path){ /**获取概率 2015年10月9日17:58:10*/
-
-        var param = {};
-            param.name = option.name;
-            param.u_level = option.u_level;
-            param.devision = option.devision;
-            param.number = option.number;
-            param.city = option.city;
-            param.cityarea = option.cityarea;
-            param.obl = option.obl;
-            param.sel = option.sel;
-            param.score = option.score;
-            param.school_code=option.school_code;
-            param.school = option.school;
-            param.depart = option.depart;
-            param.depart_code = option.depart_code;
-
-        return $http({
-            url:path,
-            method:"GET",
-            data: param
-        });
-    }
-    return{
-       admint:function(option,path){
-           return reqChance(option,path);
-       }
-    }
+.factory("loadSelection",[function(){
+        return {
+           defultsChecked:function(list,no){
+               var len = list.length,isChecked = false;
+               for(var i =0;i<len;i++){
+                   if(no == list[i]){
+                       isChecked = true;
+                       break;
+                   }
+               }
+               return isChecked;
+           }
+        }
 }])
 .controller("wishTabCtr-info", ['$scope','$location','ZYBinfoDATA',function ($scope,$location,ZYBinfoDATA) {
 
@@ -125,7 +108,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
         $scope.info = ZYBinfoDATA;
 
 }])
-.controller("wishTabCtr-chance",['$scope',"ZYBinfoDATA","admintURL","queryResults",function($scope,ZYBinfoDATA,admintURL,queryResults){
+.controller("wishTabCtr-chance",['$scope','admintURL','ZYBinfoDATA','AJAX',function($scope,admintURL,ZYBinfoDATA,AJAX){
 
         $scope.info = ZYBinfoDATA;
 
@@ -135,12 +118,12 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
             title:"",
             str :""
         }
+
         $scope.close = function(){
             $scope.validate.regShow = false;
         }
 
         $scope.changePay = function(){
-            debugger;
             var name = $scope.info.name,
                 number = $scope.info.number,
                 city = $scope.info.city,
@@ -149,7 +132,6 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
                 school_code = $scope.info.school_code,
                 school = $scope.info.school;
             if (regIsEmpey(name, "姓名") && regNumber(number, "考生号") && regIsEmpey(city, "城市") && regIsEmpey(cityarea, "县（级、市）") && regIsEmpey(scroe, "考分") && regIsEmpey(school_code, "高校编号") && regIsEmpey(school, "学校名称")) {
-
                 $scope.validate.str ="你确定要支付20元，来获取概率？";
                 $scope.validate.title = "支付";
                 $scope.validate.regShow = true;
@@ -158,7 +140,22 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
         }
 
         $scope.payChance = function(){
-            queryResults.admint(ZYBinfoDATA,admintURL)
+            var param = {};
+            param.name = ZYBinfoDATA.name;
+            param.u_level = ZYBinfoDATA.u_level;
+            param.devision = ZYBinfoDATA.devision;
+            param.number = ZYBinfoDATA.number;
+            param.city = ZYBinfoDATA.city;
+            param.cityarea = ZYBinfoDATA.cityarea;
+            param.obl = ZYBinfoDATA.obl;
+            param.sel = ZYBinfoDATA.sel;
+            param.score = ZYBinfoDATA.score;
+            param.school_code=ZYBinfoDATA.school_code;
+            param.school = ZYBinfoDATA.school;
+            param.depart = ZYBinfoDATA.depart;
+            param.depart_code = ZYBinfoDATA.depart_code;
+
+            DATA.getRequest(admintURL,'GET', $.param(param))
                 .success(function(data,status){
                     debugger;
                 });
@@ -202,4 +199,3 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd'])//,'gaokaoAPP.hope.co
             }
         }
 }]);
-//.controller("")

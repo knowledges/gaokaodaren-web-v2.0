@@ -1,369 +1,250 @@
-<div>
-    <!--ng-controller="wishTabCtr-cool"-->
+<div ng-controller="wishTabCtr-cool">
     <div class="row hope-line">
         <div class="col-sm-2 text-right ">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
+            <li ng-repeat="graduates in graduate_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{graduates}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in depear2_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in course_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in course_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in wish_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in user_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in gift_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in gift_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in nature_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
+            <li ng-repeat="list in physical_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
             <li><a href="javascript:;;" class="btn btn-default btn-xs">北京 <i class="icon-remove"></i> </a></li>
-            <li><a href="javascript:;;" class="btn btn-danger btn-xs">清除所有</a></li>
+
+            <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="remove()">清除所有</a></li>
         </div>
     </div>
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>毕业去向方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">就业</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="grads in graduate">
+        <div class="col-sm-2 text-right">
+            <label>{{grads.name}}</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="294" ng-click="" ng-checked="">作曲、服装设计、写作等</a></li>
-            <li><a href="javascript:;;" data-no="300">营销、经营管理、法律事务等</a></li>
-            <li><a href="javascript:;;" data-no="301">秘书、银行柜员、资料管理员等</a></li>
-            <li><a href="javascript:;;" data-no="302">数据统计分析师、研究机构及高等院校教学、医疗、科研人员等</a></li>
-            <li><a href="javascript:;;" data-no="303">农产品开发、矿产勘查等</a></li>
-            <li><a href="javascript:;;" data-no="304">机械师、驾驶员、工程技术人员等</a></li>
-            <li><a href="javascript:;;" data-no="305">中小学教师、社区工作者、心理咨询人员、导游等</a></li>
-            <li><a href="javascript:;;" data-no="138">公务员</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in grads.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGraduate({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">考研</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="302">国内考研</a></li>
-            <li><a href="javascript:;;" data-no="298">国外考研</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">出国</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="295">大学毕业后出国</a></li>
-            <li><a href="javascript:;;" data-no="295">中外合作办学</a></li>
-            <li><a href="javascript:;;" data-no="297">直接出国读书</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>专业要求方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">语种</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="departs in depart2">
+        <div class="col-sm-2 text-right">
+            <label>{{departs.name}}</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="278">英语</a></li>
-            <li><a href="javascript:;;" data-no="276">日语</a></li>
-            <li><a href="javascript:;;" data-no="275">法语</a></li>
-            <li><a href="javascript:;;" data-no="273">德语</a></li>
-            <li><a href="javascript:;;" data-no="274">德语</a></li>
-            <li><a href="javascript:;;" data-no="277">西班牙语</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in departs.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedDepeart({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">加试</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="161">口语</a></li>
-            <li><a href="javascript:;;" data-no="162">艺术</a></li>
-            <li><a href="javascript:;;" data-no="163">美术</a></li>
-            <li><a href="javascript:;;" data-no="164">高水平运动员</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">多收费</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="133">中外合作办学</a></li>
-            <li><a href="javascript:;;" data-no="133">阶段性</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>学科强弱方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">强学科</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="courses in course" ng-if="$first">
+        <div class="col-sm-2 text-right">
+            <label>强学科</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="106">语文</a></li>
-            <li><a href="javascript:;;" data-no="107">数学</a></li>
-            <li><a href="javascript:;;" data-no="108">英语</a></li>
-            <li><a href="javascript:;;" data-no="109">物理</a></li>
-            <li><a href="javascript:;;" data-no="110">化学</a></li>
-            <li><a href="javascript:;;" data-no="111">历史</a></li>
-            <li><a href="javascript:;;" data-no="112">地理</a></li>
-            <li><a href="javascript:;;" data-no="113">政治</a></li>
-            <li><a href="javascript:;;" data-no="114">生物</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
-    <div class="row hope-line">
+
+    <div class="row hope-line" ng-repeat="courses in course" ng-if="$first">
         <div class="col-sm-2 text-right">
-            <label></label>
+            <label>弱学科</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">弱学科</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="106">语文</a></li>
-            <li><a href="javascript:;;" data-no="107">数学</a></li>
-            <li><a href="javascript:;;" data-no="108">英语</a></li>
-            <li><a href="javascript:;;" data-no="109">物理</a></li>
-            <li><a href="javascript:;;" data-no="110">化学</a></li>
-            <li><a href="javascript:;;" data-no="111">历史</a></li>
-            <li><a href="javascript:;;" data-no="112">地理</a></li>
-            <li><a href="javascript:;;" data-no="113">政治</a></li>
-            <li><a href="javascript:;;" data-no="114">生物</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>学习愿望方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">学文</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="wishs in wish">
+        <div class="col-sm-2 text-right">
+            <label>{{wishs.name}}</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="291">哲学和历史</a></li>
-            <li><a href="javascript:;;" data-no="281">法律和社会</a></li>
-            <li><a href="javascript:;;" data-no="285">教育和心理</a></li>
-            <li><a href="javascript:;;" data-no="290">语言和文化</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in wishs.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedWish({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">学理</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="294">经济和管理</a></li>
-            <li><a href="javascript:;;" data-no="287">理学</a></li>
-            <li><a href="javascript:;;" data-no="292">自然</a></li>
-            <li><a href="javascript:;;" data-no="289">医学</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">学工</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="280">电子和电气</a></li>
-            <li><a href="javascript:;;" data-no="282">工程</a></li>
-            <li><a href="javascript:;;" data-no="284">建筑和土木</a></li>
-            <li><a href="javascript:;;" data-no="288">生物和农业</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>兴趣爱好方面：</label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;">喜欢与物打交道</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="hobbys in hobby">
+        <div class="col-sm-2 text-right">
+            <label>{{hobbys.name}}</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-7 text-left menu-list">
-            <li><a href="javascript:;;" data-no="115">习惯关注家具摆放、积木构造等</a></li>
-            <li><a href="javascript:;;" data-no="116">习惯关注家里纺织用品、日用品、食品摆放和质量等</a></li>
-            <li><a href="javascript:;;" data-no="117">习惯关注家用电器、电脑、手机、电视机质量等</a></li>
-            <li><a href="javascript:;;" data-no="118">习惯关注宠物、动物、植物、室内外自然环境、生态等</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in hobbys.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedBohhy({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;">喜欢与人打交道</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-7 text-left menu-list">
-            <li><a href="javascript:;;" data-no="119">习惯关注家庭成员、师长、亲戚、同学、邻里之间关系等</a></li>
-            <li><a href="javascript:;;" data-no="120">习惯关注家长、师长、亲戚、同学家里、邻里开公司、做生意等</a></li>
-            <li><a href="javascript:;;" data-no="121">习惯关注家人、师长、亲戚、同学、邻里出行用什么交通工具等</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
-            <label></label>
-        </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;">喜欢关注大小事</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-7 text-left menu-list">
-            <li><a href="javascript:;;" data-no="122">习惯关注周边、校内外、国内外发生的大小事等</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>能力特长方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">强项</a></li>
+    </div>
+
+    <div class="row hope-line" ng-repeat="gifts in gift" ng-if="$first">
+        <div class="col-sm-2 text-right">
+            <label>强项</label>
         </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="123">语言表达能力</a></li>
-            <li><a href="javascript:;;" data-no="124">数学推理能力</a></li>
-            <li><a href="javascript:;;" data-no="125">空间判断能力</a></li>
-            <li><a href="javascript:;;" data-no="126">察觉细节能力</a></li>
-            <li><a href="javascript:;;" data-no="127">书写能力</a></li>
-            <li><a href="javascript:;;" data-no="128">动手能力</a></li>
-            <li><a href="javascript:;;" data-no="129">社会交往能力</a></li>
-            <li><a href="javascript:;;" data-no="130">组织管理能力</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
-    <div class="row hope-line">
+
+    <div class="row hope-line" ng-repeat="gifts in gift" ng-if="$first">
         <div class="col-sm-2 text-right">
-            <label></label>
+            <label>弱项</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">弱项</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="123">语言表达能力</a></li>
-            <li><a href="javascript:;;" data-no="124">数学推理能力</a></li>
-            <li><a href="javascript:;;" data-no="125">空间判断能力</a></li>
-            <li><a href="javascript:;;" data-no="126">察觉细节能力</a></li>
-            <li><a href="javascript:;;" data-no="127">书写能力</a></li>
-            <li><a href="javascript:;;" data-no="128">动手能力</a></li>
-            <li><a href="javascript:;;" data-no="129">社会交往能力</a></li>
-            <li><a href="javascript:;;" data-no="130">组织管理能力</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
+
     <div class="row hope-line">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-left">
             <label>性格倾向方面：</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">外向型</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="141">社会型</a></li>
-            <li><a href="javascript:;;" data-no="142">艺术型</a></li>
-            <li><a href="javascript:;;" data-no="143">事务型</a></li>
-            <li><a href="javascript:;;" data-no="144">经营型</a></li>
-        </div>
     </div>
-    <div class="row hope-line">
+
+    <div class="row hope-line" ng-repeat="natures in nature">
         <div class="col-sm-2 text-right">
-            <label></label>
+            <label>{{natures.name}}</label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">内向型</a></li>
-        </div>
-        <div class="col-sm-1 menu-list">
+        <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="145">研究型</a></li>
-            <li><a href="javascript:;;" data-no="146">技术型</a></li>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in natures.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedNature({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
+
+    <div class="row hope-line">
+        <div class="col-sm-2 text-left">
+            <label>其他因素方面：</label>
+        </div>
+    </div>
+
     <div class="row hope-line" >
         <div class="col-sm-2 text-right">
-            <label>其他因素方面</label>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
-        </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" prop="economy_option">家庭经济</a></li>
-            <li><a href="javascript:;;" prop="prop5">政策照顾加分</a></li>
-            <li><a href="javascript:;;" prop="prop6">等级级差加分</a></li>
-        </div>
-    </div>
-    <div class="row hope-line">
-        <div class="col-sm-2 text-right">
             <label></label>
         </div>
-        <div class="col-sm-1 text-right menu-list">
-            <li><a href="javascript:;;">体检</a></li>
-        </div>
-        <div class="col-sm-1 text-right menu-list">
+        <div class="col-sm-2 text-right menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-8 text-left menu-list">
-            <li><a href="javascript:;;" data-no="148">轻度色觉异常</a></li>
-            <li><a href="javascript:;;" data-no="149">色觉异常II度</a></li>
-            <li><a href="javascript:;;" data-no="150">不能准确识别红、黄、蓝、紫各种颜色中任何一种颜色的导线、按键、信号灯、几何图形</a></li>
-            <li><a href="javascript:;;" data-no="151">裸眼视力任何一眼低于5.0</a></li>
-            <li><a href="javascript:;;" data-no="152">裸眼视力任何一眼低于4.8</a></li>
-            <li><a href="javascript:;;" data-no="153">主要脏器：肺、肝、肾、脾、胃肠等动过大手术，功能恢复良好，或曾患有心肌炎、胃或十二指肠溃疡、慢性支气管炎、风湿性关节炎等病史，甲状腺仅能亢进已治愈一年者，先天性心脏病经手术治愈，或房间间隔缺损分流量少，动脉导管未闭返流血量少，经二级以上医院专科检查确定无需手术者，及肢体残疾</a></li>
-            <li><a href="javascript:;;" data-no="154">屈光不正（近视眼或远视眼，下同）任何一眼矫正到4.8镜片度数大于400度</a></li>
-            <li><a href="javascript:;;" data-no="155">任何一眼矫正到4.8镜片度数大于800度</a></li>
-            <li><a href="javascript:;;" data-no="156">任何一眼矫正到4.8镜片度数大于800度</a></li>
-            <li><a href="javascript:;;" data-no="157">两耳听力均在3米以内，或一耳听力在5米另一耳全聋</a></li>
-            <li><a href="javascript:;;" data-no="158">嗅觉迟钝、口吃、步态异常、驼背、面部疤痕、血管瘤、黑色素痣、白癜风</a></li>
-            <li><a href="javascript:;;" data-no="159">斜视、嗅觉迟钝、口吃</a></li>
+
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in prop" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCity({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row hope-line" ng-repeat="physicals in physical">
+        <div class="col-sm-2 text-right">
+            <label>{{physicals.name}}</label>
+        </div>
+        <div class="col-sm-2 menu-list">
+            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        </div>
+        <div class="col-sm-8 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in physicals.list" >
+                <label class="btn btn-primary btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedPhysical({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                </label>
+            </div>
         </div>
     </div>
 </div>

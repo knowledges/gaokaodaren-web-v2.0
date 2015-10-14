@@ -7,50 +7,26 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 .constant("tubeURL","../JSON/attribute.JSON")
 //.constant("propURL","/school/prop?depart_type=1")
 .constant("propURL","../JSON/prop.JSON")
-.factory("attr",['$http',function($http){
-    var reqProvince = function(path){
-        return $http({
-            url: path,
-            method: "GET",
-            dataType: "json",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        });
-    }
-    var prop = function(path){
-        return $http({
-            url:path,
-            method:"GET",
-            dataType:"json",
-            header:{
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        });
-    }
-    var tube = function(path){
-        return $http({
-            url:path,
-            method:"GET",
-            dateType:"json",
-            header:{
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        })
-    }
+.factory("loadingNesting",[function(){
     return {
-        getProvince : function(path){
-            return reqProvince(path);
-        },
-        getProp : function(path){
-            return prop(path);
-        },
-        getTube : function(path){
-            return tube(path);
+        defaultCheck:function(item,list){
+            var html = [],id=[],
+                items = item.length,len = list.length;
+            for(var i =0;i<items;i++){
+                for (var j = 0; j < len; j++) {
+                    if(list[j] == item[i].id){
+                        html.push(item[i].name);
+                        id.push(item[i].id)
+                    }
+                }
+            }
+            html.join(',');
+            id.join(',');
+            return html+"-"+id;
         }
     }
 }])
-.controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","attr","tubeURL",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,attr,tubeURL){
+.controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection){
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
         $scope.areaArr = [];
@@ -59,12 +35,12 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         $scope.belongs="";
         $scope.tube = "";
 
-        attr.getProvince(provinceURL)
+        AJAX.getProvince(provinceURL)
             .success(function(data,status){
                 $scope.area = data.response.list;
         });
 
-        attr.getProp(propURL)
+        AJAX.getProp(propURL)
             .success(function(data,status){
                 var list = data.response;
                 var arr_style = [],arr_attr=[],attr_belongs=[];
@@ -87,7 +63,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             });
 
 
-        attr.getTube(tubeURL)
+        AJAX.getTube(tubeURL)
             .success(function(data,status){
                 var list = data.response;
                 var tube_list = [];
@@ -102,47 +78,19 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         $timeout(function(){
             $scope.isCheckedCity = function (no) {
-                var isok = false;
-                for (var i = 0; i < $scope.attr.city_prefer.length; i++) {
-                    if (no == $scope.attr.city_prefer[i]) {
-                        isok = true;
-                        break;
-                    }
-                }
-                return isok;
+                return loadSelection.defultsChecked($scope.attr.city_prefer,no);
             }
 
             $scope.isCheckedStyle = function(no){
-                var isok = false;
-                for (var i = 0; i < $scope.attr.style_prefer.length; i++) {
-                    if (no == $scope.attr.style_prefer[i]) {
-                        isok = true;
-                        break;
-                    }
-                }
-                return isok;
+                return loadSelection.defultsChecked($scope.attr.style_prefer,no);
             }
 
             $scope.isCheckedAttr = function(no){
-                var isok = false;
-                for (var i = 0; i < $scope.attr.attr_prefer.length; i++) {
-                    if (no == $scope.attr.attr_prefer[i]) {
-                        isok = true;
-                        break;
-                    }
-                }
-                return isok;
+                return loadSelection.defultsChecked($scope.attr.attr_prefer,no);
             }
 
             $scope.isCheckedBelongs = function(no){
-                var isok = false;
-                for (var i = 0; i < $scope.attr.belongs_prefer.length; i++) {
-                    if (no == $scope.attr.belongs_prefer[i]) {
-                        isok = true;
-                        break;
-                    }
-                }
-                return isok;
+                return loadSelection.defultsChecked($scope.attr.belongs_prefer,no);
             }
 
             loadingSelCity();

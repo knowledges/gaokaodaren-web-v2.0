@@ -1,5 +1,4 @@
-<div class="borselected">
-    <!--// ng-controller="wishTabCtr-colleges"-->
+<div class="borselected" ng-controller="wishTabCtr-colleges">
     <div class="row">
         <div class="col-sm-2 text-right">
             <label>已选择 <i class="icon-angle-right"></i></label>
@@ -37,7 +36,7 @@
         <div class="col-sm-2 menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
-        <div class="col-sm-6 menu-list text-left">
+        <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
                 <label class="btn btn-primary btn-sm">
                     <input type="checkbox" autocomplete="off"  ng-checked="isCheckedMarjor({{list.id}})"  ng-click="inputClick(list.id,list.name)" />{{list.name}}
