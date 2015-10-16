@@ -1,0 +1,328 @@
+{
+    "response": {
+        "list": [
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 39,
+                "name": "苏南地区",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 2,
+                "website": ""
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 40,
+                "name": "苏中地区",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 2,
+                "website": ""
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 41,
+                "name": "苏北地区",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 2,
+                "website": ""
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 81,
+                "name": "南京市",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/link?url=QyGTl2vUzKoUtI5TqwEMA6Uwgsb5B_UQoU8jCk2BRoISOs18qrj6TNh94bCcqanXOe7UWSxVcprWAL6M6tHVCWEOFurT1VT_J2441GTp6uT8X1SNImTd5Ul20Z3Ay_-5"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 106,
+                "name": "无锡市",
+                "province_area_id": 39,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/link?url=GDjSn1heXVwJZ0tVtuwcX8lYWJVa4lvm6134lMi3V00jIeY02WMcDFbw71uShSu0"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 107,
+                "name": "常州市",
+                "province_area_id": 39,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/5198.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 108,
+                "name": "苏州市",
+                "province_area_id": 39,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/2239.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 109,
+                "name": "常熟市",
+                "province_area_id": 39,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/3006.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 110,
+                "name": "张家港市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/28793.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 111,
+                "name": "太仓市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/subview/7698/8230816.htm?fromId=7698&from=rdtself&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 112,
+                "name": "昆山市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/24619.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 113,
+                "name": "宜兴市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/86172.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 114,
+                "name": "江阴市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/86172.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 115,
+                "name": "吴中市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/7864.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 116,
+                "name": "吴江市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/9261614.htm?fromtitle=吴江&fromid=818&type=syn"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 117,
+                "name": "武进市",
+                "province_area_id": 349,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/851661.htm?fromId=247426&redirected=seachword&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 118,
+                "name": "南通市",
+                "province_area_id": 40,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/1225.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 119,
+                "name": "扬州市",
+                "province_area_id": 40,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/subview/5257/5416338.htm?fromId=5257&from=rdtself&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 120,
+                "name": "镇江市",
+                "province_area_id": 40,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/subview/1226/5001046.htm?fromId=1226&from=rdtself&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 121,
+                "name": "泰州市",
+                "province_area_id": 40,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/subview/5295/7299353.htm?fromId=5295&from=rdtself&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 122,
+                "name": "句容市",
+                "province_area_id": 350,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/62721.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 123,
+                "name": "扬中市",
+                "province_area_id": 350,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/17026.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 124,
+                "name": "江都市",
+                "province_area_id": 350,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/6881518.htm?fromId=17560&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 125,
+                "name": "徐州市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/subview/5469/5413523.htm?fromId=5469&from=rdtself&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 126,
+                "name": "连云港市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/5540.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 127,
+                "name": "淮安市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/5435.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 128,
+                "name": "盐城市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/5367.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 129,
+                "name": "宿迁市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/4769.htm?fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 130,
+                "name": "涟水市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/798314.htm?fromId=331340&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 131,
+                "name": "射阳市",
+                "province_area_id": 41,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/view/1002994.htm?fromId=47789&fr=wordsearch"
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 349,
+                "name": "苏南地区县级市",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 2,
+                "website": ""
+            },
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 350,
+                "name": "苏中地区县级市",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 2,
+                "website": ""
+            }
+        ],
+        "sum": ""
+    },
+    "status": "0"
+}

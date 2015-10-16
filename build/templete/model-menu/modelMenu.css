@@ -1,29 +1,31 @@
 .menu-navbar {
   margin-top: 15px;
 }
-.menu-nav {
+ul.menu-nav {
   float: left;
   display: inline-block;
   width: 200px;
   height: 100%;
   box-shadow: -2px 0 1px #e8e8e8, 0 0 0px #0000ff, 0 0 0px #ff0000, 2px 0 1px #ececec;
 }
-.menu-nav li a {
+ul.menu-nav > li > a {
   color: #888888;
   font-size: 24px;
+  background-color: #EFEFEF;
 }
-.menu-nav li ul {
+ul.menu-nav > li ul {
   padding: 0;
   list-style: none;
 }
-.menu-nav li ul li a {
+ul.menu-nav > li ul li a {
+  color: #888888;
   font-size: 16px;
   padding: 5px;
   display: inline-block;
   width: 100%;
 }
-.menu-nav li ul li a:hover,
-.menu-nav li ul li a:focus {
+ul.menu-nav > li ul li a:hover,
+ul.menu-nav > li ul li a:focus {
   background: #d8d8d8;
 }
 .menu-div {

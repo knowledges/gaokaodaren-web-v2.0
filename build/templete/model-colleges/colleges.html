@@ -1,10 +1,10 @@
-<div class="borselected" ng-controller="wishTabCtr-colleges">
-    <div class="row">
+<div class="borselected" ng-if="screenCollege">
+    <div class="row" ng-if="isShowColleges">
         <div class="col-sm-2 text-right">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
-            <li ng-repeat="depart in depart_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{depart}}<i class="icon-remove" ng-click="removeThis(depart)"></i> </a></li>
+            <li ng-repeat="depart in depart_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{depart}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
             <!--<li ng-repeat="style in style_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}<i class="icon-remove" ng-click="removeThis(style,2)"></i> </a></li>-->
             <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
         </div>
@@ -45,3 +45,5 @@
         </div>
     </div>
 </div>
+<button class="btn btn-warning btn-block" ng-if="screenCollege" ng-click="clickScreen(!screenCollege)">关闭赛选条件 <i class="icon-sort-up"></i> </button>
+<button class="btn btn-success btn-block" ng-if="!screenCollege" ng-click="clickScreen(!screenCollege)">打开赛选条件 <i class="icon-sort-down"></i> </button>

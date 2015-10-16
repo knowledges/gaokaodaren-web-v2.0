@@ -49,8 +49,7 @@ angular.module("gaokaoAPP.home",[])
         }
 
         function locationHref(type,user_level){
-            $window.location.href="#/hope?types="+type+"&user_level="+user_level;
-            $window.location.reload();
+            $window.location.href="#/hope?type="+type+"&user_level="+user_level;
         }
 
 }]);

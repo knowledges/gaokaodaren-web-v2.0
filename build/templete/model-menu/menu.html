@@ -1,36 +1,32 @@
-<div class="container">
-    <nav class="navbar menu-navbar">
-        <div class="collapse navbar-collapse">
-            <ul class="nav menu-nav text-center ">
-                <li>
-                    <a href="javascript:;;" data-target="#chart-collpsed"  data-toggle="collapse"> 导航 <i class="icon-caret-left icon-1x"></i></a>
-                    <ul id="chart-collpsed" class="collapse" data-toggle="collapse">
-                        <li><a href="javascript:;;">子类</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;;" data-target="#chart-collpsed1"  data-toggle="collapse">本科院校</a>
-                    <ul id="chart-collpsed1" class="collapse"  data-toggle="collapse">
-                        <li><a href="javascript:;;">文科本一</a></li>
-                        <li><a href="javascript:;;">文科本二</a></li>
-                        <li><a href="javascript:;;">文科本三</a></li>
-                        <li><a href="javascript:;;">理科本一</a></li>
-                        <li><a href="javascript:;;">理科本二</a></li>
-                        <li><a href="javascript:;;">理科本三</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;;" data-target="#chart-collpsed2"  data-toggle="collapse">专科</a>
-                    <ul id="chart-collpsed2" class="collapse"  data-toggle="collapse">
-                        <li><a href="javascript:;;">文科高职</a></li>
-                        <li><a href="javascript:;;">理科高职</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="menu-div">
-                <container></container>
-            </div>
-        </div>
-    </nav>
-
-</div>
+ <ul class="nav menu-nav text-center" ng-controller="menuCtl">
+    <li>
+        <a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>
+        <ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">
+            <li><a href="javascript:;;" class="active" ng-click="navigation()">导航</a></li>
+        </ul>
+    </li>
+     <li>
+         <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">{{menu.name}}</a>
+         <ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">
+             <li ng-repeat="list in menu.provincelist" ng-click="proEvent(list.id)"><a href="javascript:;;" >{{list.name}}</a></li>
+         </ul>
+     </li>
+    <li ng-if="menu.parame==2">
+        <a href="javascript:;;" data-target="#chart-collpsed1"  data-toggle="collapse">本科院校</a>
+        <ul id="chart-collpsed1" class="collapse" data-toggle="collapse">
+            <li><a href="javascript:;;">文科本一</a></li>
+            <li><a href="javascript:;;">文科本二</a></li>
+            <li><a href="javascript:;;">文科本三</a></li>
+            <li><a href="javascript:;;">理科本一</a></li>
+            <li><a href="javascript:;;">理科本二</a></li>
+            <li><a href="javascript:;;">理科本三</a></li>
+        </ul>
+    </li>
+    <li ng-if="menu.parame==2">
+        <a href="javascript:;;" data-target="#chart-collpsed2"  data-toggle="collapse">专科</a>
+        <ul id="chart-collpsed2" class="collapse"  data-toggle="collapse">
+            <li><a href="javascript:;;">文科高职</a></li>
+            <li><a href="javascript:;;">理科高职</a></li>
+        </ul>
+    </li>
+</ul>

@@ -8,7 +8,8 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.home",
     "gaokaoAPP.hope",
     //"gaokaoAPP.login",
-    "gaokaoAPP.login.childApp"
+    "gaokaoAPP.login.childApp",
+    "gaokaoApp.city.menu"
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -26,6 +27,10 @@ angular.module("gaokaoAPP",[
             .state("login", {
                 url: "/login",
                 templateUrl: "html/login/login.html"
+            })
+            .state("city",{
+                url:"/city",
+                templateUrl:"html/city/city.html"
             });
 })
 .factory('AJAX',['$http',function($http){
@@ -67,4 +72,10 @@ angular.module("gaokaoAPP",[
                 });
         }
 
+}])
+.controller("pageJumpCtr",['$scope','$window',function($scope,$window){
+        $scope.pageJump = function(type,user_level){
+            $window.location.href="#/hope?type="+type+"&user_level="+user_level;
+            $window.location.reload();
+        }
 }]);

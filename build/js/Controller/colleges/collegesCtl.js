@@ -8,7 +8,8 @@ angular.module("gaokaoAPP.hope.college",[])
 .controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX){
 
         $scope.marjor = ZYBinfoDATA;
-
+        $scope.isShowColleges = false;
+        $scope.screenCollege = true;
         AJAX.getRequest(marjorURL,'GET',"")
             .success(function(data,status){
                 $scope.marjorList = data.response;
@@ -42,23 +43,37 @@ angular.module("gaokaoAPP.hope.college",[])
 
         $scope.inputClick = function(id,name){
             if($.inArray(name,$scope.depart_list)>=0){
+                $scope.marjor.depart_prefer.splice($.inArray(id,$scope.depart_id),1);
                 $scope.depart_id.splice($.inArray(id,$scope.depart_id),1);
                 $scope.depart_list.splice($.inArray(name,$scope.depart_list),1);
             }else{
                 $scope.depart_id.push(id);
                 $scope.depart_list.push(name);
+                $scope.marjor.depart_prefer.push(id);
+            }
+
+            if($scope.marjor.depart_prefer.length>0){
+                $scope.isShowColleges = true;
+            }else{
+                $scope.isShowColleges = false;
             }
         }
 
-        $scope.removeThis = function(name){
-            $scope.marjor.depart_prefer.splice($.inArray(name,$scope.depart_list),1);
-            $scope.depart_list.splice($.inArray(name,$scope.depart_list),1);
-            $scope.depart_id.splice($.inArray(name,$scope.depart_list),1);
+        $scope.removeThis = function(index){
+            $scope.marjor.depart_prefer.splice(index,1);
+            $scope.depart_list.splice(index,1);
+            $scope.depart_id.splice(index,1);
+
+            if($scope.marjor.depart_prefer.length<=0){
+                $scope.isShowColleges = false;
+            }
+
         }
         $scope.removeAll = function(){
             $scope.depart_id=[];
             $scope.depart_list=[];
             $scope.marjor.depart_prefer = [];
+            $scope.isShowColleges = false;
         }
 
         function loadingSelMarjor(){ /**加载选中的专业*/
@@ -87,5 +102,9 @@ angular.module("gaokaoAPP.hope.college",[])
             depart_list.join(',');
             $scope.depart_id = depart_id;
             $scope.depart_list = depart_list;
+        }
+
+        $scope.clickScreen = function(isTrue){
+            $scope.screenCollege = isTrue;
         }
 }]);

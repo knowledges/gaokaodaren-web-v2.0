@@ -1,21 +1,24 @@
-<div ng-controller="wishTabCtr-cool">
-    <div class="row hope-line">
+<div ng-if="screening">
+    <div class="row hope-line" ng-if="isShowPersonality ||personality.economy_option || personality.prop5 ||personality.prop6">
         <div class="col-sm-2 text-right ">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
-            <li ng-repeat="graduates in graduate_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{graduates}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in depear2_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in course_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in course_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in wish_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in user_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in gift_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in gift_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in nature_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li ng-repeat="list in physical_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <li><a href="javascript:;;" class="btn btn-default btn-xs">北京 <i class="icon-remove"></i> </a></li>
+            <li ng-repeat="graduates in graduate_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{graduates}}<i class="icon-remove" ng-click="removeThis($index,1)"></i> </a></li>
+            <li ng-repeat="list in depear2_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,2)"></i> </a></li>
+            <li ng-repeat="list in course_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,10)"></i> </a></li>
+            <li ng-repeat="list in course_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,11)"></i> </a></li>
+            <li ng-repeat="list in wish_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,4)"></i> </a></li>
+            <li ng-repeat="list in user_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,5)"></i> </a></li>
+            <li ng-repeat="list in gift_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,12)"></i> </a></li>
+            <li ng-repeat="list in gift_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,13)"></i> </a></li>
 
+            <li ng-if="personality.economy_option"><a href="javascript:;;" class="btn btn-default btn-xs">家庭经济<i class="icon-remove" ng-click="removeThis($index,0,'家庭经济')"></i> </a></li>
+            <li ng-if="personality.prop5"><a href="javascript:;;" class="btn btn-default btn-xs">政策照顾加分<i class="icon-remove" ng-click="removeThis($index,0,'政策照顾加分')"></i> </a></li>
+            <li ng-if="personality.prop6"><a href="javascript:;;" class="btn btn-default btn-xs">等级级差加分<i class="icon-remove" ng-click="removeThis($index,0,'等级级差加分')"></i> </a></li>
+
+            <li ng-repeat="list in nature_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,7)"></i> </a></li>
+            <li ng-repeat="list in physical_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,8)"></i> </a></li>
             <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="remove()">清除所有</a></li>
         </div>
     </div>
@@ -58,7 +61,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in departs.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedDepeart({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedDepeart({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,2)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -80,7 +83,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_prefer({{list.id}})" value="{{list.id}}"  ng-click="inputClick(list.id,list.name,10)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -95,8 +98,8 @@
         </div>
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                <label class="btn btn-warning btn-sm">
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_ignore({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,11)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -119,7 +122,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in wishs.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedWish({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedWish({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,4)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -141,7 +144,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in hobbys.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedBohhy({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedBohhy({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,5)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -163,7 +166,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,12)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -179,7 +182,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,13)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -202,7 +205,7 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in natures.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedNature({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedNature({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,7)"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -224,8 +227,14 @@
 
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in prop" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCity({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                <label class="btn btn-primary btn-sm" ng-if="list.name =='家庭经济'">
+                    <input type="checkbox" autocomplete="off" ng-model="personality.economy_option" value="{{list.id}}"/>{{list.name}}
+                </label>
+                <label class="btn btn-primary btn-sm" ng-if="list.name =='政策照顾加分'">
+                    <input type="checkbox" autocomplete="off" ng-model="personality.prop5" value="{{list.id}}"/>{{list.name}}
+                </label>
+                <label class="btn btn-primary btn-sm" ng-if="list.name =='等级级差加分'">
+                    <input type="checkbox" autocomplete="off" ng-model="personality.prop6" value="{{list.id}}"/>{{list.name}}
                 </label>
             </div>
         </div>
@@ -242,9 +251,11 @@
         <div class="col-sm-8 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in physicals.list" >
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedPhysical({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedPhysical({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,8)"/>{{list.name}}
                 </label>
             </div>
         </div>
     </div>
 </div>
+<button class="btn btn-warning btn-block" ng-if="screening" ng-click="clickScreen(!screening)">关闭赛选条件 <i class="icon-sort-up"></i> </button>
+<button class="btn btn-success btn-block" ng-if="!screening" ng-click="clickScreen(!screening)">打开赛选条件 <i class="icon-sort-down"></i> </button>

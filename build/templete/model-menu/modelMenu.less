@@ -6,22 +6,24 @@
 .menu-navbar{
     margin-top: 15px;
 }
-.menu-nav{
+ul.menu-nav{
     float: left;
     display: inline-block;
     width: 200px;
     height: 100%;
     box-shadow: -2px 0 1px #E8E8E8,0 0 0px blue,0 0 0px red,2px 0 1px #ECECEC;
-    li{
-        a{
+    > li{
+        > a{
             color: @font-888;
             font-size: 24px;
+            background-color: #EFEFEF;
         }
         ul{
             padding: 0;
             list-style: none;
             li {
                 a{
+                    color: @font-888;
                     font-size: 16px;
                     padding: 5px;
                     display: inline-block;
