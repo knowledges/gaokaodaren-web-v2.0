@@ -3,10 +3,10 @@
  */
 angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 //.constant("provinceURL","/city/province")
-.constant("provinceURL","../JSON/province.JSON")
-.constant("tubeURL","../JSON/attribute.JSON")
+.constant("provinceURL","../JSON/province.json")
+.constant("tubeURL","../JSON/attribute.json")
 //.constant("propURL","/school/prop?depart_type=1")
-.constant("propURL","../JSON/prop.JSON")
+.constant("propURL","../JSON/prop.json")
 .controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection","loadingFilter",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection,loadingFilter){
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
@@ -222,7 +222,6 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                     $scope.attr.level2 = false;
                 }
             }
-
 
             if ($scope.attr.city_prefer.length <= 0 && $scope.attr.city_prefer.length <= 0 && $scope.attr.attr_prefer.length <= 0 && $scope.attr.belongs_prefer.length <= 0 && !$scope.attr.prop7 && !$scope.attr.prop3 && !$scope.attr.prop4 && !$scope.attr.prop8) {
                 $scope.isShowProperty = false;

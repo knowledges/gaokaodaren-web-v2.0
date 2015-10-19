@@ -24,6 +24,16 @@
     <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
 </head>
 <body>
+
+<!--[if lt IE 10]>
+<div class="browser-happy">
+    <div class="content">
+        <p>童鞋，您的浏览器太OUT，为何不是试试更先进的浏览器呢～～</p>
+        <a href="http://browsehappy.com/">立即更新</a>
+    </div>
+</div>
+<![endif]-->
+
 <nav class="navbar navbar-default head">
     <div class="container">
         <div class="navbar-header">
@@ -38,17 +48,20 @@
                 <li class="dropdown">
                     <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查数据 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/city?parame=1">城市介绍</a></li>
-                        <li><a href="#">高校介绍</a></li>
-                        <li><a href="#">专业介绍</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">填报要领</a></li>
-                        <li><a href="#">分数分析</a></li>
-                        <li><a href="#">招生政策</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">毕业去向</a></li>
-                        <li><a href="#">个性特征</a></li>
-                        <li><a href="#">咨询线路</a></li>
+                        <li><a ui-sref="citylist({cityType:0})">城市介绍</a></li>
+                        <li><a href="#/temp?parame=2">高校介绍</a></li>
+                        <li><a href="#/temp?parame=3">专业介绍</a></li>
+                        <!--<li><a href="#/temp?parame=1" >城市介绍</a></li>-->
+                        <!--<li><a href="#/temp?parame=2">高校介绍</a></li>-->
+                        <!--<li><a href="#/temp?parame=3">专业介绍</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">填报要领</a></li>-->
+                        <!--<li><a href="#">分数分析</a></li>-->
+                        <!--<li><a href="#">招生政策</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">毕业去向</a></li>-->
+                        <!--<li><a href="#">个性特征</a></li>-->
+                        <!--<li><a href="#">咨询线路</a></li>-->
                     </ul>
                 </li>
                 <li><a href="#/about">关于我们</a></li>
@@ -132,7 +145,8 @@
 <script src="js/Controller/selectCtl/select.js"></script>
 <script src="js/Controller/colleges/collegesCtl.js"></script>
 <script src="js/Controller/personality/personality.js"></script>
-<script src="js/controller/menu/menu.js"></script>
+<script src="js/Controller/temp/temp.js"></script>
+<script src="js/Controller/navbar/city.js"></script>
 <script src="js/public.js"></script>
 <script src="js/home/home.js"></script>
 <script src="js/hope/hope.js"></script>

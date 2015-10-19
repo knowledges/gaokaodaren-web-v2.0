@@ -8,17 +8,17 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
 .constant("submitURL","/exam/new")
 .factory("ZYBinfoDATA",[function(){
     return {
-        name:"球包",
+        name:"",
         u_level:"",
-        number:"14321111111113",
-        city:"11",
-        cityarea:"11",
-        scroe:"366",
+        number:"",
+        city:"",
+        cityarea:"",
+        scroe:"",
         devision:"",
         obl:"5",
         sel:"5",
-        school_code:"1101",
-        school:"南京大学",
+        school_code:"",
+        school:"",
         depart_code:"",
         depart:"",
 

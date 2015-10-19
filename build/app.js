@@ -9,7 +9,8 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.hope",
     //"gaokaoAPP.login",
     "gaokaoAPP.login.childApp",
-    "gaokaoApp.city.menu"
+    "gaokaoAPP.temp.tempPage",
+    "gaokaoAPP.navbar.city"
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -28,9 +29,10 @@ angular.module("gaokaoAPP",[
                 url: "/login",
                 templateUrl: "html/login/login.html"
             })
-            .state("city",{
-                url:"/city",
-                templateUrl:"html/city/city.html"
+            .state("temp",{
+                url:"/temp",
+                templateUrl:"html/temp/tempPage.html",
+                controller:"tempCtr"
             });
 })
 .factory('AJAX',['$http',function($http){
