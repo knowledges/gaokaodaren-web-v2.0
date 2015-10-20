@@ -1,0 +1,19 @@
+.citydiv ul {
+  padding: 0;
+  margin: 0;
+}
+.citydiv ul li {
+  list-style: none;
+  display: inline-block;
+  float: left;
+  text-align: left;
+  width: 100%;
+  font-size: 18px;
+}
+.citydiv ul li a {
+  margin: 10px;
+  display: inline-block;
+  float: left;
+  width: 80px;
+}
+/*# sourceMappingURL=city.css.map */

@@ -8,30 +8,15 @@ angular.module("gaokaoAPP.navbar.city",['ui.router'])
         $scope.menu = {
             cityType:"",
         };
-        $scope.menu.cityType = $stateParams;
 
-        console.log($stateParams.cityType);
+        $scope.menu.cityType = $stateParams;
 
         init();
 
-        function init(){
-            AJAX.getRequest(provinceURL,'GET','')/**省份*/
-                .success(function(data,status){
+        function init() {
+            AJAX.getRequest(provinceURL, 'GET', '')/**省份*/
+                .success(function (data, status) {
                     $scope.menu.provincelist = data.response.list;
                 });
-
-            getRequed();
         }
-
-        $scope.navigation = function(){/**导航*/
-            getRequed();
-        }
-
-        function getRequed(){
-            AJAX.getRequest(navURL_1,'GET','')
-                .success(function(data,status){
-                    $scope.menu.html = data;
-                });
-        }
-
-}])
+}]);

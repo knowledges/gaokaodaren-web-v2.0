@@ -1,0 +1,54 @@
+<div class="menu-div" ng-controller="schoolConCtl">
+    <div ng-if="school.isnav" ng-bind-html="school.strHtml"></div>
+    <div ng-if="!school.isnav">
+        <div ng-include="'templete/model-schoolSelect/schoolSelect.html'"></div>
+        <div>
+            <table class="table table">
+                <tbody>
+                    <tr>
+                        <td>
+                            安徽职业技术学院
+                        </td>
+                        <td>
+                            <p>高校所在地：合肥市</p>
+
+                            <p>高校所在地：合肥市</p>
+
+                            <p>高校所在地：合肥市</p>
+                        </td>
+                        <td>
+                            <p>高校所在地：合肥市</p>
+
+                            <p>高校所在地：合肥市</p>
+
+                            <p>高校所在地：合肥市</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-default">学校简介</button>
+                            <button class="btn btn-default">学校章程</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

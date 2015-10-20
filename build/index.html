@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/home/homeContent.css"/>
     <link rel="stylesheet" href="css/hope/hope.css"/>
     <link rel="stylesheet" href="css/login/login.css"/>
+    <link rel="stylesheet" href="css/city/city.css"/>
     <link rel="stylesheet" href="templete/model-selected/modelSelected.css"/>
     <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
 </head>
@@ -49,8 +50,9 @@
                     <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查数据 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a ui-sref="citylist({cityType:0})">城市介绍</a></li>
-                        <li><a href="#/temp?parame=2">高校介绍</a></li>
-                        <li><a href="#/temp?parame=3">专业介绍</a></li>
+                        <li><a ui-sref="schoollist({type:0})">高校介绍</a></li>
+                        <!--<li><a href="#/schoollist?parame=0">高校介绍</a></li>-->
+                        <!--<li><a href="#/temp?parame=3">专业介绍</a></li>-->
                         <!--<li><a href="#/temp?parame=1" >城市介绍</a></li>-->
                         <!--<li><a href="#/temp?parame=2">高校介绍</a></li>-->
                         <!--<li><a href="#/temp?parame=3">专业介绍</a></li>-->
@@ -146,7 +148,9 @@
 <script src="js/Controller/colleges/collegesCtl.js"></script>
 <script src="js/Controller/personality/personality.js"></script>
 <script src="js/Controller/temp/temp.js"></script>
+<script src="js/Controller/navbar/content.js"></script>
 <script src="js/Controller/navbar/city.js"></script>
+<script src="js/Controller/navbar/school.js"></script>
 <script src="js/public.js"></script>
 <script src="js/home/home.js"></script>
 <script src="js/hope/hope.js"></script>

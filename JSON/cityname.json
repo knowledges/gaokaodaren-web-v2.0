@@ -1,0 +1,18 @@
+{
+    "response": {
+        "list": [
+            {
+                "area_id": 1,
+                "disabled": "0",
+                "id": 81,
+                "name": "南京市",
+                "province_area_id": 0,
+                "province_id": 8,
+                "type": 3,
+                "website": "http://baike.baidu.com/link?url=QyGTl2vUzKoUtI5TqwEMA6Uwgsb5B_UQoU8jCk2BRoISOs18qrj6TNh94bCcqanXOe7UWSxVcprWAL6M6tHVCWEOFurT1VT_J2441GTp6uT8X1SNImTd5Ul20Z3Ay_-5"
+            }
+        ],
+        "sum": ""
+    },
+    "status": "0"
+}

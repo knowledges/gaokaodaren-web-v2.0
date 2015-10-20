@@ -1,0 +1,94 @@
+<form  ng-submit="findSchool(info)">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="attribute">办学性质:</label>
+                </div>
+                <div class="col-sm-8">
+                    <select name="" id="attribute" class="form-control" ng-model="info.attr">
+                        <option value="0">-- 请选择 --</option>
+                        <option ng-repeat="list in attribute" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="prop">院校特色:</label>
+                </div>
+                <div class="col-sm-8">
+                    <select name="" id="prop" class="form-control" ng-model="info.level">
+                        <option value="0">-- 请选择 --</option>
+                        <option ng-repeat="list in tube" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="style">院校分类:</label>
+                </div>
+                <div class="col-sm-8">
+                    <select name="" id="style" class="form-control" ng-model="info.style">
+                        <option value="0">-- 请选择 --</option>
+                        <option ng-repeat="list in style" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="belongs">院校属管:</label>
+                </div>
+                <div class="col-sm-8">
+                    <select name="" id="belongs" class="form-control"  ng-model="info.belongs">
+                        <option value="0">-- 请选择 --</option>
+                        <option ng-repeat="list in belongs" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="schoolname">名称：</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="schoolname" ng-model="info.key" placeholder="请输入院校名称">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="city">院校属地:</label>
+                </div>
+                <div class="col-sm-4">
+                    <select name="" id="city" class="form-control" ng-change="areaChange($event)" ng-model="info.province_id">
+                        <option value="0">请选择</option>
+                        <option ng-repeat="list in area" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <select name="" id="cityarea" class="form-control" ng-model="info.city_id">
+                        <option value="0">请选择</option>
+                        <option ng-repeat="list in city" value="{{list.id}}">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-success btn-lg">查询</button>
+    </div>
+</form>
