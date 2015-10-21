@@ -1,0 +1,36 @@
+<div class="menu-div" ng-controller="marjorConCtl">
+    <div ng-if="marjor.isnav" class="text-left" ng-bind-html="marjor.strHtml"></div>
+
+    <div class="row" ng-if="!marjor.info">
+        <div class="col-sm-12">
+            <form class="navbar-form navbar-left " action="javascript:;;" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="marjor.key" placeholder="请输入要查询专业..."/>
+                </div>
+                <a  ng-click="findMarjor()" class="btn btn-success head-serche">
+                    查询
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <div ng-if="marjor.ismarjor">
+        <div ng-include="'templete/model-marjor/marjor.html'"></div>
+    </div>
+
+    <p ng-if="marjor.info" class="text-right" >
+        <a href="javascript:history.go(-1);" class="btn btn-success">
+            返回
+        </a>
+    </p>
+
+    <div ng-if="marjor.info" class="text-left" ng-bind-html="marjor.strHtml"></div>
+
+    <div ng-if="marjor.isfind">
+        <ul class="nav nav-pills" ng-repeat="list in findList">
+            <li><a href="javascript:;;" ng-click="showInfo(list.article_id)">{{list.name}}</a></li>
+        </ul>
+        <p class="text-right" ng-if="marjor.isfind"><a href="" class="btn btn-success">返回</a></p>
+    </div>
+
+</div>

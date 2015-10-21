@@ -10,7 +10,7 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
     .constant("referinURL","/user/reset")
     .factory("isShowModel",function(){
         return {
-            isSigin:"14321111111113",
+            isSigin:"",
         }
     })
     .controller("logonCtr",["$scope","$rootScope","$window","codeURL","loginURL","isShowModel","AJAX",function($scope,$rootScope,$window,codeURL,loginURL,isShowModel,AJAX){

@@ -6,7 +6,7 @@
                     <label for="attribute">办学性质:</label>
                 </div>
                 <div class="col-sm-8">
-                    <select name="" id="attribute" class="form-control" ng-model="info.attr">
+                    <select name="" id="attribute" class="form-control"  ng-model="info.attr">
                         <option value="0">-- 请选择 --</option>
                         <option ng-repeat="list in attribute" value="{{list.id}}">{{list.name}}</option>
                     </select>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-sm-8">
                     <select name="" id="prop" class="form-control" ng-model="info.level">
-                        <option value="0">-- 请选择 --</option>
+                        <!--<option value="0">&#45;&#45; 请选择 &#45;&#45;</option>-->
                         <option ng-repeat="list in tube" value="{{list.id}}">{{list.name}}</option>
                     </select>
                 </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-8">
                     <select name="" id="style" class="form-control" ng-model="info.style">
-                        <option value="0">-- 请选择 --</option>
+                        <!--<option value="0">&#45;&#45; 请选择 &#45;&#45;</option>-->
                         <option ng-repeat="list in style" value="{{list.id}}">{{list.name}}</option>
                     </select>
                 </div>
@@ -75,13 +75,13 @@
                 </div>
                 <div class="col-sm-4">
                     <select name="" id="city" class="form-control" ng-change="areaChange($event)" ng-model="info.province_id">
-                        <option value="0">请选择</option>
+                        <!--<option value="0">请选择</option>-->
                         <option ng-repeat="list in area" value="{{list.id}}">{{list.name}}</option>
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <select name="" id="cityarea" class="form-control" ng-model="info.city_id">
-                        <option value="0">请选择</option>
+                        <!--<option value="0">请选择</option>-->
                         <option ng-repeat="list in city" value="{{list.id}}">{{list.name}}</option>
                     </select>
                 </div>

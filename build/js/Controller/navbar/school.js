@@ -10,7 +10,9 @@ angular.module("gaokaoAPP.navbar.School",['ui.router'])
 
             $scope.school = {
                     isnav: true,
-                    strHtml: ""
+                    isfind:false,
+                    strHtml: "",
+                    isChars:false
             }
 
             $scope.info = {
@@ -22,17 +24,22 @@ angular.module("gaokaoAPP.navbar.School",['ui.router'])
                 level: 0,
                 province_id: 0,
                 city_id: 0,
-                index: 0,
+                index: 1,
                 limit: 10,
+                pageSize:0,
                 junior: 0
             }
 
 
             if ($stateParams.type == 0) {
                     $scope.school.isnav = true;
+                    $scope.school.isfind = false;
+                    $scope.school.isChars = false;
                     navSchool();
             } else {
                     $scope.school.isnav = false;
+                    $scope.school.isChars = false;
+                    $scope.school.isfind = true;
                     $scope.info.type = $stateParams.type;
                     loading();
             }
@@ -56,6 +63,10 @@ angular.module("gaokaoAPP.navbar.School",['ui.router'])
             }
 
             $scope.findSchool = function(info){
+                pageation($scope.info.index,info);
+            }
+
+            function pageation(currentIdx,info){
                 var param = {};
                     param.type = info.type;
                     param.key = info.key;
@@ -65,20 +76,48 @@ angular.module("gaokaoAPP.navbar.School",['ui.router'])
                     param.level = info.level;
                     param.province_id = info.province_id;
                     param.city_id = info.city_id;
-                    param.index = 0;
+                    param.index = currentIdx-1;
                     param.limit  = 10;
                     param.junior = info.junior;
                 AJAX.getRequest(findSchoolURL,'GET', $.param(param))
                     .success(function(data,status){
+                        $scope.info.pageSize = data.response.sum;
+                        $scope.schoolList =  data.response.list;
+
                         debugger;
+                        $("#pagging").pagging({
+                            sum: $scope.info.pageSize,
+                            param:param,
+                            current: $scope.info.index,
+                            callback: function(idx, param) {
+                                $scope.info.index = idx;
+                                pageation ($scope.info.index,info);
+                            }
+                        })
+
+
                     })
+
+
+
+            }
+
+            $scope.showChar = function(id){
+                //AJAX.getRequest('/article/show/'+id,'GET','')
+                $scope.school.isnav = false;
+                $scope.school.isChars = true;
+                $scope.school.isfind = false;
+                AJAX.getRequest(navURL_1, 'GET', "")
+                    .success(function (data, status) {
+                        $scope.school.strHtml = $sce.trustAsHtml(data);
+                    });
             }
 
             function navSchool() {
                     //AJAX.getRequest('/article/show/3290','GET',"")
                     AJAX.getRequest(navURL_1, 'GET', "")
                         .success(function (data, status) {
-                                $scope.school.strHtml = $sce.trustAsHtml(data)
+                            $scope.school.strHtml = $sce.trustAsHtml(data);
                         });
 
             }

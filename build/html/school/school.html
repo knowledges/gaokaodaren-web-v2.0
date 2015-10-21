@@ -1,54 +1,41 @@
 <div class="menu-div" ng-controller="schoolConCtl">
     <div ng-if="school.isnav" ng-bind-html="school.strHtml"></div>
-    <div ng-if="!school.isnav">
+    <div ng-if="school.isfind">
         <div ng-include="'templete/model-schoolSelect/schoolSelect.html'"></div>
         <div>
-            <table class="table table">
+            <table class="table">
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="list in schoolList" class="text-left">
                         <td>
-                            安徽职业技术学院
+                            {{list.name}}
                         </td>
                         <td>
-                            <p>高校所在地：合肥市</p>
+                            <p>高校所在地：{{list.city_name}}</p>
 
-                            <p>高校所在地：合肥市</p>
+                            <p>高校类型：{{list.style_name}}</p>
 
-                            <p>高校所在地：合肥市</p>
+                            <p>高校性质：{{list.attr_name}}</p>
                         </td>
                         <td>
-                            <p>高校所在地：合肥市</p>
+                            <p>院校特色：<span ng-if="list.is_211">211</span><span ng-if="list.is_985">985</span><span ng-if="!list.is_211 && !list.is_985 && list.belongs_name =='' ">地方所属</span></p>
 
-                            <p>高校所在地：合肥市</p>
+                            <p>高校隶属：{{list.belongs_name}}</p>
 
-                            <p>高校所在地：合肥市</p>
+                            <p>学校网址：{{list.website}}</p>
                         </td>
                         <td>
-                            <button class="btn btn-default">学校简介</button>
-                            <button class="btn btn-default">学校章程</button>
+                            <a href="{{list.website}}"  target="_blank" class="btn btn-default">学校简介</a>
+                            <button class="btn btn-default" data-ng-click="showChar('{{list.id}}')">学校章程</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <nav class="pag-nav" id="pagging"></nav>
         </div>
+    </div>
+    <p class="text-right" ng-if="school.isChars">
+        <a href="javascript:history.go(-1)" class="btn btn-success">返回</a>
+    </p>
+    <div ng-if="school.isChars" ng-bind-html="school.strHtml">
     </div>
 </div>

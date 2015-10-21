@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <div class="panel panel-default" ng-repeat="marjors in marjorType">
+        <div class="panel-heading text-left">
+            <i class="icon-leaf"></i>{{marjors.class_name}}
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-pills">
+                <li ng-repeat="list in marjors.list"><a ng-click="showInfo(list.article_id)">{{list.name}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

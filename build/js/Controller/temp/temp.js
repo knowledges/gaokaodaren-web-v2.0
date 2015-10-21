@@ -4,6 +4,20 @@
 angular.module("gaokaoAPP.temp.tempPage",['ui.router'])
 .config(function($stateProvider, $urlRouterProvider){
         $stateProvider
+            .state('marjorlist',{
+                url:'/{marjorType:[0-9]{1,4}}',
+                views:{
+                    '': {
+                        templateUrl: 'html/temp/tempMarjor.html'
+                    },
+                    'marjorType@marjorlist': {
+                        templateUrl: 'templete/model-navbarCity/navbarMarjor.html'
+                    },
+                    'marjorList@marjorlist': {
+                        templateUrl: 'html/marjor/marjor.html'
+                    }
+                }
+            })
             .state('schoollist',{
                 url:'/{type:[0-9]{1,4}}',
                 views:{

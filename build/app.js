@@ -13,6 +13,7 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.navbar.city",
     "gaokaoAPP.city.content",
     "gaokaoAPP.navbar.School",
+    "gaokaoAPP.navbar.marjor"
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
