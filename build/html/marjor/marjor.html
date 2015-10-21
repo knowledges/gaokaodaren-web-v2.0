@@ -1,7 +1,6 @@
 <div class="menu-div" ng-controller="marjorConCtl">
-    <div ng-if="marjor.isnav" class="text-left" ng-bind-html="marjor.strHtml"></div>
 
-    <div class="row" ng-if="!marjor.info">
+    <div class="row" ng-if="marjor.isfind">
         <div class="col-sm-12">
             <form class="navbar-form navbar-left " action="javascript:;;" role="search">
                 <div class="form-group">
@@ -18,7 +17,7 @@
         <div ng-include="'templete/model-marjor/marjor.html'"></div>
     </div>
 
-    <p ng-if="marjor.info" class="text-right" >
+    <p ng-if="marjor.back" class="text-right" >
         <a href="javascript:history.go(-1);" class="btn btn-success">
             返回
         </a>
@@ -26,11 +25,10 @@
 
     <div ng-if="marjor.info" class="text-left" ng-bind-html="marjor.strHtml"></div>
 
-    <div ng-if="marjor.isfind">
+    <div ng-if="marjor.findlist">
         <ul class="nav nav-pills" ng-repeat="list in findList">
-            <li><a href="javascript:;;" ng-click="showInfo(list.article_id)">{{list.name}}</a></li>
+            <li><a ui-sref="marjor.list.info({infoId:list.article_id})">{{list.name}}</a></li>
         </ul>
-        <p class="text-right" ng-if="marjor.isfind"><a href="" class="btn btn-success">返回</a></p>
+        <!--<p class="text-right" ng-if="marjor.isfind"><a href="" class="btn btn-success">返回</a></p>-->
     </div>
-
 </div>

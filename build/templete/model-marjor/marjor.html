@@ -5,7 +5,10 @@
         </div>
         <div class="panel-body">
             <ul class="nav nav-pills">
-                <li ng-repeat="list in marjors.list"><a ng-click="showInfo(list.article_id)">{{list.name}}</a></li>
+                <li ng-repeat="list in marjors.list">
+                    <a ui-sref="marjor.list.info({infoId:list.article_id})">{{list.name}}</a>
+                </li>
+                <!--//ng-click="showInfo(list.article_id)"-->
             </ul>
         </div>
     </div>

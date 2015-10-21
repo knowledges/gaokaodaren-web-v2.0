@@ -1,30 +1,15 @@
- <!--<ul class="nav menu-nav text-center" ng-controller="cityCtl">-->
-    <!--<li>-->
-        <!--<a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>-->
-        <!--<ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">-->
-            <!--<li class="active"><a href="#/temp/nav?parame=0" class="active">导航</a></li>-->
-        <!--</ul>-->
-    <!--</li>-->
-     <!--<li>-->
-         <!--<a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">城市</a>-->
-         <!--<ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">-->
-             <!--<li ng-repeat="list in menu.provincelist" ng-click="proEvent(list.id)"><a href="#/temp/navCity?cityId={{list.id}}">{{list.name}}</a></li>-->
-         <!--</ul>-->
-     <!--</li>-->
-<!--</ul>-->
-
- <ul class="nav menu-nav text-center" ng-controller="cityCtl">
-     <li>
-         <a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>
-         <ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">
-             <li class="active"><a ui-sref="citylist({cityType:0})" class="active">导航</a></li>
-         </ul>
-     </li>
-     <li>
-         <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">城市</a>
-         <ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">
-             <li ng-repeat="list in menu.provincelist" ng-click="proEvent(list.id)"><a ui-sref="citylist({cityType:list.id})" >{{list.name}}</a></li>
-         </ul>
-     </li>
- </ul>
+<ul class="nav menu-nav text-center" ng-controller="cityCtl">
+    <li>
+        <a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>
+        <ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">
+            <li ui-sref="city.nav"><a>导航</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">城市</a>
+        <ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">
+            <li ng-repeat="list in menu.provincelist"  ui-sref="city.list({cityId:list.id})"><a>{{list.name}}</a></li>
+        </ul>
+    </li>
+</ul>
 

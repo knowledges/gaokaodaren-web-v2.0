@@ -8,7 +8,7 @@ angular.module("gaokaoAPP.city.content",[])
 //.constant("findCity","/city")
 .controller("cityConCtl",['$scope','$stateParams','AJAX','navURL_1','$sce','cityList','findCity',function($scope,$stateParams,AJAX,navURL_1,$sce,cityList,findCity){
 
-        console.log("ID:"+$stateParams.cityType);
+        console.log("ID:"+$stateParams.cityId);
 
         $scope.content = {
             isNav : true,
@@ -17,13 +17,7 @@ angular.module("gaokaoAPP.city.content",[])
             cityName:""
         }
 
-        if($stateParams.cityType == 0){
-            getRequed()
-        }else{
-            debugger;
-            $scope.content.isNav=false;
-            getCityList($stateParams.cityType);
-        }
+        getCityList($stateParams.cityType);
 
         $scope.navigation = function(){/**导航*/
             getRequed();
@@ -55,7 +49,6 @@ angular.module("gaokaoAPP.city.content",[])
                             obj.push(v);
                         }
                     });
-
                     $scope.content.cityList = obj;
                 })
         }

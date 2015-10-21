@@ -1,7 +1,7 @@
 /**
  * Created by qbl on 2015/10/20.
  */
-angular.module("gaokaoAPP.navbar.School",['ui.router'])
+angular.module("gaokaoAPP.navbar.School",[])
 //.constant('findSchoolURL',"school")
 .constant('findSchoolURL',"../JSON/fenye.json")
 .controller("schoolConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){

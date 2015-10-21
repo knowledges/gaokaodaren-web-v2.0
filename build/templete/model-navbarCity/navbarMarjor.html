@@ -2,25 +2,25 @@
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>
         <ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">
-            <li class="active"><a ui-sref="marjorlist({marjorType:0})" class="active">导航</a></li>
+            <li ui-sref="marjor.nav"><a class="active">导航</a></li>
         </ul>
     </li>
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">本科院校</a>
         <ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">
-            <li><a ui-sref="marjorlist({marjorType:1})" >文科本一</a></li>
-            <li><a ui-sref="marjorlist({marjorType:3})" >文科本二</a></li>
-            <li><a ui-sref="marjorlist({marjorType:5})" >文科本三</a></li>
-            <li><a ui-sref="marjorlist({marjorType:2})" >理科本一</a></li>
-            <li><a ui-sref="marjorlist({marjorType:4})" >理科本二</a></li>
-            <li><a ui-sref="marjorlist({marjorType:6})" >理科本三</a></li>
+            <li ui-sref="marjor.list({type:1})"><a >文科本一</a></li>
+            <li ui-sref="marjor.list({type:3})"><a>文科本二</a></li>
+            <li ui-sref="marjor.list({type:5})"><a>文科本三</a></li>
+            <li ui-sref="marjor.list({type:2})"><a>理科本一</a></li>
+            <li ui-sref="marjor.list({type:4})"><a>理科本二</a></li>
+            <li ui-sref="marjor.list({type:6})"><a>理科本三</a></li>
         </ul>
     </li>
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed2" aria-expanded="true" data-toggle="collapse">高职院校</a>
         <ul id="chart-collpsed2" class="collapse in" data-toggle="collapse in" aria-expanded="true">
-            <li><a ui-sref="marjorlist({schoolType:7})" >文科高职（专科）</a></li>
-            <li><a ui-sref="marjorlist({schoolType:8})" >理科高职（专科）</a></li>
+            <li ui-sref="marjor.list({type:7})"><a>文科高职（专科）</a></li>
+            <li ui-sref="marjor.list({type:8})"><a>理科高职（专科）</a></li>
         </ul>
     </li>
 </ul>
