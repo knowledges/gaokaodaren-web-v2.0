@@ -59,7 +59,7 @@
                     <p>高职专科院校</p>
                     <p>......</p>
                     <p class="text-right">
-                        <a href="javascript:;;">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="school.nav" >查看更多 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     <p>高职专科专业</p>
                     <p>......</p>
                     <p class="text-right">
-                        <a href="javascript:;;">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="marjor.nav">查看更多 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -194,7 +194,10 @@
                 <span class="icon-globe icon-4x"></span>
                 <div class="options text-center">
                     <h3>城市介绍--<small>抉择的落实</small></h3>
-                    <p><a>江苏省</a><a>上海市</a><a>浙江省</a><a>安徽省</a><a>福建省</a><a>江西省</a><a>山东省</a><a>北京市</a><a>天津市</a><a>河北省</a><a>山西省</a><a>内蒙古</a><a>自治区</a><a>辽宁省</a><a>吉林省</a><a>黑龙江省</a><a>河南省</a><a>湖北省</a><a>湖南省</a><a>广东省</a><a>广西省</a><a>海南省</a><a>四川省</a><a>重庆市</a><a>贵州省</a><a>云南省</a><a>西藏自治区</a><a>陕西省</a><a>甘肃省</a><a>青海省</a><a>宁夏自治区</a><a>新疆自治区</a></p>
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in table.provincelist"><a ui-sref="city.list({cityId:list.id})">{{list.name}}</a></li>
+                    </ul>
+                    <!--<p><a>江苏省</a><a>上海市</a><a>浙江省</a><a>安徽省</a><a>福建省</a><a>江西省</a><a>山东省</a><a>北京市</a><a>天津市</a><a>河北省</a><a>山西省</a><a>内蒙古</a><a>自治区</a><a>辽宁省</a><a>吉林省</a><a>黑龙江省</a><a>河南省</a><a>湖北省</a><a>湖南省</a><a>广东省</a><a>广西省</a><a>海南省</a><a>四川省</a><a>重庆市</a><a>贵州省</a><a>云南省</a><a>西藏自治区</a><a>陕西省</a><a>甘肃省</a><a>青海省</a><a>宁夏自治区</a><a>新疆自治区</a></p>-->
                 </div>
             </div>
         </div>

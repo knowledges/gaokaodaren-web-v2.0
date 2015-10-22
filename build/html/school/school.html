@@ -25,7 +25,7 @@
                         </td>
                         <td>
                             <a href="{{list.website}}"  target="_blank" class="btn btn-default">学校简介</a>
-                            <button class="btn btn-default" data-ng-click="showChar('{{list.id}}')">学校章程</button>
+                            <button class="btn btn-default" data-ng-click="showChar(list.id)">学校章程</button>
                         </td>
                     </tr>
                 </tbody>
@@ -34,8 +34,8 @@
         </div>
     </div>
     <p class="text-right" ng-if="school.isChars">
-        <a href="javascript:history.go(-1)" class="btn btn-success">返回</a>
+        <a href="javascript:history.go(0)" class="btn btn-success">返回</a>
     </p>
-    <div ng-if="school.isChars" ng-bind-html="school.strHtml">
+    <div ng-if="school.isChars" ng-bind-html="school.strHtml" class="text-left">
     </div>
 </div>

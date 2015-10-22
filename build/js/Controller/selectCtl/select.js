@@ -2,8 +2,8 @@
  * Created by qbl on 2015/10/9.
  */
 angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
-//.constant("provinceURL","/city/province")
-.constant("provinceURL","../JSON/province.json")
+.constant("provinceURL","/city/province")
+//.constant("provinceURL","../JSON/province.json")
 .constant("tubeURL","../JSON/attribute.json")
 //.constant("propURL","/school/prop?depart_type=1")
 .constant("propURL","../JSON/prop.json")

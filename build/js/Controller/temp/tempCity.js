@@ -19,8 +19,8 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
                 templateUrl:'html/nav/nav.html',
                 controller:"cityNav"
             })
-            ///////////////////
-            ///  city > item ///
+            //////////////////
+            //  city > item //
             //////////////////
             .state('city.list',{
                 url:'/{cityId:[0-9]{0,4}}',

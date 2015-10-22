@@ -3,8 +3,6 @@
  */
 angular.module("gaokaoAPP.navbar.marjor.info",[])
     .controller('marjorInfoCtr',['$scope','$sce','AJAX','navURL_1',,function($scope,$sce,AJAX,navURL_1){
-        debugger;
-
         $scope.marjorInfo = {
             strHtml:""
         }

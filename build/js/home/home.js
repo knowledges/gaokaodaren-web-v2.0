@@ -4,11 +4,12 @@
 'use strict';
 
 angular.module("gaokaoAPP.home",[])
-.controller("homeCtr",['$scope','$window',function($scope,$window) {
+.controller("homeCtr",['$scope','$window','AJAX','provinceURL',function($scope,$window,AJAX,provinceURL) {
         $scope.table = {
             subject:"1",
             Batch :"1",
-            type:0
+            type:0,
+            provincelist:""
         }
 
         $scope.startTable = function(){
@@ -50,6 +51,18 @@ angular.module("gaokaoAPP.home",[])
 
         function locationHref(type,user_level){
             $window.location.href="#/hope?type="+type+"&user_level="+user_level;
+        }
+
+        $scope.menu = {
+            provincelist: ""
+        }
+
+        init();
+        function init() {
+            AJAX.getRequest(provinceURL, 'GET', '')/**Ê¡·Ý*/
+                .success(function (data, status) {
+                    $scope.table.provincelist = data.response.list;
+                });
         }
 
 }]);

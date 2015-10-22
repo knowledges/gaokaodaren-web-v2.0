@@ -4,12 +4,11 @@
 angular.module("gaokaoAPP.city.content",[])
 .constant("cityList","../JSON/cityContent.json")
 //.constant("cityList","/city/province")
-.constant("findCity","../JSON/cityname.json")
-//.constant("findCity","/city")
-.controller("cityConCtl",['$scope','$stateParams','AJAX','navURL_1','$sce','cityList','findCity',function($scope,$stateParams,AJAX,navURL_1,$sce,cityList,findCity){
+//.constant("findCity","../JSON/cityname.json")
+.constant("findCity","/city")
+.controller("cityConCtl",['$scope','$stateParams','$http','AJAX','navURL_1','$sce','cityList','findCity',function($scope,$stateParams,$http,AJAX,navURL_1,$sce,cityList,findCity){
 
         console.log("ID:"+$stateParams.cityId);
-
         $scope.content = {
             isNav : true,
             isfind:false,
@@ -17,7 +16,7 @@ angular.module("gaokaoAPP.city.content",[])
             cityName:""
         }
 
-        getCityList($stateParams.cityType);
+        getCityList($stateParams.cityId);
 
         $scope.navigation = function(){/**导航*/
             getRequed();
@@ -25,7 +24,9 @@ angular.module("gaokaoAPP.city.content",[])
 
         $scope.findCity = function(){
             $scope.content.isfind=true;
-            AJAX.getRequest(findCity,'GET', $.param({"key":$scope.content.cityName}))
+            var param = {};
+            param.key = $scope.content.cityName
+            AJAX.getRequest(findCity,'GET',param)
                 .success(function(data,status){
                     $scope.content.cityList = data.response.list;
                 });
@@ -40,8 +41,8 @@ angular.module("gaokaoAPP.city.content",[])
         }
 
         function getCityList(num){
-            //AJAX.getRequest("/city/province/"+num,'GET','')
-            AJAX.getRequest(cityList,'GET','')
+            AJAX.getRequest("/city/province/"+num,'GET','')
+            //AJAX.getRequest(cityList,'GET','')
                 .success(function(data,status){
                     var obj = [];
                     $.each(data.response.list,function(i,v){

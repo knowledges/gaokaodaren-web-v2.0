@@ -2,10 +2,9 @@
  * Created by qbl on 2015/10/20.
  */
 angular.module("gaokaoAPP.navbar.School",[])
-//.constant('findSchoolURL',"school")
-.constant('findSchoolURL',"../JSON/fenye.json")
+.constant('findSchoolURL',"/school")
+//.constant('findSchoolURL',"../JSON/fenye.json")
 .controller("schoolConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
-
             console.log($stateParams);
 
             $scope.school = {
@@ -44,9 +43,8 @@ angular.module("gaokaoAPP.navbar.School",[])
                     loading();
             }
 
-            $scope.areaChange = function($event){
-                //AJAX.getRequest('/city/province/8','GET','')
-                AJAX.getRequest('../JSON/city.json','GET','')
+            $scope.areaChange = function(num){
+                AJAX.getRequest('/city/province/'+num.id,'GET','')
                     .success(function(data,status){
                         var obj = [];
                         $.each(data.response.list,function(i,v){
@@ -63,6 +61,7 @@ angular.module("gaokaoAPP.navbar.School",[])
             }
 
             $scope.findSchool = function(info){
+                debugger;
                 pageation($scope.info.index,info);
             }
 
@@ -73,18 +72,17 @@ angular.module("gaokaoAPP.navbar.School",[])
                     param.style = info.style;
                     param.attr = info.attr;
                     param.belongs = info.belongs;
-                    param.level = info.level;
+                param.level = typeof(info.level) == 'object' ? info.level.type : typeof(info.level) == null ? 0 : info.level.type;
                     param.province_id = info.province_id;
                     param.city_id = info.city_id;
                     param.index = currentIdx-1;
                     param.limit  = 10;
                     param.junior = info.junior;
-                AJAX.getRequest(findSchoolURL,'GET', $.param(param))
+                AJAX.getRequest(findSchoolURL,'GET', param)
                     .success(function(data,status){
                         $scope.info.pageSize = data.response.sum;
                         $scope.schoolList =  data.response.list;
 
-                        debugger;
                         $("#pagging").pagging({
                             sum: $scope.info.pageSize,
                             param:param,
@@ -103,11 +101,11 @@ angular.module("gaokaoAPP.navbar.School",[])
             }
 
             $scope.showChar = function(id){
-                //AJAX.getRequest('/article/show/'+id,'GET','')
+                debugger;
                 $scope.school.isnav = false;
                 $scope.school.isChars = true;
                 $scope.school.isfind = false;
-                AJAX.getRequest(navURL_1, 'GET', "")
+                AJAX.getRequest('/article/show/'+id,'GET','')
                     .success(function (data, status) {
                         $scope.school.strHtml = $sce.trustAsHtml(data);
                     });
@@ -150,7 +148,7 @@ angular.module("gaokaoAPP.navbar.School",[])
                         var list = data.response;
                         var tube_list = [];
                         for(var i = 0; i< list.length;i++){
-                            if($stateParams == 7 || $stateParams == 8){
+                            if($stateParams.type == 7 || $stateParams.type == 8){
                                 if(list[i].type == 2){
                                     tube_list.push(list[i]);
                                 }

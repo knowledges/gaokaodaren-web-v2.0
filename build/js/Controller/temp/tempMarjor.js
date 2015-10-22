@@ -8,8 +8,9 @@ angular.module('gaokaoAPP.temp.marjor',[])
         ///   school  ///
         /////////////////
         .state('marjor',{
+            abstract: true,
             url:"/marjor",
-            templateUrl:"html/temp/tempMarjor.html"
+            templateUrl:"html/temp/tempMarjor.html",
         })
         ///////////////////////
         ///  school > nav  ///
@@ -26,13 +27,12 @@ angular.module('gaokaoAPP.temp.marjor',[])
             url:"/{type:[0-9]{1,4}}",
             templateUrl:"html/marjor/marjor.html"
         })
-        ///////////////////////
-        ///  school > list > info ///
-        ///////////////////////
-        .state('marjor.list.info',{
-            url:"/info/:infoId",
-            templateUrl:"html/marjor/marjorInfo.html",
-            controller:"marjorInfoCtr"
-
-        })
+        /////////////////////////
+        /////  school > list > info ///
+        /////////////////////////
+        //.state('item',{
+        //    url:"/marjor/item",
+        //    templateUrl:"html/marjor/marjorInfo.html",
+        //    controller:"marjorInfoCtr"
+        //})
 });

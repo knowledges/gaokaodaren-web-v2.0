@@ -17,11 +17,16 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.navbar.School",
     "gaokaoAPP.temp.marjor",
     "gaokaoAPP.navbar.marjor",
-    "gaokaoAPP.navbar.marjor.info"
+    "gaokaoAPP.temp.recipe",
+    "gaokaoAPP.group.recipe",
+    "gaokaoAPP.group.recipe.list"
+
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.when("", "/home");
+
+        $urlRouterProvider
+            .when("", "/home");
         $stateProvider
             .state("home", {
                 url: "/home",
@@ -39,15 +44,23 @@ angular.module("gaokaoAPP",[
 })
 .factory('AJAX',['$http',function($http){
     var request = function(path,method,data){
-        return $http({
-            url:path,
-            method: method == undefined ? 'GET':method,
-            dataType: "json",
-            data:data == undefined ? "":data,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        })
+        if(method == undefined || method == 'GET'){
+            return $http({
+                url:path,
+                method: 'GET',
+                params:data,
+            })
+        }else{
+            return $http({
+                url:path,
+                method: method ,
+                dataType: "json",
+                data:data == undefined ? "":data,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+            })
+        }
     }
     return {
         getRequest : function(path,method,data){

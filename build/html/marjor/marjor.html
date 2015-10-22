@@ -1,6 +1,12 @@
 <div class="menu-div" ng-controller="marjorConCtl">
 
-    <div class="row" ng-if="marjor.isfind">
+    <ol class="breadcrumb text-left">
+        <!--<li><a href="javascript:history.go(0);">本科院校</a></li>-->
+        <li><a href="javascript:history.go(0);">专业</a></li>
+        <li ng-if="marjor.info"><a href="javascript:;;" class="active">文章</a></li>
+    </ol>
+
+    <div class="row" ng-if="search">
         <div class="col-sm-12">
             <form class="navbar-form navbar-left " action="javascript:;;" role="search">
                 <div class="form-group">
@@ -13,12 +19,12 @@
         </div>
     </div>
 
-    <div ng-if="marjor.ismarjor">
+    <div ng-if="marjor.content">
         <div ng-include="'templete/model-marjor/marjor.html'"></div>
     </div>
 
-    <p ng-if="marjor.back" class="text-right" >
-        <a href="javascript:history.go(-1);" class="btn btn-success">
+    <p ng-if="back" class="text-right" >
+        <a href="javascript:history.go(0);" class="btn btn-success">
             返回
         </a>
     </p>
@@ -30,5 +36,6 @@
             <li><a ui-sref="marjor.list.info({infoId:list.article_id})">{{list.name}}</a></li>
         </ul>
         <!--<p class="text-right" ng-if="marjor.isfind"><a href="" class="btn btn-success">返回</a></p>-->
+        <div ng-view></div>
     </div>
 </div>

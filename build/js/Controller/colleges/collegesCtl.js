@@ -3,8 +3,8 @@
  */
 angular.module("gaokaoAPP.hope.college",[])
 .constant("marjorURL","../JSON/marjor.json")
-.constant("departURL","../JSON/marjorType.json")
-//.constant("departURL","/depart/new")
+//.constant("departURL","../JSON/marjorType.json")
+.constant("departURL","/depart/new")
 .controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX){
 
         $scope.marjor = ZYBinfoDATA;
