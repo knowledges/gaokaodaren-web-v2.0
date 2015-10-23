@@ -14,7 +14,7 @@ angular.module("gaokaoAPP.temp.recipe",[])
                 controller:'recipeCtr'
             })
             .state('recipe.list',{
-                url:'/{itemId:[0-9]{1,5}}',
+                url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
                 controller:"recipeInfoCtr"
             })

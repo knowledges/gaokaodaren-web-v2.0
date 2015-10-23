@@ -15,10 +15,10 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
     })
     .controller("logonCtr",["$scope","$rootScope","$window","codeURL","loginURL","isShowModel","AJAX",function($scope,$rootScope,$window,codeURL,loginURL,isShowModel,AJAX){
         $scope.user = {
-            username:"14321111111113",
-            password:"123456",
-            mobile:"15952592727",
-            newpassword:"123456",
+            username:"",
+            password:"",
+            mobile:"",
+            newpassword:"",
             code:"",
             img:""
         };
@@ -46,8 +46,9 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
             param.password = $scope.user.password;
             param.code = $scope.user.code;
             //loginStatus.signIn(param,loginURL)
-            AJAX.getRequest(loginURL,'POST', $.param(param))
+            AJAX.getRequest(loginURL,'POST', param)
                 .success(function(data,status){
+                    debugger;
                     if(data.status == -1){
                         alert("登陆失败");
                         return;
@@ -71,15 +72,14 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
 
         function locationHref(){
             $window.location.href="#/home";
-            $window.location.reload();
         }
     }])
     .controller("registerCtr",["$scope","$rootScope","$window","codeURL","registerURL","isShowModel","AJAX",function($scope,$rootScope,$window,codeURL,registerURL,isShowModel,AJAX){
         $scope.user = {
-            username:"14321111111113",
-            password:"123456",
-            mobile:"15952592727",
-            newpassword:"123456",
+            username:"",
+            password:"",
+            mobile:"",
+            newpassword:"",
             code:"",
             img:""
         }
@@ -110,13 +110,17 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
                 param.newpassword = $scope.user.newpassword;
                 param.code = $scope.user.code;
                 param.mobile = $scope.user.mobile;
-            AJAX.getRequest(registerURL,'POST', $.param(param))
+            AJAX.getRequest(registerURL,'POST',param)
                 .success(function(data,status){
+                    debugger;
                     if(data.status==-1){
                         alert("验证码有错误");
                         return;
                     }else if (data.status == 3){
                         alert("此账户已存在");
+                        return;
+                    }else if (data.status == 6){
+                        alert('参数错误');
                         return;
                     }
                     isShowModel.isSigin = $scope.user.username;
@@ -126,17 +130,16 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
 
         function locationHref(){
             $window.location.href="#/home";
-            $window.location.reload();
         }
 
     }])
     .controller("forgetCtr",["$scope","$rootScope","codeURL","referinURL","isShowModel","AJAX",function($scope,$rootScope,codeURL,referinURL,isShowModel,AJAX){
 
         $scope.user = {
-            username:"14321111111113",
-            password:"123456",
-            mobile:"15952592727",
-            newpassword:"123456",
+            username:"",
+            password:"",
+            mobile:"",
+            newpassword:"",
             code:"",
             img:""
         };

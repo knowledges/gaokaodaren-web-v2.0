@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
     <meta name="Keywords" content="高考,志愿,江苏达人网,高考志愿,达人志愿,录取概率">
+    <link href="favicon.ico" rel="shortcut icon" />
     <!--<meta name="baidu-site-verification" content="J6qe6Ox6BK" />-->
     <title>高考志愿——江苏达人网</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
@@ -54,9 +55,14 @@
                         <li><a ui-sref="marjor.nav">专业介绍</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a ui-sref="recipe.nav">填报要领</a></li>
+                        <li><a ui-sref="score.nav">分数分析</a></li>
+                        <li><a ui-sref="policy.nav">招生政策</a></li>
+                        <li><a ui-sref="job.nav">毕业去向</a></li>
+                        <li><a ui-sref="unique.nav">个性特色</a></li>
+                        <li><a ui-sref="online.nav">咨询线路</a></li>
                     </ul>
                 </li>
-                <li><a href="#/about">关于我们</a></li>
+                <li><a ui-sref="about.nav">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
                 <form class="navbar-form navbar-left " action="javascript:;;" role="search">
@@ -149,9 +155,20 @@
 <script src="js/Controller/temp/tempRecipe.js"></script>
 <script src="js/Controller/listGroup/groupRecipe.js"></script>
 <script src="js/Controller/recipe/recipe.js"></script>
+<script src="js/Controller/temp/tempScore.js"></script>
+<script src="js/Controller/listGroup/groupScore.js"></script>
+<script src="js/Controller/temp/tempPolicy.js"></script>
+<script src="js/Controller/listGroup/groupPolicy.js"></script>
+<script src="js/Controller/temp/tempJob.js"></script>
+<script src="js/Controller/listGroup/groupJob.js"></script>
+<script src="js/Controller/temp/tempUnique.js"></script>
+<script src="js/Controller/listGroup/groupUnique.js"></script>
+<script src="js/Controller/temp/tempOnline.js"></script>
+<script src="js/Controller/listGroup/groupOnline.js"></script>
+<script src="js/Controller/showInfo/showInfo.js"></script>
 <script src="js/public.js"></script>
 <script src="js/home/home.js"></script>
 <script src="js/hope/hope.js"></script>
-<!--<script src="html/about/about.js"></script>-->
+<script src="js/about/tempAbout.js"></script>
 
 </html>

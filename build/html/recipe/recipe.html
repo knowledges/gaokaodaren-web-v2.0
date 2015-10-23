@@ -1,15 +1,33 @@
 <div class="menu-div">
-    <div class="container-fluid">
+    <div class="container-fluid" ng-if="!title.strHtml">
         <div class="row" ng-repeat="list in title.list">
             <div class="col-sm-8 text-left">
-               <i class="icon-circle"></i>&nbsp;&nbsp; <a href="javascript:;;" >{{list.title}}</a>
+                <li><a href="javascript:;;" ng-click="listInfo(list.id)">{{list.title}}</a> </li>
             </div>
             <div. class="col-sm-4 text-right">
-                <a href="javascript:;;">{{list.update_time}}</a>
+                <span>{{list.update_time | date :'yyyy-MM-dd hh:mm:ss'}}</span>
             </div.>
             <br/>
         </div>
     </div>
 
-    <div ng-bind-html="strHtml"></div>
+    <div class="row" ng-if="title.strHtml">
+        <div class="container-fluid">
+            <ol class="breadcrumb text-left">
+                <li><a href="javascript:history.go(0);">填报要领</a></li>
+                <li ng-repeat="list in title.menuList" ng-if=" title.breadcrumb_no == list.menu_id "><a href="javascript:history.go(0);" >{{list.title}}</a></li>
+            </ol>
+        </div>
+
+    </div>
+
+    <div ng-if="title.strHtml" ng-bind-html="title.strHtml" class="text-left"></div>
+
+    <div class="row" ng-if="title.strHtml">
+        <div class="container-fluid">
+            <a href="javascript:;" class="btn btn-success" ng-click="previous(title.current)">上一页</a>
+            <a href="javascript:;" class="btn btn-success" ng-click="next(title.current)">下一页</a>
+            <a href="javascript:history.go(0);" class="btn btn-success">返回</a>
+        </div>
+    </div>
 </div>

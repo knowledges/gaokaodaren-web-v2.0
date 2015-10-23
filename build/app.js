@@ -19,8 +19,19 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.navbar.marjor",
     "gaokaoAPP.temp.recipe",
     "gaokaoAPP.group.recipe",
-    "gaokaoAPP.group.recipe.list"
-
+    "gaokaoAPP.group.recipe.list",
+    "gaokaoAPP.temp.score",
+    "gaokaoAPP.group.score",
+    "gaokaoAPP.temp.policy",
+    "gaokaoAPP.group.policy",
+    "gaokaoAPP.temp.job",
+    "gaokaoAPP.group.job",
+    "gaokaoAPP.temp.unique",
+    "gaokaoAPP.group.unique",
+    "gaokaoAPP.temp.online",
+    "gaokaoAPP.group.online",
+    "gaokaoAPP.temp.online.showInfo",
+    "gaokaoAPP.about"
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -55,7 +66,7 @@ angular.module("gaokaoAPP",[
                 url:path,
                 method: method ,
                 dataType: "json",
-                data:data == undefined ? "":data,
+                data:data,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
