@@ -53,7 +53,7 @@ angular.module("gaokaoAPP",[
                 templateUrl: "html/login/login.html"
             })
 })
-.factory('AJAX',['$http',function($http){
+.factory('AJAX',['$http',"$q",function($http,$q){
     var request = function(path,method,data){
         if(method == undefined || method == 'GET'){
             return $http({
@@ -62,15 +62,29 @@ angular.module("gaokaoAPP",[
                 params:data,
             })
         }else{
-            return $http({
-                url:path,
-                method: method ,
-                dataType: "json",
-                data:data,
+            var dfd = $q.defer();
+            var transform = function (data) {
+                return $.param(data);
+            }
+            var postCfg = {
+                transformRequest:transform,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
-            })
+            }
+            var promise = $http.post(path,data,postCfg).then(function (response) {
+                return response;
+            });
+            return promise;
+            //return $http({
+            //    url:path,
+            //    method: 'POST' ,
+            //    dataType: "json",
+            //    data:data,
+            //    headers: {
+            //        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+            //    }
+            //})
         }
     }
     return {

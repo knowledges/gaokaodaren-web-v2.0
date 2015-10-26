@@ -13,7 +13,7 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
             isSigin:"",
         }
     })
-    .controller("logonCtr",["$scope","$rootScope","$window","codeURL","loginURL","isShowModel","AJAX",function($scope,$rootScope,$window,codeURL,loginURL,isShowModel,AJAX){
+    .controller("logonCtr",["$scope","$rootScope","$window","$http","codeURL","loginURL","isShowModel","AJAX",function($scope,$rootScope,$window,$http,codeURL,loginURL,isShowModel,AJAX){
         $scope.user = {
             username:"",
             password:"",
@@ -42,18 +42,20 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
         }
         $scope.signin = function(){
             var param = {};
-            param.name = $scope.user.username;
-            param.password = $scope.user.password;
+            param.j_username = $scope.user.username;
+            param.j_password = $scope.user.password;
             param.code = $scope.user.code;
-            //loginStatus.signIn(param,loginURL)
+
+            ////loginStatus.signIn(param,loginURL)
             AJAX.getRequest(loginURL,'POST', param)
-                .success(function(data,status){
+                .then(function(data,status){
                     debugger;
                     if(data.status == -1){
                         alert("登陆失败");
                         return;
                     }
-                    isShowModel.isSigin = data.response.name;
+                    window.sessionStorage.setItem('userInfo',JSON.stringify(data.response.name));
+                    //isShowModel.isSigin = data.response.name;
                     locationHref();
                 });
         };
