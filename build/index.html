@@ -74,8 +74,8 @@
                     </a>
                 </form>
                 <!--<li><a ui-sref="login">登陆/注册</a></li>-->
-                <li><a ui-sref="login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
-                <li><a href="#/all" ng-if="user.islogin">我的足迹</a></li>
+                <li><a ui-sref="login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin" ng-bind="user.name"></a></li>
+                <li><a ui-sref="all.will" ng-if="user.islogin">我的足迹</a></li>
                 <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
             </ul>
         </div>
@@ -170,5 +170,8 @@
 <script src="js/home/home.js"></script>
 <script src="js/hope/hope.js"></script>
 <script src="js/about/tempAbout.js"></script>
+<script src="js/Controller/temp/tempAll.js"></script>
+<script src="js/all/all.js"></script>
+<script src="js/refer/refer.js"></script>
 
 </html>

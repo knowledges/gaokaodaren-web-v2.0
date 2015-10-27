@@ -31,7 +31,11 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.temp.online",
     "gaokaoAPP.group.online",
     "gaokaoAPP.temp.online.showInfo",
-    "gaokaoAPP.about"
+    "gaokaoAPP.about",
+    "gaokaoAPP.temp.all",
+    "gaokaoAPP.group.all",
+    "gaokaoAPP.refer"
+
 ])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -51,6 +55,11 @@ angular.module("gaokaoAPP",[
             .state("login", {
                 url: "/login",
                 templateUrl: "html/login/login.html"
+            })
+            .state("refer",{
+                url:"/refer",
+                templateUrl:"html/refer/refer.html",
+                controller:'referCtr'
             })
 })
 .factory('AJAX',['$http',"$q",function($http,$q){
@@ -76,6 +85,7 @@ angular.module("gaokaoAPP",[
                 return response;
             });
             return promise;
+
             //return $http({
             //    url:path,
             //    method: 'POST' ,
@@ -99,18 +109,20 @@ angular.module("gaokaoAPP",[
             name : "",
         }
 
-        $scope.user.name = isShowModel.isSigin;
+        $scope.user.name = sessionStorage.getItem('usernumber');
 
-        if($scope.user.name.length>0){
+        if($scope.user.name != null && $scope.user.name.length>= 1){
             $scope.user.islogin = true;
+        }else{
+            $scope.user.islogin = false;
         }
 
         $scope.logoff = function(){
             AJAX.getRequest(logoutURL,'GET',"")
                 .success(function(data,status){
-                    debugger;
-                    isShowModel.isSigin = "";
                     $scope.user.islogin = false;
+                    sessionStorage.setItem('usernumber',"");
+                    $scope.user.name ="";
                 });
         }
 

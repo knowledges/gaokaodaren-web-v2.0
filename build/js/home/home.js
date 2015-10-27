@@ -11,7 +11,6 @@ angular.module("gaokaoAPP.home",[])
             type:0,
             provincelist:""
         }
-
         $scope.startTable = function(){
             var subject = $scope.table.subject,user_level = $scope.table.Batch;
             if(subject == "1"){

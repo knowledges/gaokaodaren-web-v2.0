@@ -3,24 +3,133 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.login.childApp",['ui.router'])
-    .constant("codeURL","/user/code?time="+new Date().getTime())
-    .constant("loginURL","/login?time="+new Date().getTime())
-    .constant("registerURL","/user/register")
-    .constant("referinURL","/user/reset")
-    .factory("isShowModel",function(){
+angular.module("gaokaoAPP.login.childApp", ['ui.router'])
+    .constant("codeURL", "/user/code?time=" + new Date().getTime())
+    .constant("loginURL", "/login?time=" + new Date().getTime())
+    .constant("registerURL", "/user/register")
+    .constant("referinURL", "/user/reset")
+    .factory("isShowModel", function () {
         return {
-            isSigin:"",
+            isSigin: "",
         }
     })
-    .controller("logonCtr",["$scope","$rootScope","$window","$http","codeURL","loginURL","isShowModel","AJAX",function($scope,$rootScope,$window,$http,codeURL,loginURL,isShowModel,AJAX){
+
+    .controller("registerCtr", ["$scope", "$rootScope", "$window", "codeURL", "registerURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window, codeURL, registerURL, isShowModel, AJAX) {
         $scope.user = {
-            username:"",
-            password:"",
-            mobile:"",
-            newpassword:"",
-            code:"",
-            img:""
+            username: "",
+            password: "",
+            mobile: "",
+            newpassword: "",
+            code: "",
+            img: ""
+        }
+
+        getCodes();
+
+        $scope.repeat = function () {
+            getCodes();
+        };
+
+        function getCodes() {
+            AJAX.getRequest(codeURL, 'GET', "")
+                .success(function (data, status) {
+                    $scope.user.img = data;
+                });
+        }
+
+        $scope.showlogin = function () {
+            $rootScope.isShowLogin = true;
+            $rootScope.isShowRegistered = false;
+            $rootScope.isShowForget = false;
+        }
+
+        $scope.registered = function () {
+            var param = {};
+            param.name = $scope.user.username;
+            param.password = $scope.user.password;
+            param.newpassword = $scope.user.newpassword;
+            param.code = $scope.user.code;
+            param.mobile = $scope.user.mobile;
+            AJAX.getRequest(registerURL, 'POST', param)
+                .then(function (promise, status) {
+                    if (promise.data.status == -1) {
+                        alert("验证码有错误");
+                        return;
+                    } else if (promise.data.status == 3) {
+                        alert("此账户已存在");
+                        return;
+                    } else if (promise.data.status == 6) {
+                        alert('参数错误');
+                        return;
+                    }
+                    window.sessionStorage.setItem('usernumber', $scope.user.username);
+                    //isShowModel.isSigin = $scope.user.username;
+                    locationHref();
+                });
+        }
+
+        function locationHref() {
+            $window.location.href = "#/home";
+            $window.location.reload();
+        }
+
+    }])
+    .controller("forgetCtr", ["$scope", "$rootScope", "codeURL", "referinURL", "isShowModel", "AJAX", function ($scope, $rootScope, codeURL, referinURL, isShowModel, AJAX) {
+
+        $scope.user = {
+            username: "",
+            password: "",
+            mobile: "",
+            newpassword: "",
+            code: "",
+            img: ""
+        };
+
+        getCodes();
+
+        $scope.repeat = function () {
+            getCodes();
+        };
+
+        function getCodes() {
+            AJAX.getRequest(codeURL, 'GET', "")
+                .success(function (data, status) {
+                    $scope.user.img = data;
+                });
+        }
+
+        $scope.showRegistered = function () {
+            $rootScope.isShowLogin = false;
+            $rootScope.isShowRegistered = true;
+            $rootScope.isShowForget = false;
+        };
+
+        $scope.referin = function () {
+            var param = {};
+            param.name = $scope.user.username;
+            param.password = $scope.user.password;
+            param.newpassword = $scope.user.newpassword;
+            param.code = $scope.user.code;
+            AJAX.getRequest(referinURL, 'POST', param)
+                .then(function (data, status) {
+                    showlogin();
+                });
+        };
+
+        $scope.showlogin = function () {
+            $rootScope.isShowLogin = true;
+            $rootScope.isShowRegistered = false;
+            $rootScope.isShowForget = false;
+        };
+    }])
+    .controller("logonCtr", ["$scope", "$rootScope", "$window", "$http", "codeURL", "loginURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window, $http, codeURL, loginURL, isShowModel, AJAX) {
+        $scope.user = {
+            username: "",
+            password: "",
+            mobile: "",
+            newpassword: "",
+            code: "",
+            img: ""
         };
 
         $rootScope.isShowLogin = true;
@@ -29,158 +138,51 @@ angular.module("gaokaoAPP.login.childApp",['ui.router'])
 
         getCodes();
 
-        $scope.repeat = function(){
+        $scope.repeat = function () {
             getCodes();
         };
 
-        function getCodes(){
+        function getCodes() {
             //regCode.getCode(codeURL)
-            AJAX.getRequest(codeURL,'GET',"")
-                .success(function(data,status){
+            AJAX.getRequest(codeURL, 'GET', "")
+                .success(function (data, status) {
                     $scope.user.img = data;
                 });
         }
-        $scope.signin = function(){
+
+        $scope.signin = function () {
             var param = {};
             param.j_username = $scope.user.username;
             param.j_password = $scope.user.password;
             param.code = $scope.user.code;
 
             ////loginStatus.signIn(param,loginURL)
-            AJAX.getRequest(loginURL,'POST', param)
-                .then(function(data,status){
-                    debugger;
-                    if(data.status == -1){
-                        alert("登陆失败");
+            AJAX.getRequest(loginURL, 'POST', param)
+                .then(function (promise, status) {
+                    if (promise.data.status == -1) {
+                        alert("验证码失效");
                         return;
                     }
-                    window.sessionStorage.setItem('userInfo',JSON.stringify(data.response.name));
-                    //isShowModel.isSigin = data.response.name;
+                    window.sessionStorage.setItem('usernumber', promise.data.response.name);
+                    //isShowModel.isSigin = promise.data.response.name;
                     locationHref();
                 });
         };
 
-        $scope.showRegistered = function(){
+        $scope.showRegistered = function () {
             $rootScope.isShowLogin = false;
             $rootScope.isShowRegistered = true;
             $rootScope.isShowForget = false;
         };
 
-        $scope.forgetPwd = function(){
-            $rootScope.isShowLogin =false;
+        $scope.forgetPwd = function () {
+            $rootScope.isShowLogin = false;
             $rootScope.isShowRegistered = false;
             $rootScope.isShowForget = true;
         };
 
-        function locationHref(){
-            $window.location.href="#/home";
+        function locationHref() {
+            $window.location.href = "#/home";
+            $window.location.reload();
         }
     }])
-    .controller("registerCtr",["$scope","$rootScope","$window","codeURL","registerURL","isShowModel","AJAX",function($scope,$rootScope,$window,codeURL,registerURL,isShowModel,AJAX){
-        $scope.user = {
-            username:"",
-            password:"",
-            mobile:"",
-            newpassword:"",
-            code:"",
-            img:""
-        }
-
-        getCodes();
-
-        $scope.repeat = function(){
-            getCodes();
-        };
-
-        function getCodes(){
-            AJAX.getRequest(codeURL,'GET',"")
-                .success(function(data,status){
-                    $scope.user.img = data;
-                });
-        }
-
-        $scope.showlogin = function(){
-            $rootScope.isShowLogin =true;
-            $rootScope.isShowRegistered = false;
-            $rootScope.isShowForget = false;
-        }
-
-        $scope.registered = function(){
-            var param = {};
-                param.name = $scope.user.username;
-                param.password = $scope.user.password;
-                param.newpassword = $scope.user.newpassword;
-                param.code = $scope.user.code;
-                param.mobile = $scope.user.mobile;
-            AJAX.getRequest(registerURL,'POST',param)
-                .success(function(data,status){
-                    debugger;
-                    if(data.status==-1){
-                        alert("验证码有错误");
-                        return;
-                    }else if (data.status == 3){
-                        alert("此账户已存在");
-                        return;
-                    }else if (data.status == 6){
-                        alert('参数错误');
-                        return;
-                    }
-                    isShowModel.isSigin = $scope.user.username;
-                    locationHref();
-                });
-        }
-
-        function locationHref(){
-            $window.location.href="#/home";
-        }
-
-    }])
-    .controller("forgetCtr",["$scope","$rootScope","codeURL","referinURL","isShowModel","AJAX",function($scope,$rootScope,codeURL,referinURL,isShowModel,AJAX){
-
-        $scope.user = {
-            username:"",
-            password:"",
-            mobile:"",
-            newpassword:"",
-            code:"",
-            img:""
-        };
-
-        getCodes();
-
-        $scope.repeat = function(){
-            getCodes();
-        };
-
-        function getCodes(){
-            AJAX.getRequest(codeURL,'GET',"")
-                .success(function(data,status){
-                    $scope.user.img = data;
-                });
-        }
-
-        $scope.showRegistered = function(){
-            $rootScope.isShowLogin = false;
-            $rootScope.isShowRegistered = true;
-            $rootScope.isShowForget = false;
-        };
-
-        $scope.referin = function(){
-            var param = {};
-            param.name = $scope.user.username;
-            param.password = $scope.user.password;
-            param.newpassword = $scope.user.newpassword;
-            param.code = $scope.user.code;
-            AJAX.getRequest(referinURL,'POST', $.param(param))
-                .success(function(data,status){
-                    showlogin();
-                });
-        };
-
-        $scope.showlogin = function(){
-            $rootScope.isShowLogin =true;
-            $rootScope.isShowRegistered = false;
-            $rootScope.isShowForget = false;
-        };
-    }]);
-

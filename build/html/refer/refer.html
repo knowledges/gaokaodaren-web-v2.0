@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="row" class="text-center">
+                <table id="tab_yxb" border="1" width="100%" cellpadding="0" cellspacing="0" table-layout="fixed">
+                    <caption>
+                        <h3 class="text-center">{{order.title}}</h3>
+                        <h5 class="text-center">{{order.subtitle}}</h5>
+                        <p>
+                            <em>姓名</em><i class="text-center">{{order.name}}</i>
+                            <em>考生号</em><i class="text-center">{{order.number}}</i>
+                            <em>&nbsp;&nbsp;</em><i class="text-center">{{order.city}}</i><em>市</em>
+                            <i class="text-center">{{order.area}}</i><em>县（市，区）</em>
+                        </p>
+                    </caption>
+                    <thead>
+                        <tr class="text-center">
+                            <td colspan="8">{{order.caption}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td colspan="2">院校代码</td>
+                            <td>院校名称（录取概率）</td>
+                            <td colspan="2">专业代码</td>
+                            <td>专业名称</td>
+                            <td>录取概率</td>
+                            <td>是否服从其他专业</td>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center" ng-repeat="list in order.data">
+                        <tr>
+                            <td rowspan="6">{{$index+1}}</td>
+                            <td rowspan="6">{{list.schoolCode}}</td>
+                            <td rowspan="6">{{list.schoolName}}<br></td>
+                            <td>{{$index+1}}</td>
+                            <td>{{list.departs[0].code}}</td>
+                            <td>{{list.departs[0].name}}</td>
+                            <td>{{list.departs[0].admit}}</td>
+                            <td rowspan="6">是</td>
+                        </tr>
+                        <tr ng-repeat="list in list.departs" ng-if="!$first">
+                            <td>{{$index+1}}</td>
+                            <td>{{list.code}}</td>
+                            <td>{{list.name}}</td>
+                            <td>{{list.admit}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
