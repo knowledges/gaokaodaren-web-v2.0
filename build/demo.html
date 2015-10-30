@@ -1,39 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script src="../node_modules/angular/angular.js"></script>
 </head>
-<body ng-controller="demoCtr">
-<input type="text" ng-model="name"/>
-<span>{{name}}</span>
+<body ng-app="request-recover-example">
+<div ng-controller="ExampleController" class="result">
+    Request <span ng-bind="requestStatus"></span>.
+    <span ng-if="isRecovered">(Request was recovered)</span>
+</div>
 
-<input type="checkbox" name="aihao" ng-model="aihao" ng-checked="ischeckbox(1)" value="1" />1
-<input type="checkbox" name="aihao" ng-model="aihao" ng-checked="ischeckbox(2)" value="2"/>2
-</body>
-<script src="../node_modules/angular/angular.js"></script>
-<script>
-    angular.module("app",[])
-    .controller("demoCtr",['$scope',function($scope){
-                $scope.name = 'hello';
-                $scope.aihao = [2];
-
-            var watch = $scope.$watch('name',function(newvalue,oldvalue){
-                console.log(newvalue);
-                console.log(oldvalue);
-            })
-
-            $scope.ischeckbox = function(num){
-                var isTrue = false;
-                for(var i =0; i <$scope.aihao.length;i++){
-                    if(num == $scope.aihao[i]){
-                        isTrue = true;
-                        break;
-                    }
-                }
-                return isTrue ;
+<script type="text/javascript">
+    var module = angular.module('request-recover-example', []);
+    module.factory('requestRejector', ['$q', function($q) {
+        var requestRejector = {
+            request: function(config) {
+                return $q.reject('requestRejector');
             }
-    }])
+        };
+        return requestRejector;
+    }]);
+    module.factory('requestRecoverer', ['$q', '$rootScope', function($q, $rootScope) {
+        var requestRecoverer = {
+            requestError: function(rejectReason) {
+                if (rejectReason === 'requestRejector') {
+                    $rootScope.isRecovered = true;
+                    // Recover the request
+                    return {
+                        transformRequest: [],
+                        transformResponse: [],
+                        method: 'GET',
+                        url: 'https://api.github.com/users/naorye/repos',
+                        headers: {
+                            Accept: 'application/json, text/plain, */*'
+                        }
+                    };
+                } else {
+                    return $q.reject(rejectReason);
+                }
+            }
+        };
+        return requestRecoverer;
+    }]);
+    module.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push('requestRejector');
+        // Removing 'requestRecoverer' will result to failed requesr
+        $httpProvider.interceptors.push('requestRecoverer');
+    }]);
 
+    module.controller('ExampleController', ['$scope', '$http', function($scope, $http) {
+        $scope.requestTime = '[waiting]';
+        $http.get('https://api.github.com/users/naorye/repos').then(function() {
+            $scope.requestStatus = 'success';
+        }, function(rejectReason) {
+            $scope.requestStatus = 'failure due to ' + rejectReason;
+        });
+    }]);
 </script>
+</body>
 </html>

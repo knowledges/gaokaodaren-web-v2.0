@@ -9,7 +9,8 @@ angular.module("gaokaoAPP.temp.policy",[])
             /////////////////
             .state('policy',{
                 url:"/policy",
-                templateUrl:"html/temp/tempPolicy.html"
+                templateUrl:"html/temp/tempPolicy.html",
+                data: { isPublic: true },
             })
             ///////////////////////
             ///  policy > nav  ///
@@ -17,6 +18,7 @@ angular.module("gaokaoAPP.temp.policy",[])
             .state('policy.nav',{
                 url:"/",
                 templateUrl:"html/nav/nav.html",
+                data: { isPublic: true },
                 controller:"policyNav"
             })
             ///////////////////////
@@ -25,6 +27,7 @@ angular.module("gaokaoAPP.temp.policy",[])
             .state('policy.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
+                data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
     });

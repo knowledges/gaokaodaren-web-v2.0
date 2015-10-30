@@ -1,4 +1,4 @@
-<div class="col-md-6" role="login" ng-controller="logonCtr" >
+<div class="col-md-6" role="login" ng-controller="logonCtr" style="display:block">
     <form name="login" ng-if="$root.isShowLogin"  ng-submit="signin(user)" novalidate>
     <div class="form-horizontal form-signin text-left">
         <h1 class="form-signin-heading text-center">
@@ -50,7 +50,7 @@
     </div>
     </form>
 </div>
-<div class="col-md-6" role="register" ng-controller="registerCtr" >
+<div class="col-md-6" role="register" ng-controller="registerCtr" style="display:block">
     <form name="register" ng-if="$root.isShowRegistered" ng-submit="registered(user)" novalidate>
         <div class="form-horizontal form-signin text-left">
         <h1 class="form-signin-heading text-center">
@@ -102,7 +102,7 @@
     </div>
     </form>
 </div>
-<div class="col-md-6" role="forget" ng-controller="forgetCtr" >
+<div class="col-md-6" role="forget" ng-controller="forgetCtr" style="display:block">
     <fomr name="forget" ng-if="$root.isShowForget" ng-submit="referin(user)" novalidate>
         <div class="form-horizontal form-signin text-left">
         <h1 class="form-signin-heading text-center">

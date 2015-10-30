@@ -163,6 +163,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                         alert("验证码失效");
                         return;
                     }
+                    window.sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
                     window.sessionStorage.setItem('usernumber', promise.data.response.name);
                     //isShowModel.isSigin = promise.data.response.name;
                     locationHref();
@@ -182,7 +183,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
         };
 
         function locationHref() {
-            $window.location.href = "#/home";
-            $window.location.reload();
+           window.location.href = "#/home";
+            //window.location.reload();
         }
     }])

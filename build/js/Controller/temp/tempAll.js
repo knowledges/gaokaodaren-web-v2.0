@@ -9,7 +9,9 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
             /////////////
             .state('all', {
                 url: '/all',
-                templateUrl:'html/temp/tempAll.html'
+                templateUrl:'html/temp/tempAll.html',
+                data: { isPublic: false},
+                controller:"allCtr"
             })
             ///////////////////
             ///  city > nav ///
@@ -17,6 +19,7 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
             .state('all.will',{
                 url:'/will',
                 templateUrl:'html/All/all.html',
+                data: { isPublic: false},
                 controller:"willCtr"
             })
             //////////////////
@@ -25,6 +28,15 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
             .state('all.reference',{
                 url:'/reference',
                 templateUrl:'html/All/all.html',
+                data: { isPublic: false},
                 controller:"referenceCtr"
             })
-    });
+    })
+    .controller('allCtr',['$window',function($window){
+
+        if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
+            $window.location.href="#/login";
+            return;
+        }
+
+    }]);

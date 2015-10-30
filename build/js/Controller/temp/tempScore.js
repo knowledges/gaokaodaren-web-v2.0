@@ -9,7 +9,8 @@ angular.module("gaokaoAPP.temp.score",[])
             /////////////////
             .state('score',{
                 url:"/score",
-                templateUrl:"html/temp/tempScore.html"
+                templateUrl:"html/temp/tempScore.html",
+                data: { isPublic: true },
             })
             ///////////////////////
             ///  score > nav  ///
@@ -17,6 +18,7 @@ angular.module("gaokaoAPP.temp.score",[])
             .state('score.nav',{
                 url:"/",
                 templateUrl:"html/nav/nav.html",
+                data: { isPublic: true },
                 controller:"scoreNav"
             })
             ///////////////////////
@@ -25,6 +27,7 @@ angular.module("gaokaoAPP.temp.score",[])
             .state('score.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
+                data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
     });

@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="css/city/city.css"/>
     <link rel="stylesheet" href="templete/model-selected/modelSelected.css"/>
     <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
+    <link rel="stylesheet" href="css/refer/refer.css"/>
+    <link rel="stylesheet" href="css/pay/pay.css"/>
 </head>
 <body>
 
@@ -35,7 +37,6 @@
     </div>
 </div>
 <![endif]-->
-
 <nav class="navbar navbar-default head">
     <div class="container">
         <div class="navbar-header">
@@ -45,11 +46,13 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a ui-sref="home" href="">首页</a></li>
-                <li><a data-toggle="modal" data-target=".bs-example-modal-lg">填志愿</a></li>
+                <li><a ui-sref="home">首页</a></li>
+                <li><a  href="javascript:;;">志愿预测</a></li>
+                <li><a href="javascript:;;" data-toggle="modal" data-target=".bs-example-modal-lg">志愿意向</a></li>
                 <li class="dropdown">
-                    <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查数据 <span class="caret"></span></a>
+                    <a href="javascript:;;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿咨询 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a ui-sref="online.nav">咨询线路</a></li>
                         <li><a ui-sref="city.nav">城市介绍</a></li>
                         <li><a ui-sref="school.nav">高校介绍</a></li>
                         <li><a ui-sref="marjor.nav">专业介绍</a></li>
@@ -59,10 +62,10 @@
                         <li><a ui-sref="policy.nav">招生政策</a></li>
                         <li><a ui-sref="job.nav">毕业去向</a></li>
                         <li><a ui-sref="unique.nav">个性特色</a></li>
-                        <li><a ui-sref="online.nav">咨询线路</a></li>
                     </ul>
                 </li>
-                <li><a ui-sref="about.nav">关于我们</a></li>
+                <li><a href="javascript:;;">志愿范例</a></li>
+                <!--<li><a ui-sref="about.nav">关于我们</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
                 <form class="navbar-form navbar-left " action="javascript:;;" role="search">
@@ -74,9 +77,29 @@
                     </a>
                 </form>
                 <!--<li><a ui-sref="login">登陆/注册</a></li>-->
-                <li><a ui-sref="login" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin" ng-bind="user.name"></a></li>
+                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin" ng-bind="user.name"></a></li>
                 <li><a ui-sref="all.will" ng-if="user.islogin">我的足迹</a></li>
-                <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
+                <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;">注销</a></li>
+
+                <!--mask start-->
+                <div class="modal bs-example-modal-lg" ng-if="isShow" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6 login-icon text-center">
+                                        <img src="../build/img/ng_logo.png" alt="高考志愿"/>
+                                    </div>
+                                    <div ng-include="'templete/model-login/login.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--mask end-->
             </ul>
         </div>
         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
@@ -122,8 +145,11 @@
         </div>
     </div>
 </nav>
+
 <!--<div ng-view></div>-->
 <div ui-view=""></div>
+<!--endprint1-->
+
 <div class="foolter alert alert-success">
     <p>江苏达人高考志愿填报网站工作室地址：南京市鼓楼区新模范马路5号A座2407</p>
     <p>邮箱地址：jsdrcsl@163.com</p>
@@ -132,6 +158,7 @@
     <p>QQ：2930491038</p>
     <p>版权所有，侵权必究，苏ICP备15016324</p>
 </div>
+
 </body>
 <script src="../node_modules/angular/angular.js"></script>
 <script src="../node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>
@@ -173,5 +200,5 @@
 <script src="js/Controller/temp/tempAll.js"></script>
 <script src="js/all/all.js"></script>
 <script src="js/refer/refer.js"></script>
-
+<script src="js/pay/pay.js"></script>
 </html>

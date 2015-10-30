@@ -9,7 +9,8 @@ angular.module("gaokaoAPP.temp.unique",[])
             /////////////////
             .state('unique',{
                 url:"/unique",
-                templateUrl:"html/temp/tempUnique.html"
+                templateUrl:"html/temp/tempUnique.html",
+                data: { isPublic: true },
             })
             ///////////////////////
             ///  unique > nav  ///
@@ -17,6 +18,7 @@ angular.module("gaokaoAPP.temp.unique",[])
             .state('unique.nav',{
                 url:"/",
                 templateUrl:"html/nav/nav.html",
+                data: { isPublic: true },
                 controller:"uniqueNav"
             })
             ///////////////////////
@@ -25,6 +27,7 @@ angular.module("gaokaoAPP.temp.unique",[])
             .state('unique.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
+                data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
     });

@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="row">
+            <marquee  style="width: 100%; height:200px;" direction="down">
+                <p ng-repeat="list in pay.list">用户{{list.name}}，考生号{{list.number}}，获取参考表</p>
+            </marquee>
+        </div>
+        <p>请选择支付方式：</p>
+        <div class="row">
+
+            <tabs></tabs>
+
+            <!--<ul class="nav nav-tabs">-->
+                <!--<li><a data-type="1">支付宝</a></li>-->
+                <!--<li><a data-type="2">网银支付</a></li>-->
+                <!--<li><a data-type="3">银行汇款</a></li>-->
+            <!--</ul>-->
+
+            <div id="div1">
+                <ul class="nav nav-pills">
+                    <li><a class="btn btn-default zhifubao" pay-type="zhifubao" pay></a></li>
+                </ul>
+            </div>
+
+            <div id="div2" style="display:none;">
+                <ul class="nav nav-pills">
+                    <li><a class="btn btn-default BOCB2C" pay-type="bank" bank-code="BOCB2C" pay></a></li>
+                    <li><a class="btn btn-default ICBCB2C" pay-type="bank" bank-code="ICBCB2C" pay></a></li>
+                    <li><a class="btn btn-default CMB" pay-type="bank" bank-code="CMB" pay></a></li>
+                    <li><a class="btn btn-default CCB" pay-type="bank" bank-code="CCB" pay></a></li>
+                    <li><a class="btn btn-default ABC" pay-type="bank" bank-code="ABC" pay></a></li>
+                    <li><a class="btn btn-default SPDB" pay-type="bank" bank-code="SPDB" pay></a></li>
+                    <li><a class="btn btn-default CIB" pay-type="bank" bank-code="CIB" pay></a></li>
+                    <li><a class="btn btn-default GDB" pay-type="bank" bank-code="GDB" pay></a></li>
+                    <li><a class="btn btn-default CMBC" pay-type="bank" bank-code="CMBC" pay></a></li>
+                    <li><a class="btn btn-default CITIC" pay-type="bank" bank-code="CITIC" pay></a></li>
+                    <li><a class="btn btn-default HZCBB2C" pay-type="bank" bank-code="HZCBB2C" pay></a></li>
+                    <li><a class="btn btn-default CEBBANK" pay-type="bank" bank-code="CEBBANK" pay></a></li>
+                    <li><a class="btn btn-default SHBANK" pay-type="bank" bank-code="SHBANK" pay></a></li>
+                    <li><a class="btn btn-default NBBANK" pay-type="bank" bank-code="NBBANK" pay></a></li>
+                    <li><a class="btn btn-default SPABANK" pay-type="bank" bank-code="SPABANK" pay></a></li>
+                    <li><a class="btn btn-default FDB" pay-type="bank" bank-code="FDB" pay></a></li>
+                    <li><a class="btn btn-default POSTGC" pay-type="bank" bank-code="POSTGC" pay></a></li>
+                    <li><a class="btn btn-default COMM-DEBIT" pay-type="bank" bank-code="COMM-DEBIT" pay></a></li>
+                </ul>
+            </div>
+
+            <div id="div3" style="display:none;">
+                <ul class="nav nav-pills">
+                    <li><a class="btn btn-default yinhanghuikuan"  pay-type="yinhanghuikuan" pay></a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div id="modal" class="modal" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <table width="100%" border="1">
+                                <tr>
+                                    <td width="150" >账户名称：</td>
+                                    <td >江苏达人信息技术咨询服务有限公司</td>
+                                </tr>
+                                <tr>
+                                    <td width="150" >开户银行：</td>
+                                    <td>中国交通银行仪征市支行营业部</td>
+                                </tr>
+                                <tr>
+                                    <td width="150" >银行账号：</td>
+                                    <td>3960 6010 0018 1709 90002</td>
+                                </tr>
+                                <tr>
+                                    <td width="150" > 订单号码：</td>
+                                    <td>{{pay.orderId}} (请牢记你的订单号！)</td>
+                                </tr>
+                                <tr>
+                                    <td width="150" rowspan="4">汇款提示：</td>
+                                    <td>1.您可将账户信息交给银行工作人员，请其协助填写汇款单。</td>
+                                </tr>
+                                <tr>
+                                    <td>2.当您汇款成功后，向手机号13914726090发送汇款信息，或向邮箱jsdrcsl@163.com发送汇款邮件。</td>
+                                </tr>
+                                <tr>
+                                    <td>3.汇款时请备注写明：考生姓名，所在市（县），联系手机，订单号。</td>
+                                </tr>
+                                <tr>
+                                    <td>4.汇款成功后，我们会在半天内与您联系，向您发送适合您的《江苏省2014年普通高校招生考生志愿表》（参考表）</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3"></div>
+</div>

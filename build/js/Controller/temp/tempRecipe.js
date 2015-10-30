@@ -6,16 +6,19 @@ angular.module("gaokaoAPP.temp.recipe",[])
         $stateProvider
             .state('recipe',{
                 url:'/recipe',
-                templateUrl:'html/temp/tempRecipe.html'
+                templateUrl:'html/temp/tempRecipe.html',
+                data: { isPublic: true },
             })
             .state('recipe.nav',{
                 url:'/',
                 templateUrl:'html/nav/nav.html',
+                data: { isPublic: true },
                 controller:'recipeCtr'
             })
             .state('recipe.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
+                data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
     });

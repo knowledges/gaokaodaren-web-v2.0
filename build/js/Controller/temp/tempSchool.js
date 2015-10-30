@@ -9,7 +9,8 @@ angular.module("gaokaoAPP.temp.school",[])
         /////////////////
         .state('school',{
             url:"/school",
-            templateUrl:"html/temp/tempSchool.html"
+            templateUrl:"html/temp/tempSchool.html",
+            data: { isPublic: true },
         })
         ///////////////////////
         ///  school > nav  ///
@@ -17,6 +18,7 @@ angular.module("gaokaoAPP.temp.school",[])
         .state('school.nav',{
             url:"/",
             templateUrl:"html/nav/nav.html",
+            data: { isPublic: true },
             controller:"schoolNav"
         })
         ///////////////////////
@@ -24,6 +26,7 @@ angular.module("gaokaoAPP.temp.school",[])
         ///////////////////////
         .state('school.list',{
             url:"/{type:[0-9]{1,4}}",
-            templateUrl:"html/school/school.html"
+            templateUrl:"html/school/school.html",
+            data: { isPublic: true },
         })
 });
