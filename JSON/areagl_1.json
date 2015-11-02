@@ -97,29 +97,29 @@
         ]
     },
     {
-        "id": "9,15,16,30",
+        "id": "1",
         "name": "直辖市",
-        "province": "9,15,16,30",
+        "province": "1",
         "list": [
             {
                 "id": "9",
                 "name": "上海",
-                "province": "9,15,16,30"
+                "province": "1"
             },
             {
                 "id": "15",
                 "name": "北京",
-                "province": "9,15,16,30"
+                "province": "1"
             },
             {
                 "id": "16",
                 "name": "天津",
-                "province": "9,15,16,30"
+                "province": "1"
             },
             {
                 "id": "30",
                 "name": "重庆",
-                "province": "9,15,16,30"
+                "province": "1"
             }
         ]
     },

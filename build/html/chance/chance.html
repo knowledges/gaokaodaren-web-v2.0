@@ -1,0 +1,99 @@
+<div class="container text-center">
+    <div>
+        <div class="form-inline" role="高考-基本成绩">
+            <div class="row hope-info text-left">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" class="form-control input-none" ng-model="info.name" placeholder="请输入姓名"/>
+                </div>
+                <div class="form-group">
+                    <label for="number">考生号</label>
+                    <input type="text" id="number" class="form-control input-none" ng-model="info.number"  placeholder="请输入考生号"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="city" class="form-control input-none" ng-model="info.city" placeholder="请输入所在市"/>
+                    <label for="city">市</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cityarea" class="form-control input-none" ng-model="info.cityarea" placeholder="请输入所在县（级、市）"/>
+                    <label for="cityarea">县（级、市）</label>
+                </div>
+            </div>
+            <div class="row hope-info  text-left">
+                <div class="form-group">
+                    <label>选测科目等级</label>
+
+                    <div class="radio">
+                        <select class="form-control" ng-model="info.firDoor" ng-options="door.name for door in firstDoor track by door.id">
+                            <option value=""> ---- </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
+                    <div class="radio">
+                        <select class="form-control" ng-model="info.sceDoor" ng-options="door.name for door in firstDoor track by door.id">
+                            <option value=""> ---- </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <label for="scroe">考分</label>
+                    <input type="text" id="scroe" class="form-control input-none" name="scroe" ng-model="info.scroe" placeholder="考分"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-bordered" role="录取-概率">
+            <tbody>
+            <tr>
+                <td class="text-center">
+                    <input type="text" class="inputStyle" ng-model="info.school_code" placeholder="请输入高校编号"/>
+                </td>
+                <td class="text-center">
+                    <input type="text" class="inputStyle" ng-model="info.school" placeholder="请输入高校名称"/>
+                </td>
+                <td class="text-center">
+                    <input type="text" class="inputStyle" ng-model="info.depart_code" placeholder="请输入专业代码"/>
+                </td>
+                <td class="text-center">
+                    <input type="text"class="inputStyle" ng-model="info.depart" placeholder="请输入专业名称"/>
+                </td>
+                <td class="text-center">
+                    <input type="text"class="inputStyle" ng-model="info.change" placeholder="请输入概率"/>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-default" ng-click="changePay()" >录取概率</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">预测概率95% <i class="icon-plus"></i></div>
+        <div class="panel-body"></div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">预测概率85% <i class="icon-plus"></i></div>
+        <div class="panel-body"></div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">预测概率75% <i class="icon-plus"></i></div>
+        <div class="panel-body"></div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">预测概率65% <i class="icon-plus"></i></div>
+        <div class="panel-body"></div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">预测概率60% <i class="icon-plus"></i></div>
+        <div class="panel-body"></div>
+    </div>
+</div>

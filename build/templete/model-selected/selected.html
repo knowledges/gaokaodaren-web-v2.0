@@ -17,17 +17,25 @@
             <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
         </div>
     </div>
+    
     <div class="row">
-        <div class="col-sm-2 text-right">
-            <label>院校属地 <i class="icon-angle-right"></i></label>
+        <div class="col-sm-12 text-left">
+            <label>院校属地：</label>
+            <i class="icon-angle-right"></i>
+        </div>
+    </div>
+    
+    <div  class="row hope-line"  ng-repeat="lists in area">
+        <div class="col-sm-2 text-right menu-list">
+            <li><a href="javascript:;;"><label>{{lists.name}}</label></a></li>
         </div>
         <div class="col-sm-2 text-right menu-list">
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
         <div class="col-sm-8 menu-list text-left">
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in area" >
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
                 <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCity({{list.id}})" name="attr.city_prefer" value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
+                    <input type="checkbox" autocomplete="off" value="{{list.id}}" />{{list.name}}
                 </label>
             </div>
         </div>

@@ -7,18 +7,18 @@
             <div class="row hope-info text-left">
                 <div class="form-group">
                     <label for="name">姓名</label>
-                    <input type="text" id="name" class="form-control input-none" name="name" ng-model="info.name" placeholder="请输入姓名"/>
+                    <input type="text" id="name" class="form-control input-none" ng-model="info.name" placeholder="请输入姓名"/>
                 </div>
                 <div class="form-group">
                     <label for="number">考生号</label>
-                    <input type="text" id="number" class="form-control input-none" name="number" ng-model="info.number"  placeholder="请输入考生号"/>
+                    <input type="text" id="number" class="form-control input-none" ng-model="info.number"  placeholder="请输入考生号"/>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="city" class="form-control input-none" name="city" ng-model="info.city" placeholder="请输入所在市"/>
+                    <input type="text" id="city" class="form-control input-none" ng-model="info.city" placeholder="请输入所在市"/>
                     <label for="city">市</label>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="cityarea" class="form-control input-none" name="cityarea"ng-model="info.cityarea" placeholder="请输入所在县（级、市）"/>
+                    <input type="text" id="cityarea" class="form-control input-none" ng-model="info.cityarea" placeholder="请输入所在县（级、市）"/>
                     <label for="cityarea">县（级、市）</label>
                 </div>
             </div>
@@ -27,23 +27,17 @@
                     <label>选测科目等级</label>
 
                     <div class="radio">
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="5" ng-checked="info.obl==5" />A+</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="4" ng-checked="info.obl==4" />A-</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="3" ng-checked="info.obl==3" />B+</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="2" ng-checked="info.obl==2" />B-</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="1" ng-checked="info.obl==1" />C</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.obl" value="0" ng-checked="info.obl==0" />D</label>
+                        <select class="form-control" ng-model="info.obl" ng-options="door.name for door in firstDoor track by door.id">
+                            <option value=""> ---- </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
                     <div class="radio">
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="5" ng-checked="info.sel==5"/>A+</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="4" ng-checked="info.sel==4"/>A-</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="3" ng-checked="info.sel==3"/>B+</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="2" ng-checked="info.sel==2"/>B-</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="1" ng-checked="info.sel==1"/>C</label>
-                        <label class="radio-inline"><input type="radio" ng-model="info.sel" value="0" ng-checked="info.sel==0"/>D</label>
+                        <select class="form-control" ng-model="info.sel" ng-options="door.name for door in firstDoor track by door.id">
+                            <option value=""> ---- </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group text-right">
@@ -54,98 +48,14 @@
         </div>
     </div>
 
-    <div ng-controller="wishTabCtr-chance">
-        <table class="table table-bordered" role="录取-概率">
-            <tbody>
-                <tr>
-                    <td class="text-center">
-                        <input type="text" class="inputStyle" ng-model="info.school_code" placeholder="请输入高校编号"/>
-                    </td>
-                    <td class="text-center">
-                        <input type="text" class="inputStyle" ng-model="info.school" placeholder="请输入高校名称"/>
-                    </td>
-                    <td class="text-center">
-                        <input type="text" class="inputStyle" ng-model="info.depart_code" placeholder="请输入专业代码"/>
-                    </td>
-                    <td class="text-center">
-                        <input type="text"class="inputStyle" ng-model="info.depart" placeholder="请输入专业名称"/>
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-default" ng-if="!info.isChance" ng-click="changePay()" >录取概率</a>
-                        <!--data-toggle="modal" data-target=".chance-modal-lg"-->
-                        <label ng-if="info.isChance" ng-bind="info.chance" ></label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="modal" role="dialog" aria-labelledby="myLargeModalLabel" ng-if="validate.regShow" style="display:block;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"  ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4>{{validate.title}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        {{validate.str}}
-                    </div>
-                    <div class="modal-footer" ng-if="validate.isPass">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">取消</button>
-                        <button type="button" class="btn btn-primary" ng-click="payChance()">确定</button>
-                    </div>
-                    <div class="modal-footer" ng-if="!validate.isPass">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">确定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
     <div ng-include="'templete/model-selected/selected.html'"ng-controller="wishTabCtr-attr" role="高考志愿-概率"></div>
 
-    <table class="table table-bordered" ng-controller="wishTabCtr-screenProp">
-        <tbody>
-            <tr>
-                <td class="text-center nopadding">
-                    符合上述要求的高校情况
-                </td>
-                <td class="text-center">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="subScreenProp()">查询</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
-    <div ng-include="'templete/model-colleges/colleges.html'" ng-controller="wishTabCtr-colleges" role="高考志愿-专业"></div>
+    <!--<div ng-include="'templete/model-colleges/colleges.html'" ng-controller="wishTabCtr-colleges" role="高考志愿-专业"></div>-->
 
-    <table class="table table-bordered" ng-controller="wishTabCtr-screenCollege">
-        <tbody>
-            <tr>
-                <td class="text-center nopadding">
-                    符合上述要求的高校、专业情况
-                </td>
-                <td class="text-center">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="subScreenCollege()">查询</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
-    <div ng-include="'templete/model-personality/personality.html'" ng-controller="wishTabCtr-cool" role="志愿-个性标签"></div>
+    <!--<div ng-include="'templete/model-personality/personality.html'" ng-controller="wishTabCtr-cool" role="志愿-个性标签"></div>-->
 
-    <table class="table table-bordered" ng-controller="wishTabCtr-screenCool">
-        <tbody>
-            <tr>
-                <td class="text-center nopadding">
-                    符合上述要求的高校、专业情况
-                </td>
-                <td class="text-center">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="subScreenCool()">查询</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
     <a href="javascript:;;" class="btn btn-success btn-lg btn-block">提交</a>
 

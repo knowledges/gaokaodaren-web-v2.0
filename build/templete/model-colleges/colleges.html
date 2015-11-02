@@ -17,7 +17,7 @@
             <li><a href="javascript:;;" class="lab-active">不限</a></li>
         </div>
         <div class="col-sm-8 menu-list text-left">
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in marjor_list" >
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in marjor_list">
                 <label class="btn btn-primary btn-sm">
                     <input type="checkbox" autocomplete="off" ng-checked="isCheckedMarjor({{list.id}})" ng-click="inputClick(list.id,list.name)" value="{{list.id}}" />{{list.name}}
                 </label>

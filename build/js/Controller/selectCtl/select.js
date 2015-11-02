@@ -7,7 +7,18 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 .constant("tubeURL","../JSON/attribute.json")
 //.constant("propURL","/school/prop?depart_type=1")
 .constant("propURL","../JSON/prop.json")
-.controller("wishTabCtr-attr",['$scope',"$timeout","ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection","loadingFilter",function($scope,$timeout,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection,loadingFilter){
+.constant("type2","../JSON/areali_1.json")
+.constant("type4","../JSON/areali_2.json")
+.constant("type6","../JSON/areali_3.json")
+
+.constant("type1","../JSON/areawen_1.json")
+.constant("type3","../JSON/areawen_2.json")
+.constant("type5","../JSON/areawen_3.json")
+
+.constant("type8","../JSON/areagl_1.json")
+.constant("type7","../JSON/areagw_1.json")
+
+.controller("wishTabCtr-attr",['$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection","loadingFilter",'type1','type2','type3','type4','type5','type6','type7','type8',function($scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection,loadingFilter,type1,type2,type3,type4,type5,type6,type7,type8){
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
         $scope.areaArr = [];
@@ -18,10 +29,46 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         $scope.isShowProperty = false;
         $scope.screening = true;
 
-        AJAX.getRequest(provinceURL,'GET',"")
-            .success(function(data,status){
-                $scope.area = data.response.list;
-        });
+        init();
+
+        function init(){
+            var num = $location.$$search.type == true ? 1 :$location.$$search.type;
+            var url = "";
+            switch (num){
+                case "1":
+                    url = type1;
+                    break;
+                case "2":
+                    url = type2;
+                    break;
+                case "3":
+                    url = type3;
+                    break;
+                case "4":
+                    url = type4;
+                    break;
+                case "5":
+                    url = type5;
+                    break;
+                case "6":
+                    url = type6;
+                    break;
+                case "7":
+                    url = type7;
+                    break;
+                case "8":
+                    url = type8;
+                    break;
+            }
+
+            console.log(url);
+
+            AJAX.getRequest(url,'GET',"")
+                .success(function(data,status){
+                    $scope.area = data;
+                    debugger;
+                });
+        }
 
         AJAX.getRequest(propURL,'GET',"")
             .success(function(data,status){

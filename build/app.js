@@ -7,6 +7,7 @@ angular.module("gaokaoAPP",[
     "ui.router",
     "gaokaoAPP.home",
     "gaokaoAPP.hope",
+    "gaokaoAPP.chance",
     "gaokaoAPP.login.childApp",
     "gaokaoAPP.temp.city",
     "gaokaoAPP.navbar.citymenu",//city.js
@@ -33,6 +34,7 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.about",
     "gaokaoAPP.temp.all",
     "gaokaoAPP.group.all",
+    "gaokaoAPP.temp.example",
     "gaokaoAPP.refer",
     "gaokaoAPP.pay"
 ])
@@ -50,6 +52,12 @@ angular.module("gaokaoAPP",[
                 templateUrl: "html/home/home.html",
                 data: { isPublic: true },
                 controller:"homeCtr"
+            })
+            .state("chance", {
+                url: "/chance",
+                templateUrl: "html/chance/chance.html",
+                data: { isPublic: true },
+                controller:"chanceCtr"
             })
             .state("hope", {
                 url: "/hope",

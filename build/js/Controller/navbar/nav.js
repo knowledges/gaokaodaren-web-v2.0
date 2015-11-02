@@ -12,6 +12,7 @@ angular.module("gaokaoAPP.navbar",[])
 .constant("navURL_8","/article/show/3294")//毕业
 .constant("navURL_9","/article/show/3295")//咨询
 .constant("navURL_10","/article/show/4451")//关于我们
+.constant("navURL_11","/article/show/3282")//志愿意向
 .controller('cityNav',['$scope','$sce','AJAX','navURL_1',function($scope,$sce,AJAX,navURL_1){
         $scope.nav = {
             content : ''
@@ -147,6 +148,20 @@ angular.module("gaokaoAPP.navbar",[])
         init()
         function init(){
             AJAX.getRequest(navURL_10,'GET','')
+                .success(function(data,status){
+                    $scope.nav.content = $sce.trustAsHtml(data);
+                });
+        }
+    }])
+    .controller('exampleNav',['$scope','$sce','AJAX','navURL_11',function($scope,$sce,AJAX,navURL_11){
+
+        $scope.nav = {
+            content : ''
+        }
+
+        init()
+        function init(){
+            AJAX.getRequest(navURL_11,'GET','')
                 .success(function(data,status){
                     $scope.nav.content = $sce.trustAsHtml(data);
                 });
