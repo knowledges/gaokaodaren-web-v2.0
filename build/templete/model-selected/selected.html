@@ -1,20 +1,22 @@
 <div class="borselected" ng-if="screening">
-    <div class="row" ng-if="isShowProperty || attr.prop3 || attr.prop4 || attr.prop7 || attr.prop8 || attr.level1 || attr.level2 ">
+    <!-- ng-if="isShowProperty || attr.prop3 || attr.prop4 || attr.prop7 || attr.prop8 || attr.level1 || attr.level2 "-->
+    <div class="row" ng-if="zyb.city_name.length>0 || zyb.style_name.length>0 || zyb.attr_name.length>0 || zyb.belongs_name.length>0 ">
         <div class="col-sm-2 text-right">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
-            <li ng-repeat="name in area_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{name}}<i class="icon-remove" ng-click="removeThis($index,1)"></i></a></li>
-            <li ng-repeat="style in style_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}<i class="icon-remove" ng-click="removeThis($index,2)"></i></a></li>
-            <li ng-repeat="attribute in attribute_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{attribute}}<i class="icon-remove" ng-click="removeThis($index,3)"></i></a></li>
-            <li ng-repeat="belongs in belongs_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{belongs}}<i class="icon-remove" ng-click="removeThis($index,4)"></i></a></li>
-            <li ng-if="attr.prop3"><a href="javascript:;;" class="btn btn-default btn-xs" >985工程高校<i class="icon-remove" ng-click="removeThis($index,5,'985工程高校')"></i></a></li>
-            <li ng-if="attr.prop4"><a href="javascript:;;" class="btn btn-default btn-xs" >211工程高校<i class="icon-remove" ng-click="removeThis($index,5,'211工程高校')"></i></a></li>
-            <li ng-if="attr.prop7"><a href="javascript:;;" class="btn btn-default btn-xs" >C9联盟<i class="icon-remove" ng-click="removeThis($index,5,'C9联盟')"></i></a></li>
-            <li ng-if="attr.prop8"><a href="javascript:;;" class="btn btn-default btn-xs" >中外合作办学<i class="icon-remove" ng-click="removeThis($index,5,'中外合作办学')"></i></a></li>
-            <li ng-if="attr.level1"><a href="javascript:;;" class="btn btn-default btn-xs" >国家示范性高等职业院校<i class="icon-remove" ng-click="removeThis($index,5,'国家示范性高等职业院校')"></i></a></li>
-            <li ng-if="attr.level2"><a href="javascript:;;" class="btn btn-default btn-xs" >国家级实训基地院校<i class="icon-remove" ng-click="removeThis($index,5,'国家级实训基地院校')"></i></a></li>
-            <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
+            <!-- <i class="icon-remove" ng-click="removeThis($index,1)"></i> -->
+            <li ng-repeat="name in zyb.city_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{name}}</a></li>
+            <li ng-repeat="style in zyb.style_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}</a></li>
+            <li ng-repeat="attribute in zyb.attr_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{attribute}}</a></li>
+            <li ng-repeat="belongs in zyb.belongs_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{belongs}}</a></li>
+            <!--<li ng-if="attr.prop3"><a href="javascript:;;" class="btn btn-default btn-xs" >985工程高校<i class="icon-remove" ng-click="removeThis($index,5,'985工程高校')"></i></a></li>-->
+            <!--<li ng-if="attr.prop4"><a href="javascript:;;" class="btn btn-default btn-xs" >211工程高校<i class="icon-remove" ng-click="removeThis($index,5,'211工程高校')"></i></a></li>-->
+            <!--<li ng-if="attr.prop7"><a href="javascript:;;" class="btn btn-default btn-xs" >C9联盟<i class="icon-remove" ng-click="removeThis($index,5,'C9联盟')"></i></a></li>-->
+            <!--<li ng-if="attr.prop8"><a href="javascript:;;" class="btn btn-default btn-xs" >中外合作办学<i class="icon-remove" ng-click="removeThis($index,5,'中外合作办学')"></i></a></li>-->
+            <!--<li ng-if="attr.level1"><a href="javascript:;;" class="btn btn-default btn-xs" >国家示范性高等职业院校<i class="icon-remove" ng-click="removeThis($index,5,'国家示范性高等职业院校')"></i></a></li>-->
+            <!--<li ng-if="attr.level2"><a href="javascript:;;" class="btn btn-default btn-xs" >国家级实训基地院校<i class="icon-remove" ng-click="removeThis($index,5,'国家级实训基地院校')"></i></a></li>-->
+            <!--<li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>-->
         </div>
     </div>
     
@@ -29,14 +31,13 @@
         <div class="col-sm-2 text-right menu-list">
             <li><a href="javascript:;;"><label>{{lists.name}}</label></a></li>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allCity(lists.province)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleCity(lists.province)">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" value="{{list.id}}" />{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default city" province="{{list.province}}" city="{{list.id}}" ng-click="clickCity($event,list.id)" ng-dblclick="dblclickCity($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -44,49 +45,42 @@
         <div class="col-sm-2 text-right">
             <label>院校分类 <i class="icon-angle-right"></i></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;"  class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allStyle()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleStyle()">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
-
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in style" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedStyle({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,2)"/>{{list.name}}
-                </label>
+        <div class="col-sm-7 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in style">
+                <button class="btn btn-sm btn-default style" style="{{list.id}}" ng-click="clickStyle($event,list.id)" ng-dblclick="dblclickStyle($event,list.id)">{{list.name}}</button>
             </div>
-
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2 text-right">
             <label>办学性质 <i class="icon-angle-right"></i></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;"  class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allAttr()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleAttr()">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
-
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in attribute" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedAttr({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,3)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default attr" attr="{{list.id}}" ng-click="clickAttr($event,list.id)" ng-dblclick="dblclickAttr($event,list.id)">{{list.name}}</button>
             </div>
-
         </div>
     </div>
     <div class="row" ng-if="attr.u_level != 3 ">
         <div class="col-sm-2 text-right">
             <label>院校属管<i class="icon-angle-right"></i></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;"  class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allBelongs()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleBelongs()">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list  text-left">
+        <div class="col-sm-7 menu-list  text-left">
 
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in belongs" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedBelongs({{list.id}})" value="{{list.id}}"  ng-click="inputClick(list.id,list.name,4)"/>{{list.name}}
-                </label>
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in belongs">
+                <button class="btn btn-sm btn-default attr" belongs="{{list.id}}" ng-click="clickBelongs($event,list.id)" ng-dblclick="dblclickBelongs($event,list.id)">{{list.name}}</button>
             </div>
 
         </div>

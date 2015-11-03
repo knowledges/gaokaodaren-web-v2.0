@@ -28,37 +28,46 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         $scope.tube = "";
         $scope.isShowProperty = false;
         $scope.screening = true;
+        $scope.btnStyle = true;
+        //////////////////////////////////////////////////////////////
+
+        $scope.zyb = {
+            city_prefer:[],//优先地区
+            city_ignore:[],//拒绝地区
+            city_name:[],//优先地区名称
+            style_prefer:[],//院校分类
+            style_ignore:[],//院校分类
+            style_name:[],//院校分类
+            attr_prefer:[],//办学性质
+            attr_ignore:[],//办学性质
+            attr_name:[],//办学性质
+            belongs_prefer:[],//属管
+            belongs_ignore:[],//属管
+            belongs_name:[],//属管
+        }
 
         init();
 
         function init(){
             var num = $location.$$search.type == true ? 1 :$location.$$search.type;
             var url = "";
-            switch (num){
-                case "1":
-                    url = type1;
-                    break;
-                case "2":
-                    url = type2;
-                    break;
-                case "3":
-                    url = type3;
-                    break;
-                case "4":
-                    url = type4;
-                    break;
-                case "5":
-                    url = type5;
-                    break;
-                case "6":
-                    url = type6;
-                    break;
-                case "7":
-                    url = type7;
-                    break;
-                case "8":
-                    url = type8;
-                    break;
+
+            if(num == 1){
+                url = type1;
+            }else if (num == 2){
+                url = type2;
+            }else if (num == 3){
+                url = type3;
+            }else if (num == 4){
+                url = type4;
+            }else if(num == 5){
+                url = type5;
+            }else if (num == 6){
+                url = type6;
+            }else if (num == 7){
+                url = type7;
+            }else {
+                url = type8;
             }
 
             console.log(url);
@@ -66,221 +75,219 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             AJAX.getRequest(url,'GET',"")
                 .success(function(data,status){
                     $scope.area = data;
-                    debugger;
+                });
+
+            AJAX.getRequest(propURL,'GET',"")
+                .success(function(data,status){
+                    var list = data.response;
+                    var arr_style = [],arr_attr=[],attr_belongs=[];
+                    for (var i = 0; i < list.length; i++) {
+                        if(list[i].type == 0){
+                            arr_style.push(list[i]);
+                        }else if(list[i].type == 2){
+                            arr_attr.push(list[i]);
+                        }else if(list[i].type == 1){
+                            attr_belongs.push(list[i]);
+                        }
+                    }
+                    arr_style.join(',');
+                    arr_attr.join(',');
+                    attr_belongs.join(',')
+                    $scope.style = arr_style;
+                    $scope.attribute = arr_attr;
+                    $scope.belongs = attr_belongs;
                 });
         }
 
-        AJAX.getRequest(propURL,'GET',"")
-            .success(function(data,status){
-                var list = data.response;
-                var arr_style = [],arr_attr=[],attr_belongs=[];
-                var area_list = [];
-                for (var i = 0; i < list.length; i++) {
-                    if(list[i].type == 0){
-                        arr_style.push(list[i]);
-                    }else if(list[i].type == 2){
-                        arr_attr.push(list[i]);
-                    }else if(list[i].type == 1){
-                        attr_belongs.push(list[i]);
-                    }
-                }
-                arr_style.join(',');
-                arr_attr.join(',');
-                attr_belongs.join(',')
-                $scope.style = arr_style;
-                $scope.attribute = arr_attr;
-                $scope.belongs = attr_belongs;
-            });
+        var TimeFn = null;
 
+        /**
+         * 1同意
+         * 0取消
+         * 2取消拒绝
+         * */
+        $scope.clickCity = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
 
-        AJAX.getRequest(tubeURL,'GET',"")
-            .success(function(data,status){
-                var list = data.response;
-                var tube_list = [];
-                for(var i = 0; i< list.length;i++){
-                    if($scope.attr.u_level == 3){
-                        if(list[i].type == 2){
-                            tube_list.push(list[i]);
-                        }
-                    }else{
-                        if(list[i].type == 1){
-                            tube_list.push(list[i]);
-                        }
-                    }
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-                }
-                tube_list.join(',');
-                $scope.tube = tube_list ;
-            });
+                clickEvent(target,state,then,id,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
 
-        $timeout(function(){
-            $scope.isCheckedCity = function (no) {
-                return loadSelection.defultsChecked($scope.attr.city_prefer,no);
-            }
-
-            $scope.isCheckedStyle = function(no){
-                return loadSelection.defultsChecked($scope.attr.style_prefer,no);
-            }
-
-            $scope.isCheckedAttr = function(no){
-                return loadSelection.defultsChecked($scope.attr.attr_prefer,no);
-            }
-
-            $scope.isCheckedBelongs = function(no){
-                return loadSelection.defultsChecked($scope.attr.belongs_prefer,no);
-            }
-
-            loadingSelCity();
-            loadingSelStyle();
-            loadingSelAttr();
-            loadingBelongs();
-
-        },500);
-
-        function loadingSelCity() {
-            /**加载选中的城市*/
-            var html = loadingFilter.loadFilter($scope.area, $scope.attr.city_prefer);
-            $scope.area_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
-            $scope.area_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
+            },400);
         }
 
-        function loadingSelStyle() {
-            /**加载选中的院校分类*/
-            var html = loadingFilter.loadFilter($scope.style, $scope.attr.style_prefer)
-            $scope.style_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
-            $scope.style_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
+        $scope.clickStyle = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                clickEvent(target,state,then,id,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+            },400);
         }
 
-        function loadingSelAttr(){/**加载选中的办学性质 */
-            var html = loadingFilter.loadFilter($scope.attribute,$scope.attr.attr_prefer)
-            $scope.attribute_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
-            $scope.attribute_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
+        $scope.clickAttr = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                clickEvent(target,state,then,id,$scope.zyb.attr_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+            },400);
         }
 
-        function loadingBelongs(){/**加载选中的院校属管*/
-            var html = loadingFilter.loadFilter($scope.belongs,$scope.attr.belongs_prefer)
-            $scope.belongs_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
-            $scope.belongs_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
+        $scope.clickBelongs = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                clickEvent(target,state,then,id,$scope.zyb.belongs_ignore,$scope.zyb.belongs_prefer,$scope.zyb.belongs_name);
+            },400);
         }
 
-/////////////////////////////Event/////////////////////////////////////////////////////////////////////
-
-        $scope.inputClick = function(id,name,number){
-            if(number == 1){
-                if($.inArray(name,$scope.area_list)>=0){
-                    $scope.attr.city_prefer.splice($.inArray(id,$scope.area_id),1);
-                    $scope.area_list.splice($.inArray(name,$scope.area_list),1);
-                    $scope.area_id.splice($.inArray(id,$scope.area_id),1);
-                }else{
-                    $scope.area_id.push(id);
-                    $scope.area_list.push(name);
-                    $scope.attr.city_prefer = $scope.area_id;
-                }
-            }else if(number == 2){
-                if($.inArray(name,$scope.style_list)>=0){
-                    $scope.attr.style_prefer.splice($.inArray(name,$scope.style_list),1);
-                    $scope.style_list.splice($.inArray(name,$scope.style_list),1);
-                    $scope.style_id.splice($.inArray(id,$scope.style_id),1);
-                }else{
-                    $scope.style_list.push(name);
-                    $scope.style_id.push(id);
-                    $scope.attr.style_prefer = $scope.style_id;
-                }
-            }else if(number == 3){
-                if($.inArray(name,$scope.attribute_list)>=0){
-                    $scope.attr.attr_prefer.splice($.inArray(name,$scope.attribute_list),1);
-                    $scope.attribute_list.splice($.inArray(name,$scope.attribute_list),1);
-                    $scope.attribute_id.splice($.inArray(id,$scope.attribute_id),1);
-                }else{
-                    $scope.attribute_id.push(id);
-                    $scope.attribute_list.push(name);
-                    $scope.attr.attr_prefer = $scope.attribute_id;
-                }
-            }else if(number == 4){
-                if($.inArray(name,$scope.belongs_list)>=0){
-                    $scope.belongs_list.splice($.inArray(name,$scope.belongs_list),1);
-                    $scope.belongs_id.splice($.inArray(id,$scope.belongs_id),1);
-                }else{
-                    $scope.belongs_id.push(id);
-                    $scope.belongs_list.push(name);
-                    $scope.attr.belongs_prefer = $scope.belongs_id;
-                }
-            }
-
-            if($scope.attr.city_prefer.length>0 || $scope.attr.style_prefer.length>0 || $scope.attr.attr_prefer.length>0 || $scope.attr.belongs_prefer.length>0){
-                $scope.isShowProperty = true;
-            }else{
-                $scope.isShowProperty = false;
+        function clickEvent(target,state,then,id,ignore,prefer,name){
+            if(state == 2 ){
+                ignore.splice($.inArray(id,ignore),1);
+                $(target).attr('state',0);
+                $(target).removeClass().addClass("btn btn-sm btn-default");
+            }else if(state == 1){
+                prefer.splice($.inArray(id,prefer),1);
+                name.splice($.inArray(then,name),1);
+                $(target).attr('state',0)
+                $(target).removeClass().addClass("btn btn-sm btn-default");
+            }else {
+                prefer.push(id);
+                name.push(then);
+                $(target).attr('state',1)
+                $(target).removeClass().addClass("btn btn-sm btn-success");
             }
         }
 
-        $scope.removeAll = function(){
-            $scope.area_id = [];
-            $scope.area_list=[];
-            $scope.attr.city_prefer = [];
+        /**
+         * 2拒绝
+         **/
+        $scope.dblclickCity = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-            $scope.style_id =[];
-            $scope.style_list = [];
-            $scope.attr.style_prefer = [];
-
-            $scope.belongs_id = [];
-            $scope.belongs_list = [];
-            $scope.attr.belongs_prefer = [];
-
-            $scope.attribute_id = [];
-            $scope.attribute_list = [];
-            $scope.attr.attr_prefer = [];
-
-            $scope.isShowProperty = false;
+            dblclickEvent(target,state,then,id,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
 
         }
 
-        $scope.removeThis = function(index,number,name){
-            if(name==undefined){
-                if(number == 1){
-                    $scope.attr.city_prefer.splice(index,1);
-                    $scope.area_list.splice(index,1);
-                    $scope.area_id.splice(index,1);
-                }else if(number == 2){
-                    $scope.attr.style_prefer.splice(index,1);
-                    $scope.style_list.splice(index,1);
-                    $scope.style_id.splice(index,1);
-                }else if(number == 3){
-                    $scope.attr.attr_prefer.splice(index,1);
-                    $scope.attribute_list.splice(index,1);
-                    $scope.attribute_id.splice(index,1);
-                }else{
-                    $scope.attr.belongs_prefer.splice(index,1);
-                    $scope.belongs_list.splice(index,1);
-                    $scope.belongs_id.splice(index,1);
-                }
-            }else{
-                if(name =="C9联盟"){
-                    $scope.attr.prop7 = false;
-                }else if(name == "985工程高校"){
-                    $scope.attr.prop3 = false;
-                }else if (name == "211工程高校"){
-                    $scope.attr.prop4 = false;
-                }else if(name == "中外合作办学"){
-                    $scope.attr.prop8 = false;
-                }else if (name="国家示范性高等职业院校"){
-                    $scope.attr.level1 = false;
-                }else{
-                    $scope.attr.level2 = false;
+        $scope.dblclickStyle = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+            dblclickEvent(target,state,then,id,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+
+        }
+
+        $scope.dblclickAttr = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+            dblclickEvent(target,state,then,id,$scope.zyb.attr_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+
+        }
+
+        $scope.dblclickBelongs = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+            dblclickEvent(target,state,then,id,$scope.zyb.belongs_ignore,$scope.zyb.belongs_prefer,$scope.zyb.belongs_name);
+
+        }
+
+        function dblclickEvent(target,state,then,id,ignore,prefer,name){
+            if(state == 2){
+                ignore.splice($.inArray(id,ignore),1);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else if(state == 1){
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                prefer.splice($.inArray(id,prefer),1);
+                name.splice($.inArray(then,name),1);
+                ignore.push(id);
+            }else if (state == 0){
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                ignore.push(id);
+            }
+        }
+
+        $scope.allCity = function(provinceId){
+            var arr = $("button[province="+provinceId+"]");
+            all(arr,$scope.zyb.city_prefer,$scope.zyb.city_name);
+        }
+
+        $scope.allStyle = function(){
+            var arr = $('button[style]');
+            all(arr,$scope.zyb.style_prefer,$scope.zyb.style_name)
+        }
+
+        $scope.allAttr = function(){
+            var arr = $('button[attr]');
+            all(arr,$scope.zyb.attr_prefer,$scope.zyb.attr_name)
+        }
+
+        $scope.allBelongs = function(){
+            var arr = $('button[belongs]');
+            all(arr,$scope.zyb.attr_prefer,$scope.zyb.attr_name)
+        }
+
+        function all(arr,prefer,name){
+            for(var i = 0; i< arr.length;i++){
+                if(arr.eq(i).attr('state')!=1){
+                    arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                    prefer.push(arr.eq(i).attr('city'));
+                    name.push(arr.eq(i).html());
                 }
             }
+        }
 
-            if ($scope.attr.city_prefer.length <= 0 && $scope.attr.city_prefer.length <= 0 && $scope.attr.attr_prefer.length <= 0 && $scope.attr.belongs_prefer.length <= 0 && !$scope.attr.prop7 && !$scope.attr.prop3 && !$scope.attr.prop4 && !$scope.attr.prop8) {
-                $scope.isShowProperty = false;
-            }else if ($scope.attr.city_prefer.length <= 0 && $scope.attr.city_prefer.length <= 0 && $scope.attr.attr_prefer.length <= 0 && $scope.attr.belongs_prefer.length <= 0 && !$scope.attr.level1 && !$scope.attr.level2){
 
-            }else{
-                $scope.isShowProperty = true;
+        $scope.cancleCity = function(provinceId){
+            var arr = $("button[province="+provinceId+"]");
+            cancle(arr,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
+        }
+
+        $scope.cancleStyle = function(){
+            var arr = $('button[style]');
+            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+        }
+
+        $scope.cancleAttr = function(){
+            var arr = $('button[attr]');
+            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+        }
+
+        $scope.cancleBelongs = function(){
+            var arr = $('button[Belongs]');
+            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+        }
+
+        function cancle(arr,ignore,prefer,name){
+
+            for(var i = 0; i< arr.length;i++){
+                arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                ignore.push(arr.eq(i).attr('city'));
+                prefer.splice($.inArray(arr.eq(i).attr('city'), prefer),1)
+                name.splice($.inArray(arr.eq(i).html(), name),1)
             }
 
         }
 
-        $scope.clickScreen = function(isTrue){
-            $scope.screening = isTrue;
-        }
 }]);
