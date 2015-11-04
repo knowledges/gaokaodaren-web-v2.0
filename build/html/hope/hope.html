@@ -4,7 +4,7 @@
         <h1>{{table.yxb}}</h1>
         <h4>{{table.yxb_title}}</h4>
         <div class="form-inline" role="高考-基本成绩">
-            <div class="row hope-info text-left">
+            <div class="row hope-info text-left" ng-if="isShow">
                 <div class="form-group">
                     <label for="name">姓名</label>
                     <input type="text" id="name" class="form-control input-none" ng-model="info.name" placeholder="请输入姓名"/>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group text-right">
                     <label for="scroe">考分</label>
-                    <input type="text" id="scroe" class="form-control input-none" name="scroe" ng-model="info.scroe" placeholder="考分"/>
+                    <input type="text" id="scroe" class="form-control input-none" ng-model="info.scroe" placeholder="考分"/>
                 </div>
             </div>
         </div>
@@ -51,11 +51,10 @@
     <div ng-include="'templete/model-selected/selected.html'"ng-controller="wishTabCtr-attr" role="高考志愿-概率"></div>
 
 
-    <!--<div ng-include="'templete/model-colleges/colleges.html'" ng-controller="wishTabCtr-colleges" role="高考志愿-专业"></div>-->
+    <div ng-include="'templete/model-colleges/colleges.html'" ng-controller="wishTabCtr-colleges" role="高考志愿-专业"></div>
 
 
-    <!--<div ng-include="'templete/model-personality/personality.html'" ng-controller="wishTabCtr-cool" role="志愿-个性标签"></div>-->
-
+    <div ng-include="'templete/model-personality/personality.html'" ng-controller="wishTabCtr-cool" role="志愿-个性标签"></div>
 
     <a href="javascript:;;" class="btn btn-success btn-lg btn-block">提交</a>
 

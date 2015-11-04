@@ -9,7 +9,10 @@ angular.module("gaokaoAPP.home",[])
             subject:"1",
             Batch :"1",
             type:0,
-            provincelist:""
+            provincelist:"",
+            obl:"",
+            sel:"",
+            score:""
         }
         $scope.startTable = function(){
             var subject = $scope.table.subject,user_level = $scope.table.Batch;
@@ -44,24 +47,49 @@ angular.module("gaokaoAPP.home",[])
                         break;
                 }
             }
-            locationHref($scope.table.type,parseInt(user_level));
+            locationHref($scope.table.type,parseInt(user_level),$scope.table.obl.id,$scope.table.sel.id,$scope.table.score);
 
         }
 
-        function locationHref(type,user_level){
-            $window.location.href="#/hope?type="+type+"&user_level="+user_level;
+        function locationHref(type,user_level,obl,sel,score){
+            $window.location.href="#/hope?type="+type+"&user_level="+user_level+"&obl="+obl+"&sel="+sel+"&score="+score;
         }
 
         $scope.menu = {
             provincelist: ""
         }
 
+
+
         init();
+
         function init() {
             AJAX.getRequest(provinceURL, 'GET', '')/**Ê¡·Ý*/
                 .success(function (data, status) {
                     $scope.table.provincelist = data.response.list;
                 });
+
+            $scope.firstDoor = [
+                {
+                    id: "5",
+                    name: "A+"
+                }, {
+                    id: 4,
+                    name: "A",
+                }, {
+                    id: 3,
+                    name: "B+",
+                }, {
+                    id: 2,
+                    name: "B+",
+                }, {
+                    id: 1,
+                    name: "C",
+                }, {
+                    id: 0,
+                    name: "D",
+                }
+            ];
         }
 
 }]);

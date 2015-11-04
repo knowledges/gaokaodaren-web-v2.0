@@ -3,48 +3,36 @@
  */
 angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 .constant("provinceURL","/city/province")
-//.constant("provinceURL","../JSON/province.json")
 .constant("tubeURL","../JSON/attribute.json")
-//.constant("propURL","/school/prop?depart_type=1")
 .constant("propURL","../JSON/prop.json")
 .constant("type2","../JSON/areali_1.json")
 .constant("type4","../JSON/areali_2.json")
 .constant("type6","../JSON/areali_3.json")
-
 .constant("type1","../JSON/areawen_1.json")
 .constant("type3","../JSON/areawen_2.json")
 .constant("type5","../JSON/areawen_3.json")
-
 .constant("type8","../JSON/areagl_1.json")
 .constant("type7","../JSON/areagw_1.json")
+.controller("wishTabCtr-attr",['$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle",'type1','type2','type3','type4','type5','type6','type7','type8',function($scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle,type1,type2,type3,type4,type5,type6,type7,type8){
 
-.controller("wishTabCtr-attr",['$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection","loadingFilter",'type1','type2','type3','type4','type5','type6','type7','type8',function($scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection,loadingFilter,type1,type2,type3,type4,type5,type6,type7,type8){
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
         $scope.areaArr = [];
-        $scope.style="";
-        $scope.attribute="";
-        $scope.belongs="";
+        $scope.style = "";
+        $scope.attribute = "";
+        $scope.belongs = "";
         $scope.tube = "";
         $scope.isShowProperty = false;
         $scope.screening = true;
         $scope.btnStyle = true;
-        //////////////////////////////////////////////////////////////
 
         $scope.zyb = {
-            city_prefer:[],//优先地区
-            city_ignore:[],//拒绝地区
-            city_name:[],//优先地区名称
-            style_prefer:[],//院校分类
-            style_ignore:[],//院校分类
-            style_name:[],//院校分类
-            attr_prefer:[],//办学性质
-            attr_ignore:[],//办学性质
-            attr_name:[],//办学性质
-            belongs_prefer:[],//属管
-            belongs_ignore:[],//属管
-            belongs_name:[],//属管
-        }
+            city_name: [],//优先地区名称
+            style_name: [],//院校分类
+            attr_name: [],//办学性质
+            belongs_name: [],//属管，
+            prop_name: [],//院校特色
+        };
 
         init();
 
@@ -97,6 +85,32 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                     $scope.attribute = arr_attr;
                     $scope.belongs = attr_belongs;
                 });
+
+            AJAX.getRequest(tubeURL,'GET',"")
+                .success(function(data,status){
+                    var list = data.response;
+                    var tube_list = [];
+                    for(var i = 0; i< list.length;i++){
+                        if($scope.attr.u_level == 3){
+                            if(list[i].type == 2){
+                                tube_list.push(list[i]);
+                            }
+                        }else{
+                            if(list[i].type == 1){
+                                tube_list.push(list[i]);
+                            }
+                        }
+
+                    }
+                    tube_list.join(',');
+                    $scope.tube = tube_list ;
+                });
+
+            //TODO new  加载内容 二期
+
+            $scope.clickScreen = function(isTrue){
+                $scope.screening = isTrue;
+            }
         }
 
         var TimeFn = null;
@@ -110,12 +124,9 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
-
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
-
-                clickEvent(target,state,then,id,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
-
+                loadClickEvent.clickEvent(target,state,then,id,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
             },400);
         }
 
@@ -125,8 +136,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
-
-                clickEvent(target,state,then,id,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+                loadClickEvent.clickEvent(target,state,then,id,$scope.attr.style_ignore,$scope.attr.style_prefer,$scope.zyb.style_name);
             },400);
         }
 
@@ -136,8 +146,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
-
-                clickEvent(target,state,then,id,$scope.zyb.attr_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+                loadClickEvent.clickEvent(target,state,then,id,$scope.attr.attr_ignore,$scope.attr.attr_prefer,$scope.zyb.attr_name);
             },400);
         }
 
@@ -147,26 +156,54 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
-
-                clickEvent(target,state,then,id,$scope.zyb.belongs_ignore,$scope.zyb.belongs_prefer,$scope.zyb.belongs_name);
+                loadClickEvent.clickEvent(target,state,then,id,$scope.attr.belongs_ignore,$scope.attr.belongs_prefer,$scope.zyb.belongs_name);
             },400);
         }
 
-        function clickEvent(target,state,then,id,ignore,prefer,name){
-            if(state == 2 ){
-                ignore.splice($.inArray(id,ignore),1);
-                $(target).attr('state',0);
-                $(target).removeClass().addClass("btn btn-sm btn-default");
-            }else if(state == 1){
-                prefer.splice($.inArray(id,prefer),1);
-                name.splice($.inArray(then,name),1);
-                $(target).attr('state',0)
-                $(target).removeClass().addClass("btn btn-sm btn-default");
-            }else {
-                prefer.push(id);
-                name.push(then);
-                $(target).attr('state',1)
-                $(target).removeClass().addClass("btn btn-sm btn-success");
+        $scope.clickProp = function($event,id,type){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                if(state == 2){
+                    propState(false,id,type);
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1)
+                    $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+                }else if (state == 1){
+                    propState(false,id,type);
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1)
+                    $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+                }else {
+                    propState(true,id,type);
+                    $scope.zyb.prop_name.push(then);
+                    $(target).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                }
+            },400);
+        }
+
+        /**
+         * 修改prop状态
+         * ture or false
+         * */
+        function propState(isTrue,id,type){
+            if (type == 1) {
+                if (id == 0) {
+                    $scope.attr.prop7 = isTrue;
+                } else if (id == 1) {
+                    $scope.attr.prop3 = isTrue;
+                } else if (id == 2) {
+                    $scope.attr.prop4 = isTrue;
+                } else if (id == 24) {
+                    $scope.attr.prop8 = isTrue;
+                }
+            } else {
+                if (id == 1) {
+                    $scope.attr.level1 = isTrue;
+                } else if (id == 2) {
+                    $scope.attr.level2 = isTrue;
+                }
             }
         }
 
@@ -179,7 +216,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             var target = $event.target,
                 state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-            dblclickEvent(target,state,then,id,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
+            loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
 
         }
 
@@ -189,7 +226,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             var target = $event.target,
                 state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-            dblclickEvent(target,state,then,id,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+            loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.attr.style_ignore,$scope.attr.style_prefer,$scope.zyb.style_name);
 
         }
 
@@ -199,7 +236,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             var target = $event.target,
                 state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-            dblclickEvent(target,state,then,id,$scope.zyb.attr_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+            loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.attr.attr_ignore,$scope.attr.attr_prefer,$scope.zyb.attr_name);
 
         }
 
@@ -209,7 +246,28 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             var target = $event.target,
                 state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
-            dblclickEvent(target,state,then,id,$scope.zyb.belongs_ignore,$scope.zyb.belongs_prefer,$scope.zyb.belongs_name);
+            loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.attr.belongs_ignore,$scope.attr.belongs_prefer,$scope.zyb.belongs_name);
+
+        }
+
+        $scope.dblclickProp = function($event,id,type){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+            if(state == 2){
+                propState(false,id,type);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else if (state == 1){
+                propState(false,id,type);
+                $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+            }else {
+                propState(false,id,type);
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+            }
 
         }
 
@@ -230,64 +288,91 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         $scope.allCity = function(provinceId){
             var arr = $("button[province="+provinceId+"]");
-            all(arr,$scope.zyb.city_prefer,$scope.zyb.city_name);
+            loadClickAll.all(arr,$scope.attr.city_prefer,'city',$scope.zyb.city_name);
         }
 
         $scope.allStyle = function(){
             var arr = $('button[style]');
-            all(arr,$scope.zyb.style_prefer,$scope.zyb.style_name)
+            loadClickAll.all(arr,$scope.attr.style_prefer,'style',$scope.zyb.style_name)
         }
 
         $scope.allAttr = function(){
             var arr = $('button[attr]');
-            all(arr,$scope.zyb.attr_prefer,$scope.zyb.attr_name)
+            loadClickAll.all(arr,$scope.attr.attr_prefer,'attr',$scope.zyb.attr_name)
         }
 
         $scope.allBelongs = function(){
             var arr = $('button[belongs]');
-            all(arr,$scope.zyb.attr_prefer,$scope.zyb.attr_name)
+            loadClickAll.all(arr,$scope.attr.attr_prefer,'belongs',$scope.zyb.attr_name)
         }
 
-        function all(arr,prefer,name){
-            for(var i = 0; i< arr.length;i++){
-                if(arr.eq(i).attr('state')!=1){
-                    arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
-                    prefer.push(arr.eq(i).attr('city'));
-                    name.push(arr.eq(i).html());
+        $scope.allProp = function(){
+            var arr = $('button[prop]');
+            loadClickAll.all(arr,"",$scope.zyb.prop_name,1);
+        }
+
+        function all(arr,prefer,name,type){
+            if(type ==undefined){
+                for(var i = 0; i< arr.length;i++){
+                    if(arr.eq(i).attr('state')!=1){
+                        arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                        prefer.push(arr.eq(i).attr('city'));
+                        name.push(arr.eq(i).html());
+                    }
+                }
+            }else{
+                for(var i = 0; i< arr.length;i++){
+                    if(arr.eq(i).attr('state')!=1){
+                        arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                        if(arr.eq(i).attr('prop') == "prop3"){
+                            $scope.attr.prop3 = true;
+                        }else if(arr.eq(i).attr('prop') == "prop4"){
+                            $scope.attr.prop4 = true;
+                        }else if(arr.eq(i).attr('prop') == "prop7"){
+                            $scope.attr.prop7 = true;
+                        }else if (arr.eq(i).attr('prop') == "prop8"){
+                            $scope.attr.prop8 = true;
+                        }else if (arr.eq(i).attr('prop') == "level1"){
+                            $scope.attr.level1 = true;
+                        }else if (arr.eq(i).attr('prop') == "level2"){
+                            $scope.attr.level2 = true;
+                        }
+                        name.push(arr.eq(i).html());
+                    }
                 }
             }
-        }
 
+        }
 
         $scope.cancleCity = function(provinceId){
             var arr = $("button[province="+provinceId+"]");
-            cancle(arr,$scope.zyb.city_ignore,$scope.zyb.city_prefer,$scope.zyb.city_name);
+            loadClickCancle.reject(arr,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
         }
 
         $scope.cancleStyle = function(){
             var arr = $('button[style]');
-            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.style_prefer,$scope.zyb.style_name);
+            loadClickCancle.reject(arr,$scope.attr.style_ignore,$scope.attr.style_prefer,$scope.zyb.style_name);
         }
 
         $scope.cancleAttr = function(){
             var arr = $('button[attr]');
-            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+            loadClickCancle.reject(arr,$scope.attr.attr_ignore,$scope.attr.attr_prefer,$scope.zyb.attr_name);
         }
 
         $scope.cancleBelongs = function(){
             var arr = $('button[Belongs]');
-            cancle(arr,$scope.zyb.style_ignore,$scope.zyb.attr_prefer,$scope.zyb.attr_name);
+            loadClickCancle.reject(arr,$scope.attr.belongs_ignore,$scope.attr.belongs_prefer,$scope.zyb.attr_name);
         }
 
-        function cancle(arr,ignore,prefer,name){
-
-            for(var i = 0; i< arr.length;i++){
-                arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
-                ignore.push(arr.eq(i).attr('city'));
-                prefer.splice($.inArray(arr.eq(i).attr('city'), prefer),1)
-                name.splice($.inArray(arr.eq(i).html(), name),1)
-            }
-
+        $scope.cancleProp = function(){
+            var arr = $('button[prop]');
+            loadClickCancle.reject(arr,"","",$scope.zyb.prop_name,1);
         }
+
+        $scope.$watch($scope.zyb.city_name,function(newValue,oldValue,scope){
+            debugger;
+            console.log(oldValue);
+            console.log(newValue);
+        });
 
 }]);

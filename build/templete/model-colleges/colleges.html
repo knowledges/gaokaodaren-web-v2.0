@@ -1,29 +1,27 @@
 <div class="borselected" ng-if="screenCollege">
-    <div class="row" ng-if="isShowColleges">
+    <div class="row" ng-if="zyb.depart_name.length>0">
         <div class="col-sm-2 text-right">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
-            <li ng-repeat="depart in depart_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{depart}}<i class="icon-remove" ng-click="removeThis($index)"></i> </a></li>
-            <!--<li ng-repeat="style in style_list"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}<i class="icon-remove" ng-click="removeThis(style,2)"></i> </a></li>-->
-            <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>
+            <li ng-repeat="depart in zyb.depart_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{depart}}</a></li>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2 text-right">
             <label>具体专业 <i class="icon-angle-right"></i></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allMarjor()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleMarjor()">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in marjor_list">
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedMarjor({{list.id}})" ng-click="inputClick(list.id,list.name)" value="{{list.id}}" />{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default marjor" marjor="{{list.id}}" ng-click="clickMarjor($event,list.id)" ng-dblclick="dblclickMarjor($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm-12 text-left">
             <label>专业类别 <i class="icon-angle-right"></i></label>
@@ -33,14 +31,13 @@
         <div class="col-sm-2 text-right menu-list">
             <li><a href="javascript:;;"><label>{{lists.class_name}}</label></a></li>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allMarList(lists.class_id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleMarList(lists.class_id)">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off"  ng-checked="isCheckedMarjor({{list.id}})"  ng-click="inputClick(list.id,list.name)" />{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default city" class_id="{{list.class_id}}" article_id="{{list.article_id}}" ng-click="clickClass($event,list.id)" ng-dblclick="dblclickArticle($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>

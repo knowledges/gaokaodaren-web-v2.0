@@ -1,6 +1,6 @@
 <div class="borselected" ng-if="screening">
     <!-- ng-if="isShowProperty || attr.prop3 || attr.prop4 || attr.prop7 || attr.prop8 || attr.level1 || attr.level2 "-->
-    <div class="row" ng-if="zyb.city_name.length>0 || zyb.style_name.length>0 || zyb.attr_name.length>0 || zyb.belongs_name.length>0 ">
+    <div class="row" ng-if="zyb.city_name.length>0 || zyb.style_name.length>0 || zyb.attr_name.length>0 || zyb.belongs_name.length>0  || attr.prop3 || attr.prop4 || attr.prop7 || attr.prop8 || attr.level1 || attr.level2 ">
         <div class="col-sm-2 text-right">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
@@ -10,12 +10,12 @@
             <li ng-repeat="style in zyb.style_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}</a></li>
             <li ng-repeat="attribute in zyb.attr_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{attribute}}</a></li>
             <li ng-repeat="belongs in zyb.belongs_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{belongs}}</a></li>
-            <!--<li ng-if="attr.prop3"><a href="javascript:;;" class="btn btn-default btn-xs" >985工程高校<i class="icon-remove" ng-click="removeThis($index,5,'985工程高校')"></i></a></li>-->
-            <!--<li ng-if="attr.prop4"><a href="javascript:;;" class="btn btn-default btn-xs" >211工程高校<i class="icon-remove" ng-click="removeThis($index,5,'211工程高校')"></i></a></li>-->
-            <!--<li ng-if="attr.prop7"><a href="javascript:;;" class="btn btn-default btn-xs" >C9联盟<i class="icon-remove" ng-click="removeThis($index,5,'C9联盟')"></i></a></li>-->
-            <!--<li ng-if="attr.prop8"><a href="javascript:;;" class="btn btn-default btn-xs" >中外合作办学<i class="icon-remove" ng-click="removeThis($index,5,'中外合作办学')"></i></a></li>-->
-            <!--<li ng-if="attr.level1"><a href="javascript:;;" class="btn btn-default btn-xs" >国家示范性高等职业院校<i class="icon-remove" ng-click="removeThis($index,5,'国家示范性高等职业院校')"></i></a></li>-->
-            <!--<li ng-if="attr.level2"><a href="javascript:;;" class="btn btn-default btn-xs" >国家级实训基地院校<i class="icon-remove" ng-click="removeThis($index,5,'国家级实训基地院校')"></i></a></li>-->
+            <li ng-if="attr.prop3"><a href="javascript:;;" class="btn btn-default btn-xs" >985工程高校</a></li>
+            <li ng-if="attr.prop4"><a href="javascript:;;" class="btn btn-default btn-xs" >211工程高校</a></li>
+            <li ng-if="attr.prop7"><a href="javascript:;;" class="btn btn-default btn-xs" >C9联盟</a></li>
+            <li ng-if="attr.prop8"><a href="javascript:;;" class="btn btn-default btn-xs" >中外合作办学</a></li>
+            <li ng-if="attr.level1"><a href="javascript:;;" class="btn btn-default btn-xs" >国家示范性高等职业院校</a></li>
+            <li ng-if="attr.level2"><a href="javascript:;;" class="btn btn-default btn-xs" >国家级实训基地院校</a></li>
             <!--<li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="removeAll()">清除所有</a></li>-->
         </div>
     </div>
@@ -89,34 +89,21 @@
         <div class="col-sm-2 text-right">
             <label>院校特色 <i class="icon-angle-right"></i></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;"  class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allProp()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleProp()">拒绝所有</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
-            <!--<li><a href="javascript:;;" >211 工程</a></li>-->
+        <div class="col-sm-7 menu-list text-left">
 
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in tube" >
-                <label class="btn btn-primary btn-sm" ng-if="list.name == 'C9联盟' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.prop7" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name == '985工程高校' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.prop3" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name == '211工程高校' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.prop4" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name == '中外合作办学' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.prop8" value="{{list.id}}"/>{{list.name}}
-                </label>
-
-                <label class="btn btn-primary btn-sm" ng-if="list.name == '国家示范性高等职业院校' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.level1" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name == '国家级实训基地院校' ">
-                    <input type="checkbox" autocomplete="off" ng-model="attr.level2" value="{{list.id}}"/>{{list.name}}
-                </label>
-
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == 'C9联盟'" prop="prop7"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == '985工程高校'" prop="prop3"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == '211工程高校'" prop="prop4"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == '中外合作办学'" prop="prop8"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == '国家示范性高等职业院校'" prop="level1"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default prop" ng-if="list.name == '国家级实训基地院校'" prop="level2"  ng-click="clickProp($event,list.id,list.type)" ng-dblclick="dblclickProp($event,list.id,list.type)">{{list.name}}</button>
             </div>
+
         </div>
     </div>
 </div>

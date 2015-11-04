@@ -12,7 +12,8 @@ angular.module("gaokaoAPP.about",['ui.router'])
             /////////////
             .state('about', {
                 url: '/about',
-                templateUrl:'html/about/about.html'
+                templateUrl:'html/about/about.html',
+                data: { isPublic: true}
             })
             ///////////////////
             ///  city > nav ///
@@ -20,6 +21,7 @@ angular.module("gaokaoAPP.about",['ui.router'])
             .state('about.nav',{
                 url:'/',
                 templateUrl:'html/nav/nav.html',
+                data: { isPublic: true},
                 controller:"aboutNav"
             })
     })

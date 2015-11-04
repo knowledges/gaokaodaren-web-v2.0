@@ -107,6 +107,112 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             }
         }
 }])
+.factory("loadClickEvent",[function(){
+    return {
+        clickEvent:function(target,state,then,id,ignore,prefer,name){
+            if(state == 2 ){
+                ignore.splice($.inArray(id,ignore),1);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else if(state == 1){
+                prefer.splice($.inArray(id,prefer),1);
+                name.splice($.inArray(then,name),1);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else {
+                prefer.push(id);
+                name.push(then);
+                $(target).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+            }
+        }
+    }
+
+}])
+.factory("loadDblclickEvent",[function(){
+    return {
+        dblclickEvent :function(target,state,then,id,ignore,prefer,name){
+            if(state == 2){
+                ignore.splice($.inArray(id,ignore),1);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else if(state == 1){
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                prefer.splice($.inArray(id,prefer),1);
+                name.splice($.inArray(then,name),1);
+                ignore.push(id);
+            }else if (state == 0){
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                ignore.push(id);
+            }
+        }
+    }
+}])
+.factory("loadClickAll",[function(){
+        return {
+            all:function(arr,prefer,attr,name,type){
+                if(type ==undefined){
+                    for(var i = 0; i< arr.length;i++){
+                        if(arr.eq(i).attr('state')!=1){
+                            arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                            prefer.push(arr.eq(i).attr(attr));
+                            name.push(arr.eq(i).html());
+                        }
+                    }
+                }else{
+                    for(var i = 0; i< arr.length;i++){
+                        if(arr.eq(i).attr('state')!=1){
+                            arr.eq(i).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                            if(arr.eq(i).attr('prop') == "prop3"){
+                                $scope.attr.prop3 = true;
+                            }else if(arr.eq(i).attr('prop') == "prop4"){
+                                $scope.attr.prop4 = true;
+                            }else if(arr.eq(i).attr('prop') == "prop7"){
+                                $scope.attr.prop7 = true;
+                            }else if (arr.eq(i).attr('prop') == "prop8"){
+                                $scope.attr.prop8 = true;
+                            }else if (arr.eq(i).attr('prop') == "level1"){
+                                $scope.attr.level1 = true;
+                            }else if (arr.eq(i).attr('prop') == "level2"){
+                                $scope.attr.level2 = true;
+                            }
+                            name.push(arr.eq(i).html());
+                        }
+                    }
+                }
+
+            }
+        }
+
+}])
+.factory("loadClickCancle",[function(){
+    return {
+        reject:function(arr,ignore,prefer,name,type){
+            if(type ==undefined){
+                for(var i = 0; i< arr.length;i++){
+                    arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                    ignore.push(arr.eq(i).attr('city'));
+                    prefer.splice($.inArray(arr.eq(i).attr('city'), prefer),1)
+                    name.splice($.inArray(arr.eq(i).html(), name),1)
+                }
+            }else{
+                for(var i = 0; i< arr.length;i++){
+                    arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                    if(arr.eq(i).attr('prop') == "prop3"){
+                        $scope.attr.prop3 = false;
+                    }else if(arr.eq(i).attr('prop') == "prop4"){
+                        $scope.attr.prop4 = false;
+                    }else if(arr.eq(i).attr('prop') == "prop7"){
+                        $scope.attr.prop7 = false;
+                    }else if (arr.eq(i).attr('prop') == "prop8"){
+                        $scope.attr.prop8 = false;
+                    }else if (arr.eq(i).attr('prop') == "level1"){
+                        $scope.attr.level1 = false;
+                    }else if (arr.eq(i).attr('prop') == "level2"){
+                        $scope.attr.level2 = false;
+                    }
+                    name.splice($.inArray(arr.eq(i).html(), name),1)
+                }
+            }
+        }
+    }
+}])
 .controller("wishTabCtr-info", ['$scope','$location','ZYBinfoDATA',function ($scope,$location,ZYBinfoDATA) {
 
         var yxb = [
@@ -137,14 +243,6 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             yxb_title:""
         }
 
-        ZYBinfoDATA.types = $location.$$search.type == true ? 1 :$location.$$search.type;
-        ZYBinfoDATA.u_level = $location.$$search.user_level == true ? 1 :$location.$$search.user_level;
-
-        $scope.table.yxb = yxb[ ZYBinfoDATA.types];
-        $scope.table.yxb_title = yxb_title[ZYBinfoDATA.u_level];
-
-        $scope.info = ZYBinfoDATA;
-
         $scope.firstDoor = [
             {
                 id: "5",
@@ -166,6 +264,18 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
                 name: "D",
             }
         ];
+
+        ZYBinfoDATA.types = $location.$$search.type == true ? 1 : $location.$$search.type;
+        ZYBinfoDATA.u_level = $location.$$search.user_level == true ? 1 : $location.$$search.user_level;
+        ZYBinfoDATA.obl = $location.$$search.obl == undefined ? "" : $scope.firstDoor[$location.$$search.obl];
+        ZYBinfoDATA.sel = $location.$$search.sel == undefined ? "" : $scope.firstDoor[$location.$$search.sel];
+        ZYBinfoDATA.scroe = $location.$$search.score == undefined ? "" : $location.$$search.score;
+
+
+        $scope.table.yxb = yxb[ZYBinfoDATA.types];
+        $scope.table.yxb_title = yxb_title[ZYBinfoDATA.u_level];
+
+        $scope.info = ZYBinfoDATA;
 
 }])
 //.controller("wishTabCtr-screenProp",["$scope","AJAX","ZYBinfoDATA","submitURL",function($scope,AJAX,ZYBinfoDATA,submitURL){
