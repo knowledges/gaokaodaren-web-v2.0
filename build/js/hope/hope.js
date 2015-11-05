@@ -107,7 +107,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             }
         }
 }])
-.factory("loadClickEvent",[function(){
+.factory("loadClickEvent",['$rootScope',function($rootScope){
     return {
         clickEvent:function(target,state,then,id,ignore,prefer,name){
             if(state == 2 ){
@@ -126,7 +126,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
     }
 
 }])
-.factory("loadDblclickEvent",[function(){
+.factory("loadDblclickEvent",['$rootScope',function($rootScope){
     return {
         dblclickEvent :function(target,state,then,id,ignore,prefer,name){
             if(state == 2){
@@ -144,7 +144,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         }
     }
 }])
-.factory("loadClickAll",[function(){
+.factory("loadClickAll",['$rootScope',function($rootScope){
         return {
             all:function(arr,prefer,attr,name,type){
                 if(type ==undefined){
@@ -181,14 +181,14 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         }
 
 }])
-.factory("loadClickCancle",[function(){
+.factory("loadClickCancle",['$rootScope',function($rootScope){
     return {
-        reject:function(arr,ignore,prefer,name,type){
+        reject:function(arr,ignore,prefer,attr,name,type){
             if(type ==undefined){
                 for(var i = 0; i< arr.length;i++){
                     arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
-                    ignore.push(arr.eq(i).attr('city'));
-                    prefer.splice($.inArray(arr.eq(i).attr('city'), prefer),1)
+                    ignore.push(arr.eq(i).attr(attr));
+                    prefer.splice($.inArray(arr.eq(i).attr(attr), prefer),1)
                     name.splice($.inArray(arr.eq(i).html(), name),1)
                 }
             }else{
@@ -213,6 +213,22 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         }
     }
 }])
+.factory("loadCancleAll",function(){
+        return {
+            cancleAll:function(prefer,ignore,list,attr){
+                for (var i = 0; i < prefer; i++) {
+                    for (var j = 0; j < list; j++) {
+                        if(prefer[i] != list[i].id){
+                            if($.inArray(list[i].id,ignore)<0){
+                               ignore.push(list[i].id);
+                            }
+                        }
+                    }
+                }
+                $("button["+attr+"][state!=1]").attr('state',2).removeClass().addClass('btn btn-sm btn-danger');
+            }
+        }
+    })
 .controller("wishTabCtr-info", ['$scope','$location','ZYBinfoDATA',function ($scope,$location,ZYBinfoDATA) {
 
         var yxb = [

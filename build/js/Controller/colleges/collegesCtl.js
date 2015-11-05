@@ -5,11 +5,13 @@ angular.module("gaokaoAPP.hope.college",[])
 .constant("marjorURL","../JSON/marjor.json")
 //.constant("departURL","../JSON/marjorType.json")
 .constant("departURL","/depart/new")
-.controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle){
+.controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle","loadCancleAll",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle,loadCancleAll){
 
         $scope.marjor = ZYBinfoDATA;
         $scope.isShowColleges = false;
         $scope.screenCollege = true;
+        $scope.isMarjor = 0;
+        $scope.isMarjorList = 0;
         $scope.zyb = {
             depart_name:[]
         }
@@ -46,6 +48,7 @@ angular.module("gaokaoAPP.hope.college",[])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+                $scope.isMarjor = 1;
                 loadClickEvent.clickEvent(target,state,then,id,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,$scope.zyb.depart_name);
             },400);
         }
@@ -56,6 +59,7 @@ angular.module("gaokaoAPP.hope.college",[])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+                $scope.isMarjorList = 1;
                 loadClickEvent.clickEvent(target,state,then,id,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,$scope.zyb.depart_name);
             },400);
         }
@@ -88,12 +92,20 @@ angular.module("gaokaoAPP.hope.college",[])
 
         $scope.cancleMarjor = function(){
             var arr = $('button[marjor]');
-            loadClickCancle.reject(arr,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,$scope.zyb.depart_name);
+            loadClickCancle.reject(arr,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,'marjor',$scope.zyb.depart_name);
         }
 
         $scope.cancleMarList = function(class_id){
             var arr = $("button[class_id="+class_id+"]");
-            loadClickCancle.reject(arr,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,$scope.zyb.depart_name);
+            loadClickCancle.reject(arr,$scope.marjor.depart_ignore,$scope.marjor.depart_prefer,'article_id',$scope.zyb.depart_name);
+        }
+
+        $scope.cancleAll = function(num){
+            if(num == 1){
+                loadCancleAll.cancleAll($scope.marjor.depart_prefer,$scope.marjor.depart_ignore,$scope.marjor_list,'marjor');
+            }else{
+                loadCancleAll.cancleAll($scope.marjor.depart_prefer,$scope.marjor.depart_ignore,$scope.marjorType,'class_id');
+            }
         }
 
         $scope.clickScreen = function(isTrue){

@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm-10 menu-list text-left">
             <!-- <i class="icon-remove" ng-click="removeThis($index,1)"></i> -->
-            <li ng-repeat="name in zyb.city_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{name}}</a></li>
+            <li ng-repeat="name in zyb.city_name"><a href="javascript:;;" ng-model="zyb.city_name" class="btn btn-default btn-xs">{{name}}</a></li>
             <li ng-repeat="style in zyb.style_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{style}}</a></li>
             <li ng-repeat="attribute in zyb.attr_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{attribute}}</a></li>
             <li ng-repeat="belongs in zyb.belongs_name"><a href="javascript:;;" class="btn btn-default btn-xs" >{{belongs}}</a></li>
@@ -21,9 +21,13 @@
     </div>
     
     <div class="row">
-        <div class="col-sm-12 text-left">
+        <div class="col-sm-8 text-left">
             <label>院校属地：</label>
             <i class="icon-angle-right"></i>
+        </div>
+        <div class="col-sm-4 text-right" ng-if="isClick > 0">
+            是否拒绝剩下所有属地：
+            <button class="btn btn-danger" ng-click="cancleAll()">确定</button>
         </div>
     </div>
     
@@ -33,7 +37,7 @@
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allCity(lists.province)">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleCity(lists.province)">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleCity(lists.province)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">
@@ -47,7 +51,7 @@
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allStyle()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleStyle()">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleStyle()">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in style">
@@ -61,7 +65,7 @@
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allAttr()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleAttr()">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleAttr()">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in attribute" >
@@ -75,7 +79,7 @@
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allBelongs()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleBelongs()">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleBelongs()">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list  text-left">
 
@@ -91,7 +95,7 @@
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allProp()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleProp()">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleProp()">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
 

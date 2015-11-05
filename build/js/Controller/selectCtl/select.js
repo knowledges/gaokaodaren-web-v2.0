@@ -13,7 +13,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 .constant("type5","../JSON/areawen_3.json")
 .constant("type8","../JSON/areagl_1.json")
 .constant("type7","../JSON/areagw_1.json")
-.controller("wishTabCtr-attr",['$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle",'type1','type2','type3','type4','type5','type6','type7','type8',function($scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle,type1,type2,type3,type4,type5,type6,type7,type8){
+.controller("wishTabCtr-attr",['$rootScope','$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle","loadCancleAll",'type1','type2','type3','type4','type5','type6','type7','type8',function($rootScope,$scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle,loadCancleAll,type1,type2,type3,type4,type5,type6,type7,type8){
 
         $scope.attr = ZYBinfoDATA;
         $scope.area = "";
@@ -25,7 +25,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         $scope.isShowProperty = false;
         $scope.screening = true;
         $scope.btnStyle = true;
-
+        $scope.isClick = 0;
         $scope.zyb = {
             city_name: [],//优先地区名称
             style_name: [],//院校分类
@@ -126,6 +126,9 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
             TimeFn = $timeout(function(){
                 var target = $event.target,
                     state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                $scope.isClick = 1;
+
                 loadClickEvent.clickEvent(target,state,then,id,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
             },400);
         }
@@ -169,11 +172,11 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
                 if(state == 2){
                     propState(false,id,type);
-                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1)
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
                     $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
                 }else if (state == 1){
                     propState(false,id,type);
-                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1)
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
                     $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
                 }else {
                     propState(true,id,type);
@@ -217,7 +220,6 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                 state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
 
             loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
-
         }
 
         $scope.dblclickStyle = function($event,id){
@@ -271,21 +273,6 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         }
 
-        function dblclickEvent(target,state,then,id,ignore,prefer,name){
-            if(state == 2){
-                ignore.splice($.inArray(id,ignore),1);
-                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
-            }else if(state == 1){
-                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
-                prefer.splice($.inArray(id,prefer),1);
-                name.splice($.inArray(then,name),1);
-                ignore.push(id);
-            }else if (state == 0){
-                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
-                ignore.push(id);
-            }
-        }
-
         $scope.allCity = function(provinceId){
             var arr = $("button[province="+provinceId+"]");
             loadClickAll.all(arr,$scope.attr.city_prefer,'city',$scope.zyb.city_name);
@@ -308,7 +295,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         $scope.allProp = function(){
             var arr = $('button[prop]');
-            loadClickAll.all(arr,"",$scope.zyb.prop_name,1);
+            loadClickAll.all(arr,"",'prop',$scope.zyb.prop_name,1);
         }
 
         function all(arr,prefer,name,type){
@@ -346,33 +333,31 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         $scope.cancleCity = function(provinceId){
             var arr = $("button[province="+provinceId+"]");
-            loadClickCancle.reject(arr,$scope.attr.city_ignore,$scope.attr.city_prefer,$scope.zyb.city_name);
+            loadClickCancle.reject(arr,$scope.attr.city_ignore,$scope.attr.city_prefer,'city',$scope.zyb.city_name);
         }
 
         $scope.cancleStyle = function(){
             var arr = $('button[style]');
-            loadClickCancle.reject(arr,$scope.attr.style_ignore,$scope.attr.style_prefer,$scope.zyb.style_name);
+            loadClickCancle.reject(arr,$scope.attr.style_ignore,$scope.attr.style_prefer,'style',$scope.zyb.style_name);
         }
 
         $scope.cancleAttr = function(){
             var arr = $('button[attr]');
-            loadClickCancle.reject(arr,$scope.attr.attr_ignore,$scope.attr.attr_prefer,$scope.zyb.attr_name);
+            loadClickCancle.reject(arr,$scope.attr.attr_ignore,$scope.attr.attr_prefer,'attr',$scope.zyb.attr_name);
         }
 
         $scope.cancleBelongs = function(){
             var arr = $('button[Belongs]');
-            loadClickCancle.reject(arr,$scope.attr.belongs_ignore,$scope.attr.belongs_prefer,$scope.zyb.attr_name);
+            loadClickCancle.reject(arr,$scope.attr.belongs_ignore,$scope.attr.belongs_prefer,'belongs',$scope.zyb.attr_name);
         }
 
         $scope.cancleProp = function(){
             var arr = $('button[prop]');
-            loadClickCancle.reject(arr,"","",$scope.zyb.prop_name,1);
+            loadClickCancle.reject(arr,"","",'prop',$scope.zyb.prop_name,1);
         }
 
-        $scope.$watch($scope.zyb.city_name,function(newValue,oldValue,scope){
-            debugger;
-            console.log(oldValue);
-            console.log(newValue);
-        });
+        $scope.cancleAll = function(){
+            loadCancleAll.cancleAll($scope.attr.city_prefer,$scope.attr.city_ignore,$scope.area,'city')
+        }
 
 }]);

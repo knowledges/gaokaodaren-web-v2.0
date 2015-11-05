@@ -8,12 +8,17 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-12 text-right" ng-if="isMarjor > 0">
+            是否拒绝剩下所有具体专业：
+            <button class="btn btn-danger" ng-click="cancleAll(1)">确定</button>
+        </div>
+
         <div class="col-sm-2 text-right">
             <label>具体专业 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-3 text-right menu-list">
             <button class="btn btn-sm btn-success" ng-click="allMarjor()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleMarjor()">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleMarjor()">决绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in marjor_list">
@@ -23,8 +28,12 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 text-left">
+        <div class="col-sm-8 text-left">
             <label>专业类别 <i class="icon-angle-right"></i></label>
+        </div>
+        <div class="col-sm-4 text-right" ng-if="isMarjorList > 0">
+            是否拒绝剩下所有专业：
+            <button class="btn btn-danger" ng-click="cancleAll(2)">确定</button>
         </div>
     </div>
     <div class="row hope-line"  ng-repeat="lists in marjorType">
@@ -33,7 +42,7 @@
         </div>
         <div class="col-sm-3 menu-list">
             <button class="btn btn-sm btn-success" ng-click="allMarList(lists.class_id)">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleMarList(lists.class_id)">拒绝所有</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleMarList(lists.class_id)">决绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in lists.list">

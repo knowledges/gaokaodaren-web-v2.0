@@ -59,8 +59,6 @@ angular.module("gaokaoAPP.home",[])
             provincelist: ""
         }
 
-
-
         init();
 
         function init() {
@@ -90,6 +88,10 @@ angular.module("gaokaoAPP.home",[])
                     name: "D",
                 }
             ];
+
+            $('.carousel').carousel({
+                interval: 5000
+            })
         }
 
 }]);

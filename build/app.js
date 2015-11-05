@@ -187,10 +187,10 @@ angular.module("gaokaoAPP",[
             $scope.user.islogin = false;
         }
 
-        $scope.$watch(sessionStorage.getItem('usernumber'),function(newValue,oldValue,scope){
-                console.log(newValue);
-                console.log(oldValue);
-        })
+        //$scope.$watch(sessionStorage.getItem('usernumber'),function(newValue,oldValue,scope){
+        //        console.log(newValue);
+        //        console.log(oldValue);
+        //})
 
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');

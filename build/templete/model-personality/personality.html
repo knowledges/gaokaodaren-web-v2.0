@@ -1,5 +1,5 @@
 <div ng-if="screening">
-    <div class="row hope-line" ng-if="isShowPersonality ||personality.economy_option || personality.prop5 ||personality.prop6">
+    <div class="row hope-line">
         <div class="col-sm-2 text-right ">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
@@ -33,14 +33,13 @@
         <div class="col-sm-2 text-right">
             <label>{{grads.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allGraduate()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleGraduate()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in grads.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGraduate({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,1)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="graduate" ng-click="clickEveGraduate($event,list.id)" ng-dblclick="dblclickEveGraduate($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -55,14 +54,13 @@
         <div class="col-sm-2 text-right">
             <label>{{departs.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allDepart()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleDepart()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in departs.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedDepeart({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,2)"/>{{list.name}}
-                </label>
+        <div class="col-sm-7 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in departs.list">
+                <button class="btn btn-sm btn-default" type="depart" ng-click="clickEveDepart($event,list.id)" ng-dblclick="dblclickEveDepart($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -77,14 +75,13 @@
         <div class="col-sm-2 text-right">
             <label>强学科</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allCourse()">全选</button>
+            <button class="btn btn-sm btn-danger" >拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_prefer({{list.id}})" value="{{list.id}}"  ng-click="inputClick(list.id,list.name,10)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="course" ng-click="clickEveCourse($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -93,14 +90,13 @@
         <div class="col-sm-2 text-right">
             <label>弱学科</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleCourse()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
-                <label class="btn btn-warning btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedCourse_ignore({{list.id}})" value="{{list.id}}" ng-click="inputClick(list.id,list.name,11)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="course" ng-dblclick="dblclickEveCourse($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -116,14 +112,13 @@
         <div class="col-sm-2 text-right">
             <label>{{wishs.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allWish()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleWish()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in wishs.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedWish({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,4)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="wish" ng-click="clickEveWish($event,list.id)" ng-dblclick="dblclickEveWish($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -138,14 +133,13 @@
         <div class="col-sm-2 text-right">
             <label>{{hobbys.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allUser()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleUser()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
-            <div class="btn-group" data-toggel="buttons" ng-repeat="list in hobbys.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedBohhy({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,5)"/>{{list.name}}
-                </label>
+        <div class="col-sm-7 menu-list text-left">
+            <div class="btn-group" data-toggel="buttons" ng-repeat="list in hobbys.list">
+                <button class="btn btn-sm btn-default" type="user" ng-click="clickEveUser($event,list.id)" ng-dblclick="dblclickEveUser($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -160,14 +154,13 @@
         <div class="col-sm-2 text-right">
             <label>强项</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allGift()">全选</button>
+            <button class="btn btn-sm btn-danger" >拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_prefer({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,12)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="gift" ng-click="clickEveGift($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -176,14 +169,13 @@
         <div class="col-sm-2 text-right">
             <label>弱项</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleGift()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedGift_ignore({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,13)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="gift" ng-dblclick="dblclickEveGift($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -199,14 +191,13 @@
         <div class="col-sm-2 text-right">
             <label>{{natures.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success" ng-click="allNature()">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleNature()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in natures.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedNature({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,7)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="nature" ng-click="clickEveNature($event,list.id)" ng-dblclick="dblclickEveNature($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -221,21 +212,16 @@
         <div class="col-sm-2 text-right">
             <label></label>
         </div>
-        <div class="col-sm-2 text-right menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 text-right menu-list">
+            <button class="btn btn-sm btn-success">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleProp()">拒绝整行</button>
         </div>
 
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in prop" >
-                <label class="btn btn-primary btn-sm" ng-if="list.name =='家庭经济'">
-                    <input type="checkbox" autocomplete="off" ng-model="personality.economy_option" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name =='政策照顾加分'">
-                    <input type="checkbox" autocomplete="off" ng-model="personality.prop5" value="{{list.id}}"/>{{list.name}}
-                </label>
-                <label class="btn btn-primary btn-sm" ng-if="list.name =='等级级差加分'">
-                    <input type="checkbox" autocomplete="off" ng-model="personality.prop6" value="{{list.id}}"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='家庭经济'" type="economy" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='政策照顾加分'" type="prop5" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='等级级差加分'" type="prop6" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
             </div>
         </div>
 
@@ -245,14 +231,13 @@
         <div class="col-sm-2 text-right">
             <label>{{physicals.name}}</label>
         </div>
-        <div class="col-sm-2 menu-list">
-            <li><a href="javascript:;;" class="lab-active">不限</a></li>
+        <div class="col-sm-3 menu-list">
+            <button class="btn btn-sm btn-success">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="canclePhysical()">拒绝整行</button>
         </div>
-        <div class="col-sm-8 menu-list text-left">
+        <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in physicals.list" >
-                <label class="btn btn-primary btn-sm">
-                    <input type="checkbox" autocomplete="off" ng-checked="isCheckedPhysical({{list.id}})"    value="{{list.id}}" ng-click="inputClick(list.id,list.name,8)"/>{{list.name}}
-                </label>
+                <button class="btn btn-sm btn-default" type="physical" ng-dblclick="dblclickEvePhysical($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>

@@ -112,7 +112,7 @@
                 <div class="carousel-caption">
                     <h1>志愿咨询</h1>
                     <p>行动胜于雄辩</p>
-                    <p><a class="btn btn-primary btn-lg" href="#/online" role="button">去了解。</a></p>
+                    <p><a class="btn btn-primary btn-lg" href="#/online/" role="button">去了解。</a></p>
                 </div>
             </div>
         </div>
@@ -284,4 +284,22 @@
             </div>
         </div>
     </div>
+</div>
+<div class="ad">
+    <ul class="ad-ul">
+        <li ng-init="showDiv=false" ng-cloak ng-mouseenter="showDiv=true" ng-mouseleave="showDiv=false" >
+            在线咨询
+            <ul class="ad-ul-child" ng-cloak ng-if="showDiv">
+                <li>QQ：2930491038</li>
+                <li>电话：13914726090</li>
+                <li>邮箱：jsdrcsl@163.com</li>
+            </ul>
+        </li>
+        <li ng-init="showDiv1=false" ng-cloak ng-mouseenter="showDiv1=true" ng-mouseleave="showDiv1=false" >
+            微信
+            <ul class="ad-ul-child" ng-cloak ng-if="showDiv1">
+                <li><img src="img/004.jpg" alt="微信"/></li>
+            </ul>
+        </li>
+    </ul>
 </div>

@@ -77,12 +77,12 @@
                     </a>
                 </form>
                 <!--<li><a ui-sref="login">登陆/注册</a></li>-->
-                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin" ng-bind="user.name"></a></li>
-                <li><a ui-sref="all.will" ng-if="user.islogin">我的足迹</a></li>
-                <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;">注销</a></li>
+                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin" ng-cloak>{{user.name}}</a></li>
+                <li><a ui-sref="all.will" ng-if="user.islogin" ng-cloak>我的足迹</a></li>
+                <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;" ng-cloak>注销</a></li>
 
                 <!--mask start-->
-                <div class="modal bs-example-modal-lg" ng-if="isShow" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal bs-example-modal-lg" ng-if="isShow" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" ng-cloak>
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
