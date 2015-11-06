@@ -13,12 +13,14 @@ angular.module('gaokaoAPP.hope.personality',[])
             graduate_ignore:[],
             depart_name:[],
             course_name:[],
-            Wish_name:[],
-            User_name:[],
+            wish_name:[],
+            user_name:[],
             gift_name:[],
             nature_name:[],
+            nature_ignore:[],
             physical_prefer:[],
             physical_name:[],
+            prop_name:[],
         }
 
         init();
@@ -85,7 +87,7 @@ angular.module('gaokaoAPP.hope.personality',[])
 
         }
 
-        $scope.clickEveDepart = function(){
+        $scope.clickEveDepart = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -95,7 +97,7 @@ angular.module('gaokaoAPP.hope.personality',[])
             },400);
         }
 
-        $scope.clickEveCourse = function(){
+        $scope.clickEveCourse = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -105,7 +107,7 @@ angular.module('gaokaoAPP.hope.personality',[])
             },400);
         }
 
-        $scope.clickEveWish = function(){
+        $scope.clickEveWish = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -115,7 +117,7 @@ angular.module('gaokaoAPP.hope.personality',[])
             },400);
         }
 
-        $scope.clickEveUser = function(){
+        $scope.clickEveUser = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -125,7 +127,7 @@ angular.module('gaokaoAPP.hope.personality',[])
             },400);
         }
 
-        $scope.clickEveGift = function(){
+        $scope.clickEveGift = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -135,7 +137,7 @@ angular.module('gaokaoAPP.hope.personality',[])
             },400);
         }
 
-        $scope.clickEveNature = function(){
+        $scope.clickEveNature = function($event,id){
             var then = this.list.name;
             $timeout.cancel(TimeFn);
             TimeFn = $timeout(function(){
@@ -210,79 +212,184 @@ angular.module('gaokaoAPP.hope.personality',[])
             loadDblclickEvent.dblclickEvent(target,state,then,id,$scope.personality.physical_ignore,$scope.personality.physical_prefer,$scope.zyb.physical_name);
         }
 //////////////////////////////////全选////////////////////////////////////////////////////////////////////
-        $scope.allGraduate = function(){
-            var arr = $('button[type=graduate]');
+        $scope.allGraduate = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickAll.all(arr,$scope.personality.graduate_option,'graduate',$scope.zyb.graduate_name);
         }
 
-        $scope.allDepart = function(){
-            var arr = $('button[type=depart]');
-            loadClickAll.all(arr,$scope.personality.depart_prefer2,'depart',$scope.zyb.graduate_name);
+        $scope.allDepart = function(id){
+            var arr = $('button[parent='+id+']');
+            loadClickAll.all(arr,$scope.personality.depart_prefer2,'depart',$scope.zyb.depart_name);
         }
 
-        $scope.allCourse = function(){
-            var arr = $('button[type=course]');
-            loadClickAll.all(arr,$scope.personality.course_prefer,'course',$scope.zyb.course_name);
+        $scope.allCourse = function(id){
+            var arr = $('button[parent1='+id+']');
+            loadClickAll.all(arr,$scope.personality.course_prefer,'course1',$scope.zyb.course_name);
+
+            var arr = $('button[parent2='+id+']');
+
+            for (var i = 0; i < arr.length; i++) {
+                arr.eq(i).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }
+            $scope.personality.course_ignore = [];
         }
 
-        $scope.allWish = function(){
-            var arr = $('button[type=course]');
-            loadClickAll.all(arr,$scope.personality.course_prefer,'course',$scope.zyb.course_name);
+        $scope.allWish = function(id){
+            var arr = $('button[parent='+id+']');
+            loadClickAll.all(arr,$scope.personality.wish_prefer,'wish',$scope.zyb.wish_name);
         }
 
-        $scope.allUser = function(){
-            var arr = $('button[type=user]');
-            loadClickAll.all(arr,$scope.personality.user_prefer,'course',$scope.zyb.user_name);
+        $scope.allUser = function(id){
+            var arr = $('button[parent='+id+']');
+            loadClickAll.all(arr,$scope.personality.user_prefer,'user',$scope.zyb.user_name);
         }
 
-        $scope.allGift = function(){
-            var arr = $('button[type=user]');
-            loadClickAll.all(arr,$scope.personality.gift_prefer,'course',$scope.zyb.gift_name);
+        $scope.allGift = function(id){
+            var arr = $('button[parent1='+id+']');
+            loadClickAll.all(arr,$scope.personality.gift_prefer,'gift1',$scope.zyb.gift_name);
+
+            var arr = $('button[parent2='+id+']');
+
+            for (var i = 0; i < arr.length; i++) {
+                arr.eq(i).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }
+            $scope.personality.gift_ignore = [];
         }
 
-        $scope.allNature = function(){
-            var arr = $('button[type=nature]');
+        $scope.allNature = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickAll.all(arr,$scope.personality.nature_prefer,'nature',$scope.zyb.nature_name);
         }
 ///////////////////////////////////拒绝/////////////////////////////////////////////////////////////////
 
-        $scope.cancleGraduate = function(){
-            var arr = $("button[type='graduate']");
+        $scope.cancleGraduate = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickCancle.reject(arr,$scope.zyb.graduate_ignore,$scope.personality.graduate_option,'graduate',$scope.zyb.graduate_name);
         }
 
-        $scope.cancleDepart = function(){
-            var arr = $("button[type='depart']");
+        $scope.cancleDepart = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickCancle.reject(arr,$scope.personality.depart_ignore2,$scope.personality.depart_prefer2,'depart',$scope.zyb.depart_name);
         }
 
-        $scope.cancleCourse = function(){
-            var arr = $("button[type='course']");
-            loadClickCancle.reject(arr,$scope.personality.course_ignore,$scope.personality.course_prefer,'course',$scope.zyb.course_name);
+        $scope.cancleCourse = function(id){
+            var arr = $('button[parent2='+id+']');
+            loadClickCancle.reject(arr,$scope.personality.course_ignore,$scope.personality.course_prefer,'course2',$scope.zyb.course_name);
+
+            var arr = $('button[parent1='+id+']');
+
+            for(var i = 0 ; i< arr.length;i++){
+                arr.eq(i).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }
+
+            $scope.personality.course_prefer=[];
+            $scope.zyb.course_name = [];
         }
 
-        $scope.cancleWish = function(){
-            var arr = $("button[type='wish']");
+        $scope.cancleWish = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickCancle.reject(arr,$scope.personality.wish_ignore,$scope.personality.wish_prefer,'wish',$scope.zyb.wish_name);
         }
 
-        $scope.cancleUser = function(){
-            var arr = $("button[type='user']");
+        $scope.cancleUser = function(id){
+            var arr = $('button[parent='+id+']');
             loadClickCancle.reject(arr,$scope.personality.user_ignore,$scope.personality.user_prefer,'user',$scope.zyb.user_name);
         }
 
-        $scope.cancleGift = function(){
-            var arr = $('button[type=gift]');
-            loadClickAll.all(arr,$scope.personality.gift_ignore,$scope.personality.gift_prefer,'gift',$scope.zyb.gift_name);
+        $scope.cancleGift = function(id){
+            var arr = $('button[parent2='+id+']');
+            loadClickCancle.reject(arr,$scope.personality.gift_ignore,$scope.personality.gift_prefer,'gift2',$scope.zyb.gift_name);
+
+            var arr = $('button[parent1='+id+']');
+
+            for(var i = 0 ; i< arr.length;i++){
+                arr.eq(i).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }
+
+            $scope.personality.gift_prefer=[];
+            $scope.zyb.gift_name = [];
+
         }
 
-        $scope.cancleNature = function(){
-            var arr = $('button[type=nature]');
-            loadClickAll.all(arr,$scope.personality.nature_ignore,$scope.personality.nature_prefer,'nature',$scope.zyb.nature_name);
+        $scope.cancleNature = function(id){
+            var arr = $('button[parent='+id+']');
+            loadClickCancle.reject(arr,$scope.zyb.nature_ignore,$scope.personality.nature_prefer,'nature',$scope.zyb.nature_name);
         }
 
-        $scope.canclePhysical = function(){
-            var arr = $('button[type=physical]');
-            loadClickAll.all(arr,$scope.personality.physical_ignore,$scope.personality.physical_prefer,'nature',$scope.zyb.physical_name);
+        $scope.canclePhysical = function(id){
+            var arr = $('button[parent='+id+']');
+            loadClickCancle.reject(arr,$scope.personality.physical_ignore,$scope.zyb.physical_prefer,'physical',$scope.zyb.physical_name);
         }
+///////////////////////////其他因素////////////////////////////////////////////////////////////////////////
+
+        $scope.clickEveEconomy = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+            TimeFn = $timeout(function(){
+                var target = $event.target,
+                    state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+                if(state == 2){
+                    propState(false,id);
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
+                    $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+                }else if (state == 1){
+                    propState(false,id);
+                    $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
+                    $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+                }else {
+                    propState(true,id);
+                    $scope.zyb.prop_name.push(then);
+                    $(target).attr('state',1).removeClass().addClass("btn btn-sm btn-success");
+                }
+            },400);
+
+        }
+
+        $scope.dblclickEveEconomy = function($event,id){
+            var then = this.list.name;
+            $timeout.cancel(TimeFn);
+
+            var target = $event.target,
+                state = $(target).attr('state') == undefined ? 0 : $(target).attr('state');
+
+            if(state == 2){
+                propState(false,id);
+                $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
+            }else if (state == 1){
+                propState(false,id);
+                $scope.zyb.prop_name.splice($.inArray(then,$scope.zyb.prop_name),1);
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+            }else {
+                propState(false,id);
+                $(target).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+            }
+
+        }
+
+        /**
+         * 修改prop状态
+         * ture or false
+         * */
+        function propState(isTrue,id){
+                if (id == 1020) {
+                    $scope.personality.economy_option = isTrue;
+                } else if (id == 1021) {
+                    $scope.personality.prop5 = isTrue;
+                } else if (id == 1022) {
+                    $scope.personality.prop6 = isTrue;
+                }
+        }
+
+        //$scope.allProp = function(){
+        //    var arr = $('button[prop]');
+        //    loadClickAll.all(arr,"",'prop',$scope.zyb.prop_name,2);
+        //}
+
+        $scope.cancleProp = function(){
+            var arr = $('button[economy]');
+            loadClickCancle.reject(arr,"","",'prop',$scope.zyb.prop_name,2);
+        }
+
+
     }]);

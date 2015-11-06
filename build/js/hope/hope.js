@@ -46,7 +46,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         course_prefer:[],//强弱方面
         course_ignore:[],
         wish_prefer:[], //学习愿望方面
-        wish_ignore:[],
+        wish_ignore:[],//学习愿望方面
         user_prefer:[],//兴趣爱好方面
         user_ignore:[],
         gift_prefer:[],//能力特长方面
@@ -129,6 +129,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
 .factory("loadDblclickEvent",['$rootScope',function($rootScope){
     return {
         dblclickEvent :function(target,state,then,id,ignore,prefer,name){
+
             if(state == 2){
                 ignore.splice($.inArray(id,ignore),1);
                 $(target).attr('state',0).removeClass().addClass("btn btn-sm btn-default");
@@ -171,6 +172,12 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
                                 $scope.attr.level1 = true;
                             }else if (arr.eq(i).attr('prop') == "level2"){
                                 $scope.attr.level2 = true;
+                            }else if (arr.eq(i).attr('prop') == "economy"){
+                                $scope.attr.economy = true;
+                            }else if (arr.eq(i).attr('prop') == "prop5"){
+                                $scope.attr.prop5 = true;
+                            }else if (arr.eq(i).attr('prop') == "prop6"){
+                                $scope.attr.prop6 = true;
                             }
                             name.push(arr.eq(i).html());
                         }
@@ -185,13 +192,16 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
     return {
         reject:function(arr,ignore,prefer,attr,name,type){
             if(type ==undefined){
+
                 for(var i = 0; i< arr.length;i++){
                     arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
                     ignore.push(arr.eq(i).attr(attr));
                     prefer.splice($.inArray(arr.eq(i).attr(attr), prefer),1)
                     name.splice($.inArray(arr.eq(i).html(), name),1)
                 }
-            }else{
+
+            }else if(type == 1){
+
                 for(var i = 0; i< arr.length;i++){
                     arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
                     if(arr.eq(i).attr('prop') == "prop3"){
@@ -207,8 +217,23 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
                     }else if (arr.eq(i).attr('prop') == "level2"){
                         $scope.attr.level2 = false;
                     }
-                    name.splice($.inArray(arr.eq(i).html(), name),1)
+                    name.splice($.inArray(arr.eq(i).html(), name),1);
                 }
+
+            } else if (type == 2) {
+
+                for(var i = 0; i< arr.length;i++){
+                    arr.eq(i).attr('state',2).removeClass().addClass("btn btn-sm btn-danger");
+                    if (arr.eq(i).attr('economy') == "economy") {
+                        $scope.personality.economy = false;
+                    } else if (arr.eq(i).attr('economy') == "prop5") {
+                        $scope.personality.prop5 = false;
+                    } else if (arr.eq(i).attr('economy') == "prop6") {
+                        $scope.personality.prop6 = false;
+                    }
+                    name.splice($.inArray(arr.eq(i).html(), name), 1);
+                }
+
             }
         }
     }
@@ -287,10 +312,8 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         ZYBinfoDATA.sel = $location.$$search.sel == undefined ? "" : $scope.firstDoor[$location.$$search.sel];
         ZYBinfoDATA.scroe = $location.$$search.score == undefined ? "" : $location.$$search.score;
 
-
         $scope.table.yxb = yxb[ZYBinfoDATA.types];
         $scope.table.yxb_title = yxb_title[ZYBinfoDATA.u_level];
-
         $scope.info = ZYBinfoDATA;
 
 }])

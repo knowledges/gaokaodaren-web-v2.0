@@ -1,25 +1,20 @@
 <div ng-if="screening">
-    <div class="row hope-line">
+    <div class="row hope-line"
+         ng-if="zyb.graduate_name.length > 0 || zyb.depart_name.length > 0 || zyb.course_name.length > 0 || zyb.wish_name.length > 0 || zyb.user_name.length > 0 || zyb.gift_name.length > 0 || zyb.nature_name.length > 0 || personality.economy_option || personality.prop5 || personality.prop6">
         <div class="col-sm-2 text-right ">
             <label>已选择 <i class="icon-angle-right"></i></label>
         </div>
         <div class="col-sm-10 menu-list text-left">
-            <li ng-repeat="graduates in graduate_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{graduates}}<i class="icon-remove" ng-click="removeThis($index,1)"></i> </a></li>
-            <li ng-repeat="list in depear2_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,2)"></i> </a></li>
-            <li ng-repeat="list in course_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,10)"></i> </a></li>
-            <li ng-repeat="list in course_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,11)"></i> </a></li>
-            <li ng-repeat="list in wish_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,4)"></i> </a></li>
-            <li ng-repeat="list in user_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,5)"></i> </a></li>
-            <li ng-repeat="list in gift_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,12)"></i> </a></li>
-            <li ng-repeat="list in gift_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,13)"></i> </a></li>
-
-            <li ng-if="personality.economy_option"><a href="javascript:;;" class="btn btn-default btn-xs">家庭经济<i class="icon-remove" ng-click="removeThis($index,0,'家庭经济')"></i> </a></li>
-            <li ng-if="personality.prop5"><a href="javascript:;;" class="btn btn-default btn-xs">政策照顾加分<i class="icon-remove" ng-click="removeThis($index,0,'政策照顾加分')"></i> </a></li>
-            <li ng-if="personality.prop6"><a href="javascript:;;" class="btn btn-default btn-xs">等级级差加分<i class="icon-remove" ng-click="removeThis($index,0,'等级级差加分')"></i> </a></li>
-
-            <li ng-repeat="list in nature_prefer_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,7)"></i> </a></li>
-            <li ng-repeat="list in physical_ignore_list"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}<i class="icon-remove" ng-click="removeThis($index,8)"></i> </a></li>
-            <li><a href="javascript:;;" class="btn btn-danger btn-xs" ng-click="remove()">清除所有</a></li>
+            <li ng-repeat="graduates in zyb.graduate_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{graduates}}</a></li>
+            <li ng-repeat="list in zyb.depart_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-repeat="list in zyb.course_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-repeat="list in zyb.wish_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-repeat="list in zyb.user_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-repeat="list in zyb.gift_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-repeat="list in zyb.nature_name"><a href="javascript:;;" class="btn btn-default btn-xs">{{list}}</a></li>
+            <li ng-if="personality.economy_option"><a href="javascript:;;" class="btn btn-default btn-xs">家庭经济</a></li>
+            <li ng-if="personality.prop5"><a href="javascript:;;" class="btn btn-default btn-xs">政策照顾加分</a></li>
+            <li ng-if="personality.prop6"><a href="javascript:;;" class="btn btn-default btn-xs">等级级差加分</a></li>
         </div>
     </div>
 
@@ -34,12 +29,12 @@
             <label>{{grads.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allGraduate()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleGraduate()">拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allGraduate(grads.id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleGraduate(grads.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in grads.list" >
-                <button class="btn btn-sm btn-default" type="graduate" ng-click="clickEveGraduate($event,list.id)" ng-dblclick="dblclickEveGraduate($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent="{{list.parent}}" graduate="{{list.id}}" type="graduate" ng-click="clickEveGraduate($event,list.id)" ng-dblclick="dblclickEveGraduate($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -55,12 +50,12 @@
             <label>{{departs.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allDepart()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleDepart()">拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allDepart(departs.id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleDepart(departs.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in departs.list">
-                <button class="btn btn-sm btn-default" type="depart" ng-click="clickEveDepart($event,list.id)" ng-dblclick="dblclickEveDepart($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default"  parent="{{list.parent}}" depart="{{list.id}}" type="depart" ng-click="clickEveDepart($event,list.id)" ng-dblclick="dblclickEveDepart($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -76,12 +71,11 @@
             <label>强学科</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allCourse()">全选</button>
-            <button class="btn btn-sm btn-danger" >拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allCourse(courses.id)">全选</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
-                <button class="btn btn-sm btn-default" type="course" ng-click="clickEveCourse($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent1="{{list.parent}}" course="{{list.id}}" type="course1" ng-click="clickEveCourse($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -91,12 +85,11 @@
             <label>弱学科</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleCourse()">拒绝整行</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleCourse(courses.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in courses.list" >
-                <button class="btn btn-sm btn-default" type="course" ng-dblclick="dblclickEveCourse($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent2="{{list.parent}}" course="{{list.id}}" type="course2" ng-dblclick="dblclickEveCourse($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -113,12 +106,12 @@
             <label>{{wishs.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allWish()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleWish()">拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allWish(wishs.id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleWish(wishs.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in wishs.list" >
-                <button class="btn btn-sm btn-default" type="wish" ng-click="clickEveWish($event,list.id)" ng-dblclick="dblclickEveWish($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default"  parent="{{list.parent}}" wish="{{list.id}}" type="wish" ng-click="clickEveWish($event,list.id)" ng-dblclick="dblclickEveWish($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -134,12 +127,12 @@
             <label>{{hobbys.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allUser()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleUser()">拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allUser(hobbys.id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleUser(hobbys.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in hobbys.list">
-                <button class="btn btn-sm btn-default" type="user" ng-click="clickEveUser($event,list.id)" ng-dblclick="dblclickEveUser($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent="{{list.parent}}" user="{{list.id}}" type="user" ng-click="clickEveUser($event,list.id)" ng-dblclick="dblclickEveUser($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -155,12 +148,11 @@
             <label>强项</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allGift()">全选</button>
-            <button class="btn btn-sm btn-danger" >拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allGift(gifts.id)">全选</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
-                <button class="btn btn-sm btn-default" type="gift" ng-click="clickEveGift($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent1="{{list.parent}}" gift="{{list.id}}" type="gift1" ng-click="clickEveGift($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -170,12 +162,11 @@
             <label>弱项</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleGift()">拒绝整行</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleGift(gifts.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in gifts.list" >
-                <button class="btn btn-sm btn-default" type="gift" ng-dblclick="dblclickEveGift($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent2="{{list.parent}}" gift="{{list.id}}" type="gift2" ng-dblclick="dblclickEveGift($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -192,12 +183,12 @@
             <label>{{natures.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success" ng-click="allNature()">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="cancleNature()">拒绝整行</button>
+            <button class="btn btn-sm btn-success" ng-click="allNature(natures.id)">全选</button>
+            <button class="btn btn-sm btn-danger" ng-click="cancleNature(natures.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in natures.list" >
-                <button class="btn btn-sm btn-default" type="nature" ng-click="clickEveNature($event,list.id)" ng-dblclick="dblclickEveNature($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default"  parent="{{list.parent}}" nature="{{list.id}}" type="nature" ng-click="clickEveNature($event,list.id)" ng-dblclick="dblclickEveNature($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>
@@ -213,15 +204,14 @@
             <label></label>
         </div>
         <div class="col-sm-3 text-right menu-list">
-            <button class="btn btn-sm btn-success">全选</button>
             <button class="btn btn-sm btn-danger" ng-click="cancleProp()">拒绝整行</button>
         </div>
 
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in prop" >
-                <button class="btn btn-sm btn-default" ng-if="list.name =='家庭经济'" type="economy" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
-                <button class="btn btn-sm btn-default" ng-if="list.name =='政策照顾加分'" type="prop5" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
-                <button class="btn btn-sm btn-default" ng-if="list.name =='等级级差加分'" type="prop6" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='家庭经济'" economy="economy" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='政策照顾加分'" economy="prop5" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" ng-if="list.name =='等级级差加分'" economy="prop6" ng-click="clickEveEconomy($event,list.id)" ng-dblclick="dblclickEveEconomy($event,list.id)">{{list.name}}</button>
             </div>
         </div>
 
@@ -232,12 +222,11 @@
             <label>{{physicals.name}}</label>
         </div>
         <div class="col-sm-3 menu-list">
-            <button class="btn btn-sm btn-success">全选</button>
-            <button class="btn btn-sm btn-danger" ng-click="canclePhysical()">拒绝整行</button>
+            <button class="btn btn-sm btn-danger" ng-click="canclePhysical(physicals.id)">拒绝整行</button>
         </div>
         <div class="col-sm-7 menu-list text-left">
             <div class="btn-group" data-toggel="buttons" ng-repeat="list in physicals.list" >
-                <button class="btn btn-sm btn-default" type="physical" ng-dblclick="dblclickEvePhysical($event,list.id)">{{list.name}}</button>
+                <button class="btn btn-sm btn-default" parent="{{list.parent}}" physical="{{list.id}}" type="physical" ng-dblclick="dblclickEvePhysical($event,list.id)">{{list.name}}</button>
             </div>
         </div>
     </div>

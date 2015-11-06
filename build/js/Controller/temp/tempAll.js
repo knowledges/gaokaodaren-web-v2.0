@@ -31,6 +31,42 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
                 data: { isPublic: false},
                 controller:"referenceCtr"
             })
+            //////////////////
+            //    //
+            //////////////////
+            .state('all.score',{
+                url:'/all.score',
+                templateUrl:'',
+                data: { isPublic: false},
+                controller:""
+            })
+            /////////////////////
+            ///  city > all  ///
+            ////////////////////
+            .state('all.info',{
+                url:'/all.score',
+                templateUrl:'',
+                data: { isPublic: false},
+                controller:""
+            })
+            /////////////////////
+            ///  city > all  ///
+            ////////////////////
+            .state('all.pwd',{
+                url:'/all.score',
+                templateUrl:'',
+                data: { isPublic: false},
+                controller:""
+            })
+            /////////////////////
+            ///  city > all  ///
+            ////////////////////
+            .state('all.pwd',{
+                url:'/all.score',
+                templateUrl:'',
+                data: { isPublic: false},
+                controller:""
+            })
     })
     .controller('allCtr',['$window',function($window){
 

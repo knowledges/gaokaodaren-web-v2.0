@@ -58,8 +58,6 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                 url = type8;
             }
 
-            console.log(url);
-
             AJAX.getRequest(url,'GET',"")
                 .success(function(data,status){
                     $scope.area = data;
@@ -352,8 +350,8 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         }
 
         $scope.cancleProp = function(){
-            var arr = $('button[prop]');
-            loadClickCancle.reject(arr,"","",'prop',$scope.zyb.prop_name,1);
+            var arr = $('button[economy]');
+            loadClickCancle.reject(arr,"","",'economy',$scope.zyb.prop_name,1);
         }
 
         $scope.cancleAll = function(){

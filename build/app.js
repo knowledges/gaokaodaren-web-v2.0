@@ -144,7 +144,8 @@ angular.module("gaokaoAPP",[
 }])
 .run(['$rootScope','$state','userService',function ($rootScope, $state, userService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            debugger;
+            //TODO 路由限制
+            //debugger;
             // if already authenticated...
             var isAuthenticated = userService.isAuthenticated();
             // any public action is allowed
@@ -186,11 +187,6 @@ angular.module("gaokaoAPP",[
         }else{
             $scope.user.islogin = false;
         }
-
-        //$scope.$watch(sessionStorage.getItem('usernumber'),function(newValue,oldValue,scope){
-        //        console.log(newValue);
-        //        console.log(oldValue);
-        //})
 
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');
