@@ -163,10 +163,22 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                         alert("验证码失效");
                         return;
                     }
+                    //路由权限
                     window.sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
                     window.sessionStorage.setItem('usernumber', promise.data.response.name);
-                    //isShowModel.isSigin = promise.data.response.name;
-                    locationHref();
+                    $rootScope.studentId = promise.data.response.name;
+                    if(localStorage.getItem('score')!=null){
+                        locationHref();
+                    }else{
+                        var set = confirm("你还没有完善考试成绩，是否完善！");
+                        if(set){
+                            $window.location.href="#/all/all.score";
+                        }else{
+                            locationHref();
+                        }
+                    }
+
+
                 });
         };
 
@@ -183,7 +195,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
         };
 
         function locationHref() {
-           window.location.href = "#/home";
+           $window.location.href = "#/home";
             //window.location.reload();
         }
     }])

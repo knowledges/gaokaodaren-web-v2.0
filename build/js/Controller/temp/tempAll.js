@@ -36,37 +36,11 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
             //////////////////
             .state('all.score',{
                 url:'/all.score',
-                templateUrl:'',
+                templateUrl:'html/myInfo/myScore.html',
                 data: { isPublic: false},
-                controller:""
+                controller:"scroeCtr"
             })
-            /////////////////////
-            ///  city > all  ///
-            ////////////////////
-            .state('all.info',{
-                url:'/all.score',
-                templateUrl:'',
-                data: { isPublic: false},
-                controller:""
-            })
-            /////////////////////
-            ///  city > all  ///
-            ////////////////////
-            .state('all.pwd',{
-                url:'/all.score',
-                templateUrl:'',
-                data: { isPublic: false},
-                controller:""
-            })
-            /////////////////////
-            ///  city > all  ///
-            ////////////////////
-            .state('all.pwd',{
-                url:'/all.score',
-                templateUrl:'',
-                data: { isPublic: false},
-                controller:""
-            })
+
     })
     .controller('allCtr',['$window',function($window){
 

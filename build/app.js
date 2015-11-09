@@ -36,10 +36,12 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.group.all",
     "gaokaoAPP.temp.example",
     "gaokaoAPP.refer",
-    "gaokaoAPP.pay"
+    "gaokaoAPP.pay",
+    "gaokaoAPP.myInfo.myScore"
 ])
 .run(['$rootScope',function($rootScope){
         $rootScope.defaultPage = "#/home";
+        $rootScope.studentId = "";
 }])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -174,7 +176,7 @@ angular.module("gaokaoAPP",[
                 })
         })
 }])
-.controller("appCtr",['$scope','$http','logoutURL','isShowModel',"AJAX",function($scope,$http,logoutURL,isShowModel,AJAX){
+.controller("appCtr",['$scope','$rootScope','$http','logoutURL','isShowModel',"AJAX",function($scope,$rootScope,$http,logoutURL,isShowModel,AJAX){
         $scope.user = {
             islogin : false,
             name : "",
@@ -187,6 +189,13 @@ angular.module("gaokaoAPP",[
         }else{
             $scope.user.islogin = false;
         }
+
+        $scope.$watch('studentId',function(newValue,oldValue){
+            if(newValue !=""){
+                $scope.user.name = $rootScope.studentId;
+                $scope.user.islogin = true;
+            }
+        })
 
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');

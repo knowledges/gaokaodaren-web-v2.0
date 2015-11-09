@@ -1,0 +1,99 @@
+<div class="menu-div">
+    <div class="container-fluid">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <td>科目</td>
+                <td>成绩</td>
+                <td>选测科目等级</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="list in table.myScore">
+                <td>{{list.subject}}</td>
+                <td>{{list.score}}</td>
+                <td>{{list.level}}</td>
+                <td>{{list.date | date : 'yyyy-MM-dd hh:mm:ss EEEE'}}</td>
+                <td>
+                    <span ng-if="list.state == 1">正在使用该成绩</span>
+                    <button class="btn btn-success"  ng-if="list.state == 0" ng-click="setUp($index)">开始使用</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-success btn-lg"  data-toggle="modal" data-target=".bs-example-modal-sm"><i class="icon-plus"></i>创建高考成绩</button>
+
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form ng-submit="addScore(table)">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-left"> <i class="icon-plus-sign"></i>创建新成绩</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-4 text-right">
+                                    <label>学科：</label>
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="table.subject" value="1">文科
+                                        </label>
+                                        <label>
+                                            <input type="radio" ng-model="table.subject" value="2">理科
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>成绩：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.score"/>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-sm-4 text-right">
+                                    <label>选测科目：</label>
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    <input type="text" class="form-control" ng-model="table.sub1" ng-readonly="table.sub1"/>
+                                    <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
+                                        <option value=""> ---- </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 text-right">
+                                    <label>另一门：</label>
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    <input type="text" class="form-control" ng-model="table.sub2" ng-readonly="table.sub2"/>
+                                    <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
+                                        <option value=""> ---- </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">提交</button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
