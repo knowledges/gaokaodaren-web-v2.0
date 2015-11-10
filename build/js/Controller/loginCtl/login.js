@@ -122,7 +122,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
             $rootScope.isShowForget = false;
         };
     }])
-    .controller("logonCtr", ["$scope", "$rootScope", "$window", "$http", "codeURL", "loginURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window, $http, codeURL, loginURL, isShowModel, AJAX) {
+    .controller("logonCtr", ["$scope", "$rootScope", "$window",'$location', "$http", "codeURL", "loginURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window,$location ,$http, codeURL, loginURL, isShowModel, AJAX) {
         $scope.user = {
             username: "",
             password: "",
@@ -172,7 +172,8 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                     }else{
                         var set = confirm("你还没有完善考试成绩，是否完善！");
                         if(set){
-                            $window.location.href="#/all/all.score";
+                            $location.path("/all/all.score").replace();
+                            //$window.location.href="#/all/all.score";
                         }else{
                             locationHref();
                         }
@@ -195,7 +196,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
         };
 
         function locationHref() {
-           $window.location.href = "#/home";
-            //window.location.reload();
+           //$window.location.href = "#/home";
+            $location.path('/home').replace();
         }
     }])

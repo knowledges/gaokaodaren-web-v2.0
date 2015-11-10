@@ -7,18 +7,18 @@ angular.module('gaokaoAPP.temp.example',[])
             .state('example',{
                 url:'/example',
                 templateUrl:"html/temp/tempExample.html",
-                data: { isPublic: true },
+                data: { isPublic: true},
             })
             .state('example.nav',{
                 url:"/",
                 templateUrl:"html/nav/nav.html",
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"exampleNav",
             })
             .state("example.list",{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"recipeInfoCtr"
             })
 

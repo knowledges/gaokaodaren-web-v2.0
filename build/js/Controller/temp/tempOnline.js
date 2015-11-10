@@ -10,7 +10,7 @@ angular.module("gaokaoAPP.temp.online",[])
         .state('online',{
             url:"/online",
             templateUrl:"html/temp/tempOnline.html",
-            data: { isPublic: true },
+            data: { isPublic: true},
         })
         /////////////////////
         ///  online > nav ///
@@ -18,7 +18,7 @@ angular.module("gaokaoAPP.temp.online",[])
         .state('online.nav',{
             url:"/",
             templateUrl:"html/nav/nav.html",
-            data: { isPublic: true },
+            data: { isPublic: true},
             controller:"onlineNav"
         })
         ///////////////////////
@@ -27,7 +27,7 @@ angular.module("gaokaoAPP.temp.online",[])
         .state('online.list',{
             url:'/itemId=:itemId&param=:param',
             templateUrl:'html/showInfo/showInfo.html',
-            data: { isPublic: true },
+            data: { isPublic: true},
             controller:"onlineInfoCtr"
         })
 });

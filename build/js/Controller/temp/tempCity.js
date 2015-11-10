@@ -10,7 +10,7 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
             .state('city', {
                 url: '/city',
                 templateUrl:'html/temp/tempCity.html',
-                data: { isPublic: true },
+                data: { isPublic: true},
             })
             ///////////////////
             ///  city > nav ///
@@ -18,7 +18,7 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
             .state('city.nav',{
                 url:'/',
                 templateUrl:'html/nav/nav.html',
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"cityNav"
             })
             //////////////////
@@ -27,7 +27,7 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
             .state('city.list',{
                 url:'/{cityId:[0-9]{0,4}}',
                 templateUrl:'html/city/city.html',
-                data: { isPublic: true },
+                data: { isPublic: true},
             })
 
 })

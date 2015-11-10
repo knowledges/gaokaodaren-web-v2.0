@@ -10,7 +10,7 @@ angular.module("gaokaoAPP.temp.job",[])
             .state('job',{
                 url:"/job",
                 templateUrl:"html/temp/tempJob.html",
-                data: { isPublic: true },
+                data: { isPublic: true},
             })
             ///////////////////////
             ///  job > nav  ///
@@ -18,7 +18,7 @@ angular.module("gaokaoAPP.temp.job",[])
             .state('job.nav',{
                 url:"/",
                 templateUrl:"html/nav/nav.html",
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"jobNav",
             })
             ///////////////////////
@@ -27,7 +27,7 @@ angular.module("gaokaoAPP.temp.job",[])
             .state('job.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/recipe/recipe.html',
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"recipeInfoCtr"
             })
     });

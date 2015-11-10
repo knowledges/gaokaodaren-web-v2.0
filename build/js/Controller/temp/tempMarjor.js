@@ -11,7 +11,7 @@ angular.module('gaokaoAPP.temp.marjor',[])
             abstract: true,
             url:"/marjor",
             templateUrl:"html/temp/tempMarjor.html",
-            data: { isPublic: true },
+            data: { isPublic: true},
         })
         ///////////////////////
         ///  school > nav  ///
@@ -19,7 +19,7 @@ angular.module('gaokaoAPP.temp.marjor',[])
         .state('marjor.nav',{
             url:"/",
             templateUrl:"html/nav/nav.html",
-            data: { isPublic: true },
+            data: { isPublic: true},
             controller:"marjorNav"
         })
         ///////////////////////
@@ -28,7 +28,7 @@ angular.module('gaokaoAPP.temp.marjor',[])
         .state('marjor.list',{
             url:"/{type:[0-9]{1,4}}",
             templateUrl:"html/marjor/marjor.html",
-            data: { isPublic: true },
+            data: { isPublic: true},
         })
         /////////////////////////
         /////  school > list > info ///

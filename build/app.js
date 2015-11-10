@@ -52,34 +52,41 @@ angular.module("gaokaoAPP",[
             .state("home", {
                 url: "/home",
                 templateUrl: "html/home/home.html",
-                data: { isPublic: true },
+                data: { isPublic: true},
                 controller:"homeCtr"
             })
             .state("chance", {
                 url: "/chance",
                 templateUrl: "html/chance/chance.html",
-                data: { isPublic: true },
+                data: { isPublic: false},
                 controller:"chanceCtr"
             })
             .state("hope", {
                 url: "/hope",
-                data: { isPublic: true },
+                data: { isPublic: false},
                 templateUrl: "html/hope/hope.html"
             })
             .state("login", {
                 url: "/login",
-                data: { isPublic: true },
+                data: { isPublic: true},
                 templateUrl: "html/login/login.html"
             })
             .state("refer",{
                 url:"/refer",
                 templateUrl:"html/refer/refer.html",
+                data: { isPublic: false},
                 controller:'referCtr'
             })
             .state("pay",{
                 url:"/pay",
                 templateUrl:"html/pay/pay.html",
+                data: { isPublic: false},
                 controller:'payCtr'
+            })
+            .state('refer1',{
+                url:"/refer1",
+                templateUrl:"html/refer/refer1.html",
+                data: { isPublic: true}
             })
 })
 .factory('AJAX',['$http',"$q",function($http,$q){

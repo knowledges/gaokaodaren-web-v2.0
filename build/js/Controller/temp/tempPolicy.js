@@ -10,7 +10,7 @@ angular.module("gaokaoAPP.temp.policy",[])
             .state('policy',{
                 url:"/policy",
                 templateUrl:"html/temp/tempPolicy.html",
-                data: { isPublic: true },
+                data: { isPublic: true }
             })
             ///////////////////////
             ///  policy > nav  ///
