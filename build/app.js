@@ -69,7 +69,20 @@ angular.module("gaokaoAPP",[
             .state("login", {
                 url: "/login",
                 data: { isPublic: true},
-                templateUrl: "html/login/login.html"
+                templateUrl: "html/login/login.html",
+                controller:"logonCtr"
+            })
+            .state("register", {
+                url: "/register",
+                data: { isPublic: true},
+                templateUrl: "html/login/register.html",
+                controller:"registerCtr"
+            })
+            .state("forget", {
+                url: "/forget",
+                data: { isPublic: true},
+                templateUrl: "html/login/forget.html",
+                controller:"forgetCtr"
             })
             .state("refer",{
                 url:"/refer",

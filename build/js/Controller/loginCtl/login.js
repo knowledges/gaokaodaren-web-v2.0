@@ -4,6 +4,9 @@
 'use strict';
 
 angular.module("gaokaoAPP.login.childApp", ['ui.router'])
+    .run(function(){
+
+    })
     .constant("codeURL", "/user/code?time=" + new Date().getTime())
     .constant("loginURL", "/login?time=" + new Date().getTime())
     .constant("registerURL", "/user/register")
@@ -172,14 +175,12 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                     }else{
                         var set = confirm("你还没有完善考试成绩，是否完善！");
                         if(set){
-                            $location.path("/all/all.score").replace();
-                            //$window.location.href="#/all/all.score";
+                            //$location.path("/all/all.score").replace();
+                            $window.location.href="#/all/all.score";
                         }else{
                             locationHref();
                         }
                     }
-
-
                 });
         };
 
