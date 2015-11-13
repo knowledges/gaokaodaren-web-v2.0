@@ -4,6 +4,15 @@
 angular.module("gaokaoAPP.temp.all",['ui.router'])
     .config(function($stateProvider, $urlRouterProvider){
         $stateProvider
+            //////////////////
+            //              //
+            //////////////////
+            .state('all.score',{
+                url:'/all.score',
+                templateUrl:'html/myInfo/myScore.html',
+                data: { isPublic: false},
+                controller:"scroeCtr"
+            })
             ///////////////
             ///  city  ///
             /////////////
@@ -31,16 +40,6 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
                 data: { isPublic: false},
                 controller:"referenceCtr"
             })
-            //////////////////
-            //    //
-            //////////////////
-            .state('all.score',{
-                url:'/all.score',
-                templateUrl:'html/myInfo/myScore.html',
-                data: { isPublic: false},
-                controller:"scroeCtr"
-            })
-
     })
     .controller('allCtr',['$window',function($window){
 

@@ -254,7 +254,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             }
         }
     })
-.controller("wishTabCtr-info", ['$scope','$location','ZYBinfoDATA',function ($scope,$location,ZYBinfoDATA) {
+.controller("wishTabCtr-info", ['$scope','$window','$location','ZYBinfoDATA',function ($scope,$window,$location,ZYBinfoDATA) {
 
         var yxb = [
             "",
@@ -267,6 +267,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             "文科高职(专科)考生志愿意向表",
             "理科高职(专科)考生志愿意向表"
         ];
+
         var yxb_title = [
             "",
             "【第一阶段填报文科类第一批本科院校志愿用表】",
@@ -277,34 +278,12 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
             "【第二阶段填报理科类第三批本科院校志愿用表】",
             "【第二阶段填报文科类高职（专科）院校志愿用表】",
             "【第二阶段填报理科类高职（专科）院校志愿用表】"
-        ]
+        ];
 
         $scope.table ={
             yxb:"",
             yxb_title:""
-        }
-
-        $scope.firstDoor = [
-            {
-                id: "5",
-                name: "A+"
-            }, {
-                id: 4,
-                name: "A",
-            }, {
-                id: 3,
-                name: "B+",
-            }, {
-                id: 2,
-                name: "B+",
-            }, {
-                id: 1,
-                name: "C",
-            }, {
-                id: 0,
-                name: "D",
-            }
-        ];
+        };
 
         ZYBinfoDATA.types = $location.$$search.type == true ? 1 : $location.$$search.type;
         ZYBinfoDATA.u_level = $location.$$search.user_level == true ? 1 : $location.$$search.user_level;
@@ -315,6 +294,32 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         $scope.table.yxb = yxb[ZYBinfoDATA.types];
         $scope.table.yxb_title = yxb_title[ZYBinfoDATA.u_level];
         $scope.info = ZYBinfoDATA;
+
+        init();
+
+        function init(){
+            if(localStorage.getItem("score")!=null){
+                $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
+                    if (val.state == 1) {
+                        $scope.score = val;
+                        //TODO 请求一次推荐信息
+                        $scope.recommShow = true;
+                    }
+                });
+
+            }
+        }
+
+        $scope.pay = function(){
+            //    TODO 提交订单，
+            $window.open('#/pay');
+            //$window.location.href = "#/pay";
+        }
+
+        $scope.manual = function(){
+            $window.location.href = "#/refer1";
+            $(".modal-backdrop").remove();
+        }
 
 }])
 //.controller("wishTabCtr-screenProp",["$scope","AJAX","ZYBinfoDATA","submitURL",function($scope,AJAX,ZYBinfoDATA,submitURL){

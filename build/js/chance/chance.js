@@ -4,36 +4,27 @@
 angular.module('gaokaoAPP.chance',[])
 .controller('chanceCtr',['$scope',function($scope){
 
-        $scope.firstDoor = [
-            {
-                id: "5",
-                name: "A+"
-            }, {
-                id: 4,
-                name: "A",
-            }, {
-                id: 3,
-                name: "B+",
-            }, {
-                id: 2,
-                name: "B+",
-            }, {
-                id: 1,
-                name: "C",
-            }, {
-                id: 0,
-                name: "D",
-            }
-        ];
+        $scope.score = "";
 
-        $scope.info = {
-            firDoor:$scope.firstDoor[0],
-            sceDoor:$scope.firstDoor[0],
-            name:"",
-            number:"",
-            city:"",
-            cityarea:"",
-            scroe:""
-        };
+        $scope.isShow = false
+
+        init();
+
+        $scope.changePay = function(){
+            $scope.isShow = true;
+        }
+
+       function init(){
+           if(localStorage.getItem("score")!=null){
+               $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
+                   if (val.state == 1) {
+                       $scope.score = val;
+                       //TODO 请求一次推荐信息
+                       $scope.recommShow = true;
+                   }
+               });
+
+           }
+       }
 
 }]);

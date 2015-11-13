@@ -42,6 +42,17 @@ angular.module("gaokaoAPP",[
 .run(['$rootScope',function($rootScope){
         $rootScope.defaultPage = "#/home";
         $rootScope.studentId = "";
+
+        deassign();
+        window.onresize = function(){
+            deassign();
+        }
+
+        function deassign(){
+            var clientHeight = window.innerHeight;
+            document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
+        }
+
 }])
 .constant("logoutURL","/logout")
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -102,6 +113,11 @@ angular.module("gaokaoAPP",[
                 data: { isPublic: true}
             })
 })
+.config(function($httpProvider,$cacheFactory){
+    $httpProvider.defaults.cache = $cacheFactory('lru', {
+        capacity: 20
+    });
+})
 .factory('AJAX',['$http',"$q",function($http,$q){
     var request = function(path,method,data){
         if(method == undefined || method == 'GET'){
@@ -110,6 +126,7 @@ angular.module("gaokaoAPP",[
                 method: 'GET',
                 params:data,
             })
+
         }else{
             var dfd = $q.defer();
             var transform = function (data) {
@@ -134,10 +151,11 @@ angular.module("gaokaoAPP",[
     }
 }])
 .factory('userService',['$rootScope','$timeout','$q',function ($rootScope,$timeout, $q) {
-    var user = JSON.parse(sessionStorage.getItem('user'));
+    var user ={};
     return {
         // async way how to load user from Server API
         getAuthObject: function () {
+            user = JSON.parse(sessionStorage.getItem('user'));
             var deferred = $q.defer();
 
             // later we can use this quick way -
@@ -159,15 +177,14 @@ angular.module("gaokaoAPP",[
 
         // sync, quick way how to check IS authenticated...
         isAuthenticated: function () {
+            user = JSON.parse(sessionStorage.getItem('user'));
             return user !== null
                 && user.isAuthenticated;
         }
     };
 }])
-.run(['$rootScope','$state','userService',function ($rootScope, $state, userService) {
+.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //TODO 路由限制
-            //debugger;
             // if already authenticated...
             var isAuthenticated = userService.isAuthenticated();
             // any public action is allowed
@@ -235,6 +252,7 @@ angular.module("gaokaoAPP",[
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     sessionStorage.setItem('usernumber',"");
+                    sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
                     $scope.user.name ="";
                     window.location.reload();
                 });

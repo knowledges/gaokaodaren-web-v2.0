@@ -38,7 +38,7 @@
     </div>
 </div>
 <![endif]-->
-<nav class="navbar navbar-default head">
+<nav class="navbar navbar-default head" id="head">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="javascript:;;">
@@ -79,7 +79,7 @@
                 </form>
                 <!--<li><a ui-sref="login">登陆/注册</a></li>-->
                 <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin" ng-cloak>{{user.name}}</a></li>
-                <li><a ui-sref="all.will" ng-if="user.islogin" ng-cloak>我的足迹</a></li>
+                <li><a ui-sref="all.score" ng-if="user.islogin" ng-cloak>我的足迹</a></li>
                 <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;" ng-cloak>注销</a></li>
 
                 <!--mask start-->
@@ -148,10 +148,10 @@
 </nav>
 
 <!--<div ng-view></div>-->
-<div ui-view=""></div>
+<div ui-view="" id="content"></div>
 <!--endprint1-->
 
-<div class="foolter alert alert-success">
+<div class="foolter alert alert-success" id="footer">
     <!--<p>江苏达人高考志愿填报网站工作室地址：南京市鼓楼区新模范马路5号A座2407</p>-->
     <!--<p>邮箱地址：jsdrcsl@163.com</p>-->
     <!--<p>联系电话：13914726090</p>-->

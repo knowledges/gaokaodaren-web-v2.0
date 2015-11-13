@@ -1,63 +1,34 @@
 <div class="container text-center">
-    <div>
-        <div class="form-inline" role="高考-基本成绩">
-            <div class="row hope-info text-left">
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" id="name" class="form-control input-none" ng-model="info.name" placeholder="请输入姓名"/>
-                </div>
-                <div class="form-group">
-                    <label for="number">考生号</label>
-                    <input type="text" id="number" class="form-control input-none" ng-model="info.number"  placeholder="请输入考生号"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="city" class="form-control input-none" ng-model="info.city" placeholder="请输入所在市"/>
-                    <label for="city">市</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="cityarea" class="form-control input-none" ng-model="info.cityarea" placeholder="请输入所在县（级、市）"/>
-                    <label for="cityarea">县（级、市）</label>
-                </div>
-            </div>
-            <div class="row hope-info  text-left">
-                <div class="form-group">
-                    <label>选测科目等级</label>
-
-                    <div class="radio">
-                        <select class="form-control" ng-model="info.firDoor" ng-options="door.name for door in firstDoor track by door.id">
-                            <option value=""> ---- </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
-                    <div class="radio">
-                        <select class="form-control" ng-model="info.sceDoor" ng-options="door.name for door in firstDoor track by door.id">
-                            <option value=""> ---- </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group text-right">
-                    <label for="scroe">考分</label>
-                    <input type="text" id="scroe" class="form-control input-none" name="scroe" ng-model="info.scroe" placeholder="考分"/>
+    <div class="row" style="border:1px solid">
+        <div class="col-sm-12">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>广告图</h3>
+                    <p>后面有图放上去</p>
+                    <p><a href="#" class="btn btn-default" role="button">close</a></p>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="alert alert-success text-left">
+        <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{score.subject}}</span>类 总分：<span ng-cloak>{{score.score}}</span>   选测等级：<span ng-cloak>{{score.level}}</span>
     </div>
 
     <div>
         <table class="table table-bordered" role="录取-概率">
             <tbody>
             <tr>
-                <td class="text-center">
-                    <input type="text" class="inputStyle" ng-model="info.school_code" placeholder="请输入高校编号"/>
-                </td>
+                <!--<td class="text-center">-->
+                    <!--<input type="text" class="inputStyle" ng-model="info.school_code" placeholder="请输入高校编号"/>-->
+                <!--</td>-->
                 <td class="text-center">
                     <input type="text" class="inputStyle" ng-model="info.school" placeholder="请输入高校名称"/>
                 </td>
-                <td class="text-center">
-                    <input type="text" class="inputStyle" ng-model="info.depart_code" placeholder="请输入专业代码"/>
-                </td>
+                <!--<td class="text-center">-->
+                    <!--<input type="text" class="inputStyle" ng-model="info.depart_code" placeholder="请输入专业代码"/>-->
+                <!--</td>-->
                 <td class="text-center">
                     <input type="text"class="inputStyle" ng-model="info.depart" placeholder="请输入专业名称"/>
                 </td>
@@ -65,14 +36,14 @@
                     <input type="text"class="inputStyle" ng-model="info.change" placeholder="请输入概率"/>
                 </td>
                 <td class="text-center">
-                    <a class="btn btn-default" ng-click="changePay()" >录取概率</a>
+                    <a class="btn btn-success " ng-click="changePay()" >预测概率</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="isShow">
         <div class="panel-heading text-left">预测高校 <i class="icon-plus"></i></div>
         <div class="panel-body">
             <div class="row">
@@ -86,7 +57,104 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>>95%</td>
+                                <td align="center" valign="middle">>95%</td>
+                                <td class="tdStyle">
+                                    <ul class="nav nav-pills tdUlStyle">
+                                        <li><a href="">南京理工大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">86%~95%</td>
+                                <td class="tdStyle">
+                                    <ul class="nav nav-pills tdUlStyle">
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">76%~85%</td>
+                                <td class="tdStyle">
+                                    <ul class="nav nav-pills tdUlStyle">
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">66%~75%</td>
+                                <td class="tdStyle">
+                                    <ul class="nav nav-pills tdUlStyle">
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">56%~65%</td>
+                                <td class="tdStyle">
+                                    <ul class="nav nav-pills tdUlStyle">
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                        <li><a href="">南京工业大学</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle"><56%</td>
                                 <td class="tdStyle">
                                     <ul class="nav nav-pills tdUlStyle">
                                         <li><a href="">南京工业大学</a></li>
@@ -196,17 +264,67 @@
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 综合
+                                    <input type="checkbox" autocomplete="off"> 综合类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 工科
+                                    <input type="checkbox" autocomplete="off"> 工科类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 农业
+                                    <input type="checkbox" autocomplete="off"> 农业类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 林业类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off">医药类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 医药类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 语言类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 语言类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 政法类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 体育类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 体育类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 民族类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 军事类
                                 </label>
                             </li>
                         </ul>
@@ -217,19 +335,19 @@
         </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="isShow">
         <div class="panel-heading text-left">预测专业 <i class="icon-plus"></i></div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
                     <fieldset>
                         <legend>高校名称</legend>
-                        <i>1432</i>
+                        <i>1604</i>
                         <br/>
-                        某某高校
+                        南京理工大学
                     </fieldset>
                 </div>
-                <div class="col-sm-8" style="height:400px;overflow-y:scroll;">
+                <div class="col-sm-8" style="height:200px;overflow-y:scroll;">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
@@ -242,11 +360,25 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>代号</td>
-                                <td>专业名称</td>
-                                <td>计划数</td>
-                                <td>学制</td>
-                                <td>学费</td>
+                                <td>01</td>
+                                <td>机械类(中外合作办学)(工业设计)</td>
+                                <td>30</td>
+                                <td>4</td>
+                                <td>21600</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>机械类(中外合作办学)(机械工程)</td>
+                                <td>30</td>
+                                <td>4</td>
+                                <td>21600</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>材料类(中外合作办学)(材料科学与工程)</td>
+                                <td>30</td>
+                                <td>4</td>
+                                <td>21600</td>
                             </tr>
                         </tbody>
                     </table>
@@ -257,22 +389,42 @@
                         <ul class="nav nav-pills nav-stacked">
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 全部
+                                    <input type="checkbox" autocomplete="off"> 经济学类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 综合
+                                    <input type="checkbox" autocomplete="off"> 财政学类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 工科
+                                    <input type="checkbox" autocomplete="off"> 金融学类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 农业
+                                    <input type="checkbox" autocomplete="off"> 政治学类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 社会学类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 教育学类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 中国语言文学类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 外国语言文学类
                                 </label>
                             </li>
                         </ul>
@@ -283,7 +435,7 @@
         </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="isShow">
         <div class="panel-heading text-left">根据专业获取所有高校 <i class="icon-plus"></i></div>
         <div class="panel-body">
             <div class="row">
@@ -291,7 +443,23 @@
                     <fieldset>
                         <legend>专业</legend>
                         <select class="form-control" >
-                            <option value="">--请选择--</option>
+                            <optgroup label="经济学类">
+                                <option value="0">经济学</option>
+                                <option value="1">经济统计学</option>
+                                <option value="2">能源经济</option>
+                            </optgroup>
+                            <optgroup label="财政学类">
+                                <option value="0">财政学</option>
+                                <option value="1">税收学</option>
+                            </optgroup>
+                            <optgroup label="金融学类">
+                                <option value="0">金融学</option>
+                                <option value="1">金融工程</option>
+                                <option value="2">保险学</option>
+                                <option value="3">投资学</option>
+                                <option value="4">经济与金融</option>
+                                <option value="5">信息管理</option>
+                            </optgroup>
                         </select>
                         
                     </fieldset>
@@ -309,12 +477,32 @@
                                 <td>南京工业大学</td>
                                 <td>92.8%</td>
                             </tr>
+                            <tr>
+                                <td>西南财经大学</td>
+                                <td>82.8%</td>
+                            </tr>
+                            <tr>
+                                <td>重庆大学</td>
+                                <td>72.8%</td>
+                            </tr>
+                            <tr>
+                                <td>深圳大学</td>
+                                <td>90.8%</td>
+                            </tr>
+                            <tr>
+                                <td>四川大学</td>
+                                <td>89.8%</td>
+                            </tr>
+                            <tr>
+                                <td>海南大学</td>
+                                <td>78.8%</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-sm-2">
                     <fieldset>
-                        <legend>专业类别</legend>
+                        <legend>高校类别</legend>
                         <ul class="nav nav-pills nav-stacked">
                             <li role="presentation">
                                 <label class="btn btn-primary">
@@ -323,17 +511,67 @@
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 综合
+                                    <input type="checkbox" autocomplete="off"> 综合类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 工科
+                                    <input type="checkbox" autocomplete="off"> 工科类
                                 </label>
                             </li>
                             <li role="presentation">
                                 <label class="btn btn-primary">
-                                    <input type="checkbox" autocomplete="off"> 农业
+                                    <input type="checkbox" autocomplete="off"> 农业类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 林业类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off">医药类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 医药类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 语言类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 语言类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 政法类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 体育类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 体育类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 民族类
+                                </label>
+                            </li>
+                            <li role="presentation">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> 军事类
                                 </label>
                             </li>
                         </ul>

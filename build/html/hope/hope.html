@@ -4,45 +4,45 @@
         <h1>{{table.yxb}}</h1>
         <h4>{{table.yxb_title}}</h4>
         <div class="form-inline" role="高考-基本成绩">
-            <div class="row hope-info text-left" ng-if="isShow">
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" id="name" class="form-control input-none" ng-model="info.name" placeholder="请输入姓名"/>
-                </div>
-                <div class="form-group">
-                    <label for="number">考生号</label>
-                    <input type="text" id="number" class="form-control input-none" ng-model="info.number"  placeholder="请输入考生号"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="city" class="form-control input-none" ng-model="info.city" placeholder="请输入所在市"/>
-                    <label for="city">市</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="cityarea" class="form-control input-none" ng-model="info.cityarea" placeholder="请输入所在县（级、市）"/>
-                    <label for="cityarea">县（级、市）</label>
+            <div class="alert alert-success text-left">
+                <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{score.subject}}</span>类 总分：<span ng-cloak>{{score.score}}</span>   选测等级：<span ng-cloak>{{score.level}}</span>
+            </div>
+        </div>
+
+        <div class="modal fade bs-example-modal-sm-sub" id="modal-sub" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">志愿生成方案选择</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>1.随机生成志愿参考表</p>
+                        <p>2.手动选择志愿参考表</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modal-pay">随机生成</button>
+                        <a ng-click="manual()"   class="btn btn-success">手动选择</a>
+                    </div>
                 </div>
             </div>
-            <div class="row hope-info  text-left">
-                <div class="form-group">
-                    <label>选测科目等级</label>
+        </div>
 
-                    <div class="radio">
-                        <select class="form-control" ng-model="info.obl" ng-options="door.name for door in firstDoor track by door.id">
-                            <option value=""> ---- </option>
-                        </select>
+        <div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">支付</h4>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;另一门</label>
-                    <div class="radio">
-                        <select class="form-control" ng-model="info.sel" ng-options="door.name for door in firstDoor track by door.id">
-                            <option value=""> ---- </option>
-                        </select>
+                    <div class="modal-body">
+                        <p>是否愿意支付100元，获取志愿参考表</p>
                     </div>
-                </div>
-                <div class="form-group text-right">
-                    <label for="scroe">考分</label>
-                    <input type="text" id="scroe" class="form-control input-none" ng-model="info.scroe" placeholder="考分"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                        <a ng-click="pay()" class="btn btn-primary">是</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,6 +56,6 @@
 
     <div ng-include="'templete/model-personality/personality.html'" ng-controller="wishTabCtr-cool" role="志愿-个性标签"></div>
 
-    <a href="javascript:;;" class="btn btn-success btn-lg btn-block">提交</a>
+    <button class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-sub">提交</button>
 
 </div>

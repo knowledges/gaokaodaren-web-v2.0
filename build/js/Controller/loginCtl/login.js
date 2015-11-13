@@ -125,7 +125,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
             $rootScope.isShowForget = false;
         };
     }])
-    .controller("logonCtr", ["$scope", "$rootScope", "$window",'$location', "$http", "codeURL", "loginURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window,$location ,$http, codeURL, loginURL, isShowModel, AJAX) {
+    .controller("logonCtr", ["$scope", "$rootScope", "$window", "$http", "codeURL", "loginURL", "isShowModel", "AJAX", function ($scope, $rootScope, $window,$http, codeURL, loginURL, isShowModel, AJAX) {
         $scope.user = {
             username: "",
             password: "",
@@ -167,15 +167,16 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                         return;
                     }
                     //路由权限
-                    window.sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
-                    window.sessionStorage.setItem('usernumber', promise.data.response.name);
+                    sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
+
+                    sessionStorage.setItem('usernumber', promise.data.response.name);
                     $rootScope.studentId = promise.data.response.name;
+
                     if(localStorage.getItem('score')!=null){
                         locationHref();
                     }else{
                         var set = confirm("你还没有完善考试成绩，是否完善！");
                         if(set){
-                            //$location.path("/all/all.score").replace();
                             $window.location.href="#/all/all.score";
                         }else{
                             locationHref();
@@ -197,7 +198,6 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
         };
 
         function locationHref() {
-           //$window.location.href = "#/home";
-            $location.path('/home').replace();
+           $window.location.href = "#/home";
         }
     }])
