@@ -162,6 +162,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
             ////loginStatus.signIn(param,loginURL)
             AJAX.getRequest(loginURL, 'POST', param)
                 .then(function (promise, status) {
+                    debugger;
                     if (promise.data.status == -1) {
                         alert("验证码失效");
                         return;

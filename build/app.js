@@ -113,11 +113,6 @@ angular.module("gaokaoAPP",[
                 data: { isPublic: true}
             })
 })
-.config(function($httpProvider,$cacheFactory){
-    $httpProvider.defaults.cache = $cacheFactory('lru', {
-        capacity: 20
-    });
-})
 .factory('AJAX',['$http',"$q",function($http,$q){
     var request = function(path,method,data){
         if(method == undefined || method == 'GET'){
@@ -139,9 +134,9 @@ angular.module("gaokaoAPP",[
                 }
             }
             var promise = $http.post(path,data,postCfg).then(function (response) {
-                return response;
+                return dfd.resolve(response) ;
             });
-            return promise;
+            return dfd.promise;
         }
     }
     return {

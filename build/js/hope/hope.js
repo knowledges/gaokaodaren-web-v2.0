@@ -319,6 +319,7 @@ angular.module("gaokaoAPP.hope",['gaokaoAPP.hope.selectd','gaokaoAPP.hope.colleg
         $scope.manual = function(){
             $window.location.href = "#/refer1";
             $(".modal-backdrop").remove();
+            $(".modal-open").removeClass('modal-open');
         }
 
 }])
