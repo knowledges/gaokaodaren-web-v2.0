@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="css/refer/refer.css"/>
     <link rel="stylesheet" href="css/pay/pay.css"/>
 </head>
-<body>
+<body ng-cloak>
 
 <!--[if lt IE 10]>
 <div class="browser-happy">
     <div class="content">
         <p>童鞋，您的浏览器太OUT，为何不是试试更先进的浏览器呢～～</p>
+        <h4>注：如果使用360浏览器，请使用极速模式打开</h4>
         <a href="http://browsehappy.com/">立即更新</a>
     </div>
 </div>
@@ -78,28 +79,28 @@
                     </a>
                 </form>
                 <!--<li><a ui-sref="login">登陆/注册</a></li>-->
-                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin" ng-cloak>{{user.name}}</a></li>
+                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
                 <li><a ui-sref="all.score" ng-if="user.islogin" ng-cloak>我的足迹</a></li>
                 <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;" ng-cloak>注销</a></li>
 
                 <!--mask start-->
-                <div class="modal bs-example-modal-lg" ng-if="isShow" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" ng-cloak>
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6 login-icon text-center">
-                                        <img src="../build/img/ng_logo.png" alt="高考志愿"/>
-                                    </div>
-                                    <div ng-include="'templete/model-login/login.html'"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="modal bs-example-modal-lg" ng-if="isShow" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" ng-cloak>-->
+                    <!--<div class="modal-dialog modal-lg">-->
+                        <!--<div class="modal-content">-->
+                            <!--<div class="modal-header">-->
+                                <!--<button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                            <!--</div>-->
+                            <!--<div class="container-fluid">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-6 login-icon text-center">-->
+                                        <!--<img src="../build/img/ng_logo.png" alt="高考志愿"/>-->
+                                    <!--</div>-->
+                                    <!--<div ng-include="'templete/model-login/login.html'"></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!--mask end-->
             </ul>
         </div>
