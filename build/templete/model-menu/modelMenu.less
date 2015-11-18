@@ -44,3 +44,28 @@ ul.menu-nav{
     min-height: 600px;
     box-shadow: 2px 0px 2px #ccc;
 }
+.newNav{
+    width: 280px!important;
+    > li{
+        text-align: left;
+        > a{
+            font-size: 14px!important;
+            color: #333!important;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        ul{
+            padding: 0!important;
+            list-style: none;
+            li {
+                a{
+                    font-size: 12px!important;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

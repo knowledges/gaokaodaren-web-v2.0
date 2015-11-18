@@ -1,0 +1,15 @@
+<ul class="nav menu-nav text-center newNav" ng-controller="cityCtl">
+    <li ng-repeat="lists in new" ng-if="$first">
+        <a href="javascript:;;" data-target="#chart-collpsed{{lists.menu_id}}" aria-expanded="true" data-toggle="collapse">{{lists.menu_name}}</a>
+        <ul id="chart-collpsed{{lists.menu_id}}" class="collapse in" data-toggle="collapse in" aria-expanded="true">
+            <li ng-repeat="list in lists.articles.list"><a ng-click="info(list.id)">{{list.title}}</a></li>
+        </ul>
+    </li>
+    <li ng-repeat="lists in new"  ng-if="!$first">
+        <a href="javascript:;;" data-target="#chart-collpsed{{lists.menu_id}}" aria-expanded="false" data-toggle="collapse">{{lists.menu_name}}</a>
+        <ul id="chart-collpsed{{lists.menu_id}}" class="collapse" data-toggle="collapse" aria-expanded="false">
+            <li ng-repeat="list in lists.articles.list"><a ng-click="info(list.id)">{{list.title}}</a></li>
+        </ul>
+    </li>
+</ul>
+

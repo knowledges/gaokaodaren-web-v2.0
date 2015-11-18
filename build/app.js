@@ -37,7 +37,8 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.temp.example",
     "gaokaoAPP.refer",
     "gaokaoAPP.pay",
-    "gaokaoAPP.myInfo.myScore"
+    "gaokaoAPP.myInfo.myScore",
+    "gaokaoApp.home.new"
 ])
 .run(['$rootScope',function($rootScope){
         $rootScope.defaultPage = "#/home";
@@ -63,25 +64,25 @@ angular.module("gaokaoAPP",[
             .state("home", {
                 url: "/home",
                 templateUrl: "html/home/home.html",
-                data: { isPublic: true},
-                controller:"homeCtr"
+                controller:"homeCtr",
+                data: { isPublic: true}
             })
             .state("chance", {
                 url: "/chance",
                 templateUrl: "html/chance/chance.html",
-                data: { isPublic: false},
-                controller:"chanceCtr"
+                controller:"chanceCtr",
+                data: { isPublic: false}
             })
             .state("hope", {
                 url: "/hope",
-                data: { isPublic: false},
-                templateUrl: "html/hope/hope.html"
+                templateUrl: "html/hope/hope.html",
+                data: { isPublic: false}
             })
             .state("login", {
                 url: "/login",
-                data: { isPublic: true},
                 templateUrl: "html/login/login.html",
-                controller:"logonCtr"
+                controller:"logonCtr",
+                data: { isPublic: true}
             })
             .state("register", {
                 url: "/register",
@@ -91,9 +92,9 @@ angular.module("gaokaoAPP",[
             })
             .state("forget", {
                 url: "/forget",
-                data: { isPublic: true},
                 templateUrl: "html/login/forget.html",
-                controller:"forgetCtr"
+                controller:"forgetCtr",
+                data: { isPublic: true}
             })
             .state("refer",{
                 url:"/refer",
@@ -104,8 +105,8 @@ angular.module("gaokaoAPP",[
             .state("pay",{
                 url:"/pay",
                 templateUrl:"html/pay/pay.html",
-                data: { isPublic: false},
-                controller:'payCtr'
+                controller:'payCtr',
+                data: { isPublic: false}
             })
             .state('refer1',{
                 url:"/refer1",
@@ -146,31 +147,20 @@ angular.module("gaokaoAPP",[
     }
 }])
 .factory('userService',['$rootScope','$timeout','$q',function ($rootScope,$timeout, $q) {
-    var user ={};
+    var user ={},score={};
     return {
-        // async way how to load user from Server API
         getAuthObject: function () {
             user = JSON.parse(sessionStorage.getItem('user'));
             var deferred = $q.defer();
-
-            // later we can use this quick way -
-            // - once user is already loaded
             if (user) {
                 return $q.when(user);
             }
-
-            // server fake call, in action would be $http
             $timeout(function () {
-                // server returned UN authenticated user
-                user = {isAuthenticated: false };
-                // here resolved after 500ms
+                user = {isAuthenticated: false};
                 deferred.resolve(user)
             }, 500)
-
             return deferred.promise;
         },
-
-        // sync, quick way how to check IS authenticated...
         isAuthenticated: function () {
             user = JSON.parse(sessionStorage.getItem('user'));
             return user !== null
@@ -180,32 +170,25 @@ angular.module("gaokaoAPP",[
 }])
 .run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            // if already authenticated...
+
             var isAuthenticated = userService.isAuthenticated();
-            // any public action is allowed
             var isPublicAction = angular.isObject(toState.data)
                 && toState.data.isPublic === true;
-
             if (isPublicAction || isAuthenticated) {
                 return;
             }
 
-            // stop state change
             event.preventDefault();
 
-            // async load user
             userService.getAuthObject().then(function (user) {
+                var isAuthenticated = user.isAuthenticated === true;
+                if (isAuthenticated) {
+                    $state.go(toState, toParams)
+                    return;
+                }
+                $state.go("login");
+            })
 
-                    var isAuthenticated = user.isAuthenticated === true;
-
-                    if (isAuthenticated) {
-                        // let's continue, use is allowed
-                        $state.go(toState, toParams)
-                        return;
-                    }
-                    // log on / sign in...
-                    $state.go("login");
-                })
         })
 }])
 .controller("appCtr",['$scope','$rootScope','$http','logoutURL','isShowModel',"AJAX",function($scope,$rootScope,$http,logoutURL,isShowModel,AJAX){

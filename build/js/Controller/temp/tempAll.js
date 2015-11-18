@@ -3,6 +3,8 @@
  */
 angular.module("gaokaoAPP.temp.all",['ui.router'])
     .config(function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider
+            .when("/all", "/all/all.score");
         $stateProvider
             //////////////////
             //              //

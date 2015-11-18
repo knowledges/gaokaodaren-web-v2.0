@@ -10,7 +10,6 @@ angular.module("gaokaoAPP.myInfo.myScore", [])
             score:"",
             subject:"",
             sub1:"",
-            sub1:"",
             myScore:""
         }
 
@@ -92,8 +91,10 @@ angular.module("gaokaoAPP.myInfo.myScore", [])
                 array.push(param);
                 localStorage.setItem("score",JSON.stringify(array));
             }
-
             $window.location.reload()
+
+            //TODO 请求志愿 推荐内容
+
         }
 
         $scope.setUp = function(index){

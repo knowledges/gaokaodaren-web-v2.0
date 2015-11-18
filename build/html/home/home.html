@@ -6,11 +6,19 @@
             <li data-target="#home" data-slide-to="1"></li>
             <li data-target="#home" data-slide-to="2"></li>
             <li data-target="#home" data-slide-to="3"></li>
+            <li data-target="#home" data-slide-to="4"></li>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
+            <div class="item  active">
+                <img src="img/005.jpg" alt="...">
+                <div class="carousel-caption">
+                    <h1>三大名校等你报道</h1>
+                    <!--<p><a class="btn btn-primary btn-lg" href="#/example/" role="button">去看看。</a></p>-->
+                </div>
+            </div>
+            <div class="item">
                 <img src="img/000.jpg" alt="">
                 <div class="carousel-caption">
                     <form ng-submit="addScore(table)">
@@ -186,7 +194,13 @@
         </a>
     </div>
 </div>
-<div class="container">
+<div class="floatAdv floatAdv_left">
+    <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LhomeNewCtl"></div>
+</div>
+<div class="floatAdv floatAdv_right">
+    <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RhomeNewCtl"></div>
+</div>
+<div ng-show="ishide" class="container">
     <div class="row border">
         <div class="col-sm-3">
             <div class="thumbnail text-center">
@@ -199,7 +213,7 @@
                     <p>高职专科院校</p>
                     <p>......</p>
                     <p class="text-right">
-                        <a ui-sref="school.nav" >查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="school.nav" >深入了解  <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -215,7 +229,7 @@
                     <p>高职专科专业</p>
                     <p>......</p>
                     <p class="text-right">
-                        <a ui-sref="marjor.nav">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="marjor.nav">深入了解  <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -227,11 +241,9 @@
                 </p>
                 <div class="options text-center">
                     <h3>招生政策--<small>抉择的依据</small></h3>
-                    <p>国家政策</p>
-                    <p>照顾政策</p>
-                    <p>......</p>
+                    <p ng-repeat="list in table.zszc">{{list.title}}</p>
                     <p class="text-right">
-                        <a ui-sref="policy.nav">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="policy.nav">深入了解 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -243,16 +255,13 @@
                 </p>
                 <div class="options text-center">
                     <h3>毕业去向--<small>抉择的效益</small></h3>
-                    <p>就业</p>
-                    <p>考研</p>
-                    <p>出国（境</p>
+                    <p ng-repeat="list in table.byqx">{{list.title}}</p>
                     <p class="text-right">
-                        <a ui-sref="job.nav">查看更多 <i class="icon-double-angle-right"></i></a>
+                        <a ui-sref="job.nav">深入了解 <i class="icon-double-angle-right"></i></a>
                     </p>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="row border">
         <div class="col-sm-3">
@@ -262,13 +271,9 @@
                 </p>
                 <div class="options text-center">
                     <h3>填报要领--<small>抉择的方法</small></h3>
-                    <p>前期准备</p>
-                    <p>前车之鉴</p>
-                    <p>操作程序</p>
-                    <p>主要原则</p>
-                    <p>......</p>
+                    <p ng-repeat="list in table.tbyl">{{list.title}}</p>
                     <p class="text-right">
-                        <a ui-sref="recipe.nav">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="recipe.nav">深入了解 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -280,13 +285,9 @@
                 </p>
                 <div class="options text-center">
                     <h3>分数分析--<small>抉择的数据</small></h3>
-                    <p>分数线</p>
-                    <p>分数比较法</p>
-                    <p>考生分数分析</p>
-                    <p>学校分数分析</p>
-                    <p>......</p>
+                    <p ng-repeat="list in table.fsfx">{{list.title}}</p>
                     <p class="text-right">
-                        <a ui-sref="score.nav">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a ui-sref="score.nav">深入了解 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -298,13 +299,9 @@
                 </p>
                 <div class="options text-center">
                     <h3>个性特征--<small>抉择的要素</small></h3>
-                    <p>身体条件</p>
-                    <p>经济条件</p>
-                    <p>学科强弱</p>
-                    <p>学习愿望</p>
-                    <p>......</p>
+                    <p ng-repeat="list in table.gxtz">{{list.title}}</p>
                     <p class="text-right">
-                        <a href="javascript:;;">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a href="javascript:;;">深入了解 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -316,13 +313,9 @@
                 </p>
                 <div class="options text-center">
                     <h3>咨询线路--<small>抉择的数据</small></h3>
-                    <p>分数优先咨询线路</p>
-                    <p>专业优先咨询线路</p>
-                    <p>高校优先咨询线路</p>
-                    <p>城市优先咨询线路</p>
-                    <p>......</p>
+                    <p ng-repeat="list in table.zxxl">{{list.title}}</p>
                     <p class="text-right">
-                        <a href="javascript:;;">查看更多 <i class="icon-double-angle-right"></i> </a>
+                        <a href="javascript:;;">深入了解 <i class="icon-double-angle-right"></i> </a>
                     </p>
                 </div>
             </div>
@@ -337,12 +330,12 @@
                     <ul class="nav nav-pills">
                         <li ng-repeat="list in table.provincelist"><a ui-sref="city.list({cityId:list.id})">{{list.name}}</a></li>
                     </ul>
-                    <!--<p><a>江苏省</a><a>上海市</a><a>浙江省</a><a>安徽省</a><a>福建省</a><a>江西省</a><a>山东省</a><a>北京市</a><a>天津市</a><a>河北省</a><a>山西省</a><a>内蒙古</a><a>自治区</a><a>辽宁省</a><a>吉林省</a><a>黑龙江省</a><a>河南省</a><a>湖北省</a><a>湖南省</a><a>广东省</a><a>广西省</a><a>海南省</a><a>四川省</a><a>重庆市</a><a>贵州省</a><a>云南省</a><a>西藏自治区</a><a>陕西省</a><a>甘肃省</a><a>青海省</a><a>宁夏自治区</a><a>新疆自治区</a></p>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container" ng-bind-html="table.servicehtml"></div>
 <div class="ad">
     <ul class="ad-ul">
         <li ng-init="showDiv=false" ng-cloak ng-mouseenter="showDiv=true" ng-mouseleave="showDiv=false" >

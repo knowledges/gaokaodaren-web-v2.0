@@ -36,4 +36,27 @@ ul.menu-nav > li ul li a:focus {
   min-height: 600px;
   box-shadow: 2px 0px 2px #ccc;
 }
+.newNav {
+  width: 280px!important;
+}
+.newNav > li {
+  text-align: left;
+}
+.newNav > li > a {
+  font-size: 14px!important;
+  color: #333!important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.newNav > li ul {
+  padding: 0!important;
+  list-style: none;
+}
+.newNav > li ul li a {
+  font-size: 12px!important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 /*# sourceMappingURL=modelMenu.css.map */
