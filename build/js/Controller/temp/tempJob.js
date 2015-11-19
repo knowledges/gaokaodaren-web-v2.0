@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.job",[])
                 url:"/job",
                 templateUrl:"html/temp/tempJob.html",
                 data: { isPublic: true},
+                controller:"jobCtr"
             })
             ///////////////////////
             ///  job > nav  ///
@@ -30,4 +31,15 @@ angular.module("gaokaoAPP.temp.job",[])
                 data: { isPublic: true},
                 controller:"recipeInfoCtr"
             })
-    });
+    })
+.controller('jobCtr',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}]);

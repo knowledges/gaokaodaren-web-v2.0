@@ -12,6 +12,7 @@ ul.menu-nav > li > a {
   color: #888888;
   font-size: 24px;
   background-color: #EFEFEF;
+  box-shadow: 0 0px 4px;
 }
 ul.menu-nav > li ul {
   padding: 0;

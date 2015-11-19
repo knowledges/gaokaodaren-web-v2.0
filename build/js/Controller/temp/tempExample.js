@@ -8,6 +8,7 @@ angular.module('gaokaoAPP.temp.example',[])
                 url:'/example',
                 templateUrl:"html/temp/tempExample.html",
                 data: { isPublic: true},
+                controller:"exampleAllCtl"
             })
             .state('example.nav',{
                 url:"/",
@@ -21,6 +22,15 @@ angular.module('gaokaoAPP.temp.example',[])
                 data: { isPublic: true},
                 controller:"recipeInfoCtr"
             })
-
-
-    });
+})
+.controller('exampleAllCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}])

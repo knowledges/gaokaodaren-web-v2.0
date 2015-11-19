@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.school",[])
             url:"/school",
             templateUrl:"html/temp/tempSchool.html",
             data: { isPublic: true },
+            controller:"schlCtl"
         })
         ///////////////////////
         ///  school > nav  ///
@@ -29,4 +30,15 @@ angular.module("gaokaoAPP.temp.school",[])
             templateUrl:"html/school/school.html",
             data: { isPublic: true },
         })
-});
+})
+.controller('schlCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}])

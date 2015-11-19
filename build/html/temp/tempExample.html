@@ -1,18 +1,17 @@
 <div class="container text-center">
     <div class="row" style="border:1px solid">
-        <div class="col-sm-12">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>广告图</h3>
-                    <p>后面有图放上去</p>
-                    <p><a href="#" class="btn btn-default" role="button">close</a></p>
+        <div class="carousel-inner" role="listbox">
+            <div class="item  active">
+                <img src="img/002.jpg" alt="...">
+                <div class="carousel-caption">
+                    <h1>志愿范例</h1>
+                    <p>提高一分，干掉千人</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" ng-show="ishide">
         <nav class="navbar menu-navbar">
             <div class="collapse navbar-collapse">
                 <div class="col-md-3">
@@ -23,5 +22,14 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    <div class="container  text-left"  ng-bind-html="insertHTML"></div>
+
+    <div class="floatAdv floatAdv_left">
+        <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LexampleNewCtl"></div>
+    </div>
+    <div class="floatAdv floatAdv_right">
+        <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RexampleNewCtl"></div>
     </div>
 </div>

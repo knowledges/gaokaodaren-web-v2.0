@@ -12,6 +12,7 @@ angular.module('gaokaoAPP.temp.marjor',[])
             url:"/marjor",
             templateUrl:"html/temp/tempMarjor.html",
             data: { isPublic: true},
+            controller:"marjorCtl"
         })
         ///////////////////////
         ///  school > nav  ///
@@ -29,13 +30,17 @@ angular.module('gaokaoAPP.temp.marjor',[])
             url:"/{type:[0-9]{1,4}}",
             templateUrl:"html/marjor/marjor.html",
             data: { isPublic: true},
+            controller:"marjorConCtl"
         })
-        /////////////////////////
-        /////  school > list > info ///
-        /////////////////////////
-        //.state('item',{
-        //    url:"/marjor/item",
-        //    templateUrl:"html/marjor/marjorInfo.html",
-        //    controller:"marjorInfoCtr"
-        //})
-});
+})
+.controller('marjorCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}])

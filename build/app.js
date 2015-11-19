@@ -38,7 +38,9 @@ angular.module("gaokaoAPP",[
     "gaokaoAPP.refer",
     "gaokaoAPP.pay",
     "gaokaoAPP.myInfo.myScore",
-    "gaokaoApp.home.new"
+    "gaokaoApp.home.new",
+    "gaokaoApp.banner.hope",
+    "gaokaoApp.banner.chance",
 ])
 .run(['$rootScope',function($rootScope){
         $rootScope.defaultPage = "#/home";

@@ -17,60 +17,23 @@ angular.module("gaokaoAPP.home",[])
     })
     .controller("homeCtr",['$scope','$window','$sce','AJAX','provinceURL','men7','men2','men3','men4','men5','men6','htmlService',function($scope,$window,$sce,AJAX,provinceURL,men7,men2,men3,men4,men5,men6,htmlService) {
         $scope.table = {
-            subject:"1",
-            Batch :"1",
-            type:0,
-            provincelist:"",
-            obl:"",
-            sel:"",
-            score:"",
             tbyl:"",
             fsfx:"",
             zszc:"",
             byqx:"",
             gxtz:"",
-            zxxl:"",
-            servicehtml:""
+            zxxl:""
         }
         $scope.ishide = true;
-        $scope.table.servicehtml = htmlService;
 
-        $scope.$watch('table.servicehtml',function(newValue,oldValue){
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
             if(newValue.htmlPage!=""){
                 $scope.ishide = false;
-                $scope.table.servicehtml = $sce.trustAsHtml(newValue);
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }
         },true);
-
-        $scope.addScore = function(table){
-            //TODO 是否登陆
-
-            var arr = [];
-            var param = {};
-            param.subject = $scope.table.subject == "1" ?"文科":"理科";
-            param.score = $scope.table.score;
-            param.level = $scope.table.sub1+table.obl.name+","+$scope.table.sub2+table.sel.name;
-            param.date = new Date().getTime();
-
-            if(localStorage.getItem("score") == null){
-                param.state = 0;
-                arr.push(param);
-                localStorage.setItem("score",JSON.stringify(arr));
-            }else {
-                var array = JSON.parse(localStorage.getItem("score"));
-                param.state = 0;
-                array.push(param);
-                localStorage.setItem("score",JSON.stringify(array));
-            }
-
-            var add = confirm('成绩创建成功，是否使用此成绩去模拟志愿表');
-            if(add){
-                $window.location.href="#/hope?type=1&user_level=1"
-            }else{
-                $window.location.href="#/all/all.score";
-            }
-
-        }
 
         function locationHref(type,user_level,obl,sel,score){
             $window.location.href="#/hope?type="+type+"&user_level="+user_level+"&obl="+obl+"&sel="+sel+"&score="+score;
@@ -88,28 +51,6 @@ angular.module("gaokaoAPP.home",[])
                 .success(function (data, status) {
                     $scope.table.provincelist = data.response.list;
                 });
-
-            $scope.firstDoor = [
-                {
-                    id: "5",
-                    name: "A+"
-                }, {
-                    id: 4,
-                    name: "A",
-                }, {
-                    id: 3,
-                    name: "B+",
-                }, {
-                    id: 2,
-                    name: "B+",
-                }, {
-                    id: 1,
-                    name: "C",
-                }, {
-                    id: 0,
-                    name: "D",
-                }
-            ];
 
             $('.carousel').carousel({
                 interval: 5000

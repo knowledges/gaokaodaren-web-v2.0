@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.online",[])
             url:"/online",
             templateUrl:"html/temp/tempOnline.html",
             data: { isPublic: true},
+            controller:"onlineCtr"
         })
         /////////////////////
         ///  online > nav ///
@@ -30,4 +31,15 @@ angular.module("gaokaoAPP.temp.online",[])
             data: { isPublic: true},
             controller:"onlineInfoCtr"
         })
-});
+})
+.controller('onlineCtr',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}])

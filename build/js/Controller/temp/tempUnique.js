@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.unique",[])
                 url:"/unique",
                 templateUrl:"html/temp/tempUnique.html",
                 data: { isPublic: true },
+                controller:"uniqueCtr"
             })
             ///////////////////////
             ///  unique > nav  ///
@@ -30,4 +31,15 @@ angular.module("gaokaoAPP.temp.unique",[])
                 data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
-    });
+    })
+    .controller('uniqueCtr',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+    }])

@@ -1,4 +1,4 @@
-<div class="menu-div" ng-controller="marjorConCtl">
+<div class="menu-div">
 
     <ol class="breadcrumb text-left">
         <!--<li><a href="javascript:history.go(0);">本科院校</a></li>-->
@@ -35,7 +35,8 @@
         <ul class="nav nav-pills" ng-repeat="list in findList">
             <li><a ui-sref="marjor.list.info({infoId:list.article_id})">{{list.name}}</a></li>
         </ul>
-        <!--<p class="text-right" ng-if="marjor.isfind"><a href="" class="btn btn-success">返回</a></p>-->
         <div ng-view></div>
     </div>
 </div>
+
+

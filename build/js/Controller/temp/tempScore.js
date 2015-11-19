@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.score",[])
                 url:"/score",
                 templateUrl:"html/temp/tempScore.html",
                 data: { isPublic: true },
+                controller:"scoreCtl"
             })
             ///////////////////////
             ///  score > nav  ///
@@ -30,4 +31,16 @@ angular.module("gaokaoAPP.temp.score",[])
                 data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
-    });
+    })
+.controller("scoreCtl",['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+
+    $scope.ishide = true;
+    $scope.service = htmlService;
+    $scope.insertHTML = "";
+    $scope.$watch('service',function(newValue,oldValue){
+        if(newValue.htmlPage!=""){
+            $scope.ishide = false;
+            $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+        }
+    },true);
+}])

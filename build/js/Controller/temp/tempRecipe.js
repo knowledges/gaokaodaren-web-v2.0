@@ -8,6 +8,7 @@ angular.module("gaokaoAPP.temp.recipe",[])
                 url:'/recipe',
                 templateUrl:'html/temp/tempRecipe.html',
                 data: { isPublic: true },
+                controller:"reciptCtl"
             })
             .state('recipe.nav',{
                 url:'/',
@@ -21,4 +22,15 @@ angular.module("gaokaoAPP.temp.recipe",[])
                 data: { isPublic: true },
                 controller:"recipeInfoCtr"
             })
-    });
+    })
+.controller('reciptCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
+}])

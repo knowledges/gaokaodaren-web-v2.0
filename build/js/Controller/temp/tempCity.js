@@ -11,6 +11,7 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
                 url: '/city',
                 templateUrl:'html/temp/tempCity.html',
                 data: { isPublic: true},
+                controller:"tempCtr"
             })
             ///////////////////
             ///  city > nav ///
@@ -29,7 +30,15 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
                 templateUrl:'html/city/city.html',
                 data: { isPublic: true},
             })
-
 })
-.controller("tempCtr",['$scope',"$location",function($scope,$location){
+.controller("tempCtr",['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+        $scope.ishide = true;
+        $scope.service = htmlService;
+        $scope.insertHTML = "";
+        $scope.$watch('service',function(newValue,oldValue){
+            if(newValue.htmlPage!=""){
+                $scope.ishide = false;
+                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
+            }
+        },true);
 }]);

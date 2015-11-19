@@ -1,5 +1,5 @@
 <div class="container text-center">
-    <div class="container">
+    <div class="container" ng-show="ishide">
         <nav class="navbar menu-navbar">
             <div class="collapse navbar-collapse">
                 <div class="col-md-3">
@@ -11,18 +11,8 @@
             </div>
         </nav>
     </div>
+
+    <div class="container text-left"  ng-bind-html="insertHTML"></div>
+    <div class="floatAv floatAdv_left "  ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LcityNewCtl"></div>
+    <div class="floatAv floatAdv_right" ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RcityNewCtl"></div>
 </div>
-<!--<div class="container text-center">-->
-    <!--<div class="container">-->
-        <!--<nav class="navbar menu-navbar">-->
-            <!--<div class="collapse navbar-collapse">-->
-                <!--<div class="col-md-3">-->
-                    <!--<div ui-view="cityType">城市类型加载中...</div>-->
-                <!--</div>-->
-                <!--<div class="col-md-9">-->
-                    <!--<div ui-view="cityList">城市列表加载中...</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</nav>-->
-    <!--</div>-->
-<!--</div>-->
