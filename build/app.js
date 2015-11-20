@@ -5,13 +5,14 @@
 
 angular.module("gaokaoAPP",[
     "ui.router",
+    "gaokaoApp.factory",
     "gaokaoAPP.home",
     "gaokaoAPP.hope",
     "gaokaoAPP.chance",
     "gaokaoAPP.login.childApp",
     "gaokaoAPP.temp.city",
-    "gaokaoAPP.navbar.citymenu",//city.js
-    "gaokaoAPP.navbar",//nav.js
+    "gaokaoAPP.navbar.citymenu",
+    "gaokaoAPP.navbar",
     "gaokaoAPP.city.content",
     "gaokaoAPP.temp.school",
     "gaokaoAPP.navbar.School",
@@ -45,19 +46,61 @@ angular.module("gaokaoAPP",[
 .run(['$rootScope',function($rootScope){
         $rootScope.defaultPage = "#/home";
         $rootScope.studentId = "";
-
         deassign();
         window.onresize = function(){
             deassign();
         }
-
         function deassign(){
             var clientHeight = window.innerHeight;
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
 
 }])
-.constant("logoutURL","/logout")
+.factory('userService',['$rootScope','$timeout','$q',function ($rootScope,$timeout, $q) {
+    var user ={},score={};
+    return {
+        getAuthObject: function () {
+            user = JSON.parse(sessionStorage.getItem('user'));
+            var deferred = $q.defer();
+            if (user) {
+                return $q.when(user);
+            }
+            $timeout(function () {
+                user = {isAuthenticated: false};
+                deferred.resolve(user)
+            }, 500)
+            return deferred.promise;
+        },
+        isAuthenticated: function () {
+            user = JSON.parse(sessionStorage.getItem('user'));
+            return user !== null
+                && user.isAuthenticated;
+        }
+    };
+}])
+.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+            var isAuthenticated = userService.isAuthenticated();
+            var isPublicAction = angular.isObject(toState.data)
+                && toState.data.isPublic === true;
+            if (isPublicAction || isAuthenticated) {
+                return;
+            }
+
+            event.preventDefault();
+
+            userService.getAuthObject().then(function (user) {
+                var isAuthenticated = user.isAuthenticated === true;
+                if (isAuthenticated) {
+                    $state.go(toState, toParams)
+                    return;
+                }
+                $state.go("login");
+            })
+
+        })
+}])
 .config(function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider
@@ -67,7 +110,30 @@ angular.module("gaokaoAPP",[
                 url: "/home",
                 templateUrl: "html/home/home.html",
                 controller:"homeCtr",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    data_province: function(newService) {
+                        return newService.getProvinceURL();
+                    },
+                    data_HomeModel2:function(newService){
+                        return newService.getHomeModel2();
+                    },
+                    data_HomeModel3:function(newService){
+                        return newService.getHomeModel3();
+                    },
+                    data_HomeModel4:function(newService){
+                        return newService.getHomeModel4();
+                    },
+                    data_HomeModel5:function(newService){
+                        return newService.getHomeModel5();
+                    },
+                    data_HomeModel6:function(newService){
+                        return newService.getHomeModel6();
+                    },
+                    data_HomeModel7:function(newService){
+                        return newService.getHomeModel7();
+                    }
+                }
             })
             .state("chance", {
                 url: "/chance",
@@ -115,89 +181,13 @@ angular.module("gaokaoAPP",[
                 templateUrl:"html/refer/refer1.html",
                 data: { isPublic: true}
             })
-})
-.factory('AJAX',['$http',"$q",function($http,$q){
-    var request = function(path,method,data){
-        if(method == undefined || method == 'GET'){
-            return $http({
-                url:path,
-                method: 'GET',
-                params:data,
-            })
-
-        }else{
-            var dfd = $q.defer();
-            var transform = function (data) {
-                return $.param(data);
-            }
-            var postCfg = {
-                transformRequest:transform,
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                }
-            }
-            var promise = $http.post(path,data,postCfg).then(function (response) {
-                return dfd.resolve(response) ;
-            });
-            return dfd.promise;
-        }
-    }
-    return {
-        getRequest : function(path,method,data){
-            return request(path,method,data);
-        }
-    }
-}])
-.factory('userService',['$rootScope','$timeout','$q',function ($rootScope,$timeout, $q) {
-    var user ={},score={};
-    return {
-        getAuthObject: function () {
-            user = JSON.parse(sessionStorage.getItem('user'));
-            var deferred = $q.defer();
-            if (user) {
-                return $q.when(user);
-            }
-            $timeout(function () {
-                user = {isAuthenticated: false};
-                deferred.resolve(user)
-            }, 500)
-            return deferred.promise;
-        },
-        isAuthenticated: function () {
-            user = JSON.parse(sessionStorage.getItem('user'));
-            return user !== null
-                && user.isAuthenticated;
-        }
-    };
-}])
-.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-
-            var isAuthenticated = userService.isAuthenticated();
-            var isPublicAction = angular.isObject(toState.data)
-                && toState.data.isPublic === true;
-            if (isPublicAction || isAuthenticated) {
-                return;
-            }
-
-            event.preventDefault();
-
-            userService.getAuthObject().then(function (user) {
-                var isAuthenticated = user.isAuthenticated === true;
-                if (isAuthenticated) {
-                    $state.go(toState, toParams)
-                    return;
-                }
-                $state.go("login");
-            })
-
-        })
-}])
+    })
 .controller("appCtr",['$scope','$rootScope','$http','logoutURL','isShowModel',"AJAX",function($scope,$rootScope,$http,logoutURL,isShowModel,AJAX){
         $scope.user = {
             islogin : false,
             name : "",
         }
+
         $scope.isShow = false;
         $scope.user.name = sessionStorage.getItem('usernumber');
 

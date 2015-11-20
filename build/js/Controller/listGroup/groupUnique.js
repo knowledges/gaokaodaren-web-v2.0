@@ -16,7 +16,6 @@ angular.module('gaokaoAPP.group.unique',[])
             parame.parent_id = 22;
             AJAX.getRequest(menuRecipeURL,'GET',parame)
                 .success(function(data,status){
-                    debugger;
                     $scope.menu.menuList = data.response.list;
                 })
         }

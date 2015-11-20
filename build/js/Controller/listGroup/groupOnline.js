@@ -4,12 +4,10 @@
 angular.module('gaokaoAPP.group.online',[])
 .constant('articleURL','/article')
 .controller('onlineMenuCtr',['$scope','AJAX','articleURL',function($scope,AJAX,articleURL){
-
         $scope.menu = {
             menuList : ""
         }
         init();
-
         function init(){
             var parame = {};
             parame.index = 0;
@@ -18,7 +16,6 @@ angular.module('gaokaoAPP.group.online',[])
             parame.key="";
             AJAX.getRequest(articleURL,'GET',parame)
                 .success(function(data,status){
-                    debugger;
                     $scope.menu.menuList = data.response.list;
                 })
         }

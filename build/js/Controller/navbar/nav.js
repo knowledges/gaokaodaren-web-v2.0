@@ -126,6 +126,7 @@ angular.module("gaokaoAPP.navbar",[])
         }
     }])
 .controller('onlineNav',['$scope','$sce','AJAX','navURL_9',function($scope,$sce,AJAX,navURL_9){
+        //$scope.nav.content = $sce.trustAsHtml(data_nav.data);
 
         $scope.nav = {
             content : ''
@@ -138,7 +139,8 @@ angular.module("gaokaoAPP.navbar",[])
                     $scope.nav.content = $sce.trustAsHtml(data);
                 });
         }
-    }])
+
+}])
 .controller('aboutNav',['$scope','$sce','AJAX','navURL_10',function($scope,$sce,AJAX,navURL_10){
 
         $scope.nav = {

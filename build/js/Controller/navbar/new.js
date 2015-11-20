@@ -353,10 +353,10 @@ angular.module('gaokaoApp.home.new',[])
             });
     }
 }])
-.controller('LuniqueNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,uniqueNewUrl,htmlService){
+.controller('LjobNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
     $scope.new = "";
     $scope.htmlService = htmlService;
-    AJAX.getRequest(uniqueNewUrl,'GET','')
+    AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
         });
@@ -367,10 +367,10 @@ angular.module('gaokaoApp.home.new',[])
             });
     }
 }])
-.controller('RuniqueNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,uniqueNewUrl,htmlService){
+.controller('RjobNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
     $scope.new = "";
     $scope.htmlService = htmlService;
-    AJAX.getRequest(uniqueNewUrl,'GET','')
+    AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
         });

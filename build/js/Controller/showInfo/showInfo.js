@@ -3,12 +3,9 @@
  */
 angular.module("gaokaoAPP.temp.online.showInfo",[])
 .controller('onlineInfoCtr',['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
-    console.log($stateParams)
-
     $scope.title = {
         strHtml:"",
     }
-
     init();
 
     function init (){
