@@ -31,11 +31,11 @@ angular.module("gaokaoAPP.temp.city",['ui.router'])
                 data: { isPublic: true},
             })
 })
-.controller("tempCtr",['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+.controller("tempCtr",['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
+        $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){
                 $scope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);

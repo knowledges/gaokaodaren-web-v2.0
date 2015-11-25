@@ -3,13 +3,9 @@
  */
 angular.module("gaokaoAPP.navbar.marjor",['ui.router'])
 .constant("findMarjorURL",'/depart')
-//.constant("findMarjorURL",'../JSON/marjorinfo.json')
 .controller("marjorConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,navURL_1,departURL,findMarjorURL){
-        console.log($stateParams);
-
         $scope.search = true;
         $scope.back = false;
-
         $scope.marjor = {
             info:false,
             content:true,
@@ -38,7 +34,6 @@ angular.module("gaokaoAPP.navbar.marjor",['ui.router'])
             $scope.marjor.findlist = true;
             $scope.search = true;
             $scope.back = true;
-            //AJAX.getRequest(findMarjorURL,'GET',$.param({"depart_type":$stateParams.marjorType,"key":$scope.marjor.key}))
             var param = {};
                 param.depart_type = $stateParams.type;
                 param.key = $scope.marjor.key;

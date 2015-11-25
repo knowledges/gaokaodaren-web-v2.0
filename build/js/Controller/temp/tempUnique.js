@@ -2,6 +2,11 @@
  * Created by qbl on 2015/10/23.
  */
 angular.module("gaokaoAPP.temp.unique",[])
+    .factory('homeService', function () {
+        return {
+            htmlPage: ""
+        }
+    })
     .config(function($stateProvider,$urlRouterProvider){
         $stateProvider
             /////////////////
@@ -32,11 +37,11 @@ angular.module("gaokaoAPP.temp.unique",[])
                 controller:"recipeInfoCtr"
             })
     })
-    .controller('uniqueCtr',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+    .controller('uniqueCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
+        $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){
                 $scope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);

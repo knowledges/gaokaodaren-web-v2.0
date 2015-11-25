@@ -13,26 +13,25 @@ angular.module('gaokaoApp.home.new',[])
 .constant('policyNewUrl','/menu/main/17?article_limit=999&menu_limit=999')
 .constant('jobNewUrl','/menu/main/21?article_limit=999&menu_limit=999')
 .constant('uniqueNewUrl','/menu/main/22?article_limit=999&menu_limit=999')
-.controller('LhomeNewCtl',['$scope','$sce','AJAX','homeNewUrl','htmlService',function($scope,$sce,AJAX,homeNewUrl,htmlService){
+.controller('LhomeNewCtl',['$scope','$rootScope','$sce','AJAX','homeNewUrl','homeService',function($scope,$rootScope,$sce,AJAX,homeNewUrl,homeService){
         $scope.new = "";
-        $scope.htmlService = htmlService;
+        $scope.homeService = homeService;
 
         AJAX.getRequest(homeNewUrl,'GET','')
-            .success(function(data,status){
+            .success(function(data){
                 $scope.new = data.response.left;
             });
 
         $scope.info = function(id){
             AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function(data,status){
-                    $scope.htmlService.htmlPage=data;
+                    $scope.homeService.htmlPage=data;
                 });
         }
-
 }])
-.controller('RhomeNewCtl',['$scope','$sce','AJAX','homeNewUrl','htmlService',function($scope,$sce,AJAX,homeNewUrl,htmlService){
+.controller('RhomeNewCtl',['$scope','$sce','AJAX','homeNewUrl','homeService',function($scope,$sce,AJAX,homeNewUrl,homeService){
         $scope.new = "";
-        $scope.htmlService = htmlService;
+        $scope.homeService = homeService;
         AJAX.getRequest(homeNewUrl,'GET','')
             .success(function(data,status){
                 $scope.new = data.response.right;
@@ -41,13 +40,13 @@ angular.module('gaokaoApp.home.new',[])
         $scope.info = function(id){
             AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function(data,status){
-                    $scope.htmlService.htmlPage=data;
+                    $scope.homeService.htmlPage=data;
                 });
         }
 }])
-.controller('LexampleNewCtl',['$scope','$sce','AJAX','exampleNewUrl','htmlService',function($scope,sce,AJAX,exampleNewUrl,htmlService){
+.controller('LexampleNewCtl',['$scope','$sce','AJAX','exampleNewUrl','homeService',function($scope,sce,AJAX,exampleNewUrl,homeService){
         $scope.new = "";
-        $scope.htmlService = htmlService;
+        $scope.homeService = homeService;
         AJAX.getRequest(exampleNewUrl,'GET','')
             .success(function(data,status){
                 $scope.new = data.response.left;
@@ -55,13 +54,13 @@ angular.module('gaokaoApp.home.new',[])
         $scope.info = function(id){
             AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function(data,status){
-                    $scope.htmlService.htmlPage=data;
+                    $scope.homeService.htmlPage=data;
                 });
         }
 }])
-.controller('RexampleNewCtl',['$scope','$sce','AJAX','exampleNewUrl','htmlService',function($scope,sce,AJAX,exampleNewUrl,htmlService){
+.controller('RexampleNewCtl',['$scope','$sce','AJAX','exampleNewUrl','homeService',function($scope,sce,AJAX,exampleNewUrl,homeService){
         $scope.new = "";
-        $scope.htmlService = htmlService;
+        $scope.homeService = homeService;
         AJAX.getRequest(exampleNewUrl,'GET','')
             .success(function(data,status){
                 $scope.new = data.response.right;
@@ -69,13 +68,13 @@ angular.module('gaokaoApp.home.new',[])
         $scope.info = function(id){
             AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function(data,status){
-                    $scope.htmlService.htmlPage=data;
+                    $scope.homeService.htmlPage=data;
                 });
         }
 }])
-.controller('LonlineNewCtl',['$scope','$sce','AJAX','onlineUrl','htmlService',function($scope,sce,AJAX,onlineUrl,htmlService){
+.controller('LonlineNewCtl',['$scope','$sce','AJAX','onlineUrl','homeService',function($scope,sce,AJAX,onlineUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(onlineUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -83,13 +82,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RonlineNewCtl',['$scope','$sce','AJAX','onlineUrl','htmlService',function($scope,sce,AJAX,onlineUrl,htmlService){
+.controller('RonlineNewCtl',['$scope','$sce','AJAX','onlineUrl','homeService',function($scope,sce,AJAX,onlineUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(onlineUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -97,27 +96,28 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','htmlService',function($scope,sce,AJAX,cityNewUrl,htmlService){
+.controller('LcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','homeService',function($scope,sce,AJAX,cityNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(cityNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
         });
     $scope.info = function(id){
+        console.log('id');
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','htmlService',function($scope,sce,AJAX,cityNewUrl,htmlService){
+.controller('RcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','homeService',function($scope,sce,AJAX,cityNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(cityNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -125,41 +125,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','htmlService',function($scope,sce,AJAX,cityNewUrl,htmlService){
+.controller('LschoolNewCtl',['$scope','$sce','AJAX','schoolNewUrl','homeService',function($scope,sce,AJAX,schoolNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
-    AJAX.getRequest(cityNewUrl,'GET','')
-        .success(function(data,status){
-            $scope.new = data.response.left;
-        });
-    $scope.info = function(id){
-        AJAX.getRequest('/article/show/'+id,'GET','')
-            .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
-            });
-    }
-}])
-.controller('RcityNewCtl',['$scope','$sce','AJAX','cityNewUrl','htmlService',function($scope,sce,AJAX,cityNewUrl,htmlService){
-    $scope.new = "";
-    $scope.htmlService = htmlService;
-    AJAX.getRequest(cityNewUrl,'GET','')
-        .success(function(data,status){
-            $scope.new = data.response.right;
-        });
-    $scope.info = function(id){
-        AJAX.getRequest('/article/show/'+id,'GET','')
-            .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
-            });
-    }
-}])
-.controller('LschoolNewCtl',['$scope','$sce','AJAX','schoolNewUrl','htmlService',function($scope,sce,AJAX,schoolNewUrl,htmlService){
-    $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(schoolNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -167,13 +139,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RschoolNewCtl',['$scope','$sce','AJAX','schoolNewUrl','htmlService',function($scope,sce,AJAX,schoolNewUrl,htmlService){
+.controller('RschoolNewCtl',['$scope','$sce','AJAX','schoolNewUrl','homeService',function($scope,sce,AJAX,schoolNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(schoolNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -181,13 +153,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LmarjorNewCtl',['$scope','$sce','AJAX','majorNewUrl','htmlService',function($scope,sce,AJAX,majorNewUrl,htmlService){
+.controller('LmarjorNewCtl',['$scope','$sce','AJAX','majorNewUrl','homeService',function($scope,sce,AJAX,majorNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(majorNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -195,13 +167,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RmarjorNewCtl',['$scope','$sce','AJAX','majorNewUrl','htmlService',function($scope,sce,AJAX,majorNewUrl,htmlService){
+.controller('RmarjorNewCtl',['$scope','$sce','AJAX','majorNewUrl','homeService',function($scope,sce,AJAX,majorNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(majorNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -209,13 +181,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','htmlService',function($scope,sce,AJAX,recipeNewUrl,htmlService){
+.controller('LrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','homeService',function($scope,sce,AJAX,recipeNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(recipeNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -223,13 +195,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','htmlService',function($scope,sce,AJAX,recipeNewUrl,htmlService){
+.controller('RrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','homeService',function($scope,sce,AJAX,recipeNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(recipeNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -237,41 +209,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','htmlService',function($scope,sce,AJAX,recipeNewUrl,htmlService){
+.controller('LscoreNewCtl',['$scope','$sce','AJAX','scoreNewUrl','homeService',function($scope,sce,AJAX,scoreNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
-    AJAX.getRequest(recipeNewUrl,'GET','')
-        .success(function(data,status){
-            $scope.new = data.response.left;
-        });
-    $scope.info = function(id){
-        AJAX.getRequest('/article/show/'+id,'GET','')
-            .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
-            });
-    }
-}])
-.controller('RrecipeNewCtl',['$scope','$sce','AJAX','recipeNewUrl','htmlService',function($scope,sce,AJAX,recipeNewUrl,htmlService){
-    $scope.new = "";
-    $scope.htmlService = htmlService;
-    AJAX.getRequest(recipeNewUrl,'GET','')
-        .success(function(data,status){
-            $scope.new = data.response.right;
-        });
-    $scope.info = function(id){
-        AJAX.getRequest('/article/show/'+id,'GET','')
-            .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
-            });
-    }
-}])
-.controller('LscoreNewCtl',['$scope','$sce','AJAX','scoreNewUrl','htmlService',function($scope,sce,AJAX,scoreNewUrl,htmlService){
-    $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(scoreNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -279,13 +223,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RscoreNewCtl',['$scope','$sce','AJAX','scoreNewUrl','htmlService',function($scope,sce,AJAX,scoreNewUrl,htmlService){
+.controller('RscoreNewCtl',['$scope','$sce','AJAX','scoreNewUrl','homeService',function($scope,sce,AJAX,scoreNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(scoreNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -293,13 +237,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LpllicyNewCtl',['$scope','$sce','AJAX','policyNewUrl','htmlService',function($scope,sce,AJAX,policyNewUrl,htmlService){
+.controller('LpolicyNewCtl',['$scope','$sce','AJAX','policyNewUrl','homeService',function($scope,sce,AJAX,policyNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(policyNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -307,13 +251,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RpllicyNewCtl',['$scope','$sce','AJAX','policyNewUrl','htmlService',function($scope,sce,AJAX,policyNewUrl,htmlService){
+.controller('RpolicyNewCtl',['$scope','$sce','AJAX','policyNewUrl','homeService',function($scope,sce,AJAX,policyNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(policyNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -321,13 +265,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LjobNewCtl',['$scope','$sce','AJAX','jobNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
+.controller('LjobNewCtl',['$scope','$sce','AJAX','jobNewUrl','homeService',function($scope,sce,AJAX,jobNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -335,13 +279,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RjobNewCtl',['$scope','$sce','AJAX','jobNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
+.controller('RjobNewCtl',['$scope','$sce','AJAX','jobNewUrl','homeService',function($scope,sce,AJAX,jobNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -349,13 +293,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('LjobNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
+.controller('LuniqueNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','homeService',function($scope,sce,AJAX,jobNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.left;
@@ -363,13 +307,13 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])
-.controller('RjobNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','htmlService',function($scope,sce,AJAX,jobNewUrl,htmlService){
+.controller('RuniqueNewCtl',['$scope','$sce','AJAX','uniqueNewUrl','homeService',function($scope,sce,AJAX,jobNewUrl,homeService){
     $scope.new = "";
-    $scope.htmlService = htmlService;
+    $scope.homeService = homeService;
     AJAX.getRequest(jobNewUrl,'GET','')
         .success(function(data,status){
             $scope.new = data.response.right;
@@ -377,7 +321,7 @@ angular.module('gaokaoApp.home.new',[])
     $scope.info = function(id){
         AJAX.getRequest('/article/show/'+id,'GET','')
             .success(function(data,status){
-                $scope.htmlService.htmlPage=data;
+                $scope.homeService.htmlPage=data;
             });
     }
 }])

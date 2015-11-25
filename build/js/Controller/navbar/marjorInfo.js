@@ -7,7 +7,6 @@ angular.module("gaokaoAPP.navbar.marjor.info",[])
             strHtml:""
         }
 
-        //AJAX.getRequest('/article/show/3307','GET','')
         AJAX.getRequest(navURL_1,'GET','')
             .success(function(data,status){
                 $scope.marjor.strHtml = $sce.trustAsHtml(data);

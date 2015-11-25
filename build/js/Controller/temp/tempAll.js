@@ -6,36 +6,24 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
         $urlRouterProvider
             .when("/all", "/all/all.score");
         $stateProvider
-            //////////////////
-            //              //
-            //////////////////
             .state('all.score',{
                 url:'/all.score',
                 templateUrl:'html/myInfo/myScore.html',
                 data: { isPublic: false},
                 controller:"scroeCtr"
             })
-            ///////////////
-            ///  city  ///
-            /////////////
             .state('all', {
                 url: '/all',
                 templateUrl:'html/temp/tempAll.html',
                 data: { isPublic: false},
                 controller:"allCtr"
             })
-            ///////////////////
-            ///  city > nav ///
-            //////////////////
             .state('all.will',{
                 url:'/will',
                 templateUrl:'html/All/all.html',
                 data: { isPublic: false},
                 controller:"willCtr"
             })
-            //////////////////
-            //  city > item //
-            //////////////////
             .state('all.reference',{
                 url:'/reference',
                 templateUrl:'html/All/all.html',

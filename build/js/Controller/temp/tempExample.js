@@ -23,13 +23,13 @@ angular.module('gaokaoAPP.temp.example',[])
                 controller:"recipeInfoCtr"
             })
 })
-.controller('exampleAllCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+.controller('exampleAllCtl',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
+        $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){
-                $scope.ishide = false;
+                $rootScope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }
         },true);

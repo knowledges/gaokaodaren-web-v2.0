@@ -3,8 +3,6 @@
  */
 angular.module("gaokaoAPP.city.content",[])
 .constant("cityList","../JSON/cityContent.json")
-//.constant("cityList","/city/province")
-//.constant("findCity","../JSON/cityname.json")
 .constant("findCity","/city")
 .controller("cityConCtl",['$scope','$stateParams','$http','AJAX','navURL_1','$sce','cityList','findCity',function($scope,$stateParams,$http,AJAX,navURL_1,$sce,cityList,findCity){
 
@@ -42,7 +40,6 @@ angular.module("gaokaoAPP.city.content",[])
 
         function getCityList(num){
             AJAX.getRequest("/city/province/"+num,'GET','')
-            //AJAX.getRequest(cityList,'GET','')
                 .success(function(data,status){
                     var obj = [];
                     $.each(data.response.list,function(i,v){

@@ -1,5 +1,5 @@
 <div class="container text-center">
-    <div class="container" ng-if="ishide">
+    <div class="container" ng-show="ishide">
         <nav class="navbar menu-navbar">
             <div class="collapse navbar-collapse">
                 <div class="col-md-3">
@@ -12,7 +12,7 @@
         </nav>
     </div>
 
-    <div class="container text-left"  ng-bind-html="insertHTML"></div>
+    <div class="container text-left" ng-show="!ishide" ng-bind-html="insertHTML"></div>
     <div class="floatAv floatAdv_left "  ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LmarjorNewCtl"></div>
     <div class="floatAv floatAdv_right" ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RmarjorNewCtl"></div>
 

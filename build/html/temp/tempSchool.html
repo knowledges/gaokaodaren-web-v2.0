@@ -12,7 +12,7 @@
         </nav>
     </div>
 
-    <div class="container text-left"  ng-bind-html="insertHTML"></div>
+    <div class="container text-left" ng-if="!ishide" ng-bind-html="insertHTML"></div>
     <div class="floatAv floatAdv_left "  ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LschoolNewCtl"></div>
     <div class="floatAv floatAdv_right" ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RschoolNewCtl"></div>
 

@@ -4,12 +4,7 @@
 'use strict';
 
 angular.module("gaokaoAPP.home",[])
-    .factory('htmlService',function(){
-        return {
-            htmlPage:""
-        }
-    })
-    .controller("homeCtr",['$scope','$window','$sce','AJAX','htmlService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,htmlService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
+    .controller("homeCtr",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
         $scope.table = {
             tbyl:"",
             fsfx:"",
@@ -20,7 +15,7 @@ angular.module("gaokaoAPP.home",[])
         }
 
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
         $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){

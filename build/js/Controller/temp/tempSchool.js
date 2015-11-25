@@ -2,6 +2,11 @@
  * Created by qbl on 2015/10/21.
  */
 angular.module("gaokaoAPP.temp.school",[])
+    .factory('homeService', function () {
+        return {
+            htmlPage: ""
+        }
+    })
 .config(function($stateProvider,$urlRouterProvider){
     $stateProvider
         /////////////////
@@ -31,12 +36,13 @@ angular.module("gaokaoAPP.temp.school",[])
             data: { isPublic: true },
         })
 })
-.controller('schlCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+.controller('schlCtl',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
-            if(newValue.htmlPage!=""){
+        $scope.$watch('service',function(newValue){
+            console.log('jinlaile');
+            if(newValue.htmlPage!="" && newValue.htmlPage!=undefined){
                 $scope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }

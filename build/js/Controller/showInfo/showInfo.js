@@ -6,6 +6,7 @@ angular.module("gaokaoAPP.temp.online.showInfo",[])
     $scope.title = {
         strHtml:"",
     }
+
     init();
 
     function init (){

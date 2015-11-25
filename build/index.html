@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="gaokaoAPP">
+<!--<html lang="en" ng-app="gaokaoAPP">-->
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
     <meta name="Keywords" content="高考,志愿,江苏达人网,高考志愿,达人志愿,录取概率">
@@ -10,7 +12,7 @@
     <link href="favicon.ico" rel="shortcut icon" />
     <!--<meta name="baidu-site-verification" content="J6qe6Ox6BK" />-->
     <title>高考志愿——江苏达人网</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -95,52 +97,55 @@
 </div>
 
 </body>
-<script src="../node_modules/angular/angular.js"></script>
-<script src="../node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>
-<script src="../node_modules/jquery/dist/jquery-1.11.3.min.js"></script>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/require.js"></script>
+<script src="lib/main.js"></script>
+
+<!--<script src="lib/angular.min.js"></script>-->
+<!--<script src="lib/angular-ui-router.min.js"></script>-->
+<!--<script src="lib/jquery.min.js"></script>-->
+<!--<script src="lib/bootstrap/js/bootstrap.min.js"></script>-->
 <script src="lib/AES.js"></script>
-<script src="app.js"></script>
+<!--<script src="app.js"></script>-->
 <script src="service.js"></script>
-<script src="js/Controller/loginCtl/login.js"></script>
-<script src="js/Controller/selectCtl/select.js"></script>
-<script src="js/Controller/colleges/collegesCtl.js"></script>
-<script src="js/Controller/personality/personality.js"></script>
-<script src="js/Controller/temp/tempCity.js"></script>
-<script src="js/Controller/navbar/nav.js"></script>
-<script src="js/Controller/navbar/content.js"></script>
-<script src="js/Controller/navbar/city.js"></script>
-<script src="js/Controller/temp/tempSchool.js"></script>
-<script src="js/Controller/navbar/school.js"></script>
-<script src="js/Controller/temp/tempMarjor.js"></script>
-<script src="js/Controller/navbar/marjor.js"></script>
-<script src="js/Controller/navbar/marjorInfo.js"></script>
-<script src="js/Controller/temp/tempRecipe.js"></script>
-<script src="js/Controller/listGroup/groupRecipe.js"></script>
-<script src="js/Controller/recipe/recipe.js"></script>
-<script src="js/Controller/temp/tempScore.js"></script>
-<script src="js/Controller/listGroup/groupScore.js"></script>
-<script src="js/Controller/temp/tempPolicy.js"></script>
-<script src="js/Controller/listGroup/groupPolicy.js"></script>
-<script src="js/Controller/temp/tempJob.js"></script>
-<script src="js/Controller/listGroup/groupJob.js"></script>
-<script src="js/Controller/temp/tempUnique.js"></script>
-<script src="js/Controller/listGroup/groupUnique.js"></script>
-<script src="js/Controller/temp/tempOnline.js"></script>
-<script src="js/Controller/listGroup/groupOnline.js"></script>
-<script src="js/Controller/showInfo/showInfo.js"></script>
-<script src="js/Controller/temp/tempExample.js"></script>
-<script src="js/chance/chance.js"></script>
-<script src="js/public.js"></script>
-<script src="js/home/home.js"></script>
-<script src="js/hope/hope.js"></script>
-<script src="js/about/tempAbout.js"></script>
-<script src="js/Controller/temp/tempAll.js"></script>
-<script src="js/all/all.js"></script>
-<script src="js/refer/refer.js"></script>
-<script src="js/pay/pay.js"></script>
-<script src="js/myInfo/myScore.js"></script>
-<script src="js/Controller/navbar/new.js"></script>
-<script src="js/banner/bannerHope.js"></script>
-<script src="js/banner/bannerChance.js"></script>
+<!--<script src="js/Controller/loginCtl/login.js"></script>-->
+<!--<script src="js/Controller/selectCtl/select.js"></script>-->
+<!--<script src="js/Controller/colleges/collegesCtl.js"></script>-->
+<!--<script src="js/Controller/personality/personality.js"></script>-->
+<!--<script src="js/Controller/temp/tempCity.js"></script>-->
+<!--<script src="js/Controller/navbar/nav.js"></script>-->
+<!--<script src="js/Controller/navbar/content.js"></script>-->
+<!--<script src="js/Controller/navbar/city.js"></script>-->
+<!--<script src="js/Controller/temp/tempSchool.js"></script>-->
+<!--<script src="js/Controller/navbar/school.js"></script>-->
+<!--<script src="js/Controller/temp/tempMarjor.js"></script>-->
+<!--<script src="js/Controller/navbar/marjor.js"></script>-->
+<!--<script src="js/Controller/navbar/marjorInfo.js"></script>-->
+<!--<script src="js/Controller/temp/tempRecipe.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupRecipe.js"></script>-->
+<!--<script src="js/Controller/recipe/recipe.js"></script>-->
+<!--<script src="js/Controller/temp/tempScore.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupScore.js"></script>-->
+<!--<script src="js/Controller/temp/tempPolicy.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupPolicy.js"></script>-->
+<!--<script src="js/Controller/temp/tempJob.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupJob.js"></script>-->
+<!--<script src="js/Controller/temp/tempUnique.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupUnique.js"></script>-->
+<!--<script src="js/Controller/temp/tempOnline.js"></script>-->
+<!--<script src="js/Controller/listGroup/groupOnline.js"></script>-->
+<!--<script src="js/Controller/showInfo/showInfo.js"></script>-->
+<!--<script src="js/Controller/temp/tempExample.js"></script>-->
+<!--<script src="js/chance/chance.js"></script>-->
+<!--<script src="js/public.js"></script>-->
+<!--<script src="js/home/home.js"></script>-->
+<!--<script src="js/hope/hope.js"></script>-->
+<!--<script src="js/about/tempAbout.js"></script>-->
+<!--<script src="js/Controller/temp/tempAll.js"></script>-->
+<!--<script src="js/all/all.js"></script>-->
+<!--<script src="js/refer/refer.js"></script>-->
+<!--<script src="js/pay/pay.js"></script>-->
+<!--<script src="js/myInfo/myScore.js"></script>-->
+<!--<script src="js/Controller/navbar/new.js"></script>-->
+<!--<script src="js/banner/bannerHope.js"></script>-->
+<!--<script src="js/banner/bannerChance.js"></script>-->
 </html>

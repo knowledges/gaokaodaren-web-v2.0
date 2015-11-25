@@ -2,23 +2,11 @@
  * Created by qbl on 2015/10/23.
  */
 angular.module("gaokaoAPP.temp.online",[])
-.factory('onlineService',['$scope','navURL_9',function($scope,navURL_9){
-        var response = function(url){
-            var dtd = $q.defer();
-            $http.get(url).then(function (response) {
-                dtd.resolve(response);
-            }, function (response) {
-                dtd.resolve(response);
-            });
-            return dtd.promise;
-        }
-        return {
-            getNav:function(){
-                debugger;
-                return response(navURL_9);
-            }
-        }
-}])
+.factory('homeService',function(){
+    return {
+        htmlPage:""
+    }
+})
 .config(function($stateProvider,$urlRouterProvider){
         $stateProvider
         .state('online',{
@@ -40,9 +28,9 @@ angular.module("gaokaoAPP.temp.online",[])
             controller:"onlineInfoCtr"
         })
 })
-.controller('onlineCtr',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+.controller('onlineCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
         $scope.$watch('service',function(newValue,oldValue){
             if(newValue.htmlPage!=""){

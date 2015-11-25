@@ -2,6 +2,11 @@
  * Created by qbl on 2015/10/22.
  */
 angular.module("gaokaoAPP.temp.recipe",[])
+.factory('homeService',function(){
+    return {
+        htmlPage:""
+    }
+})
 .config(function($stateProvider,$urlRouterProvider){
         $stateProvider
             .state('recipe',{
@@ -23,11 +28,11 @@ angular.module("gaokaoAPP.temp.recipe",[])
                 controller:"recipeInfoCtr"
             })
     })
-.controller('reciptCtl',['$scope','$sce','htmlService',function($scope,$sce,htmlService){
+.controller('reciptCtl',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
-        $scope.service = htmlService;
+        $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
+        $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){
                 $scope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);

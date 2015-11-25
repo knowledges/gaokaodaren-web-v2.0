@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "angular": "^1.4.6",
+    "angular-async-loader": "^1.2.1",
     "angular-loader": "^1.4.6",
     "angular-mocks": "^1.4.6",
     "angular-route": "^1.4.6",

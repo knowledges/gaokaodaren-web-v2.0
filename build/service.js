@@ -41,7 +41,12 @@ angular.module('gaokaoApp.factory',[])
         }
     }
 }])
-.factory('newService',['$http','$q','AJAX','provinceURL','men2','men3','men4','men5','men6','men7','homeNewUrl',function($http,$q,AJAX,provinceURL,men2,men3,men4,men5,men6,men7,homeNewUrl){
+.factory('homeService',function(){
+    return {
+        htmlPage:""
+    }
+})
+.factory('newService',['$http','$q','AJAX','provinceURL','men2','men3','men4','men5','men6','men7',function($http,$q,AJAX,provinceURL,men2,men3,men4,men5,men6,men7){
     var response = function(url){
         var dtd = $q.defer();
         $http.get(url).then(function (response) {

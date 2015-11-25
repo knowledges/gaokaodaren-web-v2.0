@@ -17,6 +17,8 @@ ul.menu-nav > li > a {
 ul.menu-nav > li ul {
   padding: 0;
   list-style: none;
+  max-height: 350px!important;
+  overflow-y: scroll;
 }
 ul.menu-nav > li ul li a {
   color: #888888;

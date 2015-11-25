@@ -1,0 +1,30 @@
+/**
+ * Created by qbl on 2015/11/25.
+ */
+require.config({
+    paths:{
+        "angular":"angular.min",
+        "angular-ui-router":"angular-ui-router.min",
+        "angular-async-loader":"angular-async-loader.min",
+        "bootstrap":"bootstrap/js/bootstrap.min",
+        "jquery":"jquery.min"
+    },
+    shim:{
+        'angular':{
+            exports:'angular'
+        },
+        'angular-ui-router':{
+            deps:['angular'],
+            exports:'angular-ui-router'
+        },
+        'service':{
+            exports:'angular'
+        }
+    }
+});
+require(['angular','./angular-routes'],function(angular){
+    angular.element(document).ready(function(){
+        angualr.main(document,['JS-gaokao']);
+        //angular.element(document).find('html').addClass('ng-app');
+    });
+})

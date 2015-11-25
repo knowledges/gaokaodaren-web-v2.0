@@ -112,11 +112,10 @@ angular.module("gaokaoAPP.navbar.School",[])
             }
 
             function navSchool() {
-                    //AJAX.getRequest('/article/show/3290','GET',"")
-                    AJAX.getRequest(navURL_1, 'GET', "")
-                        .success(function (data, status) {
-                            $scope.school.strHtml = $sce.trustAsHtml(data);
-                        });
+                AJAX.getRequest(navURL_1, 'GET', "")
+                    .success(function (data, status) {
+                        $scope.school.strHtml = $sce.trustAsHtml(data);
+                    });
 
             }
 
