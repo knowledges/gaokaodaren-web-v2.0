@@ -9,7 +9,7 @@ define(function(require,exports,module){
 
     var app = angular.module('JS-gaokao',['ui.router']);
 
-    //
+    //拦截器
     app.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //homeService.htmlPage="";

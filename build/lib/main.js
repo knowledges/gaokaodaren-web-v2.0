@@ -3,11 +3,11 @@
  */
 require.config({
     paths:{
-        "angular":"angular.min",
-        "angular-ui-router":"angular-ui-router.min",
-        "angular-async-loader":"angular-async-loader.min",
-        "bootstrap":"bootstrap/js/bootstrap.min",
-        "jquery":"jquery.min"
+        "angular":"lib/angular.min",
+        "angular-ui-router":"lib/angular-ui-router.min",
+        "angular-async-loader":"lib/angular-async-loader.min",
+        "bootstrap":"lib/bootstrap/js/bootstrap.min",
+        "jquery":"lib/jquery.min"
     },
     shim:{
         'angular':{
@@ -22,9 +22,9 @@ require.config({
         }
     }
 });
-require(['angular','./angular-routes'],function(angular){
+require(['angular','./angular-ui-router'],function(angular){
     angular.element(document).ready(function(){
-        angualr.main(document,['JS-gaokao']);
+        angular.main(document,['JS-gaokao']);
         //angular.element(document).find('html').addClass('ng-app');
     });
 })
