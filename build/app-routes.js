@@ -15,6 +15,7 @@ define(function(require){
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
     }]);
+
     app.constant("logoutURL","/logout");//×¢²á
         //Ê×Ò³8¸öÄ£¿é
     app.constant("men2","/menu?index=0&limit=8&parent_id=15");
@@ -99,7 +100,7 @@ define(function(require){
                     return response(men7);
                 },
             }
-        }]);
+        }])
 
     app.config(function($stateProvider, $urlRouterProvider){
 
@@ -113,32 +114,68 @@ define(function(require){
                 controller:"homeCtrl",
                 data: { isPublic: true},
                 resolve:{
-                    data_province: function(newService) {
-                        return newService.getProvinceURL();
+                    //data_province:function(){
+                    //    return response(provinceURL);
+                    //},
+                    data_HomeModel2:function($q,$http,men2){
+                        var dtd = $q.defer();
+                        $http.get(men2).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     },
-                    data_HomeModel2:function(newService){
-                        return newService.getHomeModel2();
+                    data_HomeModel3:function($q,$http,men3){
+                        var dtd = $q.defer();
+                        $http.get(men3).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     },
-                    data_HomeModel3:function(newService){
-                        return newService.getHomeModel3();
+                    data_HomeModel4:function($q,$http,men4){
+                        var dtd = $q.defer();
+                        $http.get(men4).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     },
-                    data_HomeModel4:function(newService){
-                        return newService.getHomeModel4();
+                    data_HomeModel5:function($q,$http,men5){
+                        var dtd = $q.defer();
+                        $http.get(men5).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     },
-                    data_HomeModel5:function(newService){
-                        return newService.getHomeModel5();
+                    data_HomeModel6:function($q,$http,men6){
+                        var dtd = $q.defer();
+                        $http.get(men6).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     },
-                    data_HomeModel6:function(newService){
-                        return newService.getHomeModel6();
-                    },
-                    data_HomeModel7:function(newService){
-                        return newService.getHomeModel7();
+                    data_HomeModel7:function($q,$http,men7){
+                        var dtd = $q.defer();
+                        $http.get(men7).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     }
                 }
-            })
+            });
 
     });
-    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL','isShowModel',"AJAX",function($scope,$rootScope,$http,logoutURL,isShowModel,AJAX){
+    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
             name : "",

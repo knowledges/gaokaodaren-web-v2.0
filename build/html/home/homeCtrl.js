@@ -2,10 +2,11 @@
  * Created by qbl on 2015/11/25.
  */
 define(function(require){
-
+    require('jquery');
+    require('bootstrap');
     var app = require('../../app');
 
-    app.controller("homeCtr",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
+    app.controller("homeCtrl",['$scope','$window','$sce','AJAX','homeService','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
         $scope.table = {
             tbyl:"",
             fsfx:"",
@@ -31,7 +32,8 @@ define(function(require){
             $('.carousel').carousel({
                 interval: 5000
             });
-            $scope.table.provincelist = data_province.data.response.list;
+            //$scope.table.provincelist = data_province.data.response.list;
+            $scope.table.provincelist = "";
             $scope.table.tbyl = data_HomeModel2.data.response.list;
             $scope.table.fsfx = data_HomeModel3.data.response.list;
             $scope.table.zszc = data_HomeModel4.data.response.list;

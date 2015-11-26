@@ -7,7 +7,7 @@ require.config({
         "angular-ui-router":"lib/angular-ui-router.min",
         "angular-async-loader":"lib/angular-async-loader.min",
         "bootstrap":"lib/bootstrap/js/bootstrap.min",
-        "jquery":"lib/jquery.min"
+        "jquery":"lib/jquery.min",
     },
     shim:{
         'angular':{
@@ -17,14 +17,15 @@ require.config({
             deps:['angular'],
             exports:'angular-ui-router'
         },
-        'service':{
-            exports:'angular'
-        }
-    }
+        'jquery':{
+            exports:'jquery'
+        },
+        'banner-hope': {exports: 'angular'},
+    },
+    urlArgs: "bust=" + (new Date()).getTime()
 });
-require(['angular','./angular-ui-router'],function(angular){
+require(['angular','./app-routes'],function(angular){
     angular.element(document).ready(function(){
-        angular.main(document,['JS-gaokao']);
-        //angular.element(document).find('html').addClass('ng-app');
+        angular.bootstrap(document,['JS-gaokao']);
     });
 })
