@@ -6,6 +6,7 @@ require.config({
         "angular":"lib/angular.min",
         "angular-ui-router":"lib/angular-ui-router.min",
         "angular-async-loader":"lib/angular-async-loader.min",
+        "oclazyLoad":"lib/ocLazyLoad.min",
         "bootstrap":"lib/bootstrap/js/bootstrap.min",
         "jquery":"lib/jquery.min",
     },
@@ -20,7 +21,14 @@ require.config({
         'jquery':{
             exports:'jquery'
         },
-        'banner-hope': {exports: 'angular'},
+        bootstrap:{
+            deps:['jquery'],
+            exports:'bootstrap'
+        },
+        'oclazyLoad':{
+            deps:['jquery','angular','angular-ui-router'],
+            exports:'oclazyLoad'
+        }
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });

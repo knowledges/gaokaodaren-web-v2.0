@@ -1,8 +1,8 @@
 /**
  * Created by qbl on 2015/11/25.
  */
-define(function(require){
-    var app = require('./app');
+define(['app'],function(app){
+    //var app = require('./app');
 
     app.run(['$rootScope',function($rootScope){
         $rootScope.studentId = "";
@@ -16,8 +16,8 @@ define(function(require){
         }
     }]);
 
-    app.constant("logoutURL","/logout");//×¢²á
-        //Ê×Ò³8¸öÄ£¿é
+    app.constant("logoutURL","/logout");//×¢ï¿½ï¿½
+    //ï¿½ï¿½Ò³8ï¿½ï¿½Ä£ï¿½ï¿½
     app.constant("men2","/menu?index=0&limit=8&parent_id=15");
     app.constant("men3","/menu?index=0&limit=8&parent_id=16");
     app.constant("men4","/menu?index=0&limit=4&parent_id=17");
@@ -25,82 +25,82 @@ define(function(require){
     app.constant("men6","/menu?index=0&limit=8&parent_id=22");
     app.constant("men7","/article?index=0&limit=8&menu_id=93&key=");
     app.factory('AJAX',['$http',"$q",function($http,$q){
-            var request = function(path,method,data){
-                if(method == undefined || method == 'GET'){
-                    return $http({
-                        url:path,
-                        method: 'GET',
-                        params:data,
-                    })
-                }else{
-                    var dfd = $q.defer();
-                    var transform = function (data) {
-                        return $.param(data);
-                    }
-                    var postCfg = {
-                        transformRequest:transform,
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                        }
-                    }
-                    var promise = $http.post(path,data,postCfg).then(function (response) {
-                        return dfd.resolve(response) ;
-                    });
-                    return dfd.promise;
+        var request = function(path,method,data){
+            if(method == undefined || method == 'GET'){
+                return $http({
+                    url:path,
+                    method: 'GET',
+                    params:data,
+                })
+            }else{
+                var dfd = $q.defer();
+                var transform = function (data) {
+                    return $.param(data);
                 }
-            }
-            return {
-                getRequest : function(path,method,data){
-                    return request(path,method,data);
+                var postCfg = {
+                    transformRequest:transform,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    }
                 }
-            }
-        }]);
-    app.factory('homeService',function(){
-            return {
-                htmlPage:""
-            }
-        });
-    app.factory('newService',['$http','$q','AJAX','provinceURL','men2','men3','men4','men5','men6','men7',function($http,$q,AJAX,provinceURL,men2,men3,men4,men5,men6,men7){
-            var response = function(url){
-                var dtd = $q.defer();
-                $http.get(url).then(function (response) {
-                    dtd.resolve(response);
-                }, function (response) {
-                    dtd.resolve(response);
+                var promise = $http.post(path,data,postCfg).then(function (response) {
+                    return dfd.resolve(response) ;
                 });
-                return dtd.promise;
+                return dfd.promise;
             }
-            return {
-                getProvinceURL: function () {
-                    /**Ê¡·Ý*/
-                    return response(provinceURL);
-                },
-                getHomeModel2: function () {
-                    /**Ìî±¨ÒªÁì*/
-                    return response(men2);
-                },
-                getHomeModel3: function () {
-                    /**·ÖÊý·ÖÎö*/
-                    return response(men3);
-                },
-                getHomeModel4: function () {
-                    /**ÕÐÉúÕþ²ß*/
-                    return response(men4);
-                },
-                getHomeModel5: function () {
-                    /**±ÏÒµÈ¥Ïò*/
-                    return response(men5);
-                },
-                getHomeModel6: function () {
-                    /**¸öÐÔÌØÕ÷*/
-                    return response(men6);
-                },
-                getHomeModel7: function () {
-                    /**×ÉÑ¯ÏßÂ·*/
-                    return response(men7);
-                },
+        }
+        return {
+            getRequest : function(path,method,data){
+                return request(path,method,data);
             }
-        }])
+        }
+    }]);
+    app.factory('homeService',function(){
+        return {
+            htmlPage:""
+        }
+    });
+    app.factory('newService',['$http','$q','AJAX','provinceURL','men2','men3','men4','men5','men6','men7',function($http,$q,AJAX,provinceURL,men2,men3,men4,men5,men6,men7){
+        var response = function(url){
+            var dtd = $q.defer();
+            $http.get(url).then(function (response) {
+                dtd.resolve(response);
+            }, function (response) {
+                dtd.resolve(response);
+            });
+            return dtd.promise;
+        }
+        return {
+            getProvinceURL: function () {
+                /**Ê¡ï¿½ï¿½*/
+                return response(provinceURL);
+            },
+            getHomeModel2: function () {
+                /**ï¿½î±¨Òªï¿½ï¿½*/
+                return response(men2);
+            },
+            getHomeModel3: function () {
+                /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+                return response(men3);
+            },
+            getHomeModel4: function () {
+                /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+                return response(men4);
+            },
+            getHomeModel5: function () {
+                /**ï¿½ï¿½ÒµÈ¥ï¿½ï¿½*/
+                return response(men5);
+            },
+            getHomeModel6: function () {
+                /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+                return response(men6);
+            },
+            getHomeModel7: function () {
+                /**ï¿½ï¿½Ñ¯ï¿½ï¿½Â·*/
+                return response(men7);
+            },
+        }
+    }])
 
     app.config(function($stateProvider, $urlRouterProvider){
 

@@ -4,10 +4,10 @@
 define(function(require,exports,module){
     var angular  = require('angular');
     var asyncLoader = require('angular-async-loader');
-
+    require('oclazyLoad');
     require('angular-ui-router');
 
-    var app = angular.module('JS-gaokao',['ui.router']);
+    var app = angular.module('JS-gaokao',['ui.router','oc.lazyLoad']);
 
     //拦截器
     //app.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {

@@ -1,10 +1,7 @@
 /**
  * Created by qbl on 2015/11/19.
  */
-define(function(require){
-    require('banner-hope');
-
-    var app = require('../../app');
+require(['app'],function(app){
 
     app.controller('addhopeCtl',['$scope',function($scope){
         $scope.table = {
@@ -40,10 +37,10 @@ define(function(require){
         ];
 
         $scope.addScore = function(table){
-            //TODO 是否登陆
+            //TODO 鏄惁鐧婚檰
             var arr = [];
             var param = {};
-            param.subject = $scope.table.subject == "1" ?"文科":"理科";
+            param.subject = $scope.table.subject == "1" ?"鏂囩":"鐞嗙";
             param.score = $scope.table.score;
             param.level = $scope.table.sub1+table.obl.name+","+$scope.table.sub2+table.sel.name;
             param.date = new Date().getTime();
@@ -59,7 +56,7 @@ define(function(require){
                 localStorage.setItem("score",JSON.stringify(array));
             }
 
-            var add = confirm('成绩创建成功，是否使用此成绩去模拟志愿表');
+            var add = confirm('鎴愮哗鍒涘缓鎴愬姛锛屾槸鍚︿娇鐢ㄦ鎴愮哗鍘绘ā鎷熷織鎰胯〃');
             if(add){
                 $window.location.href="#/hope?type=1&user_level=1"
             }else{
