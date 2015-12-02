@@ -2,7 +2,6 @@
  * Created by qbl on 2015/11/19.
  */
 require(['app'],function(app){
-
     app.controller('addhopeCtl',['$scope',function($scope){
         $scope.table = {
             subject:"1",
@@ -64,4 +63,4 @@ require(['app'],function(app){
             }
         }
     }]);
-})
+});

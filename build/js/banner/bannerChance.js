@@ -1,9 +1,8 @@
 /**
  * Created by qbl on 2015/11/19.
  */
-angular.module('gaokaoApp.banner.chance',[])
-    .controller('addchanceCtl',['$scope',function($scope){
-
+require(['app'],function(app){
+    app.controller('addchanceCtl',['$scope',function($scope){
         $scope.table = {
             subject:"1",
             Batch :"1",
@@ -63,4 +62,5 @@ angular.module('gaokaoApp.banner.chance',[])
                 $window.location.href="#/all/all.score";
             }
         }
-    }])
+    }]);
+});

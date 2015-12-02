@@ -1,16 +1,16 @@
 /**
  * Created by qbl on 2015/10/27.
  */
-angular.module("gaokaoAPP.temp.all",['ui.router'])
-    .config(function($stateProvider, $urlRouterProvider){
-        $urlRouterProvider
-            .when("/all", "/all/all.score");
+require(['app'],function(app){
+    app.config(function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.when("/all", "/score");
         $stateProvider
             .state('all.score',{
-                url:'/all.score',
+                url:'/score',
                 templateUrl:'html/myInfo/myScore.html',
+                controllerUrl:"html/myInfo/myScore",
+                controller:"myScore",
                 data: { isPublic: false},
-                controller:"scroeCtr"
             })
             .state('all', {
                 url: '/all',
@@ -21,21 +21,24 @@ angular.module("gaokaoAPP.temp.all",['ui.router'])
             .state('all.will',{
                 url:'/will',
                 templateUrl:'html/All/all.html',
-                data: { isPublic: false},
-                controller:"willCtr"
+                controllerUrl:"html/All/all",
+                controller:"willCtr",
+                data: { isPublic: false}
             })
             .state('all.reference',{
                 url:'/reference',
                 templateUrl:'html/All/all.html',
-                data: { isPublic: false},
-                controller:"referenceCtr"
+                controllerUrl:"html/All/all",
+                controller:"referenceCtr",
+                data: { isPublic: false}
             })
     })
-    .controller('allCtr',['$window',function($window){
+    app.controller('allCtr',['$window',function($window){
 
-        if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
-            $window.location.href="#/login";
-            return;
-        }
+            if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
+                $window.location.href="#/login";
+                return;
+            }
 
-    }]);
+        }]);
+});

@@ -79,10 +79,9 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </a>
                 </form>
-                <!--<li><a ui-sref="login">登陆/注册</a></li>-->
-                <li><a ng-click="login()" ng-if="!user.islogin" href="javascript:;;">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
-                <li><a ui-sref="all.score" ng-if="user.islogin" ng-cloak>我的足迹</a></li>
-                <li><a ng-if="user.islogin" ng-click="logoff()" href="javascript:;;" ng-cloak>注销</a></li>
+                <li><a ng-click="login()" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
+                <li><a ui-sref="all" ng-if="user.islogin">我的足迹</a></li>
+                <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
             </ul>
         </div>
     </div>
@@ -99,7 +98,7 @@
 </body>
 <script src="lib/require.js"></script>
 <script src="lib/main.js"></script>
-<script src="lib/AES.js"></script>
+<!--<script src="lib/AES.js"></script>-->
 <!--<script src="app.js"></script>-->
 <!--<script src="service.js"></script>-->
 <!--<script src="js/Controller/loginCtl/login.js"></script>-->
@@ -141,6 +140,6 @@
 <!--<script src="js/pay/pay.js"></script>-->
 <!--<script src="js/myInfo/myScore.js"></script>-->
 <!--<script src="js/Controller/navbar/new.js"></script>-->
-<script src="js/banner/bannerHope.js"></script>
+<!--<script src="js/banner/bannerHope.js"></script>-->
 <!--<script src="js/banner/bannerChance.js"></script>-->
 </html>

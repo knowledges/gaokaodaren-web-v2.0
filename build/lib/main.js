@@ -9,6 +9,7 @@ require.config({
         "oclazyLoad":"lib/ocLazyLoad.min",
         "bootstrap":"lib/bootstrap/js/bootstrap.min",
         "jquery":"lib/jquery.min",
+        "AES":"lib/AES.js"
     },
     shim:{
         'angular':{
@@ -28,7 +29,12 @@ require.config({
         'oclazyLoad':{
             deps:['jquery','angular','angular-ui-router'],
             exports:'oclazyLoad'
+        },
+        'AES':{
+            deps:['jquery'],
+            exports:'AES'
         }
+
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });

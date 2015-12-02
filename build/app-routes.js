@@ -2,7 +2,6 @@
  * Created by qbl on 2015/11/25.
  */
 define(['app'],function(app){
-    //var app = require('./app');
 
     app.run(['$rootScope',function($rootScope){
         $rootScope.studentId = "";
@@ -15,9 +14,14 @@ define(['app'],function(app){
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
     }]);
-
-    app.constant("logoutURL","/logout");//ע��
-    //��ҳ8��ģ��
+    app.factory('homeService',function(){
+        return {
+            htmlPage:""
+        }
+    });
+    //注销
+    app.constant("logoutURL","/logout");
+    //主页8大菜单
     app.constant("men2","/menu?index=0&limit=8&parent_id=15");
     app.constant("men3","/menu?index=0&limit=8&parent_id=16");
     app.constant("men4","/menu?index=0&limit=4&parent_id=17");
@@ -55,65 +59,22 @@ define(['app'],function(app){
             }
         }
     }]);
-    app.factory('homeService',function(){
-        return {
-            htmlPage:""
-        }
-    });
-    app.factory('newService',['$http','$q','AJAX','provinceURL','men2','men3','men4','men5','men6','men7',function($http,$q,AJAX,provinceURL,men2,men3,men4,men5,men6,men7){
-        var response = function(url){
-            var dtd = $q.defer();
-            $http.get(url).then(function (response) {
-                dtd.resolve(response);
-            }, function (response) {
-                dtd.resolve(response);
-            });
-            return dtd.promise;
-        }
-        return {
-            getProvinceURL: function () {
-                /**ʡ��*/
-                return response(provinceURL);
-            },
-            getHomeModel2: function () {
-                /**�Ҫ��*/
-                return response(men2);
-            },
-            getHomeModel3: function () {
-                /**��������*/
-                return response(men3);
-            },
-            getHomeModel4: function () {
-                /**��������*/
-                return response(men4);
-            },
-            getHomeModel5: function () {
-                /**��ҵȥ��*/
-                return response(men5);
-            },
-            getHomeModel6: function () {
-                /**��������*/
-                return response(men6);
-            },
-            getHomeModel7: function () {
-                /**��ѯ��·*/
-                return response(men7);
-            },
-        }
-    }])
-
     app.config(function($stateProvider, $urlRouterProvider){
 
         $urlRouterProvider.when("", "/home");
-
+        $urlRouterProvider.when("/all", "all/score");
+        $urlRouterProvider.when("/example", "example/nav");
         $stateProvider
-            .state("home", {
+            .state("home", {//主页
                 url: "/home",
                 templateUrl: "html/home/home.html",
                 controllerUrl:"html/home/homeCtrl",
                 controller:"homeCtrl",
                 data: { isPublic: true},
                 resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js']);
+                    }],
                     //data_province:function(){
                     //    return response(provinceURL);
                     //},
@@ -172,31 +133,124 @@ define(['app'],function(app){
                         return dtd.promise;
                     }
                 }
-            });
-
+            })
+            .state("hope", {//意向
+                url: "/hope",
+                templateUrl: "html/hope/hope.html",
+                data: { isPublic: false},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+                    }]
+                }
+            })
+            .state("chance", {//预测
+                url: "/chance",
+                templateUrl: "html/chance/chance.html",
+                controllerUrl:"html/chance/chance",
+                controller:"chanceCtr",
+                data: { isPublic: false}
+            })
+/////////////////////////////志愿范例///////////////////////////////////////////////////////
+            .state('example',{
+                url:'/example',
+                templateUrl:"html/temp/tempExample.html",
+                controllerUrl:"js/example/example",
+                controller:"exampleAllCtl",
+                data: { isPublic: true}
+            })
+            .state('example.nav',{
+                url:"/nav",
+                templateUrl:"html/nav/nav.html",
+                controllerUrl:"js/Controller/navbar/nav",
+                controller:"exampleNav",
+                data: { isPublic: true},
+            })
+            .state("example.list",{
+                url:'/itemId=:itemId&param=:param',
+                templateUrl:'html/recipe/recipe.html',
+                controllerUrl:"html/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true}
+            })
+            .state("login", {//登陆
+                url: "/login",
+                templateUrl: "html/login/login.html",
+                controllerUrl:"html/login/login",
+                controller:"logonCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js']);
+                    }]
+                }
+            })
+            .state("register", {//注册
+                url: "/register",
+                templateUrl: "html/login/register.html",
+                controllerUrl:"html/login/login",
+                controller:"registerCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js']);
+                    }]
+                }
+            })
+            .state("forget", {//忘记密码
+                url: "/forget",
+                templateUrl: "html/login/forget.html",
+                controllerUrl:"html/login/login",
+                controller:"forgetCtr",
+                data: { isPublic: true}
+            })
+///////////////////////////////我的足迹///////////////////////////////////////////////////////////////////////////////////
+            .state('all.score',{
+                url:'/score',
+                templateUrl:'html/myInfo/myScore.html',
+                controllerUrl:"html/myInfo/myScore",
+                controller:"myScore",
+                data: { isPublic: false},
+            })
+            .state('all', {
+                url: '/all',
+                templateUrl:'html/temp/tempAll.html',
+                data: { isPublic: false},
+                //controller:"allCtr"
+            })
+            .state('all.will',{
+                url:'/will',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"willCtr",
+                data: { isPublic: false}
+            })
+            .state('all.reference',{
+                url:'/reference',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"referenceCtr",
+                data: { isPublic: false}
+            })
     });
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
             name : "",
         }
-
         $scope.isShow = false;
         $scope.user.name = sessionStorage.getItem('usernumber');
-
         if($scope.user.name != null && $scope.user.name.length>= 1){
             $scope.user.islogin = true;
         }else{
             $scope.user.islogin = false;
         }
-
         $scope.$watch('studentId',function(newValue,oldValue){
             if(newValue !=""){
                 $scope.user.name = $rootScope.studentId;
                 $scope.user.islogin = true;
             }
         })
-
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');
             if(url>=0){
@@ -205,11 +259,9 @@ define(['app'],function(app){
                 window.location.href = "#/login";
             }
         }
-
         $scope.close = function(){
             $scope.isShow = false;
         }
-
         $scope.logoff = function(){
             AJAX.getRequest(logoutURL,'GET',"")
                 .success(function(data,status){
@@ -220,7 +272,6 @@ define(['app'],function(app){
                     window.location.reload();
                 });
         }
-
     }]);
     app.controller("pageJumpCtr",['$scope','$window',function($scope,$window){
         $scope.pageJump = function(type,user_level){
