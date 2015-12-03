@@ -4,8 +4,6 @@
 require(['app'],function(app){
     app.constant('articleURL',"/article");
     app.controller('recipeInfoCtr',['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
-            console.log($stateParams)
-
             $scope.title = {
                 list :"",
                 menuList:"",

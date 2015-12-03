@@ -1,10 +1,9 @@
 /**
- * Created by qbl on 2015/9/22.
+ * Created by qbl on 2015/11/25.
  */
-'use strict';
+define(['app','jquery','bootstrap'],function(app,$,bootstrap){
 
-angular.module("gaokaoAPP.home",[])
-    .controller("homeCtr",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
+    app.controller("homeCtrl",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
         $scope.table = {
             tbyl:"",
             fsfx:"",
@@ -12,7 +11,7 @@ angular.module("gaokaoAPP.home",[])
             byqx:"",
             gxtz:"",
             zxxl:""
-        }
+        };
 
         $scope.ishide = true;
         $scope.service = homeService;
@@ -25,6 +24,7 @@ angular.module("gaokaoAPP.home",[])
         },true);
 
         init();
+
         function init() {
             $('.carousel').carousel({
                 interval: 5000
@@ -37,5 +37,5 @@ angular.module("gaokaoAPP.home",[])
             $scope.table.gxtz = data_HomeModel6.data.response.list;
             $scope.table.zxxl = data_HomeModel7.data.response.list;
         }
-
-}]);
+    }]);
+});

@@ -1,8 +1,8 @@
 /**
  * Created by qbl on 2015/10/21.
  */
-angular.module("gaokaoAPP.navbar.marjor.info",[])
-    .controller('marjorInfoCtr',['$scope','$sce','AJAX','navURL_1',,function($scope,$sce,AJAX,navURL_1){
+require(['app'],function(app){
+    app.controller('marjorInfoCtr',['$scope','$sce','AJAX','navURL_1',,function($scope,$sce,AJAX,navURL_1){
         $scope.marjorInfo = {
             strHtml:""
         }
@@ -11,4 +11,5 @@ angular.module("gaokaoAPP.navbar.marjor.info",[])
             .success(function(data,status){
                 $scope.marjor.strHtml = $sce.trustAsHtml(data);
             });
-    }])
+    }]);
+});

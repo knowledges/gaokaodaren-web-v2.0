@@ -1,8 +1,10 @@
 /**
- * Created by qbl on 2015/11/9.
+ * Created by Administrator on 2015/12/2.
  */
+'use strict';
 require(['app'],function(app){
-    app.controller("scroeCtr", ['$scope','$window',function ($scope,$window) {
+    app.controller("myScore", ['$scope','$window',function ($scope,$window) {
+        console.log('我进来了。');
         $scope.recommShow = false;
         $scope.table = {
             obl:"",
@@ -22,19 +24,19 @@ require(['app'],function(app){
                     name: "A+"
                 }, {
                     id: 4,
-                    name: "A",
+                    name: "A"
                 }, {
                     id: 3,
-                    name: "B+",
+                    name: "B+"
                 }, {
                     id: 2,
-                    name: "B+",
+                    name: "B+"
                 }, {
                     id: 1,
-                    name: "C",
+                    name: "C"
                 }, {
                     id: 0,
-                    name: "D",
+                    name: "D"
                 }
             ];
 
@@ -54,7 +56,7 @@ require(['app'],function(app){
                 });
 
             }
-        }
+        };
 
         $scope.$watch('table.subject',function(newValue,oldValue){
             if(newValue == 1){
@@ -64,7 +66,7 @@ require(['app'],function(app){
                 $scope.table.sub1 = "物理";
                 $scope.table.sub2 = "化学";
             }
-        })
+        });
 
         $scope.addScore = function(table){
 
@@ -95,7 +97,7 @@ require(['app'],function(app){
 
             //TODO 请求志愿 推荐内容
 
-        }
+        };
 
         $scope.setUp = function(index){
             $scope.recommShow = true;
@@ -114,7 +116,7 @@ require(['app'],function(app){
             });
             localStorage.setItem("score",JSON.stringify(arr));
             $window.location.reload();
-        }
+        };
 
     }])
 });

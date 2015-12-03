@@ -1,6 +1,7 @@
 /**
  * Created by qbl on 2015/10/27.
  */
+'use strict';
 require(['app'],function(app){
     app.config(function($stateProvider, $urlRouterProvider){
         $urlRouterProvider.when("/all", "/score");

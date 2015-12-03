@@ -1,8 +1,9 @@
 /**
  * Created by qbl on 2015/10/16.
  */
-angular.module("gaokaoAPP.navbar.citymenu",['ui.router'])
-.controller("cityCtl",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
+'use strict';
+require(['app'],function(app){
+    app.controller("cityCtl",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
 
         $scope.menu = {
             provincelist: ""
@@ -15,4 +16,5 @@ angular.module("gaokaoAPP.navbar.citymenu",['ui.router'])
                     $scope.menu.provincelist = data.response.list;
                 });
         }
-}]);
+    }]);
+});

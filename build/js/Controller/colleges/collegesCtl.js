@@ -3,7 +3,7 @@
  */
 require(['app'],function(app){
     app.constant("marjorURL","../JSON/marjor.json");
-    app.constant("departURL","/depart/new")
+    app.constant("departURL","/depart/new");
     app.controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX","loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle","loadCancleAll",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle,loadCancleAll){
 
             $scope.marjor = ZYBinfoDATA;

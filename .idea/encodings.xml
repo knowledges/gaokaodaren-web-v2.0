@@ -2,6 +2,18 @@
 <project version="4">
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/build/html/refer/refer.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/colleges/collegesCtl.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupJob.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupOnline.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupPolicy.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupRecipe.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupScore.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/listGroup/groupUnique.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/navbar/nav.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/navbar/school.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/Controller/recipe/recipe.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/example/example.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build/js/login/login.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/js/pay/pay.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/js/refer/refer.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/build/templete/model-a/payA.html" charset="UTF-8" />

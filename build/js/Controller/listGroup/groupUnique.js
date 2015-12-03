@@ -1,14 +1,13 @@
 /**
  * Created by qbl on 2015/10/23.
  */
-angular.module('gaokaoAPP.group.unique',[])
-    .controller('uniqueMenuCtr',['$scope','AJAX','menuRecipeURL',function($scope,AJAX,menuRecipeURL){
+require(['app'],function(app){
+    app.constant('menuRecipeURL','/menu');
+    app.controller('uniqueMenuCtr',['$scope','AJAX','menuRecipeURL',function($scope,AJAX,menuRecipeURL){
         $scope.menu = {
             menuList : ""
-        }
-
+        };
         init();
-
         function init(){
             var parame = {};
             parame.index = 0;
@@ -20,3 +19,4 @@ angular.module('gaokaoAPP.group.unique',[])
                 })
         }
     }]);
+});

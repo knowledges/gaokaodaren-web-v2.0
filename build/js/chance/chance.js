@@ -1,31 +1,30 @@
 /**
- * Created by qbl on 2015/11/2.
+ * Created by Administrator on 2015/12/2.
  */
-angular.module('gaokaoAPP.chance',[])
-.controller('chanceCtr',['$scope',function($scope){
+require(['app'],function(app){
+    app.controller('chanceCtr',['$scope',function($scope){
 
         $scope.score = "";
 
-        $scope.isShow = false
+        $scope.isShow = false;
 
         init();
 
         $scope.changePay = function(){
             $scope.isShow = true;
-        }
+        };
 
-       function init(){
-           if(localStorage.getItem("score")!=null){
-               $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
-                   if (val.state == 1) {
-                       $scope.score = val;
+        function init(){
+            if(localStorage.getItem("score")!=null){
+                $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
+                    if (val.state == 1) {
+                        $scope.score = val;
 
-                       //TODO «Î«Û“ª¥ŒÕ∆ºˆ–≈œ¢
-                       $scope.recommShow = true;
-                   }
-               });
-
-           }
-       }
-
-}]);
+                        //TODO ËØ∑Ê±Ç‰∏ÄÊ¨°Êé®Ëçê‰ø°ÊÅØ
+                        $scope.recommShow = true;
+                    }
+                });
+            }
+        };
+    }])
+});
