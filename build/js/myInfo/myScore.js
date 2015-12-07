@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.controller("myScore", ['$scope','$window',function ($scope,$window) {
-        console.log('我进来了。');
+
         $scope.recommShow = false;
         $scope.table = {
             obl:"",
@@ -93,7 +93,7 @@ require(['app'],function(app){
                 array.push(param);
                 localStorage.setItem("score",JSON.stringify(array));
             }
-            $window.location.reload()
+            $window.location.reload();
 
             //TODO 请求志愿 推荐内容
 
@@ -118,5 +118,5 @@ require(['app'],function(app){
             $window.location.reload();
         };
 
-    }])
+    }]);
 });

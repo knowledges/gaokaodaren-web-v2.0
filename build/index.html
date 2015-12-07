@@ -79,9 +79,9 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </a>
                 </form>
-                <li><a ng-click="login()" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
-                <li><a ui-sref="all" ng-if="user.islogin">我的足迹</a></li>
-                <li><a ng-if="user.islogin" ng-click="logoff()">注销</a></li>
+                <li><a ng-click="login()" href="javascript:;;" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
+                <li><a ui-sref="all.score"  href="javascript:;;" ng-if="user.islogin">我的足迹</a></li>
+                <li><a ng-if="user.islogin"  href="javascript:;;" ng-click="logoff()">注销</a></li>
             </ul>
         </div>
     </div>
@@ -98,48 +98,4 @@
 </body>
 <script src="lib/require.js"></script>
 <script src="lib/main.js"></script>
-<!--<script src="lib/AES.js"></script>-->
-<!--<script src="app.js"></script>-->
-<!--<script src="service.js"></script>-->
-<!--<script src="js/Controller/loginCtl/login.js"></script>-->
-<!--<script src="js/Controller/selectCtl/select.js"></script>-->
-<!--<script src="js/Controller/colleges/collegesCtl.js"></script>-->
-<!--<script src="js/Controller/personality/personality.js"></script>-->
-<!--<script src="js/Controller/temp/tempCity.js"></script>-->
-<!--<script src="js/Controller/navbar/nav.js"></script>-->
-<!--<script src="js/Controller/navbar/content.js"></script>-->
-<!--<script src="js/Controller/navbar/city.js"></script>-->
-<!--<script src="js/Controller/temp/tempSchool.js"></script>-->
-<!--<script src="js/Controller/navbar/school.js"></script>-->
-<!--<script src="js/Controller/temp/tempMarjor.js"></script>-->
-<!--<script src="js/Controller/navbar/marjor.js"></script>-->
-<!--<script src="js/Controller/navbar/marjorInfo.js"></script>-->
-<!--<script src="js/Controller/temp/tempRecipe.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupRecipe.js"></script>-->
-<!--<script src="js/Controller/recipe/recipe.js"></script>-->
-<!--<script src="js/Controller/temp/tempScore.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupScore.js"></script>-->
-<!--<script src="js/Controller/temp/tempPolicy.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupPolicy.js"></script>-->
-<!--<script src="js/Controller/temp/tempJob.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupJob.js"></script>-->
-<!--<script src="js/Controller/temp/tempUnique.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupUnique.js"></script>-->
-<!--<script src="js/Controller/temp/tempOnline.js"></script>-->
-<!--<script src="js/Controller/listGroup/groupOnline.js"></script>-->
-<!--<script src="js/Controller/showInfo/showInfo.js"></script>-->
-<!--<script src="js/Controller/temp/tempExample.js"></script>-->
-<!--<script src="js/chance/chance.js"></script>-->
-<!--<script src="js/public.js"></script>-->
-<!--<script src="js/home/home.js"></script>-->
-<!--<script src="js/hope/hope.js"></script>-->
-<!--<script src="js/about/tempAbout.js"></script>-->
-<!--<script src="js/Controller/temp/tempAll.js"></script>-->
-<!--<script src="js/all/all.js"></script>-->
-<!--<script src="js/refer/refer.js"></script>-->
-<!--<script src="js/pay/pay.js"></script>-->
-<!--<script src="js/myInfo/myScore.js"></script>-->
-<!--<script src="js/Controller/navbar/new.js"></script>-->
-<!--<script src="js/banner/bannerHope.js"></script>-->
-<!--<script src="js/banner/bannerChance.js"></script>-->
 </html>

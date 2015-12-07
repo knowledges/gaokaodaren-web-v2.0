@@ -9,7 +9,8 @@ require.config({
         "oclazyLoad":"lib/ocLazyLoad.min",
         "bootstrap":"lib/bootstrap/js/bootstrap.min",
         "jquery":"lib/jquery.min",
-        "AES":"lib/AES.js"
+        "AES":"lib/AES.js",
+        "pagging":"js/public"
     },
     shim:{
         'angular':{
@@ -33,8 +34,11 @@ require.config({
         'AES':{
             deps:['jquery'],
             exports:'AES'
+        },
+        'pagging':{
+            deps:['jquery'],
+            exprots:'pagging'
         }
-
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });

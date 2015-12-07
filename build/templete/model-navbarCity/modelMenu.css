@@ -6,10 +6,10 @@ ul.menu-nav {
   display: inline-block;
   width: 200px;
   height: 100%;
-  box-shadow: -2px 0 1px #e8e8e8, 0 0 0px #0000ff, 0 0 0px #ff0000, 2px 0 1px #ececec;
+  box-shadow: -2px 0 1px #E8E8E8, 0 0 0px blue, 0 0 0px red, 2px 0 1px #ECECEC;
 }
 ul.menu-nav > li > a {
-  color: #888888;
+  color: #888;
   font-size: 24px;
   background-color: #EFEFEF;
 }
@@ -18,7 +18,7 @@ ul.menu-nav > li ul {
   list-style: none;
 }
 ul.menu-nav > li ul li a {
-  color: #888888;
+  color: #888;
   font-size: 16px;
   padding: 5px;
   display: inline-block;
@@ -34,6 +34,4 @@ ul.menu-nav > li ul li a:focus {
   display: inline-block;
   min-width: 600px;
   min-height: 600px;
-  box-shadow: 2px 0px 2px #ccc;
 }
-/*# sourceMappingURL=modelMenu.css.map */

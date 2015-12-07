@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2015/12/2.
  */
+'use strict';
 require(['app'],function(app){
     app.constant("codeURL", "/user/code?time=" + new Date().getTime());
     app.constant("loginURL", "/login?time=" + new Date().getTime());
@@ -171,7 +172,7 @@ require(['app'],function(app){
                     }else{
                         var set = confirm("你还没有完善考试成绩，是否完善！");
                         if(set){
-                            $window.location.href="#/all/score";
+                            $window.location.href="#/all/allScore";
                         }else{
                             $window.location.href = "#/home";
                         }

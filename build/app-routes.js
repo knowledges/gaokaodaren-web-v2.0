@@ -62,7 +62,7 @@ define(['app'],function(app){
     }]);
     app.config(function($stateProvider, $urlRouterProvider){
 
-        $urlRouterProvider.when("", "/home");
+        //$urlRouterProvider.when("", "/home");
         $urlRouterProvider.when("/all", "all/score");
         $urlRouterProvider.when("/example", "example/exampleNav");
         $urlRouterProvider.when("/online", "online/onlineNav");
@@ -157,7 +157,12 @@ define(['app'],function(app){
                 templateUrl: "html/chance/chance.html",
                 controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
-                data: { isPublic: false}
+                data: { isPublic: false},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/banner/bannerChance.js']);
+                    }]
+                }
             })
 /////////////////////////////志愿范例///////////////////////////////////////////////////////
             .state('example',{
@@ -251,7 +256,12 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"schoolNav",
-                data: { isPublic: true }
+                data: { isPublic: true },
+                resolve: {
+                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+                    }]
+                }
             })
             .state('school.list',{
                 url:"/{type:[0-9]{1,4}}",
@@ -450,28 +460,33 @@ define(['app'],function(app){
                 data: { isPublic: true}
             })
 ///////////////////////////////我的足迹///////////////////////////////////////////////////////////////////////////////////
-            .state('all.score',{
-                url:'/score',
-                templateUrl:'html/myInfo/myScore.html',
-                controllerUrl:"js/myInfo/myScore",
-                controller:"myScore",
-                data: { isPublic: false},
-            })
             .state('all', {
                 url: '/all',
                 templateUrl:'html/temp/tempAll.html',
                 data: { isPublic: false},
                 //controller:"allCtr"
             })
+            .state('all.score',{
+                url:'/allScore',
+                templateUrl:'html/myInfo/myScore.html',
+                controllerUrl:"js/myInfo/myScore",
+                controller:"myScore",
+                data: { isPublic: false},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+                    }]
+                }
+            })
             .state('all.will',{
-                url:'/will',
+                url:'/allWill',
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"willCtr",
                 data: { isPublic: false}
             })
             .state('all.reference',{
-                url:'/reference',
+                url:'/allReference',
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",

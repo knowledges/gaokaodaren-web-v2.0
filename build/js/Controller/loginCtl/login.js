@@ -2,7 +2,6 @@
  * Created by qbl on 2015/10/9.
  */
 'use strict';
-
 angular.module("gaokaoAPP.login.childApp", ['ui.router'])
     .run(function(){
 
@@ -178,7 +177,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                     }else{
                         var set = confirm("你还没有完善考试成绩，是否完善！");
                         if(set){
-                            $window.location.href="#/all/all.score";
+                            $window.location.href="#/all/allScore";
                         }else{
                             locationHref();
                         }

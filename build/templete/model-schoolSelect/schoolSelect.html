@@ -1,4 +1,20 @@
 <form  ng-submit="findSchool(info)">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control input-lg" id="schoolname" ng-model="info.key" placeholder="请输入院校名称">
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary btn-block btn-lg">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-6">
@@ -28,6 +44,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-sm-6">
@@ -59,19 +76,9 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <div class="form-group">
-                <div class="col-sm-4">
-                    <label for="schoolname">名称：</label>
-                </div>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="schoolname" ng-model="info.key" placeholder="请输入院校名称">
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-7">
-            <div class="form-group">
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <label for="city">院校属地:</label>
                 </div>
                 <div class="col-sm-4">
@@ -90,6 +97,8 @@
         </div>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-success btn-lg">查询</button>
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">查询</button>
+        </div>
     </div>
 </form>

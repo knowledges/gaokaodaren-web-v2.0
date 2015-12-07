@@ -1,32 +1,26 @@
-<div class="menu-div">
+<div class="container-fluid" >
     <div ng-if="school.isnav" ng-bind-html="school.strHtml"></div>
     <div ng-if="school.isfind">
         <div ng-include="'templete/model-schoolSelect/schoolSelect.html'"></div>
-        <div>
-            <table class="table">
-                <tbody>
-                    <tr ng-repeat="list in schoolList" class="text-left">
-                        <td>
-                            {{list.name}}
-                        </td>
-                        <td>
-                            <p>高校所在地：{{list.city_name}}</p>
-
-                            <p>高校类型：{{list.style_name}}</p>
-
-                            <p>高校性质：{{list.attr_name}}</p>
-                        </td>
-                        <td>
-                            <p>院校特色：<span ng-if="list.is_211">211</span><span ng-if="list.is_985">985</span><span ng-if="!list.is_211 && !list.is_985 && list.belongs_name =='' ">地方所属</span></p>
-
-                            <p>高校隶属：{{list.belongs_name}}</p>
-
-                            <p>学校网址：{{list.website}}</p>
-                        </td>
-                        <td>
-                            <a href="{{list.website}}"  target="_blank" class="btn btn-default">学校简介</a>
-                            <button class="btn btn-default" data-ng-click="showChar(list.id)">学校章程</button>
-                        </td>
+        <div class="alert">
+            <p ng-if="schoolList" class="text-left">共找到 <em>{{info.pageSize}}</em> 所院校</p>
+            <hr/>
+            <table class="table"  border="0" cellpadding="0" cellspacing="0">
+                <tbody  ng-repeat="list in schoolList">
+                    <tr class="text-left">
+                        <td rowspan="3"><img src="img/school.png" width="125" height="125" alt=""/></td>
+                        <td colspan="2" ><strong> {{list.name}}</strong> <i class="schStyleBg_a"  ng-if="list.is_985">985</i>  <i class="schStyleBg_a"  ng-if="list.is_211">211</i>  <i class="schStyleBg_b" ng-if="!list.is_211 && !list.is_985 && list.belongs_name =='' ">地方所属</i></td>
+                        <td width="203">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="schStyleDashaed text-left"><strong>高校类型：</strong>{{list.style_name}}</td>
+                        <td class="schStyleDashaed"><strong>隶属：</strong>{{list.belongs_name}}</td>
+                        <td><a href="{{list.website}}" class="btn btn-success">学校简介</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><strong>性质：</strong>{{list.attr_name}}</td>
+                        <td><a href="{{list.website}}" class="btn btn-success">去校园看看</a></td>
+                        <td><button data-ng-click="showChar(list.id)" class="btn btn-success">学校章程</button></td>
                     </tr>
                 </tbody>
             </table>

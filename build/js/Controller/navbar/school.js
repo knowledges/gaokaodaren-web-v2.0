@@ -2,8 +2,8 @@
  * Created by qbl on 2015/10/20.
  */
 'use strict';
-require(['app'],function(app){
-    app.constant("navURL_1","/article/show/3289")//城市
+require(['app','pagging'],function(app,pagging){
+    app.constant("navURL_1","/article/show/3289");//城市
     app.constant('findSchoolURL',"/school");
     app.constant("propURL","../JSON/prop.json");
     app.constant("provinceURL","/city/province");
@@ -15,6 +15,7 @@ require(['app'],function(app){
             strHtml: "",
             isChars:false
         };
+
         $scope.info = {
             type: "",
             key: "",
@@ -29,7 +30,6 @@ require(['app'],function(app){
             pageSize:0,
             junior: 0
         };
-
 
         if ($stateParams.type == 0) {
             $scope.school.isnav = true;
@@ -62,7 +62,6 @@ require(['app'],function(app){
         };
 
         $scope.findSchool = function(info){
-            debugger;
             pageation($scope.info.index,info);
         };
 
@@ -81,6 +80,9 @@ require(['app'],function(app){
             param.junior = info.junior;
             AJAX.getRequest(findSchoolURL, 'GET', param)
                 .success(function (data, status) {
+
+                    console.log('i come in');
+
                     $scope.info.pageSize = data.response.sum;
                     $scope.schoolList = data.response.list;
 
@@ -89,6 +91,7 @@ require(['app'],function(app){
                         param: param,
                         current: $scope.info.index,
                         callback: function (idx, param) {
+                            debugger;
                             $scope.info.index = idx;
                             pageation($scope.info.index, info);
                         }
