@@ -20,238 +20,144 @@
         <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{score.subject}}</span>类 总分：<span ng-cloak>{{score.score}}</span>   选测等级：<span ng-cloak>{{score.level}}</span>
     </div>
 
-    <div>
-        <table class="table table-bordered" role="录取-概率">
+    <table class="table table-bordered" role="录取-概率">
             <tbody>
             <tr>
-                <!--<td class="text-center">-->
-                    <!--<input type="text" class="inputStyle" ng-model="info.school_code" placeholder="请输入高校编号"/>-->
-                <!--</td>-->
                 <td class="text-center">
-                    <input type="text" class="inputStyle" ng-model="info.school" placeholder="请输入高校名称"/>
-                </td>
-                <!--<td class="text-center">-->
-                    <!--<input type="text" class="inputStyle" ng-model="info.depart_code" placeholder="请输入专业代码"/>-->
-                <!--</td>-->
-                <td class="text-center">
-                    <input type="text"class="inputStyle" ng-model="info.depart" placeholder="请输入专业名称"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" ng-model="info.school" placeholder="请输入高校名称"/>
+                    </div>
                 </td>
                 <td class="text-center">
-                    <input type="text"class="inputStyle" ng-model="info.change" placeholder="请输入概率"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" ng-model="info.depart" placeholder="请输入专业名称"/>
+                    </div>
                 </td>
                 <td class="text-center">
-                    <a class="btn btn-success " ng-click="changePay()" >预测概率</a>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" ng-model="info.change" placeholder="请输入概率"/>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-success btn-block btn-lg" ng-click="changePay()" >预测概率</a>
                 </td>
             </tr>
             </tbody>
         </table>
-    </div>
 
     <div class="panel panel-default" ng-if="isShow">
-        <div class="panel-heading text-left">预测高校 <i class="icon-plus"></i></div>
+        <div class="panel-heading text-left">
+            <h3><i class="icon-building"></i> 预测高校</h3>
+        </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-10">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <td>概率</td>
-                                <td>高校名称</td>
+                                <td>
+                                    <strong>概率</strong>
+                                </td>
+                                <td>
+                                    <strong>高校名称</strong>
+                                </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td align="center" valign="middle">>95%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京理工大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                    </ul>
+                                <td class="nav-td" width="110">95%</td>
+                                <td class="nav-td">
+                                    <nav class="nav nav-pills clearfix">
+                                        <li>
+                                            <a href=""><i class="icon-chevron-left"></i></a>
+                                        </li>
+                                        <li class="nav-right">
+                                            <a href=""><i class="icon-chevron-right"></i></a>
+                                        </li>
+                                    </nav>
+                                    <div class="nav-param">
+                                        <ul class="nav nav-pills nav-param-child">
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="center" valign="middle">86%~95%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                    </ul>
+                                <td class="nav-td" width="110">>84%~94%</td>
+                                <td class="nav-td">
+                                    <nav class="nav nav-pills clearfix">
+                                        <li>
+                                            <a href=""><i class="icon-chevron-left"></i></a>
+                                        </li>
+                                        <li class="nav-right">
+                                            <a href=""><i class="icon-chevron-right"></i></a>
+                                        </li>
+                                    </nav>
+                                    <div class="nav-param">
+                                        <ul class="nav nav-pills nav-param-child">
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="center" valign="middle">76%~85%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle">66%~75%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle">56%~65%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle"><56%</td>
-                                <td class="tdStyle">
-                                    <ul class="nav nav-pills tdUlStyle">
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                        <li><a href="">南京工业大学</a></li>
-                                    </ul>
+                                <td class="nav-td" width="110">73~83%</td>
+                                <td class="nav-td">
+                                    <nav class="nav nav-pills clearfix">
+                                        <li>
+                                            <a href=""><i class="icon-chevron-left"></i></a>
+                                        </li>
+                                        <li class="nav-right">
+                                            <a href=""><i class="icon-chevron-right"></i></a>
+                                        </li>
+                                    </nav>
+                                    <div class="nav-param">
+                                        <ul class="nav nav-pills nav-param-child">
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                            <li><a href="">中国青年政治学院</a></li>
+                                            <li><a href="">北京电子科技学院</a></li>
+                                            <li><a href="">国际关系学院(北京)</a></li>
+                                            <li><a href="">北京航空航天大学</a></li>
+                                            <li><a href="">香港中午大学（深圳）</a></li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -260,7 +166,7 @@
                 <div class="col-sm-2">
                     <fieldset>
                         <legend>高校类别</legend>
-                        <ul class="nav nav-pills nav-stacked">
+                        <ul class="nav nav-pills nav-stacked nav-chance">
                             <li role="presentation">
                                 <label class="btn btn-primary">
                                     <input type="checkbox" autocomplete="off"> 全部
@@ -340,7 +246,7 @@
     </div>
 
     <div class="panel panel-default" ng-if="isShow">
-        <div class="panel-heading text-left">预测专业 <i class="icon-plus"></i></div>
+        <div class="panel-heading text-left"> <h3><i class="icon-beaker"></i> 预测高校</h3></div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
@@ -351,15 +257,15 @@
                         南京理工大学
                     </fieldset>
                 </div>
-                <div class="col-sm-8" style="height:200px;overflow-y:scroll;">
+                <div class="col-sm-8  nav-chance">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <td>代号</td>
-                                <td>专业名称</td>
-                                <td>计划数</td>
-                                <td>学制</td>
-                                <td>学费</td>
+                                <td><strong>代号</strong></td>
+                                <td><strong>专业名称</strong></td>
+                                <td><strong>计划数</strong></td>
+                                <td><strong>学制</strong></td>
+                                <td><strong>学费</strong></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -390,7 +296,7 @@
                 <div class="col-sm-2">
                     <fieldset>
                         <legend>专业类别</legend>
-                        <ul class="nav nav-pills nav-stacked">
+                        <ul class="nav nav-pills nav-stacked  nav-chance">
                             <li role="presentation">
                                 <label class="btn btn-primary">
                                     <input type="checkbox" autocomplete="off"> 经济学类
@@ -440,7 +346,7 @@
     </div>
 
     <div class="panel panel-default" ng-if="isShow">
-        <div class="panel-heading text-left">根据专业获取所有高校 <i class="icon-plus"></i></div>
+        <div class="panel-heading text-left"> <h3><i class="icon-hospital"></i> 根据专业获取所有高校</h3></div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
@@ -468,12 +374,12 @@
                         
                     </fieldset>
                 </div>
-                <div class="col-sm-8" style="height:400px;overflow-y:scroll;">
+                <div class="col-sm-8 nav-chance">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <td>学校名称</td>
-                                <td>概率</td>
+                                <td><strong>学校名称</strong></td>
+                                <td><strong>概率</strong></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -507,7 +413,7 @@
                 <div class="col-sm-2">
                     <fieldset>
                         <legend>高校类别</legend>
-                        <ul class="nav nav-pills nav-stacked">
+                        <ul class="nav nav-pills nav-stacked nav-chance">
                             <li role="presentation">
                                 <label class="btn btn-primary">
                                     <input type="checkbox" autocomplete="off"> 全部

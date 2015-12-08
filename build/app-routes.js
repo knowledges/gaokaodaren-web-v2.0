@@ -230,7 +230,12 @@ define(['app'],function(app){
                 templateUrl:'html/nav/nav.html',
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"cityNav",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+                    }]
+                }
             })
             .state('city.list',{
                 url:'/{cityId:[0-9]{0,4}}',

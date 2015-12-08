@@ -1,0 +1,23 @@
+.nav-chance {
+  height: 380px;
+  overflow-y: scroll;
+}
+.nav-right {
+  float: right!important;
+}
+.nav-td {
+  position: relative;
+  vertical-align: middle!important;
+}
+.nav-param {
+  width: 700px;
+  overflow: hidden;
+  position: absolute;
+  top: 8px;
+  left: 40px;
+  vertical-align: middle;
+}
+.nav-param-child {
+  display: inline-block;
+  width: 10000px;
+}

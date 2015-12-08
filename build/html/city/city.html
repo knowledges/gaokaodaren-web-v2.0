@@ -1,34 +1,123 @@
-<div class="menu-div">
-    <div ng-if="!content.isNav" ng-bind-html="content.page" style="text-align:left!important;"></div>
-    <div ng-if="content.isNav">
-        <div class="row">
-
-            <div class="col-sm-12">
-                <form class="navbar-form navbar-left " action="javascript:;;" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control"  ng-model="content.cityName" placeholder="请输入要查询城市..."/>
-                    </div>
-                    <a href="javascript:;;" ng-click="findCity()" class="btn btn-success head-serche">
-                        查询
-                    </a>
-                </form>
-
-            </div>
-
-            <div class="col-sm-12 citydiv">
-                <ul >
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="$first" href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="list.province_area_id == '39' " href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="list.province_area_id == '349' " href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="list.province_area_id == '40' " href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="list.province_area_id == '350' " href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                    <li class="citylist" ><a ng-repeat="list in content.cityList"  ng-if="list.province_area_id == '41' " href="{{list.website}}" target="_bank">{{list.name}}</a></li>
-                </ul>
-                <ul ng-if="content.isfind">
-                    <li><a href="javascript:history.go(0);" class="btn btn-success btn-lg ">返回</a></li>
-                </ul>
+<div class="container-fluid">
+    <!--<div ng-if="content.isfind" ng-bind-html="content.page" style="text-align:left!important;"></div>-->
+    <div ng-if="content.isfind">
+        <div class="col-sm-12" ng-if="content.listCity_1.length>0">
+            <div class="panel panel-primary">
+                <div class="panel-heading  text-left">
+                    <i class="icon-list-alt"></i> 查询结果
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in content.listCity_1"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
+    </div>
+    <div ng-if="!content.isfind">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control input-lg" ng-model="content.cityName" placeholder="请输入要查询城市">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary btn-block btn-lg"  ng-click="findCity()">查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_0.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-left">
+                        <i class="icon-list"></i> 省会
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_0"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_1.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading  text-left">
+                        <i class="icon-list-ul"></i>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_1"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_2.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading  text-left">
+                        <i class="icon-list-ul"></i>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_2"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_3.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading  text-left">
+                        <i class="icon-list-ul"></i>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_3"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_4.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading  text-left">
+                        <i class="icon-list-ul"></i>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_4"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="content.listCity_5.length>0">
+                <div class="panel panel-primary">
+                    <div class="panel-heading  text-left">
+                        <i class="icon-list-ul"></i>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in content.listCity_5"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="col-sm-12 citydiv">-->
+        <!--<ul>-->
+        <!--<li class="citylist"><a href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--<li class="citylist"><a ng-repeat="list in content.listCity_1" href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--<li class="citylist"><a ng-repeat="list in content.listCity_2" href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--<li class="citylist"><a ng-repeat="list in content.listCity_3" href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--<li class="citylist"><a ng-repeat="list in content.listCity_4" href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--<li class="citylist"><a ng-repeat="list in content.listCity_5" href="{{list.website}}" target="_bank">{{list.name}}</a></li>-->
+        <!--</ul>-->
+        <!--<ul ng-if="content.isfind">-->
+        <!--<li><a href="javascript:history.go(0);" class="btn btn-success btn-lg ">返回</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+
 
     </div>
 </div>
