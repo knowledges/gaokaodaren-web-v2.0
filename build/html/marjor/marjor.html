@@ -1,4 +1,4 @@
-<div class="menu-div">
+<div class="container-fluid">
 
     <ol class="breadcrumb text-left" style="display: none;">
         <!--<li><a href="javascript:history.go(0);">本科院校</a></li>-->
@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control input-lg" id="schoolname" ng-model="marjor.key" placeholder="请输入院校名称">
+                            <input type="text" class="form-control input-lg" id="schoolname" ng-model="marjor.key" placeholder="请输入专业名称名称">
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-primary btn-block btn-lg" ng-click="findMarjor()">查询</button>
@@ -27,20 +27,77 @@
         <div ng-include="'templete/model-marjor/marjor.html'"></div>
     </div>
 
-    <p ng-if="back" class="text-right" >
-        <a href="javascript:history.go(0);" class="btn btn-success btn-back">
-            返回
-        </a>
-    </p>
-
-    <div ng-if="marjor.info" class="text-left" ng-bind-html="marjor.strHtml"></div>
-
-    <div ng-if="marjor.findlist">
-        <ul class="nav nav-pills" ng-repeat="list in findList">
-            <li><a ui-sref="marjor.list.info({infoId:list.article_id})" href="javascript:;;">{{list.name}}</a></li>
-        </ul>
-        <div ng-view></div>
+    <div ng-if="marjor.seacrChCon">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading  text-left">
+                    <i class="icon-search"></i> 查询结果
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in findList"><a ng-click="showInfo(list.article_id)" href="javascript:;;">{{list.name}}</a></li>
+                    </ul>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-success" ng-click="findBack()">返回</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div ng-if="marjor.info" class="text-left">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="javascript:;;" ng-click="information($event)" data-name="marjorInfo"> 专业 </a></li>
+            <li><a href="javascript:;;" ng-click="information($event)" data-name="school"> 开设学校 </a></li>
+            <li><a href="javascript:;;" ng-click="findBack($event)" data-name="messages"> 返回 </a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="marjorInfo" ng-bind-html="marjor.strHtml"></div>
+            <div class="tab-pane" id="school">
+                <div class="alert">
+                    <table class="table"  border="0" cellpadding="0" cellspacing="0">
+                        <!--// ng-repeat="list in schoolList"-->
+                        <tbody >
+                        <tr class="text-left">
+                            <td rowspan="3"><img src="img/school.png" width="125" height="125" alt=""/></td>
+                            <td colspan="2" ><strong>XXXX</strong> <i class="schStyleBg_a"  ng-if="XXXX">985</i>  <i class="schStyleBg_a"  ng-if="XXXX">211</i>  <i class="schStyleBg_b" ng-if="XXXX">地方所属</i></td>
+                            <td width="203">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="schStyleDashaed text-left"><strong>高校类型：</strong>XXXX</td>
+                            <td class="schStyleDashaed"><strong>隶属：</strong>XXXXX</td>
+                            <td><a href="{{list.website}}" class="btn btn-success">学校简介</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><strong>性质：</strong>XXX</td>
+                            <td><a href="XXXX" class="btn btn-success">去校园看看</a></td>
+                            <td><button data-ng-click="XXXX" class="btn btn-success">学校章程</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<p ng-if="back" class="text-right" >-->
+        <!--<a href="javascript:history.go(0);" class="btn btn-success btn-back">-->
+            <!--返回-->
+        <!--</a>-->
+    <!--</p>-->
+
+
+
+    <!--<div ng-if="marjor.findlist">-->
+        <!--<ul class="nav nav-pills" ng-repeat="list in findList">-->
+            <!--<li><a ui-sref="marjor.list.info({infoId:list.article_id})" href="javascript:;;">{{list.name}}</a></li>-->
+        <!--</ul>-->
+        <!--<div ng-view></div>-->
+    <!--</div>-->
 </div>
 
 

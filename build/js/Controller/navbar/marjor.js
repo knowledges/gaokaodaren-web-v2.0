@@ -2,57 +2,66 @@
  * Created by qbl on 2015/10/21.
  */
 
-require(['app'],function(app){
+require(['app','jquery'],function(app,jquery){
     app.constant("departURL","/depart/new");
-   app.constant("findMarjorURL",'/depart');
-   app.controller("marjorConCtl",['$scope','$stateParams','$sce','AJAX','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,departURL,findMarjorURL){
+    app.constant("findMarjorURL",'/depart');
+    app.controller("marjorConCtl",['$scope','$stateParams','$sce','AJAX','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,departURL,findMarjorURL){
+
+        $scope.search = true;
+        $scope.marjor = {
+            info:false,
+            content:true,
+            seacrChCon:false,
+            key:""
+        }
+
+       loading();
+
+       $scope.showInfo = function(id){
+            $scope.marjor.info = true;
+            $scope.marjor.seacrChCon = false;
+            $scope.marjor.content = false;
+            $scope.search = false;
+            AJAX.getRequest('/article/show/'+id,'GET','')
+               .success(function(data,status){
+                   $scope.marjor.strHtml = $sce.trustAsHtml(data);
+               });
+       }
+
+       $scope.findMarjor = function(){
+           $scope.marjor.seacrChCon = true;
+           $scope.marjor.content = false;
            $scope.search = true;
-           $scope.back = false;
-           $scope.marjor = {
-               info:false,
-               content:true,
-               isfind:true,
-               findlist:false,
-               key:""
-           }
+           var param = {};
+           param.depart_type = $stateParams.type;
+           param.key = $scope.marjor.key;
+           AJAX.getRequest(findMarjorURL,'GET',param)
+               .success(function(data,status){
+                   $scope.findList =  data.response;
+               });
+       }
 
-           loading();
+       $scope.findBack = function(){
+           $scope.marjor.info = false;
+           $scope.marjor.seacrChCon = false;
+           $scope.marjor.content = true;
+           $scope.search = true;
+       }
 
-           $scope.showInfo = function(id){
-               $scope.marjor.info = true;
-               $scope.marjor.content = false;
-               $scope.isfind = false;
-               $scope.marjor.findlist = false;
-               $scope.search = false;
-               $scope.back = true;
-               AJAX.getRequest('/article/show/'+id,'GET','')
-                   .success(function(data,status){
-                       $scope.marjor.strHtml = $sce.trustAsHtml(data);
-                   });
-           }
+       function loading(){
+           var param = {};
+           param.depart_type = $stateParams.type;
+           AJAX.getRequest(departURL,'GET', param)
+               .success(function(data,status){
+                   $scope.marjorType = data.response;
+               })
+       }
+        $scope.information = function(event){
+            $('#myTab li').removeClass();
+            $(event.target).parent().addClass('active');
+            $(".tab-pane").hide();
+            $("#"+$(event.target).data('name')).show();
+        }
 
-           $scope.findMarjor = function(){
-               $scope.marjor.content = false;
-               $scope.marjor.findlist = true;
-               $scope.search = true;
-               $scope.back = true;
-               var param = {};
-               param.depart_type = $stateParams.type;
-               param.key = $scope.marjor.key;
-               AJAX.getRequest(findMarjorURL,'GET',param)
-                   .success(function(data,status){
-                       $scope.findList =  data.response;
-                   });
-           }
-
-           function loading(){
-               var param = {};
-               param.depart_type = $stateParams.type;
-               AJAX.getRequest(departURL,'GET', param)
-                   .success(function(data,status){
-                       $scope.marjorType = data.response;
-                   })
-           }
-
-       }]);
+   }]);
 });

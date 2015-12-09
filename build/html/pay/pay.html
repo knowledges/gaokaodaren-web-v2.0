@@ -1,83 +1,103 @@
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
+        <!-- 列表-->
         <div class="row">
-            <marquee  style="width: 100%; height:200px;" direction="down">
-                <p ng-repeat="list in pay.list">用户{{list.name}}，考生号{{list.number}}，获取参考表</p>
-            </marquee>
+            <div class="panel panel-primary">
+                <div class="panel-heading text-left"> <i class="icon-group"></i> 购买列表名单</div>
+                <div class="panel-body">
+                    <!--<MARQUEE behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="3" width="100"><SPAN unselectable="on">这里是要滚动的内容</SPAN></MARQUEE>-->
+                    <marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="5" width="500" onmouseover="this.stop();" onmouseout="this.start();"> <SPAN ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</SPAN></MARQUEE>
+                </div>
+            </div>
         </div>
-        <p>请选择支付方式：</p>
+        <!--订单标号-->
         <div class="row">
-
-            <tabs></tabs>
-
-            <!--<ul class="nav nav-tabs">-->
-                <!--<li><a data-type="1">支付宝</a></li>-->
-                <!--<li><a data-type="2">网银支付</a></li>-->
-                <!--<li><a data-type="3">银行汇款</a></li>-->
-            <!--</ul>-->
-
-            <div id="div1">
-                <ul class="nav nav-pills">
-                    <li><a class="btn btn-default zhifubao" pay-type="zhifubao" pay></a></li>
-                </ul>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4> <i class="icon-shopping-cart"></i> <strong>高考志愿收银台 </strong> </h4>
+                    <p>订单号：<span >XXXXXXXXXXXXXXXXXXXXXXX</span> </p>
+                    <div class="col-sm-6 text-left">联系方式：</div>
+                    <div class="col-sm-6 text-right">交易金额：</div>
+                </div>
             </div>
-
-            <div id="div2" style="display:none;">
-                <ul class="nav nav-pills">
-                    <li><a class="btn btn-default BOCB2C" pay-type="bank" bank-code="BOCB2C" pay></a></li>
-                    <li><a class="btn btn-default ICBCB2C" pay-type="bank" bank-code="ICBCB2C" pay></a></li>
-                    <li><a class="btn btn-default CMB" pay-type="bank" bank-code="CMB" pay></a></li>
-                    <li><a class="btn btn-default CCB" pay-type="bank" bank-code="CCB" pay></a></li>
-                    <li><a class="btn btn-default ABC" pay-type="bank" bank-code="ABC" pay></a></li>
-                    <li><a class="btn btn-default SPDB" pay-type="bank" bank-code="SPDB" pay></a></li>
-                    <li><a class="btn btn-default CIB" pay-type="bank" bank-code="CIB" pay></a></li>
-                    <li><a class="btn btn-default GDB" pay-type="bank" bank-code="GDB" pay></a></li>
-                    <li><a class="btn btn-default CMBC" pay-type="bank" bank-code="CMBC" pay></a></li>
-                    <li><a class="btn btn-default CITIC" pay-type="bank" bank-code="CITIC" pay></a></li>
-                    <li><a class="btn btn-default HZCBB2C" pay-type="bank" bank-code="HZCBB2C" pay></a></li>
-                    <li><a class="btn btn-default CEBBANK" pay-type="bank" bank-code="CEBBANK" pay></a></li>
-                    <li><a class="btn btn-default SHBANK" pay-type="bank" bank-code="SHBANK" pay></a></li>
-                    <li><a class="btn btn-default NBBANK" pay-type="bank" bank-code="NBBANK" pay></a></li>
-                    <li><a class="btn btn-default SPABANK" pay-type="bank" bank-code="SPABANK" pay></a></li>
-                    <li><a class="btn btn-default FDB" pay-type="bank" bank-code="FDB" pay></a></li>
-                    <li><a class="btn btn-default POSTGC" pay-type="bank" bank-code="POSTGC" pay></a></li>
-                    <li><a class="btn btn-default COMM-DEBIT" pay-type="bank" bank-code="COMM-DEBIT" pay></a></li>
-                </ul>
-            </div>
-
-            <div id="div3" style="display:none;">
-                <ul class="nav nav-pills">
-                    <li><a class="btn btn-default yinhanghuikuan"  pay-type="yinhanghuikuan" pay></a></li>
-                </ul>
-            </div>
-
         </div>
 
-        <div id="modal" class="modal" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;">
+        <div class="row">
+            <div class="alert">
+                <h3> <i class="icon-credit-card" style="color:orange"></i> 请选择支付方式并付款 </h3>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <h4> <i class="icon-credit-card" style="color:orange"></i> 第三方支付平台 </h4>
+                        <div class="col-sm-12">
+                            <ul class="nav nav-pills">
+                                <li><a class="btn btn-default zhifubao" pay-type="zhifubao" pay></a></li>
+                            <ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4> <i class="icon-credit-card" style="color:orange"></i> 网上银行支付平台 </h4>
+                        <div class="col-sm-12">
+                            <ul class="nav nav-pills">
+                                <li><a class="btn btn-default BOCB2C" pay-type="bank" bank-code="BOCB2C" pay></a></li>
+                                <li><a class="btn btn-default ICBCB2C" pay-type="bank" bank-code="ICBCB2C" pay></a></li>
+                                <li><a class="btn btn-default CMB" pay-type="bank" bank-code="CMB" pay></a></li>
+                                <li><a class="btn btn-default CCB" pay-type="bank" bank-code="CCB" pay></a></li>
+                                <li><a class="btn btn-default ABC" pay-type="bank" bank-code="ABC" pay></a></li>
+                                <li><a class="btn btn-default SPDB" pay-type="bank" bank-code="SPDB" pay></a></li>
+                                <li><a class="btn btn-default CIB" pay-type="bank" bank-code="CIB" pay></a></li>
+                                <li><a class="btn btn-default GDB" pay-type="bank" bank-code="GDB" pay></a></li>
+                                <li><a class="btn btn-default CMBC" pay-type="bank" bank-code="CMBC" pay></a></li>
+                                <li><a class="btn btn-default CITIC" pay-type="bank" bank-code="CITIC" pay></a></li>
+                                <li><a class="btn btn-default HZCBB2C" pay-type="bank" bank-code="HZCBB2C" pay></a></li>
+                                <li><a class="btn btn-default CEBBANK" pay-type="bank" bank-code="CEBBANK" pay></a></li>
+                                <li><a class="btn btn-default SHBANK" pay-type="bank" bank-code="SHBANK" pay></a></li>
+                                <li><a class="btn btn-default NBBANK" pay-type="bank" bank-code="NBBANK" pay></a></li>
+                                <li><a class="btn btn-default SPABANK" pay-type="bank" bank-code="SPABANK" pay></a></li>
+                                <li><a class="btn btn-default FDB" pay-type="bank" bank-code="FDB" pay></a></li>
+                                <li><a class="btn btn-default POSTGC" pay-type="bank" bank-code="POSTGC" pay></a></li>
+                                <li><a class="btn btn-default COMM-DEBIT" pay-type="bank" bank-code="COMM-DEBIT" pay></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4> <i class="icon-credit-card" style="color:orange"></i> 银行汇款 </h4>
+                        <div class="col-sm-12">
+                            <ul class="nav nav-pills">
+                                <li><a class="btn btn-default yinhanghuikuan"  pay-type="yinhanghuikuan" pay></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal" class="modal" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;background: rgba(0, 0, 0, 0.6);">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="container-fluid">
                             <table width="100%" border="1">
                                 <tr>
-                                    <td width="150" >账户名称：</td>
+                                    <td width="150" class="text-center" >账户名称：</td>
                                     <td >江苏达人信息技术咨询服务有限公司</td>
                                 </tr>
                                 <tr>
-                                    <td width="150" >开户银行：</td>
+                                    <td width="150" class="text-center" >开户银行：</td>
                                     <td>中国交通银行仪征市支行营业部</td>
                                 </tr>
                                 <tr>
-                                    <td width="150" >银行账号：</td>
+                                    <td width="150" class="text-center" >银行账号：</td>
                                     <td>3960 6010 0018 1709 90002</td>
                                 </tr>
                                 <tr>
-                                    <td width="150" > 订单号码：</td>
+                                    <td width="150" class="text-center" > 订单号码：</td>
                                     <td>{{pay.orderId}} (请牢记你的订单号！)</td>
                                 </tr>
                                 <tr>
-                                    <td width="150" rowspan="4">汇款提示：</td>
+                                    <td width="150" class="text-center" rowspan="4">汇款提示：</td>
                                     <td>1.您可将账户信息交给银行工作人员，请其协助填写汇款单。</td>
                                 </tr>
                                 <tr>

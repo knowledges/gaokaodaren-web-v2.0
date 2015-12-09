@@ -497,6 +497,14 @@ define(['app'],function(app){
                 controller:"referenceCtr",
                 data: { isPublic: false}
             })
+        ///////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
+            .state("pay",{
+                url:"/pay",
+                templateUrl:"html/pay/pay.html",
+                controllerUrl:"js/pay/pay",
+                controller:'payCtr',
+                data: { isPublic: false}
+            })
     });
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {

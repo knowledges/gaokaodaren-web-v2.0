@@ -8,7 +8,6 @@ require(['app'],function(app){
 
             $scope.content = {
                 isfind:true,
-                page:"",
                 cityName:"",
                 listCity_0:"",
                 listCity_1:"",
@@ -28,6 +27,11 @@ require(['app'],function(app){
                     .success(function(data,status){
                         $scope.content.cityList = data.response.list;
                     });
+            }
+
+            $scope.findBack = function(){
+                console.log('===');
+                $scope.content.isfind = false;
             }
 
             function getCityList(num){
