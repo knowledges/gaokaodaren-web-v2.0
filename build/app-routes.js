@@ -144,8 +144,8 @@ define(['app'],function(app){
             })
             .state("hope", {//意向
                 url: "/hope",
-                templateUrl: "html/hope/hope.html",
-                data: { isPublic: false},
+                templateUrl: "html/hope/newhope.html",
+                data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
@@ -505,6 +505,21 @@ define(['app'],function(app){
                 controller:'payCtr',
                 data: { isPublic: false}
             })
+////////////////////////////////志愿表////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            .state("refer",{
+                url:"/refer",
+                templateUrl:"html/refer/refer.html",
+                controllerUrl:"js/refer/refer",
+                controller:'referCtr',
+                data: { isPublic: false}
+            })
+////////////////////////////////随机志愿表/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            .state('refer1',{
+                url:"/refer1",
+                templateUrl:"html/refer/refer1.html",
+                data: { isPublic: true}
+            })
+
     });
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {

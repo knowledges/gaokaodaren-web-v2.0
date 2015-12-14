@@ -1,0 +1,126 @@
+<div class="container text-center">
+
+    <div ng-controller="wishTabCtr-info">
+        <h1>文科本一考生志愿意向表</h1>
+        <h4>【第一阶段填报文科类第一批本科院校志愿用表】</h4>
+        <div class="form-inline" role="高考-基本成绩">
+            <div class="alert alert-success text-left">
+                <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{score.subject}}</span>类 总分：<span ng-cloak>{{score.score}}</span>   选测等级：<span ng-cloak>{{score.level}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <strong>院校属地：</strong>
+        </div>
+        <div class="col-sm-10 text-left">
+            <div class="row">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">&nbsp;&nbsp;江苏省&nbsp;&nbsp;</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">华东地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown1" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown1">
+                        <li><a href="javascript:;;">山东省</a></li>
+                        <li><a href="javascript:;;">江苏省</a></li>
+                        <li><a href="javascript:;;">安徽省</a></li>
+                        <li><a href="javascript:;;">浙江省</a></li>
+                        <li><a href="javascript:;;">福建省</a></li>
+                        <li><a href="javascript:;;">上海</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">华北地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">北京</a></li>
+                        <li><a href="javascript:;;">天津 </a></li>
+                        <li><a href="javascript:;;">河北省</a></li>
+                        <li><a href="javascript:;;">山西省</a></li>
+                        <li><a href="javascript:;;">内蒙古自治区</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">东北地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">辽宁省</a></li>
+                        <li><a href="javascript:;;">吉林省 </a></li>
+                        <li><a href="javascript:;;">黑龙江省</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="btn-group">
+                    <button class="btn btn-default">华中地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">湖北省</a></li>
+                        <li><a href="javascript:;;">湖南省 </a></li>
+                        <li><a href="javascript:;;">河南省</a></li>
+                        <li><a href="javascript:;;">江西省</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">华南地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">广东省</a></li>
+                        <li><a href="javascript:;;">广西省 </a></li>
+                        <li><a href="javascript:;;">海南省</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">西南地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">四川省</a></li>
+                        <li><a href="javascript:;;">云南省 </a></li>
+                        <li><a href="javascript:;;">贵州省</a></li>
+                        <li><a href="javascript:;;">重庆</a></li>
+                        <li><a href="javascript:;;">西藏</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default">西北地区</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropDown2" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropDown2">
+                        <li><a href="javascript:;;">宁夏回族自治区</a></li>
+                        <li><a href="javascript:;;">新疆西藏自治区 </a></li>
+                        <li><a href="javascript:;;">青海省</a></li>
+                        <li><a href="javascript:;;">陕西省</a></li>
+                        <li><a href="javascript:;;">甘肃省</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <button class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-sub">提交</button>
+
+</div>

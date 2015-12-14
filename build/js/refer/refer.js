@@ -1,23 +1,24 @@
 /**
  * Created by qbl on 2015/10/27.
  */
-angular.module("gaokaoAPP.refer",[])
-    .constant("orderInfoURL","/exam/order/info")
-    .controller('referCtr',['$scope','$location','$window','AJAX','orderInfoURL',function($scope,$location,$window,AJAX,orderInfoURL){
+require(['app'],function(app){
+    app.constant("orderInfoURL","/exam/order/info")
+    app.controller('referCtr',['$scope','$location','$window','AJAX','orderInfoURL',function($scope,$location,$window,AJAX,orderInfoURL){
+
         $scope.order = {
-            orderId:"",
-            type:"",
-            data:"",
-            title:"普通高校招生考生志愿参考表",
-            subtitle:"",
-            caption:"",
-            name:"",
-            number:"",
-            city:"",
-            area:"",
-            requestId:"",
-            orderShow:false
-        }
+                orderId:"",
+                type:"",
+                data:"",
+                title:"普通高校招生考生志愿参考表",
+                subtitle:"",
+                caption:"",
+                name:"",
+                number:"",
+                city:"",
+                area:"",
+                requestId:"",
+                orderShow:false
+        };
 
         $scope.order.orderId = $location.$$search.orderId;
         $scope.order.type = $location.$$search.type;
@@ -78,19 +79,13 @@ angular.module("gaokaoAPP.refer",[])
         }
 
         function init(){
-
             if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
                 $window.location.href="#/login";
                 return;
             }
-
-
             $scope.order.subtitle = yxb_title[$scope.order.type];
-
             $scope.order.caption = caption [$scope.order.type];
-
             getOrderInfo();
-
         }
 
         function getOrderInfo(){
@@ -104,28 +99,23 @@ angular.module("gaokaoAPP.refer",[])
 
                         return;
                     }
-
                     $scope.order.name =data.response.name;
                     $scope.order.number =data.response.number;
                     $scope.order.city =data.response.city;
                     $scope.order.area =data.response.area;
                     $scope.order.data = data.response.list;
                     $scope.order.requestId = data.response.request_id;
-                })
+                });
         }
 
         function getNewOrderInfo(){
-
             AJAX.getRequest('/exam/'+$scope.order.requestId,'GET','')
                 .success(function(data,status){
-
                     $scope.orderout_trade_no = data.response.order_id;
                     $scope.order.money = data.response.money;
-
                     $scope.order.orderShow = true;
 
                 });
         }
-
-
     }])
+});
