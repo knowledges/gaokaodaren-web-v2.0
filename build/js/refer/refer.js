@@ -50,6 +50,7 @@ require(['app'],function(app){
         init();
 
         $scope.print = function(){
+            $("#footer").hide();
             var oper = 1;
             if (oper < 10) {
                 var printHtml = $("#main").html();

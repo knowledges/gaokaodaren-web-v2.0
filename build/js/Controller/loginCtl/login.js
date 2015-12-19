@@ -56,6 +56,7 @@ angular.module("gaokaoAPP.login.childApp", ['ui.router'])
                 .then(function (promise, status) {
                     if (promise.data.status == -1) {
                         alert("验证码有错误");
+                        getCodes();
                         return;
                     } else if (promise.data.status == 3) {
                         alert("此账户已存在");

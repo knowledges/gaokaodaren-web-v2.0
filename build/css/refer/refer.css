@@ -1,9 +1,13 @@
+.i_bor_lg {
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  width: 200px;
+}
 .i_bor {
   display: inline-block;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #000;
   width: 150px;
 }
 table tr td {
   padding: 10px 0;
 }
-/*# sourceMappingURL=refer.css.map */

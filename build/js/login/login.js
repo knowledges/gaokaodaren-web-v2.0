@@ -53,6 +53,7 @@ require(['app'],function(app){
                 .then(function (promise, status) {
                     if (promise.data.status == -1) {
                         alert("验证码有错误");
+                        getCodes();
                         return;
                     } else if (promise.data.status == 3) {
                         alert("此账户已存在");
@@ -159,6 +160,7 @@ require(['app'],function(app){
                 .then(function (promise, status) {
                     if (promise.data.status == -1) {
                         alert("验证码失效");
+                        getCodes();
                         return;
                     }
                     //路由权限

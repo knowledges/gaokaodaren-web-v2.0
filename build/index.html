@@ -3,7 +3,7 @@
 <!--<html lang="en">-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
     <meta name="renderer" content="webkit"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
@@ -19,6 +19,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
     <link rel="stylesheet" href="css/global.css"/>
     <link rel="stylesheet" href="css/home/home.css"/>
@@ -91,7 +92,7 @@
 
 <!--<div ng-view></div>-->
 <div ui-view id="content"></div>
-<!--endprint1-->
+
 
 <div class="foolter alert alert-success" id="footer">
     <p><a ui-sref="about.nav">关于我们</a> &nbsp;&nbsp;<a>联系我们</a> 版权所有，侵权必究，苏ICP备15016324</p>
@@ -100,4 +101,10 @@
 </body>
 <script src="lib/require.js"></script>
 <script src="lib/main.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<!--<script language="Javascript">-->
+    <!--document.oncontextmenu=new Function("event.returnValue=false");-->
+    <!--document.onselectstart=new Function("event.returnValue=false");-->
+<!--</script>-->
 </html>

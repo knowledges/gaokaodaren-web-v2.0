@@ -142,9 +142,11 @@ define(['app'],function(app){
                     }
                 }
             })
-            .state("hope", {//意向
+            .state("hope", {/*意向*/
                 url: "/hope",
                 templateUrl: "html/hope/newhope.html",
+                controllerUrl:"js/hope/newhope",
+                controller:"hopeCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
@@ -152,12 +154,22 @@ define(['app'],function(app){
                     }]
                 }
             })
+            //.state("hope", {//意向
+            //    url: "/hope",
+            //    templateUrl: "html/hope/hope.html",
+            //    data: { isPublic: false},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+            //        }]
+            //    }
+            //})
             .state("chance", {//预测
                 url: "/chance",
                 templateUrl: "html/chance/chance.html",
                 controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/banner/bannerChance.js']);
