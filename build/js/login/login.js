@@ -143,11 +143,10 @@ require(['app'],function(app){
         };
 
         function getCodes() {
-            //regCode.getCode(codeURL)
-            AJAX.getRequest(codeURL, 'GET', "")
-                .success(function (data, status) {
-                    $scope.user.img = data;
-                });
+            $http.get("/user/code?time=" + new Date().getTime()).success(function(data,status){
+                console.log('img i come in');
+                $scope.user.img = data;
+            });
         }
 
         $scope.signin = function () {
@@ -156,8 +155,24 @@ require(['app'],function(app){
             param.j_password = $scope.user.password;
             param.code = $scope.user.code;
 
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $.post("/login?time=" + new Date().getTime(),param,function(data){
+                console.log('img '+JSON.stringify(data) );
+            });
+
+            $http.post("/login?time=" + new Date().getTime(),param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(responseDate){
+                console.log('jinlai l '+JSON.stringify(responseDate) );
+            });
+
             AJAX.getRequest(loginURL, 'POST', param)
                 .then(function (promise, status) {
+                    console.log(JSON.stringify(promise) );
                     if (promise.data.status == -1) {
                         alert("验证码失效");
                         getCodes();

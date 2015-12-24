@@ -1,0 +1,363 @@
+<div class="container text-center">
+    <div class="row">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active" ng-include="'templete/model-bander/banner-chance.html'" ng-controller="addchanceCtl"></div>
+        </div>
+    </div>
+
+    <div class="row text-left">
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按概率预测可能录取高校概率
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按高校属地预测可能录取高校概率
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按高校属类预测可能录取高校概率
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按高校名称预测专业录取概率
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按专业预测可能录取高校概率
+            </label>
+        </div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> 按个性标签预测可能录取高校概率
+            </label>
+        </div>
+        <button class="btn btn-default">缴费预测</button>
+    </div>
+
+    <!-- 按概率-->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4><i class="icon-signal"></i> 按概率预测可能录取高校概率</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td width="115" style="text-align: center">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">概率范围<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">小概率</a></li>
+                                        <li><a href="#">25%↑~50%</a></li>
+                                        <li><a href="#">50%↑~75%</a></li>
+                                        <li><a href="#">5%↑~85%</a></li>
+                                        <li><a href="#">85%↑~95%</a></li>
+                                        <li><a href="#">95%↑~96%</a></li>
+                                        <li><a href="#">96%↑~97%</a></li>
+                                        <li><a href="#">97%↑~98%</a></li>
+                                        <li><a href="#">98%↑~99%</a></li>
+                                        <li><a href="#">99%↑</a></li>
+                                        <li><a href="#">大概率</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: middle;">学校名称</td>
+                        <td width="150" style="vertical-align: middle;">概率</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: middle;">小概率</td>
+                        <td>
+                            <select class="form-control">
+                                <option value="0">==请选择高校==</option>
+                                <option value="1">南京工业大学</option>
+                                <option value="2">东南大学</option>
+                                <option value="3">南京财经大学</option>
+                            </select>
+                            <ul class="nav nav-bar">
+                                <li><a href="">南京工业大学</a></li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: middle;">
+                            98%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                点击<strong>高校名称</strong>可查询学校情况
+            </p>
+        </div>
+
+    </div>
+    <!-- 按属地-->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4> <i class="icon-building"></i> 按高校属地预测可能录取高校概率</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td width="150">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市类别<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">江苏省</a></li>
+                                        <li><a href="#">一线城市</a></li>
+                                        <li><a href="#">二线城市</a></li>
+                                        <li><a href="#">三线城市</a></li>
+                                        <li><a href="#">四线城市</a></li>
+                                        <li><a href="#">五线城市</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: middle;">学校名称</td>
+                        <td width="150" style="vertical-align: middle;">概率</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">江苏省<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">南京</a></li>
+                                        <li><a href="#">扬州</a></li>
+                                        <li><a href="#">泰州</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="nav nav-bar">
+                                <li><a href="">南京</a></li>
+                            </ul>
+                            <select class="form-control">
+                                <option value="0">==请选择高校==</option>
+                                <option value="1">南京工业大学</option>
+                                <option value="2">东南大学</option>
+                                <option value="3">南京财经大学</option>
+                            </select>
+                        </td>
+                        <td style="vertical-align: middle;">
+                            98%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                点击<strong>城市名称</strong>可查询城市情况
+            </p>
+        </div>
+    </div>
+    <!-- 按属类-->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4> <i class="icon-building"></i> 按高校属类预测可能录取高校概率</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td width="150">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">属类<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">属性</a></li>
+                                            <li><a href="#">类别</a></li>
+                                            <li><a href="#">属管</a></li>
+                                            <li><a href="#">类别</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>学校名称</td>
+                            <td width="150">概率</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">类别<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">公办</a></li>
+                                            <li><a href="#">民办</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">==请选择高校==</option>
+                                    <option value="1">南京工业大学</option>
+                                    <option value="2">东南大学</option>
+                                    <option value="3">南京财经大学</option>
+                                </select>
+                                <ul class="nav nav-bar">
+                                    <li><a href="">南京工业大学</a></li>
+                                </ul>
+                            </td>
+                            <td>
+                                95%
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p>
+                    点击<strong>高校名称</strong>可查询学校情况
+                </p>
+        </div>
+    </div>
+    <!-- 按学校预测各专业录取概率 -->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4><i class="icon-beaker"></i> 按高校名称预测专业录取概率</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" ng-model="info.school" placeholder="请输入高校名称"/>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <select name="" id="" class="form-control">
+                        <option value="0">==请选择专业==</option>
+                        <option value="1">财经学</option>
+                        <option value="2">金融学</option>
+                        <option value="3">经济学</option>
+                    </select>
+                    <ul class="nav nav-bar">
+                        <li><a href="">金融学</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 text-center">
+                    录取概率
+                </div>
+            </div>
+            <p >点击<strong>专业名称</strong>可查询专业情况</p>
+        </div>
+    </div>
+    <!-- 按专业预测高校录取概率 -->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4><i class="icon-tasks"></i> 按专业预测可能录取高校概率</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">请选择专业门类</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">请选择专业类</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control">
+                        <option value="0">请选择专业名称</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                    <ul class="nav nav-bar">
+                        <li><a href="">金融学</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control">
+                        <option value="0">南京工业大学</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                    <ul class="nav nav-bar">
+                        <li><a href="javascript:;;">南京工业大学</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">录取概率</div>
+            </div>
+            <p>
+                点击 <strong>高校、专业名称</strong> 可查询具体信息
+            </p>
+        </div>
+    </div>
+    <!-- 按个性标签预测学校概率 -->
+    <div class="panel panel-default">
+        <div class="panel-heading text-left">
+            <h4><i class="icon-tasks"></i> 按个性标签预测可能录取高校概率</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">个性类别</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">具体方向</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">个性标签</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">对应专业</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                    <ul class="nav nav-bar">
+                        <li><a href="">金融类</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option value="0">学校名称</option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                    <ul class="nav nav-bar">
+                        <li><a href="">南京工业大学</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    预测概率
+                </div>
+            </div>
+            <p>
+                点击 <strong>高校、专业名称</strong> 可查询具体信息
+            </p>
+        </div>
+    </div>
+</div>

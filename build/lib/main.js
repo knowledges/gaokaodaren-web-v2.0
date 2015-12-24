@@ -10,7 +10,8 @@ require.config({
         "bootstrap":"lib/bootstrap/js/bootstrap.min",
         "jquery":"lib/jquery.min",
         "AES":"lib/AES.js",
-        "pagging":"js/public"
+        "pagging":"js/public",
+        'jquery-placeholder':"lib/jquery-placeholder.min"
     },
     shim:{
         'angular':{
@@ -19,13 +20,6 @@ require.config({
         'angular-ui-router':{
             deps:['angular'],
             exports:'angular-ui-router'
-        },
-        'jquery':{
-            exports:'jquery'
-        },
-        bootstrap:{
-            deps:['jquery'],
-            exports:'bootstrap'
         },
         'oclazyLoad':{
             deps:['jquery','angular','angular-ui-router'],
@@ -38,6 +32,10 @@ require.config({
         'pagging':{
             deps:['jquery'],
             exprots:'pagging'
+        },
+        'jquery-placeholder':{
+            deps:['jquery'],
+            exprots:'jquery-placeholder'
         }
     },
     urlArgs: "bust=" + (new Date()).getTime()

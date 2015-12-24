@@ -3,30 +3,29 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <div class="row" class="text-center"  id="main">
-                <!--startprint1-->
                 <table id="tab_yxb" border="1" width="100%" cellpadding="0" cellspacing="0" table-layout="fixed">
-                    <!--<caption>-->
-                        <!--<h3 class="text-center">{{order.title}}</h3>-->
-                        <!--<h5 class="text-center">{{order.subtitle}}</h5>-->
-                        <!--<p>-->
-                            <!--<span>姓名</><i class="i_bor text-center">{{order.name}}</i>-->
-                            <!--<span>考生号</span><i class="i_bor text-center">{{order.number}}</i>-->
-                            <!--<span>&nbsp;&nbsp;</span><i class="i_bor text-center">{{order.city}}</i><span>市</span>-->
-                            <!--<i class="i_bor text-center">{{order.area}}</i><span>县（市，区）</span>-->
-                        <!--</p>-->
-                    <!--</caption>-->
+                    <caption>
+                        <h3 class="text-center">{{order.title}}</h3>
+                        <h5 class="text-center">{{order.subtitle}}</h5>
+                        <p>
+                            <span>姓名</span><i class="i_bor text-center">{{order.name}}</i>
+                            <span>考生号</span><i class="i_bor_lg text-center">{{order.number}}</i>
+                            <span>&nbsp;&nbsp;</span><i class="i_bor text-center">{{order.city}}</i><span>市</span>
+                            <i class="i_bor text-center">{{order.area}}</i><span>县(市，区)</span>
+                        </p>
+                    </caption>
 
                     <thead>
-                    <!--<tr class="text-center">-->
-                        <!--<td colspan="8">{{order.caption}}</td>-->
-                    <!--</tr>-->
+                        <tr class="text-center">
+                            <td colspan="8">{{order.caption}}</td>
+                        </tr>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td style="padding:5px;">
-                                <h1>学校</h1>
+                            <td  width="60">&nbsp;</td>
+                            <td class="text-center">
+                                <h4>学校</h4>
                             </td>
-                            <td style="padding:5px;">
-                                <h1>专业</h1>
+                            <td class="text-center">
+                                <h4>专业</h4>
                             </td>
                             <td width="80" style="padding:5px;">
                                 是否服从其他专业
@@ -36,9 +35,9 @@
 
                     <tbody class="text-center">
                         <tr>
-                            <td rowspan="6">A志愿</td>
-                            <td rowspan="6"  valign="top" style="padding:5px;">
-                                <div class="input-group" style="padding:5px;">
+                            <td rowspan="6">A</td>
+                            <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
+                                <div class="input-group">
                                     <input type="text" class="form-control" placeholder="1.请选择高校"/>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -49,18 +48,6 @@
                                         <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
                                     </span>
                                 </div>
-
-                                <div class="alert alert-warning">
-                                        <i class="icon-info-sign"></i>点击按钮，系统会为您智能推荐适合作为志愿“稳一稳”的学校
-                                </div>
-
-                                <div class="panel text-left">
-                                    <p>学校特色：<span>政法类</span></p>
-                                    <p>选测科目等级要求：<span>BB</span></p>
-                                    <p>2014年投档分：<span>328</span></p>
-                                    <p>投档概率：<span></span></p>
-                                </div>
-
                             </td>
                             <td style="padding:5px;">
                                 <div class="col-sm-9">
@@ -77,12 +64,7 @@
                                 <div class="col-sm-3"></div>
                             </td>
                             <td rowspan="6" >
-                                <div class="btn-group" data-toggle="buttons">
-                                    <input type="radio" name="options" autocomplete="off"/> 是
-                                </div>
-                                <div class="btn-group" data-toggle="buttons">
-                                    <input type="radio" name="options" autocomplete="off"/> 否
-                                </div>
+                                是
                             </td>
                         </tr>
                         <tr >
@@ -167,141 +149,124 @@
                         </tr>
                     </tbody>
                     <tbody class="text-center">
-                    <tr>
-                        <td rowspan="6">B志愿</td>
-                        <td rowspan="6"  valign="top" style="padding:5px;">
-                            <div class="input-group" style="padding:5px;">
-                                <input type="text" class="form-control" placeholder="1.请选择高校"/>
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
-                                </span>
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
-                                </span>
-                            </div>
-
-                            <div class="alert alert-warning">
-                                <i class="icon-info-sign"></i>点击按钮，系统会为您智能推荐适合作为志愿“稳一稳”的学校
-                            </div>
-
-                            <div class="panel text-left">
-                                <p>学校特色：<span>政法类</span></p>
-                                <p>选测科目等级要求：<span>BB</span></p>
-                                <p>2014年投档分：<span>328</span></p>
-                                <p>投档概率：<span></span></p>
-                            </div>
-
-                        </td>
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
+                        <tr>
+                            <td rowspan="6">B</td>
+                            <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="1.请选择专业"/>
-                                <span class="input-group-btn">
+                                    <input type="text" class="form-control" placeholder="2.请选择高校"/>
+                                    <span class="input-group-btn">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
-                                </span>
-                                <span class="input-group-btn">
+                                    </span>
+                                    <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
-                                </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                        <td rowspan="6" >
-                            <div class="btn-group" data-toggle="buttons">
-                                <input type="radio" name="options" autocomplete="off"/> 是
-                            </div>
-                            <div class="btn-group" data-toggle="buttons">
-                                <input type="radio" name="options" autocomplete="off"/> 否
-                            </div>
-                        </td>
-                    </tr>
-                    <tr >
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="2.请选择专业"/>
-                                    <span class="input-group-btn">
-                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
-                                    </span>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
                                     </span>
                                 </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="3.请选择专业"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
-                                        </span>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
-                                        </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="4.请选择专业"/>
+                            </td>
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="1.请选择专业"/>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
                                     </span>
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
                                     </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="5.请选择专业"/>
+                                <div class="col-sm-3"></div>
+                            </td>
+                            <td rowspan="6" >
+                                是
+                            </td>
+                        </tr>
+                        <tr >
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="2.请选择专业"/>
+                                        <span class="input-group-btn">
+                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="3.请选择专业"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="4.请选择专业"/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
                                         </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding:5px;">
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="6.请选择专业"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
-                                        </span>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
-                                        </span>
+                                <div class="col-sm-3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="5.请选择专业"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
+                                            </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </td>
-                    </tr>
+                                <div class="col-sm-3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px;">
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="6.请选择专业"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </td>
+                        </tr>
                     </tbody>
                     <tbody class="text-center">
                     <tr>
-                        <td rowspan="6">C志愿</td>
-                        <td rowspan="6"  valign="top" style="padding:5px;">
-                            <div class="input-group" style="padding:5px;">
-                                <input type="text" class="form-control" placeholder="1.请选择高校"/>
+                        <td rowspan="6">C</td>
+                        <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="3.请选择高校"/>
                                     <span class="input-group-btn">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -312,18 +277,6 @@
                                         <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
                                     </span>
                             </div>
-
-                            <div class="alert alert-warning">
-                                <i class="icon-info-sign"></i>点击按钮，系统会为您智能推荐适合作为志愿“稳一稳”的学校
-                            </div>
-
-                            <div class="panel text-left">
-                                <p>学校特色：<span>政法类</span></p>
-                                <p>选测科目等级要求：<span>BB</span></p>
-                                <p>2014年投档分：<span>328</span></p>
-                                <p>投档概率：<span></span></p>
-                            </div>
-
                         </td>
                         <td style="padding:5px;">
                             <div class="col-sm-9">
@@ -340,12 +293,7 @@
                             <div class="col-sm-3"></div>
                         </td>
                         <td rowspan="6" >
-                            <div class="btn-group" data-toggle="buttons">
-                                <input type="radio" name="options" autocomplete="off"/> 是
-                            </div>
-                            <div class="btn-group" data-toggle="buttons">
-                                <input type="radio" name="options" autocomplete="off"/> 否
-                            </div>
+                            是
                         </td>
                     </tr>
                     <tr >
@@ -432,8 +380,57 @@
 
                 </table>
 
-                <div class="row text-left">  *本表仅供参考。 </div>
+                <!--startprint1-->
+                <table id="tab_yxb" border="1" width="900" cellpadding="0" cellspacing="0" table-layout="fixed" style="1px solid #000; display: none;">
+                    <caption>
+                        <h3 class="text-center">{{order.title}}</h3>
+                        <h5 class="text-center">{{order.subtitle}}</h5>
+                        <p>
+                            <span>姓名</span><i class="i_bor text-center">{{order.name}}</i>
+                            <span>考生号</span><i class="i_bor_lg text-center">{{order.number}}</i>
+                            <span>&nbsp;&nbsp;</span><i class="i_bor text-center">{{order.city}}</i><span>市</span>
+                            <i class="i_bor text-center">{{order.area}}</i><span>县(市，区)</span>
+                        </p>
+                    </caption>
 
+                    <thead>
+                    <tr class="text-center">
+                        <td colspan="8"><strong>{{order.caption}}</strong></td>
+                    </tr>
+                    <tr class="text-center">
+                        <td colspan="2" width="120">院校代码</td>
+                        <td width="250">院校名称</td>
+                        <td colspan="2" width="120">专业代码</td>
+                        <td width="350">专业名称</td>
+                        <!--<td>录取概率</td>-->
+                        <td width="60">是否服从其他专业</td>
+                    </tr>
+                    </thead>
+
+                    <tbody class="text-center" ng-repeat="list in order.data" ng-if="$index+1<=3 && order.type < 7">
+                    <tr>
+                        <td rowspan="6" width="40" ng-if="$index == 0">{{'A'}}</td>
+                        <td rowspan="6" width="40" ng-if="$index == 1">{{'B'}}</td>
+                        <td rowspan="6" width="40" ng-if="$index == 2">{{'C'}}</td>
+                        <td rowspan="6" width="80">{{list.schoolCode}}</td>
+                        <td rowspan="6">{{list.schoolName}}<br></td>
+                        <td width="30">{{$index+1}}</td>
+                        <td width="100">{{list.departs[0].code}}</td>
+                        <td>{{list.departs[0].name}}</td>
+                        <!--<td>{{list.departs[0].admit}}</td>-->
+                        <td rowspan="6">是</td>
+                    </tr>
+                    <tr ng-repeat="list in list.departs" ng-if="!$first">
+                        <td>{{$index+1}}</td>
+                        <td>{{list.code}}</td>
+                        <td>{{list.name}}</td>
+                        <!--<td>{{list.admit}}</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row text-left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;*本表仅供参考。
+                </div>
                 <!--endprint1-->
 
                 <div class="row">
@@ -442,6 +439,8 @@
                 </div>
 
                 <div class="row">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-lg">显示概率</button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-lg">显示与优先吻合情况</button>
                     <a ng-click="print()" class="btn btn-success btn-lg">打印预览</a>
                     <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#getNext">
                         获取下一份参考表

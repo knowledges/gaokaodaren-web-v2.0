@@ -7,6 +7,7 @@ define(function(require,exports,module){
 
     require('oclazyLoad');
     require('angular-ui-router');
+    require('jquery-placeholder');
 
     var app = angular.module('JS-gaokao',['ui.router','oc.lazyLoad']);
 

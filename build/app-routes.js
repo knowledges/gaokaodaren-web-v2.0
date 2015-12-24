@@ -166,7 +166,7 @@ define(['app'],function(app){
             //})
             .state("chance", {//预测
                 url: "/chance",
-                templateUrl: "html/chance/chance.html",
+                templateUrl: "html/chance/newChance.html",
                 controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
                 data: { isPublic: true},
@@ -176,6 +176,18 @@ define(['app'],function(app){
                     }]
                 }
             })
+            //.state("chance", {//预测
+            //    url: "/chance",
+            //    templateUrl: "html/chance/chance.html",
+            //    controllerUrl:"js/chance/chance",
+            //    controller:"chanceCtr",
+            //    data: { isPublic: true},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/banner/bannerChance.js']);
+            //        }]
+            //    }
+            //})
 /////////////////////////////志愿范例///////////////////////////////////////////////////////
             .state('example',{
                 url:'/example',
@@ -453,7 +465,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['lib/AES.js']);
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/login.js']);
                     }]
                 }
             })
