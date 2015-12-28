@@ -7,7 +7,12 @@
                 <div class="panel-heading text-left"> <i class="icon-group"></i> 购买列表名单</div>
                 <div class="panel-body">
                     <!--<MARQUEE behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="3" width="100"><SPAN unselectable="on">这里是要滚动的内容</SPAN></MARQUEE>-->
-                    <marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="5" width="500" onmouseover="this.stop();" onmouseout="this.start();"> <SPAN ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</SPAN></MARQUEE>
+                    <!--<marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="5" width="500" onmouseover="this.stop();" onmouseout="this.start();"> <SPAN ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</SPAN></MARQUEE>-->
+                    <div class="row">
+                        <div id="scrollObj"  style="white-space:nowrap;overflow:hidden;width:100%;">
+                            <span ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

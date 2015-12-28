@@ -194,7 +194,12 @@ define(['app'],function(app){
                 templateUrl:"html/temp/tempExample.html",
                 controllerUrl:"js/example/example",
                 controller:"exampleAllCtl",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/example/example.js','js/Controller/navbar/nav.js']);
+                    }]
+                }
             })
             .state('example.nav',{
                 url:"/exampleNav",
@@ -219,7 +224,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/listGroup/groupOnline.js','js/Controller/showInfo/showInfo.js']);
+                        return $ocLazyLoad.load(['js/online/online.js','js/Controller/navbar/nav.js','js/Controller/listGroup/groupOnline.js','js/Controller/showInfo/showInfo.js']);
                     }]
                 }
             })

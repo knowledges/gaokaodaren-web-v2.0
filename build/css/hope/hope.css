@@ -1,20 +1,6 @@
-.input-none {
-  border: none;
-  box-shadow: none;
-  border-bottom: 1px solid #ccc;
-  border-radius: 0;
-}
-.nopadding {
-  padding: 0 0!important;
-  vertical-align: middle!important;
-  width: 990px;
-}
-.hope-info {
-  margin: 15px 0;
-}
-.hope-line {
-  margin: 10px 0;
-}
-.h_title {
-  margin-left: 60px;
+.bs-callout {
+  border: 1px solid #FFFFFF;
+  border-left-color: orange;
+  border-left-width: 5px;
+  border-radius: 3px;
 }

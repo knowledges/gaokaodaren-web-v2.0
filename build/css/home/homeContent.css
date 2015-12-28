@@ -4,26 +4,10 @@
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);
-  height: 540px;
+  height: 300px;
 }
 .text-right label {
   margin: 5px 0;
-}
-.thumbnail {
-  border: 0px;
-  padding: 20px 0;
-}
-.border {
-  border-bottom: 1px solid #ccc;
-}
-.radborder {
-  display: inline-block;
-  width: 90px;
-  height: 90px;
-  line-height: 95px;
-  padding: 10px;
-  border: 2px solid #51C3B7;
-  border-radius: 47px;
 }
 .carousel-inner {
   height: 300px;
@@ -32,4 +16,22 @@
   display: inline-block !important;
   width: 100%!important;
   height: 300px!important;
+}
+.hmodel_10 {
+  border-top: 1px solid orangered;
+}
+.hmodel_10 span {
+  background: red;
+  padding: 14px;
+  color: #FFF;
+}
+.triangle {
+  position: relative;
+  width: 0;
+  height: 0;
+  border: 6px solid;
+  border-color: transparent transparent #760101 #760101;
+  margin-left: 154px;
+  margin-top: -32px;
+  display: block;
 }

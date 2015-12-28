@@ -1,10 +1,10 @@
 <img src="img/000.jpg" alt="">
-<div class="carousel-caption">
+<div class="chance_tabel">
     <form ng-submit="addScore(table)">
         <div class="row">
-            <div class="col-md-5 hope_tabel">
-                <h3>高考志愿意向表</h3>
-                <div class="row">
+            <h3>高考志愿意向表</h3>
+            <div class="col-md-12">
+                <div class="col-sm-6">
                     <div class="col-sm-4 text-right">
                         <label>学科：</label>
                     </div>
@@ -19,38 +19,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="col-sm-6">
+                    <div class="col-sm-4 text-right">
+                        <label>成绩：</label>
+                    </div>
+                    <div class="col-sm-8 text-left">
+                        <input type="number" class="form-control" ng-model="table.score" placeholder="请输入分数"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-sm-6">
                     <div class="col-sm-4 text-right">
                         <label>选测科目：</label>
                     </div>
-                    <div class="col-sm-8 text-left">
+                    <div class="col-sm-4 text-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control"  ng-model="table.sub1" ng-readonly="table.sub1"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-left">
                         <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
                             <option value=""> ---- </option>
                         </select>
                     </div>
                 </div>
-                <div class="row">
+                <div class="col-sm-6">
                     <div class="col-sm-4 text-right">
                         <label>另一门：</label>
                     </div>
-                    <div class="col-sm-8 text-left">
+                    <div class="col-sm-4 text-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control"  ng-model="table.sub2" ng-readonly="table.sub2"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-left">
                         <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
                             <option value=""> ---- </option>
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4 text-right">
-                        <label>成绩：</label>
-                    </div>
-                    <div class="col-sm-8 text-left">
-                        <input type="number" class="form-control" ng-model="table.score" placeholder="请输入提报成绩"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <button class="btn btn-success btn-lg" type="submit">开始填表</button>
-                </div>
             </div>
+            <button class="btn btn-success btn-lg" type="submit">开始预测</button>
         </div>
     </form>
     <div ng-if="">
