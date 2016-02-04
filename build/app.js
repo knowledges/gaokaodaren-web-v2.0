@@ -10,11 +10,21 @@ define(function(require,exports,module){
     require('jquery-placeholder');
 
     var app = angular.module('JS-gaokao',['ui.router','oc.lazyLoad']);
-
+    app.factory('homeService',function(){
+        return {
+            htmlPage:""
+        }
+    });
+    app.factory('displayService',function(){
+        return {
+            isShow:true
+        }
+    })
     //  拦截器
-    app.run(['$rootScope','$state','$window','$location','userService',function ($rootScope, $state,$location ,$window , userService) {
+    app.run(['$rootScope','$state','$window','$location','userService','homeService','displayService',function ($rootScope, $state,$location ,$window , userService,homeService,displayService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //homeService.htmlPage="";
+            homeService.htmlPage="";
+            displayService.isShow = true;
             var isAuthenticated = userService.isAuthenticated();
             var isPublicAction = angular.isObject(toState.data)
                 && toState.data.isPublic === true;

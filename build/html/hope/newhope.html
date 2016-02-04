@@ -1,1638 +1,1011 @@
-<div class="container text-center">
-
-    <div ng-controller="wishTabCtr-info">
-        <h1>文科本一考生志愿意向表</h1>
-        <h4>【第一阶段填报文科类第一批本科院校志愿用表】</h4>
-        <div class="form-inline" role="高考-基本成绩">
-            <div class="alert alert-success text-left">
-                <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{score.subject}}</span>类 总分：<span ng-cloak>{{score.score}}</span>   选测等级：<span ng-cloak>{{score.level}}</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-primary">
-        <div class="panel-heading text-left">
-            <h4>
-                <i class="icon-building"></i> 意向高校
-            </h4>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4 data-toggle="tooltip" data-placement="left" title="亲！你想去哪里上学。">院校属地</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;江苏省&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">华东地区</button>
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">上海</a></li>
-                                <li><a href="javascript:;;">浙江省</a></li>
-                                <li><a href="javascript:;;">安徽省</a></li>
-                                <li><a href="javascript:;;">福建省</a></li>
-                                <li><a href="javascript:;;">江西省</a></li>
-                                <li><a href="javascript:;;">山东省</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">华北地区</button>
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">北京</a></li>
-                                <li><a href="javascript:;;">天津 </a></li>
-                                <li><a href="javascript:;;">河北省</a></li>
-                                <li><a href="javascript:;;">山西省</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">东北地区</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">辽宁省</a></li>
-                                <li><a href="javascript:;;">吉林省 </a></li>
-                                <li><a href="javascript:;;">黑龙江省</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button class="btn btn-default">华中地区</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea4" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">河南省</a></li>
-                                <li><a href="javascript:;;">湖北省 </a></li>
-                                <li><a href="javascript:;;">湖南省</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">华南地区</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea5" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">广东省</a></li>
-                                <li><a href="javascript:;;">海南省</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">西南地区</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea6" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">四川省</a></li>
-                                <li><a href="javascript:;;">重庆</a></li>
-                                <li><a href="javascript:;;">贵州省</a></li>
-                                <li><a href="javascript:;;">云南省 </a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">西北地区</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea7" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu droparea7">
-                                <li><a href="javascript:;;">陕西省</a></li>
-                                <li><a href="javascript:;;">甘肃省</a></li>
-                                <li><a href="javascript:;;">宁夏回族自治区</a></li>
-                                <li><a href="javascript:;;">新疆西藏自治区 </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>江苏省&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">南京</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">无锡</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool2">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">徐州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool3">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">常州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool4">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">苏州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool5">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">南通</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool6">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">扬州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool7">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">镇江</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>一线城市</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">上海</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">北京</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">天津</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">广州 </button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">深圳</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>二线城市</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button class="btn btn-default">杭州</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">宁波</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">厦门</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">济南 </button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">青岛</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">大连</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">重庆</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button class="btn btn-default">福州</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">太原</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">沈阳 </button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">长春</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">哈尔滨</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">郑州</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">武汉</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">长沙</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">成都</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">西安 </button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button class="btn btn-default">合肥</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">南昌</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">昆明</button>
-                            <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>三线城市</h4>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">金华 </button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">泉州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">威海</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">保定</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">珠海</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">海口</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">贵阳</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">兰州</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">银川</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">乌鲁木齐</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>四线城市</h4>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">秦皇岛</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">开封</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">湘潭</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">汕头</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>五线城市</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">阜新</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">延吉</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">杨凌</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool1">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
+    <div class="container text-center">
+        <!--ng-controller="wishTabCtr-info"-->
+        <div>
+            <h1>{{info.title}}</h1>
+            <h4>{{info.subtitle}}</h4>
+            <div class="form-inline" role="高考-基本成绩">
+                <div class="alert alert-success text-left">
+                    <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{info.subject}}</span>类 总分：<span ng-cloak>{{info.score}}</span>   选测等级：<span ng-cloak>{{info.level}}</span>
                 </div>
             </div>
         </div>
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>院校属类</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">类别</a></li>
-                        <li><a href="">类型</a></li>
-                        <li><a href="">属性</a></li>
-                        <li><a href="">属管</a></li>
-                    </ul>
-                </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <h4>
+                    <i class="icon-building"></i> 意向高校
+                </h4>
             </div>
-
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>按重点项目建设分</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">985工程</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
+            <div class="panel-body" id="panel-footer">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>院校属类</h4>
                     </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">211工程</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">C9联盟</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">卓越计划</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">中外合作</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>按重点学科方向分</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">综合类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">工科类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">农业类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">医药类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">师范类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">语言类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">财经类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">政法类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">体育类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">艺术类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">民族类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">军事类</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>按管理体制分</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">教育部直属</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">其他中央部委所属</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">地方所属</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">分校（办学点）</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>按运行机制分</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <button class="btn btn-default">公办</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">民办</button>
-                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" data-toggle="dropschool8">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-primary">
-        <div class="panel-heading text-left">
-            <h4>
-                <i class="glyphicon glyphicon-education"></i> 意向专业
-            </h4>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">哲学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea1" data-toggle="droparea1">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">经济学</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;;">经济学类</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="javascript:;;">财政学类</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="javascript:;;">金融学类</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">法学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea2" data-toggle="droparea2">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">教育学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea3" data-toggle="droparea3">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">文学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea2" data-toggle="droparea2">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">历史学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea3" data-toggle="droparea3">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group">
-                            <button class="btn btn-default">理学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea4" data-toggle="droparea4">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">工学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea5" data-toggle="droparea5">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">农学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea6" data-toggle="droparea6">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">医学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea7" data-toggle="droparea7">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">管理学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea7" data-toggle="droparea7">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default">艺术学</button>
-                            <button type="button" class="btn btn-default dropdown-toggle droparea7" data-toggle="droparea7">
-                                <span class="caret"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4 title="这里有最热最火的专业">热门专业 <img src="img/hot.png" alt="hot" style="position: absolute; top: 0;"/></h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">经济学类</a></li>
-                        <li><a href="">金融学类</a></li>
-                        <li><a href="">金融学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">法学</a></li>
-                        <li><a href="">德语</a></li>
-                        <li><a href="">法语</a></li>
-                        <li><a href="">建筑学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">工商管理类</a></li>
-                        <li><a href="">会计学</a></li>
-                        <li><a href="">财务管理</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">经济管理试验班</a></li>
-                        <li><a href="">文科试验班类</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>偏热专业</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">经济学</a></li>
-                        <li><a href="">税收学</a></li>
-                        <li><a href="">经济与贸易类</a></li>
-                        <li><a href="">国际经济与贸易</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">中国语言文学类</a></li>
-                        <li><a href="">西班牙语</a></li>
-                        <li><a href="">翻译</a></li>
-                        <li><a href="">商务英语</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">新闻传播学类</a></li>
-                        <li><a href="">新闻学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">工业设计</a></li>
-                        <li><a href="">城乡规划</a></li>
-                        <li><a href="">风景园林</a></li>
-                        <li><a href="">园林</a></li>
-                        <li><a href="">管理科学与工程类</a></li>
-                        <li><a href="">审计学</a></li>
-                        <li><a href="">农林经济管理</a></li>
-                        <li><a href="">交通管理</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">人文科学试验班</a></li>
-                        <li><a href="">社会科学试验班</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>一般专业</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="col-sm-12" style="padding: 0;">
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">哲学类</a></li>
-                            <li><a href="">宗教学</a></li>
-                            <li><a href="">劳动关系</a></li>
-                            <li><a href="">公共关系学</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">经济统计学</a></li>
-                            <li><a href="">能源经济</a></li>
-                            <li><a href="">财政学类</a></li>
-                            <li><a href="">财政学</a></li>
-                            <li><a href="">金融工程</a></li>
-                            <li><a href="">金融数学</a></li>
-                            <li><a href="">信用管理</a></li>
-                            <li><a href="">经济与金融</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">法学类</a></li>
-                            <li><a href="">国际事务与国际关系</a></li>
-                            <li><a href="">外交学</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">教育学类</a></li>
-                            <li><a href="">学前教育</a></li>
-                            <li><a href="">小学教育</a></li>
-                            <li><a href="">教育学</a></li>
-                            <li><a href="">科学教育</a></li>
-                            <li><a href="">教育技术学</a></li>
-                            <li><a href="">特殊教育</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">汉语言文学</a></li>
-                            <li><a href="">汉语言</a></li>
-                            <li><a href="">秘书学</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">英语</a></li>
-                            <li><a href="">葡萄牙语</a></li>
-                            <li><a href="">葡萄牙语</a></li>
-                            <li><a href="">意大利语</a></li>
-                            <li><a href="">瑞典语</a></li>
-                            <li><a href="">希腊语</a></li>
-                            <li><a href="">荷兰语</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">广播电视编导</a></li>
-                            <li><a href="">数字媒体艺术</a></li>
-                            <li><a href="">网络与新媒体 </a></li>
-                            <li><a href="">编辑出版学 </a></li>
-                            <li><a href="">信息资源管理</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">数学类</a></li>
-                            <li><a href="">建筑类</a></li>
-                            <li><a href="">工业工程</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">地理科学类</a></li>
-                            <li><a href="">地理科学</a></li>
-                            <li><a href="">人文地理与城乡规划</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">中医学</a></li>
-                            <li><a href="">针灸推拿学</a></li>
-                            <li><a href="">中西医临床医学</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">管理科学</a></li>
-                            <li><a href="">工程管理</a></li>
-                            <li><a href="">房地产开发与管理</a></li>
-                            <li><a href="">工商管理</a></li>
-                            <li><a href="">海关管理</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">体育经济与管理</a></li>
-                            <li><a href="">会展经济与管理</a></li>
-                            <li><a href="">电子商务类</a></li>
-                            <li><a href="">电子商务</a></li>
-                            <li><a href="">国际商务</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">农村区域发展</a></li>
-                            <li><a href="">土地资源管理</a></li>
-                            <li><a href="">城市管理</a></li>
-                        </ul>
-                        <ul class="nav nav-pills bs-callout">
-                            <li><a href="">艺术学理论类</a></li>
-                            <li><a href="">文物与博物馆学</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>偏冷专业</h4>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">保险学</a></li>
-                        <li><a href="">投资学</a></li>
-                        <li><a href="">贸易经济</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">市场营销</a></li>
-                        <li><a href="">酒店管理 </a></li>
-                        <li><a href="">物流管理  </a></li>
-                        <li><a href="">物流管理与工程类  </a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">广告学</a></li>
-                        <li><a href="">传播学</a></li>
-                        <li><a href="">数字出版</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">汉语国际教育</a></li>
-                        <li><a href="">俄语</a></li>
-                        <li><a href="">阿拉伯语</a></li>
-                        <li><a href="">朝鲜语</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">建筑环境与能源应用工程</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">公共卫生与预防医学类</a></li>
-                        <li><a href="">人力资源管理</a></li>
-                        <li><a href="">物业管理</a></li>
-                        <li><a href="">公共管理类</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">图书情报与档案管理类 </a></li>
-                        <li><a href="">档案学</a></li>
-                        <li><a href="">信息管理与信息系统</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">知识产权</a></li>
-                        <li><a href="">人类学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills  bs-callout">
-                        <li><a href="">考古学</a></li>
-                        <li><a href="">心理学</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>冷门专业</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">哲学</a></li>
-                        <li><a href="">政治学类</a></li>
-                        <li><a href="">政治学与行政学</a></li>
-                        <li><a href="">国际政治</a></li>
-                        <li><a href="">思想政治教育</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">社会学类</a></li>
-                        <li><a href="">社会学</a></li>
-                        <li><a href="">社会工作</a></li>
-                        <li><a href="">民族学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">古典文献学</a></li>
-                        <li><a href="">外国语言文学类</a></li>
-                        <li><a href="">日语</a></li>
-                        <li><a href="">广播电视学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">历史学类</a></li>
-                        <li><a href="">历史学</a></li>
-                        <li><a href="">古典文献学 </a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">文化产业管理</a></li>
-                        <li><a href="">公共事业管理</a></li>
-                        <li><a href="">行政管理</a></li>
-                        <li><a href="">劳动与社会保障</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">旅游管理类</a></li>
-                        <li><a href="">旅游管理</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">应用心理学</a></li>
-                    </ul>
-                    <ul class="nav nav-pills bs-callout">
-                        <li><a href="">中外合作办学专业（班）</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-primary">
-        <div class="panel-heading text-left">
-            <h4>
-                <i class="icon-fire"></i> 个性标签
-            </h4>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="col-sm-12" style="padding: 0;">
+                    <div class="col-sm-10 text-left">
                         <ul class="nav nav-pills">
                             <li role="presentation" class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    毕业去向方面
+                                <a class="dropdown-toggle" href="javascript:;;" ng-click="atrlistClk($event)">
+                                    类别
                                     <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">就业</a></li>
-                                    <li><a href="#">考研</a></li>
-                                    <li><a href="#">出国（境）</a></li>
-                                </ul>
+                                <ul class="dropdown-menu" id="attr1" data-istrue="false"></ul>
                             </li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">专业要求方面<span class="caret"></span></a></li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">兴趣爱好方面<span class="caret"></span></a></li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">性格倾向方面<span class="caret"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0;">
-                        <ul class="nav nav-pills">
                             <li role="presentation" class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    学习愿望方面
+                                <a class="dropdown-toggle" href="javascript:;;" ng-click="stylistClk($event)">
+                                    类型
                                     <span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">就业</a></li>
-                                    <li><a href="#">考研</a></li>
-                                    <li><a href="#">出国（境）</a></li>
-                                </ul>
+                                <ul class="dropdown-menu" id="style1" data-istrue="false"></ul>
                             </li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">学科强弱方面<span class="caret"></span></a></li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">能力特长方面<span class="caret"></span></a></li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle">其他因素方面<span class="caret"></span></a></li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" ng-click="proplistClk($event)">
+                                    属性
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="prop1" data-istrue="false"></ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" ng-click="belongslistClk($event)">
+                                    属管
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="belongs1" data-istrue="false"></ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <!-- 基础-->
-            <div class="row">
-                <div class="alert alert-default text-left">
-                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
-                </div>
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(家庭经济)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <label class="btn btn-warning">
-                            <input type="radio" name="economic" /> 偏弱
-                        </label>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>高分高校</h4>
                     </div>
-                    <div class="btn-group">
-                        <label class="btn btn-default">
-                            <input type="radio" name="economic" /> 取消
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(等级级差)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 6分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 5分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 4分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 3分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 2分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-success">
-                            <input type="radio" name="score" /> 1分
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <label class="btn btn-default">
-                            <input type="radio" name="score" /> 取消
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(体检限项)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <div class="col-sm-12" style="padding: 0;">
+                    <div class="col-sm-10 text-left">
                         <ul class="nav nav-pills">
-                            <li><a href="">二、1 </a></li>
-                            <li><a href="">二、2</a></li>
-                            <li><a href="">二、3</a></li>
-                            <li><a href="">二、4</a></li>
-                            <li><a href="">二、5</a></li>
+                            <li ng-repeat="list in hope.schbatch" ng-if="list.swish_id==1"><a href="javascript:;;" class="btn btn-default findSch" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" >{{list.name}}</a></li>
                         </ul>
                     </div>
-                    <div class="col-sm-12" style="padding: 0;">
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>偏高高校</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
                         <ul class="nav nav-pills">
-                            <li><a href="">三、1 </a></li>
-                            <li><a href="">三、2</a></li>
-                            <li><a href="">三、3</a></li>
-                            <li><a href="">三、4</a></li>
-                            <li><a href="">三、5</a></li>
-                            <li><a href="">三、6</a></li>
-                            <li><a href="">三、7</a></li>
-                            <li><a href="">三、8</a></li>
-                            <li><a href="">三、9</a></li>
+                            <li ng-repeat="list in hope.schbatch" ng-if="list.swish_id==2"><a href="javascript:;;" class="btn btn-default findSch" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" >{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>中分高校</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.schbatch" ng-if="list.swish_id==3"><a href="javascript:;;" class="btn btn-default findSch" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" >{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>偏低高校</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.schbatch" ng-if="list.swish_id==4"><a href="javascript:;;" class="btn btn-default findSch" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" >{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>低分高校</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.schbatch" ng-if="list.swish_id==5"><a href="javascript:;;" class="btn btn-default findSch" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" >{{list.name}}</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- 语种-->
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(语种)</span></h6>
+            <div class="panel-footer" id="provnice">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4 data-toggle="tooltip" data-placement="left" title="亲！你想去哪里上学。">院校属地</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index == 0">
+                                <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{lists.name}}&nbsp;&nbsp;&nbsp;&nbsp</button>
+                            </div>
+                            <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index > 0">
+                                <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" ng-click="showClassify(lists.city_id)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 2">
+                                <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" ng-click="showClassify(lists.city_id)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">英语</a></li>
-                        <li><a href="">日语</a></li>
-                        <li><a href="">法语</a></li>
-                        <li><a href="">德语</a></li>
-                        <li><a href="">西班牙语</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>江苏省&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group" ng-repeat="lists in hope.js_province" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}" ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(加试)</span></h6>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>一线城市</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group" ng-repeat="lists in hope.firstCities" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">口语</a></li>
-                        <li><a href="">艺术</a></li>
-                        <li><a href="">美术</a></li>
-                        <li><a href="">高水平运动员</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>二线城市</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 1">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group"  ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 2">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group"  ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 3">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(多收费)</span></h6>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>三线城市</h4>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group"  ng-repeat="lists in hope.thirdCities" ng-if="lists.classify == 1">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group"  ng-repeat="lists in hope.thirdCities" ng-if="lists.classify == 2">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">中外合作办学</a></li>
-                        <li><a href="">阶段性</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>四线城市</h4>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.fourthCities" ng-if="lists.classify == 1">
+                                <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(中学强弱学科)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">语文</a></li>
-                        <li><a href="">数学</a></li>
-                        <li><a href="">英语</a></li>
-                        <li><a href="">物理</a></li>
-                        <li><a href="">化学</a></li>
-                        <li><a href="">历史</a></li>
-                        <li><a href="">地理</a></li>
-                        <li><a href="">政治</a></li>
-                        <li><a href="">生物</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- 期望部分 -->
-            <div class="row">
-                <div class="alert alert-default text-left">
-                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
-                </div>
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(就业)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">作曲、服装设计、写作等方向</a></li>
-                        <li><a href="">营销、经营管理、法律事务等方向</a></li>
-                        <li><a href="">秘书、银行柜员、资料管理员等方向</a></li>
-                        <li><a href="">数据统计分析师、研究机构及高等院校教学、医疗、科研人员等方向</a></li>
-                        <li><a href="">农产品开发、矿产勘查等方向</a></li>
-                        <li><a href="">机械师、驾驶员、工程技术人员等方向</a></li>
-                        <li><a href="">中小学教师、社区工作者、心理咨询人员、导游等方向</a></li>
-                        <li><a href="">公务员等方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(考研)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">国内考研方向</a></li>
-                        <li><a href="">国外考研方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(出国)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">大学毕业后出国方向</a></li>
-                        <li><a href="">中外合作办学方向</a></li>
-                        <li><a href="">直接出国读书方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学文)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">哲学和历史</a></li>
-                        <li><a href="">法律和社会</a></li>
-                        <li><a href="">教育和心理</a></li>
-                        <li><a href="">语言和文化等方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学理)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">经济和管理</a></li>
-                        <li><a href="">理学</a></li>
-                        <li><a href="">自然</a></li>
-                        <li><a href="">医学等方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学工)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">电子和电气</a></li>
-                        <li><a href="">工程</a></li>
-                        <li><a href="">建筑和土木</a></li>
-                        <li><a href="">生物和农业等方向</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- 匹配部分-->
-            <div class="row">
-                <div class="alert alert-default text-left">
-                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
-                </div>
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(喜欢与物打交道)</span></h6>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">习惯关注家具摆放、积木构造等</a></li>
-                        <li><a href="">习惯关注家里纺织用品、日用品、食品摆放和质量等</a></li>
-                        <li><a href="">习惯关注家用电器、电脑、手机、电视机质量等</a></li>
-                        <li><a href="">习惯关注宠物、动物、植物、室内外自然环境、生态等</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>五线城市</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.fifthCities" ng-if="lists.classify == 1">
+                                <button type="button" class="btn btn-default  cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(喜欢与人打交道)</span></h6>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <h4>
+                    <i class="glyphicon glyphicon-education"></i> 意向专业
+                </h4>
+            </div>
+            <div class="panel-body" id="depart">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.depart" ng-if="($index+1)<=6">
+                                <button type="button" class="btn btn-default">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" depart_id="{{lists.depart_id}}"  ng-click="showDepartCls(lists.id)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="depart{{lists.id}}" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <div class="btn-group" ng-repeat="lists in hope.depart" ng-if="($index+1)>6 && ($index+1)<=13">
+                                <button type="button" class="btn btn-default">{{lists.name}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" depart_id="{{lists.id}}"  ng-click="showDepartCls(lists.id)">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="depart{{lists.id}}" data-istrue="false"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">习惯关注家庭成员、师长、亲戚、同学、邻里之间关系等</a></li>
-                        <li><a href="">习惯关注家长、师长、亲戚、同学家里、邻里开公司、做生意等</a></li>
-                        <li><a href="">习惯关注家长、师长、亲戚、同学、邻里出行用什么交通工具等</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4 title="这里有最热最火的专业">热门专业 <img src="img/hot.png" alt="hot" style="position: absolute; top: 0;"/></h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==4"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>偏热专业</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==4"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==5"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==6"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>一般专业</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==4"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==5"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==6"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==7"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==8"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==9"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==10"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==11"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==12"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==13"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                            <ul class="nav nav-pills bs-callout">
+                                <li class="bs-radio">●</li>
+                                <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==14"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>偏冷专业</h4>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==1"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==2"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==3"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==4"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==5"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==6"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==7"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==8"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==9"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>冷门专业</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==1"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}"   parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==2"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==3"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==4"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==5"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==6"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==7"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==8"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(喜欢关注大小事)</span></h6>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <h4>
+                    <i class="icon-fire"></i> 个性标签
+                </h4>
+            </div>
+            <div class="panel-body" id="character">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <ul class="nav nav-pills">
+                                <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==1">
+                                    <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
+                                        {{list.name}}
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <ul class="nav nav-pills">
+                                <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==2">
+                                    <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
+                                        {{list.name}}
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">习惯关注周边、校内外、国内外发生的大小事等</a></li>
-                    </ul>
+                <!-- 基础-->
+                <div class="row">
+                    <div class="alert alert-default text-left">
+                        <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(家庭经济)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group">
+                            <label class="btn btn-warning">
+                                <input type="radio" name="economic" ng-model="hope.economy_option" /> 偏弱
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-default">
+                                <input type="radio" name="economic" /> 取消
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(等级级差)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group">
+                            <label class="btn btn-success">
+                                <input type="radio" name="economic" ng-model="hope.prop6" /> 等级级差加分
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-default">
+                                <input type="radio" name="score" /> 取消
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(体检限项)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <ul class="nav nav-pills">
+                                <li ng-repeat="list in hope.physical" ng-if="list.classify == 1"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" physical_id="{{list.id}}" ng-dblclick="rejectPhysical($event)">{{list.code}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12" style="padding: 0;">
+                            <ul class="nav nav-pills">
+                                <li ng-repeat="list in hope.physical" ng-if="list.classify == 2"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" physical_id="{{list.id}}" ng-dblclick="rejectPhysical($event)">{{list.code}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 语种-->
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(语种)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.languages"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(加试)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.drive"><a class="btn btn-default physiClk"  href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(多收费)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.charge"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-info">(中学强弱学科)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.strong"><a class="btn btn-default physiClk"  href="javascript:;;" parent_id="{{list.parentId}}" course_id="{{list.id}}" ng-click="agreeCourse($event)" ng-dblclick="rejectCourse($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 期望部分 -->
+                <div class="row">
+                    <div class="alert alert-default text-left">
+                        <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(就业)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.job"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeCourse($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(考研)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.pubmed"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeCourse($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(出国)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.goAbroad"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeGraduate($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(学文)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.wish" ng-if="list.parentId==684"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(学理)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.wish" ng-if="list.parentId==685"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-success">(学工)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.wish" ng-if="list.parentId==686"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 匹配部分-->
+                <div class="row">
+                    <div class="alert alert-default text-left">
+                        <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(喜欢与物打交道)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.matter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(喜欢与人打交道)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.people"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(喜欢关注大小事)</span></h6>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.business"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(能力强弱)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.ability"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" ability_id="{{list.id}}" ng-click="agreeAbility($event)" ng-dblclick="rejectAbility($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(外向性格)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.wcharacter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" nature_id="{{list.id}}" ng-click="agreeNature($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h6><span class="label label-warning">(内向性格)</span></h6>
+                    </div>
+                    <div class="col-sm-10  text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.ncharacter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" nature_id="{{list.id}}" ng-click="agreeNature($event)">{{list.name}}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(能力强弱)</span></h6>
+        </div>
+        <!-- 优先-->
+        <div class="panel panel-primary">
+            <div class="panel-heading text-left">
+                <h4> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-default">
+                    <h4 class="text-left">亲，你的优先选项确定这样好吗？</h4>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">语言表达能力</a></li>
-                        <li><a href="">数学推理能力</a></li>
-                        <li><a href="">空间判断能力</a></li>
-                        <li><a href="">察觉细节能力</a></li>
-                        <li><a href="">书写能力</a></li>
-                        <li><a href="">动手能力</a></li>
-                        <li><a href="">社会交往能力</a></li>
-                        <li><a href="">组织管理能力</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.city_name" ><a href="javascript:;;">{{list}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.prop_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.style_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.belongs_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.style_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.attr_name" ><a href="javascript:;;">{{list}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.depart_name" ><a href="javascript:;;">{{list}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.depart_name2" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.gift_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.course_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.graduate_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.wish_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.user_name" ><a href="javascript:;;">{{list}}</a></li>
+                            <li ng-repeat="list in hope.nature_name" ><a href="javascript:;;">{{list}}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(外向性格)</span></h6>
+            <div class="panel panel-footer">
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>志愿意向排序</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第一优先</option>
+                                <option value="1">高校</option>
+                                <option value="2">专业</option>
+                                <option value="3">城市</option>
+                                <option value="4">个性</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第二优先</option>
+                                <option value="1">高校</option>
+                                <option value="2">专业</option>
+                                <option value="3">城市</option>
+                                <option value="4">个性</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第三优先</option>
+                                <option value="1">高校</option>
+                                <option value="2">专业</option>
+                                <option value="3">城市</option>
+                                <option value="4">个性</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第四优先</option>
+                                <option value="1">高校</option>
+                                <option value="2">专业</option>
+                                <option value="3">城市</option>
+                                <option value="4">个性</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">社会型</a></li>
-                        <li><a href="">艺术型</a></li>
-                        <li><a href="">事务型</a></li>
-                        <li><a href="">经营性</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>意向高校优先排序</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第一优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第二优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第三优先</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="hope.departArr.length>0">
+                    <div class="col-sm-2 text-right">
+                        <h4>意向专业优先排序</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group" ng-if="hope.departArr.length>0">
+                            <select class="form-control" ng-model="hope.departOpt1" ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第一优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.departArr.length>1">
+                            <select class="form-control"  ng-model="hope.departOpt2"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第二优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.departArr.length>2">
+                            <select class="form-control"  ng-model="hope.departOpt3"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第三优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.departArr.length>3">
+                            <select class="form-control"  ng-model="hope.departOpt4"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第四优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.departArr.length>4">
+                            <select class="form-control" ng-model="hope.departOpt5"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第五优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.departArr.length>5">
+                            <select class="form-control"  ng-model="hope.departOpt6" ng-options="arr.name for arr in hope.departArr track by arr.id">
+                                <option value="">第六优先</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        <h4>个性满足优先排序</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第一优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第二优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第三优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第四优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第五优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <select name="" id="" class="form-control">
+                                <option value="">第六优先</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="hope.cityArr.length>0">
+                    <div class="col-sm-2 text-right">
+                        <h4>意向城市优先排序</h4>
+                    </div>
+                    <div class="col-sm-10 text-left">
+                        <div class="btn-group" ng-if="hope.cityArr.length>0">
+                            <select class="form-control" ng-model="hope.cityOpt1" ng-options="arr.name for arr in hope.cityArr track by arr.id">
+                                <option value="">第一优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.cityArr.length>1">
+                            <select class="form-control" ng-model="hope.cityOpt2" ng-options="arr.name for arr in cityArr track by arr.id">
+                                <option value="">第二优先</option>
+                            </select>
+                        </div>
+                        <div class="btn-group" ng-if="hope.cityArr.length>2">
+                            <select class="form-control"ng-model="hope.cityOpt3" ng-options="arr.name for arr in cityArr track by arr.id">
+                                <option value="">第三优先</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(内向性格)</span></h6>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#myModal">提交</button>
+    </div>
+    <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">志愿表提交选项卡</h4>
                 </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">研究型</a></li>
-                        <li><a href="">技术型</a></li>
-                    </ul>
+                <div class="modal-body">
+                    <p>1.自动生成志愿表</p>
+                    <p>2.自选生成志愿表</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" ng-click="readom()" data-target="#modal-pay">随机生成</button>
+                    <a ng-click="manual()"   class="btn btn-success">手动选择</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 优先-->
-    <div class="panel panel-primary">
-        <div class="panel-heading text-left">
-            <h4> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
-        </div>
-        <div class="panel-body">
-            <div class="alert alert-default">
-                <h4 class="text-left">亲，你的优先选项确定这样好吗？</h4>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
+    <div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">支付</h4>
                 </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">南京<i class="icon-remove"></i></a></li>
-                        <li><a href="">徐州<i class="icon-remove"></i></a></li>
-                        <li><a href="">苏州<i class="icon-remove"></i></a></li>
-                        <li><a href="">上海<i class="icon-remove"></i></a></li>
-                        <li><a href="">重庆<i class="icon-remove"></i></a></li>
-                    </ul>
+                <div class="modal-body">
+                    <p>是否愿意支付100元，获取志愿参考表</p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">985工程<i class="icon-remove"></i></a></li>
-                        <li><a href="">211工程<i class="icon-remove"></i></a></li>
-                        <li><a href="">综合类<i class="icon-remove"></i></a></li>
-                        <li><a href="">教育部直属<i class="icon-remove"></i></a></li>
-                        <li><a href="">公办<i class="icon-remove"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">经济学<i class="icon-remove"></i></a></li>
-                        <li><a href="">税收学<i class="icon-remove"></i></a></li>
-                        <li><a href="">国际经济与贸易<i class="icon-remove"></i></a></li>
-                        <li><a href="">财政学<i class="icon-remove"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li><a href="">营销、经营管理、法律事务等方向<i class="icon-remove"></i></a></li>
-                        <li><a href="">法律和社会<i class="icon-remove"></i></a></li>
-                        <li><a href="">经济和管理<i class="icon-remove"></i></a></li>
-                        <li><a href="">财政学<i class="icon-remove"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-footer">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>志愿意向排序</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第一优先</option>
-                            <option value="1">高校</option>
-                            <option value="2">专业</option>
-                            <option value="3">城市</option>
-                            <option value="4">个性</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第二优先</option>
-                            <option value="1">高校</option>
-                            <option value="2">专业</option>
-                            <option value="3">城市</option>
-                            <option value="4">个性</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第三优先</option>
-                            <option value="1">高校</option>
-                            <option value="2">专业</option>
-                            <option value="3">城市</option>
-                            <option value="4">个性</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第四优先</option>
-                            <option value="1">高校</option>
-                            <option value="2">专业</option>
-                            <option value="3">城市</option>
-                            <option value="4">个性</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>意向高校优先排序</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第一优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第二优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第三优先</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>意向专业优先排序</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第一优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第二优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第三优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第四优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第五优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第六优先</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>个性满足优先排序</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第一优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第二优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第三优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第四优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第五优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第六优先</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4>意向城市优先排序</h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第一优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第二优先</option>
-                        </select>
-                    </div>
-                    <div class="btn-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">第三优先</option>
-                        </select>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <a ng-click="pay()" class="btn btn-primary">是</a>
                 </div>
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
-</div>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">志愿表提交选项卡</h4>
-            </div>
-            <div class="modal-body">
-                <p>1.自动生成志愿表</p>
-                <p>2.自选生成志愿表</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modal-pay">随机生成</button>
-                <a ng-click="manual()"   class="btn btn-success">手动选择</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">支付</h4>
-            </div>
-            <div class="modal-body">
-                <p>是否愿意支付100元，获取志愿参考表</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                <a ng-click="pay()" class="btn btn-primary">是</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-

@@ -1,6 +1,19 @@
 .bs-callout {
-  border: 1px solid #FFFFFF;
-  border-left-color: orange;
-  border-left-width: 5px;
-  border-radius: 3px;
+  margin: 5px 0;
+}
+.cancle {
+  background: #FFF!important;;
+  color: #333!important;;
+}
+.agree {
+  background: green!important;
+  color: #FFF!important;;
+}
+.reject {
+  background: grey!important;;
+  color: gainsboro!important;;
+}
+.bs-radio{
+  margin-top: 12px;
+  color: orange;
 }

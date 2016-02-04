@@ -3,10 +3,10 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.constant("codeURL", "/user/code?time=" + new Date().getTime());
-    app.constant("loginURL", "/login?time=" + new Date().getTime());
-    app.constant("registerURL", "/user/register");
-    app.constant("referinURL", "/user/reset");
+    app.constant("codeURL", "/loocha/user/code?time=" + new Date().getTime());
+    app.constant("loginURL", "/loocha/login?time=" + new Date().getTime());
+    app.constant("registerURL", "/loocha/user/register");
+    app.constant("referinURL", "/loocha/user/reset");
     app.factory("isShowModel", function () {
         return {
             isSigin: "",
@@ -143,7 +143,7 @@ require(['app'],function(app){
         };
 
         function getCodes() {
-            $http.get("/user/code?time=" + new Date().getTime()).success(function(data,status){
+            $http.get("/loocha/user/code?time=" + new Date().getTime()).success(function(data,status){
                 console.log('img i come in');
                 $scope.user.img = data;
             });
@@ -159,42 +159,58 @@ require(['app'],function(app){
                 return $.param(data);
             };
 
-            $.post("/login?time=" + new Date().getTime(),param,function(data){
-                console.log('img '+JSON.stringify(data) );
-            });
-
-            $http.post("/login?time=" + new Date().getTime(),param,{
+            $http.post("/loocha/login?time=" + new Date().getTime(),param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
-                console.log('jinlai l '+JSON.stringify(responseDate) );
+                if (responseDate.status == -1){
+                	alert('验证码失效');
+                	getCodes();
+                	return ;
+                }
+                //路由权限
+                sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
+                sessionStorage.setItem('usernumber', responseDate.response.name);
+                sessionStorage.setItem('user_id',responseDate.response.id);
+                $rootScope.studentId = responseDate.response.name;
+
+                if(localStorage.getItem('score')!=null){
+                    $window.location.href = "#/home";
+                }else{
+                    //var set = confirm("你还没有完善考试成绩，是否完善！");
+                    //if(set){
+                        $window.location.href="#/all/allScore";
+                    //}else{
+                    //    $window.location.href = "#/home";
+                    //}
+                }
             });
 
-            AJAX.getRequest(loginURL, 'POST', param)
-                .then(function (promise, status) {
-                    console.log(JSON.stringify(promise) );
-                    if (promise.data.status == -1) {
-                        alert("验证码失效");
-                        getCodes();
-                        return;
-                    }
-                    //路由权限
-                    sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
-
-                    sessionStorage.setItem('usernumber', promise.data.response.name);
-                    $rootScope.studentId = promise.data.response.name;
-
-                    if(localStorage.getItem('score')!=null){
-                        $window.location.href = "#/home";
-                    }else{
-                        var set = confirm("你还没有完善考试成绩，是否完善！");
-                        if(set){
-                            $window.location.href="#/all/allScore";
-                        }else{
-                            $window.location.href = "#/home";
-                        }
-                    }
-                });
+            //AJAX.getRequest(loginURL, 'POST', param)
+            //    .then(function (promise, status) {
+            //        console.log(JSON.stringify(promise) );
+            //        if (promise.data.status == -1) {
+            //            alert("验证码失效");
+            //            getCodes();
+            //            return;
+            //        }
+            //        //路由权限
+            //        sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
+            //
+            //        sessionStorage.setItem('usernumber', promise.data.response.name);
+            //        $rootScope.studentId = promise.data.response.name;
+            //
+            //        if(localStorage.getItem('score')!=null){
+            //            $window.location.href = "#/home";
+            //        }else{
+            //            var set = confirm("你还没有完善考试成绩，是否完善！");
+            //            if(set){
+            //                $window.location.href="#/all/allScore";
+            //            }else{
+            //                $window.location.href = "#/home";
+            //            }
+            //        }
+            //    });
         };
 
         $scope.showRegistered = function () {

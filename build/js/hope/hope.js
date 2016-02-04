@@ -123,7 +123,6 @@ require(['app'],function(app){
                     }
                 }
             }
-
         }])
     app.factory("loadDblclickEvent",['$rootScope',function($rootScope){
             return {

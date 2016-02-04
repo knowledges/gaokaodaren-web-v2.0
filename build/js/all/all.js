@@ -2,8 +2,8 @@
  * Created by qbl on 2015/10/27.
  */
 angular.module('gaokaoAPP.group.all', [])
-    .constant('willUrl','/exam/request/all?index=0&limit=999')
-    .constant('referUrl','/exam/order/all?index=0&limit=999&type=1')
+    .constant('willUrl','/loocha/exam/request/all?index=0&limit=999')
+    .constant('referUrl','/loocha/exam/order/all?index=0&limit=999&type=1')
     .controller('willCtr', ['$scope', 'AJAX','willUrl',function ($scope,AJAX,willUrl) {
         $scope.will = {
             isShowWill:false,

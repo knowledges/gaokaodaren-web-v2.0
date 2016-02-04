@@ -3,8 +3,8 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('onlineCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
-        $scope.ishide = true;
+    app.controller('onlineCtr',['$scope','$sce','homeService','displayService',function($scope,$sce,homeService,displayService){
+        $scope.ishide = displayService.isShow;
         $scope.service = homeService;
         $scope.insertHTML = "";
         $scope.$watch('service',function(newValue,oldValue){

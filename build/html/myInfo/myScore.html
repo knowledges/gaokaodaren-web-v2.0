@@ -1,69 +1,17 @@
 <div class="menu-div">
-    <div class="container-fluid" ng-if="recommShow">
-
-        <div class="alert alert-success text-left">
-            根据您当前的成绩，您最适合填报 <span>普通类第一批本科院校。</span>。
-        </div>
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <td>报考批次</td>
-                    <td>今年批次控制线</td>
-                    <td>状态</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        普通类第一批本科院校
-                    </td>
-                    <td>
-                        文科 342，理科 344
-                    </td>
-                    <td>
-                        <a href="#/hope?type=1&user_level=1" class="btn btn-primary">填志愿</a>
-                        <a href="#/chance" class="btn btn-success">去预测</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        普通类第二批本科院校
-                    </td>
-                    <td>
-                        文科 313，理科 310
-                    </td>
-                    <td>
-                        <a href="#/hope?type=3&user_level=2" class="btn btn-default">填志愿</a>
-                        <a href="#/chance"  class="btn btn-default">去预测</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        普通类第三批本科院校
-                    </td>
-                    <td>
-                        文科 272，理科 279
-                    </td>
-                    <td>
-                        <a href="#/hope?type=5&user_level=3" class="btn btn-default">填志愿</a>
-                        <a href="#/chance"  class="btn btn-default">去预测</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        普通类高职（专科）院校
-                    </td>
-                    <td>
-                        文科 205，理科 205
-                    </td>
-                    <td>
-                        <a href="#/hope?type=7&user_level=4" class="btn btn-default">填志愿</a>
-                        <a href="#/chance"  class="btn btn-default">去预测</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+    <div class="alert alert-default" ng-if="table.newScore>0">
+        <nav class="nav nav-pills">
+            <li><a href="javascript:;;" type="1" score="333" ng-click="startTable($event)" title="点击模拟志愿意向表">文科本一</a></li>
+            <li><a href="javascript:;;" type="3" score="301" ng-click="startTable($event)" title="点击模拟志愿意向表">文科本二</a></li>
+            <li><a href="javascript:;;" type="5" score="272" ng-click="startTable($event)" title="点击模拟志愿意向表">文科本三</a></li>
+            <li><a href="javascript:;;" type="7" score="190" ng-click="startTable($event)" title="点击模拟志愿意向表">文科高职</a></li>
+        </nav>
+        <nav class="nav nav-pills">
+            <li><a href="javascript:;;" type="2" score="345" ng-click="startTable($event)" title="点击模拟志愿意向表">理科本一</a></li>
+            <li><a href="javascript:;;" type="4" score="312" ng-click="startTable($event)" title="点击模拟志愿意向表">理科本二</a></li>
+            <li><a href="javascript:;;" type="6" score="279" ng-click="startTable($event)" title="点击模拟志愿意向表">理科本三</a></li>
+            <li><a href="javascript:;;" type="8" score="190" ng-click="startTable($event)" title="点击模拟志愿意向表">理科高职</a></li>
+        </nav>
     </div>
 
     <div class="container-fluid">
@@ -79,13 +27,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="list in table.myScore">
-                <td>{{list.subject}}</td>
+                <td>{{list.subject == 1 ? "文科":"理科"}}</td>
                 <td>{{list.score}}</td>
-                <td>{{list.level}}</td>
-                <td>{{list.date | date : 'yyyy-MM-dd hh:mm:ss EEEE'}}</td>
+                <td>{{list.level_a}},{{list.level_b}}</td>
+                <td>{{list.time | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
                 <td>
-                    <span ng-if="list.state == 1">正在使用该成绩</span>
-                    <button class="btn btn-success"  ng-if="list.state == 0" ng-click="setUp($index)">开始使用</button>
+                    <span ng-if="list.userTime > 0">正在使用该成绩</span>
+                    <button class="btn btn-success"  ng-if="list.userTime == 0" score="{{list.score}}" list_id ="{{list.id}}" ng-click="setUp($event)">开始使用</button>
                 </td>
             </tr>
             </tbody>
@@ -127,40 +75,37 @@
                                         <input type="text" class="form-control" ng-model="table.score"/>
                                     </div>
                                 </div>
-                            <div class="row">
-                                <div class="col-sm-4 text-right">
-                                    <label>选测科目：</label>
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>选测科目：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.sub1" ng-readonly="table.sub1"/>
+                                        <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
+                                            <option value=""> ---- </option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-sm-8 text-left">
-                                    <input type="text" class="form-control" ng-model="table.sub1" ng-readonly="table.sub1"/>
-                                    <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
-                                        <option value=""> ---- </option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-sm-4 text-right">
-                                    <label>另一门：</label>
-                                </div>
-                                <div class="col-sm-8 text-left">
-                                    <input type="text" class="form-control" ng-model="table.sub2" ng-readonly="table.sub2"/>
-                                    <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
-                                        <option value=""> ---- </option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>另一门：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.sub2" ng-readonly="table.sub2"/>
+                                        <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
+                                            <option value=""> ---- </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="submit">提交</button>
-                            <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                            </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </div>

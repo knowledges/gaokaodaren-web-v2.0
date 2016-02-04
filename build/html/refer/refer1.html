@@ -40,7 +40,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="1.请选择高校"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel()" data-target="#myModal">
                                             选择
                                         </button>
                                     </span>
@@ -54,7 +54,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="1.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showMarjor()" data-target="#zyb_marjor">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -73,7 +73,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="2.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showMarjor()"  data-target="#zyb_marjor">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -89,7 +89,7 @@
                                     <div class="input-group">
                                             <input type="text" class="form-control" placeholder="3.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showMarjor()"  data-target="#zyb_marjor">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -105,7 +105,7 @@
                                     <div class="input-group">
                                             <input type="text" class="form-control" placeholder="4.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showMarjor()"  data-target="#zyb_marjor">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -121,7 +121,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="5.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showMarjor()"  data-target="#zyb_marjor">选择</button>
                                     </span>
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -137,7 +137,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="6.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择</button>
                                         </span>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -155,7 +155,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="2.请选择高校"/>
                                     <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"  ng-click="showModel()" data-target="#zyb_marjor">选择</button>
                                     </span>
                                     <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><i class="icon-remove"></i></button>
@@ -269,7 +269,7 @@
                                 <input type="text" class="form-control" placeholder="3.请选择高校"/>
                                     <span class="input-group-btn">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel()" data-target="#myModal">
                                             选择
                                         </button>
                                     </span>
@@ -435,7 +435,7 @@
 
                 <div class="row">
                     <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zyb_random">选择</button>-->
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#zyb_random">提交</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#zyb_random">提交</button>
                 </div>
 
                 <div class="row">

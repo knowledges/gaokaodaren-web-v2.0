@@ -102,7 +102,6 @@ require(['app','pagging'],function(app,pagging){
         }
 
         $scope.showChar = function(id){
-            debugger;
             $scope.school.isnav = false;
             $scope.school.isChars = true;
             $scope.school.isfind = false;
@@ -111,6 +110,13 @@ require(['app','pagging'],function(app,pagging){
                     $scope.school.strHtml = $sce.trustAsHtml(data);
                 });
         };
+
+        $scope.goback = function(){
+            $scope.school.isnav = false;
+            $scope.school.isChars = false;
+            $scope.school.isfind = true;
+            $scope.school.strHtml=""
+        }
 
         function navSchool() {
             AJAX.getRequest(navURL_1, 'GET', "")

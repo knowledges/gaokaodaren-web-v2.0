@@ -1,0 +1,1008 @@
+<div class="container text-center">
+    <!--ng-controller="wishTabCtr-info"-->
+    <div>
+        <h1>{{info.title}}</h1>
+        <h4>{{info.subtitle}}</h4>
+        <div class="form-inline" role="高考-基本成绩">
+            <div class="alert alert-success text-left">
+                <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{info.subject}}</span>类 总分：<span ng-cloak>{{info.score}}</span>   选测等级：<span ng-cloak>{{info.level}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4>
+                <i class="icon-building"></i> 意向高校
+            </h4>
+        </div>
+        <div class="panel-body" id="provnice">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4 data-toggle="tooltip" data-placement="left" title="亲！你想去哪里上学。">院校属地</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index == 0">
+                            <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{lists.name}}&nbsp;&nbsp;&nbsp;&nbsp</button>
+                        </div>
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index > 0">
+                            <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" ng-click="showClassify(lists.city_id)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 2">
+                            <button type="button" class="btn btn-default" city_id="{{lists.city_id}}">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" ng-click="showClassify(lists.city_id)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>江苏省&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="lists in hope.js_province" ng-if="lists.classify == 1">
+                        <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}" ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>一线城市</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="lists in hope.firstCities" ng-if="lists.classify == 1">
+                        <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>二线城市</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group"  ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 2">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group"  ng-repeat="lists in hope.secondCities" ng-if="lists.classify == 3">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>三线城市</h4>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group"  ng-repeat="lists in hope.thirdCities" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group"  ng-repeat="lists in hope.thirdCities" ng-if="lists.classify == 2">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>四线城市</h4>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.fourthCities" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>五线城市</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.fifthCities" ng-if="lists.classify == 1">
+                            <button type="button" class="btn btn-default  cityClk" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer" id="panel-footer">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>院校属类</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li><a href="javascript:;;">类别</a></li>
+                        <li><a href="javascript:;;">类型</a></li>
+                        <li><a href="javascript:;;">属性</a></li>
+                        <li><a href="javascript:;;">属管</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>按重点项目建设分</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="list in hope.prop">
+                        <button class="btn btn-default" prop_id="{{list.id}}" ng-click="agreeProp($event)">{{list.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle dropschool1"  prop_id="{{list.id}}"  alt="prop" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>按重点学科方向分</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="list in hope.style">
+                        <button class="btn btn-default" style_id="{{list.id}}" ng-click="agreeStyle($event)" ng-dblclick="rejectStyle($event)">{{list.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" style_id="{{list.id}}"  alt="style" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>按管理体制分</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="list in hope.belongs">
+                        <button class="btn btn-default" belongs_id="{{list.id}}" ng-click="agreeBelongs($event)" ng-dblclick="rejectBelongs($event)">{{list.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" belongs_id="{{list.id}}" alt="belongs" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>按运行机制分</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-repeat="list in hope.attr">
+                        <button class="btn btn-default" attr_id="{{list.id}}"  ng-click="agreeAttr($event)" ng-dblclick="rejectAttr($event)">{{list.name}}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle dropschool1" attr_id="{{list.id}}"  alt="attr" ng-click="showSchoolList($event)">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" data-istrue="false"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4>
+                <i class="glyphicon glyphicon-education"></i> 意向专业
+            </h4>
+        </div>
+        <div class="panel-body" id="depart">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.depart" ng-if="($index+1)<=6">
+                            <button type="button" class="btn btn-default">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" depart_id="{{lists.depart_id}}"  ng-click="showDepartCls(lists.id)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="depart{{lists.id}}" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="btn-group" ng-repeat="lists in hope.depart" ng-if="($index+1)>6 && ($index+1)<=12">
+                            <button type="button" class="btn btn-default">{{lists.name}}</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" depart_id="{{lists.id}}"  ng-click="showDepartCls(lists.id)">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="depart{{lists.id}}" data-istrue="false"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4 title="这里有最热最火的专业">热门专业 <img src="img/hot.png" alt="hot" style="position: absolute; top: 0;"/></h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==2 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>偏热专业</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==4"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==3 && list.classify==5"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>一般专业</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==1"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==2"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==3"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==4"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==5"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==6"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==7"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==8"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==9"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==10"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==11"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==12"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==13"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                        <ul class="nav nav-pills bs-callout">
+                            <li class="bs-radio">●</li>
+                            <li ng-repeat="list in hope.department" ng-if="list.dwish_id==4 && list.classify==14"><a class="btn btn-default departClk" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>偏冷专业</h4>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==1"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==2"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==3"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==4"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==5"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==6"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==7"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==8"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==5 && list.classify==9"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>冷门专业</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==1"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}"   parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==2"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==3"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==4"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==5"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==6"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.department" ng-if="list.dwish_id==6 && list.classify==7"><a class="btn btn-default departClk" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4>
+                <i class="icon-fire"></i> 个性标签
+            </h4>
+        </div>
+        <div class="panel-body" id="character">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==1">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
+                                    {{list.name}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==2">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
+                                    {{list.name}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 基础-->
+            <div class="row">
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(家庭经济)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group">
+                        <label class="btn btn-warning">
+                            <input type="radio" name="economic" ng-model="hope.economy_option" /> 偏弱
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-default">
+                            <input type="radio" name="economic" /> 取消
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(等级级差)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 6分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 5分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 4分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 3分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 2分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-success">
+                            <input type="radio" name="score" /> 1分
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <label class="btn btn-default">
+                            <input type="radio" name="score" /> 取消
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(体检限项)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.physical" ng-if="list.classify == 1"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" physical_id="{{list.id}}" ng-dblclick="rejectPhysical($event)">{{list.code}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <ul class="nav nav-pills">
+                            <li ng-repeat="list in hope.physical" ng-if="list.classify == 2"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" physical_id="{{list.id}}" ng-dblclick="rejectPhysical($event)">{{list.code}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 语种-->
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(语种)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.languages"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(加试)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.drive"><a class="btn btn-default physiClk"  href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(多收费)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.charge"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-info">(中学强弱学科)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.strong"><a class="btn btn-default physiClk"  href="javascript:;;" parent_id="{{list.parentId}}" course_id="{{list.id}}" ng-click="agreeCourse($event)" ng-dblclick="rejectCourse($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 期望部分 -->
+            <div class="row">
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(就业)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.job"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeCourse($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(考研)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.pubmed"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeCourse($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(出国)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.goAbroad"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" graduate_id="{{list.id}}" ng-click="agreeGraduate($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学文)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==684"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学理)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==685"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学工)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==686"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 匹配部分-->
+            <div class="row">
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(喜欢与物打交道)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.matter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(喜欢与人打交道)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.people"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(喜欢关注大小事)</span></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.business"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" user_id="{{list.id}}" ng-click="agreeUser($event)" ng-dblclick="rejectUser($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(能力强弱)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.ability"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" ability_id="{{list.id}}" ng-click="agreeAbility($event)" ng-dblclick="rejectAbility($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(外向性格)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wcharacter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" nature_id="{{list.id}}" ng-click="agreeNature($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-warning">(内向性格)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.ncharacter"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" nature_id="{{list.id}}" ng-click="agreeNature($event)">{{list.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 优先-->
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-default">
+                <h4 class="text-left">亲，你的优先选项确定这样好吗？</h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.city_name" ><a href="javascript:;;">{{list}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.prop_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.style_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.belongs_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.style_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.attr_name" ><a href="javascript:;;">{{list}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.depart_name" ><a href="javascript:;;">{{list}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.depart_name2" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.gift_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.course_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.graduate_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.wish_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.user_name" ><a href="javascript:;;">{{list}}</a></li>
+                        <li ng-repeat="list in hope.nature_name" ><a href="javascript:;;">{{list}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-footer">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>志愿意向排序</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第一优先</option>
+                            <option value="1">高校</option>
+                            <option value="2">专业</option>
+                            <option value="3">城市</option>
+                            <option value="4">个性</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第二优先</option>
+                            <option value="1">高校</option>
+                            <option value="2">专业</option>
+                            <option value="3">城市</option>
+                            <option value="4">个性</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第三优先</option>
+                            <option value="1">高校</option>
+                            <option value="2">专业</option>
+                            <option value="3">城市</option>
+                            <option value="4">个性</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第四优先</option>
+                            <option value="1">高校</option>
+                            <option value="2">专业</option>
+                            <option value="3">城市</option>
+                            <option value="4">个性</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>意向高校优先排序</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第一优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第二优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第三优先</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="hope.departArr.length>0">
+                <div class="col-sm-2 text-right">
+                    <h4>意向专业优先排序</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-if="hope.departArr.length>0">
+                        <select class="form-control" ng-model="hope.departOpt1" ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第一优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.departArr.length>1">
+                        <select class="form-control"  ng-model="hope.departOpt2"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第二优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.departArr.length>2">
+                        <select class="form-control"  ng-model="hope.departOpt3"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第三优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.departArr.length>3">
+                        <select class="form-control"  ng-model="hope.departOpt4"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第四优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.departArr.length>4">
+                        <select class="form-control" ng-model="hope.departOpt5"  ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第五优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.departArr.length>5">
+                        <select class="form-control"  ng-model="hope.departOpt6" ng-options="arr.name for arr in hope.departArr track by arr.id">
+                            <option value="">第六优先</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>个性满足优先排序</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第一优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第二优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第三优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第四优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第五优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">第六优先</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="hope.cityArr.length>0">
+                <div class="col-sm-2 text-right">
+                    <h4>意向城市优先排序</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="btn-group" ng-if="hope.cityArr.length>0">
+                        <select class="form-control" ng-model="hope.cityOpt1" ng-options="arr.name for arr in hope.cityArr track by arr.id">
+                            <option value="">第一优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.cityArr.length>1">
+                        <select class="form-control" ng-model="hope.cityOpt2" ng-options="arr.name for arr in cityArr track by arr.id">
+                            <option value="">第二优先</option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.cityArr.length>2">
+                        <select class="form-control"ng-model="hope.cityOpt3" ng-options="arr.name for arr in cityArr track by arr.id">
+                            <option value="">第三优先</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">志愿表提交选项卡</h4>
+            </div>
+            <div class="modal-body">
+                <p>1.自动生成志愿表</p>
+                <p>2.自选生成志愿表</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#modal-pay">随机生成</button>
+                <a ng-click="manual()"   class="btn btn-success">手动选择</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">支付</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否愿意支付100元，获取志愿参考表</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                <a ng-click="pay()" class="btn btn-primary">是</a>
+            </div>
+        </div>
+    </div>
+</div>

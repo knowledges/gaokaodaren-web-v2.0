@@ -1,10 +1,70 @@
 <div class="menu-div">
     <div class="container-fluid">
-        <nav class="nav nav-pills" ng-if="will.isShowWill">
-            <li ng-repeat="list in will.list"><a>{{list.time | date :'yyyy-MM-dd hh:mm:ss'}}</a></li>
-        </nav>
-        <nav class="nav nav-pills" ng-if="refer.isShowRefer">
+        <!--<nav class="nav nav-pills" ng-if="will.isShowWill">-->
+            <!--<li ng-repeat="list in will.list"><a>{{list.time | date :'yyyy-MM-dd hh:mm:ss'}}</a></li>-->
+        <!--</nav>-->
+
+        <table class="table" ng-if="will.list.length>0">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>科目</td>
+                    <td>成绩</td>
+                    <td>选测科目等级</td>
+                    <td>支付情况</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="list in will.list">
+                    <td>{{$index+1}}</td>
+                    <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
+                    <td>{{list.score}}</td>
+                    <td>
+                        <span ng-switch="list.sel">
+                            <span ng-switch-when="5">A+</span>
+                            <span ng-switch-when="4">A</span>
+                            <span ng-switch-when="3">B+</span>
+                            <span ng-switch-when="2">B</span>
+                            <span ng-switch-when="1">C</span>
+                            <span ng-switch-when="0">D</span>
+                        </span>
+                        <span ng-switch="list.obl">
+                            <span ng-switch-when="5">,A+</span>
+                            <span ng-switch-when="4">,A</span>
+                            <span ng-switch-when="3">,B+</span>
+                            <span ng-switch-when="2">,B</span>
+                            <span ng-switch-when="1">,C</span>
+                            <span ng-switch-when="0">,D</span>
+                        </span>
+                    </td>
+                    <td>{{list.flag == 0 ?"已支付":"未支付"}}</td>
+                    <td><a href="javascript:;;" class="btn btn-default">查看意向表</a></td>
+                </tr>
+            </tbody>
+        </table>
+       <!-- <nav class="nav nav-pills" ng-if="refer.isShowRefer">
             <li ng-repeat="list in refer.list"><a href="#/refer?orderId={{list.orderId}}&type={{list.division}}">{{list.time | date :'yyyy-MM-dd hh:mm:ss'}}</a></li>
-        </nav>
+        </nav>-->
+        <table class="table" ng-if="refer.list.length>0">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>科目</td>
+                    <td>订单生成时间</td>
+                    <td>交易金额</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="list in refer.list">
+                    <td>{{$index+1}}</td>
+                    <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
+                    <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
+                    <td>{{list.money}}</td>
+                    <td><a class="btn btn-default" href="#/refer?orderId={{list.orderId}}&type={{list.division}}">查看参考表</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

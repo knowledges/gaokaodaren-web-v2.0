@@ -4,19 +4,19 @@
 angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
     .constant("provinceURL","/city/province")
 //.constant("provinceURL","../JSON/province.json")
-    .constant("tubeURL","../JSON/attribute.json")
+    .constant("tubeURL","/JSON/attribute.json")
 //.constant("propURL","/school/prop?depart_type=1")
     .constant("propURL","../JSON/prop.json")
-    .constant("type2","../JSON/areali_1.json")
-    .constant("type4","../JSON/areali_2.json")
-    .constant("type6","../JSON/areali_3.json")
+    .constant("type2","/JSON/areali_1.json")
+    .constant("type4","/JSON/areali_2.json")
+    .constant("type6","/JSON/areali_3.json")
 
-    .constant("type1","../JSON/areawen_1.json")
-    .constant("type3","../JSON/areawen_2.json")
-    .constant("type5","../JSON/areawen_3.json")
+    .constant("type1","/JSON/areawen_1.json")
+    .constant("type3","/JSON/areawen_2.json")
+    .constant("type5","/JSON/areawen_3.json")
 
-    .constant("type8","../JSON/areagl_1.json")
-    .constant("type7","../JSON/areagw_1.json")
+    .constant("type8","/JSON/areagl_1.json")
+    .constant("type7","/JSON/areagw_1.json")
 
     .controller("wishTabCtr-attr",['$scope',"$timeout",'$location',"ZYBinfoDATA","provinceURL","propURL","AJAX","tubeURL","loadSelection","loadingFilter",'type1','type2','type3','type4','type5','type6','type7','type8',function($scope,$timeout,$location,ZYBinfoDATA,provinceURL,propURL,AJAX,tubeURL,loadSelection,loadingFilter,type1,type2,type3,type4,type5,type6,type7,type8){
         $scope.attr = ZYBinfoDATA;
@@ -32,9 +32,9 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         //////////////////////////////////////////////////////////////
 
         $scope.zyb = {
-            city_prefer:[],//ÓÅÏÈµØÇø
-            city_ignore:[],//¾Ü¾øµØÇø
-            city_name:[],//ÓÅÏÈµØÇøÃû³Æ
+            city_prefer:[],//ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½
+            city_ignore:[],//ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ï¿½
+            city_name:[],//ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
 
         init();
@@ -71,9 +71,9 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
 
         var TimeFn = null;
         /**
-         * 1Í¬Òâ
-         * 0È¡Ïû
-         * 2È¡Ïû¾Ü¾ø
+         * 1Í¬ï¿½ï¿½
+         * 0È¡ï¿½ï¿½
+         * 2È¡ï¿½ï¿½ï¿½Ü¾ï¿½
          * */
         $scope.clickEvent = function($event,id){
             var then = this.list.name;
@@ -129,7 +129,7 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         }
 
         /**
-         * ¾Ü¾ø
+         * ï¿½Ü¾ï¿½
          **/
         $scope.dblclickEvent = function($event,id){
             var then = this.list.name;
@@ -221,26 +221,26 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
         },500);
 
         function loadingSelCity() {
-            /**¼ÓÔØÑ¡ÖÐµÄ³ÇÊÐ*/
+            /**ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ³ï¿½ï¿½ï¿½*/
             var html = loadingFilter.loadFilter($scope.area, $scope.attr.city_prefer);
             $scope.area_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
             $scope.area_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
         }
 
         function loadingSelStyle() {
-            /**¼ÓÔØÑ¡ÖÐµÄÔºÐ£·ÖÀà*/
+            /**ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ðµï¿½ÔºÐ£ï¿½ï¿½ï¿½ï¿½*/
             var html = loadingFilter.loadFilter($scope.style, $scope.attr.style_prefer)
             $scope.style_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
             $scope.style_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
         }
 
-        function loadingSelAttr(){/**¼ÓÔØÑ¡ÖÐµÄ°ìÑ§ÐÔÖÊ */
+        function loadingSelAttr(){/**ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ°ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ */
         var html = loadingFilter.loadFilter($scope.attribute,$scope.attr.attr_prefer)
             $scope.attribute_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
             $scope.attribute_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
         }
 
-        function loadingBelongs(){/**¼ÓÔØÑ¡ÖÐµÄÔºÐ£Êô¹Ü*/
+        function loadingBelongs(){/**ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ðµï¿½ÔºÐ£ï¿½ï¿½ï¿½ï¿½*/
         var html = loadingFilter.loadFilter($scope.belongs,$scope.attr.belongs_prefer)
             $scope.belongs_list = html.split("-")[0].split(",") == "" ? [] : html.split("-")[0].split(",");
             $scope.belongs_id = html.split("-")[1].split(",") == "" ? [] : html.split("-")[1].split(",");
@@ -338,15 +338,15 @@ angular.module("gaokaoAPP.hope.selectd",['gaokaoAPP.hope'])
                     $scope.belongs_id.splice(index,1);
                 }
             }else{
-                if(name =="C9ÁªÃË"){
+                if(name =="C9ï¿½ï¿½ï¿½ï¿½"){
                     $scope.attr.prop7 = false;
-                }else if(name == "985¹¤³Ì¸ßÐ£"){
+                }else if(name == "985ï¿½ï¿½ï¿½Ì¸ï¿½Ð£"){
                     $scope.attr.prop3 = false;
-                }else if (name == "211¹¤³Ì¸ßÐ£"){
+                }else if (name == "211ï¿½ï¿½ï¿½Ì¸ï¿½Ð£"){
                     $scope.attr.prop4 = false;
-                }else if(name == "ÖÐÍâºÏ×÷°ìÑ§"){
+                }else if(name == "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§"){
                     $scope.attr.prop8 = false;
-                }else if (name="¹ú¼ÒÊ¾·¶ÐÔ¸ßµÈÖ°ÒµÔºÐ£"){
+                }else if (name="ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ô¸ßµï¿½Ö°ÒµÔºÐ£"){
                     $scope.attr.level1 = false;
                 }else{
                     $scope.attr.level2 = false;

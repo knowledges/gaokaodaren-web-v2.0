@@ -102,12 +102,18 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
-                <form class="navbar-form navbar-left " action="javascript:;;" role="search" style="display:none">
+                <form class="navbar-form navbar-left " action="javascript:;;" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="请输入搜索内容..."/>
+                        <input type="text" class="form-control" ng-model="user.search" placeholder="请输入搜索内容..." style="width: 150px!important;"/>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
                     </div>
                     <a href="javascript:;;" class="btn btn-default head-serche">
-                        <i class="glyphicon glyphicon-search"></i>
+                        <i class="glyphicon glyphicon-search"  ng-click="totalSearch()"></i>
                     </a>
                 </form>
                 <li><a ng-click="login()" href="javascript:;;" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>

@@ -2,8 +2,8 @@
  * Created by qbl on 2015/10/13.
  */
 angular.module("gaokaoAPP.hope.college",[])
-    .constant("marjorURL","../JSON/marjor.json")
-//.constant("departURL","../JSON/marjorType.json")
+    .constant("marjorURL","/JSON/marjor.json")
+//.constant("departURL","/JSON/marjorType.json")
     .constant("departURL","/depart/new")
     .controller("wishTabCtr-colleges",['$scope',"$timeout","ZYBinfoDATA","marjorURL","departURL","AJAX",function($scope,$timeout,ZYBinfoDATA,marjorURL,departURL,AJAX){
 
@@ -76,7 +76,7 @@ angular.module("gaokaoAPP.hope.college",[])
             $scope.isShowColleges = false;
         }
 
-        function loadingSelMarjor(){ /**加载选中的专业*/
+        function loadingSelMarjor(){ /**锟斤拷锟斤拷选锟叫碉拷专业*/
         var depart_list = [],depart_id = [];
             for(var i = 0 ; i<$scope.marjor_list.length;i++){
                 for(var j = 0; j<$scope.marjor.depart_prefer.length;j++){

@@ -14,11 +14,7 @@ define(['app'],function(app){
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
     }]);
-    app.factory('homeService',function(){
-        return {
-            htmlPage:""
-        }
-    });
+
     //注销
     app.constant("logoutURL","/logout");
     //主页8大菜单
@@ -33,7 +29,7 @@ define(['app'],function(app){
         var request = function(path,method,data){
             if(method == undefined || method == 'GET'){
                 return $http({
-                    url:path,
+                    url:"/loocha"+path,
                     method: 'GET',
                     params:data,
                 })
@@ -61,7 +57,7 @@ define(['app'],function(app){
         }
     }]);
     app.config(function($stateProvider, $urlRouterProvider){
-
+        window.url = "/loocha";
         //$urlRouterProvider.when("", "/home");
         $urlRouterProvider.when("/all", "all/score");
         $urlRouterProvider.when("/example", "example/exampleNav");
@@ -75,11 +71,11 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js']);
+                        return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js','js/Controller/navbar/new.js']);
                     }],
                     data_province:function($q,$http,provinceURL){
                         var dtd = $q.defer();
-                        $http.get(provinceURL).then(function (response) {
+                        $http.get(url+provinceURL).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -88,7 +84,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel2:function($q,$http,men2){
                         var dtd = $q.defer();
-                        $http.get(men2).then(function (response) {
+                        $http.get(url+men2).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -97,7 +93,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel3:function($q,$http,men3){
                         var dtd = $q.defer();
-                        $http.get(men3).then(function (response) {
+                        $http.get(url+men3).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -106,7 +102,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel4:function($q,$http,men4){
                         var dtd = $q.defer();
-                        $http.get(men4).then(function (response) {
+                        $http.get(url+men4).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -115,7 +111,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel5:function($q,$http,men5){
                         var dtd = $q.defer();
-                        $http.get(men5).then(function (response) {
+                        $http.get(url+men5).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -124,7 +120,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel6:function($q,$http,men6){
                         var dtd = $q.defer();
-                        $http.get(men6).then(function (response) {
+                        $http.get(url+men6).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -133,7 +129,7 @@ define(['app'],function(app){
                     },
                     data_HomeModel7:function($q,$http,men7){
                         var dtd = $q.defer();
-                        $http.get(men7).then(function (response) {
+                        $http.get(url+men7).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -143,6 +139,7 @@ define(['app'],function(app){
                 }
             })
             .state("hope", {/*意向*/
+//                url: "/type=:type&devision=:devision&user_level=:user_level",
                 url: "/hope",
                 templateUrl: "html/hope/newhope.html",
                 controllerUrl:"js/hope/newhope",
@@ -150,7 +147,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+                        return $ocLazyLoad.load(['js/hope/newhope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
                     }]
                 }
             })
@@ -233,14 +230,24 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"onlineNav",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/online/online.js','js/Controller/navbar/nav.js','js/Controller/listGroup/groupOnline.js','js/Controller/showInfo/showInfo.js']);
+                    }]
+                }
             })
             .state('online.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/showInfo/showInfo.html',
                 controller:"js/Controller/showInfo/showInfo",
                 controller:"onlineInfoCtr",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/online/online.js','js/Controller/navbar/nav.js','js/Controller/listGroup/groupOnline.js','js/Controller/showInfo/showInfo.js']);
+                    }]
+                }
             })
             .state('city', {//城市介绍
                 url: '/city',
@@ -250,7 +257,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/city/city.js','js/Controller/navbar/city.js','js/Controller/navbar/content.js','js/Controller/menu/menu.js']);
+                        return $ocLazyLoad.load(['js/city/city.js','js/Controller/navbar/city.js','js/Controller/navbar/content.js','js/Controller/navbar/new.js','js/Controller/menu/menu.js']);
                     }]
                 }
             })
@@ -262,7 +269,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js','js/city/city.js','js/Controller/navbar/city.js','js/Controller/navbar/new.js','js/Controller/navbar/content.js','js/Controller/menu/menu.js']);
                     }]
                 }
             })
@@ -313,7 +320,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js']);
+                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js','js/marjor/marjor.js']);
                     }]
                 }
             })
@@ -322,7 +329,12 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 data: { isPublic: true},
-                controller:"marjorNav"
+                controller:"marjorNav",
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js','js/Controller/navbar/new.js','js/marjor/marjor.js']);
+                    }]
+                }
             })
             .state('marjor.list',{
                 url:"/{type:[0-9]{1,4}}",
@@ -339,7 +351,7 @@ define(['app'],function(app){
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/listGroup/groupRecipe.js','js/Controller/navbar/nav.js']);
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupRecipe.js','js/Controller/navbar/nav.js','js/recipe/recipe.js']);
                     }]
                 }
             })
@@ -348,7 +360,12 @@ define(['app'],function(app){
                 templateUrl:'html/nav/nav.html',
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:'recipeCtr',
-                data: { isPublic: true }
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js','js/Controller/navbar/new.js']);
+                    }]
+                }
             })
             .state('recipe.list',{
                 url:'/itemId=:itemId&param=:param',
@@ -365,7 +382,7 @@ define(['app'],function(app){
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/listGroup/groupScore.js','js/Controller/navbar/nav.js','js/Controller/recipe/recipe.js']);
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupScore.js','js/Controller/navbar/nav.js','js/Controller/recipe/recipe.js','js/score/score.js']);
                     }]
                 }
             })
@@ -374,7 +391,12 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"scoreNav",
-                data: { isPublic: true }
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js','js/Controller/navbar/new.js']);
+                    }]
+                }
             })
             .state('score.list',{
                 url:'/itemId=:itemId&param=:param',
@@ -400,7 +422,12 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"policyNav",
-                data: { isPublic: true }
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav','js/Controller/navbar/new.js']);
+                    }]
+                }
             })
             .state('policy.list',{
                 url:'/itemId=:itemId&param=:param',
@@ -417,7 +444,7 @@ define(['app'],function(app){
                 data: {isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/listGroup/groupJob.js']);
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupJob.js','js/Controller/navbar/nav','js/Controller/navbar/new.js']);
                     }]
                 }
             })
@@ -427,6 +454,11 @@ define(['app'],function(app){
                 controllerUrl:"js/Controller/navbar/nav",
                 controller: "jobNav",
                 data: {isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupJob.js','js/Controller/navbar/nav','js/Controller/navbar/new.js']);
+                    }]
+                }
             })
             .state('job.list', {
                 url: '/itemId=:itemId&param=:param',
@@ -452,7 +484,12 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controllerUrl:"js/Controller/navbar/nav",
                 controller:"uniqueNav",
-                data: { isPublic: true }
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/nav.js','js/Controller/navbar/new.js']);
+                    }]
+                }
             })
             .state('unique.list',{
                 url:'/itemId=:itemId&param=:param',
@@ -482,7 +519,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['lib/AES.js']);
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/login.js']);
                     }]
                 }
             })
@@ -491,7 +528,12 @@ define(['app'],function(app){
                 templateUrl: "html/login/forget.html",
                 controllerUrl:"js/login/login",
                 controller:"forgetCtr",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/login.js']);
+                    }]
+                }
             })
 ///////////////////////////////我的足迹///////////////////////////////////////////////////////////////////////////////////
             .state('all', {
@@ -526,7 +568,7 @@ define(['app'],function(app){
                 controller:"referenceCtr",
                 data: { isPublic: false}
             })
-        ///////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
             .state("pay",{
                 url:"/pay",
                 templateUrl:"html/pay/pay.html",
@@ -546,17 +588,32 @@ define(['app'],function(app){
             .state('refer1',{
                 url:"/refer1",
                 templateUrl:"html/refer/refer1.html",
+                controllerUrl:"js/refer/refer1",
+                controller:'referCtr',
                 data: { isPublic: true}
             })
-
+////////////////////////////////全站搜索///////////////////////////////////////////////////////////////////////////////////////
+            .state("search",{
+                url:"/search/key=:key",
+                templateUrl:"html/search/search.html",
+                controllerUrl:"js/search/search",
+                controller:"searchCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/search/search.js']);
+                    }]
+                }
+            })
     });
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
             name : "",
+            search:""
         }
         $scope.isShow = false;
-        $scope.user.name = sessionStorage.getItem('usernumber');
+        $scope.user.name = sessionStorage.getItem('usernumber') ;
         if($scope.user.name != null && $scope.user.name.length>= 1){
             $scope.user.islogin = true;
         }else{
@@ -588,6 +645,11 @@ define(['app'],function(app){
                     $scope.user.name ="";
                     window.location.reload();
                 });
+        }
+
+        /*TODO 查询*/
+        $scope.totalSearch = function(){
+            window.location.href = "#/search/key="+$scope.user.search;
         }
     }]);
     app.controller("pageJumpCtr",['$scope','$window',function($scope,$window){

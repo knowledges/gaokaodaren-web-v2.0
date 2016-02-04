@@ -2,7 +2,7 @@
  * Created by qbl on 2015/10/13.
  */
 require(['app'],function(app){
-    app.constant("personalityURL","../JSON/cool.json")
+    app.constant("personalityURL","/JSON/cool.json")
     app.controller("wishTabCtr-cool",['$scope','$timeout','ZYBinfoDATA','personalityURL','AJAX',"loadClickEvent","loadDblclickEvent","loadClickAll","loadClickCancle",function($scope,$timeout,ZYBinfoDATA,personalityURL,AJAX,loadClickEvent,loadDblclickEvent,loadClickAll,loadClickCancle){
             $scope.personality = ZYBinfoDATA;
             $scope.isShowPersonality = false;

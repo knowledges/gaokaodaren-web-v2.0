@@ -37,8 +37,9 @@ require.config({
             deps:['jquery'],
             exprots:'jquery-placeholder'
         }
-    },
-    urlArgs: "bust=" + (new Date()).getTime()
+    }
+    /*,
+    urlArgs: "bust=" + (new Date()).getTime()*/
 });
 require(['angular','./app-routes'],function(angular){
     angular.element(document).ready(function(){

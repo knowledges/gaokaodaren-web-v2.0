@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller("myScore", ['$scope','$window',function ($scope,$window) {
+    app.controller("myScore", ['$scope','$window','$http',function ($scope,$window,$http) {
 
         $scope.recommShow = false;
         $scope.table = {
@@ -12,7 +12,8 @@ require(['app'],function(app){
             score:"",
             subject:"",
             sub1:"",
-            myScore:""
+            myScore:"",
+            newScore:0
         }
 
         init();
@@ -39,23 +40,20 @@ require(['app'],function(app){
                     name: "D"
                 }
             ];
-
-            if(localStorage.getItem("score") != null){
-                $scope.table.myScore = JSON.parse(localStorage.getItem("score"));
-            }
-            //判断 是否有使用成绩
-            if(localStorage.getItem("score")!=null){
-                var obj = {}
-                $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
-                    if (val.state == 1) {
-                        obj = val;
-
-                        //TODO 请求一次推荐信息
-                        $scope.recommShow = true;
+            
+            var user_id  = parseInt(sessionStorage.getItem("user_id"));
+            
+            $http.get("/loocha/uscore?user_id="+user_id).success(function(data,status){
+            	$scope.table.myScore = data.response;
+                $.each(data.response,function(i,v){
+                    if(v.userTime>0){
+                        sessionStorage.setItem('uScore',JSON.stringify(v));
+                        $scope.table.newScore = v.score;
                     }
                 });
+            });
 
-            }
+            /*TODO 页面中的8个批次最好走数据库 目前是本地*/
         };
 
         $scope.$watch('table.subject',function(newValue,oldValue){
@@ -69,54 +67,66 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(table){
-
-            if(table.sel == null){
-                alert('请选择科目等级');
+            if(table.score <=0){
+                alert('分数不能小于0！');
+            }else if(table.sel == null){
+                alert('请选择科目等级！');
             }else if(table.obl == null){
-                alert('请选择科目等级');
+                alert('请选择科目等级！');
             }
 
             var arr = [];
             var param = {};
-            param.subject = $scope.table.subject == "1" ?"文科":"理科";
-            param.score = $scope.table.score;
-            param.level = $scope.table.sub1+table.obl.name+","+$scope.table.sub2+table.sel.name;
-            param.date = new Date().getTime();
-
-            if(localStorage.getItem("score") == null){
-                param.state = 0;
-                arr.push(param);
-                localStorage.setItem("score",JSON.stringify(arr));
-            }else {
-                var array = JSON.parse(localStorage.getItem("score"));
-                param.state = 0;
-                array.push(param);
-                localStorage.setItem("score",JSON.stringify(array));
-            }
-            $window.location.reload();
-
-            //TODO 请求志愿 推荐内容
-
-        };
-
-        $scope.setUp = function(index){
-            $scope.recommShow = true;
-            //TODO 请求志愿 推荐内容
-
-            //把状态记录本地
-            var arr = []
-            $.each(JSON.parse(localStorage.getItem("score")), function (idx, val) {
-                if (idx == index) {
-                    val.state = 1
-                } else {
-                    val.state = 0
-                }
-
-                arr.push(val);
+                param.user_id = sessionStorage.getItem("user_id");
+                param.subject = $scope.table.subject;
+                param.score = $scope.table.score;
+                param.sub_a = $scope.table.sub1;
+                param.sub_b = $scope.table.sub2;
+                param.level_a = table.obl.name;
+                param.level_b = table.sel.name;
+                param.year = new Date().getFullYear();
+            
+            var tramsform = function(data){
+                return $.param(data);
+            };
+            
+            $http.post("/loocha/uscore/addscore",param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(responseDate){
+            	$window.location.reload(0);
             });
-            localStorage.setItem("score",JSON.stringify(arr));
-            $window.location.reload();
         };
 
+        $scope.setUp = function(e){
+            var that = $(e.target),index = that.attr("list_id"),score = that.attr("score");
+        	 var tramsform = function(data){
+                 return $.param(data);
+             };
+    		$http.post("/loocha/uscore/"+index,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(data,status){
+                alert("该成绩已开始使用");
+                $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
+                    sessionStorage.setItem('uScore',JSON.stringify(data.response));
+                    $window.location.reload(0);
+                });
+            })
+        };
+
+        /**
+         * 填志愿意向表前的判断
+         * @param e 当前对象
+         */
+        $scope.startTable = function(e){
+            var that = $(e.target),score = that.attr('score'),type = that.attr('type');
+            if(score<=$scope.table.newScore){
+                sessionStorage.setItem('type',type);
+                $window.location.href = "#/hope";
+            }else{
+                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+            }
+        }
     }]);
 });

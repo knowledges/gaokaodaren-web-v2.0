@@ -3,7 +3,7 @@
  */
 define(['app','jquery','bootstrap'],function(app,$,bootstrap){
 
-    app.controller("homeCtrl",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7) {
+    app.controller("homeCtrl",['$scope','$window','$sce','AJAX','homeService','data_province','data_HomeModel2','data_HomeModel3','data_HomeModel4','data_HomeModel5','data_HomeModel6','data_HomeModel7','displayService',function($scope,$window,$sce,AJAX,homeService,data_province,data_HomeModel2,data_HomeModel3,data_HomeModel4,data_HomeModel5,data_HomeModel6,data_HomeModel7,displayService) {
         $scope.table = {
             tbyl:"",
             fsfx:"",
@@ -13,7 +13,7 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
             zxxl:""
         };
 
-        $scope.ishide = true;
+        $scope.ishide = displayService.isShow;
         $scope.service = homeService;
         $scope.insertHTML = "";
         $scope.$watch('service',function(newValue){
