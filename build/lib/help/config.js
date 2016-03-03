@@ -1,6 +1,7 @@
 /**
  * Created by qbl on 2015/11/25.
  */
+'use strict';
 define(['require',
         'angualr',
         'angular-route',
@@ -8,7 +9,7 @@ define(['require',
         'jquery',
         'app'
 ], function (require, angular) {
-    'use strict';
+
     require(['domReady!'],function(document){
         angular.utils(document,['gaokaoAPP'])
     })

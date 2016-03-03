@@ -100,19 +100,27 @@ require(['app'],function(app){
 
         $scope.setUp = function(e){
             var that = $(e.target),index = that.attr("list_id"),score = that.attr("score");
-        	 var tramsform = function(data){
-                 return $.param(data);
-             };
-    		$http.post("/loocha/uscore/"+index,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(data,status){
+            $http.get('/loocha/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
                 alert("该成绩已开始使用");
                 $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
                     sessionStorage.setItem('uScore',JSON.stringify(data.response));
                     $window.location.reload(0);
                 });
-            })
+            });
+
+            //var tramsform = function(data){
+            //    return $.param(data);
+            //};
+            //$http.post("/loocha/uscore/"+index,{
+            //    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+            //    transformRequest:tramsform
+            //}).success(function(data,status){
+            //    alert("该成绩已开始使用");
+            //    $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
+            //        sessionStorage.setItem('uScore',JSON.stringify(data.response));
+            //        $window.location.reload(0);
+            //    });
+            //})
         };
 
         /**

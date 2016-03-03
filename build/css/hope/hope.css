@@ -2,18 +2,28 @@
   margin: 5px 0;
 }
 .cancle {
-  background: #FFF!important;;
-  color: #333!important;;
+  color: #337ab7!important;
+  text-decoration: none;
+  background: none;
+}
+.cancle:hover{
+  text-decoration: none;
+  background-color: #eee!important;
 }
 .agree {
   background: green!important;
   color: #FFF!important;;
 }
 .reject {
-  background: grey!important;;
-  color: gainsboro!important;;
+  background: grey!important;
+  color: #FFF!important;
 }
 .bs-radio{
-  margin-top: 12px;
+  margin-top: 12px!important;
   color: orange;
+}
+.nav-scroll{
+  border: 1px solid #ccc;
+  height: 250px!important;
+  overflow-y: scroll;
 }

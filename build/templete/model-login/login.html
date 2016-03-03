@@ -1,52 +1,51 @@
 <div class="col-md-6" role="login">
     <form name="login" ng-submit="signin(user)" novalidate>
-    <div class="form-horizontal form-signin text-left">
-        <h1 class="form-signin-heading text-center">
-            登陆
-        </h1>
-        <label class="src-only" for="username"></label>
-        <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="14" ng-maxlength="14" ng-pattern="/^[\d]+$/" class="form-control login-input" placeholder="请输入用户名" required autofocus>
-        <label ng-if="login.name.$error.required" class="red">用户名不能为空</label>
-        <label ng-if="login.name.$error.minlength" class="red">输入格式必学是14位</label>
-        <label ng-if="login.name.$error.maxlength" class="red">输入格式必学是14位</label>
-        <label ng-if="login.name.$error.pattern" class="red">只能是数字</label>
-        <lable class="src-only" for="password"></lable>
-        <input type="password" id="password" name="pwd" ng-model="user.password" ng-minlength="6" ng-pattern="/^[\w]+$/" class="form-control login-input" required placeholder="请输入密码">
-        <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
-        <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
-        <div class="row">
-            <div class="col-sm-5  login-input">
-                <lable class="src-only" for="validate"></lable>
-                <input type="text" id="validate" name="valid" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placeholder="请输入验证码" required>
+        <div class="form-horizontal form-signin text-left">
+            <h1 class="form-signin-heading text-center">
+                登陆
+            </h1>
+            <label class="src-only" for="username"></label>
+            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="14" ng-maxlength="14" ng-pattern="/^[\d]+$/" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+            <label ng-if="login.name.$error.required" class="red">用户名不能为空</label>
+            <label ng-if="login.name.$error.minlength" class="red">输入格式必学是14位</label>
+            <label ng-if="login.name.$error.maxlength" class="red">输入格式必学是14位</label>
+            <label ng-if="login.name.$error.pattern" class="red">只能是数字</label>
+            <lable class="src-only" for="password"></lable>
+            <input type="password" id="password" name="pwd" ng-model="user.password" ng-minlength="6" ng-pattern="/^[\w]+$/" class="form-control login-input" required placeholder="请输入密码">
+            <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
+            <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
+            <div class="row">
+                <div class="col-sm-5  login-input">
+                    <lable class="src-only" for="validate"></lable>
+                    <input type="text" id="validate" name="valid" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placeholder="请输入验证码" required>
+                </div>
+                <div class="col-sm-4  login-input">
+                    <img ng-src="{{user.img}}" alt="高考"/>
+                </div>
+                <div class="col-sm-3 login-input">
+                    <a href="javascript:;;" class="btn btn-default btn-block" ng-click="repeat();">
+                        <i class="icon-repeat"></i>
+                    </a>
+                </div>
             </div>
-            <div class="col-sm-4  login-input">
-                <img ng-src="{{user.img}}" alt="高考"/>
+            <label ng-if="login.valid.$error.minlength" class="red">验证码个数至少4位数</label>
+            <label ng-if="login.valid.$error.pattern" class="red">验证码输入有误</label>
+            <div class="checkbox login-remember">
+                <lable>
+                    <input type="checkbox" value="记住我" name="remember" ng-model="user.remember" ng-click="check(user.remember)" id="isRemember">
+                    记住我
+                </lable>
+                <a href="#/forget" class="login-a-remember">忘记密码？<i class="icon-double-angle-right"></i></a>
             </div>
-            <div class="col-sm-3 login-input">
-                <a href="javascript:;;" class="btn btn-default btn-block" ng-click="repeat();">
-                    <i class="icon-repeat"></i>
-                </a>
+            <div class="row login-input">
+                <div class="col-sm-6">
+                    <button ng-disabled="login.$invalid" class="btn btn-success btn-lg btn-block" type="submit">登陆</button>
+                    <!--<a href="javascript:;;" ng-click="signin(user);" class="btn btn-success btn-lg btn-block">登陆</a>-->
+                </div>
+                <div class="col-sm-6">
+                    <a href="#/register" class="btn btn-default btn-lg btn-block">注册</a>
+                </div>
             </div>
         </div>
-        <label ng-if="login.valid.$error.minlength" class="red">验证码个数至少4位数</label>
-        <label ng-if="login.valid.$error.pattern" class="red">验证码输入有误</label>
-        <div class="checkbox login-remember">
-            <lable>
-                <input type="checkbox" value="记住我" name="remember" ng-model="user.remember" ng-click="check(user.remember)" id="isRemember">
-                记住我
-            </lable>
-            <a href="#/forget" class="login-a-remember">忘记密码？<i class="icon-double-angle-right"></i></a>
-        </div>
-        <div class="row login-input">
-            <div class="col-sm-6">
-                <button ng-disabled="login.$invalid" class="btn btn-success btn-lg btn-block" type="submit">登陆</button>
-                <!--<a href="javascript:;;" ng-click="signin(user);" class="btn btn-success btn-lg btn-block">登陆</a>-->
-            </div>
-            <div class="col-sm-6">
-                <a href="#/register" class="btn btn-default btn-lg btn-block">注册</a>
-            </div>
-        </div>
-
-    </div>
     </form>
 </div>

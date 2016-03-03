@@ -3,7 +3,7 @@
  */
 require(['app'],function(app){
     app.constant('articleURL',"/article");
-    app.controller('recipeInfoCtr',['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
+    app.controller("recipeInfoCtr",['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
             $scope.title = {
                 list :"",
                 menuList:"",
@@ -11,7 +11,7 @@ require(['app'],function(app){
                 breadcrumb_no:0,
                 infoId:[],
                 current:0
-            }
+            };
 
             init();
 
@@ -46,6 +46,7 @@ require(['app'],function(app){
             }
 
             function init (){
+                console.log("== 1 ==");
                 loadingMenuList();
                 loadingInfo($stateParams.itemId);
             }

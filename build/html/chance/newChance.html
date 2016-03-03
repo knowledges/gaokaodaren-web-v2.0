@@ -6,35 +6,31 @@
     </div>
 
     <div class="row text-left">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按概率预测可能录取高校概率
-            </label>
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按高校属地预测可能录取高校概率
-            </label>
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按高校属类预测可能录取高校概率
-            </label>
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按高校名称预测专业录取概率
-            </label>
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按专业预测可能录取高校概率
-            </label>
-        </div>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-                <input type="checkbox" autocomplete="off"> 按个性标签预测可能录取高校概率
-            </label>
-        </div>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按概率范围预测高校录取概率
+        </label>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按院校属地预测高校录取概率
+        </label>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按院校属类预测高校录取概率
+        </label>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按具体院校预测可能录取高校专业录取概率
+        </label>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按具体专业预测高校录取概率
+        </label>
+        <label class="btn btn-primary">
+            <input type="checkbox" autocomplete="off"> 按个性满足预测高校专业录取概率
+        </label>
         <button class="btn btn-default">缴费预测</button>
     </div>
 
     <!-- 按概率-->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4><i class="icon-signal"></i> 按概率预测可能录取高校概率</h4>
+            <h4><i class="icon-signal"></i> 按概率范围预测高校录取概率</h4>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -43,49 +39,44 @@
                         <td width="115" style="text-align: center">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">小概率<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:;;">小概率</a></li>
-                                        <li><a href="javascript:;;">25%↑~50%</a></li>
-                                        <li><a href="javascript:;;">50%↑~75%</a></li>
-                                        <li><a href="javascript:;;">5%↑~85%</a></li>
-                                        <li><a href="javascript:;;">85%↑~95%</a></li>
-                                        <li><a href="javascript:;;">95%↑~96%</a></li>
-                                        <li><a href="javascript:;;">96%↑~97%</a></li>
-                                        <li><a href="javascript:;;">97%↑~98%</a></li>
-                                        <li><a href="javascript:;;">98%↑~99%</a></li>
-                                        <li><a href="javascript:;;">99%↑</a></li>
-                                        <li><a href="javascript:;;">大概率</a></li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="请选择预测的概率范围">概率范围<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" id="chanceType">
+                                        <li><a href="javascript:;;" data-param="1">小概率</a></li>
+                                        <li><a href="javascript:;;" data-param="2">25%↑~50%</a></li>
+                                        <li><a href="javascript:;;" data-param="3">50%↑~75%</a></li>
+                                        <li><a href="javascript:;;" data-param="4">75%↑~85%</a></li>
+                                        <li><a href="javascript:;;" data-param="5">85%↑~95%</a></li>
+                                        <li><a href="javascript:;;" data-param="6">95%↑</a></li>
+                                        <li><a href="javascript:;;" data-param="7">大概率</a></li>
+                                        <li><a href="javascript:;;" data-param="8">不确定</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </td>
                         <td style="vertical-align: middle;">学校名称</td>
-                        <td width="150" style="vertical-align: middle;">概率</td>
+                        <td width="150" style="vertical-align: middle;">录取概率</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="chanceBody" style="display: none;">
                     <tr>
-                        <td style="vertical-align: middle;">小概率</td>
+                        <td style="vertical-align: middle;" id="chanceText"></td>
                         <td>
-                            <select class="form-control">
-                                <option value="0">==请选择高校==</option>
-                                <option value="1">南京工业大学</option>
-                                <option value="2">东南大学</option>
-                                <option value="3">南京财经大学</option>
+                            <select class="form-control" ng-model="school.chanceSch"  ng-options="door.name for door in chance track by door.id">
+                                <option value="">==请选择高校==</option>
                             </select>
                             <ul class="nav nav-bar">
-                                <li><a href="">南京工业大学</a></li>
+                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.chanceSch.id}}">{{school.chanceSch.name}}</a></li>
                             </ul>
                         </td>
                         <td style="vertical-align: middle;">
-                            98%
+                            <button class="btn btn-default">获取概率</button>
                         </td>
                     </tr>
+
                 </tbody>
             </table>
             <p>
-                点击<strong>高校名称</strong>可查询学校情况
+                点击<strong>高校名称</strong>可查询学校情况,且概率范围每一类，可以查询3所高校概率
             </p>
         </div>
 
@@ -93,7 +84,7 @@
     <!-- 按属地-->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4> <i class="icon-building"></i> 按高校属地预测可能录取高校概率</h4>
+            <h4> <i class="icon-building"></i> 按院校属地预测高校录取概率</h4>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -102,14 +93,14 @@
                         <td width="150">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市类别<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">江苏省</a></li>
-                                        <li><a href="#">一线城市</a></li>
-                                        <li><a href="#">二线城市</a></li>
-                                        <li><a href="#">三线城市</a></li>
-                                        <li><a href="#">四线城市</a></li>
-                                        <li><a href="#">五线城市</a></li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属地<span class="caret"></span></a>
+                                    <ul class="dropdown-menu" id="provinceType">
+                                        <li><a href="javascript:;;" data-param="2">江苏省</a></li>
+                                        <li><a href="javascript:;;" data-param="3">一线城市</a></li>
+                                        <li><a href="javascript:;;" data-param="4">二线城市</a></li>
+                                        <li><a href="javascript:;;" data-param="5">三线城市</a></li>
+                                        <li><a href="javascript:;;" data-param="6">四线城市</a></li>
+                                        <li><a href="javascript:;;" data-param="7">五线城市</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -118,46 +109,39 @@
                         <td width="150" style="vertical-align: middle;">概率</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="provinceBody"  style="display: none;">
                     <tr>
                         <td>
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" id="proNav">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">江苏省<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">南京</a></li>
-                                        <li><a href="#">扬州</a></li>
-                                        <li><a href="#">泰州</a></li>
-                                    </ul>
+                                    <a href="javascript:;;" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="proName" ng-click="findCity($event)" city_id="0"></a>
+                                    <ul class="dropdown-menu" id="proList"></ul>
                                 </li>
                             </ul>
                         </td>
                         <td>
-                            <ul class="nav nav-bar">
-                                <li><a href="">南京</a></li>
-                            </ul>
-                            <select class="form-control">
-                                <option value="0">==请选择高校==</option>
-                                <option value="1">南京工业大学</option>
-                                <option value="2">东南大学</option>
-                                <option value="3">南京财经大学</option>
+                            <select class="form-control" ng-model="school.provinceSch"  ng-options="door.name for door in chance track by door.id">
+                                <option value="">==请选择高校==</option>
                             </select>
+                            <ul class="nav nav-bar">
+                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.provinceSch.id}}">{{school.provinceSch.name}}</a></li>
+                            </ul>
                         </td>
                         <td style="vertical-align: middle;">
-                            98%
+                            <button class="btn btn-default">获取概率</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <p>
-                点击<strong>城市名称</strong>可查询城市情况
+                点击<strong>城市名称</strong>可查询城市情况,且院校属地每一类，可以查询3所高校概率
             </p>
         </div>
     </div>
     <!-- 按属类-->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4> <i class="icon-building"></i> 按高校属类预测可能录取高校概率</h4>
+            <h4> <i class="icon-building"></i> 按院校属类预测高校录取概率</h4>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -166,12 +150,12 @@
                             <td width="150">
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">属类<span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">属性</a></li>
-                                            <li><a href="#">类别</a></li>
-                                            <li><a href="#">属管</a></li>
-                                            <li><a href="#">类别</a></li>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属类<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" id="propType">
+                                            <li><a href="javascript:;;" data-param="2">类别</a></li>
+                                            <li><a href="javascript:;;" data-param="3">类型</a></li>
+                                            <li><a href="javascript:;;" data-param="0">属性</a></li>
+                                            <li><a href="javascript:;;" data-param="1">属管</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -180,67 +164,58 @@
                             <td width="150">概率</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  id="propNav" style="display: none;">
                         <tr>
                             <td>
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">类别<span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">公办</a></li>
-                                            <li><a href="#">民办</a></li>
-                                        </ul>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="propName" ng-click="findProSch($event)"><span class="caret"></span></a>
+                                        <ul class="dropdown-menu" id="propList"> </ul>
                                     </li>
                                 </ul>
                             </td>
                             <td>
-                                <select class="form-control">
-                                    <option value="0">==请选择高校==</option>
-                                    <option value="1">南京工业大学</option>
-                                    <option value="2">东南大学</option>
-                                    <option value="3">南京财经大学</option>
+                                <select class="form-control" ng-model="school.propSch" ng-options="door.name for door in chance track by door.id">
+                                    <option value="">==请选择高校==</option>
                                 </select>
                                 <ul class="nav nav-bar">
-                                    <li><a href="">南京工业大学</a></li>
+                                    <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.propSch.id}}">{{school.propSch.name}}</a></li>
                                 </ul>
                             </td>
-                            <td>
-                                95%
+                            <td style="vertical-align: middle;">
+                                <button class="btn btn-default">获取概率</button>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
                 <p>
-                    点击<strong>高校名称</strong>可查询学校情况
+                    点击<strong>高校名称</strong>可查询学校情况,且院校属类每一类，可以查询3所高校概率
                 </p>
         </div>
     </div>
     <!-- 按学校预测各专业录取概率 -->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4><i class="icon-beaker"></i> 按高校名称预测专业录取概率</h4>
+            <h4><i class="icon-beaker"></i> 按具体院校预测可能录取高校专业录取概率</h4>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" ng-model="info.school" placeholder="请输入高校名称"/>
+                        <input type="text" class="form-control" ng-model="school.name" placeholder="请输入高校名称" ng-keydown="findDepart($event)" />
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <select name="" id="" class="form-control">
-                        <option value="0">==请选择专业==</option>
-                        <option value="1">财经学</option>
-                        <option value="2">金融学</option>
-                        <option value="3">经济学</option>
+                    <select class="form-control" ng-model="school.deparName" ng-options="depar.name for depar in school.deparlist track by depar.id">
+                        <option value="">==请选择专业==</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="">金融学</a></li>
+                        <li><a href="javascript:;;" depart_id="{{school.deparName.depart_id}}" ng-click="findDepartInfo($event)">{{school.deparName.name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2 text-center">
-                    录取概率
+                    <a href="javascript:;;" class="btn btn-default">录取概率</a>
                 </div>
             </div>
             <p >点击<strong>专业名称</strong>可查询专业情况</p>
@@ -249,49 +224,26 @@
     <!-- 按专业预测高校录取概率 -->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4><i class="icon-tasks"></i> 按专业预测可能录取高校概率</h4>
+            <h4><i class="icon-tasks"></i> 按具体专业预测高校录取概率</h4>
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option value="0">请选择专业门类</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="info.school" placeholder="请输入专业名称"/>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option value="0">请选择专业类</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <select class="form-control">
-                        <option value="0">请选择专业名称</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                    <ul class="nav nav-bar">
-                        <li><a href="">金融学</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <select class="form-control">
-                        <option value="0">南京工业大学</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
+                <div class="col-sm-6">
+                    <select class="form-control" ng-model="school.province"  ng-options="door.name for door in chance track by door.id">
+                        <option value="">==请选择高校==</option>
                     </select>
                     <ul class="nav nav-bar">
                         <li><a href="javascript:;;">南京工业大学</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-2">录取概率</div>
+                <div class="col-sm-2">
+                    <a href="javascript:;;" class="btn btn-default">录取概率</a>
+                </div>
             </div>
             <p>
                 点击 <strong>高校、专业名称</strong> 可查询具体信息
@@ -301,35 +253,16 @@
     <!-- 按个性标签预测学校概率 -->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4><i class="icon-tasks"></i> 按个性标签预测可能录取高校概率</h4>
+            <h4><i class="icon-tasks"></i> 按个性满足预测高校专业录取概率</h4>
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option value="0">个性类别</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="请输入标签内容"/>
+                    </div>
                 </div>
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option value="0">具体方向</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option value="0">个性标签</option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select class="form-control">
                         <option value="0">对应专业</option>
                         <option value="1"></option>
@@ -340,7 +273,7 @@
                         <li><a href="">金融类</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select class="form-control">
                         <option value="0">学校名称</option>
                         <option value="1"></option>
@@ -351,13 +284,114 @@
                         <li><a href="">南京工业大学</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-2">
-                    预测概率
+                <div class="col-sm-3">
+                    <a href="javascript:;;" class="btn btn-default">录取概率</a>
                 </div>
             </div>
             <p>
                 点击 <strong>高校、专业名称</strong> 可查询具体信息
             </p>
+        </div>
+    </div>
+</div>
+<div class="modal" id="mask-school" style="display: none; background:rgba(0, 0, 0, 0.53);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">院校详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <table width="828" border="0">
+                        <tr>
+                            <td width="150" rowspan="4" class="text-center">
+                                <img src="img/school.png" width="150" height="150" alt=""/>
+                            </td>
+                            <td height="44" colspan="4" style="border-bottom: 1px dashed #ccc;">
+                                <h3>
+                                    <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank">{{schoolInfo.name}}</a>
+                                    <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
+                                    <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
+                                    <span>选科等级：
+                                        <span ng-switch="school.art_sel_1">
+                                            <em ng-switch-when="5">A+,</em>
+                                            <em ng-switch-when="4">A,</em>
+                                            <em ng-switch-when="3">B+,</em>
+                                            <em ng-switch-when="2">B,</em>
+                                            <em ng-switch-when="1">C,</em>
+                                            <em ng-switch-when="0">D,</em>
+                                        </span>
+                                        <span ng-switch="school.art_sel_2">
+                                            <em ng-switch-when="5">A+</em>
+                                            <em ng-switch-when="4">A</em>
+                                            <em ng-switch-when="3">B+</em>
+                                            <em ng-switch-when="2">B</em>
+                                            <em ng-switch-when="1">C</em>
+                                            <em ng-switch-when="0">D</em>
+                                        </span>
+                                    </span>
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="136" height="23">类别：{{schoolInfo.attr_name}}</td>
+                            <td width="128">属地：{{schoolInfo.city_name}}</td>
+                            <td width="128">招生计划：{{schoolInfo.artST2014}}</td>
+                            <td width="98">
+                                <a href="{{schoolInfo.website}}" target="_blank" class="btn btn-info">去校园看看</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="23">类型：{{schoolInfo.style_name}}</td>
+                            <td>&nbsp;</td>
+                            <td>录取情况：{{schoolInfo.artST2014}}</td>
+                            <td>
+                                <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank" class="btn btn-info">简介</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="18">隶属：{{schoolInfo.belongs_name}}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-468191" data-toggle="tab">录取规则</a>
+                            </li>
+                            <li>
+                                <a href="#panel-574587" data-toggle="tab">招生章程</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-468191" style="overflow-y: scroll;height: 250px;">
+                                <p>
+                                    第一部分内容.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="panel-574587" style="overflow-y: scroll;height: 250px;" ng-bind-html="schoolInfo.article_content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="mask-depart" style="display: none; background:rgba(0, 0, 0, 0.53);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">专业详情</h4>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: scroll;"  ng-bind-html="school.departInfo"></div>
         </div>
     </div>
 </div>
