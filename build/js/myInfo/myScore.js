@@ -19,6 +19,10 @@ require(['app'],function(app){
         init();
 
         function init(){
+            $('#myModal').modal({
+                keyboard: false
+            })
+
             $scope.firstDoor = [
                 {
                     id: "5",
@@ -136,5 +140,10 @@ require(['app'],function(app){
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }
         }
+
+        $scope.createAdd = function(){
+            $(".bs-example-modal-sm").modal('show');
+        }
+
     }]);
 });

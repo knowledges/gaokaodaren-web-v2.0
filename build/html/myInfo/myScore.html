@@ -29,7 +29,7 @@
             <tr ng-repeat="list in table.myScore">
                 <td>{{list.subject == 1 ? "文科":"理科"}}</td>
                 <td>{{list.score}}</td>
-                <td>{{list.level_a}},{{list.level_b}}</td>
+                <td>{{list.subject == 1 ? "历史 "+list.level_a : "物理 "+list.level_a }}，{{list.subject == 1 ? "政治 "+list.level_b : "化学 "+list.level_b }}</td>
                 <td>{{list.time | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
                 <td>
                     <span ng-if="list.userTime > 0">正在使用该成绩</span>
@@ -38,9 +38,9 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-success btn-lg"  data-toggle="modal" data-target=".bs-example-modal-sm"><i class="icon-plus"></i>创建高考成绩</button>
+        <button class="btn btn-success btn-lg"  data-toggle="modal" ng-click="createAdd($event)"><i class="icon-plus"></i>创建高考成绩</button>
 
-        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal fade bs-example-modal-sm">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form ng-submit="addScore(table)">
