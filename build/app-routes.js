@@ -56,6 +56,26 @@ define(['app'],function(app){
             }
         }
     }]);
+    app.factory('getLoginUserInfo',['$http',function($http){
+        var userInfo ={
+            isLogoin:function(){
+               return $http.get('/loocha/user').success(function(){
+                   console.log('在优先范围内！');
+               }).error(function(e){
+                   sessionStorage.removeItem('type');
+                   sessionStorage.removeItem('uScore');
+                   sessionStorage.removeItem('user');
+                   sessionStorage.removeItem('user_id');
+                   sessionStorage.removeItem('usernumber');
+                   alert('登陆失效！');
+                   window.location.href = "#/home";
+                   window.location.reload();
+               });
+            }
+        }
+        return userInfo;
+
+    }]);
     app.config(function($stateProvider, $urlRouterProvider){
         window.url = "/loocha";
         $urlRouterProvider.when("", "/home");
@@ -67,7 +87,7 @@ define(['app'],function(app){
                 controller:"homeCtrl",
                 data: { isPublic: true},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js','js/Controller/navbar/new.js']);
                     }],
                     data_province:function($q,$http,provinceURL){
@@ -247,7 +267,7 @@ define(['app'],function(app){
             .state('online.list',{
                 url:'/itemId=:itemId&param=:param',
                 templateUrl:'html/showInfo/showInfo.html',
-                controller:"js/Controller/showInfo/showInfo",
+                controllerUrl:"js/Controller/showInfo/showInfo",
                 controller:"onlineInfoCtr",
                 data: { isPublic: true},
                 resolve:{
@@ -534,36 +554,36 @@ define(['app'],function(app){
             .state("login", {//登陆
                 url: "/login",
                 templateUrl: "html/login/login.html",
-                controllerUrl:"js/login/login",
+                //controllerUrl:"js/login/login",
                 controller:"logCtr",
                 data: { isPublic: true},
-                resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/login/login.js','lib/AES.js']);
-                    }]
-                }
+                //resolve:{
+                //    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                //        return $ocLazyLoad.load(['js/login/login.js','lib/AES.js']);
+                //    }]
+                //}
             })
             .state("register", {//注册
                 url: "/register",
                 templateUrl: "html/login/register.html",
-                controllerUrl:"js/login/login",
+                controllerUrl:"js/login/register",
                 controller:"registerCtr",
                 data: { isPublic: true},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['lib/AES.js','js/login/login.js']);
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/register.js']);
                     }]
                 }
             })
             .state("forget", {//忘记密码
                 url: "/forget",
                 templateUrl: "html/login/forget.html",
-                controllerUrl:"js/login/login",
+                controllerUrl:"js/login/forget",
                 controller:"forgetCtr",
                 data: { isPublic: true},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['lib/AES.js','js/login/login.js']);
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/forget.js']);
                     }]
                 }
             })
@@ -573,7 +593,7 @@ define(['app'],function(app){
                 templateUrl:'html/temp/tempAll.html',
                 data: { isPublic: false},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
                     }]
                 }
@@ -586,7 +606,7 @@ define(['app'],function(app){
                 controller:"myScore",
                 data: { isPublic: false},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
                     }]
                 }
@@ -598,7 +618,7 @@ define(['app'],function(app){
                 controller:"willCtr",
                 data: { isPublic: false},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['html/All/all.js']);
                     }]
                 }
@@ -610,7 +630,7 @@ define(['app'],function(app){
                 controller:"referenceCtr",
                 data: { isPublic: false},
                 resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['html/All/all.js']);
                     }]
                 }

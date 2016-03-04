@@ -185,7 +185,7 @@ require(['app'],function(app){
             }
         }
     })
-    app.controller('hopeCtr',['$scope','$window','$http','$timeout','classifyClk','classifyDBClk',function($scope,$window,$http,$timeout,classifyClk,classifyDBClk){
+    app.controller('hopeCtr',['$scope','$window','$http','$timeout','classifyClk','classifyDBClk','getLoginUserInfo',function($scope,$window,$http,$timeout,classifyClk,classifyDBClk,getLoginUserInfo){
         $scope.hope = {
             area: "",
             js_province: "",
@@ -315,12 +315,34 @@ require(['app'],function(app){
 
         $scope.toggle = {
             now:false
-        }
+        };
 
+        $scope.iterator = {
+            firDepart1:[],firDepart2:[],firDepart3:[],firDepart4:[],firDepart5:[],
+            secDepart1:[],secDepart2:[],secDepart3:[],secDepart4:[],secDepart5:[],secDepart6:[],secDepart7:[],secDepart8:[],secDepart9:[],
+            thiDepart1:[],thiDepart2:[],thiDepart3:[],thiDepart4:[],thiDepart5:[],
+            thiDepart6:[],thiDepart7:[],thiDepart8:[],thiDepart9:[],thiDepart10:[],
+            thiDepart11:[],thiDepart12:[],thiDepart13:[],thiDepart14:[],thiDepart15:[],
+            thiDepart16:[],thiDepart17:[],thiDepart18:[],thiDepart19:[],thiDepart20:[],
+            thiDepart21:[],thiDepart22:[],thiDepart23:[],thiDepart24:[],thiDepart25:[],
+            thiDepart26:[],thiDepart27:[],thiDepart28:[],thiDepart29:[],thiDepart30:[],
+            thiDepart31:[],thiDepart32:[],thiDepart33:[],thiDepart34:[],thiDepart35:[],
+            thiDepart36:[],thiDepart37:[],thiDepart38:[],thiDepart39:[],thiDepart40:[],
+            thiDepart41:[],thiDepart42:[],thiDepart43:[],thiDepart44:[],thiDepart45:[],
+            thiDepart46:[],thiDepart47:[],thiDepart48:[],thiDepart49:[],thiDepart50:[],
+            thiDepart51:[],thiDepart52:[],thiDepart53:[],thiDepart54:[],thiDepart55:[],
+            thiDepart56:[],thiDepart57:[],thiDepart58:[],thiDepart59:[],thiDepart60:[],thiDepart61:[],
+            thiDepart62:[],thiDepart63:[],thiDepart64:[],thiDepart65:[],thiDepart66:[],thiDepart67:[],thiDepart68:[],
+            thiDepart69:[],thiDepart70:[],thiDepart71:[],
+            fourDepart1:[],fourDepart2:[],fourDepart3:[],fourDepart4:[],fourDepart5:[],fourDepart6:[],fourDepart7:[],fourDepart8:[],fourDepart9:[],fourDepart10:[],
+            fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[]
+        };
 
         init();
 
         function init(){
+            getLoginUserInfo.isLogoin();
+
             var type = sessionStorage.getItem('type') == null ? 1:sessionStorage.getItem('type');
             switch (parseInt(type)){
                 case 1:
@@ -399,7 +421,6 @@ require(['app'],function(app){
                 });
             }
 
-
             /**
              * 获取具体专业
              */
@@ -409,7 +430,358 @@ require(['app'],function(app){
                 $scope.hope.thirdDepart = data.response.item4;
                 $scope.hope.fourthDepart = data.response.item5;
                 $scope.hope.fifthDepart = data.response.item6;
+                iterator_1($scope.hope.firstDepart);
+                iterator_2($scope.hope.secondDepart);
+                iterator_3($scope.hope.thirdDepart);
+                iterator_4($scope.hope.fourthDepart);
+                iterator_5($scope.hope.fifthDepart);
             });
+
+            function iterator_1(list){
+                $.each(list,function(i,v){
+                    switch(parseInt(v.classify)){
+                        case 1:
+                            $scope.iterator.firDepart1.push(v);
+                            break;
+                        case 2:
+                            $scope.iterator.firDepart2.push(v);
+                            break;
+                        case 3:
+                            $scope.iterator.firDepart3.push(v);
+                            break;
+                        case 4:
+                            $scope.iterator.firDepart4.push(v);
+                            break;
+                        case 5:
+                            $scope.iterator.firDepart5.push(v);
+                            break;
+                    }
+                })
+            }
+            function iterator_2(list){
+                $.each(list,function(i,v){
+                    switch(parseInt(v.classify)){
+                        case 1:
+                            $scope.iterator.secDepart1.push(v);
+                            break;
+                        case 2:
+                            $scope.iterator.secDepart2.push(v);
+                            break;
+                        case 3:
+                            $scope.iterator.secDepart3.push(v);
+                            break;
+                        case 4:
+                            $scope.iterator.secDepart4.push(v);
+                            break;
+                        case 5:
+                            $scope.iterator.secDepart5.push(v);
+                            break;
+                        case 6:
+                            $scope.iterator.secDepart6.push(v);
+                            break;
+                        case 7:
+                            $scope.iterator.secDepart7.push(v);
+                            break;
+                        case 8:
+                            $scope.iterator.secDepart8.push(v);
+                            break;
+                        case 9:
+                            $scope.iterator.secDepart9.push(v);
+                            break;
+                    }
+                })
+            }
+            function iterator_3(list){
+                $.each(list,function(i,v){
+                    switch(parseInt(v.classify)){
+                        case 1:
+                            $scope.iterator.thiDepart1.push(v);
+                            break;
+                        case 2:
+                            $scope.iterator.thiDepart2.push(v);
+                            break;
+                        case 3:
+                            $scope.iterator.thiDepart3.push(v);
+                            break;
+                        case 4:
+                            $scope.iterator.thiDepart4.push(v);
+                            break;
+                        case 5:
+                            $scope.iterator.thiDepart5.push(v);
+                            break;
+                        case 6:
+                            $scope.iterator.thiDepart6.push(v);
+                            break;
+                        case 7:
+                            $scope.iterator.thiDepart7.push(v);
+                            break;
+                        case 8:
+                            $scope.iterator.thiDepart8.push(v);
+                            break;
+                        case 9:
+                            $scope.iterator.thiDepart9.push(v);
+                            break;
+                        case 10:
+                            $scope.iterator.thiDepart10.push(v);
+                            break;
+                        case 11:
+                            $scope.iterator.thiDepart11.push(v);
+                            break;
+                        case 12:
+                            $scope.iterator.thiDepart12.push(v);
+                            break;
+                        case 13:
+                            $scope.iterator.thiDepart13.push(v);
+                            break;
+                        case 14:
+                            $scope.iterator.thiDepart14.push(v);
+                            break;
+                        case 15:
+                            $scope.iterator.thiDepart15.push(v);
+                            break;
+                        case 16:
+                            $scope.iterator.thiDepart16.push(v);
+                            break;
+                        case 17:
+                            $scope.iterator.thiDepart17.push(v);
+                            break;
+                        case 18:
+                            $scope.iterator.thiDepart18.push(v);
+                            break;
+                        case 19:
+                            $scope.iterator.thiDepart19.push(v);
+                            break;
+                        case 20:
+                            $scope.iterator.thiDepart20.push(v);
+                            break;
+                        case 21:
+                            $scope.iterator.thiDepart21.push(v);
+                            break;
+                        case 22:
+                            $scope.iterator.thiDepart22.push(v);
+                            break;
+                        case 23:
+                            $scope.iterator.thiDepart23.push(v);
+                            break;
+                        case 24:
+                            $scope.iterator.thiDepart24.push(v);
+                            break;
+                        case 25:
+                            $scope.iterator.thiDepart25.push(v);
+                            break;
+                        case 26:
+                            $scope.iterator.thiDepart26.push(v);
+                            break;
+                        case 27:
+                            $scope.iterator.thiDepart27.push(v);
+                            break;
+                        case 28:
+                            $scope.iterator.thiDepart28.push(v);
+                            break;
+                        case 29:
+                            $scope.iterator.thiDepart29.push(v);
+                            break;
+                        case 30:
+                            $scope.iterator.thiDepart30.push(v);
+                            break;
+                        case 31:
+                            $scope.iterator.thiDepart31.push(v);
+                            break;
+                        case 32:
+                            $scope.iterator.thiDepart32.push(v);
+                            break;
+                        case 33:
+                            $scope.iterator.thiDepart33.push(v);
+                            break;
+                        case 34:
+                            $scope.iterator.thiDepart34.push(v);
+                            break;
+                        case 35:
+                            $scope.iterator.thiDepart35.push(v);
+                            break;
+                        case 36:
+                            $scope.iterator.thiDepart36.push(v);
+                            break;
+                        case 37:
+                            $scope.iterator.thiDepart37.push(v);
+                            break;
+                        case 38:
+                            $scope.iterator.thiDepart38.push(v);
+                            break;
+                        case 39:
+                            $scope.iterator.thiDepart39.push(v);
+                            break;
+                        case 40:
+                            $scope.iterator.thiDepart40.push(v);
+                            break;
+                        case 41:
+                            $scope.iterator.thiDepart41.push(v);
+                            break;
+                        case 42:
+                            $scope.iterator.thiDepart42.push(v);
+                            break;
+                        case 43:
+                            $scope.iterator.thiDepart43.push(v);
+                            break;
+                        case 44:
+                            $scope.iterator.thiDepart44.push(v);
+                            break;
+                        case 45:
+                            $scope.iterator.thiDepart45.push(v);
+                            break;
+                        case 46:
+                            $scope.iterator.thiDepart46.push(v);
+                            break;
+                        case 47:
+                            $scope.iterator.thiDepart47.push(v);
+                            break;
+                        case 48:
+                            $scope.iterator.thiDepart48.push(v);
+                            break;
+                        case 49:
+                            $scope.iterator.thiDepart49.push(v);
+                            break;
+                        case 50:
+                            $scope.iterator.thiDepart50.push(v);
+                            break;
+                        case 51:
+                            $scope.iterator.thiDepart51.push(v);
+                            break;
+                        case 52:
+                            $scope.iterator.thiDepart52.push(v);
+                            break;
+                        case 53:
+                            $scope.iterator.thiDepart53.push(v);
+                            break;
+                        case 54:
+                            $scope.iterator.thiDepart54.push(v);
+                            break;
+                        case 55:
+                            $scope.iterator.thiDepart55.push(v);
+                            break;
+                        case 56:
+                            $scope.iterator.thiDepart56.push(v);
+                            break;
+                        case 57:
+                            $scope.iterator.thiDepart57.push(v);
+                            break;
+                        case 58:
+                            $scope.iterator.thiDepart58.push(v);
+                            break;
+                        case 59:
+                            $scope.iterator.thiDepart59.push(v);
+                            break;
+                        case 60:
+                            $scope.iterator.thiDepart60.push(v);
+                            break;
+                        case 61:
+                            $scope.iterator.thiDepart61.push(v);
+                            break;
+                        case 62:
+                            $scope.iterator.thiDepart62.push(v);
+                            break;
+                        case 63:
+                            $scope.iterator.thiDepart63.push(v);
+                            break;
+                        case 64:
+                            $scope.iterator.thiDepart64.push(v);
+                            break;
+                        case 65:
+                            $scope.iterator.thiDepart65.push(v);
+                            break;
+                        case 66:
+                            $scope.iterator.thiDepart66.push(v);
+                            break;
+                        case 67:
+                            $scope.iterator.thiDepart67.push(v);
+                            break;
+                        case 68:
+                            $scope.iterator.thiDepart68.push(v);
+                            break;
+                        case 69:
+                            $scope.iterator.thiDepart69.push(v);
+                            break;
+                        case 70:
+                            $scope.iterator.thiDepart70.push(v);
+                            break;
+                        case 71:
+                            $scope.iterator.thiDepart71.push(v);
+                            break;
+                    }
+                })
+            }
+            function iterator_4(list){
+                $.each(list,function(i,v){
+                    switch(parseInt(v.classify)){
+                        case 1:
+                            $scope.iterator.fourDepart1.push(v);
+                            break;
+                        case 2:
+                            $scope.iterator.fourDepart2.push(v);
+                            break;
+                        case 3:
+                            $scope.iterator.fourDepart3.push(v);
+                            break;
+                        case 4:
+                            $scope.iterator.fourDepart4.push(v);
+                            break;
+                        case 5:
+                            $scope.iterator.fourDepart5.push(v);
+                            break;
+                        case 6:
+                            $scope.iterator.fourDepart6.push(v);
+                            break;
+                        case 7:
+                            $scope.iterator.fourDepart7.push(v);
+                            break;
+                        case 8:
+                            $scope.iterator.fourDepart8.push(v);
+                            break;
+                        case 9:
+                            $scope.iterator.fourDepart9.push(v);
+                            break;
+                        case 10:
+                            $scope.iterator.fourDepart10.push(v);
+                            break;
+                    }
+                })
+            }
+            function iterator_5(list){
+                $.each(list,function(i,v){
+                    switch(parseInt(v.classify)){
+                        case 1:
+                            $scope.iterator.fifDepart1.push(v);
+                            break;
+                        case 2:
+                            $scope.iterator.fifDepart2.push(v);
+                            break;
+                        case 3:
+                            $scope.iterator.fifDepart3.push(v);
+                            break;
+                        case 4:
+                            $scope.iterator.fifDepart4.push(v);
+                            break;
+                        case 5:
+                            $scope.iterator.fifDepart5.push(v);
+                            break;
+                        case 6:
+                            $scope.iterator.fifDepart6.push(v);
+                            break;
+                        case 7:
+                            $scope.iterator.fifDepart7.push(v);
+                            break;
+                        case 8:
+                            $scope.iterator.fifDepart8.push(v);
+                            break;
+                        case 9:
+                            $scope.iterator.fifDepart9.push(v);
+                            break;
+                        case 10:
+                            $scope.iterator.fifDepart10.push(v);
+                            break;
+                    }
+                })
+            }
 
             /*按重点项目建设分*/
             //$http.get('/loocha/school/prop/1').success(function(data,status){

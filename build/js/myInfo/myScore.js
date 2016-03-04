@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller("myScore", ['$scope','$window','$http',function ($scope,$window,$http) {
+    app.controller("myScore", ['$scope','$window','$http','getLoginUserInfo',function ($scope,$window,$http,getLoginUserInfo) {
 
         $scope.recommShow = false;
         $scope.table = {
@@ -19,6 +19,8 @@ require(['app'],function(app){
         init();
 
         function init(){
+            getLoginUserInfo.isLogoin();
+
             $('#myModal').modal({
                 keyboard: false
             })
