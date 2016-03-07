@@ -25,5 +25,6 @@
 .nav-scroll{
   border: 1px solid #ccc;
   height: 250px!important;
+  max-height: 250px!important;
   overflow-y: scroll;
 }

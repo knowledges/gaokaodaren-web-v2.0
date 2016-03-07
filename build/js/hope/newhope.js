@@ -237,6 +237,7 @@ require(['app'],function(app){
             gift_ignore: [],
             economy_option: false,
             prop6: false,
+            noRejectionAreaSch:[],//非拒绝属地高校
 
             labelType: [],//个性标签类别
             physical: [],//体检限项目
@@ -880,7 +881,6 @@ require(['app'],function(app){
             $("#provnice .dropdown-menu").hide();
             var istrue = $("#dropdown"+city_id).attr('data-istrue');
             if (istrue == "false"){
-                //TODO 服务器接口丢失
                 $http.get('/loocha/wish/areatype?batch='+$scope.hope.batch+'&city_id='+city_id).success(function(data,status){
                     var html = [];
                     $.each(data.response,function(i,v){
@@ -927,86 +927,37 @@ require(['app'],function(app){
          * @param e 当前点击对象
          */
         $scope.showSchoolList = function(e){
-            function subLevel(str){
-                var num = "";
-                switch(str){
-                    case "A+":
-                        num =5;
-                        break;
-                    case "A":
-                        num =4;
-                        break;
-                    case "B+":
-                        num =3;
-                        break;
-                    case "B":
-                        num =2;
-                        break;
-                    case "C":
-                        num =1;
-                        break;
-                    case "D":
-                        num =0;
-                        break;
-                }
-                return num;
-            }
-            var param1 = {};
-            param1.name="某某同学";
-            param1.u_level=2;
-            param1.number = 14321111111113;
-            param1.city = 0;
-            param1.cityarea = 0;
-            param1.score=$scope.info.uScore.score;
-            param1.devision = sessionStorage.getItem('type')%2 == 1 ? 1:2;//文科还是理科 1是文科2是理科
-            param1.obl = subLevel($scope.info.uScore.level_a);//第一门
-            param1.sel = subLevel($scope.info.uScore.level_b);//另一门
+            $("#provnice .dropdown-menu,#panel-footer .dropdown-menu").hide();
+            var that = $(e.target),alt = that.attr('alt'),ul = that.next();
+            var istrue = ul.attr('data-istrue');
+            //if(istrue == "false") {
+            if (alt == 'city') {
+                var city_id = that.attr('city_id');
+                $http.get('/loocha/schbath/depart?cityId=' + city_id + '&type=' + $scope.hope.batch).success(function (data) {
+                    //执行2次筛选
+                    var list = data.response,sch_ignore = $scope.hope.school_ignore;
 
-            var tramsform = function(data){
-                return $.param(data);
-            };
-            $http.post("/loocha/exam/pscore",param1,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(data,status){
-                if(data.status==0){
-                    $("#provnice .dropdown-menu,#panel-footer .dropdown-menu").hide();
-                    var that = $(e.target),alt = that.attr('alt'),ul = that.next();
-                    var istrue = ul.attr('data-istrue');
-                    if(istrue == "false"){
-                        var param = "";
-                        if(alt =='city'){
-                            var city_id = that.attr('city_id');
-                            param = "level=2&attr=0&style=0&belongs=0&proptype=-1&province=0&city="+city_id;
-                        }else if(alt == 'prop'){
-                            var prop_id = that.attr('prop_id');
-                            param = "level=2&attr=0&style=0&belongs=0&proptype="+prop_id+"&province=0&city=0";
-                        }else if(alt == 'style'){
-                            var style_id = that.attr('style_id');
-                            param = "level=2&attr=0&style="+style_id+"&belongs=0&proptype=0&province=0&city=0";
-                        }else if(alt == 'belongs'){
-                            var belongs_id = that.attr('belongs_id');
-                            param = "level=2&attr=0&style=0&belongs="+belongs_id+"&proptype=0&province=0&city=0";
-                        }else if(alt == 'attr'){
-                            var attr_id = that.attr('attr_id');
-                            param = "level=2&attr="+attr_id+"&style=0&belongs=0&proptype=0&province=0&city=0";
-                        }
-                        $http.get('/loocha/exam/schoolprop?'+param).success(function(data,status){
-                            var html = [];
-                            if(data.response!=null&&data.response.list.length>0){
-                                $.each(data.response.list,function(i,v){
-                                    html.push('<li><a href="javascript:;;">'+v.name+'</a></li>');
-                                });
-                            }else{
-                                html.push('<li><a href="javascript:;;">没有搜索到高校</a></li>');
+                    for(var i = 0;i<sch_ignore.length;i++){
+                        for(var j = 0 ;j <list.length;j++){
+                            if(sch_ignore[i] ==  list[j].s_id){
+                                list.splice(list.indexOf(list[j]),1)
                             }
-                            ul.append(html.join(''));
-                        });
-                        ul.attr("data-istrue","true");
+                        }
                     }
-                    ul.show();
-                }
-            });
+                    var html = [];
+                    if (list != null) {
+                        $.each(list, function (i, v) {
+                            html.push('<li><a href="javascript:;;" school_id="'+ v.s_id+'" >' + v.name + '</a></li>');
+                        });
+                    } else {
+                        html.push('<li><a href="javascript:;;">没有搜索到高校</a></li>');
+                    }
+                    ul.empty().append(html.join(''));
+                });
+                //ul.attr("data-istrue", "true");
+            };
+            //}
+            ul.show();
         }
 
         /*类别*/
