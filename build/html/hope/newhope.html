@@ -748,6 +748,10 @@
                         <li class="bs-radio">●</li>
                         <li ng-repeat="list in iterator.fifDepart10" is-depart><a class="departClk wishId_6" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.fifDepart11.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.fifDepart11" is-depart><a class="departClk wishId_6" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

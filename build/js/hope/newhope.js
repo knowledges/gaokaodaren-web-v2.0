@@ -336,7 +336,7 @@ require(['app'],function(app){
             thiDepart62:[],thiDepart63:[],thiDepart64:[],thiDepart65:[],thiDepart66:[],thiDepart67:[],thiDepart68:[],
             thiDepart69:[],thiDepart70:[],thiDepart71:[],
             fourDepart1:[],fourDepart2:[],fourDepart3:[],fourDepart4:[],fourDepart5:[],fourDepart6:[],fourDepart7:[],fourDepart8:[],fourDepart9:[],fourDepart10:[],
-            fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[]
+            fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[],fifDepart11:[]
         };
 
         init();
@@ -779,6 +779,9 @@ require(['app'],function(app){
                             break;
                         case 10:
                             $scope.iterator.fifDepart10.push(v);
+                            break;
+                        case 11:
+                            $scope.iterator.fifDepart11.push(v);
                             break;
                     }
                 })
