@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('exampleAllCtl',['$scope','$sce','homeService',function($scope,$sce,homeService){
+    app.controller('exampleAllCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";

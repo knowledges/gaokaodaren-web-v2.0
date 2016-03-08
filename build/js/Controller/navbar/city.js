@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller("cityCtl",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
+    app.controller("cityCtr",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
 
         $scope.menu = {
             provincelist: ""

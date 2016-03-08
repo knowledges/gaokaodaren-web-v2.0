@@ -43,7 +43,7 @@ require(['app'],function(app){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
     }])
-    app.controller('recipeCtr',['$scope','$sce','AJAX','navURL_4',function($scope,$sce,AJAX,navURL_4){
+    app.controller('recipeNav',['$scope','$sce','AJAX','navURL_4',function($scope,$sce,AJAX,navURL_4){
         $scope.nav = {
             content : ''
         }
@@ -68,7 +68,6 @@ require(['app'],function(app){
         $scope.nav = {
             content : ''
         }
-
         AJAX.getRequest(navURL_6,'GET','')
             .success(function(data,status){
                 $scope.nav.content = $sce.trustAsHtml(data);
