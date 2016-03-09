@@ -3,8 +3,8 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.constant("navURL_1","../JSON/nav.html");
-    app.controller("menuCtl",['$scope','$location','AJAX','provinceURL','navURL_1',function($scope,$location,AJAX,provinceURL,navURL_1){
+    //app.constant("navURL_1","../JSON/nav.html");
+    app.controller("menuCtl",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
         $scope.menu = {
             name:"",
             provincelist:"",
@@ -21,12 +21,6 @@ require(['app'],function(app){
                 $scope.menu.provincelist = data.response.list;
             });
 
-        $scope.navigation = function(){
-            AJAX.getRequest(navURL_1,'GET','')
-                .success(function(data,status){
-                    $scope.menu.html = data;
-                });
-        };
 
         $scope.proEvent = function(id){
             AJAX.getRequest("../JSON/city.json",'GET',"")

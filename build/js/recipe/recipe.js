@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('reciptCtl',['$scope','$sce','homeService',function($scope,$sce,homeService){
+    app.controller('reciptCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";
