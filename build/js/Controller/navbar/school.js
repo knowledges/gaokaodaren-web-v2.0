@@ -3,11 +3,11 @@
  */
 'use strict';
 require(['app','pagging'],function(app,pagging){
-    app.constant("navURL_1","/article/show/3289");//城市
+    app.constant("navURL_1","/loocha/article/show/3289");//城市
     app.constant('findSchoolURL',"/school");
-    app.constant("propURL","../JSON/prop.json");
+    app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
-    app.constant("tubeURL","../JSON/attribute.json");
+    app.constant("tubeURL","/web/new/JSON/attribute.json");
     app.controller("schoolConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
         $scope.school = {
             isnav: true,

@@ -5,7 +5,7 @@
 require(['app','jquery'],function(app,jquery){
     app.constant("departURL","/depart/new");
     app.constant("findMarjorURL",'/depart');
-    app.controller("marjorConCtl",['$scope','$stateParams','$sce','AJAX','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,departURL,findMarjorURL){
+    app.controller("marjorConCtr",['$scope','$stateParams','$sce','AJAX','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,departURL,findMarjorURL){
 
         $scope.search = true;
         $scope.marjor = {

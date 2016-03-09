@@ -68,11 +68,17 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a ui-sref="home">首页</a></li>
-                <li><a ui-sref="hope">志愿意向</a></li>
-                <li><a ui-sref="chance">志愿预测</a></li>
-                <li><a ui-sref="example.nav">志愿范例</a></li>
+                <li><a ui-sref="hope" title="
+                亲本栏目属于个性化服务栏目，将针对个人的具体情况为您量身定做,推荐适合您自己的高考志愿&#10;亲当您将您本人的具体想法或意向，点击为您设置的《考生志愿意向表》。就可以向您提供适合您自己的《考生志愿推荐表》，提供参考&#10;亲当您获取《考生志愿推荐表》之后，还可以查阅向您推荐的高校、专业、与您志愿意向的吻合情况和录取情况&#10;亲本栏目为交费栏目，一般获取1~3份《考生志愿推荐表》就可以了，当然如果有多份也可以获取
+                ">志愿意向</a></li>
+                <li><a ui-sref="chance" title="
+                亲本栏目帮您预测您所填报或将要填报的高校专业、可能录取的概率情况，让您心中有数&#10;亲本栏目为交费栏目，可以有两种方式使用本栏目：一是先明确录取概率，再查找想上的高校、想上的专业；二是先明确想上的高校，想上的专业，在查询可能录取的概率&#10;亲本栏目可以帮助您预测，某个大学的哪个专业，录取您的概率大，哪个专业录取您概率小，也可以帮助您预测某个专业，哪个大学录取您概率大。哪个大学录取您的概率小。当然利用本栏目还可以预测.........
+                ">志愿预测</a></li>
+                <li><a ui-sref="example.nav" title="亲本栏目为免费栏目，在本栏目您可以查看与您相仿科别相同、选测科目等级相同、高考分数相近、名次相近的高考，高考志愿填报成功的范例，供您参考。">志愿范例</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿咨询 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="
+                    亲本栏目免费与您交流高考志愿填报有关话题：&#10;1.填报高考志愿有那些要领？（填报要领）&#10;2.如何恰到好处地利用您的高考分数和名次填报高考志愿（分数分析）&#10;3.如何充分利用高校招生政策填报高考志愿？（招生政策）&#10;4.您将要奔赴求学的大学长得啥样？（高校介绍）&#10;5.您将要在大学里学有成就，究竟能学到啥？（专业介绍）&#10;6.您将要生活今年的那个城市长的啥样？（城市介绍）&#10;7.您未来发展的前程路径可能怎样？（毕业去向）&#10;8.如何充分利用您的个性特征填报高考志愿？（个性特征）&#10;9.比较典型的填报高考志愿的倾向性思维模式有哪些？（咨询线路）&#10;您可以尽享其中
+                    ">志愿咨询<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a ui-sref="online.nav">咨询线路</a></li>
                         <li><a ui-sref="city.nav">城市介绍</a></li>
@@ -87,7 +93,9 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">深度查询<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="
+                    亲本栏目将向您提供填报高考志愿需要深度查询的有关资料&#10;亲本栏目多数资料属于内部资料，属于保密资料，不得下载，不得转录哦！&#10;亲本栏目多数资料属于本网站整理资料，解释权属于本网站哦！&#10;亲本栏目部分条款是需要交费的哦，具体条款从2元起不等哦！
+                    ">深度查询<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="javascript:;;">文科本一</a></li>
                         <li><a href="javascript:;;">文科本二</a></li>
@@ -151,6 +159,8 @@
 <script src="js/Controller/navbar/nav.js"></script>
 <script src="js/Controller/navbar/new.js"></script>
 <script src="js/Controller/navbar/city.js"></script>
+<script src="js/Controller/navbar/marjor.js"></script>
+<script src="js/Controller/navbar/school.js"></script>
 <script src="js/Controller/listGroup/groupOnline.js"></script>
 <script src="js/Controller/listGroup/groupRecipe.js"></script>
 <script src="js/Controller/listGroup/groupScore.js"></script>
@@ -160,7 +170,7 @@
 <script src=""></script>
 <script language="Javascript">
     $(function(){
-        $('.dropdown-toggle').dropdown()
+        $('.dropdown-toggle').dropdown();
     });
 //    <!--document.oncontextmenu=new Function("event.returnValue=false");-->
 //    <!--document.onselectstart=new Function("event.returnValue=false");-->

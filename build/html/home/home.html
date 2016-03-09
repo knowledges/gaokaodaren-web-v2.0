@@ -118,12 +118,17 @@
     <div style="margin:16px;" class="row">
         <div class="col-sm-6" style="border-right:1px dashed red;">
             <p class="hmodel_10">
-                <span><strong>填报要领</strong>--<small>抉择的方法</small> </span>
+                <a ui-sref="recipe.nav"><span><strong>填报要领</strong>--<small>抉择的方法</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square">
-                    <li ng-repeat="list in table.tbyl">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="recipe.list({itemId:132,param:15})">前期准备</a></li>
+                    <li><a ui-sref="recipe.list({itemId:148,param:15})">操作程序</a></li>
+                    <li><a ui-sref="recipe.list({itemId:150,param:15})">主要原则</a></li>
+                    <li><a ui-sref="recipe.list({itemId:151,param:15})">基本策略</a></li>
+                    <li><a ui-sref="recipe.list({itemId:108,param:15})">各种技巧</a></li>
+                    <li><a ui-sref="recipe.list({itemId:109,param:15})">前车之鉴</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -132,12 +137,17 @@
         </div>
         <div class="col-sm-6">
             <p class="hmodel_10">
-                <span><strong>分数分析</strong>--<small>抉择的数据</small> </span>
+                <a ui-sref="score.nav"><span><strong>分数分析</strong>--<small>抉择的数据</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li ng-repeat="list in table.fsfx">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="score.list({itemId:147,param:16})">分数线</a></li>
+                    <li><a ui-sref="score.list({itemId:152,param:16})">分数比较法</a></li>
+                    <li><a ui-sref="score.list({itemId:153,param:16})">考生分数分析</a></li>
+                    <li><a ui-sref="score.list({itemId:295,param:16})">学校分数分析</a></li>
+                    <li><a ui-sref="score.list({itemId:154,param:16})">全省分数分析</a></li>
+                    <li><a ui-sref="score.list({itemId:155,param:16})">往年高校录取分数分析</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -148,12 +158,15 @@
     <div style="margin:16px;" class="row">
         <div class="col-sm-6" style="border-right:1px dashed red;">
             <p class="hmodel_10">
-                <span><strong>招生政策</strong>--<small>抉择的依据</small> </span>
+                <a ui-sref="policy.nav"><span><strong>招生政策</strong>--<small>抉择的依据</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li ng-repeat="list in table.zszc">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="policy.list({itemId:116,param:17})">国家政策</a></li>
+                    <li><a ui-sref="policy.list({itemId:117,param:17})">江苏政策</a></li>
+                    <li><a ui-sref="policy.list({itemId:118,param:17})">高校章程</a></li>
+                    <li><a ui-sref="policy.list({itemId:119,param:17})">照顾政策</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -162,12 +175,14 @@
         </div>
         <div class="col-sm-6">
             <p class="hmodel_10">
-                <span><strong>毕业去向</strong>--<small>抉择的效益</small> </span>
+                <a ui-sref="job.nav"><span><strong>毕业去向</strong>--<small>抉择的效益</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li ng-repeat="list in table.byqx">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="job.list({itemId:120,param:21})">就业</a></li>
+                    <li><a ui-sref="job.list({itemId:122,param:21})">考研</a></li>
+                    <li><a ui-sref="job.list({itemId:123,param:21})"> 出国（境）</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -178,12 +193,19 @@
     <div style="margin:16px;" class="row">
         <div class="col-sm-6"  style="border-right:1px dashed red;">
             <p class="hmodel_10">
-                <span><strong>个性特征</strong>--<small>抉择的依据</small> </span>
+                <a ui-sref="unique.nav"><span><strong>个性特征</strong>--<small>抉择的依据</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li ng-repeat="list in table.gxtz">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="unique.list({itemId:124,param:21})">身体条件</a></li>
+                    <li><a ui-sref="unique.list({itemId:125,param:21})">经济条件</a></li>
+                    <li><a ui-sref="unique.list({itemId:126,param:21})">学科强弱</a></li>
+                    <li><a ui-sref="unique.list({itemId:127,param:21})">学习愿望</a></li>
+                    <li><a ui-sref="unique.list({itemId:128,param:21})">兴趣爱好</a></li>
+                    <li><a ui-sref="unique.list({itemId:129,param:21})">能力特长</a></li>
+                    <li><a ui-sref="unique.list({itemId:130,param:21})">性格特点</a></li>
+                    <li><a ui-sref="unique.list({itemId:262,param:21})">职业取向</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -192,12 +214,17 @@
         </div>
         <div class="col-sm-6">
             <p class="hmodel_10">
-                <span><strong>咨询线路</strong>--<small>抉择的效益</small> </span>
+                <a ui-sref="online.nav"><span><strong>咨询线路</strong>--<small>抉择的效益</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li ng-repeat="list in table.zxxl">● {{list.title}}</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="online.list({itemId:93,param:3586})">分数优先咨询线路</a></li>
+                    <li><a ui-sref="online.list({itemId:93,param:3597})">专业优先咨询线路</a></li>
+                    <li><a ui-sref="online.list({itemId:93,param:3603})">高校优先咨询线路</a></li>
+                    <li><a ui-sref="online.list({itemId:93,param:3638})">城市优先咨询线路</a></li>
+                    <li><a ui-sref="online.list({itemId:93,param:3646})">去向优先咨询线路</a></li>
+                    <li><a ui-sref="online.list({itemId:93,param:3650})">个性优先咨询线路</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -208,13 +235,18 @@
     <div style="margin:16px;" class="row">
         <div class="col-sm-6"  style="border-right:1px dashed red;">
             <p class="hmodel_10">
-                <span><strong>高校介绍</strong>--<small>抉择的落实</small> </span>
-                <i class="triangle"></i>
+                <a ui-sref="school.nav"><span><strong>高校介绍</strong>--<small>抉择的落实</small> </span></a>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li>● 本科院校</li>
-                    <li>● 高职专科院校</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="school.list({type:1})">文科本一</a></li>
+                    <li><a ui-sref="school.list({type:3})">文科本二</a></li>
+                    <li><a ui-sref="school.list({type:5})">文科本三</a></li>
+                    <li><a ui-sref="school.list({type:2})">理科本一</a></li>
+                    <li><a ui-sref="school.list({type:4})">理科本二</a></li>
+                    <li><a ui-sref="school.list({type:6})">理科本三</a></li>
+                    <li><a ui-sref="school.list({type:7})">文科高职</a></li>
+                    <li><a ui-sref="school.list({type:8})">理科高职</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -223,13 +255,19 @@
         </div>
         <div class="col-sm-6">
             <p class="hmodel_10">
-                <span><strong>专业介绍</strong>--<small>抉择的落实</small> </span>
+                <a ui-sref="marjor.nav"><span><strong>专业介绍</strong>--<small>抉择的落实</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul class="nav" type="square">
-                    <li>● 本科专业</li>
-                    <li>● 高职专科专业</li>
+                <ul type="square" style="padding-left: 20px;">
+                    <li><a ui-sref="marjor.list({type:1})">文科本一</a></li>
+                    <li><a ui-sref="marjor.list({type:3})">文科本二</a></li>
+                    <li><a ui-sref="marjor.list({type:5})">文科本三</a></li>
+                    <li><a ui-sref="marjor.list({type:2})">理科本一</a></li>
+                    <li><a ui-sref="marjor.list({type:4})">理科本二</a></li>
+                    <li><a ui-sref="marjor.list({type:6})">理科本三</a></li>
+                    <li><a ui-sref="marjor.list({type:7})">文科高职</a></li>
+                    <li><a ui-sref="marjor.list({type:8})">理科高职</a></li>
                 </ul>
             </div>
             <div class="col-sm-8">
@@ -240,7 +278,7 @@
     <div style="margin:16px;" class="row">
         <div class="col-sm-12">
             <p class="hmodel_10">
-                <span><strong>城市介绍</strong>--<small>抉择的落实</small> </span>
+                <a ui-sref="city.nav"><span><strong>城市介绍</strong>--<small>抉择的落实</small> </span></a>
                 <i class="triangle"></i>
             </p>
             <ul class="nav nav-pills" style="margin-top: 35px;" type="square">
