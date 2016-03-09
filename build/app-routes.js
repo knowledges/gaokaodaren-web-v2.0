@@ -52,18 +52,18 @@ define(['app'],function(app){
     app.factory('getLoginUserInfo',['$http',function($http){
         var userInfo ={
             isLogoin:function(){
-               return $http.get('/loocha/user').success(function(){
-                   console.log('在优先范围内！');
-               }).error(function(e){
-                   sessionStorage.removeItem('type');
-                   sessionStorage.removeItem('uScore');
-                   sessionStorage.removeItem('user');
-                   sessionStorage.removeItem('user_id');
-                   sessionStorage.removeItem('usernumber');
-                   alert('登陆失效！');
-                   window.location.href = "#/home";
-                   window.location.reload();
-               });
+                return $http.get('/loocha/user').success(function(){
+                    console.log('在优先范围内！');
+                }).error(function(e){
+                    sessionStorage.removeItem('type');
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
+                    alert('登陆失效！');
+                    window.location.href = "#/home";
+                    window.location.reload();
+                });
             }
         }
         return userInfo;
