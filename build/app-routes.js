@@ -17,13 +17,6 @@ define(['app'],function(app){
 
     //注销
     app.constant("logoutURL","/logout");
-    //主页8大菜单
-    app.constant("men2","/menu?index=0&limit=8&parent_id=15");
-    app.constant("men3","/menu?index=0&limit=8&parent_id=16");
-    app.constant("men4","/menu?index=0&limit=4&parent_id=17");
-    app.constant("men5","/menu?index=0&limit=4&parent_id=21");
-    app.constant("men6","/menu?index=0&limit=8&parent_id=22");
-    app.constant("men7","/article?index=0&limit=8&menu_id=93&key=");
     app.constant("provinceURL","/city/province");
     app.factory('AJAX',['$http',"$q",function($http,$q){
         var request = function(path,method,data){
@@ -98,60 +91,6 @@ define(['app'],function(app){
                             dtd.resolve(response);
                         });
                         return dtd.promise;
-                    },
-                    data_HomeModel2:function($q,$http,men2){
-                        var dtd = $q.defer();
-                        $http.get(url+men2).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
-                    },
-                    data_HomeModel3:function($q,$http,men3){
-                        var dtd = $q.defer();
-                        $http.get(url+men3).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
-                    },
-                    data_HomeModel4:function($q,$http,men4){
-                        var dtd = $q.defer();
-                        $http.get(url+men4).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
-                    },
-                    data_HomeModel5:function($q,$http,men5){
-                        var dtd = $q.defer();
-                        $http.get(url+men5).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
-                    },
-                    data_HomeModel6:function($q,$http,men6){
-                        var dtd = $q.defer();
-                        $http.get(url+men6).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
-                    },
-                    data_HomeModel7:function($q,$http,men7){
-                        var dtd = $q.defer();
-                        $http.get(url+men7).then(function (response) {
-                            dtd.resolve(response);
-                        }, function (response) {
-                            dtd.resolve(response);
-                        });
-                        return dtd.promise;
                     }
                 }
             })
@@ -163,7 +102,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+                        return $ocLazyLoad.load(['js/hope/newhope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
                     }]
                 }
             })
@@ -184,7 +123,7 @@ define(['app'],function(app){
                 url:'/example',
                 templateUrl:"html/temp/tempExample.html",
                 //controllerUrl:"js/example/example",
-                controller:"exampleAllCtl",
+                controller:"exampleAllCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
@@ -307,7 +246,7 @@ define(['app'],function(app){
             .state('school.list',{
                 url:"/{type:[0-9]{1,4}}",
                 templateUrl:"html/school/school.html",
-                controllerUrl:"js/Controller/navbar/school",
+                //controllerUrl:"js/Controller/navbar/school",
                 controller:"schoolConCtl",
                 data: { isPublic: true },
             })
@@ -331,7 +270,7 @@ define(['app'],function(app){
                 controller:"marjorNav",
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js','js/Controller/navbar/new.js','js/marjor/marjor.js']);
+                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js']);
                     }]
                 }
             })
@@ -339,14 +278,19 @@ define(['app'],function(app){
                 url:"/{type:[0-9]{1,4}}",
                 templateUrl:"html/marjor/marjor.html",
                 controllerUrl:"js/Controller/navbar/marjorInfo",
-                controller:"marjorConCtl",
+                controller:"marjorConCtr",
                 data: { isPublic: true}
             })
             .state('recipe',{//填报要领
                 url:'/recipe',
                 templateUrl:'html/temp/tempRecipe.html',
-                controller:"reciptCtl",
-                data: { isPublic: true }
+                controller:"reciptCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/temp/tempRecipe.js']);
+                    }]
+                }
             })
             .state('recipe.nav',{
                 url:'/navRecipe',
