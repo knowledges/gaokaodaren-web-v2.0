@@ -185,24 +185,21 @@ angular.module("gaokaoAPP",[
         $scope.user = {
             islogin : false,
             name : "",
+            search:""
         }
-
         $scope.isShow = false;
-        $scope.user.name = sessionStorage.getItem('usernumber');
-
+        $scope.user.name = sessionStorage.getItem('usernumber') ;
         if($scope.user.name != null && $scope.user.name.length>= 1){
             $scope.user.islogin = true;
         }else{
             $scope.user.islogin = false;
         }
-
         $scope.$watch('studentId',function(newValue,oldValue){
             if(newValue !=""){
                 $scope.user.name = $rootScope.studentId;
                 $scope.user.islogin = true;
             }
         })
-
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');
             if(url>=0){
@@ -211,11 +208,9 @@ angular.module("gaokaoAPP",[
                 window.location.href = "#/login";
             }
         }
-
         $scope.close = function(){
             $scope.isShow = false;
         }
-
         $scope.logoff = function(){
             AJAX.getRequest(logoutURL,'GET',"")
                 .success(function(data,status){
@@ -223,8 +218,13 @@ angular.module("gaokaoAPP",[
                     sessionStorage.setItem('usernumber',"");
                     sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
                     $scope.user.name ="";
-                    window.location.reload();
+                    window.location.href = "#/home";
                 });
+        }
+
+        /*TODO 查询*/
+        $scope.totalSearch = function(){
+            window.location.href = "#/search/key="+$scope.user.search;
         }
 
     }])
@@ -233,5 +233,5 @@ angular.module("gaokaoAPP",[
             $window.location.href="#/hope?type="+type+"&user_level="+user_level;
             $window.location.reload();
         }
-    }])
+    }]);
 

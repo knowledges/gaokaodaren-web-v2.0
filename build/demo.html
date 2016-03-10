@@ -1,62 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:ng="http://angularjs.org" lang="en" id="ng-app">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="../node_modules/angular/angular.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="全国高考志愿填报网站江苏达人网,江苏省今年普通高校招生考生志愿表">
+    <meta name="Keywords" content="高考,志愿,江苏达人网,高考志愿,达人志愿,录取概率">
+    <meta name="fragment" content="!"/>
+    <!--<meta name="baidu-site-verification" content="J6qe6Ox6BK" />-->
+    <title>高考志愿——江苏达人网</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" id="bs-theme-stylesheet"/>-->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="lib/html5shiv.min.js"></script>
+    <script src="lib/respond.min.js"></script>
+    <link href="favicon.ico" rel="shortcut icon" />
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+    </script>
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <script src="lib/json2.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/home/home.css"/>
+    <link rel="stylesheet" href="css/home/homeContent.css"/>
+    <link rel="stylesheet" href="css/chance/chance.css"/>
+    <link rel="stylesheet" href="css/hope/hope.css"/>
+    <link rel="stylesheet" href="css/banner/bannerStl.css"/>
+    <link rel="stylesheet" href="css/login/login.css"/>
+    <link rel="stylesheet" href="css/city/city.css"/>
+    <link rel="stylesheet" href="templete/model-selected/modelSelected.css"/>
+    <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
+    <link rel="stylesheet" href="css/refer/refer.css"/>
+    <link rel="stylesheet" href="css/pay/pay.css"/>
 </head>
-<body ng-app="request-recover-example">
-<div ng-controller="ExampleController" class="result">
-    Request <span ng-bind="requestStatus"></span>.
-    <span ng-if="isRecovered">(Request was recovered)</span>
+<body ng-cloak>
+
+<!--[if lt IE 10]>
+<div class="browser-happy">
+    <div class="content">
+        <p>童鞋，您的浏览器太OUT，为何不是试试更先进的浏览器呢～～</p>
+        <h4>注：如果使用360浏览器，请使用极速模式打开 <a href="http://se.360.cn/v6/help/help5.html" target="_blank">去了解极速模式</a></h4>
+        <a href="http://browsehappy.com/">立即更新</a>
+    </div>
+</div>
+<![endif]-->
+<nav class="navbar navbar-default head" id="head">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">
+                江苏达人网
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">首页</a></li>
+                <li><a ui-sref="hope">志愿意向</a></li>
+                <li><a ui-sref="chance">志愿预测</a></li>
+                <li><a ui-sref="example.nav">志愿范例</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿咨询 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="online.nav">咨询线路</a></li>
+                        <li><a ui-sref="city.nav">城市介绍</a></li>
+                        <li><a ui-sref="school.nav">高校介绍</a></li>
+                        <li><a ui-sref="marjor.nav">专业介绍</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a ui-sref="recipe.nav">填报要领</a></li>
+                        <li><a ui-sref="score.nav">分数分析</a></li>
+                        <li><a ui-sref="policy.nav">招生政策</a></li>
+                        <li><a ui-sref="job.nav">毕业去向</a></li>
+                        <li><a ui-sref="unique.nav">个性特色</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">深度查询<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:;;">文科本一</a></li>
+                        <li><a href="javascript:;;">文科本二</a></li>
+                        <li><a href="javascript:;;">文科本三</a></li>
+                        <li><a href="javascript:;;">文科高职</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="javascript:;;">理科本一</a></li>
+                        <li><a href="javascript:;;">理科本二</a></li>
+                        <li><a href="javascript:;;">理科本三</a></li>
+                        <li><a href="javascript:;;">理科高职</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
+                <form class="navbar-form navbar-left " action="javascript:;;" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="user.search" placeholder="请输入搜索内容..." style="width: 150px!important;"/>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <a href="javascript:;;" class="btn btn-default head-serche">
+                        <i class="glyphicon glyphicon-search"  ng-click="totalSearch()"></i>
+                    </a>
+                </form>
+                <li><a ng-click="login()" href="javascript:;;" ng-if="!user.islogin">登陆/注册</a><a ng-if="user.islogin">{{user.name}}</a></li>
+                <li><a ui-sref="all.score"  href="javascript:;;" ng-if="user.islogin">我的足迹</a></li>
+                <li><a ng-if="user.islogin"  href="javascript:;;" ng-click="logoff()">注销</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--<div ng-view></div>-->
+<div ui-view id="content"></div>
+
+
+<div class="foolter alert alert-success" id="footer">
+    <p><a ui-sref="about.nav">关于我们</a> &nbsp;&nbsp;<a>联系我们</a> 版权所有，侵权必究，苏ICP备15016324</p>
 </div>
 
-<script type="text/javascript">
-    var module = angular.module('request-recover-example', []);
-    module.factory('requestRejector', ['$q', function($q) {
-        var requestRejector = {
-            request: function(config) {
-                return $q.reject('requestRejector');
-            }
-        };
-        return requestRejector;
-    }]);
-    module.factory('requestRecoverer', ['$q', '$rootScope', function($q, $rootScope) {
-        var requestRecoverer = {
-            requestError: function(rejectReason) {
-                if (rejectReason === 'requestRejector') {
-                    $rootScope.isRecovered = true;
-                    // Recover the request
-                    return {
-                        transformRequest: [],
-                        transformResponse: [],
-                        method: 'GET',
-                        url: 'https://api.github.com/users/naorye/repos',
-                        headers: {
-                            Accept: 'application/json, text/plain, */*'
-                        }
-                    };
-                } else {
-                    return $q.reject(rejectReason);
-                }
-            }
-        };
-        return requestRecoverer;
-    }]);
-    module.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.interceptors.push('requestRejector');
-        // Removing 'requestRecoverer' will result to failed requesr
-        $httpProvider.interceptors.push('requestRecoverer');
-    }]);
-
-    module.controller('ExampleController', ['$scope', '$http', function($scope, $http) {
-        $scope.requestTime = '[waiting]';
-        $http.get('https://api.github.com/users/naorye/repos').then(function() {
-            $scope.requestStatus = 'success';
-        }, function(rejectReason) {
-            $scope.requestStatus = 'failure due to ' + rejectReason;
-        });
-    }]);
-</script>
 </body>
+<script src="lib/angular.min"></script>
+<script src="lib/angular-ui-router.min"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="application.js"></script>
+<script src="router.js"></script>
+<script src="lib/AES.js"></script>
+<script src="js/public"></script>
+<script src="lib/jquery-placeholder.min"></script>
+
+
+<script language="Javascript">
+    $(function(){
+        $('.dropdown-toggle').dropdown()
+    });
+    //    <!--document.oncontextmenu=new Function("event.returnValue=false");-->
+    //    <!--document.onselectstart=new Function("event.returnValue=false");-->
+</script>
 </html>
