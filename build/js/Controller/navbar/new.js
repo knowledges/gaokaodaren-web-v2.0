@@ -167,7 +167,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get('/loocha/article/show/'+id).success(function(dada){
+            $http.get('/loocha/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }

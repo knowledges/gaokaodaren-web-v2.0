@@ -23,8 +23,6 @@ define(function(require,exports,module){
     //  拦截器
     app.run(['$rootScope','$state','$window','$location','userService','homeService','displayService',function ($rootScope, $state,$location ,$window , userService,homeService,displayService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            console.log(event);
-            console.log(toState);
             homeService.htmlPage="";
             displayService.isShow = true;
             var isAuthenticated = userService.isAuthenticated();

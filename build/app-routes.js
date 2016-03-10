@@ -304,7 +304,7 @@ define(['app'],function(app){
                 }
             })
             .state('recipe.list',{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/recipe/recipe.html',
                 //controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",
@@ -318,11 +318,11 @@ define(['app'],function(app){
             .state('score',{//分数分析
                 url:"/score",
                 templateUrl:"html/temp/tempScore.html",
-                controller:"scoreCtl",
+                controller:"scoreCtr",
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/listGroup/groupScore.js','js/Controller/recipe/recipe.js']);
+                        return $ocLazyLoad.load(['js/Controller/temp/tempScore.js','js/Controller/recipe/recipe.js']);
                     }]
                 }
             })
@@ -338,7 +338,7 @@ define(['app'],function(app){
                 }
             })
             .state('score.list',{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/recipe/recipe.html',
                 controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",
@@ -373,7 +373,7 @@ define(['app'],function(app){
                 }
             })
             .state('policy.list',{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/recipe/recipe.html',
                 controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",

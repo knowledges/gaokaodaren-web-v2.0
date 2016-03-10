@@ -3,6 +3,57 @@
  */
 require(['app'],function(app){
     app.constant('articleURL',"/article");
+    app.directive('toggleTbyl', function(){
+        return {
+            restrict: 'A',
+            scope: {
+                toggleClass: '@'
+            },
+            link: function($scope, $element){
+                $element.on('click', function(){
+                    var list = $(".list-group-item");
+                    for(var i =0;i<list.length;i++){
+                        $(".list-group-item").eq(i).removeClass("active");
+                    }
+                    $element.addClass("active");
+                });
+            }
+        };
+    });
+    app.directive('toggleFsfx', function(){
+        return {
+            restrict: 'A',
+            scope: {
+                toggleClass: '@'
+            },
+            link: function($scope, $element){
+                $element.on('click', function(){
+                    var list = $(".list-group-item");
+                    for(var i =0;i<list.length;i++){
+                        $(".list-group-item").eq(i).removeClass("active");
+                    }
+                    $element.addClass("active");
+                });
+            }
+        };
+    });
+    app.directive('toggleZszc', function(){
+        return {
+            restrict: 'A',
+            scope: {
+                toggleClass: '@'
+            },
+            link: function($scope, $element){
+                $element.on('click', function(){
+                    var list = $(".list-group-item");
+                    for(var i =0;i<list.length;i++){
+                        $(".list-group-item").eq(i).removeClass("active");
+                    }
+                    $element.addClass("active");
+                });
+            }
+        };
+    });
     app.controller("recipeInfoCtr",['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
             $scope.title = {
                 list :"",
@@ -14,8 +65,8 @@ require(['app'],function(app){
             };
 
             init();
-
             $scope.title.breadcrumb_no = $stateParams.itemId;
+
 
             $scope.listInfo = function(id){
                 showInfo(id);

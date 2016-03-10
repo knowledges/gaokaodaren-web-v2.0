@@ -2,21 +2,30 @@
  * Created by qbl on 2015/10/22.
  */
 require(['app'],function(app){
-    app.constant('menuRecipeURL','/menu');
-    app.controller('recipeMenuCtr',['$scope','AJAX','menuRecipeURL',function($scope,AJAX,menuRecipeURL){
+    app.directive('isActive',['$stateParams',function($stateParams){
+        return{
+            restrict: 'A',
+            link:function(scope,elm,attr){
+                if(scope.$last == true){
+                    var list = $(".list-group-item");
+                    for(var i =0;i<list.length;i++){
+                        $(".list-group-item").eq(i).removeClass("active");
+                    }
+                    var idx = $stateParams.active !=undefined ? $stateParams.active :0;
+                    $(".list-group-item").eq(idx).addClass("active");
+                }
+            }
+        }
+    }]);
+    app.controller('recipeMenuCtr',['$scope','$http','menuRecipeURL',function($scope,$http,menuRecipeURL){
         $scope.menu = {
             menuList : ""
-        }
+        };
         init();
         function init(){
-            var parame = {};
-            parame.index = 0;
-            parame.limit = 999;
-            parame.parent_id = 15;
-            AJAX.getRequest(menuRecipeURL,'GET',parame)
-                .success(function(data,status){
-                    $scope.menu.menuList = data.response.list;
-                });
+            $http.get('/loocha/menu?index=0&limit=999&parent_id=15').success(function(data){
+                $scope.menu.menuList = data.response.list;
+            });
         }
     }]);
 });
