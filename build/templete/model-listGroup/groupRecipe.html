@@ -1,6 +1,4 @@
 <div class="list-group">
-    <a ui-sref="recipe.nav" toggle-tbyl class="list-group-item active">
-        导航
-    </a>
-    <a toggle-tbyl is-active class="list-group-item" ng-repeat="list in menu.menuList" ui-sref="recipe.list({itemId:list.menu_id,param:15,active:$index+1})">{{list.title}}</a>
+    <a ui-sref="recipe.nav" class="list-group-item active">导航</a>
+    <a is-active class="list-group-item" ng-repeat="list in menu.menuList" ui-sref="recipe.list({itemId:list.menu_id,param:15,active:$index+1})">{{list.title}}</a>
 </div>

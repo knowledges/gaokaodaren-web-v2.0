@@ -1,14 +1,14 @@
 <ul class="nav menu-nav text-center" ng-controller="cityCtr">
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed" aria-expanded="true" data-toggle="collapse">导航</a>
-        <ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true" class="collapse in">
+        <ul id="chart-collpsed" data-toggle="collapse in"  aria-expanded="true" class="collapse in ulcollapse">
             <li ui-sref="city.nav"><a href="javascript:;;">导航</a></li>
         </ul>
     </li>
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">城市</a>
-        <ul id="chart-collpsed1" class="collapse in" data-toggle="collapse in" aria-expanded="true">
-            <li ng-repeat="list in menu.provincelist"  ui-sref="city.list({cityId:list.id})"> <a href="javascript:;;">{{list.name}}</a></li>
+        <ul id="chart-collpsed1" class="collapse in ulcollapse" data-toggle="collapse in" aria-expanded="true">
+            <li is-active ng-repeat="list in menu.provincelist"  ui-sref="city.list({cityId:list.id})"> <a href="javascript:;;">{{list.name}}</a></li>
         </ul>
     </li>
 </ul>

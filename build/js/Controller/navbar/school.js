@@ -8,6 +8,20 @@ require(['app','pagging'],function(app,pagging){
     app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
     app.constant("tubeURL","/web/new/JSON/attribute.json");
+    app.directive('isActive',['$stateParams',function($stateParams){
+        return{
+            restrict: 'A',
+            link:function(scope,elm,attr){
+                var idx = $stateParams.type !=undefined ? $stateParams.type :0;
+                $(".ulcollapse li").removeClass('active').eq(idx).addClass("active");
+
+                $(".ulcollapse li").on('click',function(e){
+                    $(".ulcollapse li").removeClass('active');
+                    $(this).addClass('active');
+                });
+            }
+        }
+    }]);
     app.controller("schoolConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
         $scope.school = {
             isnav: true,

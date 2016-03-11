@@ -3,6 +3,20 @@
  */
 'use strict';
 require(['app'],function(app){
+    app.directive('isActive',['$stateParams',function($stateParams){
+        return{
+            restrict: 'A',
+            link:function(scope,elm,attr){
+                var idx = $stateParams.cityId !=undefined ? $stateParams.cityId :0;
+                $(".ulcollapse li").removeClass('active').eq(idx).addClass("active");
+
+                $(".ulcollapse li").on('click',function(e){
+                    $(".ulcollapse li").removeClass('active');
+                    $(this).addClass('active');
+                });
+            }
+        }
+    }]);
     app.controller("cityCtr",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
 
         $scope.menu = {

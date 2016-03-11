@@ -2,5 +2,5 @@
     <a ui-sref="job.nav" class="list-group-item active">
         导航
     </a>
-    <a ng-repeat="list in menu.menuList" ui-sref="job.list({itemId:list.menu_id,param:21})" class="list-group-item">{{list.title}}</a>
+    <a is-active ng-repeat="list in menu.menuList" ui-sref="job.list({itemId:list.menu_id,param:21})" class="list-group-item">{{list.title}}</a>
 </div>

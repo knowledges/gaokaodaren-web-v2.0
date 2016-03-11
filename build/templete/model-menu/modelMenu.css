@@ -98,3 +98,6 @@ ul.menu-nav #div1 {
   position: absolute;
   right: 0;
 }
+.active{
+  background: #ccc;
+}

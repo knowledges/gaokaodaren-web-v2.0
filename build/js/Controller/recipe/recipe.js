@@ -3,57 +3,22 @@
  */
 require(['app'],function(app){
     app.constant('articleURL',"/article");
-    app.directive('toggleTbyl', function(){
-        return {
+    app.directive('isActive',['$stateParams',function($stateParams){
+        return{
             restrict: 'A',
-            scope: {
-                toggleClass: '@'
-            },
-            link: function($scope, $element){
-                $element.on('click', function(){
-                    var list = $(".list-group-item");
-                    for(var i =0;i<list.length;i++){
-                        $(".list-group-item").eq(i).removeClass("active");
-                    }
-                    $element.addClass("active");
+            link:function(scope,elm,attr){
+                if(scope.$last == true){
+                    $(".list-group-item").removeClass('active');
+                    var idx = $stateParams.active !=undefined ? $stateParams.active :0;
+                    $(".list-group-item").eq(idx).addClass("active");
+                }
+                $(".list-group-item").on('click',function(event){
+                    $(".list-group-item").removeClass('active');
+                    $(this).addClass('active');
                 });
             }
-        };
-    });
-    app.directive('toggleFsfx', function(){
-        return {
-            restrict: 'A',
-            scope: {
-                toggleClass: '@'
-            },
-            link: function($scope, $element){
-                $element.on('click', function(){
-                    var list = $(".list-group-item");
-                    for(var i =0;i<list.length;i++){
-                        $(".list-group-item").eq(i).removeClass("active");
-                    }
-                    $element.addClass("active");
-                });
-            }
-        };
-    });
-    app.directive('toggleZszc', function(){
-        return {
-            restrict: 'A',
-            scope: {
-                toggleClass: '@'
-            },
-            link: function($scope, $element){
-                $element.on('click', function(){
-                    var list = $(".list-group-item");
-                    for(var i =0;i<list.length;i++){
-                        $(".list-group-item").eq(i).removeClass("active");
-                    }
-                    $element.addClass("active");
-                });
-            }
-        };
-    });
+        }
+    }]);
     app.controller("recipeInfoCtr",['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
             $scope.title = {
                 list :"",

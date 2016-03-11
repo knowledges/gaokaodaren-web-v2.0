@@ -179,7 +179,7 @@ define(['app'],function(app){
                 }
             })
             .state('online.list',{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/showInfo/showInfo.html',
                 controllerUrl:"js/Controller/showInfo/showInfo",
                 controller:"onlineInfoCtr",
@@ -322,7 +322,7 @@ define(['app'],function(app){
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/temp/tempScore.js','js/Controller/recipe/recipe.js']);
+                        return $ocLazyLoad.load(['js/Controller/temp/tempScore.js']);
                     }]
                 }
             })
@@ -408,7 +408,7 @@ define(['app'],function(app){
                 }
             })
             .state('job.list', {
-                url: '/itemId=:itemId&param=:param',
+                url: '/itemId=:itemId&param=:param&active=:active',
                 templateUrl: 'html/recipe/recipe.html',
                 controllerUrl:"js/Controller/recipe/recipe",
                 controller: "recipeInfoCtr",
@@ -443,7 +443,7 @@ define(['app'],function(app){
                 }
             })
             .state('unique.list',{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/recipe/recipe.html',
                 controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",
