@@ -1650,6 +1650,39 @@ require(['app'],function(app){
         };
 
         $scope.readom = function(){
+            var param = {};
+            param.sprop_prefer = [17,20];  //优先院校属类id列表
+            param.sprop_ignore = [12,10,7,5];  //拒绝院校属类id列表
+            param.school_prefer = [124,122,50,11,47]; //优先院校id列表
+            param.school_ignore = ["227", "21", "102", "103", "9", "13", "152", "170", "143", "27", "66", "2", "112", "18", "62", "157", "166", "126","125", "197", "219", "184", "136", "10", "8", "212", "1", "111", "86", "88", "17", "92", "173", "58", "201", "223"]; //拒绝院校id列表
+            param.city_prefer = [81,331,330,96,281,82,94,102,99];   //优先城市id列表
+            param.city_ignore = [196,243,266,280,219,225,323];    //拒绝城市id列表
+            param.dproptype_prefer = [424,425,426,13,98,437,438,698];   //优先专业类别id列表
+            param.dproptype_ignore = [715,716,721,863,709,710,718,862];    //拒绝专业类别id列表
+            param.dprop_prefer = [3129,3130,2101,2096,3486,3132,3138,2161,2099,];   //优先专业id列表
+            param.dprop_ignore = [3165,2171,2136];   //拒绝专业id列表
+            param.pproptype_prefer = [];   //优先个性类别id列表
+            param.pproptype_ignore = [];   //拒绝个性类别id列表
+            param.pprop_prefer = [274,161,106,107,108,300,693,119,141];   //优先个性id列表
+            param.pprop_ignore = [115,116,117,118];   //拒绝个性id列表
+            param.prefer_order = [1,2,3,4];   //志愿意向排序
+            param.school_order = [124,112,11];   //高校优先id列表
+            param.depart_order = [424,425,426,13,438,698];   //专业优先id列表
+            param.city_order = [81,331,99];     //城市优先id列表
+            param.personality_order = [274,161,106,107,108,119,141];  //个性满足优先id列表
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            /*TODO 提交部分*/
+            $http.post("/loocha/exam/intention",param,{
+            headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+            transformRequest:tramsform
+            }).success(function(responseDate){
+                console.log('提交成功');
+            });
+
+
             $('#modal-pay').modal('show');
         };
 
@@ -1665,28 +1698,28 @@ require(['app'],function(app){
         });
 
         $scope.pay = function(){
-            //    TODO 提交订单，
-            $window.open('#/pay');
-            //$window.location.href = "#/pay";
+            //TODO 支付，
+            alert('查看： 我的足迹-》意向参考表');
+            //$window.open('#/pay');
         };
 
         $scope.manual = function(){
-            $window.location.href = "#/refer1";
+            $window.open('#/refer1');
             $(".modal-backdrop").remove();
             $(".modal-open").removeClass('modal-open');
         };
 
-        //////////////////////////////////监听//////////////////////////////////////////////////
-        $scope.$watch('hope.cityArr',function(newValue,oldValue,scope){
-            console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
-        });
-
-        $scope.$watch('hope.departArr',function(newValue,oldValue,scope){
-            console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
-        });
-
-        $scope.$watch('hope.cityOpt1',function(newValue,oldValue){
-            console.log("newValue:"+JSON.stringify(newValue)+",oldValue:"+JSON.stringify(oldValue));
-        });
+        ////////////////////////////////////监听//////////////////////////////////////////////////
+        //$scope.$watch('hope.cityArr',function(newValue,oldValue,scope){
+        //    console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
+        //});
+        //
+        //$scope.$watch('hope.departArr',function(newValue,oldValue,scope){
+        //    console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
+        //});
+        //
+        //$scope.$watch('hope.cityOpt1',function(newValue,oldValue){
+        //    console.log("newValue:"+JSON.stringify(newValue)+",oldValue:"+JSON.stringify(oldValue));
+        //});
     }]);
 });
