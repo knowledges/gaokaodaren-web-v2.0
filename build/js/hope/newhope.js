@@ -344,6 +344,12 @@ require(['app'],function(app){
         function init(){
             getLoginUserInfo.isLogoin();
 
+            if(getLoginUserInfo.isUScore() == null || getLoginUserInfo.isUScore() == ""){
+                alert('亲，您还没有输入成绩，或没有使用成绩！请点击‘开始使用’');
+                window.location.href = "all.score";
+                window.location.reload();
+            }
+
             var type = sessionStorage.getItem('type') == null ? 1:sessionStorage.getItem('type');
             switch (parseInt(type)){
                 case 1:
@@ -1344,13 +1350,13 @@ require(['app'],function(app){
          * 属性
          * @param e
          */
-        $scope.agreeProp = function(e){
-            var that = $(e.target),status = that.attr('status'),prop_id = that.attr('prop_id');
-            var mosaic = classifyClk.agreenCityEvent(status,that,$scope.hope.prop_prefer,"",prop_id,$scope.hope.prop_name,that.html(),$scope.hope.propArr,$scope.hope.propObj);
-            $scope.hope.prop_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-            $scope.hope.prop_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-            $scope.hope.propArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-        };
+        //$scope.agreeProp = function(e){
+        //    var that = $(e.target),status = that.attr('status'),prop_id = that.attr('prop_id');
+        //    var mosaic = classifyClk.agreenCityEvent(status,that,$scope.hope.prop_prefer,"",prop_id,$scope.hope.prop_name,that.html(),$scope.hope.propArr,$scope.hope.propObj);
+        //    $scope.hope.prop_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //    $scope.hope.prop_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //    $scope.hope.propArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //};
 
         /*
          * 按重点学科方向分单机事件
@@ -1576,7 +1582,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.agreePro = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#provnice .wishId_"+id);
             var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.city_prefer,$scope.hope.city_ignore,"city_id",$scope.hope.city_name,$scope.hope.cityArr,$scope.hope.cityObj);
             $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
@@ -1588,7 +1594,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.rejectPro = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#provnice .wishId_"+id);
             var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.city_prefer,$scope.hope.city_ignore,"city_id",$scope.hope.city_name,$scope.hope.cityArr);
             $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
@@ -1600,7 +1606,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.agreeDep = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#depart .wishId_"+id);
             var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.depart_prefer,$scope.hope.depart_ignore,"depart_id",$scope.hope.depart_name,$scope.hope.departArr,$scope.hope.departObj);
             $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
@@ -1612,7 +1618,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.rejectDep = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#depart .wishId_"+id);
             var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.depart_prefer,$scope.hope.depart_ignore,"depart_id",$scope.hope.depart_name,$scope.hope.departArr);
             $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
@@ -1625,7 +1631,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.agreeSchl = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#panel-footer .wishId_"+id);
             var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.school_prefer,$scope.hope.school_ignore,"school_id",$scope.hope.school_name,$scope.hope.schoolArr,$scope.hope.schoolObj);
             $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
@@ -1637,7 +1643,7 @@ require(['app'],function(app){
          * @param e
          */
         $scope.rejectSchl = function(e){
-            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $(".wishId_"+id);
+            var that = $(e.target),status = that.attr('status'),id=that.attr("wishid"),list = $("#panel-footer .wishId_"+id);
             var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.school_prefer,$scope.hope.school_ignore,"school_id",$scope.hope.school_name,$scope.hope.schoolArr);
             $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
             $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];

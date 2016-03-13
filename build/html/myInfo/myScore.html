@@ -13,7 +13,11 @@
             <li><a href="javascript:;;" type="8" score="190" ng-click="startTable($event)" title="点击模拟志愿意向表">理科高职</a></li>
         </nav>
     </div>
-
+    <div class="alert alert-warning text-left" role="alert"  ng-if="table.newScore>0">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">友情提示:</span>
+        点击批次前，确认下方<i class="icon-circle-arrow-down"></i>是否有成绩被使用！否则会影响到您志愿推荐的准确性哦！
+    </div>
     <div class="container-fluid">
         <table class="table table-hover table-bordered">
             <thead>

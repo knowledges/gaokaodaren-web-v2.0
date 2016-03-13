@@ -7,7 +7,7 @@ require(['app'],function(app){
         return{
             restrict: 'A',
             link:function(scope,elm,attr){
-                var idx = $stateParams.cityId !=undefined ? $stateParams.cityId :0;
+                var idx = $stateParams.code !=undefined ? $stateParams.code :0;
                 $(".ulcollapse li").removeClass('active').eq(idx).addClass("active");
 
                 $(".ulcollapse li").on('click',function(e){

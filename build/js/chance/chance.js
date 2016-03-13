@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/12/2.
  */
 require(['app'],function(app){
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout',function($scope,$http,$sce,$timeout){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','getLoginUserInfo',function($scope,$http,$sce,$timeout,getLoginUserInfo){
         $scope.score = "";
         $scope.isShow = false;
         //TODO 批次
@@ -80,6 +80,14 @@ require(['app'],function(app){
         };
 
         function init(){
+            getLoginUserInfo.isLogoin();
+
+            if(getLoginUserInfo.isUScore() == null || getLoginUserInfo.isUScore() == ""){
+                alert('亲，您还没有输入成绩，或没有使用成绩！请点击‘开始使用’');
+                window.location.href = "all.score";
+                window.location.reload();
+            }
+
             $('.dropdown-toggle').dropdown();
 
             /**

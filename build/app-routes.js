@@ -60,10 +60,13 @@ define(['app'],function(app){
                     sessionStorage.removeItem('user');
                     sessionStorage.removeItem('user_id');
                     sessionStorage.removeItem('usernumber');
-                    alert('登陆失效！');
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
                     window.location.href = "#/home";
                     window.location.reload();
                 });
+            },
+            isUScore:function(){
+                return sessionStorage.getItem('uScore');
             }
         }
         return userInfo;
@@ -214,7 +217,7 @@ define(['app'],function(app){
                 }
             })
             .state('city.list',{
-                url:'/{cityId:[0-9]{0,4}}',
+                url:'/cityId=:cityId&code=:code',
                 templateUrl:'html/city/city.html',
                 controllerUrl:"js/Controller/navbar/city",
                 controller:"cityConCtl",

@@ -37,7 +37,7 @@ require(['app'],function(app){
                     name: "B+"
                 }, {
                     id: 2,
-                    name: "B+"
+                    name: "B"
                 }, {
                     id: 1,
                     name: "C"
@@ -100,6 +100,7 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
+                alert("请点击页面中‘开始使用’，我们将开始使用此次成绩！");
             	$window.location.reload(0);
             });
         };
