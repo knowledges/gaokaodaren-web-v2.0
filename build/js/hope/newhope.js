@@ -1208,97 +1208,102 @@ require(['app'],function(app){
 
             }
             $("#depart"+course_id).show();
-        }
-        /*个性标签*/
-        $scope.showCharacter = function(type_id){
-            $("#character .dropdown-menu").hide();
-            var istrue = $("#pills"+type_id).attr('data-istrue');
-            if (istrue == "false"){
-                $http.get("/loocha/depart/drive?parentId="+type_id).success(function(data,status){
-                    var html = [];
-                    if(data.response.length<=0){
-                        html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
-                    }else{
-                        $.each(data.response,function(i,v){
-                            html.push('<li><a href="javascript:;;" class="findCharacter" type_id="'+v.id+'">'+v.name+'</a></li>');
-                        });
-                    }
-                    $("#pills"+type_id).append(html.join(''));
-                    var _time = null;
-                    $(".findCharacter").unbind('dblclick').dblclick(function(e){
-                        $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"),type_id = that.attr('type_id');
-                        var list = $(".physiClk[parent_id="+type_id+"]");
-                        if(type_id == 137 || type_id == 139 || type_id == 140||type_id == 682 || type_id == 683){
-                            return;
-                        }else if(type_id == 674 || type_id == 675 || type_id == 676){
-                            var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.depart_prefer2,$scope.hope.depart_ignore2,"depart_id",$scope.hope.depart_name2,$scope.hope.departArr2);
-                            $scope.hope.depart_prefer2 = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                            $scope.hope.depart_ignore2 = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                            $scope.hope.depart_name2 = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                            $scope.hope.departArr2 = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                        }else if(type_id == 679 || type_id == 680 || type_id == 681){
-                            var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.user_prefer,$scope.hope.user_ignore,"user_id",$scope.hope.user_name,$scope.hope.userArr);
-                            $scope.hope.user_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                            $scope.hope.user_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                            $scope.hope.user_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                            $scope.hope.userArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                        }else if (type_id == 684 || type_id == 685 || type_id == 686){
-                            var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.wish_prefer,$scope.hope.wish_ignore,"wish_id",$scope.hope.wish_name,$scope.hope.wishArr);
-                            $scope.hope.wish_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                            $scope.hope.wish_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                            $scope.hope.wish_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                            $scope.hope.wishArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                        }else if(type_id == 690){
-                            var mosaic =classifyDBClk.rejectClsEvent(status,that,list,"",$scope.hope.physical_ignore,"physical_id",$scope.hope.physical_name,null);
-                            $scope.hope.physical_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                        }
-                    }).unbind('click').click(function(e){
-                        $timeout.cancel(_time);
-                        var that = $(this);
-                        _time= $timeout(function(e){
-                            var status = that.attr("status");
-                            var type_id = that.attr('type_id');
-                            var list = $(".physiClk[parent_id="+type_id+"]");
-                            if(type_id == 137 || type_id == 139 || type_id == 140){
-                                var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.graduate_option,"","graduate_id",$scope.hope.graduate_name,$scope.hope.graduateArr,$scope.hope.graduateObj);
-                                $scope.hope.graduate_option = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                                $scope.hope.graduate_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                                $scope.hope.graduateArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                            }else if(type_id == 674 || type_id == 675 || type_id == 676){
-                                var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.depart_prefer2,$scope.hope.depart_ignore2,"depart_id",$scope.hope.depart_name2,$scope.hope.departArr2,$scope.hope.departObj2);
-                                $scope.hope.depart_prefer2 = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                                $scope.hope.depart_ignore2 = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                                $scope.hope.depart_name2 =  mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                                $scope.hope.departArr2 =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                            }else if(type_id == 679 || type_id == 680 || type_id == 681){
-                                var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.user_prefer,$scope.hope.user_ignore,"user_id",$scope.hope.user_name,$scope.hope.userArr,$scope.hope.userObj);
-                                $scope.hope.user_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                                $scope.hope.user_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                                $scope.hope.user_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                                $scope.hope.userArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                            }else if(type_id == 682 || type_id == 683){
-                                var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.nature_prefer,"","nature_id",$scope.hope.nature_name,$scope.hope.natureArr,$scope.hope.natureObj);
-                                $scope.hope.nature_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                                $scope.hope.nature_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                                $scope.hope.natureArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-                            }else if(type_id == 684 || type_id == 685 || type_id == 686){
-                                var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.wish_prefer,$scope.hope.wish_ignore,"wish_id",$scope.hope.wish_name,$scope.hope.wishArr,$scope.hope.wishObj);
-                                $scope.hope.wish_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
-                                $scope.hope.wish_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
-                                $scope.hope.wish_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
-                                $scope.hope.wishArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
-
-                            }else if (type_id == 690){
-                                return;
-                            }
-                        },400);
-                    });
-                });
-                $("#pills"+type_id).attr("data-istrue","true");
-            }
-            $("#pills"+type_id).show();
         };
+
+        $scope.showCharacter = function(id){
+            $("#pills"+id).show();
+        };
+
+        /*个性标签*/
+        //$scope.showCharacter = function(type_id){
+        //    $("#character .dropdown-menu").hide();
+        //    var istrue = $("#pills"+type_id).attr('data-istrue');
+        //    if (istrue == "false"){
+        //        $http.get("/loocha/depart/drive?parentId="+type_id).success(function(data,status){
+        //            var html = [];
+        //            if(data.response.length<=0){
+        //                html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
+        //            }else{
+        //                $.each(data.response,function(i,v){
+        //                    html.push('<li><a href="javascript:;;" class="findCharacter" type_id="'+v.id+'">'+v.name+'</a></li>');
+        //                });
+        //            }
+        //            $("#pills"+type_id).append(html.join(''));
+        //            var _time = null;
+        //            $(".findCharacter").unbind('dblclick').dblclick(function(e){
+        //                $timeout.cancel(_time);
+        //                var that = $(this), status = that.attr("status"),type_id = that.attr('type_id');
+        //                var list = $(".physiClk[parent_id="+type_id+"]");
+        //                if(type_id == 137 || type_id == 139 || type_id == 140||type_id == 682 || type_id == 683){
+        //                    return;
+        //                }else if(type_id == 674 || type_id == 675 || type_id == 676){
+        //                    var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.depart_prefer2,$scope.hope.depart_ignore2,"depart_id",$scope.hope.depart_name2,$scope.hope.departArr2);
+        //                    $scope.hope.depart_prefer2 = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                    $scope.hope.depart_ignore2 = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                    $scope.hope.depart_name2 = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                    $scope.hope.departArr2 = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                }else if(type_id == 679 || type_id == 680 || type_id == 681){
+        //                    var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.user_prefer,$scope.hope.user_ignore,"user_id",$scope.hope.user_name,$scope.hope.userArr);
+        //                    $scope.hope.user_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                    $scope.hope.user_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                    $scope.hope.user_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                    $scope.hope.userArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                }else if (type_id == 684 || type_id == 685 || type_id == 686){
+        //                    var mosaic =classifyDBClk.rejectClsEvent(status,that,list,$scope.hope.wish_prefer,$scope.hope.wish_ignore,"wish_id",$scope.hope.wish_name,$scope.hope.wishArr);
+        //                    $scope.hope.wish_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                    $scope.hope.wish_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                    $scope.hope.wish_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                    $scope.hope.wishArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                }else if(type_id == 690){
+        //                    var mosaic =classifyDBClk.rejectClsEvent(status,that,list,"",$scope.hope.physical_ignore,"physical_id",$scope.hope.physical_name,null);
+        //                    $scope.hope.physical_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                }
+        //            }).unbind('click').click(function(e){
+        //                $timeout.cancel(_time);
+        //                var that = $(this);
+        //                _time= $timeout(function(e){
+        //                    var status = that.attr("status");
+        //                    var type_id = that.attr('type_id');
+        //                    var list = $(".physiClk[parent_id="+type_id+"]");
+        //                    if(type_id == 137 || type_id == 139 || type_id == 140){
+        //                        var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.graduate_option,"","graduate_id",$scope.hope.graduate_name,$scope.hope.graduateArr,$scope.hope.graduateObj);
+        //                        $scope.hope.graduate_option = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                        $scope.hope.graduate_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                        $scope.hope.graduateArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                    }else if(type_id == 674 || type_id == 675 || type_id == 676){
+        //                        var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.depart_prefer2,$scope.hope.depart_ignore2,"depart_id",$scope.hope.depart_name2,$scope.hope.departArr2,$scope.hope.departObj2);
+        //                        $scope.hope.depart_prefer2 = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                        $scope.hope.depart_ignore2 = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                        $scope.hope.depart_name2 =  mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                        $scope.hope.departArr2 =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                    }else if(type_id == 679 || type_id == 680 || type_id == 681){
+        //                        var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.user_prefer,$scope.hope.user_ignore,"user_id",$scope.hope.user_name,$scope.hope.userArr,$scope.hope.userObj);
+        //                        $scope.hope.user_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                        $scope.hope.user_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                        $scope.hope.user_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                        $scope.hope.userArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                    }else if(type_id == 682 || type_id == 683){
+        //                        var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.nature_prefer,"","nature_id",$scope.hope.nature_name,$scope.hope.natureArr,$scope.hope.natureObj);
+        //                        $scope.hope.nature_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                        $scope.hope.nature_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                        $scope.hope.natureArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //                    }else if(type_id == 684 || type_id == 685 || type_id == 686){
+        //                        var mosaic = classifyClk.agreenClsEvent(status,that,list,$scope.hope.wish_prefer,$scope.hope.wish_ignore,"wish_id",$scope.hope.wish_name,$scope.hope.wishArr,$scope.hope.wishObj);
+        //                        $scope.hope.wish_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+        //                        $scope.hope.wish_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        //                        $scope.hope.wish_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+        //                        $scope.hope.wishArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        //
+        //                    }else if (type_id == 690){
+        //                        return;
+        //                    }
+        //                },400);
+        //            });
+        //        });
+        //        $("#pills"+type_id).attr("data-istrue","true");
+        //    }
+        //    $("#pills"+type_id).show();
+        //};
 
         /**
          * 院校属类 具体高校绑定单击事件

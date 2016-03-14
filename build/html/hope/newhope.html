@@ -771,27 +771,114 @@
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
                         <ul class="nav nav-pills">
-                            <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==1">
-                                <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
-                                    {{list.name}}
-                                    <span class="caret"></span>
+                            <li role="presentation" class="dropdown ng-scope">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="666" ng-click="showCharacter(666)">
+                                    毕业去向方面<span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                                <ul class="dropdown-menu" id="pills666" data-istrue="true" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="137">就业</a></li>
+                                    <li><a href="javascript:;;" type_id="139">考研</a></li>
+                                    <li><a href="javascript:;;" type_id="140">出国（境）</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown ng-scope">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="667" ng-click="showCharacter(667)">
+                                    专业要求方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills667" data-istrue="true" >
+                                    <li><a href="javascript:;;" type_id="674">语种</a></li>
+                                    <li><a href="javascript:;;" type_id="675">加试</a></li>
+                                    <li><a href="javascript:;;" type_id="676">多收费</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown ng-scope">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="668"  ng-click="showCharacter(668)">
+                                    兴趣爱好方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills668" data-istrue="true" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="677">喜欢与物打交道</a></li>
+                                    <li><a href="javascript:;;" type_id="678">喜欢与人打交道</a></li>
+                                    <li><a href="javascript:;;" type_id="679">喜欢关注大小事</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown ng-scope">
+                                <a class="dropdown-toggle ng-binding" href="javascript:;;" type_id="669" ng-click="showCharacter(669)">
+                                    性格倾向方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills669" data-istrue="true" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="680">外向型</a></li>
+                                    <li><a href="javascript:;;" type_id="681">内向型</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
                     <div class="col-sm-12" style="padding: 0;">
                         <ul class="nav nav-pills">
-                            <li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==2">
-                                <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">
-                                    {{list.name}}
-                                    <span class="caret"></span>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="670" ng-click="showCharacter(670)">
+                                    学习愿望方面<span class="caret"></span>
                                 </a>
-                                <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>
+                                <ul class="dropdown-menu" id="pills670" data-istrue="true" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="682">学文</a></li>
+                                    <li><a href="javascript:;;" type_id="683">学理</a></li>
+                                    <li><a href="javascript:;;" type_id="684">学工</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="671" ng-click="showCharacter(671)">
+                                    学科强弱方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills671" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="685">强学科</a></li>
+                                    <li><a href="javascript:;;" type_id="686">弱学科</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="672" ng-click="showCharacter(672)">
+                                    能力特长方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills672"  style="display: none;">
+                                    <li><a href="javascript:;;" class="findCharacter" type_id="687">强项</a></li>
+                                    <li><a href="javascript:;;" class="findCharacter" type_id="688">弱项</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="673" ng-click="showCharacter(673)">
+                                    其他因素方面<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills673" style="display: none;">
+                                    <li><a href="javascript:;;" type_id="690">体检限项</a></li>
+                                    <li><a href="javascript:;;" type_id="691">家庭经济</a></li>
+                                    <li><a href="javascript:;;" type_id="692">等级级差</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <!--<div class="col-sm-10 text-left">-->
+                    <!--<div class="col-sm-12" style="padding: 0;">-->
+                        <!--<ul class="nav nav-pills">-->
+                            <!--<li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==1">-->
+                                <!--<a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">-->
+                                    <!--{{list.name}}-->
+                                    <!--<span class="caret"></span>-->
+                                <!--</a>-->
+                                <!--<ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-12" style="padding: 0;">-->
+                        <!--<ul class="nav nav-pills">-->
+                            <!--<li role="presentation" class="dropdown" ng-repeat="list in hope.labelType" ng-if="list.classify==2">-->
+                                <!--<a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}" ng-click="showCharacter(list.id)">-->
+                                    <!--{{list.name}}-->
+                                    <!--<span class="caret"></span>-->
+                                <!--</a>-->
+                                <!--<ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="false"></ul>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <!-- 基础-->
             <div class="row">
@@ -887,36 +974,6 @@
                     <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
                 </div>
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学文方向)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==684"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学理方向)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==685"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">(学工方向)</span></h6>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==686"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
                     <h6><span class="label label-success">(就业方向)</span></h6>
                 </div>
                 <div class="col-sm-10 text-left">
@@ -946,7 +1003,36 @@
                     </ul>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学文方向)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==684"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学理方向)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==685"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h6><span class="label label-success">(学工方向)</span></h6>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.wish" ng-if="list.parentId==686"><a class="physiClk" href="javascript:;;" parent_id="{{list.parentId}}" wish_id="{{list.id}}" ng-click="agreeWish($event)" ng-dblclick="rejectWish($event)">{{list.name}}</a> </li>
+                    </ul>
+                </div>
+            </div>
             <!-- 匹配部分-->
             <div class="row">
                 <div class="alert alert-default text-left">
