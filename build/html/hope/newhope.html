@@ -1,7 +1,7 @@
 <div class="container text-center">
     <!--ng-controller="wishTabCtr-info"-->
     <div>
-        <h1>{{info.title}}</h1>
+        <h1 title="请把您的志愿意向填入（“点击”）《志愿意向表》">{{info.title}}</h1>
         <h4>{{info.subtitle}}</h4>
         <div class="form-inline" role="高考-基本成绩">
             <div class="alert alert-success text-left">
@@ -18,7 +18,7 @@
         <div class="panel-body" id="panel-footer">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>院校属类</h4>
+                    <h4 title="亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。">院校属类</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -107,7 +107,7 @@
         <div class="panel-footer" id="provnice"  style="background: #FFF!important;">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4 data-toggle="tooltip" data-placement="left" title="亲！你想去哪里上学。">院校属地</h4>
+                    <h4 data-toggle="tooltip" data-placement="left" title="亲：请将您一心向往的那座城市或哪线城市或哪个省、哪个地区的城市，作为优先选择的城市，单击（绿色）&#10;亲：请将您不想去或不愿意去或坚决不去的那座城市或哪线城市或哪个省、哪个地区的城市，拒绝掉！双击（灰色）&#10;亲：对于您可去可不去（可调节可接受）的那座城市或哪线城市或哪个省、哪个地区的城市，保持原样。">院校属地</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -260,14 +260,14 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4>
+            <h4 title="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
                 <i class="glyphicon glyphicon-education"></i> 意向专业
             </h4>
         </div>
         <div class="panel-body" id="depart">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    <h4 title="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -290,7 +290,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4 title="这里有最热最火的专业"><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">热门专业</a> <img src="img/hot.png" alt="hot" style="position: absolute; top: 0;"/></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">热门专业</a> <img src="img/hot.png" alt="hot" style="position: absolute; top: 0;"/></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.firDepart1.length>0">
@@ -891,7 +891,7 @@
                 <div class="col-sm-10 text-left">
                     <div class="btn-group">
                         <label class="btn btn-warning">
-                            <input type="checkbox" name="economic" ng-model="hope.economy_option" /> 偏弱
+                            <input type="checkbox" name="economic" ng-model="hope.economy_option" title="家庭经济确实较弱，难以承担几年大学费用的考生，双击（灰色）。其他考生不点击" /> 偏弱
                         </label>
                     </div>
                 </div>
@@ -903,14 +903,14 @@
                 <div class="col-sm-10 text-left">
                     <div class="btn-group">
                         <label class="btn btn-success">
-                            <input type="checkbox" name="economic" ng-model="hope.prop6" /> 等级级差加分
+                            <input type="checkbox" name="economic" ng-model="hope.prop6" title="有选测科目等级B+或A或A+，希望尽量加试的考生，单击（绿色）其他考生不点击"/> 等级级差加分
                         </label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(体检限项)</span></h6>
+                    <h6 title="高考体检有限项的考生，在对应的条目标号上，双击（灰色）"><span class="label label-info">(体检限项)</span></h6>
                 </div>
                 <div class="col-sm-10  text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -933,14 +933,25 @@
                 <div class="col-sm-10  text-left">
                     <ul class="nav nav-pills">
                         <!--<li ng-repeat="list in hope.languages"><a class="btn btn-default physiClk" href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">{{list.name}}</a></li>-->
-                        <li><a class="physiClk" href="javascript:;;" parent_id="674" depart_id="278" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">英语</a></li>
-                        <li><a class="physiClk" href="javascript:;;" parent_id="" depart_id="" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">非英语</a></li>
+                        <!--<li><a class="physiClk" href="javascript:;;" parent_id="674" depart_id="278" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">英语</a></li>-->
+                        <!--<li title="中学外语不含英语的考生，在对应的语种上点击"><a class="physiClk" href="javascript:;;" parent_id="" depart_id="" ng-click="agreeDepart2($event)" ng-dblclick="rejectDepart2($event)">非英语</a></li>-->
+                        <!-- Split button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">非英语</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="list in hope.languages" ng-if="$index+1<6"><a href="javascript:;;" parent_id="{{list.parentId}}" depart_id="{{list.id}}">{{list.name}}</a></li>
+                            </ul>
+                        </div>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(加试科目)</span></h6>
+                    <h6 title="可以接受加试的考生，在对应的选项上单击（绿色）"><span class="label label-info">(加试科目)</span></h6>
                 </div>
                 <div class="col-sm-10  text-left">
                     <ul class="nav nav-pills">
@@ -950,7 +961,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(高校多收费)</span></h6>
+                    <h6 title="不能接受收费较多的高校或专业的考生，在对应的条款上，双击（灰色）"><span class="label label-info">(高校收费)</span></h6>
                 </div>
                 <div class="col-sm-10  text-left">
                     <ul class="nav nav-pills">
@@ -960,7 +971,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(中学强弱学科)</span></h6>
+                    <h6 title="有某门成绩特别好的考生，在对应的学科上单击(绿色)&#10;有某门成绩特别弱的考生，在对应的学科上，双击（灰色）其他考生不点击"><span class="label label-info">(中学强弱学科)</span></h6>
                 </div>
                 <div class="col-sm-10  text-left">
                     <ul class="nav nav-pills">
@@ -972,6 +983,9 @@
             <div class="row">
                 <div class="alert alert-default text-left">
                     <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
+                </div>
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" title="对大学毕业后已有明确定向的考生，在对应的选项上点击（绿色）!&#10;大学毕业后已确定肯定不从事的方面，在对应选项上，双击（灰色）。&#10;目前对大学毕业后去向不确定的考生，不点击。" style="margin-left: 70px;">毕业去向</h4>
                 </div>
                 <div class="col-sm-2 text-right">
                     <h6><span class="label label-success">(就业方向)</span></h6>
@@ -1004,6 +1018,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;" title="确实想在大学学习某方面知识的考生，在对应的方向上单击（绿色）&#10;很不适应某方面知识学习的考生，在对应的方向上，双击（灰色）&#10;其他考生不点击"> 学习愿望</h4>
+                </div>
                 <div class="col-sm-2 text-right">
                     <h6><span class="label label-success">(学文方向)</span></h6>
                 </div>
@@ -1038,6 +1055,12 @@
                 <div class="alert alert-default text-left">
                     <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
                 </div>
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;" title="
+                    有明显兴趣的考生，在对应的选项上单击（绿色）&#10;
+                    有明显不感兴趣的考生，在对应的选项上双击（灰色）&#10;
+                    没有明显感兴趣的或不感兴趣的考生不点击">兴趣爱好</h4>
+                </div>
                 <div class="col-sm-2 text-right">
                     <h6><span class="label label-warning">(喜欢与物打交道)</span></h6>
                 </div>
@@ -1069,7 +1092,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">(能力强弱)</span></h6>
+                    <h6 title="有某能力明显强的考生，在对应的选项上单击（绿色）&#10;有某能力明显弱的考生，在对应的选项上双击（灰色）&#10;没有明显强弱项的考生不点击"><span class="label label-warning">(能力强弱)</span>
+                    </h6>
                 </div>
                 <div class="col-sm-10  text-left">
                     <ul class="nav nav-pills">
@@ -1078,6 +1102,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="alert alert-default text-left">
+                    <h4 class="h_title" style="margin-left: 70px;" title="有明显性格的考生在对应的选项上单击（绿色）&#10;没有明显性格的考生不点击"> 性感特点</h4>
+                </div>
                 <div class="col-sm-2 text-right">
                     <h6><span class="label label-warning">(外向性格)</span></h6>
                 </div>
@@ -1102,12 +1129,9 @@
     <!-- 优先-->
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
+            <h4 title="亲，您的优先选项确定是这些吗？"> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
         </div>
         <div class="panel-body">
-            <div class="alert alert-default">
-                <h4 class="text-left">亲，你的优先选项确定这样好吗？</h4>
-            </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
                 </div>
@@ -1158,7 +1182,7 @@
         <div class="panel panel-footer">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>志愿意向排序</h4>
+                    <h4 title="亲。在高校、专业、城市、个性确定方向，您更优先选择哪项？">志愿项目优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group">
@@ -1201,7 +1225,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>意向高校优先排序</h4>
+                    <h4 title="亲，您优先选择的几所高校之间，那些高校更优先？">意向高校优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group">
@@ -1224,7 +1248,7 @@
             <!--  ng-if="hope.departArr.length>0"-->
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>意向专业优先排序</h4>
+                    <h4 title="亲，您优先选择的几个专业之间，那些专业更优先？">意向专业优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <!--  ng-if="hope.departArr.length>0"-->
@@ -1269,7 +1293,7 @@
             <!--// ng-if="hope.cityArr.length>0"-->
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>意向城市优先排序</h4>
+                    <h4 title="亲，您优先选择的几所城市之间，那些城市更优先？">意向城市优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <!--ng-if="hope.cityArr.length>0"-->
@@ -1294,7 +1318,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4>个性满足优先排序</h4>
+                    <h4 title="亲，您的多个个性之间，哪个个性更优先满足？">个性满足优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group">
