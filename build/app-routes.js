@@ -52,8 +52,13 @@ define(['app'],function(app){
     app.factory('getLoginUserInfo',['$http',function($http){
         var userInfo ={
             isLogoin:function(){
-                return $http.get('/loocha/user').success(function(){
-                    console.log('在优先范围内！');
+                return $http.get('/loocha/user').success(function(data){
+                    $http.get('/loocha/uscore/setup?user_id='+data.response.id).success(function(data){
+                        if(data<=0){
+                            alert('您还没有开始使用成绩，去设置吧！');
+                            window.location.href = "#/all/allScore";
+                        }
+                    });
                 }).error(function(e){
                     sessionStorage.removeItem('type');
                     sessionStorage.removeItem('uScore');
@@ -61,12 +66,11 @@ define(['app'],function(app){
                     sessionStorage.removeItem('user_id');
                     sessionStorage.removeItem('usernumber');
                     alert('登陆失效或您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/home";
-                    window.location.reload();
+                    window.location.href = "#/login";
                 });
             },
             isUScore:function(){
-                return sessionStorage.getItem('uScore');
+                return
             }
         }
         return userInfo;
@@ -99,13 +103,13 @@ define(['app'],function(app){
             })
             .state("hope", {/*意向*/
                 url: "/hope",
-                templateUrl: "html/hope/newhope.html",
-                controllerUrl:"js/hope/newhope",
+                templateUrl: "html/hope/hope.html",
+                controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/newhope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+                        return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
                     }]
                 }
             })

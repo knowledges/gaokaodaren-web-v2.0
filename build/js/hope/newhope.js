@@ -238,7 +238,15 @@ require(['app'],function(app){
             economy_option: false,
             prop6: false,
             noRejectionAreaSch:[],//非拒绝属地高校
-
+            economy:[],
+            addScore:[],
+            addScoreName:[],
+            addScoreArr:[],
+            addScoreObj:{},
+            langue:[],
+            languename:[],
+            langueArr:[],
+            langueObj:{},
             labelType: [],//个性标签类别
             physical: [],//体检限项目
             languages: [],//语种
@@ -303,7 +311,7 @@ require(['app'],function(app){
             giftObj: {},
             courseArr: [],//中学强弱学科数组、对象
             courseObj: {},
-
+            personalityArr:[]
         };
         $scope.info={
             title:"",
@@ -313,6 +321,7 @@ require(['app'],function(app){
             level:"",
             uScore:"",
         };
+        $scope.rates=[];
 
         $scope.toggle = {
             now:false
@@ -339,16 +348,35 @@ require(['app'],function(app){
             fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[],fifDepart11:[]
         };
 
+        $scope.finshparam = {
+            project:[],
+            school_prefer:[],
+            depart_prefer:[],
+            city_prefer:[],
+            personality_prefer:[]
+        }
+
         init();
 
         function init(){
             getLoginUserInfo.isLogoin();
+            console.log($scope.hope.personalityArr);
 
-            if(getLoginUserInfo.isUScore() == null || getLoginUserInfo.isUScore() == ""){
-                alert('亲，您还没有输入成绩，或没有使用成绩！请点击‘开始使用’');
-                window.location.href = "all.score";
-                window.location.reload();
-            }
+            $scope.coverage = [
+                {
+                    id:1,
+                    name:"高校"
+                },{
+                    id:2,
+                    name:"专业"
+                },{
+                    id:3,
+                    name:"城市"
+                },{
+                    id:4,
+                    name:"个性"
+                }
+            ];
 
             var type = sessionStorage.getItem('type') == null ? 1:sessionStorage.getItem('type');
             switch (parseInt(type)){
@@ -1449,6 +1477,27 @@ require(['app'],function(app){
             $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
             $scope.hope.departArr =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
         };
+        /**
+         *家庭经济
+         * @param e
+         */
+        $scope.rejectFamily = function(e){
+            var that = $(e.target),status = that.attr('status'),economy_id = that.attr('economy_id');
+            var mosaic = classifyDBClk.rejectCityEvent(status,that,"",$scope.hope.economy,economy_id);
+            $scope.hope.economy = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(","):[];
+        };
+        /**
+         * 政策加分
+         * @param e
+         */
+        $scope.agreeScore = function(e){
+            var that = $(e.target),status = that.attr('status'),prop5_id = that.attr('prop5_id');
+            var mosaic = classifyClk.agreenCityEvent(status,that,$scope.hope.addScore,"",prop5_id,$scope.hope.addScoreName,that.html(),$scope.hope.addScoreArr,$scope.hope.addScoreObj);
+            $scope.hope.addScore = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(","):[];
+            $scope.hope.addScoreName = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
+            $scope.hope.addScoreArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
+        }
+
 
         /*体检限项双击事件*/
         $scope.rejectPhysical = function(e){
@@ -1660,40 +1709,65 @@ require(['app'],function(app){
             $('#myModal').modal('show');
         };
 
+        /**
+         * 遍历优先选项
+         */
+        function eachSelFirst(list){
+            var array = [];
+            $.each(list,function(i,v){
+                array.push(v.id);
+            });
+            return array;
+        }
+
         $scope.readom = function(){
+            var school_order = eachSelFirst($scope.finshparam.school_prefer),
+                city_order = eachSelFirst($scope.finshparam.city_prefer),
+                depart_order = eachSelFirst($scope.finshparam.depart_prefer);
+            var projectSoft = [];
+
+            $.each($scope.finshparam.project,function(i,v){
+                if(v == 1){//高校
+                    projectSoft[0] = i+1;
+                }else if(v == 2){ //专业
+                    projectSoft[1] = i+1;
+                }else if (v  == 3){//城市
+                    projectSoft[2] = i+1;
+                }else{
+                    projectSoft[3] = i+1;
+                }
+            });
             var param = {};
-            param.sprop_prefer = [17,20];  //优先院校属类id列表
-            param.sprop_ignore = [12,10,7,5];  //拒绝院校属类id列表
-            param.school_prefer = [124,122,50,11,47]; //优先院校id列表
-            param.school_ignore = ["227", "21", "102", "103", "9", "13", "152", "170", "143", "27", "66", "2", "112", "18", "62", "157", "166", "126","125", "197", "219", "184", "136", "10", "8", "212", "1", "111", "86", "88", "17", "92", "173", "58", "201", "223"]; //拒绝院校id列表
-            param.city_prefer = [81,331,330,96,281,82,94,102,99];   //优先城市id列表
-            param.city_ignore = [196,243,266,280,219,225,323];    //拒绝城市id列表
-            param.dproptype_prefer = [424,425,426,13,98,437,438,698];   //优先专业类别id列表
-            param.dproptype_ignore = [715,716,721,863,709,710,718,862];    //拒绝专业类别id列表
-            param.dprop_prefer = [3129,3130,2101,2096,3486,3132,3138,2161,2099,];   //优先专业id列表
-            param.dprop_ignore = [3165,2171,2136];   //拒绝专业id列表
+            param.sprop_prefer = [];  //优先院校属类id列表
+            param.sprop_ignore = [];  //拒绝院校属类id列表
+            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+            param.dproptype_prefer = [];   //优先专业类别id列表
+            param.dproptype_ignore = [];    //拒绝专业类别id列表
+            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
             param.pproptype_prefer = [];   //优先个性类别id列表
             param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = [274,161,106,107,108,300,693,119,141];   //优先个性id列表
-            param.pprop_ignore = [115,116,117,118];   //拒绝个性id列表
-            param.prefer_order = [1,2,3,4];   //志愿意向排序
-            param.school_order = [124,112,11];   //高校优先id列表
-            param.depart_order = [424,425,426,13,438,698];   //专业优先id列表
-            param.city_order = [81,331,99];     //城市优先id列表
-            param.personality_order = [274,161,106,107,108,119,141];  //个性满足优先id列表
+            param.pprop_prefer = [];   //优先个性id列表
+            param.pprop_ignore = [];   //拒绝个性id列表
+            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+            param.depart_order = $scope.finshparam.city_prefer;   //专业优先id列表
+            param.city_order = $scope.finshparam.depart_prefer;     //城市优先id列表
+            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
             var tramsform = function(data){
                 return $.param(data);
             };
 
             /*TODO 提交部分*/
             $http.post("/loocha/exam/intention",param,{
-            headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-            transformRequest:tramsform
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
             }).success(function(responseDate){
                 console.log('提交成功');
             });
-
-
             $('#modal-pay').modal('show');
         };
 
@@ -1720,17 +1794,103 @@ require(['app'],function(app){
             $(".modal-open").removeClass('modal-open');
         };
 
+        $scope.showLanguage = function(){
+            $("#langueList").show();
+        }
+
+        $scope.findLanguage = function(e){
+            var that = $(e.target),status = that.attr('status'), html=that.html(),parent_id = that.attr("parent_id"),depart_id = that.attr('depart_id');
+            $("#languageShow").html(html).attr({parent_id:parent_id,depart_id:depart_id});
+                $scope.hope.langue=depart_id;
+                $scope.hope.languename=html;
+                $scope.hope.langueArr=[{"id":depart_id,"name":html}];
+        };
+
+        $scope.changeSelection = function(idx,num){
+            if(num == 1){
+                $scope.finshparam.project[1]="";
+                $scope.finshparam.project[2]="";
+                $scope.finshparam.project[3]="";
+                $.each($scope.coverage,function(i,v){
+                    v.disabled = false;
+                });
+            }else if(num == 2){
+                $scope.finshparam.project[2]="";
+                $scope.finshparam.project[3]="";
+                $.each($scope.coverage,function(i,v){
+                    if(v.id!=$scope.finshparam.project[0]){
+                        v.disabled = false;
+                    }
+                });
+            }else if(num == 3){
+                $.each($scope.coverage,function(i,v){
+                    if(v.disabled == false && $scope.coverage[idx-1].id != v.id){
+                        $scope.finshparam.project[3]= v.id+"";
+                    }
+                });
+            }
+            $scope.coverage[idx-1].disabled = true;
+        };
+
         ////////////////////////////////////监听//////////////////////////////////////////////////
-        //$scope.$watch('hope.cityArr',function(newValue,oldValue,scope){
-        //    console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
-        //});
-        //
-        //$scope.$watch('hope.departArr',function(newValue,oldValue,scope){
-        //    console.log("newValue:"+JSON.stringify(newValue)+"oldValue:"+JSON.stringify(oldValue));
-        //});
-        //
-        //$scope.$watch('hope.cityOpt1',function(newValue,oldValue){
-        //    console.log("newValue:"+JSON.stringify(newValue)+",oldValue:"+JSON.stringify(oldValue));
-        //});
+        function arrPush(){
+            var personalitylist = [];
+            $scope.hope.personalityArr = personalitylist.concat($scope.hope.departArr2,$scope.hope.giftArr,$scope.hope.courseArr,$scope.hope.wishArr,$scope.hope.userArr,$scope.hope.natureArr,$scope.hope.graduateArr,$scope.hope.addScoreArr,$scope.hope.langueArr);
+        }
+
+        /**
+         * 加试、多收费、语种
+         */
+        $scope.$watch('hope.depart_prefer2',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 能力特长方面
+         */
+        $scope.$watch('hope.gift_prefer',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 强弱方面
+         */
+        $scope.$watch('hope.course_prefer',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 学习愿望
+         */
+        $scope.$watch('hope.wish_prefer',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 兴趣爱好方面
+         */
+        $scope.$watch('hope.user_prefer',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 性格倾向
+         */
+        $scope.$watch('hope.nature_prefer',function(newValue,oldValue){
+            arrPush();
+        });
+        /**
+         * 毕业去向
+         */
+        $scope.$watch('hope.graduate_option',function(newValue,oldValue){
+            arrPush()
+        });
+        /**
+         * 加分
+         */
+        $scope.$watch('hope.addScore',function(newValue,oldValue){
+            arrPush();
+        });
+        /**
+         * 语种
+         */
+        $scope.$watch('hope.langue',function(newValue,oldValue){
+            arrPush();
+        });
     }]);
 });
