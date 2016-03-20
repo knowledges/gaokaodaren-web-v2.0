@@ -316,8 +316,9 @@ require(['app'],function(app){
                 transformRequest:tramsform
             }).success(function(data){
                 /*TODO 提交完 根据订单ID 获取订单信息*/
-                $http.get('/loocha/exam/'+111).success(function(dadta){
-                    /*TODO代用支付接口 查看支付金额*/
+                $http.get('/loocha/exam/'+111).success(function(result){
+                    var out_trade_no = result.response.order_id;
+                    $scope.money = result.response.money;
                 });
             })
 
