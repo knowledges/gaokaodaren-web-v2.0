@@ -68,9 +68,6 @@ define(['app'],function(app){
                     alert('登陆失效或您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
                 });
-            },
-            isUScore:function(){
-                return
             }
         }
         return userInfo;

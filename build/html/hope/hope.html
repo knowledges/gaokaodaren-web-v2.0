@@ -975,24 +975,24 @@
                     </div>
                 </div>
             </div>
-            <div id="schSoft" class="row">
+            <div id="schSoft" style="display: none;" ng-if="hope.schoolArr.length>0" class="row">
                 <div class="col-sm-2 text-right">
                     <h4 title="亲，您优先选择的几所高校之间，那些高校更优先？">意向高校优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.schoolArr.length>0">
                         <select class="form-control" ng-model="finshparam.school_prefer[0]">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.schoolArr.length>1">
                         <select class="form-control" ng-model="finshparam.school_prefer[1]">
                             <option value="">第二优先</option>
                             <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.schoolArr.length>2">
                         <select class="form-control" ng-model="finshparam.school_prefer[2]">
                             <option value="">第三优先</option>
                             <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
@@ -1000,48 +1000,42 @@
                     </div>
                 </div>
             </div>
-            <div id="departSoft" class="row">
+            <div id="departSoft" style="display: none;" ng-if="hope.departArr.length>0" class="row">
                 <div class="col-sm-2 text-right">
                     <h4 title="亲，您优先选择的几个专业之间，那些专业更优先？">意向专业优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <!--  ng-if="hope.departArr.length>0"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.departArr.length>0">
                         <select class="form-control" ng-model="finshparam.depart_prefer[0]">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--  ng-if="hope.departArr.length>1"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.departArr.length>1">
                         <select class="form-control"  ng-model="finshparam.depart_prefer[1]">
                             <option value="">第二优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--  ng-if="hope.departArr.length>2"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.departArr.length>2">
                         <select class="form-control"  ng-model="finshparam.depart_prefer[2]">
                             <option value="">第三优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--  ng-if="hope.departArr.length>3"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.departArr.length>3">
                         <select class="form-control"  ng-model="finshparam.depart_prefer[3]">
                             <option value="">第四优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--  ng-if="hope.departArr.length>4"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.departArr.length>4">
                         <select class="form-control" ng-model="finshparam.depart_prefer[4]">
                             <option value="">第五优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!-- ng-if="hope.departArr.length>5"-->
-                    <div class="btn-group" >
+                    <div class="btn-group" ng-if="hope.departArr.length>5">
                         <select class="form-control"  ng-model="finshparam.depart_prefer[5]">
                             <option value="">第六优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
@@ -1049,27 +1043,24 @@
                     </div>
                 </div>
             </div>
-            <div id="citySoft" class="row">
+            <div id="citySoft" style="display: none;" ng-if="hope.cityArr.length>0" class="row">
                 <div class="col-sm-2 text-right">
                     <h4 title="亲，您优先选择的几所城市之间，那些城市更优先？">意向城市优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <!--ng-if="hope.cityArr.length>0"-->
-                    <div class="btn-group" >
+                    <div class="btn-group" ng-if="hope.cityArr.length>0">
                         <select class="form-control" ng-model="finshparam.city_prefer[0]">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--ng-if="hope.cityArr.length>1"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.cityArr.length>1">
                         <select class="form-control" ng-model="finshparam.city_prefer[1]">
                             <option value="">第二优先</option>
                             <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <!--ng-if="hope.cityArr.length>2"-->
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.cityArr.length>2">
                         <select class="form-control" ng-model="finshparam.city_prefer[2]">
                             <option value="">第三优先</option>
                             <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
@@ -1077,42 +1068,42 @@
                     </div>
                 </div>
             </div>
-            <div id="perSoft" class="row">
+            <div id="perSoft" style="display: none;" ng-if="hope.personalitylist.length>0" class="row">
                 <div class="col-sm-2 text-right">
                     <h4 title="亲，您的多个个性之间，哪个个性更优先满足？">个性满足优先排序</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>0">
                         <select class="form-control" ng-model="finshparam.personality_prefer[0]">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>1">
                         <select class="form-control" ng-model="finshparam.personality_prefer[1]">
                             <option value="">第二优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>2">
                         <select class="form-control" ng-model="finshparam.personality_prefer[2]">
                             <option value="">第三优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>3">
                         <select class="form-control" ng-model="finshparam.personality_prefer[3]">
                             <option value="">第四优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>4">
                         <select class="form-control" ng-model="finshparam.personality_prefer[4]">
                             <option value="">第五优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" ng-if="hope.personalitylist.length>5">
                         <select class="form-control" ng-model="finshparam.personality_prefer[5]">
                             <option value="">第六优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>

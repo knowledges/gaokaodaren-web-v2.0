@@ -9,7 +9,9 @@ require(['app'],function(app){
             subtitle:"",
             model:""
         };
+
         $scope.num = "";
+
         $scope.param={
             firSchName:"",
             firDepart_1:"",
@@ -33,13 +35,16 @@ require(['app'],function(app){
             thiDepart_5:"",
             thiDepart_6:"",
         };
+
         $scope.money="";
+
         $scope.sub = {
             a:[],
             b:[],
             c:[],
             school_id:[]
-        }
+        };
+
         $scope.persons = [
             {"name":"浙江师范大学（金华）","id":25,list:[{"id": 29194,"departName": "小学教育（师范）"},{"id": 29193,"departName": "机械设计制造及其自动化"},{"id": 22194,"departName": "统计学（师范） "},{"id": 29154,"departName": "小学教育（师范）"},{"id": 2912,"departName": "小学教育（师范）"},{"id": 29094,"departName": "小学教育（师范）"}]},
             {"name":"青岛大学","id":18,list:[{"id": 3089,"departName": "机械工程"}]},

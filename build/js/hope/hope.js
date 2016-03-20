@@ -1378,7 +1378,6 @@ require(['app'],function(app){
                 transformRequest:tramsform
             }).success(function(responseDate){
                 console.log('提交成功');
-                debugger;
                 $window.open('#/refer1');
                 $(".modal-backdrop").remove();
                 $(".modal-open").removeClass('modal-open');
@@ -1420,6 +1419,44 @@ require(['app'],function(app){
                 });
             }
             $scope.coverage[idx-1].disabled = true;
+            $("#schSoft,#departSoft,#citySoft,#perSoft").hide();
+
+            var array = [];
+            if(parseInt($scope.finshparam.project[0])>0){
+                array[0] = showFirstSoft("proSoft",$scope.finshparam.project[0]);
+            }
+            if(parseInt($scope.finshparam.project[1])>0){
+                array[1] = showFirstSoft(array[0],$scope.finshparam.project[1]);
+            }
+            if (parseInt($scope.finshparam.project[2])>0){
+                array[2] = showFirstSoft(array[1],$scope.finshparam.project[2]);
+            }
+            if (parseInt($scope.finshparam.project[3])>0) {
+                showFirstSoft(array[2],$scope.finshparam.project[3]);
+            }
+
+            //var first = showFirstSoft("proSoft",$scope.finshparam.project[0]);
+            //var Second = showFirstSoft(Second,$scope.finshparam.project[1]);
+            //var third = showFirstSoft(third,$scope.finshparam.project[2]);
+            //var fourth = showFirstSoft(third,$scope.finshparam.project[3]);
+
+            function showFirstSoft(id,num){
+                var param = "";
+                if(num == 1){
+                    $("#"+id).after($("#schSoft").show());
+                    param = "schSoft";
+                }else if (num == 2){
+                    $("#"+id).after($("#departSoft").show());
+                    param = "departSoft";
+                }else if (num == 3){
+                    $("#"+id).after($("#citySoft").show());
+                    param = "citySoft";
+                }else {
+                    $("#"+id).after($("#perSoft").show());
+                    param = "perSoft";
+                }
+                return param;
+            }
         };
 
         $scope.$watch('hope.langue',function(newValue,oldValue){

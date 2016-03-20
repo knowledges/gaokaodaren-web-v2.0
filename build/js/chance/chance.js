@@ -82,12 +82,6 @@ require(['app'],function(app){
         function init(){
             getLoginUserInfo.isLogoin();
 
-            if(getLoginUserInfo.isUScore() == null || getLoginUserInfo.isUScore() == ""){
-                alert('亲，您还没有输入成绩，或没有使用成绩！请点击‘开始使用’');
-                window.location.href = "all.score";
-                window.location.reload();
-            }
-
             $('.dropdown-toggle').dropdown();
 
             /**
