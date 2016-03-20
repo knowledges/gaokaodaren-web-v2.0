@@ -33,7 +33,7 @@ require(['app'],function(app){
                                 arr.push(obj);
                             }
                             prefer.push(idx);
-                            name.push($(v).html());
+                            //name.push($(v).html());
                         }
                     });
                 }else if(status == 1){
@@ -44,7 +44,7 @@ require(['app'],function(app){
                         if(arr!=null){
                             arr.splice(prefer.indexOf(idx),1);
                         }
-                        name.splice(prefer.indexOf(idx),1);
+                        //name.splice(prefer.indexOf(idx),1);
                         prefer.splice(prefer.indexOf(idx),1);
 
                     });
@@ -69,7 +69,7 @@ require(['app'],function(app){
                             arr.push(obj);
                         }
                         prefer.push(id);
-                        name.push(value);
+                        //name.push(value);
                     }
                 }else if(status == 1){
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
@@ -77,7 +77,7 @@ require(['app'],function(app){
                         if(arr!=null){
                             arr.splice(prefer.indexOf(id),1);
                         }
-                        name.splice(prefer.indexOf(id),1);
+                        //name.splice(prefer.indexOf(id),1);
                         prefer.splice(prefer.indexOf(id),1);
                     }
                 }else if(status == 2){
@@ -100,7 +100,7 @@ require(['app'],function(app){
                         $(v).attr("status","2").removeClass('agree cancle').addClass('reject');
                         if(prefer.indexOf(idx)>=0){
                             arr.splice(prefer.indexOf(idx),1);
-                            name.splice(prefer.indexOf(idx),1);
+                            //name.splice(prefer.indexOf(idx),1);
                             prefer.splice(prefer.indexOf(idx),1);
                         }
                         if(ignore.indexOf(idx)<0){
@@ -131,7 +131,7 @@ require(['app'],function(app){
                         if (arr!=null){
                             arr.splice(prefer.indexOf(id),1);
                         }
-                        name.splice(prefer.indexOf(id),1);
+                        //name.splice(prefer.indexOf(id),1);
                         prefer.splice(prefer.indexOf(id),1);
                     }
                     if(ignore.indexOf(id)<0){
@@ -1311,6 +1311,32 @@ require(['app'],function(app){
         };
 
         $scope.readom = function(){
+            $('#modal-pay').modal('show');
+        };
+
+        $(".btn-all").hide();
+        $(".btn-show").click(function(e){
+            $(this).hide();
+            $(".btn-all").show();
+        });
+
+        $(".btn-hide").click(function(e){
+            $(".btn-show").show();
+            $(".btn-all").hide();
+        });
+
+        $scope.pay = function(){
+            //TODO 支付，
+            alert('查看： 我的足迹-》意向参考表');
+            /*TODO 提交完 根据订单ID 获取订单信息*/
+            //$http.get('/loocha/exam/'+111).success(function(dadta){
+            //    /*TODO代用支付接口 查看支付金额*/
+            //});
+            //$window.open('#/pay');
+        };
+
+        $scope.manual = function(){
+
             var projectSoft = [];
             $.each($scope.finshparam.project,function(i,v){
                 if(v == 1){//高校
@@ -1347,37 +1373,16 @@ require(['app'],function(app){
                 return $.param(data);
             };
 
-            /*TODO 提交部分*/
             $http.post("/loocha/exam/intention",param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
                 console.log('提交成功');
+                debugger;
+                $window.open('#/refer1');
+                $(".modal-backdrop").remove();
+                $(".modal-open").removeClass('modal-open');
             });
-            $('#modal-pay').modal('show');
-        };
-
-        $(".btn-all").hide();
-        $(".btn-show").click(function(e){
-            $(this).hide();
-            $(".btn-all").show();
-        });
-
-        $(".btn-hide").click(function(e){
-            $(".btn-show").show();
-            $(".btn-all").hide();
-        });
-
-        $scope.pay = function(){
-            //TODO 支付，
-            alert('查看： 我的足迹-》意向参考表');
-            //$window.open('#/pay');
-        };
-
-        $scope.manual = function(){
-            $window.open('#/refer1');
-            $(".modal-backdrop").remove();
-            $(".modal-open").removeClass('modal-open');
         };
         $scope.showLanguage = function(){
             $("#langueList").show();
