@@ -18,6 +18,7 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
+    app.constant("loocha","/loocha");
     app.factory('AJAX',['$http',"$q",function($http,$q){
         var request = function(path,method,data){
             if(method == undefined || method == 'GET'){
@@ -49,11 +50,11 @@ define(['app'],function(app){
             }
         }
     }]);
-    app.factory('getLoginUserInfo',['$http',function($http){
+    app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
-                return $http.get('/loocha/user').success(function(data){
-                    $http.get('/loocha/uscore/setup?user_id='+data.response.id).success(function(data){
+                return $http.get(loocha+'/user').success(function(data){
+                    $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
                         if(data<=0){
                             alert('您还没有开始使用成绩，去设置吧！');
                             window.location.href = "#/all/allScore";
@@ -74,7 +75,7 @@ define(['app'],function(app){
 
     }]);
     app.config(function($stateProvider, $urlRouterProvider){
-        window.url = "/loocha";
+        //window.url = "/loocha";
         $urlRouterProvider.when("", "/home");
         $stateProvider
             .state("home", {//主页
@@ -87,9 +88,9 @@ define(['app'],function(app){
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js','js/Controller/navbar/new.js']);
                     }],
-                    data_province:function($q,$http,provinceURL){
+                    data_province:function($q,$http,provinceURL,loocha){
                         var dtd = $q.defer();
-                        $http.get(url+provinceURL).then(function (response) {
+                        $http.get(loocha+provinceURL).then(function (response) {
                             dtd.resolve(response);
                         }, function (response) {
                             dtd.resolve(response);
@@ -606,6 +607,7 @@ define(['app'],function(app){
             $scope.isShow = false;
         }
         $scope.logoff = function(){
+            $http.get(logoutURL)
             AJAX.getRequest(logoutURL,'GET',"")
                 .success(function(data,status){
                     $scope.user.islogin = false;

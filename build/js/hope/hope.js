@@ -199,7 +199,7 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller('hopeCtr',['$scope','$window','$http','$timeout','classifyClk','classifyDBClk','getLoginUserInfo','arraysort',function($scope,$window,$http,$timeout,classifyClk,classifyDBClk,getLoginUserInfo,arraysort){
+    app.controller('hopeCtr',['$scope','$window','$http','$timeout','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
         $scope.hope = {
             area: "",
             js_province: "",
@@ -214,7 +214,7 @@ require(['app'],function(app){
             fourthDepart: "",
             fifthDepart: "",
             schbatch: "",
-            batch: sessionStorage.getItem('type')!=null ? sessionStorage.getItem('type') : 1,//批次
+            batch: localStorage.getItem('type')!=null ? localStorage.getItem('type') : 1,//批次
             depart: [],//专业
             wish: [],//学习愿望（学文、理、工）
             department: [],//具体专业
@@ -317,7 +317,7 @@ require(['app'],function(app){
                     name:"个性"
                 }
             ];
-            var type = sessionStorage.getItem('type') == null ? 1:sessionStorage.getItem('type');
+            var type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
             switch (parseInt(type)){
                 case 1:
                     $scope.info.title = "文科本一考生志愿意向表";
@@ -358,7 +358,7 @@ require(['app'],function(app){
             $scope.info.level = uScore.level_a+","+uScore.level_b;
 
             /*属地*/
-            $http.get('/loocha/wish/area?batch='+$scope.hope.batch).success(function(data,status){
+            $http.get(loocha+'/wish/area?batch='+$scope.hope.batch).success(function(data,status){
                 $scope.hope.area = data.response.item1;
                 $scope.hope.js_province = data.response.item2;
                 $scope.hope.firstCities = data.response.item3;
@@ -369,13 +369,13 @@ require(['app'],function(app){
             });
 
             /*院校属类*/
-            $http.get('/loocha/schbath?type='+$scope.hope.batch).success(function(data,status){
+            $http.get(loocha+'/schbath?type='+$scope.hope.batch).success(function(data,status){
                 $scope.hope.schbatch = data.response;
             });
 
             if(type<=6){
                 /*专业大门类（13个）*/
-                $http.get('/loocha/depart/prop?type=0&depart_type=0').success(function(data,status){
+                $http.get(loocha+'/depart/prop?type=0&depart_type=0').success(function(data,status){
                     $.each(data.response,function(i,v){
                         if(i<13){
                             $scope.hope.depart.push(v);
@@ -385,7 +385,7 @@ require(['app'],function(app){
                 });
             }else{
                 /*专业大门类（13个）*/
-                $http.get('/loocha/depart/prop?type=0&depart_type=1').success(function(data,status){
+                $http.get(loocha+'/depart/prop?type=0&depart_type=1').success(function(data,status){
                     $.each(data.response,function(i,v){
                         if(i<19){
                             $scope.hope.depart.push(v);
@@ -398,7 +398,7 @@ require(['app'],function(app){
             /**
              * 获取具体专业
              */
-            $http.get("/loocha/batch?type="+$scope.hope.batch).success(function(data,status){
+            $http.get(loocha+'/batch?type='+$scope.hope.batch).success(function(data,status){
                 $scope.hope.firstDepart = data.response.item2;
                 $scope.hope.secondDepart = data.response.item3;
                 $scope.hope.thirdDepart = data.response.item4;
@@ -760,7 +760,7 @@ require(['app'],function(app){
                 })
             }
 
-            $http.get("/loocha/depart/personality").success(function(data,status){
+            $http.get(loocha+"/depart/personality").success(function(data,status){
                 $scope.hope.personality_type1 =  data.response.pmap.type1;
                 $scope.hope.personality_type2 =  data.response.pmap.type2;
                 $scope.hope.personality_type3 =  data.response.pmap.type3;
@@ -811,7 +811,7 @@ require(['app'],function(app){
             $("#provnice .dropdown-menu").hide();
             var istrue = $("#dropdown"+city_id).attr('data-istrue');
             if (istrue == "false"){
-                $http.get('/loocha/wish/areatype?batch='+$scope.hope.batch+'&city_id='+city_id).success(function(data,status){
+                $http.get(loocha+'/wish/areatype?batch='+$scope.hope.batch+'&city_id='+city_id).success(function(data,status){
                     var html = [];
                     $.each(data.response,function(i,v){
                         html.push('<li><a href="javascript:;;" class="findCity" city_id="'+v.city_id+'">'+v.name+'</a></li>');
@@ -863,7 +863,7 @@ require(['app'],function(app){
             //if(istrue == "false") {
             if (alt == 'city') {
                 var city_id = that.attr('city_id');
-                $http.get('/loocha/schbath/depart?cityId=' + city_id + '&type=' + $scope.hope.batch).success(function (data) {
+                $http.get(loocha+'/schbath/depart?cityId=' + city_id + '&type=' + $scope.hope.batch).success(function (data) {
                     //执行2次筛选
                     var list = data.response,sch_ignore = $scope.hope.school_ignore;
 
@@ -895,7 +895,7 @@ require(['app'],function(app){
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#attr1').attr('data-istrue');
             if(isTrue == "false"){
-                $http.get('/loocha/school/prop?type=2&depart_type='+$scope.hope.batch).success(function(data,status){
+                $http.get(loocha+'/school/prop?type=2&depart_type='+$scope.hope.batch).success(function(data,status){
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr,function(i,v){
@@ -944,7 +944,7 @@ require(['app'],function(app){
             var isTrue = $('#style1').attr('data-istrue');
             if(isTrue == "false"){
                 var html = [];
-                $http.get('/loocha/school/prop/'+$scope.hope.batch).success(function(data,status){
+                $http.get(loocha+'/school/prop/'+$scope.hope.batch).success(function(data,status){
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr,function(i,v){
@@ -1004,7 +1004,7 @@ require(['app'],function(app){
             var isTrue = $('#prop1').attr('data-istrue');
             if(isTrue == "false"){
                 var html = [];
-                $http.get('/loocha/school/prop?type=0&depart_type='+$scope.hope.batch).success(function(data,status){
+                $http.get(loocha+'/school/prop?type=0&depart_type='+$scope.hope.batch).success(function(data,status){
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr,function(i,v){
@@ -1046,7 +1046,7 @@ require(['app'],function(app){
             var isTrue = $('#belongs1').attr('data-istrue');
             if(isTrue == "false"){
                 var html = [];
-                $http.get('/loocha/school/prop?type=1&depart_type=1').success(function(data,status){
+                $http.get(loocha+'/school/prop?type=1&depart_type=1').success(function(data,status){
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr,function(i,v){
@@ -1089,7 +1089,7 @@ require(['app'],function(app){
             $("#depart .dropdown-menu").hide();
             var istrue = $("#depart"+course_id).attr('data-istrue');
             if(istrue == "false"){
-                $http.get('/loocha/depart/specific?course_id='+course_id+'&depart_type='+$scope.hope.batch).success(function(data,status){
+                $http.get(loocha+'/depart/specific?course_id='+course_id+'&depart_type='+$scope.hope.batch).success(function(data,status){
                     var html = [];
                     if(data.response.length<=0){
                         html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
@@ -1336,6 +1336,7 @@ require(['app'],function(app){
         };
 
         $scope.manual = function(){
+            getLoginUserInfo.isLogoin();
 
             var projectSoft = [];
             $.each($scope.finshparam.project,function(i,v){
@@ -1373,16 +1374,24 @@ require(['app'],function(app){
                 return $.param(data);
             };
 
-            $http.post("/loocha/exam/intention",param,{
+            $http.post(loocha+"/exam/intention",param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
-                console.log('提交成功');
-                $window.open('#/refer1');
-                $(".modal-backdrop").remove();
-                $(".modal-open").removeClass('modal-open');
+                localStorage.setItem("manualInfo",JSON.stringify(responseDate.response))
+                openwin('#/refer1');
             });
+
+            function openwin(url) {
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("id", "openwin");
+                document.body.appendChild(a);
+                a.click();
+            }
         };
+
         $scope.showLanguage = function(){
             $("#langueList").show();
         };

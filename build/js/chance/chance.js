@@ -2,11 +2,20 @@
  * Created by Administrator on 2015/12/2.
  */
 require(['app'],function(app){
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','getLoginUserInfo',function($scope,$http,$sce,$timeout,getLoginUserInfo){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','getLoginUserInfo','loocha',function($scope,$http,$sce,$timeout,getLoginUserInfo,loocha){
         $scope.score = "";
         $scope.isShow = false;
-        //TODO 批次
-        $scope.isChance = 1;
+        $scope.isChance = localStorage.getItem("type");
+        $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
+        $scope.forecast = {
+            area:"",
+            city_id:"",
+            cityArr:[],
+            schoolArr:[],
+            school_id:"",
+            school_name:"",
+            schChance:""
+        };
         $scope.chance = [
             {
                 id: 125,
@@ -27,7 +36,8 @@ require(['app'],function(app){
             deparlist:"",
             deparName:"",
             departInfo:"",
-        }
+        };
+
         $scope.schoolInfo ={
             name:"",
             is_211:"",
@@ -80,8 +90,6 @@ require(['app'],function(app){
         };
 
         function init(){
-            getLoginUserInfo.isLogoin();
-
             $('.dropdown-toggle').dropdown();
 
             /**
@@ -95,31 +103,120 @@ require(['app'],function(app){
             });
 
             /**
+             * 查询城市列表
+             */
+            $scope.findCity = function(){
+                getLoginUserInfo.isLogoin();
+
+                $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area).success(function(data){
+                    $scope.forecast.cityArr = data.response;
+                    $scope.forecast.city_id ="";
+                    $("#provinceBody").fadeIn(500);
+                });
+            };
+            /**
+             * 获取高校列表
+             */
+            $scope.findSchoolList = function(){
+                $http.get(loocha+'/schbath/depart?cityId=' + $scope.forecast.city_id + '&type=' + $scope.isChance)
+                    .success(function(data){
+                        $scope.forecast.schoolArr = data.response;
+                        $scope.forecast.school_id ="";
+                        $scope.forecast.school_name="";
+                    });
+            };
+
+            /**
+             * 获取高校详情
+             * TODO
+             */
+            $scope.findSchoolInfo = function(){
+                $scope.forecast.school_name = $("#school_name option:selected").text();
+            };
+
+            /**
              * 按院校属地预测高校录取概率
              */
-            $("#provinceType li").unbind('click').click(function(e){
-                var _this = $(e.target),param = _this.data('param');
-                $("#proName").attr("city_id",param).html(_this.html()+'<span class="caret" city_id="'+param+'"></span>');
-                $("#provinceBody").fadeIn(500);
-                $("#proName").attr('istrue','0');
-            });
+            $scope.schChance =function(){
+                getLoginUserInfo.isLogoin();
+                debugger;
+                if($scope.uScore != null){
+                    var param = {};
+                        param.type= $scope.isChance;
+                        param.obl = levelNum($scope.uScore.level_a);
+                        param.sel = levelNum($scope.uScore.level_b);
+                        param.score = $scope.uScore.score;
+                        param.school_code = $scope.forecast.school_id;
+                        param.school = $scope.forecast.school_name;
+                        param.depart_code ="";
+                        param.depart = "";
+
+                    $http({
+                        url:loocha+'/exam/admit/result',
+                        method: 'GET',
+                        params:param,
+                    }).success(function(data){
+                        if(data.status == "1005"){
+                            alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                            return;
+                        }
+                        $scope.forecast.schChance = data.response.admit;
+                    })
+
+                }else{
+                    alert('请去我的足迹“设置”并“使用”成绩');
+                }
+
+                function levelNum(str){
+                    var num = 0;
+                    switch(str){
+                        case 'A+':
+                            num = 5;
+                            break;
+                        case 'A':
+                            num = 4;
+                            break;
+                        case 'B+':
+                            num = 3;
+                            break;
+                        case 'B':
+                            num = 2;
+                            break;
+                        case 'C':
+                            num = 1;
+                            break;
+                        case 'D':
+                            num = 0;
+                            break;
+                    }
+                    return num;
+                }
+
+            };
+
+            //$("#provinceType li").unbind('click').click(function(e){
+            //    var _this = $(e.target),param = _this.data('param');
+            //    $("#proName").attr("city_id",param).html(_this.html()+'<span class="caret" city_id="'+param+'"></span>');
+            //    $("#provinceBody").fadeIn(500);
+            //    $("#proName").attr('istrue','0');
+            //});
             /**
              * 加载院校属地的具体内容
              * @param e
              */
-            $scope.findCity = function(e){
-                var that = $(e.target),city_id = that.attr('city_id'),istrue= that.attr('istrue');
-                if(istrue == undefined || istrue == 0){
-                    $http.get('/loocha/wish/bytype?batch='+$scope.isChance+'&wish_id='+city_id).success(function(data){
-                        var html = [];
-                        $.each(data.response,function(i,v){
-                            html.push('<li><a href="javascript:;;" city_id="'+ v.city_id+'">'+ v.name+'</a></li>');
-                        });
-                        $("#proList").empty().prepend(html.join(''));
-                        that.attr('istrue','1');
-                    });
-                }
-            };
+            //$scope.findCity = function(e){
+            //    var that = $(e.target),city_id = that.attr('city_id'),istrue= that.attr('istrue');
+            //    if(istrue == undefined || istrue == 0){
+            //        $http.get('/loocha/wish/bytype?batch='+$scope.isChance+'&wish_id='+city_id).success(function(data){
+            //            var html = [];
+            //            $.each(data.response,function(i,v){
+            //                html.push('<li><a href="javascript:;;" city_id="'+ v.city_id+'">'+ v.name+'</a></li>');
+            //            });
+            //            $("#proList").empty().prepend(html.join(''));
+            //            that.attr('istrue','1');
+            //        });
+            //    }
+            //};
 
             /**
              * 请求高校 TODO

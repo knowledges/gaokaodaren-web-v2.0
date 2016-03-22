@@ -137,13 +137,21 @@ require(['app'],function(app){
         $scope.startTable = function(e){
             var that = $(e.target),score = that.attr('score'),type = that.attr('type');
             if(score<=$scope.table.newScore){
-                sessionStorage.setItem('type',type);
+                localStorage.setItem('type',type);
                 $window.location.href = "#/hope";
             }else{
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }
-        }
-
+        };
+        $scope.startChance = function(e){
+            var that = $(e.target),score = that.attr('score'),type = that.attr('type');
+            if(score<=$scope.table.newScore){
+                localStorage.setItem('type',type);
+                $window.location.href = "#/chance";
+            }else{
+                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+            }
+        };
         $scope.createAdd = function(){
             $(".bs-example-modal-sm").modal('show');
         }

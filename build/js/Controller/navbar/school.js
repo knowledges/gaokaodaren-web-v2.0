@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app','pagging'],function(app,pagging){
-    app.constant("navURL_1","/loocha/article/show/3289");//城市
+    app.constant("navURL_1","/article/show/3289");//城市
     app.constant('findSchoolURL',"/school");
     app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
@@ -22,7 +22,7 @@ require(['app','pagging'],function(app,pagging){
             }
         }
     }]);
-    app.controller("schoolConCtl",['$scope','$stateParams','$sce','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
+    app.controller("schoolConCtl",['$scope','$stateParams','$sce','$http','loocha','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,$http,loocha,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
         $scope.school = {
             isnav: true,
             isfind:false,
@@ -59,7 +59,7 @@ require(['app','pagging'],function(app,pagging){
         }
 
         $scope.areaChange = function(num){
-            AJAX.getRequest('/city/province/'+num.id,'GET','')
+            $http.get(loocha+'/city/province/'+num.id)
                 .success(function(data,status){
                     var obj = [];
                     $.each(data.response.list,function(i,v){
@@ -92,10 +92,9 @@ require(['app','pagging'],function(app,pagging){
             param.index = currentIdx - 1;
             param.limit = 10;
             param.junior = info.junior;
+            //$http.get(loocha+findSchoolURL,param)
             AJAX.getRequest(findSchoolURL, 'GET', param)
                 .success(function (data, status) {
-
-                    console.log('i come in');
 
                     $scope.info.pageSize = data.response.sum;
                     $scope.schoolList = data.response.list;
@@ -119,7 +118,8 @@ require(['app','pagging'],function(app,pagging){
             $scope.school.isnav = false;
             $scope.school.isChars = true;
             $scope.school.isfind = false;
-            AJAX.getRequest('/article/show/'+id,'GET','')
+            $http.get(loocha+'/article/show/'+id)
+            //AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function (data, status) {
                     $scope.school.strHtml = $sce.trustAsHtml(data);
                 });

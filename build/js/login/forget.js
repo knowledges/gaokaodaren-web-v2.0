@@ -3,16 +3,8 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.constant("codeURL", "/loocha/user/code?time=" + new Date().getTime());
-    app.constant("loginURL", "/loocha/login?time=" + new Date().getTime());
-    app.constant("registerURL", "/loocha/user/register");
-    app.constant("referinURL", "/loocha/user/reset");
-    app.factory("isShowModel", function () {
-        return {
-            isSigin: ""
-        }
-    });
-    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "codeURL", "referinURL", "isShowModel", "AJAX", function ($scope, $rootScope, $http,codeURL, referinURL, isShowModel, AJAX) {
+    app.constant("referinURL", "/user/reset");
+    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "codeURL", "referinURL", "loocha", function ($scope, $rootScope, $http,codeURL, referinURL, loocha) {
         $scope.user = {
             username: "",
             password: "",
@@ -29,7 +21,7 @@ require(['app'],function(app){
         };
 
         function getCodes() {
-            $http.get("/loocha/user/code?time=" + new Date().getTime()).success(function(data){
+            $http.get(loocha+"/user/code?time=" + new Date().getTime()).success(function(data){
                 $scope.user.img = data;
             });
         }
@@ -46,10 +38,18 @@ require(['app'],function(app){
             param.password = $scope.user.password;
             param.newpassword = $scope.user.newpassword;
             param.code = $scope.user.code;
-            AJAX.getRequest(referinURL, 'POST', param)
-                .then(function (data, status) {
-                    showlogin();
-                });
+
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $http.post(loocha+referinURL,param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(promise){
+                showlogin();
+            });
+
         };
 
         $scope.showlogin = function () {

@@ -5,7 +5,7 @@
 require(['app','jquery'],function(app,jquery){
     app.constant("departURL","/depart/new");
     app.constant("findMarjorURL",'/depart');
-    app.controller("marjorConCtr",['$scope','$stateParams','$sce','AJAX','departURL','findMarjorURL',function($scope,$stateParams,$sce,AJAX,departURL,findMarjorURL){
+    app.controller("marjorConCtr",['$scope','$stateParams','$sce','$http','loocha','departURL','findMarjorURL',function($scope,$stateParams,$sce,$http,loocha,departURL,findMarjorURL){
 
         $scope.search = true;
         $scope.marjor = {
@@ -22,7 +22,7 @@ require(['app','jquery'],function(app,jquery){
             $scope.marjor.seacrChCon = false;
             $scope.marjor.content = false;
             $scope.search = false;
-            AJAX.getRequest('/article/show/'+id,'GET','')
+            $http.get(loocha+'/article/show/'+id)
                .success(function(data,status){
                    $scope.marjor.strHtml = $sce.trustAsHtml(data);
                });
@@ -32,10 +32,10 @@ require(['app','jquery'],function(app,jquery){
            $scope.marjor.seacrChCon = true;
            $scope.marjor.content = false;
            $scope.search = true;
-           var param = {};
-           param.depart_type = $stateParams.type;
-           param.key = $scope.marjor.key;
-           AJAX.getRequest(findMarjorURL,'GET',param)
+           //var param = {};
+           //param.depart_type = $stateParams.type;
+           //param.key = $scope.marjor.key;
+           $http.get(loocha+'/depart?depart_type='+$stateParams.type+'&key='+$scope.marjor.key)
                .success(function(data,status){
                    $scope.findList =  data.response;
                });
@@ -49,9 +49,9 @@ require(['app','jquery'],function(app,jquery){
        }
 
        function loading(){
-           var param = {};
-           param.depart_type = $stateParams.type;
-           AJAX.getRequest(departURL,'GET', param)
+           //var param = {};
+           //param.depart_type = $stateParams.type;
+           $http.get(loocha+'/depart/new?depart_type='+$stateParams.type)
                .success(function(data,status){
                    $scope.marjorType = data.response;
                })

@@ -17,15 +17,15 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller("cityCtr",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
+    app.controller("cityCtr",['$scope','$location','$http','loocha','provinceURL',function($scope,$location,$http,loocha,provinceURL){
 
         $scope.menu = {
             provincelist: ""
-        }
+        };
 
         init();
         function init() {
-            AJAX.getRequest(provinceURL, 'GET', '')/**省份*/
+            $http.get(loocha+provinceURL)
                 .success(function (data, status) {
                     $scope.menu.provincelist = data.response.list;
                 });

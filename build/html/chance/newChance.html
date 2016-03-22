@@ -91,19 +91,28 @@
                 <thead>
                     <tr>
                         <td width="150">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属地<span class="caret"></span></a>
-                                    <ul class="dropdown-menu" id="provinceType">
-                                        <li><a href="javascript:;;" data-param="2">江苏省</a></li>
-                                        <li><a href="javascript:;;" data-param="3">一线城市</a></li>
-                                        <li><a href="javascript:;;" data-param="4">二线城市</a></li>
-                                        <li><a href="javascript:;;" data-param="5">三线城市</a></li>
-                                        <li><a href="javascript:;;" data-param="6">四线城市</a></li>
-                                        <li><a href="javascript:;;" data-param="7">五线城市</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <select  class="form-control" ng-model="forecast.area" ng-change="findCity()">
+                                <option value="">院校属地</option>
+                                <option value="2">江苏省</option>
+                                <option value="3">一线城市</option>
+                                <option value="4">二线城市</option>
+                                <option value="5">三线城市</option>
+                                <option value="6">四线城市</option>
+                                <option value="7">五线城市</option>
+                            </select>
+                            <!--<ul class="nav navbar-nav">-->
+                                <!--<li class="dropdown">-->
+                                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属地<span class="caret"></span></a>-->
+                                    <!--<ul class="dropdown-menu" id="provinceType">-->
+                                        <!--<li><a href="javascript:;;" data-param="2">江苏省</a></li>-->
+                                        <!--<li><a href="javascript:;;" data-param="3">一线城市</a></li>-->
+                                        <!--<li><a href="javascript:;;" data-param="4">二线城市</a></li>-->
+                                        <!--<li><a href="javascript:;;" data-param="5">三线城市</a></li>-->
+                                        <!--<li><a href="javascript:;;" data-param="6">四线城市</a></li>-->
+                                        <!--<li><a href="javascript:;;" data-param="7">五线城市</a></li>-->
+                                    <!--</ul>-->
+                                <!--</li>-->
+                            <!--</ul>-->
                         </td>
                         <td style="vertical-align: middle;">学校名称</td>
                         <td width="150" style="vertical-align: middle;">概率</td>
@@ -112,29 +121,31 @@
                 <tbody id="provinceBody"  style="display: none;">
                     <tr>
                         <td>
-                            <ul class="nav navbar-nav" id="proNav">
-                                <li class="dropdown">
-                                    <a href="javascript:;;" class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="proName" ng-click="findCity($event)" city_id="0"></a>
-                                    <ul class="dropdown-menu" id="proList"></ul>
-                                </li>
-                            </ul>
+                            <select  class="form-control" ng-model="forecast.city_id" ng-change="findSchoolList()">
+                                <option value="">==请选择==</option>
+                                <option ng-repeat="list in forecast.cityArr" value="{{list.city_id}}">{{list.name}}</option>
+                            </select>
                         </td>
                         <td>
-                            <select class="form-control" ng-model="school.provinceSch"  ng-options="door.name for door in chance track by door.id">
+                            <select class="form-control" id="school_name" ng-model="forecast.school_id" ng-change="findSchoolInfo()">
                                 <option value="">==请选择高校==</option>
+                                <option ng-repeat="list in forecast.schoolArr" value="{{list.unique_id}}">{{list.name}}</option>
                             </select>
                             <ul class="nav nav-bar">
-                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.provinceSch.id}}">{{school.provinceSch.name}}</a></li>
+                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.city_id}}">{{forecast.school_name}}</a></li>
                             </ul>
                         </td>
                         <td style="vertical-align: middle;">
-                            <button class="btn btn-default">获取概率</button>
+                            <button class="btn btn-default" ng-click="schChance()">获取概率</button>
+                            <div class="row">
+                                <a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance}}</a>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <p>
-                点击<strong>城市名称</strong>可查询城市情况,且院校属地每一类，可以查询3所高校概率
+                点击<strong>高校名称</strong>可查询城市情况,且院校属地每一类，可以查询3所高校概率
             </p>
         </div>
     </div>

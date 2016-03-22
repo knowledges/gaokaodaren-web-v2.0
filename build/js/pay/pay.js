@@ -33,15 +33,15 @@ require(['app'],function(app){
     app.directive('pay',['$window','$location',function($window,$location){
         return function(scope, element, attrs){
             element.bind('click',function(element){
-                var out_trade_no = $location.$$search.out_trade_no, order_type = $location.$$search.type;
+                var out_trade_no = $location.$$search.order_id, order_type = $location.$$search.type;
                 var type = element.target.getAttribute("pay-type");
                 switch(type){
                     case "zhifubao":
-                        $window.open("/exam/buy?out_trade_no="+out_trade_no+"&type="+order_type);
+                        $window.open("/loocha/exam/buy?out_trade_no="+out_trade_no+"&type="+order_type);
                         break;
                     case "bank":
                         var code = element.target.getAttribute("bank-code");
-                        window.open("/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
+                        window.open("/loocha/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
                         break;
                     case "yinhanghuikuan":
                         document.getElementById('modal').style.display = "block";
@@ -52,39 +52,44 @@ require(['app'],function(app){
 
         }
     }])
-    app.constant("buyinfoURl","/exam/order/buyinfo?limit=99")
-    app.controller('payCtr',['$scope','$location','$interval','AJAX','buyinfoURl',function($scope,$location,$interval,AJAX,buyinfoURl){
+    app.constant("buyinfoURl","/loocha/exam/order/buyinfo?limit=99")
+    app.controller('payCtr',['$scope','$location','$interval','$stateParams','$http','buyinfoURl','loocha',function($scope,$location,$interval,$stateParams,$http,buyinfoURl,loocha){
 
         $scope.pay = {
             list:"",
-            orderId:""
+            orderId:"",
+            money:""
         }
 
         init();
+
         $scope.close = function(){
             document.getElementById('modal').style.display = "none";
         }
 
         function init(){
-            $scope.pay.orderId = $location.$$search.out_trade_no;
-            getBuyInfo();
+            //$scope.pay.orderId = localStorage.setItem("order_id",$scope.order_id);
+            //$scope.pay.money = localStorage.setItem("money",$scope.money);
+            $scope.pay.orderId = $location.$$search.order_id;
+            $scope.pay.money = $location.$$search.money;
+            //getBuyInfo();
         }
 
         function getBuyInfo(){
-            AJAX.getRequest(buyinfoURl,'GET','')
-                .success(function(data,status){
+            $http.get(loocha+buyinfoURl)
+                .success(function(data){
                     $scope.pay.list = data.response;
                 })
         }
 
-        setInterval(function(){
-            var obj = document.getElementById('scrollObj');
-            var tmp = (obj.scrollLeft)++;
-            //当滚动条到达右边顶端时
-            if (obj.scrollLeft==tmp){obj.innerHTML+=obj.innerHTML}
-            ////当滚动条滚动了初始内容的宽度时滚动条回到最左端
-            //if (obj.scrollLeft>=obj.firstChild.offsetWidth){obj.scrollLeft=0;}
-        },20);
+        //setInterval(function(){
+        //    var obj = document.getElementById('scrollObj');
+        //    var tmp = (obj.scrollLeft)++;
+        //    //当滚动条到达右边顶端时
+        //    if (obj.scrollLeft==tmp){obj.innerHTML+=obj.innerHTML}
+        //    ////当滚动条滚动了初始内容的宽度时滚动条回到最左端
+        //    //if (obj.scrollLeft>=obj.firstChild.offsetWidth){obj.scrollLeft=0;}
+        //},20);
     }]);
 })
 

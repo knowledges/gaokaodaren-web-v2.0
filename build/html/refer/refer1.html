@@ -94,7 +94,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" ng-model="param.firDepart_6" placeholder="6.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="6" ng-click="showMarjor($event)" data-target="#myModal">选择</button>
+                                            <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
                                         </span>
                             </div>
                         </td>
@@ -254,8 +254,11 @@
                     </tbody>
                 </table>
 
-                <div class="row">
+                <div class="row col-sm-6">
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#zyb_random">提交</button>
+                </div>
+                <div class="row col-sm-6">
+                    <a href="javascript:history.go(0);" class="btn btn-warning  btn-block">重置</a>
                 </div>
 
                 <div class="modal fade" id="getNext" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
@@ -290,9 +293,8 @@
                     </button>
                     <h4 class="modal-title">以下学校适合作为志愿填报，请手动选择：</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 400px;overflow-y: scroll;">
                     <div class="alert alert-warning">
-
                         <p><i class=" icon-info-sign"></i>
                             1、下面推荐的是适合您“冲一冲”的学校，过于冒险、过于保守和选测等级不符合的学校不会被推荐；
                         </p>
@@ -356,13 +358,13 @@
                         </tr>
                         </thead>
                         <tbody ng-repeat="list in persons | filter:info.model | orderBy:'id' ">
-                        <tr ng-repeat="deplist in list.list">
+                        <tr ng-repeat="deplist in list.departs">
                             <td>
-                                <h4 class="text-left">{{deplist.departName}}</h4>
+                                <h4 class="text-left">{{deplist.name}}</h4>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary departSet" did="{{deplist.id}}" name="{{deplist.departName}}" hope="{{num}}" ng-if="!deplist.disabled" ng-click="setUpMar($event,$index+1)">选择专业</button>
-                                <button class="btn btn-default departSet" did="{{deplist.id}}" name="{{deplist.departName}}" hope="{{num}}" ng-if="deplist.disabled" ng-click="unSetUpMar($event,$index+1)">取消</button>
+                                <button class="btn btn-primary departSet" did="{{deplist.sdid}}" name="{{deplist.name}}" hope="{{num}}" ng-if="!deplist.disabled" ng-click="setUpMar($event,$index+1)">选择专业</button>
+                                <button class="btn btn-default departSet" did="{{deplist.sdid}}" name="{{deplist.name}}" hope="{{num}}" ng-if="deplist.disabled" ng-click="unSetUpMar($event,$index+1)">取消</button>
                             </td>
                         </tr>
                         </tbody>

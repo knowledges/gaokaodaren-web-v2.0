@@ -8,7 +8,6 @@ require(['app'],function(app){
        $scope.service = homeService;
        $scope.insertHTML = "";
        $scope.$watch('service',function(newValue){
-           console.log('jinlaile');
            if(newValue.htmlPage!="" && newValue.htmlPage!=undefined){
                $scope.ishide = false;
                $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);

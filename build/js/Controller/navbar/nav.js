@@ -13,115 +13,115 @@ require(['app'],function(app){
     app.constant("navURL_9","/article/show/3295")//咨询
     app.constant("navURL_10","/article/show/4451")//关于我们
     app.constant("navURL_11","/article/show/3282")//志愿意向
-    app.controller('cityNav',['$scope','$sce','AJAX','navURL_1',function($scope,$sce,AJAX,navURL_1){
+    app.controller('cityNav',['$scope','$sce','$http','navURL_1','loocha',function($scope,$sce,$http,navURL_1,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_1,'GET','')
-            .success(function(data,status){
-                $scope.nav.content = $sce.trustAsHtml(data);
-            });
-    }])
-    app.controller('schoolNav',['$scope','$sce','AJAX','navURL_2',function($scope,$sce,AJAX,navURL_2){
+        $http.get(loocha+navURL_1)
+            .success(function(data){
+            $scope.nav.content = $sce.trustAsHtml(data);
+        });
+
+    }]);
+    app.controller('schoolNav',['$scope','$sce','$http','navURL_2','loocha',function($scope,$sce,$http,navURL_2,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_2,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_2)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('marjorNav',['$scope','$sce','AJAX','navURL_3',function($scope,$sce,AJAX,navURL_3){
+    }]);
+    app.controller('marjorNav',['$scope','$sce','$http','navURL_3','loocha',function($scope,$sce,$http,navURL_3,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_3,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_3)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('recipeNav',['$scope','$sce','AJAX','navURL_4',function($scope,$sce,AJAX,navURL_4){
+    }]);
+    app.controller('recipeNav',['$scope','$sce','$http','navURL_4','loocha',function($scope,$sce,$http,navURL_4,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_4,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_4)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('scoreNav',['$scope','$sce','AJAX','navURL_5',function($scope,$sce,AJAX,navURL_5){
-
+    }]);
+    app.controller('scoreNav',['$scope','$sce','$http','navURL_5','loocha',function($scope,$sce,$http,navURL_5,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_5,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_5)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('policyNav',['$scope','$sce','AJAX','navURL_6',function($scope,$sce,AJAX,navURL_6){
+    }]);
+    app.controller('policyNav',['$scope','$sce','$http','navURL_6','loocha',function($scope,$sce,$http,navURL_6,loocha){
         $scope.nav = {
             content : ''
-        }
-        AJAX.getRequest(navURL_6,'GET','')
-            .success(function(data,status){
+        };
+
+        $http.get(loocha+navURL_6)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('jobNav',['$scope','$sce','AJAX','navURL_7',function($scope,$sce,AJAX,navURL_7){
-
+    }]);
+    app.controller('jobNav',['$scope','$sce','$http','navURL_7','loocha',function($scope,$sce,$http,navURL_7,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_7,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_7)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('uniqueNav',['$scope','$sce','AJAX','navURL_8',function($scope,$sce,AJAX,navURL_8){
+    }]);
+    app.controller('uniqueNav',['$scope','$sce','$http','navURL_8','loocha',function($scope,$sce,$http,navURL_8,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_8,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_8)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('onlineNav',['$scope','$sce','AJAX','navURL_9',function($scope,$sce,AJAX,navURL_9){
+    }]);
+    app.controller('onlineNav',['$scope','$sce','$http','navURL_9','loocha',function($scope,$sce,$http,navURL_9,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_9,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_9)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('aboutNav',['$scope','$sce','AJAX','navURL_10',function($scope,$sce,AJAX,navURL_10){
+    }]);
+    app.controller('aboutNav',['$scope','$sce','$http','navURL_10','loocha',function($scope,$sce,$http,navURL_10,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_10,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_10)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
-    app.controller('exampleNav',['$scope','$sce','AJAX','navURL_11',function($scope,$sce,AJAX,navURL_11){
+    }]);
+    app.controller('exampleNav',['$scope','$sce','$http','navURL_11','loocha',function($scope,$sce,$http,navURL_11,loocha){
         $scope.nav = {
             content : ''
-        }
+        };
 
-        AJAX.getRequest(navURL_11,'GET','')
-            .success(function(data,status){
+        $http.get(loocha+navURL_11)
+            .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
             });
-    }])
+    }]);
 });
