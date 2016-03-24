@@ -3,20 +3,25 @@
  */
 require(['app'],function(app){
     app.constant('menuRecipeURL','/menu');
-    app.controller('uniqueMenuCtr',['$scope','AJAX','menuRecipeURL',function($scope,AJAX,menuRecipeURL){
+    app.controller('uniqueMenuCtr',['$scope','$http','loocha','menuRecipeURL',function($scope,$http,loocha,menuRecipeURL){
         $scope.menu = {
             menuList : ""
         };
         init();
         function init(){
-            var parame = {};
-            parame.index = 0;
-            parame.limit = 999;
-            parame.parent_id = 22;
-            AJAX.getRequest(menuRecipeURL,'GET',parame)
-                .success(function(data,status){
-                    $scope.menu.menuList = data.response.list;
-                })
+            var param = {};
+                param.index = 0;
+                param.limit = 999;
+                param.parent_id = 22;
+
+            $http({
+                url:loocha+menuRecipeURL,
+                method:"GET",
+                params:param
+            })
+            .success(function(data){
+                $scope.menu.menuList = data.response.list;
+            });
         }
     }]);
 });

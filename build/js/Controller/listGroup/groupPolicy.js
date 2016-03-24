@@ -17,14 +17,14 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('policyMenuCtr',['$scope','$http',function($scope,$http){
+    app.controller('policyMenuCtr',['$scope','$http','loocha',function($scope,$http,loocha){
             $scope.menu = {
                 menuList : ""
             }
             init();
 
             function init(){
-                $http.get('/loocha/menu?index=0&limit=999&parent_id=17').success(function(data){
+                $http.get(loocha+'/menu?index=0&limit=999&parent_id=17').success(function(data){
                     $scope.menu.menuList = data.response.list;
                 });
             }

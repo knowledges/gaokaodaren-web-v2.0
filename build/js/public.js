@@ -58,7 +58,7 @@
                 html.push('</li>');
             }else {
                 html.push('<li ' + (options.current <= 1 ? 'class="disabled" data-idx="-1"' : 'data-idx="' + (options.current - 1)) + '"' + '>');
-                html.push('<a href="#" aria-label="Previous">');
+                html.push('<a href="javascript:;;" aria-label="Previous">');
                 html.push('<span aria-hidden="true">&laquo;</span>');
                 html.push('</a>');
                 html.push('</li>');
@@ -66,40 +66,40 @@
                 if (totalpages > pager_length) {
                     if (options.current <= offset + 1) {
                         for(var i = 1 ; i<= header + main_length ; i++ ){
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="javascript:;;">' + i + '</a></li>');
                         }
                         html.push('	<li class="disabled" data-idx="-1"><a href="javascript:;;">...</a></li>');
                         for (var i = totalpages - tail +1; i <= totalpages; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="javascript:;;">' + i + '</a></li>');
                         }
 
                     }else  if (options.current >= totalpages - offset){
                         for (var i = 1; i <= header; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="javascript:;;">' + i + '</a></li>');
                         }
                         html.push('	<li class="disabled" data-idx="-1"><a href="javascript:;;">...</a></li>');
                         for (var i = totalpages- main_length; i <= totalpages; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="javascript:;;">' + i + '</a></li>');
                         }
                     }else {
                         for (var i = 1; i <= header; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="javascript:;;">' + i + '</a></li>');
                         }
                         html.push('	<li class="disabled" data-idx="-1"><a href="javascript:;;">...</a></li>');
 
                         var offset_m = (main_length - 1) / 2;
                         var counter = options.current + offset_m;
                         for (var i = offset_m+1; i <= counter  ; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="javascript:;;">' + i + '</a></li>');
                         }
                         html.push('	<li class="disabled" data-idx="-1"><a href="javascript:;;">...</a></li>');
                         for (var i = (totalpages-tail)+1; i <= totalpages; i++) {
-                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="#">' + i + '</a></li>');
+                            html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"') + '><a href="javascript:;;">' + i + '</a></li>');
                         }
                     }
                 }else{
                     for (var i = 1; i <= totalpages; i++) {
-                        html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="#">' + i + '</a></li>');
+                        html.push('	<li ' + (options.current == i ? 'class="active" data-idx="' + i + '"' : 'data-idx="' + i + '"' )+ '><a href="javascript:;;">' + i + '</a></li>');
                     }
                 }
 

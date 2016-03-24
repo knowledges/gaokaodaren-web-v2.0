@@ -2,10 +2,10 @@
  * Created by qbl on 2015/10/23.
  */
 require(['app'],function(app){
-    app.controller('onlineInfoCtr',['$scope','$stateParams','$sce','AJAX',function($scope,$stateParams,$sce,AJAX){
+    app.controller('onlineInfoCtr',['$scope','$stateParams','$sce','$http','loocha',function($scope,$stateParams,$sce,$http,loocha){
         $scope.title = {
             strHtml:"",
-        }
+        };
 
         init();
 
@@ -14,10 +14,10 @@ require(['app'],function(app){
         }
 
         function showInfo(id){
-            AJAX.getRequest('/article/show/'+id,'GET','')
-                .success(function(data,status){
+            $http.get(loocha+'/article/show/'+id)
+                .success(function(data){
                     $scope.title.strHtml = $sce.trustAsHtml(data);
-                })
+                });
         }
     }]);
 });

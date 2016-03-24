@@ -2,7 +2,7 @@
  * Created by qbl on 2015/11/19.
  */
 require(['app'],function(app){
-    app.controller('addchanceCtl',['$scope',function($scope){
+    app.controller('addchanceCtl',['$scope','$http','$window','loocha','getLoginUserInfo',function($scope,$http,$window,loocha,getLoginUserInfo){
 
         $scope.recommShow = false;
         $scope.table = {
@@ -59,27 +59,27 @@ require(['app'],function(app){
             }
 
             var param = {};
-            param.user_id = sessionStorage.getItem("user_id");
-            param.subject = $scope.table.subject;
-            param.score = $scope.table.score;
-            param.sub_a = $scope.table.sub1;
-            param.sub_b = $scope.table.sub2;
-            param.level_a = table.obl.name;
-            param.level_b = table.sel.name;
-            param.year = new Date().getFullYear();
+                param.user_id = sessionStorage.getItem("user_id");
+                param.subject = $scope.table.subject;
+                param.score = $scope.table.score;
+                param.sub_a = $scope.table.sub1;
+                param.sub_b = $scope.table.sub2;
+                param.level_a = table.obl.name;
+                param.level_b = table.sel.name;
+                param.year = new Date().getFullYear();
 
             var tramsform = function(data){
                 return $.param(data);
             };
 
-            $http.post("/loocha/uscore/addscore",param,{
+            $http.post(loocha+"/uscore/addscore",param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
                 alert('成绩创建成功，默认使用此成绩概率预测');
                 var index = responseDate.response,score = $scope.table.score;
-                $http.get('/loocha/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                    $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
+                $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
+                    $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
                         sessionStorage.setItem('uScore',JSON.stringify(data.response));
                         $window.location.href = "#/all/allScore";
                     });

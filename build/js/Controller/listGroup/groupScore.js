@@ -17,7 +17,7 @@ require(['app'],function(app){
             }
         }
     }]);
-   app.controller('scoreMenuCtr',['$scope','$http',function($scope,$http){
+   app.controller('scoreMenuCtr',['$scope','$http','loocha',function($scope,$http,loocha){
        $scope.menu = {
            menuList : ""
        }
@@ -25,7 +25,7 @@ require(['app'],function(app){
        init();
 
        function init(){
-           $http.get('/loocha/menu?index=0&limit=999&parent_id=16').success(function(data){
+           $http.get(loocha+'/menu?index=0&limit=999&parent_id=16').success(function(data){
                $scope.menu.menuList = data.response.list;
            });
        }

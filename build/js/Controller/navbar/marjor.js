@@ -32,9 +32,6 @@ require(['app','jquery'],function(app,jquery){
            $scope.marjor.seacrChCon = true;
            $scope.marjor.content = false;
            $scope.search = true;
-           //var param = {};
-           //param.depart_type = $stateParams.type;
-           //param.key = $scope.marjor.key;
            $http.get(loocha+'/depart?depart_type='+$stateParams.type+'&key='+$scope.marjor.key)
                .success(function(data,status){
                    $scope.findList =  data.response;
@@ -49,8 +46,6 @@ require(['app','jquery'],function(app,jquery){
        }
 
        function loading(){
-           //var param = {};
-           //param.depart_type = $stateParams.type;
            $http.get(loocha+'/depart/new?depart_type='+$stateParams.type)
                .success(function(data,status){
                    $scope.marjorType = data.response;

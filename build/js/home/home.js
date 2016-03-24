@@ -25,12 +25,6 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
                 interval: 5000
             });
             $scope.table.provincelist = data_province.data.response.list;
-            //$scope.table.tbyl = data_HomeModel2.data.response.list;
-            //$scope.table.fsfx = data_HomeModel3.data.response.list;
-            //$scope.table.zszc = data_HomeModel4.data.response.list;
-            //$scope.table.byqx = data_HomeModel5.data.response.list;
-            //$scope.table.gxtz = data_HomeModel6.data.response.list;
-            //$scope.table.zxxl = data_HomeModel7.data.response.list;
         }
     }]);
 });

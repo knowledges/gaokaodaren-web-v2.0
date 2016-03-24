@@ -81,37 +81,39 @@ require(['app','pagging'],function(app,pagging){
 
         function pageation(currentIdx,info) {
             var param = {};
-            param.type = info.type;
-            param.key = info.key;
-            param.style = info.style;
-            param.attr = info.attr;
-            param.belongs = info.belongs;
-            param.level = typeof(info.level) == 'object' ? info.level.type : typeof(info.level) == null ? 0 : info.level.type;
-            param.province_id = info.province_id;
-            param.city_id = info.city_id;
-            param.index = currentIdx - 1;
-            param.limit = 10;
-            param.junior = info.junior;
-            //$http.get(loocha+findSchoolURL,param)
-            AJAX.getRequest(findSchoolURL, 'GET', param)
-                .success(function (data, status) {
+                param.type = info.type;
+                param.key = info.key;
+                param.style = info.style;
+                param.attr = info.attr;
+                param.belongs = info.belongs;
+                param.level = typeof(info.level) == 'object' ? info.level.type : typeof(info.level) == null ? 0 : info.level.type;
+                param.province_id = info.province_id;
+                param.city_id = info.city_id;
+                param.index = currentIdx - 1;
+                param.limit = 10;
+                param.junior = info.junior;
 
-                    $scope.info.pageSize = data.response.sum;
-                    $scope.schoolList = data.response.list;
+            $http({
+                method:'GET',
+                url:loocha+findSchoolURL,
+                params:param
+            })
+            .success(function (data, status) {
 
-                    $("#pagging").pagging({
-                        sum: $scope.info.pageSize,
-                        param: param,
-                        current: $scope.info.index,
-                        callback: function (idx, param) {
-                            debugger;
-                            $scope.info.index = idx;
-                            pageation($scope.info.index, info);
-                        }
-                    })
+                $scope.info.pageSize = data.response.sum;
+                $scope.schoolList = data.response.list;
 
-
-                });
+                $("#pagging").pagging({
+                    sum: $scope.info.pageSize,
+                    param: param,
+                    current: $scope.info.index,
+                    callback: function (idx, param) {
+                        debugger;
+                        $scope.info.index = idx;
+                        pageation($scope.info.index, info);
+                    }
+                })
+            });
         }
 
         $scope.showChar = function(id){
@@ -119,8 +121,7 @@ require(['app','pagging'],function(app,pagging){
             $scope.school.isChars = true;
             $scope.school.isfind = false;
             $http.get(loocha+'/article/show/'+id)
-            //AJAX.getRequest('/article/show/'+id,'GET','')
-                .success(function (data, status) {
+                .success(function (data) {
                     $scope.school.strHtml = $sce.trustAsHtml(data);
                 });
         };
@@ -133,19 +134,17 @@ require(['app','pagging'],function(app,pagging){
         }
 
         function navSchool() {
-            AJAX.getRequest(navURL_1, 'GET', "")
-                .success(function (data, status) {
+            $http.get(loocha+navURL_1)
+                .success(function (data) {
                     $scope.school.strHtml = $sce.trustAsHtml(data);
                 });
-
         }
 
         function loading(){
-            AJAX.getRequest(propURL,'GET',"")
-                .success(function(data,status){
+            $http.get(loocha+propURL)
+                .success(function(data){
                     var list = data.response;
                     var arr_style = [],arr_attr=[],attr_belongs=[];
-                    var area_list = [];
                     for (var i = 0; i < list.length; i++) {
                         if(list[i].type == 0){
                             arr_style.push(list[i]);
@@ -163,8 +162,8 @@ require(['app','pagging'],function(app,pagging){
                     $scope.belongs = attr_belongs;
                 });
 
-            AJAX.getRequest(tubeURL,'GET','')
-                .success(function(data,status){
+            $http.get(loocha+tubeURL)
+                .success(function(data){
                     var list = data.response;
                     var tube_list = [];
                     for(var i = 0; i< list.length;i++){
@@ -181,10 +180,10 @@ require(['app','pagging'],function(app,pagging){
                     }
                     tube_list.join(',');
                     $scope.tube = tube_list ;
-                })
+                });
 
-            AJAX.getRequest(provinceURL,'GET',"")
-                .success(function(data,status){
+            $http.get(loocha+provinceURL)
+                .success(function(data){
                     $scope.area = data.response.list;
                     $scope.info.province = $scope.area[0];
                 });

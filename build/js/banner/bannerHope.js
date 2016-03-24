@@ -70,14 +70,14 @@ require(['app'],function(app){
                 return $.param(data);
             };
 
-            $http.post("/loocha/uscore/addscore",param,{
+            $http.post(loocha+"/uscore/addscore",param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
                 alert('成绩创建成功，默认使用此成绩去模拟志愿表');
                 var index = responseDate.response,score = $scope.table.score;
-                $http.get('/loocha/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                    $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
+                $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
+                    $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
                         sessionStorage.setItem('uScore',JSON.stringify(data.response));
                         alert("去选择批次吧！");
                         $window.location.href = "#/all/allScore";

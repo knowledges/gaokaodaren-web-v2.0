@@ -107,7 +107,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/hope.js','js/Controller/selectCtl/select.js','js/Controller/colleges/collegesCtl.js','js/Controller/personality/personality.js']);
+                        return $ocLazyLoad.load(['js/hope/hope.js']);
                     }]
                 }
             })
@@ -293,7 +293,7 @@ define(['app'],function(app){
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/temp/tempRecipe.js']);
+                        return $ocLazyLoad.load(['js/recipe/recipe.js']);
                     }]
                 }
             })
@@ -327,7 +327,7 @@ define(['app'],function(app){
                 data: { isPublic: true },
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/Controller/temp/tempScore.js']);
+                        return $ocLazyLoad.load(['js/score/score.js']);
                     }]
                 }
             })

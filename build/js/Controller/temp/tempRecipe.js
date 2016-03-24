@@ -1,6 +1,7 @@
 /**
  * Created by qbl on 2015/10/22.
  */
+'use strict';
 require(['app'], function (app) {
     app.controller('reciptCtr',['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;

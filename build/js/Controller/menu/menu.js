@@ -3,8 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    //app.constant("navURL_1","../JSON/nav.html");
-    app.controller("menuCtl",['$scope','$location','AJAX','provinceURL',function($scope,$location,AJAX,provinceURL){
+    app.controller("menuCtl",['$scope','$location','$http','loocha','provinceURL',function($scope,$location,$http,loocha,provinceURL){
         $scope.menu = {
             name:"",
             provincelist:"",
@@ -16,17 +15,9 @@ require(['app'],function(app){
             $scope.menu.name ="各省、直辖市"
         }
 
-        AJAX.getRequest(provinceURL,'GET','')
+        $http.get(loocha+provinceURL)
             .success(function(data,status){
                 $scope.menu.provincelist = data.response.list;
             });
-
-
-        $scope.proEvent = function(id){
-            AJAX.getRequest("../JSON/city.json",'GET',"")
-                .success(function(data,status){
-                    data.response.list;
-                });
-        };
     }]);
 });

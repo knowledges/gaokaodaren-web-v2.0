@@ -19,7 +19,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller("recipeInfoCtr",['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
+    app.controller("recipeInfoCtr",['$scope','$stateParams','$http','$sce','loocha','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,$http,loocha,articleURL,menuRecipeURL){
             $scope.title = {
                 list :"",
                 menuList:"",
@@ -32,17 +32,15 @@ require(['app'],function(app){
             init();
             $scope.title.breadcrumb_no = $stateParams.itemId;
 
-
             $scope.listInfo = function(id){
                 showInfo(id);
-            }
+            };
 
             $scope.previous = function(idx){
                 $scope.title.current-=1;
                 if($scope.title.current<=0){
                     return;
                 }else{
-                    debugger;
                     showInfo($scope.title.infoId[$scope.title.current]);
                 }
             }
@@ -54,7 +52,6 @@ require(['app'],function(app){
                     $scope.title.current = $scope.title.infoId.length;
                     return;
                 }else{
-                    debugger;
                     showInfo($scope.title.infoId[$scope.title.current]);
                 }
 
@@ -62,7 +59,6 @@ require(['app'],function(app){
             }
 
             function init (){
-                console.log("== 1 ==");
                 loadingMenuList();
                 loadingInfo($stateParams.itemId);
             }
@@ -73,18 +69,22 @@ require(['app'],function(app){
                 param.limit = 999;
                 param.menu_id = id;
                 param.key="";
-                AJAX.getRequest(articleURL,'GET',param)
-                    .success(function(data,status){
-                        $scope.title.list = data.response.list;
 
-                        var arr = [];
-                        $.each(data.response.list,function(i,v){
-                            arr.push(v.id);
-                        });
+                $http({
+                    url:loocha+articleURL,
+                    method:"GET",
+                    params:param
+                })
+                .success(function(data){
+                    $scope.title.list = data.response.list;
 
-                        $scope.title.infoId = arr;
-
+                    var arr = [];
+                    $.each(data.response.list,function(i,v){
+                        arr.push(v.id);
                     });
+
+                    $scope.title.infoId = arr;
+                });
             }
 
             function loadingMenuList(){
@@ -92,18 +92,22 @@ require(['app'],function(app){
                 parame.index = 0;
                 parame.limit = 999;
                 parame.parent_id = $stateParams.param;
-                AJAX.getRequest(menuRecipeURL, 'GET', parame)
-                    .success(function (data, status) {
-                        $scope.title.menuList = data.response.list;
+                $http({
+                    url:loocha+menuRecipeURL,
+                    method:"GET",
+                    params:param
+                })
+                .success(function (data, status) {
+                    $scope.title.menuList = data.response.list;
 
-                    });
+                });
             }
 
             function showInfo(id){
-                AJAX.getRequest('/article/show/'+id,'GET','')
+                $http.get('/article/show/'+id)
                     .success(function(data,status){
                         $scope.title.strHtml = $sce.trustAsHtml(data);
-                    })
+                    });
             }
         }]);
 });

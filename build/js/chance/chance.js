@@ -14,7 +14,9 @@ require(['app'],function(app){
             schoolArr:[],
             school_id:"",
             school_name:"",
-            schChance:""
+            schChance:"",
+            style:"",
+
         };
         $scope.chance = [
             {
@@ -74,10 +76,10 @@ require(['app'],function(app){
          */
         $scope.showChanceSchInfo = function(e){
             var that = $(e.target),key = that.html();
-            $http.get("/loocha/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
+            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
                 $scope.schoolInfo = data.response.list[0];
                 if($scope.schoolInfo.article_id>0){
-                    $http.get("/loocha/article/"+$scope.schoolInfo.article_id).success(function(data){
+                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
                         $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
                         $("#mask-school").fadeIn(500);
                     });
@@ -241,13 +243,13 @@ require(['app'],function(app){
                 if(istrue == undefined || istrue == 0){
                     var url = "";
                     if(prop_id == 0){
-                        url="/loocha/school/prop?type=0&depart_type="+$scope.isChance;
+                        url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
                     }else if(prop_id == 1){
-                        url="/loocha/school/prop?type=1&depart_type=1";
+                        url=loocha+"/school/prop?type=1&depart_type=1";
                     }else if(prop_id == 2){
-                        url="/loocha/school/prop?type=2&depart_type="+$scope.isChance;
+                        url=loocha+"/school/prop?type=2&depart_type="+$scope.isChance;
                     }else if(prop_id == 3){
-                        url="/loocha/school/prop/"+$scope.isChance;
+                        url=loocha+"/school/prop/"+$scope.isChance;
                     }
                     $http.get(url).success(function(data){
                         var html = [];
@@ -285,7 +287,7 @@ require(['app'],function(app){
             if(e.keyCode == 229){
                 $timeout.cancel(_time);
                 _time = $timeout(function(e){
-                    $http.get("/loocha/departlist?type="+$scope.isChance+"&name="+$scope.school.name+"&index=0&limit=999").success(function(data){
+                    $http.get(loocha+"/departlist?type="+$scope.isChance+"&name="+$scope.school.name+"&index=0&limit=999").success(function(data){
                         $scope.school.deparlist = data.response.list;
                     });
                 },500);
@@ -294,17 +296,15 @@ require(['app'],function(app){
 
         $scope.findDepartInfo = function(e){
             var that = $(e.target),depart_id = that.attr("depart_id");
-            $http.get("/loocha/depart/by?depart_id="+depart_id).success(function(data){
+            $http.get(loocha+"/depart/by?depart_id="+depart_id).success(function(data){
                 var article_id = data.response.article_id;
                 if(article_id>0){
-                    $http.get("/loocha/article/show/"+article_id).success(function(data){
+                    $http.get(loocha+"/article/show/"+article_id).success(function(data){
                         $scope.school.departInfo = $sce.trustAsHtml(data);
                         $("#mask-depart").fadeIn(800);
                     });
                 }
             });
-
-
         };
     }]);
 });

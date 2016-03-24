@@ -159,17 +159,24 @@
                     <thead>
                         <tr>
                             <td width="150">
-                                <ul class="nav navbar-nav">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属类<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" id="propType">
-                                            <li><a href="javascript:;;" data-param="2">类别</a></li>
-                                            <li><a href="javascript:;;" data-param="3">类型</a></li>
-                                            <li><a href="javascript:;;" data-param="0">属性</a></li>
-                                            <li><a href="javascript:;;" data-param="1">属管</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <select  class="form-control" ng-model="forecast.style" ng-change="findStyle()">
+                                    <option value="">院校属类</option>
+                                    <option value="0">属性</option>
+                                    <option value="1">属管</option>
+                                    <option value="2">类别</option>
+                                    <option value="3">类型</option>
+                                </select>
+                                <!--<ul class="nav navbar-nav">-->
+                                    <!--<li class="dropdown">-->
+                                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属类<span class="caret"></span></a>-->
+                                        <!--<ul class="dropdown-menu" id="propType">-->
+                                            <!--<li><a href="javascript:;;" data-param="2">类别</a></li>-->
+                                            <!--<li><a href="javascript:;;" data-param="3">类型</a></li>-->
+                                            <!--<li><a href="javascript:;;" data-param="0">属性</a></li>-->
+                                            <!--<li><a href="javascript:;;" data-param="1">属管</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
                             </td>
                             <td>学校名称</td>
                             <td width="150">概率</td>

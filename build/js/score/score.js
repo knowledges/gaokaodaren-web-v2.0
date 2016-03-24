@@ -1,9 +1,8 @@
 /**
- * Created by Administrator on 2015/12/3.
+ * Created by qbl on 2015/10/23.
  */
-'use strict';
 require(['app'],function(app){
-    app.controller("scoreCtl",['$scope','$sce','homeService',function($scope,$sce,homeService){
+    app.controller("scoreCtr",['$scope','$sce','homeService',function($scope,$sce,homeService){
         $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";
@@ -14,5 +13,6 @@ require(['app'],function(app){
             }
         },true);
 
-    }]);
+    }])
 });
+

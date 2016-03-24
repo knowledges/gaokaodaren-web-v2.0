@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller("myScore", ['$scope','$window','$http','getLoginUserInfo',function ($scope,$window,$http,getLoginUserInfo) {
+    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo',function ($scope,$window,$http,loocha,getLoginUserInfo) {
 
         $scope.recommShow = false;
         $scope.table = {
@@ -49,7 +49,7 @@ require(['app'],function(app){
             
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
             
-            $http.get("/loocha/uscore?user_id="+user_id).success(function(data,status){
+            $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){
             	$scope.table.myScore = data.response;
                 $.each(data.response,function(i,v){
                     if(v.userTime>0){
@@ -81,7 +81,6 @@ require(['app'],function(app){
                 alert('请选择科目等级！');
             }
 
-            var arr = [];
             var param = {};
                 param.user_id = sessionStorage.getItem("user_id");
                 param.subject = $scope.table.subject;
@@ -96,7 +95,7 @@ require(['app'],function(app){
                 return $.param(data);
             };
             
-            $http.post("/loocha/uscore/addscore",param,{
+            $http.post(loocha+"/uscore/addscore",param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
@@ -107,27 +106,13 @@ require(['app'],function(app){
 
         $scope.setUp = function(e){
             var that = $(e.target),index = that.attr("list_id"),score = that.attr("score");
-            $http.get('/loocha/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
+            $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
                 alert("该成绩已开始使用");
-                $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
+                $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
                     sessionStorage.setItem('uScore',JSON.stringify(data.response));
                     $window.location.reload(0);
                 });
             });
-
-            //var tramsform = function(data){
-            //    return $.param(data);
-            //};
-            //$http.post("/loocha/uscore/"+index,{
-            //    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-            //    transformRequest:tramsform
-            //}).success(function(data,status){
-            //    alert("该成绩已开始使用");
-            //    $http.get("/loocha/uscore/info?id="+index).success(function(data,status){
-            //        sessionStorage.setItem('uScore',JSON.stringify(data.response));
-            //        $window.location.reload(0);
-            //    });
-            //})
         };
 
         /**
