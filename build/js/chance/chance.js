@@ -16,37 +16,7 @@ require(['app'],function(app){
             }
         }
     });
-    app.factory('reqProbability',function(){
-        return {
-            getProbability:function(out_trade_no,admit_flag,type,obl,sel,score,school_code,school,depart_code,depart){
-                var param = {};
-                    param.out_trade_no = out_trade_no;
-                        param.admit_flag = admit_flag;
-                    param.type= type;
-                    param.obl = obl;
-                    param.sel = sel;
-                    param.score = score;
-                    param.school_code = school_code;
-                    param.school = school;
-                    param.depart_code =depart_code;
-                    param.depart = depart;
-
-                $http({
-                    url:loocha+'/exam/admit/result',
-                    method: 'GET',
-                    params:param,
-                }).success(function(data){
-                    if(data.status == "1005"){
-                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
-                        return;
-                    }
-                    return data.response.admit;
-                })
-
-            }
-        }
-    })
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','getLoginUserInfo','loocha','arraysort','reqProbability',function($scope,$http,$sce,$timeout,$window,getLoginUserInfo,loocha,arraysort,reqProbability){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,getLoginUserInfo,loocha,arraysort){
         $scope.score = "";
         $scope.isShow = false;
         $scope.isChance = localStorage.getItem("type");
@@ -67,6 +37,7 @@ require(['app'],function(app){
             style_SchoolArr:"",
             style_School_id:"",
             style_School_name:"",
+            schChance_1:"",
             personality_type1:"",
             personality_type2:"",
             personality_type3:"",
@@ -203,20 +174,17 @@ require(['app'],function(app){
             $scope.schChance =function(){
                 getLoginUserInfo.isLogoin();
                 if($scope.uScore != null){
-                    //$scope.forecast.schChance =reqProbability.getProbability($scope.order_id,2,$scope.isChance,levelNum($scope.uScore.level_a),levelNum($scope.uScore.level_b),$scope.uScore.score,$scope.forecast.school_id,$scope.forecast.school_name,"","")
-
                     var param = {};
-                        param.out_trade_no = $scope.order_id,
-                        param.admit_flag = 2;
-                        param.type= $scope.isChance;
-                        param.obl = levelNum($scope.uScore.level_a);
-                        param.sel = levelNum($scope.uScore.level_b);
-                        param.score = $scope.uScore.score;
-                        param.school_code = $scope.forecast.school_id;
-                        param.school = $scope.forecast.school_name;
-                        param.depart_code ="";
-                        param.depart = "";
-
+                    param.out_trade_no = $scope.order_id;
+                    param.admit_flag = 2;
+                    param.type= $scope.isChance;
+                    param.obl = levelNum($scope.uScore.level_a);
+                    param.sel = levelNum($scope.uScore.level_b);
+                    param.score = $scope.uScore.score;
+                    param.school_code = $scope.forecast.school_id;
+                    param.school = $scope.forecast.school_name;
+                    param.depart_code ="";
+                    param.depart = "";
                     $http({
                         url:loocha+'/exam/admit/result',
                         method: 'GET',
@@ -225,10 +193,45 @@ require(['app'],function(app){
                         if(data.status == "1005"){
                             alert('分数线太低，请重现选择批次或者重新填写成绩！');
                             return;
+                        }else if (data.status == "2"){
+                            alert('订单号为空！');
+                            return;
                         }
                         $scope.forecast.schChance = data.response.admit;
                     })
+                }else{
+                    alert('请去我的足迹“设置”并“使用”成绩');
+                }
+            };
 
+            $scope.schChance_1 =function(){
+                getLoginUserInfo.isLogoin();
+                if($scope.uScore != null){
+                    var param = {};
+                    param.out_trade_no = $scope.order_id;
+                    param.admit_flag = 3;
+                    param.type= $scope.isChance;
+                    param.obl = levelNum($scope.uScore.level_a);
+                    param.sel = levelNum($scope.uScore.level_b);
+                    param.score = $scope.uScore.score;
+                    param.school_code = $scope.forecast.style_School_id;
+                    param.school = $scope.forecast.style_School_name;
+                    param.depart_code ="";
+                    param.depart = "";
+                    $http({
+                        url:loocha+'/exam/admit/result',
+                        method: 'GET',
+                        params:param,
+                    }).success(function(data){
+                        if(data.status == "1005"){
+                            alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                            return;
+                        }else if (data.status == "2"){
+                            alert('订单号为空！');
+                            return;
+                        }
+                        $scope.forecast.schChance = data.response.admit;
+                    })
                 }else{
                     alert('请去我的足迹“设置”并“使用”成绩');
                 }

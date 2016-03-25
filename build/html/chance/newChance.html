@@ -200,11 +200,13 @@
                                     <option ng-repeat="list in forecast.style_SchoolArr" value="{{list.unique_id}}">{{list.name}}</option>
                                 </select>
                                 <ul class="nav nav-bar">
-                                    <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.propSch.id}}">{{school.propSch.name}}</a></li>
+                                    <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.style_School_id}}">{{forecast.style_School_name}}</a></li>
                                 </ul>
                             </td>
                             <td style="vertical-align: middle;">
-                                <button class="btn btn-default">获取概率</button>
+                                <button class="btn btn-default" ng-click="schChance_1()">获取概率</button>
+                                <div class="row"><a href="javascript:;;">{{forecast.schChance_1}}</a></div>
+
                             </td>
                         </tr>
 
