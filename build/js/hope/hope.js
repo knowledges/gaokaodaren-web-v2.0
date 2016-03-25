@@ -353,9 +353,14 @@ require(['app'],function(app){
                     break;
             }
             var uScore =$scope.info.uScore= JSON.parse(sessionStorage.getItem('uScore'));
-            $scope.info.subject=uScore.subject==1?"文科":"理科";
-            $scope.info.score = uScore.score;
-            $scope.info.level = uScore.level_a+","+uScore.level_b;
+            if(uScore == null){
+                alert('登陆失效或您还没有登陆，先去登陆吧！');
+                window.location.href = "#/login";
+            }else{
+                $scope.info.subject=uScore.subject==1?"文科":"理科";
+                $scope.info.score = uScore.score;
+                $scope.info.level = uScore.level_a+","+uScore.level_b;
+            }
 
             /*属地*/
             $http.get(loocha+'/wish/area?batch='+$scope.hope.batch).success(function(data,status){

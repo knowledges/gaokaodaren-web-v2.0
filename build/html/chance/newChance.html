@@ -100,19 +100,6 @@
                                 <option value="6">四线城市</option>
                                 <option value="7">五线城市</option>
                             </select>
-                            <!--<ul class="nav navbar-nav">-->
-                                <!--<li class="dropdown">-->
-                                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属地<span class="caret"></span></a>-->
-                                    <!--<ul class="dropdown-menu" id="provinceType">-->
-                                        <!--<li><a href="javascript:;;" data-param="2">江苏省</a></li>-->
-                                        <!--<li><a href="javascript:;;" data-param="3">一线城市</a></li>-->
-                                        <!--<li><a href="javascript:;;" data-param="4">二线城市</a></li>-->
-                                        <!--<li><a href="javascript:;;" data-param="5">三线城市</a></li>-->
-                                        <!--<li><a href="javascript:;;" data-param="6">四线城市</a></li>-->
-                                        <!--<li><a href="javascript:;;" data-param="7">五线城市</a></li>-->
-                                    <!--</ul>-->
-                                <!--</li>-->
-                            <!--</ul>-->
                         </td>
                         <td style="vertical-align: middle;">学校名称</td>
                         <td width="150" style="vertical-align: middle;">概率</td>
@@ -159,24 +146,15 @@
                     <thead>
                         <tr>
                             <td width="150">
-                                <select  class="form-control" ng-model="forecast.style_id" ng-change="findStyleId()">
+                                <select  class="form-control"
+                                         ng-model="forecast.style_id"
+                                         ng-change="findStyleId()">
                                     <option value="">院校属类</option>
                                     <option value="0">属性</option>
                                     <option value="1">属管</option>
                                     <option value="2">类别</option>
                                     <option value="3">类型</option>
                                 </select>
-                                <!--<ul class="nav navbar-nav">-->
-                                    <!--<li class="dropdown">-->
-                                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">院校属类<span class="caret"></span></a>-->
-                                        <!--<ul class="dropdown-menu" id="propType">-->
-                                            <!--<li><a href="javascript:;;" data-param="2">类别</a></li>-->
-                                            <!--<li><a href="javascript:;;" data-param="3">类型</a></li>-->
-                                            <!--<li><a href="javascript:;;" data-param="0">属性</a></li>-->
-                                            <!--<li><a href="javascript:;;" data-param="1">属管</a></li>-->
-                                        <!--</ul>-->
-                                    <!--</li>-->
-                                <!--</ul>-->
                             </td>
                             <td>学校名称</td>
                             <td width="150">概率</td>
@@ -193,10 +171,11 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="form-control"
+                                <select id="sSchool_name"
+                                        class="form-control"
                                         ng-model="forecast.style_School_id"
-                                        ng-change="">
-                                    <option value="">==请选择高校==</option>
+                                        ng-change="getSchName()">
+                                    <option value="">==请选择高校名称==</option>
                                     <option ng-repeat="list in forecast.style_SchoolArr" value="{{list.unique_id}}">{{list.name}}</option>
                                 </select>
                                 <ul class="nav nav-bar">
@@ -224,21 +203,33 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="school.name" placeholder="请输入高校名称" ng-keydown="findDepart($event)" />
+                        <input type="text" class="form-control" ng-model="forecast.schl_id" placeholder="请输入高校代码号"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <select class="form-control" ng-model="school.deparName" ng-options="depar.name for depar in school.deparlist track by depar.id">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="forecast.schl_name" placeholder="请输入高校名称" ng-keydown="findDepart($event)" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <select id="schl_departName"
+                            class="form-control"
+                            ng-model="forecast.schl_departId"
+                            ng-change="getDepartName()">
                         <option value="">==请选择专业==</option>
+                        <option ng-repeat="list in forecast.schl_departArr" article_id="{{list.article_id}}" value="{{list.depart_id}}">{{list.name}}</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="javascript:;;" depart_id="{{school.deparName.depart_id}}" ng-click="findDepartInfo($event)">{{school.deparName.name}}</a></li>
+                        <li><a href="javascript:;;" depart_id="{{forecast.schl_departId}}" article_id="{{forecast.schl_article_id}}" ng-click="findDepartInfo($event)">{{forecast.schl_departName}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2 text-center">
-                    <a href="javascript:;;" class="btn btn-default">录取概率</a>
+                    <a href="javascript:;;" class="btn btn-default" ng-click="getdepartChance()">录取概率</a>
+                    <div class="row">
+                        <a href="javascript:;;">{{forecast.departChance}}</a>
+                    </div>
                 </div>
             </div>
             <p >点击<strong>专业名称</strong>可查询专业情况</p>
@@ -251,25 +242,37 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="info.school" placeholder="请输入专业名称"/>
+                        <input type="text" class="form-control" ng-model="forecast.d_departId" placeholder="请输入专业代号"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <select class="form-control" ng-model="school.province"  ng-options="door.name for door in chance track by door.id">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="forecast.d_departname" ng-keydown="findSchl($event)" placeholder="请输入专业名称"/>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <select id="d_schl_id"
+                            class="form-control"
+                            ng-model="forecast.d_schl_id"
+                            ng-change="getDschlName()">
                         <option value="">==请选择高校==</option>
+                        <option ng-repeat="list in forecast.d_schlArr" value="{{list.unique_id}}">{{list.name}}</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="javascript:;;">南京工业大学</a></li>
+                        <li><a href="javascript:;;" school_id="{{forecast.d_schl_id}}">{{forecast.d_schl_name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
-                    <a href="javascript:;;" class="btn btn-default">录取概率</a>
+                    <a href="javascript:;;" class="btn btn-default" ng-click="getSchlChance()">录取概率</a>
+                    <div class="row">
+                        <a href="javascript:;;">{{forecast.schChance_2}}</a>
+                    </div>
                 </div>
             </div>
             <p>
-                点击 <strong>高校、专业名称</strong> 可查询具体信息
+                点击 <strong>高校名称</strong> 可查询具体信息
             </p>
         </div>
     </div>
@@ -303,9 +306,8 @@
                             class="form-control"
                             ng-model="forecast.pDepart_id"
                             ng-change="getDepartId()">
-                        <option value="" ng-if="forecast.pDepart_Arr.length>0">==请选择专业==</option>
-                        <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.depart_id}}">{{list.name}}</option>
-                        <option value="" ng-if="forecast.pDepart_Arr.length<=0">==没有搜索到内容==</option>
+                        <option value="">==请选择专业==</option>
+                        <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.depart_id}}"  article_id="{{list.article_id}}">{{list.name}}</option>
                     </select>
                     <ul class="nav nav-bar" ng-if="forecast.pDepart_name!=null">
                         <li><a href="javascript:;;" depart_id="forecast.pDepart_id">{{forecast.pDepart_name}}</a></li>
@@ -433,7 +435,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">专业详情</h4>
             </div>
-            <div class="modal-body" style="height: 500px; overflow-y: scroll;"  ng-bind-html="school.departInfo"></div>
+            <div class="modal-body" style="height: 500px; overflow-y: scroll;">
+                <div ng-bind-html="forecast.departInfo"></div>
+            </div>
         </div>
     </div>
 </div>

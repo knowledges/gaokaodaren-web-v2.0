@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.constant("registerURL", "/user/register");
-    app.controller("registerCtr", ["$scope", "$rootScope", "$window","$http" ,"codeURL", "registerURL",'loocha' ,function ($scope, $rootScope, $window,$http ,codeURL, registerURL,loocha) {
+    app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL",'loocha',function ($scope, $rootScope,$window,$http,registerURL,loocha) {
         $scope.user = {
             username: "",
             password: "",
@@ -13,6 +13,11 @@ require(['app'],function(app){
             code: "",
             img: ""
         }
+
+        $("#mask-register").fadeIn('500');
+        $(".close").click(function(){
+            $("#mask-register").fadeOut('800');
+        });
 
         getCodes();
 

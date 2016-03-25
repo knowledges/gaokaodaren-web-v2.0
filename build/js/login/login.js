@@ -30,7 +30,6 @@ require(['app'],function(app){
 
         function getCodes() {
             $http.get(loocha+"/user/code?time=" + new Date().getTime()).success(function(data){
-                console.log('img i come in');
                 $scope.user.img = data;
             });
         }

@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.constant("referinURL", "/user/reset");
-    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "codeURL", "referinURL", "loocha", function ($scope, $rootScope, $http,codeURL, referinURL, loocha) {
+    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "referinURL", "loocha", function ($scope, $rootScope, $http, referinURL, loocha) {
         $scope.user = {
             username: "",
             password: "",
