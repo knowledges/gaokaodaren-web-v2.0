@@ -17,12 +17,19 @@ require(['app'],function(app){
         }
     });
     app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,getLoginUserInfo,loocha,arraysort){
+
         $scope.score = "";
+
         $scope.isShow = false;
+
         $scope.isChance = localStorage.getItem("type");
+
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
+
         $scope.order_id = "";
+
         $scope.money = "";
+
         $scope.forecast = {
             area:"",
             city_id:"",

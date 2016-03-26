@@ -119,7 +119,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/banner/bannerChance.js']);
+                        return $ocLazyLoad.load(['js/banner/bannerChance.js','js/chance/chance.js']);
                     }]
                 }
             })
