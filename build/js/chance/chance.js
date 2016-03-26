@@ -59,393 +59,260 @@ require(['app'],function(app){
             pDepart_name:"",
             pSchool_id:"",
             pSchool_name:"",
-
-        };
-        $scope.chance = [
-            {
-                id: 125,
-                name: "南京工业大学"
-            }, {
-                id: 122,
-                name: "东南大学"
-            }, {
-                id: 136,
-                name: "南京财经大学"
-            }
-        ];
-        $scope.school = {
-            chanceSch:"",
-            provinceSch:"",
-            propSch:"",
-            name:"",
-            deparlist:"",
-            deparName:"",
-            departInfo:"",
-        };
-
-        $scope.schoolInfo ={
-            name:"",
-            is_211:"",
-            is_985:"",
-            art_sel_1:"",
-            art_sel_2:"",
-            sci_sel_1:"",
-            sci_sel_2:"",
-            attr_name:"",
-            belongs_name:"",
-            city_name:"",
-            website:"",
-            article_id:"",
-            art_score2:"",
-            art_score3:"",
-            art_score4:"",
-            sci_score2:"",
-            sci_score3:"",
-            sci_score4:"",
-            artST2012:"",
-            artST2013:"",
-            artST2014:"",
-            sciST2012:"",
-            sciST2013:"",
-            sciST2014:"",
-            article_content:"",
-        }
-        init();
-
-        /**
-         * 概率--点击高校名称查询高校信息
-         * TODO 没法确认文科还是理科 【等级、计划数、录取没法确认】
-         * @param e
-         */
-        $scope.showChanceSchInfo = function(e){
-            var that = $(e.target),key = that.html();
-            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
-                $scope.schoolInfo = data.response.list[0];
-                if($scope.schoolInfo.article_id>0){
-                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
-                        $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
-                        $("#mask-school").fadeIn(500);
-                    });
-                }
-            });
+            range:"",
         };
 
         $scope.changePay = function(){
             $scope.isShow = true;
         };
 
-        function init(){
-            $('.dropdown-toggle').dropdown();
+        $('.dropdown-toggle').dropdown();
 
-            /**
-             * 按概率范围预测高校录取概率
-             */
-            $("#chanceType li").unbind('click').click(function(e){
-                var _this = $(e.target),param = _this.data('param');
-                $("#chanceText").html(_this.html());
-                $("#chanceBody").fadeIn(500);
-                //TODO 请求高校
+        /**
+         * 查询城市列表
+         */
+        $scope.findCity = function(){
+            getLoginUserInfo.isLogoin();
+            $scope.forecast.city_id ="";
+            if($scope.forecast.area!=""){
+                $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area).success(function(data){
+                    $scope.forecast.cityArr = data.response;
+                    $("#provinceBody").fadeIn(500);
+                });
+            }
+        };
+
+        /**
+         * 获取高校列表
+         */
+        $scope.findSchoolList = function(){
+            $http.get(loocha+'/schbath/depart?cityId=' + $scope.forecast.city_id + '&type=' + $scope.isChance)
+                .success(function(data){
+                    $scope.forecast.schoolArr = data.response;
+                    $scope.forecast.school_id ="";
+                    $scope.forecast.school_name="";
+                });
+        };
+
+        /**
+         * 获取高校名称
+         */
+        $scope.findSchoolInfo = function(){
+            $scope.forecast.school_name = $("#school_name option:selected").text();
+        };
+
+        /**
+         * 按院校属地预测高校录取概率
+         */
+        $scope.schChance =function(){
+            getLoginUserInfo.isLogoin();
+            if($scope.uScore != null){
+                var param = {};
+                param.out_trade_no = $scope.order_id;
+                param.admit_flag = 2;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.school_id;
+                param.school = $scope.forecast.school_name;
+                param.depart_code ="";
+                param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result',
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert('订单号不存在！');
+                        return;
+                    }
+                    $scope.forecast.schChance = data.response.admit;
+                })
+            }else{
+                alert('请去我的足迹“设置”并“使用”成绩');
+            }
+        };
+
+        $scope.schChance_1 =function(){
+            getLoginUserInfo.isLogoin();
+            if($scope.uScore != null){
+                var param = {};
+                param.out_trade_no = $scope.order_id;
+                param.admit_flag = 3;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.style_School_id;
+                param.school = $scope.forecast.style_School_name;
+                param.depart_code ="";
+                param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result',
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert('订单号不存在！');
+                        return;
+                    }
+                    $scope.forecast.schChance_1 = data.response.admit;
+                })
+            }else{
+                alert('请去我的足迹“设置”并“使用”成绩');
+            }
+        };
+
+        /**
+         * 获取个性标签列表
+         */
+        $http.get(loocha+"/depart/personality")
+            .success(function(data){
+                $scope.forecast.personality_type2 =  data.response.pmap.type2;
+                $scope.forecast.personality_type3 =  data.response.pmap.type3;
+                $scope.forecast.personality_type4 =  data.response.pmap.type4;
+
+                $scope.forecast.personality_type2 = arraysort.sort($scope.forecast.personality_type2);
+                $scope.forecast.personality_type3 = arraysort.sort($scope.forecast.personality_type3);
+                $scope.forecast.personality_type4 = arraysort.sort($scope.forecast.personality_type4);
             });
 
-            /**
-             * 查询城市列表
-             */
-            $scope.findCity = function(){
-                getLoginUserInfo.isLogoin();
-                $scope.forecast.city_id ="";
-                if($scope.forecast.area!=""){
-                    $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area).success(function(data){
-                        $scope.forecast.cityArr = data.response;
-                        $("#provinceBody").fadeIn(500);
-                    });
-                }
-            };
-            /**
-             * 获取高校列表
-             */
-            $scope.findSchoolList = function(){
-                $http.get(loocha+'/schbath/depart?cityId=' + $scope.forecast.city_id + '&type=' + $scope.isChance)
-                    .success(function(data){
-                        $scope.forecast.schoolArr = data.response;
-                        $scope.forecast.school_id ="";
-                        $scope.forecast.school_name="";
-                    });
-            };
-
-            /**
-             * 获取高校名称
-             */
-            $scope.findSchoolInfo = function(){
-                $scope.forecast.school_name = $("#school_name option:selected").text();
-            };
-
-            /**
-             * 按院校属地预测高校录取概率
-             */
-            $scope.schChance =function(){
-                getLoginUserInfo.isLogoin();
-                if($scope.uScore != null){
-                    var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = 2;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.school_id;
-                    param.school = $scope.forecast.school_name;
-                    param.depart_code ="";
-                    param.depart = "";
-                    $http({
-                        url:loocha+'/exam/admit/result',
-                        method: 'GET',
-                        params:param,
-                    }).success(function(data){
-                        if(data.status == "1005"){
-                            alert('分数线太低，请重现选择批次或者重新填写成绩！');
-                            return;
-                        }else if (data.status == "11"){
-                            alert('已查询！');
-                            return;
-                        }else if (data.status == "2"){
-                            alert('订单号不存在！');
-                            return;
-                        }
-                        $scope.forecast.schChance = data.response.admit;
-                    })
-                }else{
-                    alert('请去我的足迹“设置”并“使用”成绩');
-                }
-            };
-
-            $scope.schChance_1 =function(){
-                getLoginUserInfo.isLogoin();
-                if($scope.uScore != null){
-                    var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = 3;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.style_School_id;
-                    param.school = $scope.forecast.style_School_name;
-                    param.depart_code ="";
-                    param.depart = "";
-                    $http({
-                        url:loocha+'/exam/admit/result',
-                        method: 'GET',
-                        params:param,
-                    }).success(function(data){
-                        if(data.status == "1005"){
-                            alert('分数线太低，请重现选择批次或者重新填写成绩！');
-                            return;
-                        }else if (data.status == "11"){
-                            alert('已查询！');
-                            return;
-                        }else if (data.status == "2"){
-                            alert('订单号不存在！');
-                            return;
-                        }
-                        $scope.forecast.schChance_1 = data.response.admit;
-                    })
-                }else{
-                    alert('请去我的足迹“设置”并“使用”成绩');
-                }
-            };
-
-            /**
-             * 获取个性标签列表
-             */
-            $http.get(loocha+"/depart/personality")
+        /**
+         * 根据个性标签id 获取专业列表
+         */
+        $scope.getpersonalityId = function(){
+            $scope.forecast.pDepart_name = $("#departName option:selected").text();
+            $scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
+            $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
-                    $scope.forecast.personality_type2 =  data.response.pmap.type2;
-                    $scope.forecast.personality_type3 =  data.response.pmap.type3;
-                    $scope.forecast.personality_type4 =  data.response.pmap.type4;
-
-                    $scope.forecast.personality_type2 = arraysort.sort($scope.forecast.personality_type2);
-                    $scope.forecast.personality_type3 = arraysort.sort($scope.forecast.personality_type3);
-                    $scope.forecast.personality_type4 = arraysort.sort($scope.forecast.personality_type4);
+                    $scope.forecast.pDepart_Arr = data.response;
                 });
+        };
 
-            /**
-             * 根据个性标签id 获取专业列表
-             */
-            $scope.getpersonalityId = function(){
-                $scope.forecast.pDepart_name = $("#departName option:selected").text();
-                $scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
-                $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
-                    .success(function(data){
-                        $scope.forecast.pDepart_Arr = data.response;
-                    });
-            };
-
-            /**
-             * 根据专业id 获取高校列表
-             */
-            $scope.getDepartId = function(){
-                $scope.forecast.pSchool_id= "";
-                $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_id='+$scope.forecast.pDepart_id)
-                    .success(function(data){
-                        $scope.forecast.pDepart_Arr = data.response;
-                    });
-            };
-
-            $scope.getSchoolName = function(){
-                $scope.forecast.pSchool_name = $("#pSchool_name option:selected").text();
-            };
-
-            /**
-             * 根据 院校属类 id  获取属类列表
-             */
-            $scope.findStyleId = function(){
-                var url = "";
-                $("#propNav").show();
-                $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
-                var style_id = $scope.forecast.style_id;
-                if(style_id == 0){
-                    url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
-                }else if(style_id == 1){
-                    url=loocha+"/school/prop?type=1&depart_type=1";
-                }else if(style_id == 2){
-                    url=loocha+"/school/prop?type=2&depart_type=2";
-                }else if(style_id == 3){
-                    url=loocha+"/school/prop/1";
-                }
-                if(style_id !=""){
-                    $http.get(url).success(function(data){
-                        $scope.forecast.style_Arr = data.response;
-                    });
-                }
-
-            };
-
-            /**
-             *根据属性的ID 获取高校列表
-             */
-            $scope.findAttrId = function(){
-                var style_id = 0,level_id = 0,attr_id = 0,belongs_id=0;
-                $scope.forecast.style_School_id="";
-                var condition = $scope.forecast.attr_id;
-                if (condition >= 1 && condition <= 12){
-                    style_id = $scope.forecast.attr_id;
-                }else if (condition >= 17 && condition <= 18){
-                    attr_id = $scope.forecast.attr_id;
-                }else if (condition == 14 || condition == 15 || condition == 16 || condition == 32 ){
-                    belongs_id = $scope.forecast.attr_id;
-                }else if (condition == 20){
-                    level_id = 1;
-                }else if (condition == 21){
-                    level_id = 2;
-                }else if (condition == 24){
-                    level_id = 4;
-                }else if ($scope.forecast.attr_id == null || $scope.forecast.attr_id == "" || $scope.forecast.attr_id == undefined){
-                    return ;
-                }
-
-                var param = {};
-                    param.type = localStorage.getItem("type");
-                    param.attr = attr_id;
-                    param.belongs = belongs_id;
-                    param.level = level_id;
-                    param.style = style_id;
-                    param.limit = 9999;
-
-                $http({
-                    url:loocha+'/school',
-                    method:"GET",
-                    params:param
-                }).success(function(data){
-                    $scope.forecast.style_SchoolArr = data.response.list
+        /**
+         * 根据专业id 获取高校列表
+         */
+        $scope.getDepartId = function(){
+            $scope.forecast.pSchool_id= "";
+            $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_id='+$scope.forecast.pDepart_id)
+                .success(function(data){
+                    $scope.forecast.pDepart_Arr = data.response;
                 });
+        };
 
-            };
+        $scope.getSchoolName = function(){
+            $scope.forecast.pSchool_name = $("#pSchool_name option:selected").text();
+        };
 
-            $scope.getSchName = function(){
-                $scope.forecast.style_School_name = $("#sSchool_name option:selected").text();
+        /**
+         * 根据 院校属类 id  获取属类列表
+         */
+        $scope.findStyleId = function(){
+            var url = "";
+            $("#propNav").show();
+            $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
+            var style_id = $scope.forecast.style_id;
+            if(style_id == 0){
+                url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
+            }else if(style_id == 1){
+                url=loocha+"/school/prop?type=1&depart_type=1";
+            }else if(style_id == 2){
+                url=loocha+"/school/prop?type=2&depart_type=2";
+            }else if(style_id == 3){
+                url=loocha+"/school/prop/1";
+            }
+            if(style_id !=""){
+                $http.get(url).success(function(data){
+                    $scope.forecast.style_Arr = data.response;
+                });
             }
 
-            /**
-             *  缴费选择
-             */
-            $scope.startPay = function(){
-                getLoginUserInfo.isLogoin();
-                var checklist = $(".chance_[type='checkbox']:checked");
-                var array = "";
+        };
 
-                for(var i = 0;i<checklist.length;i++){
-                    if(checklist[i] != checklist[checklist.length-1]){
-                        array = array + checklist[i].value+",";
-                    }else{
-                        array = array + checklist[i].value;
-                    }
-                }
+        /**
+         *根据属性的ID 获取高校列表
+         */
+        $scope.findAttrId = function(){
+            var style_id = 0,level_id = 0,attr_id = 0,belongs_id=0;
+            $scope.forecast.style_School_id="";
+            var condition = $scope.forecast.attr_id;
+            if (condition >= 1 && condition <= 12){
+                style_id = $scope.forecast.attr_id;
+            }else if (condition >= 17 && condition <= 18){
+                attr_id = $scope.forecast.attr_id;
+            }else if (condition == 14 || condition == 15 || condition == 16 || condition == 32 ){
+                belongs_id = $scope.forecast.attr_id;
+            }else if (condition == 20){
+                level_id = 1;
+            }else if (condition == 21){
+                level_id = 2;
+            }else if (condition == 24){
+                level_id = 4;
+            }else if ($scope.forecast.attr_id == null || $scope.forecast.attr_id == "" || $scope.forecast.attr_id == undefined){
+                return ;
+            }
 
-                var param = {};
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.flags = array;
+            var param = {};
+                param.type = localStorage.getItem("type");
+                param.attr = attr_id;
+                param.belongs = belongs_id;
+                param.level = level_id;
+                param.style = style_id;
+                param.limit = 9999;
 
-                var tramsform = function(data){
-                    return $.param(data);
-                };
-
-                $http.post(loocha+"/exam/admit/intention",param,{
-                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                    transformRequest:tramsform
-                }).success(function(data){
-                    $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
-                        $scope.order_id = result.response.order_id;
-                        $scope.money = result.response.money;
-                        $("#zyb_random").modal('show');
-                    });
-                });
-
-            };
-
-            /**
-             * 缴费
-             */
-            $scope.pay = function(){
-
-            };
-
-            $("#propType li").unbind('click').click(function(e){
-                var _this = $(e.target),param = _this.data('param');
-                $("#propName").attr("prop_id",param).html(_this.html()+'<span class="caret" city_id="'+param+'"></span>');
-                $("#propNav").fadeIn(500);
-                $("#propName").attr('istrue','0');
+            $http({
+                url:loocha+'/school',
+                method:"GET",
+                params:param
+            }).success(function(data){
+                $scope.forecast.style_SchoolArr = data.response.list
             });
 
-            /**
-             * prop_id :0(属性)、1(属管)、2(类别)、3(类型)
-             * @param e
-             */
-            $scope.findProSch = function(e){
-                var that = $(e.target),prop_id = that.attr('prop_id'),istrue= that.attr('istrue');
-                if(istrue == undefined || istrue == 0){
-                    var url = "";
-                    if(prop_id == 0){
-                        url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
-                    }else if(prop_id == 1){
-                        url=loocha+"/school/prop?type=1&depart_type=1";
-                    }else if(prop_id == 2){
-                        url=loocha+"/school/prop?type=2&depart_type="+$scope.isChance;
-                    }else if(prop_id == 3){
-                        url=loocha+"/school/prop/"+$scope.isChance;
-                    }
-                    $http.get(url).success(function(data){
-                        var html = [];
-                        $.each(data.response,function(i,v){
-                            html.push('<li><a href="javascript:;;" prop_id="'+ v.id+'">'+ v.name+'</a></li>');
-                        });
-                        $("#propList").empty().prepend(html.join(''));
-                        that.attr('istrue','1');
-                    });
+        };
+
+        $scope.getSchName = function(){
+            $scope.forecast.style_School_name = $("#sSchool_name option:selected").text();
+        };
+
+        /**
+         * prop_id :0(属性)、1(属管)、2(类别)、3(类型)
+         * @param e
+         */
+        $scope.findProSch = function(e){
+            var that = $(e.target),prop_id = that.attr('prop_id'),istrue= that.attr('istrue');
+            if(istrue == undefined || istrue == 0){
+                var url = "";
+                if(prop_id == 0){
+                    url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
+                }else if(prop_id == 1){
+                    url=loocha+"/school/prop?type=1&depart_type=1";
+                }else if(prop_id == 2){
+                    url=loocha+"/school/prop?type=2&depart_type="+$scope.isChance;
+                }else if(prop_id == 3){
+                    url=loocha+"/school/prop/"+$scope.isChance;
                 }
-            };
+                $http.get(url).success(function(data){
+                    var html = [];
+                    $.each(data.response,function(i,v){
+                        html.push('<li><a href="javascript:;;" prop_id="'+ v.id+'">'+ v.name+'</a></li>');
+                    });
+                    $("#propList").empty().prepend(html.join(''));
+                    that.attr('istrue','1');
+                });
+            }
         };
 
         $(".close").unbind('click').click(function(e){
@@ -562,6 +429,71 @@ require(['app'],function(app){
                 $scope.forecast.schChance_2 = data.response.admit;
             })
         }
+
+        /**
+         *  缴费选择
+         */
+        $scope.startPay = function(){
+            getLoginUserInfo.isLogoin();
+            var checklist = $(".chance_[type='checkbox']:checked");
+            var array = "";
+
+            for(var i = 0;i<checklist.length;i++){
+                if(checklist[i] != checklist[checklist.length-1]){
+                    array = array + checklist[i].value+",";
+                }else{
+                    array = array + checklist[i].value;
+                }
+            }
+
+            var param = {};
+            param.type= $scope.isChance;
+            param.obl = levelNum($scope.uScore.level_a);
+            param.sel = levelNum($scope.uScore.level_b);
+            param.score = $scope.uScore.score;
+            param.flags = array;
+
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $http.post(loocha+"/exam/admit/intention",param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(data){
+                $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
+                    $scope.order_id = result.response.order_id;
+                    $scope.money = result.response.money;
+                    $("#zyb_random").modal('show');
+                });
+            });
+
+        };
+
+        /**
+         * 缴费
+         */
+        $scope.pay = function(){
+
+        };
+
+        /**
+         * 概率--点击高校名称查询高校信息
+         * TODO 没法确认文科还是理科 【等级、计划数、录取没法确认】
+         * @param e
+         */
+        $scope.showChanceSchInfo = function(e){
+            var that = $(e.target),key = that.html();
+            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
+                $scope.schoolInfo = data.response.list[0];
+                if($scope.schoolInfo.article_id>0){
+                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
+                        $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
+                        $("#mask-school").fadeIn(500);
+                    });
+                }
+            });
+        };
 
         /**
          * 获取专业详情
