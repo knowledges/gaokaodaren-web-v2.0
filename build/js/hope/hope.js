@@ -18,7 +18,8 @@ require(['app'],function(app){
              */
             agreenClsEvent:function(status,that,list,prefer,ignore,id,name,arr,obj){
                 if(status== undefined||status == null||status == 0){
-                    status = that.attr("status","1").addClass('agree');
+                    status = that.attr("status","1");
+                    //status = that.attr("status","1").addClass('agree');
                     $.each(list,function(i,v){
                         var idx = $(v).attr(id);
                         $(v).attr("status","1").removeClass('cancle reject').addClass('agree');
@@ -37,7 +38,8 @@ require(['app'],function(app){
                         }
                     });
                 }else if(status == 1){
-                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    status = that.attr("status","0");
+                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     $.each(list,function(i,v){
                         var idx = $(v).attr(id);
                         $(v).attr("status",0).removeClass('agree reject').addClass('cancle');
@@ -49,7 +51,8 @@ require(['app'],function(app){
 
                     });
                 }else if(status == 2){
-                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    status = that.attr("status","0");
+                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     $.each(list,function(i,v){
                         var idx = $(v).attr(id);
                         ignore.splice(ignore.indexOf(idx),1);
@@ -94,7 +97,8 @@ require(['app'],function(app){
         return {
             rejectClsEvent:function(status,that,list,prefer,ignore,id,name,arr){
                 if(status== undefined||status == null||status == 0||status ==1){
-                    status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+                    status = that.attr("status","2");
+                    //status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
                     $.each(list,function(i,v){
                         var idx = $(v).attr(id);
                         $(v).attr("status","2").removeClass('agree cancle').addClass('reject');
@@ -108,7 +112,8 @@ require(['app'],function(app){
                         }
                     });
                 }else{
-                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    status = that.attr("status","0");
+                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     if(arr!=null){
                         arr=[];
                     }
