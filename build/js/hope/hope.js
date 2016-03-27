@@ -275,8 +275,8 @@ require(['app'],function(app){
         };
 
         $scope.iterator = {
-            firDepart1:[],firDepart2:[],firDepart3:[],firDepart4:[],firDepart5:[],
-            secDepart1:[],secDepart2:[],secDepart3:[],secDepart4:[],secDepart5:[],secDepart6:[],secDepart7:[],secDepart8:[],secDepart9:[],
+            firDepart1:[],firDepart2:[],firDepart3:[],firDepart4:[],firDepart5:[],firDepart6:[],
+            secDepart1:[],secDepart2:[],secDepart3:[],secDepart4:[],secDepart5:[],secDepart6:[],secDepart7:[],secDepart8:[],secDepart9:[],secDepart10:[],
             thiDepart1:[],thiDepart2:[],thiDepart3:[],thiDepart4:[],thiDepart5:[],
             thiDepart6:[],thiDepart7:[],thiDepart8:[],thiDepart9:[],thiDepart10:[],
             thiDepart11:[],thiDepart12:[],thiDepart13:[],thiDepart14:[],thiDepart15:[],
@@ -291,7 +291,7 @@ require(['app'],function(app){
             thiDepart56:[],thiDepart57:[],thiDepart58:[],thiDepart59:[],thiDepart60:[],thiDepart61:[],
             thiDepart62:[],thiDepart63:[],thiDepart64:[],thiDepart65:[],thiDepart66:[],thiDepart67:[],thiDepart68:[],
             thiDepart69:[],thiDepart70:[],thiDepart71:[],
-            fourDepart1:[],fourDepart2:[],fourDepart3:[],fourDepart4:[],fourDepart5:[],fourDepart6:[],fourDepart7:[],fourDepart8:[],fourDepart9:[],fourDepart10:[],
+            fourDepart1:[],fourDepart2:[],fourDepart3:[],fourDepart4:[],fourDepart5:[],fourDepart6:[],fourDepart7:[],fourDepart8:[],fourDepart9:[],fourDepart10:[],fourDepart11:[],fourDepart12:[],
             fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[],fifDepart11:[]
         };
 
@@ -439,6 +439,9 @@ require(['app'],function(app){
                         case 5:
                             $scope.iterator.firDepart5.push(v);
                             break;
+                        case 6:
+                            $scope.iterator.firDepart6.push(v);
+                            break;
                     }
                 })
             }
@@ -471,6 +474,9 @@ require(['app'],function(app){
                             break;
                         case 9:
                             $scope.iterator.secDepart9.push(v);
+                            break;
+                        case 10:
+                            $scope.iterator.secDepart10.push(v);
                             break;
                     }
                 })
@@ -726,6 +732,12 @@ require(['app'],function(app){
                             break;
                         case 10:
                             $scope.iterator.fourDepart10.push(v);
+                            break;
+                        case 11:
+                            $scope.iterator.fourDepart11.push(v);
+                            break;
+                        case 12:
+                            $scope.iterator.fourDepart12.push(v);
                             break;
                     }
                 })

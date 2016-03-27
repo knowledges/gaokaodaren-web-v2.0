@@ -320,6 +320,11 @@
                         <li ng-repeat="list in iterator.firDepart5" is-depart>
                             <a class="departClk wishId_2" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.firDepart6.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.firDepart6" is-depart>
+                            <a class="departClk wishId_2" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -362,6 +367,10 @@
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.secDepart9.length>0">
                         <li class="bs-radio">●</li>
                         <li ng-repeat="list in iterator.secDepart9" is-depart><a class="departClk wishId_3" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.secDepart10.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.secDepart10" is-depart><a class="departClk wishId_3" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -432,7 +441,7 @@
                     </ul>
                     <ul class="nav nav-pills bs-callout"  ng-if="iterator.thiDepart16.length>0">
                         <li class="bs-radio">●</li>
-                        <li ng-repeat="list in hope.thiDepart16" is-depart><a class="departClk wishId_4" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                        <li ng-repeat="list in iterator.thiDepart16" is-depart><a class="departClk wishId_4" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
                     <ul class="nav nav-pills bs-callout"  ng-if="iterator.thiDepart17.length>0">
                         <li class="bs-radio">●</li>
@@ -700,6 +709,14 @@
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.fourDepart10.length>0">
                         <li class="bs-radio">●</li>
                         <li ng-repeat="list in iterator.fourDepart10" is-depart><a class="departClk wishId_5" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.fourDepart11.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.fourDepart11" is-depart><a class="departClk wishId_5" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.fourDepart12.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.fourDepart12" is-depart><a class="departClk wishId_5" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
