@@ -998,21 +998,30 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-if="hope.schoolArr.length>0">
-                        <select class="form-control" ng-model="finshparam.school_prefer[0]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.school_prefer[0]"
+                                ng-change="selectSchol(finshparam.school_prefer[0],1)">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.schoolArr.length>1">
-                        <select class="form-control" ng-model="finshparam.school_prefer[1]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.school_prefer[1]"
+                                ng-change="selectSchol(finshparam.school_prefer[1],2)">
                             <option value="">第二优先</option>
-                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.schoolArr.length>2">
-                        <select class="form-control" ng-model="finshparam.school_prefer[2]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.school_prefer[2]"
+                                ng-change="selectSchol(finshparam.school_prefer[2],3)">
                             <option value="">第三优先</option>
-                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -1023,39 +1032,57 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-if="hope.departArr.length>0">
-                        <select class="form-control" ng-model="finshparam.depart_prefer[0]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[0]"
+                                ng-change="selectDepart(finshparam.depart_prefer[0],1)">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.departArr.length>1">
-                        <select class="form-control"  ng-model="finshparam.depart_prefer[1]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[1]"
+                                ng-change="selectDepart(finshparam.depart_prefer[1],2)">
                             <option value="">第二优先</option>
-                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.departArr.length>2">
-                        <select class="form-control"  ng-model="finshparam.depart_prefer[2]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[2]"
+                                ng-change="selectDepart(finshparam.depart_prefer[2],3)">
                             <option value="">第三优先</option>
-                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.departArr.length>3">
-                        <select class="form-control"  ng-model="finshparam.depart_prefer[3]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[3]"
+                                ng-change="selectDepart(finshparam.depart_prefer[3],4)">
                             <option value="">第四优先</option>
-                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.departArr.length>4">
-                        <select class="form-control" ng-model="finshparam.depart_prefer[4]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[4]"
+                                ng-change="selectDepart(finshparam.depart_prefer[4],5)">
                             <option value="">第五优先</option>
-                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.departArr.length>5">
-                        <select class="form-control"  ng-model="finshparam.depart_prefer[5]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.depart_prefer[5]"
+                                ng-change="selectDepart(finshparam.depart_prefer[6],6)">
                             <option value="">第六优先</option>
-                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -1066,21 +1093,30 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-if="hope.cityArr.length>0">
-                        <select class="form-control" ng-model="finshparam.city_prefer[0]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.city_prefer[0]"
+                                ng-change="selectCity(finshparam.city_prefer[0],1)">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.cityArr.length>1">
-                        <select class="form-control" ng-model="finshparam.city_prefer[1]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.city_prefer[1]"
+                                ng-change="selectCity(finshparam.city_prefer[1],2)">
                             <option value="">第二优先</option>
-                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.cityArr.length>2">
-                        <select class="form-control" ng-model="finshparam.city_prefer[2]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.city_prefer[2]"
+                                ng-change="selectCity(finshparam.city_prefer[2],3)">
                             <option value="">第三优先</option>
-                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -1091,39 +1127,57 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-if="hope.personalitylist.length>0">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[0]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[0]"
+                                ng-change="selectPerson(finshparam.personality_prefer[0],1)">
                             <option value="">第一优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.personalitylist.length>1">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[1]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[1]"
+                                ng-change="selectPerson(finshparam.personality_prefer[1],2)">
                             <option value="">第二优先</option>
-                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.personalitylist.length>2">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[2]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[2]"
+                                ng-change="selectPerson(finshparam.personality_prefer[2],3)">
                             <option value="">第三优先</option>
-                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.personalitylist.length>3">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[3]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[3]"
+                                ng-change="selectPerson(finshparam.personality_prefer[3],4)">
                             <option value="">第四优先</option>
-                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.personalitylist.length>4">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[4]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[4]"
+                                ng-change="selectPerson(finshparam.personality_prefer[4],5)">
                             <option value="">第五优先</option>
-                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                     <div class="btn-group" ng-if="hope.personalitylist.length>5">
-                        <select class="form-control" ng-model="finshparam.personality_prefer[5]">
+                        <select
+                                class="form-control"
+                                ng-model="finshparam.personality_prefer[5]"
+                                ng-change="selectPerson(finshparam.personality_prefer[5],6)">
                             <option value="">第六优先</option>
-                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}">{{arr.name}}</option>
+                            <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
                     </div>
                 </div>

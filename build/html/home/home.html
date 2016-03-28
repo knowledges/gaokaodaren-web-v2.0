@@ -282,7 +282,7 @@
                 <i class="triangle"></i>
             </p>
             <ul class="nav nav-pills" style="margin-top: 35px;" type="square">
-                <li ng-repeat="list in table.provincelist"><a ui-sref="city.list({cityId:list.id,code:$index+1})" target="_blank">{{list.name}}</a></li>
+                <li ng-repeat="list in table.provincelist" is-loading><a ui-sref="city.list({cityId:list.id,code:$index+1})" target="_blank">{{list.name}}</a></li>
             </ul>
             <div class="text-center">
                 <img src="img/000007.jpg" alt=""/>

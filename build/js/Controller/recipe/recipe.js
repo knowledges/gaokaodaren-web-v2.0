@@ -19,7 +19,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller("recipeInfoCtr",['$scope','$stateParams','$http','$sce','loocha','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,$http,loocha,articleURL,menuRecipeURL){
+    app.controller("recipeInfoCtr",['$scope','$stateParams','$http','$sce','loocha','articleURL','menuRecipeURL',function($scope,$stateParams,$http,$sce,loocha,articleURL,menuRecipeURL){
             $scope.title = {
                 list :"",
                 menuList:"",
@@ -95,7 +95,7 @@ require(['app'],function(app){
                 $http({
                     url:loocha+menuRecipeURL,
                     method:"GET",
-                    params:param
+                    params:parame
                 })
                 .success(function (data, status) {
                     $scope.title.menuList = data.response.list;

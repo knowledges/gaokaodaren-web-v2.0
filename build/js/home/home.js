@@ -2,8 +2,17 @@
  * Created by qbl on 2015/11/25.
  */
 define(['app','jquery','bootstrap'],function(app,$,bootstrap){
-
-    app.controller("homeCtrl",['$scope','$window','$sce','AJAX','homeService','data_province','displayService',function($scope,$window,$sce,AJAX,homeService,data_province,displayService) {
+    app.directive('isLoading',['$rootScope',function($rootScope){
+        return{
+            restrict: 'A',
+            link:function(scope){
+                if(scope.$last == true){
+                    $rootScope.loading=false;
+                }
+            }
+        }
+    }]);
+    app.controller("homeCtrl",['$rootScope','$scope','$window','$sce','homeService','data_province','displayService',function($rootScope,$scope,$window,$sce,homeService,data_province,displayService) {
         $scope.table = {
             provincelist:""
         };

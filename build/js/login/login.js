@@ -29,16 +29,18 @@ require(['app'],function(app){
         };
 
         function getCodes() {
+            $rootScope.loading=false;
             $http.get(loocha+"/user/code?time=" + new Date().getTime()).success(function(data){
                 $scope.user.img = data;
             });
         }
 
         $scope.signin = function () {
+
             var param = {};
-            param.j_username = $scope.user.username;
-            param.j_password = $scope.user.password;
-            param.code = $scope.user.code;
+                param.j_username = $scope.user.username;
+                param.j_password = $scope.user.password;
+                param.code = $scope.user.code;
 
             var tramsform = function(data){
                 return $.param(data);
@@ -62,12 +64,7 @@ require(['app'],function(app){
                 if(localStorage.getItem('score')!=null){
                     $window.location.href = "#/home";
                 }else{
-                    //var set = confirm("你还没有完善考试成绩，是否完善！");
-                    //if(set){
                     $window.location.href="#/all/allScore";
-                    //}else{
-                    //    $window.location.href = "#/home";
-                    //}
                 }
             });
         };

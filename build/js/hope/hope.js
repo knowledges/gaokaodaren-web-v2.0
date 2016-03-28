@@ -260,6 +260,7 @@ require(['app'],function(app){
             languename:[],
             langueArr:[],
         };
+
         $scope.info={
             title:"",
             subtitle:"",
@@ -268,6 +269,7 @@ require(['app'],function(app){
             level:"",
             uScore:"",
         };
+
         $scope.rates=[];
 
         $scope.toggle = {
@@ -301,12 +303,13 @@ require(['app'],function(app){
             depart_prefer:[],
             city_prefer:[],
             personality_prefer:[]
-        }
+        };
 
         init();
 
         function init(){
             getLoginUserInfo.isLogoin();
+
             $scope.coverage = [
                 {
                     id:1,
@@ -322,7 +325,31 @@ require(['app'],function(app){
                     name:"个性"
                 }
             ];
+
             var type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
+
+            if(type<=6){
+                /*专业大门类（13个）*/
+                $http.get(loocha+'/depart/prop?type=0&depart_type=0').success(function(data,status){
+                    $.each(data.response,function(i,v){
+                        if(i<13){
+                            $scope.hope.depart.push(v);
+                        }
+                    });
+                    console.log($scope.hope.depart);
+                });
+            }else{
+                /*专业大门类（13个）*/
+                $http.get(loocha+'/depart/prop?type=0&depart_type=1').success(function(data,status){
+                    $.each(data.response,function(i,v){
+                        if(i<19){
+                            $scope.hope.depart.push(v);
+                        }
+                    });
+                    console.log($scope.hope.depart);
+                });
+            }
+
             switch (parseInt(type)){
                 case 1:
                     $scope.info.title = "文科本一考生志愿意向表";
@@ -357,6 +384,7 @@ require(['app'],function(app){
                     $scope.info.subtitle = "【第二阶段填报理科类高职（专科）院校志愿用表】";
                     break;
             }
+
             var uScore =$scope.info.uScore= JSON.parse(sessionStorage.getItem('uScore'));
             if(uScore == null){
                 alert('登陆失效或您还没有登陆，先去登陆吧！');
@@ -367,7 +395,9 @@ require(['app'],function(app){
                 $scope.info.level = uScore.level_a+","+uScore.level_b;
             }
 
-            /*属地*/
+            /**
+             * 属地
+             */
             $http.get(loocha+'/wish/area?batch='+$scope.hope.batch).success(function(data,status){
                 $scope.hope.area = data.response.item1;
                 $scope.hope.js_province = data.response.item2;
@@ -378,32 +408,12 @@ require(['app'],function(app){
                 $scope.hope.fifthCities = data.response.item7;
             });
 
-            /*院校属类*/
+            /**
+             * 院校属类
+             */
             $http.get(loocha+'/schbath?type='+$scope.hope.batch).success(function(data,status){
                 $scope.hope.schbatch = data.response;
             });
-
-            if(type<=6){
-                /*专业大门类（13个）*/
-                $http.get(loocha+'/depart/prop?type=0&depart_type=0').success(function(data,status){
-                    $.each(data.response,function(i,v){
-                        if(i<13){
-                            $scope.hope.depart.push(v);
-                        }
-                    });
-                    console.log($scope.hope.depart);
-                });
-            }else{
-                /*专业大门类（13个）*/
-                $http.get(loocha+'/depart/prop?type=0&depart_type=1').success(function(data,status){
-                    $.each(data.response,function(i,v){
-                        if(i<19){
-                            $scope.hope.depart.push(v);
-                        }
-                    });
-                    console.log($scope.hope.depart);
-                });
-            }
 
             /**
              * 获取具体专业
@@ -445,6 +455,7 @@ require(['app'],function(app){
                     }
                 })
             }
+
             function iterator_2(list){
                 $.each(list,function(i,v){
                     switch(parseInt(v.classify)){
@@ -481,6 +492,7 @@ require(['app'],function(app){
                     }
                 })
             }
+
             function iterator_3(list){
                 $.each(list,function(i,v){
                     switch(parseInt(v.classify)){
@@ -700,6 +712,7 @@ require(['app'],function(app){
                     }
                 })
             }
+
             function iterator_4(list){
                 $.each(list,function(i,v){
                     switch(parseInt(v.classify)){
@@ -742,6 +755,7 @@ require(['app'],function(app){
                     }
                 })
             }
+
             function iterator_5(list){
                 $.each(list,function(i,v){
                     switch(parseInt(v.classify)){
@@ -782,6 +796,9 @@ require(['app'],function(app){
                 })
             }
 
+            /**
+             * 获取个性
+             */
             $http.get(loocha+"/depart/personality").success(function(data,status){
                 $scope.hope.personality_type1 =  data.response.pmap.type1;
                 $scope.hope.personality_type2 =  data.response.pmap.type2;
@@ -817,6 +834,7 @@ require(['app'],function(app){
                     });
                 }
             });
+
             $(document).unbind('click').click(function(e){
                 e = window.event || e;
                 obj = $(e.srcElement || e.target);
@@ -826,6 +844,7 @@ require(['app'],function(app){
                 }
             });
         }
+
         /*
          * 根据批次、地区ID 显示对应的省份
          * */
@@ -874,6 +893,7 @@ require(['app'],function(app){
             $("#dropdown"+city_id).show();
         };
 
+
         /**
          * 根据对象查询学校列表
          * @param e 当前点击对象
@@ -910,7 +930,7 @@ require(['app'],function(app){
             };
             //}
             ul.show();
-        }
+        };
 
         /*类别*/
         $scope.atrlistClk = function(e){
@@ -1020,7 +1040,10 @@ require(['app'],function(app){
             $("#style1").show();
         };
 
-        /*属性*/
+        /**
+         * 属性
+         * @param e
+         */
         $scope.proplistClk = function(e){
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#prop1').attr('data-istrue');
@@ -1062,7 +1085,10 @@ require(['app'],function(app){
             $("#prop1").show();
         };
 
-        /*属管*/
+        /**
+         * 属管
+         * @param e
+         */
         $scope.belongslistClk = function(e){
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#belongs1').attr('data-istrue');
@@ -1104,9 +1130,6 @@ require(['app'],function(app){
             $("#belongs1").show();
         };
 
-        /*
-         * TODO 批次 depart_type
-         * */
         $scope.showDepartCls = function(course_id){
             $("#depart .dropdown-menu").hide();
             var istrue = $("#depart"+course_id).attr('data-istrue');
@@ -1266,6 +1289,7 @@ require(['app'],function(app){
             $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
             $scope.hope.cityArr =  mosaic.split("-")[3].length > 0 ? JSON.parse( mosaic.split("-")[3].split(",")):[];
         };
+
         /**
          * 江苏省、一~六线城市双击
          * @param e
@@ -1278,6 +1302,7 @@ require(['app'],function(app){
             $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
             $scope.hope.cityArr =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
         };
+
         /**
          * 意向专业 热门专业、偏热专业、一般专业、偏冷专业、冷门专业单击
          * @param e
@@ -1290,6 +1315,7 @@ require(['app'],function(app){
             $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
             $scope.hope.departArr =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
         };
+
         /**
          * 意向专业 热门专业、偏热专业、一般专业、偏冷专业、冷门专业双击
          * @param e
@@ -1315,6 +1341,7 @@ require(['app'],function(app){
             $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(","):[];
             $scope.hope.schoolArr =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
         };
+
         /**
          * 意向专业 高分高校 、偏高高校、中分高校、偏低高校、低分高校双击
          * @param e
@@ -1348,13 +1375,7 @@ require(['app'],function(app){
         });
 
         $scope.pay = function(){
-            //TODO 支付，
             alert('查看： 我的足迹-》意向参考表');
-            /*TODO 提交完 根据订单ID 获取订单信息*/
-            //$http.get('/loocha/exam/'+111).success(function(dadta){
-            //    /*TODO代用支付接口 查看支付金额*/
-            //});
-            //$window.open('#/pay');
         };
 
         $scope.manual = function(){
@@ -1466,11 +1487,6 @@ require(['app'],function(app){
                 showFirstSoft(array[2],$scope.finshparam.project[3]);
             }
 
-            //var first = showFirstSoft("proSoft",$scope.finshparam.project[0]);
-            //var Second = showFirstSoft(Second,$scope.finshparam.project[1]);
-            //var third = showFirstSoft(third,$scope.finshparam.project[2]);
-            //var fourth = showFirstSoft(third,$scope.finshparam.project[3]);
-
             function showFirstSoft(id,num){
                 var param = "";
                 if(num == 1){
@@ -1488,6 +1504,205 @@ require(['app'],function(app){
                 }
                 return param;
             }
+        };
+
+        /**
+         * 意向高校优先排序 逻辑地方
+         * @param idx
+         * @param num
+         */
+        $scope.selectSchol = function(idx,num){
+            if(num == 1){
+                $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] ="";
+                $.each($scope.hope.schoolArr,function(i,v){
+                    v.disabled = false;
+                });
+            }else if (num == 2){
+                $scope.finshparam.school_prefer[2] ="";
+                $.each($scope.hope.schoolArr,function(i,v){
+                    if(v.id!=$scope.finshparam.school_prefer[0]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 3){
+                $.each($scope.hope.schoolArr,function(i,v){
+                    if(v.id!=$scope.finshparam.school_prefer[0]
+                        && v.id!=$scope.finshparam.school_prefer[1]){
+                        v.disabled = false;
+                    }
+                });
+            }
+
+            $.each($scope.hope.schoolArr,function(i,v){
+                if(v.id == idx){
+                    v.disabled = true;
+                }
+            });
+
+        };
+
+        /**
+         *  意向专业优先排序 逻辑地方
+         * @param idx
+         * @param num
+         */
+        $scope.selectDepart = function(idx,num){
+            if(num == 1){
+                $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $.each($scope.hope.departArr,function(i,v){
+                    v.disabled = false;
+                });
+            }else if (num == 2){
+                $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $.each($scope.hope.departArr,function(i,v){
+                    if(v.id !=$scope.finshparam.depart_prefer[0]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 3){
+                $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $.each($scope.hope.departArr,function(i,v){
+                    if(v.id !=$scope.finshparam.depart_prefer[0]
+                        && v.id !=$scope.finshparam.depart_prefer[1]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 4){
+                $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $.each($scope.hope.departArr,function(i,v){
+                    if(v.id !=$scope.finshparam.depart_prefer[0]
+                        && v.id !=$scope.finshparam.depart_prefer[1]
+                        && v.id !=$scope.finshparam.depart_prefer[2]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
+                $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]= "";
+                $.each($scope.hope.departArr,function(i,v){
+                    if(v.id !=$scope.finshparam.depart_prefer[0]
+                        && v.id !=$scope.finshparam.depart_prefer[1]
+                        && v.id !=$scope.finshparam.depart_prefer[2]
+                        && v.id !=$scope.finshparam.depart_prefer[3]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 6){
+                $scope.finshparam.depart_prefer[6]= "";
+                $.each($scope.hope.departArr,function(i,v){
+                    if(v.id !=$scope.finshparam.depart_prefer[0]
+                        && v.id !=$scope.finshparam.depart_prefer[1]
+                        && v.id !=$scope.finshparam.depart_prefer[2]
+                        && v.id !=$scope.finshparam.depart_prefer[3]
+                        && v.id !=$scope.finshparam.depart_prefer[4]){
+                        v.disabled = false;
+                    }
+                });
+            }
+
+            $.each($scope.hope.departArr,function(i,v){
+                if(v.id == idx){
+                    v.disabled = true;
+                }
+            });
+        };
+
+        /**
+         * 意向城市优先排序 逻辑地方
+         * @param idx
+         * @param num
+         */
+        $scope.selectCity = function(idx,num){
+            if(num == 1){
+                $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] ="";
+                $.each($scope.hope.cityArr,function(i,v){
+                    v.disabled = false;
+                });
+            }else if (num == 2){
+                $scope.finshparam.city_prefer[2] ="";
+                $.each($scope.hope.cityArr,function(i,v){
+                    if(v.id!=$scope.finshparam.city_prefer[0]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 3){
+                $.each($scope.hope.cityArr,function(i,v){
+                    if(v.id!=$scope.finshparam.city_prefer[0]
+                        && v.id!=$scope.finshparam.city_prefer[1]){
+                        v.disabled = false;
+                    }
+                });
+            }
+
+            $.each($scope.hope.cityArr,function(i,v){
+                if(v.id == idx){
+                    v.disabled = true;
+                }
+            });
+        };
+
+        /**
+         * 意向个性优先排序 逻辑地方
+         * @param idx
+         * @param num
+         */
+        $scope.selectPerson = function(idx,num){
+            if(num == 1){
+                $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    v.disabled = false;
+                });
+            }else if (num == 2){
+                $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    if(v.id !=$scope.finshparam.personality_prefer[0]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 3){
+                $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    if(v.id !=$scope.finshparam.personality_prefer[0]
+                        && v.id !=$scope.finshparam.personality_prefer[1]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 4){
+                $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    if(v.id !=$scope.finshparam.personality_prefer[0]
+                        && v.id !=$scope.finshparam.personality_prefer[1]
+                        && v.id !=$scope.finshparam.personality_prefer[2]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
+                $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]= "";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    if(v.id !=$scope.finshparam.personality_prefer[0]
+                        && v.id !=$scope.finshparam.personality_prefer[1]
+                        && v.id !=$scope.finshparam.personality_prefer[2]
+                        && v.id !=$scope.finshparam.personality_prefer[3]){
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 6){
+                $scope.finshparam.personality_prefer[6]= "";
+                $.each($scope.hope.personalitylist,function(i,v){
+                    if(v.id !=$scope.finshparam.personality_prefer[0]
+                        && v.id !=$scope.finshparam.personality_prefer[1]
+                        && v.id !=$scope.finshparam.personality_prefer[2]
+                        && v.id !=$scope.finshparam.personality_prefer[3]
+                        && v.id !=$scope.finshparam.personality_prefer[4]){
+                        v.disabled = false;
+                    }
+                });
+            }
+
+            $.each($scope.hope.personalitylist,function(i,v){
+                if(v.id == idx){
+                    v.disabled = true;
+                }
+            });
         };
 
         $scope.$watch('hope.langue',function(newValue,oldValue){
