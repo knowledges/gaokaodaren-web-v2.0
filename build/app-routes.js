@@ -586,7 +586,23 @@ define(['app'],function(app){
                 templateUrl:"html/depth/articleInfo.html",
                 data: { isPublic: true}
             })
+        //$httpProvider.interceptors.push('timestampMarker');
     }]);
+    //app.factory("timestampMarker",["$rootScope",function($rootScope){
+    //    var timestampMarker = {
+    //            request:function(config){
+    //                $rootScope.loading = true;
+    //                config.requestTimestamp = new Date().getTime();
+    //                return config;
+    //            },
+    //            response:function(response){
+    //                //$rootScope.loading = false;
+    //                response.config.responseTimestamp = new Date().getTime();
+    //                return response;
+    //            }
+    //        };
+    //    return timestampMarker;
+    //}]);
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
