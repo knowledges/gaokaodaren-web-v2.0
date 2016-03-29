@@ -4,6 +4,16 @@
 require(['app'],function(app){
     app.constant("cityList","../JSON/cityContent.json");
     app.constant("findCity","/city");
+    app.directive('isLoading',['$rootScope',function($rootScope){
+        return{
+            restrict: 'A',
+            link:function(scope){
+                if(scope.$last == true){
+                    $rootScope.loading=false;
+                }
+            }
+        }
+    }]);
     app.controller("cityConCtl",['$scope','$stateParams','$http','$sce','AJAX','navURL_1','cityList','findCity',function($scope,$stateParams,$http,$sce,AJAX,navURL_1,cityList,findCity){
 
             $scope.content = {

@@ -25,6 +25,7 @@ define(function(require,exports,module){
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             homeService.htmlPage="";
             displayService.isShow = true;
+            $rootScope.loading = true;
             var isAuthenticated = userService.isAuthenticated();
             var isPublicAction = angular.isObject(toState.data)
                 && toState.data.isPublic === true;

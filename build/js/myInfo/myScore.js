@@ -3,6 +3,16 @@
  */
 'use strict';
 require(['app'],function(app){
+    app.directive('isLoading',['$rootScope',function($rootScope){
+        return{
+            restrict: 'A',
+            link:function(scope){
+                if(scope.$last == true){
+                    $rootScope.loading=false;
+                }
+            }
+        }
+    }]);
     app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo',function ($scope,$window,$http,loocha,getLoginUserInfo) {
 
         $scope.recommShow = false;

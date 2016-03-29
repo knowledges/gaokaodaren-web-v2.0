@@ -1,8 +1,5 @@
 <div class="menu-div">
     <div class="container-fluid">
-        <!--<nav class="nav nav-pills" ng-if="will.isShowWill">-->
-            <!--<li ng-repeat="list in will.list"><a>{{list.time | date :'yyyy-MM-dd hh:mm:ss'}}</a></li>-->
-        <!--</nav>-->
 
         <table class="table" ng-if="will.list.length>0">
             <thead>
@@ -16,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="list in will.list">
+                <tr ng-repeat="list in will.list" is-loading>
                     <td>{{$index+1}}</td>
                     <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
                     <td>{{list.score}}</td>
@@ -43,9 +40,7 @@
                 </tr>
             </tbody>
         </table>
-       <!-- <nav class="nav nav-pills" ng-if="refer.isShowRefer">
-            <li ng-repeat="list in refer.list"><a href="#/refer?orderId={{list.orderId}}&type={{list.division}}">{{list.time | date :'yyyy-MM-dd hh:mm:ss'}}</a></li>
-        </nav>-->
+
         <table class="table" ng-if="refer.list.length>0">
             <thead>
                 <tr>
@@ -57,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="list in refer.list">
+                <tr ng-repeat="list in refer.list"  is-loading>
                     <td>{{$index+1}}</td>
                     <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
                     <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>

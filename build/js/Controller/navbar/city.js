@@ -28,6 +28,7 @@ require(['app'],function(app){
             $http.get(loocha+provinceURL)
                 .success(function (data, status) {
                     $scope.menu.provincelist = data.response.list;
+                    $scope.loading=false;
                 });
         }
     }]);

@@ -20,8 +20,9 @@ require(['app'],function(app){
 
         $http.get(loocha+navURL_1)
             .success(function(data){
-            $scope.nav.content = $sce.trustAsHtml(data);
-        });
+                $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
+            });
 
     }]);
     app.controller('schoolNav',['$scope','$sce','$http','navURL_2','loocha',function($scope,$sce,$http,navURL_2,loocha){
@@ -32,6 +33,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_2)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('marjorNav',['$scope','$sce','$http','navURL_3','loocha',function($scope,$sce,$http,navURL_3,loocha){
@@ -42,6 +44,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_3)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('recipeNav',['$scope','$sce','$http','navURL_4','loocha',function($scope,$sce,$http,navURL_4,loocha){
@@ -52,6 +55,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_4)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('scoreNav',['$scope','$sce','$http','navURL_5','loocha',function($scope,$sce,$http,navURL_5,loocha){
@@ -62,6 +66,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_5)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('policyNav',['$scope','$sce','$http','navURL_6','loocha',function($scope,$sce,$http,navURL_6,loocha){
@@ -72,6 +77,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_6)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('jobNav',['$scope','$sce','$http','navURL_7','loocha',function($scope,$sce,$http,navURL_7,loocha){
@@ -82,6 +88,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_7)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('uniqueNav',['$scope','$sce','$http','navURL_8','loocha',function($scope,$sce,$http,navURL_8,loocha){
@@ -92,6 +99,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_8)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('onlineNav',['$scope','$sce','$http','navURL_9','loocha',function($scope,$sce,$http,navURL_9,loocha){
@@ -102,6 +110,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_9)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('aboutNav',['$scope','$sce','$http','navURL_10','loocha',function($scope,$sce,$http,navURL_10,loocha){
@@ -112,6 +121,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_10)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
     app.controller('exampleNav',['$scope','$sce','$http','navURL_11','loocha',function($scope,$sce,$http,navURL_11,loocha){
@@ -122,6 +132,7 @@ require(['app'],function(app){
         $http.get(loocha+navURL_11)
             .success(function(data){
                 $scope.nav.content = $sce.trustAsHtml(data);
+                $scope.loading = false;
             });
     }]);
 });

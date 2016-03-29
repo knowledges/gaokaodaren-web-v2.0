@@ -49,8 +49,8 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.95);
   overflow: hidden;
 }
 
@@ -58,17 +58,17 @@ body {
   position: absolute;
   top: 50%;
   background: white;
-  #solution> .border-radius(8px);
+  #solution > .border-radius(8px);
   width: 165px;
   left: 50%;
   margin-top: -36px;
   margin-left: -80px;
   text-align: center;
-img {
-  margin-top: 12px;
-  text-align: center;
-}
-span {
-  display: block;
-}
+  img {
+    margin-top: 12px;
+    text-align: center;
+  }
+  span {
+    display: block;
+  }
 }

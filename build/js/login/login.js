@@ -29,7 +29,6 @@ require(['app'],function(app){
         };
 
         function getCodes() {
-            $rootScope.loading=false;
             $http.get(loocha+"/user/code?time=" + new Date().getTime()).success(function(data){
                 $scope.user.img = data;
             });

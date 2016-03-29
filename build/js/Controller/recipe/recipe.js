@@ -3,6 +3,16 @@
  */
 require(['app'],function(app){
     app.constant('articleURL',"/article");
+    app.directive('isLoading',['$rootScope',function($rootScope){
+        return{
+            restrict: 'A',
+            link:function(scope){
+                if(scope.$last == true){
+                    $rootScope.loading=false;
+                }
+            }
+        }
+    }]);
     app.directive('isActive',['$stateParams',function($stateParams){
         return{
             restrict: 'A',
@@ -104,7 +114,7 @@ require(['app'],function(app){
             }
 
             function showInfo(id){
-                $http.get('/article/show/'+id)
+                $http.get(loocha+'/article/show/'+id)
                     .success(function(data,status){
                         $scope.title.strHtml = $sce.trustAsHtml(data);
                     });

@@ -17,6 +17,7 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id)
                 .success(function(data){
                     $scope.title.strHtml = $sce.trustAsHtml(data);
+                    $scope.loading=false;
                 });
         }
     }]);

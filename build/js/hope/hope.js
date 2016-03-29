@@ -166,11 +166,12 @@ require(['app'],function(app){
             }
         }
     });
-    app.directive('isSchool',function(){
+    app.directive('isSchool',["$rootScope",function($rootScope){
         return{
             restrict: 'A',
             link:function(scope,elm,attr){
                 if(scope.$parent.$last == true){
+                    $rootScope.loading=false;
                     /**
                      * 把 nav 高度大于 220 的添加 scroll
                      */
@@ -184,7 +185,7 @@ require(['app'],function(app){
                 }
             }
         }
-    });
+    }]);
     app.directive('isDepart',function(){
         return {
             restrict:"A",

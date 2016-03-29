@@ -1,13 +1,18 @@
+<div class="loading-modal model" ng-if="loading">
+    <div class="loading">
+        <img src="img/loading.gif" alt=""/>
+        <span>页面正在加载中...</span>
+    </div>
+</div>
 <div class="container text-center">
-    <!--ng-controller="wishTabCtr-info"-->
     <div>
         <h1 title="请把您的志愿意向填入（“点击”）《志愿意向表》">{{info.title}}</h1>
         <h4>{{info.subtitle}}</h4>
-        <div class="form-inline" role="高考-基本成绩">
-            <div class="alert alert-success text-left">
-                <strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{info.subject}}</span>类 总分：<span ng-cloak>{{info.score}}</span>   选测等级：<span ng-cloak>{{info.level}}</span>
-            </div>
-        </div>
+        <!--<div class="form-inline" role="高考-基本成绩">-->
+            <!--<div class="alert alert-success text-left">-->
+                <!--<strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{info.subject}}</span>类 总分：<span ng-cloak>{{info.score}}</span>   选测等级：<span ng-cloak>{{info.level}}</span>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading text-left">

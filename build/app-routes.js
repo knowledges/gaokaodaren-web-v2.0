@@ -5,6 +5,7 @@ define(['app'],function(app){
 
     app.run(['$rootScope',function($rootScope){
         $rootScope.studentId = "";
+        $rootScope.loading = true;
         deassign();
         window.onresize = function(){
             deassign();
@@ -74,8 +75,7 @@ define(['app'],function(app){
         return userInfo;
 
     }]);
-    app.config(function($stateProvider, $urlRouterProvider){
-        //window.url = "/loocha";
+    app.config(["$stateProvider","$urlRouterProvider","$httpProvider",function($stateProvider, $urlRouterProvider,$httpProvider){
         $urlRouterProvider.when("", "/home");
         $stateProvider
             .state("home", {//主页
@@ -104,12 +104,12 @@ define(['app'],function(app){
                 templateUrl: "html/hope/hope.html",
                 controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
-                data: { isPublic: true},
-                resolve:{
-                    deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/hope.js']);
-                    }]
-                }
+                data: { isPublic: true}
+                //resolve:{
+                //    deps:['$ocLazyLoad',function($ocLazyLoad){
+                //        return $ocLazyLoad.load(['js/hope/hope.js']);
+                //    }]
+                //}
             })
             .state("chance", {//预测
                 url: "/chance",
@@ -528,7 +528,7 @@ define(['app'],function(app){
             })
             .state('all.reference',{
                 url:'/allReference',
-                templateUrl:'html/All/all.html',
+                //templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",
                 data: { isPublic: false},
@@ -575,7 +575,18 @@ define(['app'],function(app){
                     }]
                 }
             })
-    });
+////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            .state("article",{
+                url:"/article",
+                templateUrl:"html/temp/tempDepath.html",
+                data: { isPublic: true}
+            })
+            .state("article.info",{
+                url:"/articleInfo",
+                templateUrl:"html/depth/articleInfo.html",
+                data: { isPublic: true}
+            })
+    }]);
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
