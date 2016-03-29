@@ -579,6 +579,8 @@ define(['app'],function(app){
             .state("article",{
                 url:"/article",
                 templateUrl:"html/temp/tempDepath.html",
+                controllerUrl:"js/article/articleMenu",
+                    controller:"artCtr",
                 data: { isPublic: true}
             })
             .state("article.info",{
