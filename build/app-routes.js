@@ -500,7 +500,6 @@ define(['app'],function(app){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
                     }]
                 }
-                //controller:"allCtr"
             })
             .state('all.score',{
                 url:'/allScore',
@@ -537,6 +536,27 @@ define(['app'],function(app){
                         return $ocLazyLoad.load(['html/All/all.js']);
                     }]
                 }
+            })
+            .state("depth",{
+                url:"/depth",
+                templateUrl:'html/temp/tempAll.html',
+                data: { isPublic: false},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+                    }]
+                }
+            })
+            //templateUrl:'html/showInfo/showInfo.html',
+            //controllerUrl:"js/Controller/showInfo/showInfo",
+            //controller:"onlineInfoCtr",
+            //data: { isPublic: true},
+            .state("depth.list",{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/depth/depthInfo.html',
+                controllerUrl:"",
+                controller:"",
+                data: { isPublic: false}
             })
 //////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
             .state("pay",{
@@ -576,16 +596,18 @@ define(['app'],function(app){
                 }
             })
 ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            .state("article",{
-                url:"/article",
+            .state("depth",{
+                url:"/depth",
                 templateUrl:"html/temp/tempDepath.html",
-                controllerUrl:"js/article/articleMenu",
-                    controller:"artCtr",
+                controllerUrl:"js/depth/articleMenu",
+                controller:"artCtr",
                 data: { isPublic: true}
             })
-            .state("article.info",{
+            .state("depth.info",{
                 url:"/articleInfo",
                 templateUrl:"html/depth/articleInfo.html",
+                controllerUrl:"js/depth/depthMenu",
+                controller:"depthCtr",
                 data: { isPublic: true}
             })
         //$httpProvider.interceptors.push('timestampMarker');

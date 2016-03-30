@@ -577,7 +577,7 @@ require(['app'],function(app){
             $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
                 $scope.schoolInfo = data.response.list[0];
                 if($scope.schoolInfo.article_id>0){
-                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
+                    $http.get(loocha+"/depth/"+$scope.schoolInfo.article_id).success(function(data){
                         $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
                         $("#mask-school").fadeIn(500);
                     });
@@ -594,7 +594,7 @@ require(['app'],function(app){
             $http.get(loocha+"/depart/by?depart_id="+$scope.forecast.schl_departId).success(function(data){
                 var article_id = data.response.article_id;
                 if(article_id>0){
-                    $http.get(loocha+"/article/show/"+article_id).success(function(data){
+                    $http.get(loocha+"/depth/show/"+article_id).success(function(data){
                         $scope.forecast.departInfo = $sce.trustAsHtml(data);
                         $("#mask-depart").fadeIn(800);
                         $("#mask-depart .modal-body").scrollTop(100);

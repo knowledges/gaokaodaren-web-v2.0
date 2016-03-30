@@ -2,7 +2,7 @@
  * Created by qbl on 2015/10/23.
  */
 require(['app'], function (app) {
-    app.constant('articleURL','/article');
+    app.constant('articleURL','/depth');
     app.controller('onlineMenuCtr',['$scope','$http','loocha','articleURL',function($scope,$http,loocha,articleURL){
             $scope.menu = {
                 menuList : ""

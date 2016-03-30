@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app','pagging'],function(app,pagging){
-    app.constant("navURL_1","/article/show/3289");//城市
+    app.constant("navURL_1","/depth/show/3289");//城市
     app.constant('findSchoolURL',"/school");
     app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
@@ -120,7 +120,7 @@ require(['app','pagging'],function(app,pagging){
             $scope.school.isnav = false;
             $scope.school.isChars = true;
             $scope.school.isfind = false;
-            $http.get(loocha+'/article/show/'+id)
+            $http.get(loocha+'/depth/show/'+id)
                 .success(function (data) {
                     $scope.school.strHtml = $sce.trustAsHtml(data);
                 });

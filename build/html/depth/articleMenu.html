@@ -1,50 +1,101 @@
 <div class="row">
     <div class="col-sm-3" style="padding: 0">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active" menuclk><a href="javascript:;;">目录</a></li>
-            <li role="presentation" menuclk><a href="javascript:;;">菜单内容</a></li>
+        <ul class="nav nav-pills nav-stacked" id="doc" doclk>
+            <li class="active" idx="1"><a href="javascript:;;">目录</a></li>
+            <li idx="2"><a href="javascript:;;">菜单内容</a></li>
         </ul>
     </div>
     <div class="col-sm-9" style="padding: 0">
-        <ul class="list-group" id="menu" style="display: none;">
-            <li class="list-group-item">分数分析深度查询</li>
-            <li class="list-group-item">招生政策深度查询</li>
-            <li class="list-group-item">招生计划深度查询</li>
-            <li class="list-group-item">资料汇编深度查询</li>
-            <li class="list-group-item">招生高校深度查询</li>
-            <li class="list-group-item">招生专业深度查询</li>
-            <li class="list-group-item">招生城市深度查询</li>
-            <li class="list-group-item">个性满足深度查询</li>
+        <ul class="list-group" id="menu" >
+            <li class="list-group-item" ng-repeat="list in menuArr"><a href="javascript:;;" ng-click="findMenuInfo(list.id)" idx="{{list.id}}">{{list.name}}</a></li>
         </ul>
-        <ul class="nav menu-nav text-center newNav">
-            <li>
-                <a href="javascript:;;" data-target="#chart-collpsed136" aria-expanded="true" data-toggle="collapse" title="（一）从考生考分与往年高校录取分数比较角度的深度查询">（一）从考生考分与往年高校录取分数比较角度的深度查询</a>
-                <ul id="chart-collpsed136" class="collapse in list-group" data-toggle="collapse in" aria-expanded="true">
-                    <li class="list-group-item">
-                        <input type="checkbox">
-                        <span>1、近三年高校、专业录取分差表</span>
-                        <ul class="list-group" style="position: absolute; top: 0;z-index: 999;right: 0;">
-                            <li class="list-group-item">最低分差排序</li>
-                            <li class="list-group-item">中点分差排序</li>
-                            <li class="list-group-item">最高分差排序</li>
+        <ul id="menu-infolist" style="display: none;" class="nav menu-nav text-center newNav">
+            <li ng-repeat="list in menuInfoArr" ng-if="$first">
+                <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="true" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
+                <ul id="chart-collpsed{{list.id}}" class="collapse in" data-toggle="collapse in" aria-expanded="true">
+                    <li class="list-group-item" ng-repeat="arr in list.sublist">
+                        <span class="spanClk" ng-click="subClk($event)" style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplete="{{arr.inputTemplete}}">{{arr.name}}</span>
+                        <ul class="list-group list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
+                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplete="{{sub.inputTemplete}}" money="{{sub.money}}" leaf="{{sub.leaf}}" inputtemplete="{{sub.inputtemplete}}">{{sub.name}}</li>
                         </ul>
                     </li>
-                    <li class="list-group-item">
-                        <input type="checkbox">
-                        <span>2、近三年高校录取分差排序表：</span>
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox">
-                        <span>3、近三年专业录取分差排序表：</span>
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox">
-                        <span>4、各高校招生专业分差排序表：</span>
+                </ul>
+            </li>
+            <li ng-repeat="list in menuInfoArr" ng-if="!$first">
+                <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="false" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
+                <ul id="chart-collpsed{{list.id}}" class="collapse" data-toggle="collapse in" aria-expanded="false">
+                    <li class="list-group-item" ng-repeat="arr in list.sublist">
+                        <span class="spanClk" ng-click="subClk($event)"  style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplete="{{arr.inputTemplete}}">{{arr.name}}</span>
+                        <ul class="list-group  list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
+                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplete="{{sub.inputTemplete}}">{{sub.name}}</li>
+                        </ul>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
 </div>
+
+<div class="modal" style="background: rgba(0, 0, 0, 0.75);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">深度查询条件选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" ng-if="condition.inputTemplete == 1">
+                    <div class="col-sm-3 text-right">
+                        <label>请输入年限:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control  timer" ng-model="condition.timer">
+                            <option value="">==请选择年限==</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" ng-if="condition.inputTemplete == 2">
+                    <div class="col-sm-3 text-right">
+                        <label>请输入年限:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control timer" ng-model="condition.timer">
+                            <option value="">==请选择年限==</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="condition.schlName"  placeholder="请输入高校名称"/>
+                    </div>
+                </div>
+                <div class="row"  ng-if="condition.inputTemplete == 3">
+                    <div class="col-sm-3 text-right">
+                        <label>请输入年限:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control timer" ng-model="condition.timer">
+                            <option value="">==请选择年限==</option>
+                            <option value="2012">2012</option>
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="subInfo" ng-click="subOrder($event)">提交订单</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 

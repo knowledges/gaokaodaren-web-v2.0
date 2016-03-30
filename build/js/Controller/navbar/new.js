@@ -22,7 +22,7 @@ require(['app'],function(app){
         });
 
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.isShow = false;
                 $scope.homeService.htmlPage=data;
             });
@@ -35,7 +35,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -47,7 +47,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -59,7 +59,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -71,7 +71,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -83,7 +83,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -95,7 +95,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -107,7 +107,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -119,7 +119,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -131,7 +131,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -143,7 +143,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -155,7 +155,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -167,7 +167,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -179,7 +179,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -191,7 +191,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -203,7 +203,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -215,7 +215,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -227,7 +227,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -239,7 +239,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -251,7 +251,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -263,7 +263,7 @@ require(['app'],function(app){
             $scope.news = data.response.left;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }
@@ -275,7 +275,7 @@ require(['app'],function(app){
             $scope.news = data.response.right;
         });
         $scope.info = function(id){
-            $http.get(loocha+'/article/show/'+id).success(function(data){
+            $http.get(loocha+'/depth/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
         }

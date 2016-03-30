@@ -22,7 +22,7 @@ require(['app','jquery'],function(app,jquery){
             $scope.marjor.seacrChCon = false;
             $scope.marjor.content = false;
             $scope.search = false;
-            $http.get(loocha+'/article/show/'+id)
+            $http.get(loocha+'/depth/show/'+id)
                .success(function(data,status){
                    $scope.marjor.strHtml = $sce.trustAsHtml(data);
                });

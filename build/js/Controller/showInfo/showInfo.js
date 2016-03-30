@@ -14,7 +14,7 @@ require(['app'],function(app){
         }
 
         function showInfo(id){
-            $http.get(loocha+'/article/show/'+id)
+            $http.get(loocha+'/depth/show/'+id)
                 .success(function(data){
                     $scope.title.strHtml = $sce.trustAsHtml(data);
                     $scope.loading=false;
