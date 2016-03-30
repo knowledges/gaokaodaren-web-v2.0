@@ -8,11 +8,6 @@
     <div>
         <h1 title="请把您的志愿意向填入（“点击”）《志愿意向表》">{{info.title}}</h1>
         <h4>{{info.subtitle}}</h4>
-        <!--<div class="form-inline" role="高考-基本成绩">-->
-            <!--<div class="alert alert-success text-left">-->
-                <!--<strong>您的预估高考成绩</strong> 科类：<span ng-cloak>{{info.subject}}</span>类 总分：<span ng-cloak>{{info.score}}</span>   选测等级：<span ng-cloak>{{info.level}}</span>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
@@ -1085,7 +1080,7 @@
                         <select
                                 class="form-control"
                                 ng-model="finshparam.depart_prefer[5]"
-                                ng-change="selectDepart(finshparam.depart_prefer[6],6)">
+                                ng-change="selectDepart(finshparam.depart_prefer[5],6)">
                             <option value="">第六优先</option>
                             <option ng-repeat="arr in hope.departArr" value="{{arr.id}}"  ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>
@@ -1171,7 +1166,7 @@
                         <select
                                 class="form-control"
                                 ng-model="finshparam.personality_prefer[4]"
-                                ng-change="selectPerson(fin\shparam.personality_prefer[4],5)">
+                                ng-change="selectPerson(finshparam.personality_prefer[4],5)">
                             <option value="">第五优先</option>
                             <option ng-repeat="arr in hope.personalitylist" value="{{arr.id}}" ng-disabled="arr.disabled">{{arr.name}}</option>
                         </select>

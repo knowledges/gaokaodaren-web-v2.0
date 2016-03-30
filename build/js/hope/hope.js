@@ -1361,6 +1361,64 @@ require(['app'],function(app){
         };
 
         $scope.readom = function(){
+            getLoginUserInfo.isLogoin();
+
+            var projectSoft = [];
+            $.each($scope.finshparam.project,function(i,v){
+                if(v == 1){//高校
+                    projectSoft[0] = i+1;
+                }else if(v == 2){ //专业
+                    projectSoft[1] = i+1;
+                }else if (v  == 3){//城市
+                    projectSoft[2] = i+1;
+                }else{
+                    projectSoft[3] = i+1;
+                }
+            });
+            var param = {};
+            param.sprop_prefer = [];  //优先院校属类id列表
+            param.sprop_ignore = [];  //拒绝院校属类id列表
+            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+            param.dproptype_prefer = [];   //优先专业类别id列表
+            param.dproptype_ignore = [];    //拒绝专业类别id列表
+            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
+            param.pproptype_prefer = [];   //优先个性类别id列表
+            param.pproptype_ignore = [];   //拒绝个性类别id列表
+            param.pprop_prefer = [];   //优先个性id列表
+            param.pprop_ignore = [];   //拒绝个性id列表
+            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
+            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $http.post(loocha+"/exam/intention",param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(responseDate){
+
+                var tramsform_1 = function(data){
+                    return $.param(data);
+                };
+
+                var param = {};
+                    param.id = responseDate.response.id;
+
+                $http.post(loocha+"/exam/intention/auto",param,{
+                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                    transformRequest:tramsform_1
+                }).success(function(data){
+                    debugger;
+                });
+            });
+
             $('#modal-pay').modal('show');
         };
 
@@ -1411,8 +1469,8 @@ require(['app'],function(app){
             param.pprop_ignore = [];   //拒绝个性id列表
             param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
             param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-            param.depart_order = $scope.finshparam.city_prefer;   //专业优先id列表
-            param.city_order = $scope.finshparam.depart_prefer;     //城市优先id列表
+            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
             param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
             var tramsform = function(data){
                 return $.param(data);
@@ -1549,19 +1607,19 @@ require(['app'],function(app){
          */
         $scope.selectDepart = function(idx,num){
             if(num == 1){
-                $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
                 $.each($scope.hope.departArr,function(i,v){
                     v.disabled = false;
                 });
             }else if (num == 2){
-                $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] ="";
                 $.each($scope.hope.departArr,function(i,v){
                     if(v.id !=$scope.finshparam.depart_prefer[0]){
                         v.disabled = false;
                     }
                 });
             }else if (num == 3){
-                $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
                 $.each($scope.hope.departArr,function(i,v){
                     if(v.id !=$scope.finshparam.depart_prefer[0]
                         && v.id !=$scope.finshparam.depart_prefer[1]){
@@ -1569,7 +1627,7 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 4){
-                $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]="";
+                $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
                 $.each($scope.hope.departArr,function(i,v){
                     if(v.id !=$scope.finshparam.depart_prefer[0]
                         && v.id !=$scope.finshparam.depart_prefer[1]
@@ -1578,7 +1636,7 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 5){
-                $scope.finshparam.depart_prefer[5] = $scope.finshparam.depart_prefer[6]= "";
+                $scope.finshparam.depart_prefer[5] = "";
                 $.each($scope.hope.departArr,function(i,v){
                     if(v.id !=$scope.finshparam.depart_prefer[0]
                         && v.id !=$scope.finshparam.depart_prefer[1]
@@ -1588,7 +1646,6 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 6){
-                $scope.finshparam.depart_prefer[6]= "";
                 $.each($scope.hope.departArr,function(i,v){
                     if(v.id !=$scope.finshparam.depart_prefer[0]
                         && v.id !=$scope.finshparam.depart_prefer[1]
@@ -1648,19 +1705,19 @@ require(['app'],function(app){
          */
         $scope.selectPerson = function(idx,num){
             if(num == 1){
-                $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] ="";
                 $.each($scope.hope.personalitylist,function(i,v){
                     v.disabled = false;
                 });
             }else if (num == 2){
-                $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] ="";
                 $.each($scope.hope.personalitylist,function(i,v){
                     if(v.id !=$scope.finshparam.personality_prefer[0]){
                         v.disabled = false;
                     }
                 });
             }else if (num == 3){
-                $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] ="";
                 $.each($scope.hope.personalitylist,function(i,v){
                     if(v.id !=$scope.finshparam.personality_prefer[0]
                         && v.id !=$scope.finshparam.personality_prefer[1]){
@@ -1668,7 +1725,7 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 4){
-                $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]="";
+                $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] ="";
                 $.each($scope.hope.personalitylist,function(i,v){
                     if(v.id !=$scope.finshparam.personality_prefer[0]
                         && v.id !=$scope.finshparam.personality_prefer[1]
@@ -1677,7 +1734,7 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 5){
-                $scope.finshparam.personality_prefer[5] = $scope.finshparam.personality_prefer[6]= "";
+                $scope.finshparam.personality_prefer[5] = "";
                 $.each($scope.hope.personalitylist,function(i,v){
                     if(v.id !=$scope.finshparam.personality_prefer[0]
                         && v.id !=$scope.finshparam.personality_prefer[1]
@@ -1687,7 +1744,6 @@ require(['app'],function(app){
                     }
                 });
             }else if (num == 6){
-                $scope.finshparam.personality_prefer[6]= "";
                 $.each($scope.hope.personalitylist,function(i,v){
                     if(v.id !=$scope.finshparam.personality_prefer[0]
                         && v.id !=$scope.finshparam.personality_prefer[1]

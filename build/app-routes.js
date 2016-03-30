@@ -596,20 +596,20 @@ define(['app'],function(app){
                 }
             })
 ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            .state("depth",{
-                url:"/depth",
-                templateUrl:"html/temp/tempDepath.html",
-                controllerUrl:"js/depth/articleMenu",
-                controller:"artCtr",
-                data: { isPublic: true}
-            })
-            .state("depth.info",{
-                url:"/articleInfo",
-                templateUrl:"html/depth/articleInfo.html",
-                controllerUrl:"js/depth/depthMenu",
-                controller:"depthCtr",
-                data: { isPublic: true}
-            })
+//            .state("depth",{
+//                url:"/depth",
+//                templateUrl:"html/temp/tempDepath.html",
+//                controllerUrl:"js/depth/articleMenu",
+//                controller:"artCtr",
+//                data: { isPublic: true}
+//            })
+//            .state("depth.info",{
+//                url:"/articleInfo",
+//                templateUrl:"html/depth/articleInfo.html",
+//                controllerUrl:"js/depth/depthMenu",
+//                controller:"depthCtr",
+//                data: { isPublic: true}
+//            });
         //$httpProvider.interceptors.push('timestampMarker');
     }]);
     //app.factory("timestampMarker",["$rootScope",function($rootScope){
