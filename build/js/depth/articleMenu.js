@@ -179,10 +179,10 @@ require(['app'],function(app){
                 var obj = new Object();
                     obj.id = idx;
                     obj.name =  $scope.condition.parentTitle+name;
-                    obj.schlName = $scope.condition.schlName;
-                    obj.departName = $scope.condition.departName;
+                    obj.school = $scope.condition.schlName;
+                    obj.depart = $scope.condition.departName;
                     obj.money = money;
-                    obj.timer = $scope.condition.timer;
+                    obj.year = $scope.condition.timer;
                 $scope.orderList.push(obj);
                 $scope.money  += money;
                 $scope.condition.schlName = $scope.condition.departName = $scope.condition.timer = $scope.condition.parentTitle = "";
