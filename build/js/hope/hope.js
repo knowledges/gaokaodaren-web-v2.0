@@ -260,6 +260,8 @@ require(['app'],function(app){
             langue:[],
             languename:[],
             langueArr:[],
+            order_id:[],
+            money:[],
         };
 
         $scope.info={
@@ -1364,6 +1366,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
 
             var projectSoft = [];
+
             $.each($scope.finshparam.project,function(i,v){
                 if(v == 1){//高校
                     projectSoft[0] = i+1;
@@ -1375,66 +1378,74 @@ require(['app'],function(app){
                     projectSoft[3] = i+1;
                 }
             });
+
             var param = {};
-            param.sprop_prefer = [];  //优先院校属类id列表
-            param.sprop_ignore = [];  //拒绝院校属类id列表
-            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
-            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
-            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
-            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
-            param.dproptype_prefer = [];   //优先专业类别id列表
-            param.dproptype_ignore = [];    //拒绝专业类别id列表
-            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
-            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
-            param.pproptype_prefer = [];   //优先个性类别id列表
-            param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = [];   //优先个性id列表
-            param.pprop_ignore = [];   //拒绝个性id列表
-            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
-            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
-            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
-            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
-            var tramsform = function(data){
-                return $.param(data);
-            };
+                param.sprop_prefer = [];  //优先院校属类id列表
+                param.sprop_ignore = [];  //拒绝院校属类id列表
+                param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+                param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+                param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+                param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+                param.dproptype_prefer = [];   //优先专业类别id列表
+                param.dproptype_ignore = [];    //拒绝专业类别id列表
+                param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+                param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
+                param.pproptype_prefer = [];   //优先个性类别id列表
+                param.pproptype_ignore = [];   //拒绝个性类别id列表
+                param.pprop_prefer = [];   //优先个性id列表
+                param.pprop_ignore = [];   //拒绝个性id列表
+                param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+                param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+                param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+                param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
+                param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
 
-            $http.post(loocha+"/exam/intention",param,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(responseDate){
-
-                var tramsform_1 = function(data){
+                var tramsform = function(data){
                     return $.param(data);
                 };
 
-                var param = {};
-                    param.id = responseDate.response.id;
-
-                $http.post(loocha+"/exam/intention/auto",param,{
+                $http.post(loocha+"/exam/intention",param,{
                     headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                    transformRequest:tramsform_1
-                }).success(function(data){
-                    debugger;
+                    transformRequest:tramsform
+                }).success(function(responseDate){
+                    $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
+                        var list = JSON.parse(data),order_id = list.response.id;
+                        $http.get('/loocha/exam/' + order_id).success(function (result) {
+                            if(result.status == 1){
+                                alert('没有找到订单');
+                                return;
+                            }
+                            $scope.hope.order_id = result.response.order_id;
+                            $scope.hope.money = result.response.money;
+                            $('#modal-pay').modal('show');
+                        });
+                    });
                 });
-            });
-
-            $('#modal-pay').modal('show');
         };
 
-        $(".btn-all").hide();
-        $(".btn-show").click(function(e){
-            $(this).hide();
-            $(".btn-all").show();
-        });
-
-        $(".btn-hide").click(function(e){
-            $(".btn-show").show();
-            $(".btn-all").hide();
-        });
+        //$(".btn-all").hide();
+        //
+        //$(".btn-show").click(function(e){
+        //    $(this).hide();
+        //    $(".btn-all").show();
+        //});
+        //
+        //$(".btn-hide").click(function(e){
+        //    $(".btn-show").show();
+        //    $(".btn-all").hide();
+        //});
 
         $scope.pay = function(){
-            alert('查看： 我的足迹-》意向参考表');
+            openwin('#/pay?order_id='+$scope.hope.order_id+'&money='+$scope.hope.money+'&type='+localStorage.getItem("type"));
+            function openwin(url) {
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("id", "openwin");
+                document.body.appendChild(a);
+                a.click();
+            }
+
         };
 
         $scope.manual = function(){
