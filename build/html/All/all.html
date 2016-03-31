@@ -6,37 +6,18 @@
                 <tr>
                     <td>#</td>
                     <td>科目</td>
-                    <td>成绩</td>
-                    <td>选测科目等级</td>
-                    <td>支付情况</td>
+                    <td>订单生成时间</td>
+                    <td>交易金额</td>
                     <td>操作</td>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="list in will.list" is-loading>
+                <tr ng-repeat="list in will.list"  is-loading>
                     <td>{{$index+1}}</td>
                     <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
-                    <td>{{list.score}}</td>
-                    <td>
-                        <span ng-switch="list.sel">
-                            <span ng-switch-when="5">A+</span>
-                            <span ng-switch-when="4">A</span>
-                            <span ng-switch-when="3">B+</span>
-                            <span ng-switch-when="2">B</span>
-                            <span ng-switch-when="1">C</span>
-                            <span ng-switch-when="0">D</span>
-                        </span>
-                        <span ng-switch="list.obl">
-                            <span ng-switch-when="5">,A+</span>
-                            <span ng-switch-when="4">,A</span>
-                            <span ng-switch-when="3">,B+</span>
-                            <span ng-switch-when="2">,B</span>
-                            <span ng-switch-when="1">,C</span>
-                            <span ng-switch-when="0">,D</span>
-                        </span>
-                    </td>
-                    <td>{{list.flag == 0 ?"已支付":"未支付"}}</td>
-                    <td><a href="javascript:;;" class="btn btn-default">查看意向表</a></td>
+                    <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
+                    <td>{{list.money}}</td>
+                    <td><a class="btn btn-default" ng-click="seeHope(list.orderId)">查看志愿推荐</a></td>
                 </tr>
             </tbody>
         </table>

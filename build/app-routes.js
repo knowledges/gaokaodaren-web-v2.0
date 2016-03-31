@@ -102,7 +102,7 @@ define(['app'],function(app){
             .state("hope", {/*意向*/
                 url: "/hope",
                 templateUrl: "html/hope/hope.html",
-                controllerUrl:"js/hope/hope",
+                //controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
                 data: { isPublic: true}
                 //resolve:{
@@ -527,7 +527,7 @@ define(['app'],function(app){
             })
             .state('all.reference',{
                 url:'/allReference',
-                //templateUrl:'html/All/all.html',
+                templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",
                 data: { isPublic: false},

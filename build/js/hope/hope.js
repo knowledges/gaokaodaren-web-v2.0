@@ -166,16 +166,21 @@ require(['app'],function(app){
             }
         }
     });
-    app.directive('isSchool',["$rootScope",function($rootScope){
+    app.directive('onFinishRender',["$rootScope","$timeout",function($rootScope,$timeout){
         return{
             restrict: 'A',
-            link:function(scope,elm,attr){
-                if(scope.$parent.$last == true){
-                    $rootScope.loading=false;
+            link:function(scope,element,attr){
+
+                if(scope.$last === true) {
+                    $rootScope.loading = false;
+                    $timeout(function () {
+                        scope.$emit(attr.onFinishRender);
+                    });
+
                     /**
                      * 把 nav 高度大于 220 的添加 scroll
                      */
-                    var list = $("#panel-footer .nav-pills");
+                    var list = $("#panel-footer .nav-pills,#depart .nav-depart");
                     for(var i=0;i<list.size();i++){
                         var that =list.eq(i);
                         if(that.height()>220){
@@ -186,26 +191,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.directive('isDepart',function(){
-        return {
-            restrict:"A",
-            link:function(scope,elm,attr){
-                if(scope.$parent.$last == true){
-                    /**
-                     * 把 nav 高度大于 220 的添加 scroll
-                     */
-                    var list = $("#depart .nav-depart");
-                    for(var i=0;i<list.size();i++){
-                        var that =list.eq(i);
-                        if(that.height()>220){
-                            that.addClass('nav-scroll');
-                        }
-                    }
-                }
-            }
-        }
-    });
-    app.controller('hopeCtr',['$scope','$window','$http','$timeout','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
+    app.controller('hopeCtr',['$scope','$window','$http','$timeout','$stateParams','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,$stateParams,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
         $scope.hope = {
             area: "",
             js_province: "",
@@ -329,7 +315,13 @@ require(['app'],function(app){
                 }
             ];
 
-            var type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
+            var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
+            var type = "";
+            if (see != undefined){
+                type = see;
+            }else {
+                type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
+            }
 
             if(type<=6){
                 /*专业大门类（13个）*/
@@ -389,6 +381,7 @@ require(['app'],function(app){
             }
 
             var uScore =$scope.info.uScore= JSON.parse(sessionStorage.getItem('uScore'));
+
             if(uScore == null){
                 alert('登陆失效或您还没有登陆，先去登陆吧！');
                 window.location.href = "#/login";
@@ -896,7 +889,6 @@ require(['app'],function(app){
             $("#dropdown"+city_id).show();
         };
 
-
         /**
          * 根据对象查询学校列表
          * @param e 当前点击对象
@@ -1358,153 +1350,6 @@ require(['app'],function(app){
             $scope.hope.schoolArr =  mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")):[];
         };
 
-        $scope.reqOrder = function(){
-            $('#myModal').modal('show');
-        };
-
-        $scope.readom = function(){
-            getLoginUserInfo.isLogoin();
-
-            var projectSoft = [];
-
-            $.each($scope.finshparam.project,function(i,v){
-                if(v == 1){//高校
-                    projectSoft[0] = i+1;
-                }else if(v == 2){ //专业
-                    projectSoft[1] = i+1;
-                }else if (v  == 3){//城市
-                    projectSoft[2] = i+1;
-                }else{
-                    projectSoft[3] = i+1;
-                }
-            });
-
-            var param = {};
-                param.sprop_prefer = [];  //优先院校属类id列表
-                param.sprop_ignore = [];  //拒绝院校属类id列表
-                param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
-                param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
-                param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
-                param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
-                param.dproptype_prefer = [];   //优先专业类别id列表
-                param.dproptype_ignore = [];    //拒绝专业类别id列表
-                param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
-                param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
-                param.pproptype_prefer = [];   //优先个性类别id列表
-                param.pproptype_ignore = [];   //拒绝个性类别id列表
-                param.pprop_prefer = [];   //优先个性id列表
-                param.pprop_ignore = [];   //拒绝个性id列表
-                param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
-                param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-                param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
-                param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
-                param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
-
-                var tramsform = function(data){
-                    return $.param(data);
-                };
-
-                $http.post(loocha+"/exam/intention",param,{
-                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                    transformRequest:tramsform
-                }).success(function(responseDate){
-                    $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
-                        var list = JSON.parse(data),order_id = list.response.id;
-                        $http.get('/loocha/exam/' + order_id).success(function (result) {
-                            if(result.status == 1){
-                                alert('没有找到订单');
-                                return;
-                            }
-                            $scope.hope.order_id = result.response.order_id;
-                            $scope.hope.money = result.response.money;
-                            $('#modal-pay').modal('show');
-                        });
-                    });
-                });
-        };
-
-        //$(".btn-all").hide();
-        //
-        //$(".btn-show").click(function(e){
-        //    $(this).hide();
-        //    $(".btn-all").show();
-        //});
-        //
-        //$(".btn-hide").click(function(e){
-        //    $(".btn-show").show();
-        //    $(".btn-all").hide();
-        //});
-
-        $scope.pay = function(){
-            openwin('#/pay?order_id='+$scope.hope.order_id+'&money='+$scope.hope.money+'&type='+localStorage.getItem("type"));
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
-
-        };
-
-        $scope.manual = function(){
-            getLoginUserInfo.isLogoin();
-
-            var projectSoft = [];
-            $.each($scope.finshparam.project,function(i,v){
-                if(v == 1){//高校
-                    projectSoft[0] = i+1;
-                }else if(v == 2){ //专业
-                    projectSoft[1] = i+1;
-                }else if (v  == 3){//城市
-                    projectSoft[2] = i+1;
-                }else{
-                    projectSoft[3] = i+1;
-                }
-            });
-            var param = {};
-            param.sprop_prefer = [];  //优先院校属类id列表
-            param.sprop_ignore = [];  //拒绝院校属类id列表
-            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
-            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
-            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
-            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
-            param.dproptype_prefer = [];   //优先专业类别id列表
-            param.dproptype_ignore = [];    //拒绝专业类别id列表
-            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
-            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
-            param.pproptype_prefer = [];   //优先个性类别id列表
-            param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = [];   //优先个性id列表
-            param.pprop_ignore = [];   //拒绝个性id列表
-            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
-            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
-            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
-            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
-            var tramsform = function(data){
-                return $.param(data);
-            };
-
-            $http.post(loocha+"/exam/intention",param,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(responseDate){
-                localStorage.setItem("manualInfo",JSON.stringify(responseDate.response))
-                openwin('#/refer1');
-            });
-
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
-        };
-
         $scope.showLanguage = function(){
             $("#langueList").show();
         };
@@ -1773,6 +1618,151 @@ require(['app'],function(app){
             });
         };
 
+        $scope.reqOrder = function(){
+            $('#myModal').modal('show');
+        };
+
+        $scope.readom = function(){
+            getLoginUserInfo.isLogoin();
+
+            var projectSoft = [];
+
+            $.each($scope.finshparam.project,function(i,v){
+                if(v == 1){//高校
+                    projectSoft[0] = i+1;
+                }else if(v == 2){ //专业
+                    projectSoft[1] = i+1;
+                }else if (v  == 3){//城市
+                    projectSoft[2] = i+1;
+                }else{
+                    projectSoft[3] = i+1;
+                }
+            });
+
+            var param = {};
+                param.sprop_prefer = [];  //优先院校属类id列表
+                param.sprop_ignore = [];  //拒绝院校属类id列表
+                param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+                param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+                param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+                param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+                param.dproptype_prefer = [];   //优先专业类别id列表
+                param.dproptype_ignore = [];    //拒绝专业类别id列表
+                param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+                param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
+                param.pproptype_prefer = [];   //优先个性类别id列表
+                param.pproptype_ignore = [];   //拒绝个性类别id列表
+                param.pprop_prefer = [];   //优先个性id列表
+                param.pprop_ignore = [];   //拒绝个性id列表
+                param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+                param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+                param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+                param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
+                param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
+
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $http.post(loocha+"/exam/intention",param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(responseDate){
+                $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
+                    var list = JSON.parse(data),order_id = list.response.id;
+                    $http.get('/loocha/exam/' + order_id).success(function (result) {
+                        if(result.status == 1){
+                            alert('没有找到订单');
+                            return;
+                        }
+                        $scope.hope.order_id = result.response.order_id;
+                        $scope.hope.money = result.response.money;
+                        $('#modal-pay').modal('show');
+                    });
+                });
+            });
+        };
+
+        $scope.manual = function(){
+            getLoginUserInfo.isLogoin();
+
+            var projectSoft = [];
+            $.each($scope.finshparam.project,function(i,v){
+                if(v == 1){//高校
+                    projectSoft[0] = i+1;
+                }else if(v == 2){ //专业
+                    projectSoft[1] = i+1;
+                }else if (v  == 3){//城市
+                    projectSoft[2] = i+1;
+                }else{
+                    projectSoft[3] = i+1;
+                }
+            });
+            var param = {};
+            param.sprop_prefer = [];  //优先院校属类id列表
+            param.sprop_ignore = [];  //拒绝院校属类id列表
+            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+            param.dproptype_prefer = [];   //优先专业类别id列表
+            param.dproptype_ignore = [];    //拒绝专业类别id列表
+            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
+            param.pproptype_prefer = [];   //优先个性类别id列表
+            param.pproptype_ignore = [];   //拒绝个性类别id列表
+            param.pprop_prefer = [];   //优先个性id列表
+            param.pprop_ignore = [];   //拒绝个性id列表
+            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
+            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
+            var tramsform = function(data){
+                return $.param(data);
+            };
+
+            $http.post(loocha+"/exam/intention",param,{
+                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest:tramsform
+            }).success(function(responseDate){
+                localStorage.setItem("manualInfo",JSON.stringify(responseDate.response))
+                openwin('#/refer1');
+            });
+
+            function openwin(url) {
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("id", "openwin");
+                document.body.appendChild(a);
+                a.click();
+            }
+        };
+
+        $scope.pay = function(){
+            openwin('#/pay?order_id='+$scope.hope.order_id+'&money='+$scope.hope.money+'&type='+localStorage.getItem("type"));
+            function openwin(url) {
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("id", "openwin");
+                document.body.appendChild(a);
+                a.click();
+            }
+            $('#modal-pay').modal('hide');
+            $("#tip").modal('show');
+        };
+
+        $scope.isPay = function(){
+            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id,function(data){
+                 if(data.Response.status==1004){
+                     alert('交易失败');
+                 }
+                $("#tip").modal('hide');
+            });
+        };
+
         $scope.$watch('hope.langue',function(newValue,oldValue){
             arrPush()
         });
@@ -1781,6 +1771,73 @@ require(['app'],function(app){
             arrPush()
         });
 
+        $scope.$on("methodname", function (ngRepeatFinishedEvent) {
+            var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
+            var type = "";
+            if (see != undefined){
+                var intention = JSON.parse(localStorage.getItem('intention'));
+                 $scope.hope.school_prefer = intention.schoolAccepts;
+                 $scope.hope.school_ignore = intention.schoolRejects
+
+                $scope.hope.city_prefer = intention.cityAccepts;
+                $scope.hope.city_ignore = intention.cityRejects;
+
+                $scope.hope.depart_prefer = intention.departAccepts;
+                $scope.hope.depart_ignore = intention.departRejects;
+
+                effectPrefer($scope.hope.school_prefer,$("#panel-footer a[school_id]"),"school_id");
+                effectIgnore($scope.hope.school_ignore,$("#panel-footer a[school_id]"),"school_id");
+
+                effectPrefer($scope.hope.depart_prefer,$("#depart a[depart_id]"),"depart_id");
+                effectIgnore($scope.hope.depart_ignore,$("#depart a[depart_id]"),"depart_id");
+
+                for(var i = 0 ; i < $scope.hope.city_prefer.length ; i++ ){
+
+                    for(var j = 0 ; j<$("#provnice a[parent_id]").length;j++){
+
+                        if(parseInt($scope.hope.city_prefer[i]) == parseInt($("#provnice a[parent_id]").eq(j).attr("city_id"))){
+                            $("#provnice a[parent_id]").eq(j).addClass('agree').attr("status",1);
+                        }
+                    }
+                }
+
+                for(var i = 0 ; i < $scope.hope.city_ignore.length ; i++ ){
+
+                    for(var j = 0 ; j<$("#provnice a[parent_id]").length;j++){
+
+                        if(parseInt(ignore[i]) == parseInt($("#provnice a[parent_id]").eq(j).attr("city_id"))){
+                            $("#provnice a[parent_id]").eq(j).addClass('reject').attr("status",2);
+                        }
+                    }
+                }
+
+                function effectPrefer(prefer,list,attr){
+
+                    for(var i = 0 ; i < prefer.length ; i++ ){
+
+                        for(var j = 0 ; j<list.length;j++){
+
+                            if(parseInt(prefer[i]) == parseInt(list.eq(j).attr(attr))){
+                                list.eq(j).addClass('agree').attr("status",1);
+                            }
+                        }
+                    }
+                }
+
+                function effectIgnore(ignore,list,attr){
+
+                    for(var i = 0 ; i < ignore.length ; i++ ){
+
+                        for(var j = 0 ; j<list.length;j++){
+
+                            if(parseInt(ignore[i]) == parseInt(list.eq(j).attr(attr))){
+                                list.eq(j).addClass('reject').attr("status",2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
         function arrPush(){
             var personalitylist = [];
             $scope.hope.personalitylist = personalitylist.concat($scope.hope.langueArr,$scope.hope.personalityArr);

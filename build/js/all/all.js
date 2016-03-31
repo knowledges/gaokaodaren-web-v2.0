@@ -1,10 +1,12 @@
 /**
  * Created by qbl on 2015/10/27.
  */
+
+
 angular.module('gaokaoAPP.group.all', [])
     .constant('willUrl','/exam/request/all?index=0&limit=999')
     .constant('referUrl','/exam/order/all?index=0&limit=999&type=1')
-    .controller('willCtr', ['$scope','willUrl','loocha',function ($scope,willUrl,loocha) {
+    .controller('willCtr', ['$scope','willUrl','loocha','$http',function ($scope,willUrl,loocha,$http) {
         $scope.will = {
             isShowWill:false,
             list:""
@@ -16,7 +18,7 @@ angular.module('gaokaoAPP.group.all', [])
         });
 
     }])
-    .controller('referenceCtr', ['$scope','referUrl','loocha', function ($scope,referUrl,loocha) {
+    .controller('referenceCtr', ['$scope','referUrl','loocha','$http', function ($scope,referUrl,loocha,$http) {
 
         $scope.refer = {
             isShowRefer:false,
