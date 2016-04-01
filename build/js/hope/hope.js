@@ -1652,8 +1652,8 @@ require(['app'],function(app){
                 param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
                 param.pproptype_prefer = [];   //优先个性类别id列表
                 param.pproptype_ignore = [];   //拒绝个性类别id列表
-                param.pprop_prefer = [];   //优先个性id列表
-                param.pprop_ignore = [];   //拒绝个性id列表
+                param.pprop_prefer = $scope.hope.personality_prefer;   //优先个性id列表
+                param.pprop_ignore = $scope.hope.personality_ignore;   //拒绝个性id列表
                 param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
                 param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
                 param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
@@ -1774,16 +1774,20 @@ require(['app'],function(app){
         $scope.$on("methodname", function (ngRepeatFinishedEvent) {
             var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
             if (see != undefined){
+                console.log('非城市');
                 var intention = JSON.parse(localStorage.getItem('intention'));
                  //高校、城市、专业 优选项部分
-                 $scope.hope.school_prefer = intention.schoolAccepts;
-                 $scope.hope.school_ignore = intention.schoolRejects
+                $scope.hope.school_prefer = intention.schoolAccepts;
+                $scope.hope.school_ignore = intention.schoolRejects;
+
+                $scope.hope.depart_prefer = intention.departAccepts;
+                $scope.hope.depart_ignore = intention.departRejects;
 
                 $scope.hope.city_prefer = intention.cityAccepts;
                 $scope.hope.city_ignore = intention.cityRejects;
 
-                $scope.hope.depart_prefer = intention.departAccepts;
-                $scope.hope.depart_ignore = intention.departRejects;
+                $scope.hope.personality_prefer = intention.personalityAccepts;
+                $scope.hope.personality_ignore = intention.personalityRejects;
 
                 effectPrefer($scope.hope.school_prefer,$("#panel-footer a[school_id]"),"school_id",$scope.hope.schoolArr);
                 effectIgnore($scope.hope.school_ignore,$("#panel-footer a[school_id]"),"school_id");
@@ -1791,33 +1795,8 @@ require(['app'],function(app){
                 effectPrefer($scope.hope.depart_prefer,$("#depart a[depart_id]"),"depart_id",$scope.hope.departArr);
                 effectIgnore($scope.hope.depart_ignore,$("#depart a[depart_id]"),"depart_id");
 
-                if($scope.hope.city_prefer != null){
-                    for(var i = 0 ; i < $scope.hope.city_prefer.length ; i++ ){
-
-                        for(var j = 0 ; j<$("#provnice a[parent_id]").length;j++){
-
-                            if(parseInt($scope.hope.city_prefer[i]) == parseInt($("#provnice a[parent_id]").eq(j).attr("city_id"))){
-                                $("#provnice a[parent_id]").eq(j).addClass('agree').attr("status",1);
-                                var obj = new Object();
-                                obj.id = $("#provnice a[parent_id]").eq(j).attr("city_id");
-                                obj.name = $("#provnice a[parent_id]").eq(j).html();
-                                $scope.hope.cityArr.push(obj);
-                            }
-                        }
-                    }
-                }
-
-                if($scope.hope.city_ignore != null){
-                    for(var i = 0 ; i < $scope.hope.city_ignore.length ; i++ ){
-
-                        for(var j = 0 ; j<$("#provnice a[parent_id]").length;j++){
-
-                            if(parseInt(ignore[i]) == parseInt($("#provnice a[parent_id]").eq(j).attr("city_id"))){
-                                $("#provnice a[parent_id]").eq(j).addClass('reject').attr("status",2);
-                            }
-                        }
-                    }
-                }
+                effectPrefer($scope.hope.personality_prefer,$("#character a[s_id]"),"s_id",$scope.hope.personalityArr);
+                effectIgnore($scope.hope.personality_ignore,$("#character a[s_id]"),"s_id");
 
                 function effectPrefer(prefer,list,attr,array){
 
@@ -1861,9 +1840,6 @@ require(['app'],function(app){
                 $scope.finshparam.depart_prefer[4] = intention.preferDeparts[4]+"";
                 $scope.finshparam.depart_prefer[5] = intention.preferDeparts[5]+"";
 
-                $scope.finshparam.city_prefer[0] = intention.preferCities[0]+"";
-                $scope.finshparam.city_prefer[1] = intention.preferCities[1]+"";
-                $scope.finshparam.city_prefer[2] = intention.preferCities[2]+"";
                 $scope.finshparam.personality_prefer[0] = intention.preferPersonalities[0]+"";
                 $scope.finshparam.personality_prefer[1] = intention.preferPersonalities[1]+"";
                 $scope.finshparam.personality_prefer[2] = intention.preferPersonalities[2]+"";
@@ -1877,19 +1853,6 @@ require(['app'],function(app){
                 $scope.finshparam.project[2] = intention.preferOrders[2]+"";
                 $scope.finshparam.project[3] = intention.preferOrders[3]+"";
 
-                var array = [];
-                if(parseInt($scope.finshparam.project[0])>0){
-                    array[0] = showFirstSoft("proSoft",$scope.finshparam.project[0]);
-                }
-                if(parseInt($scope.finshparam.project[1])>0){
-                    array[1] = showFirstSoft(array[0],$scope.finshparam.project[1]);
-                }
-                if (parseInt($scope.finshparam.project[2])>0){
-                    array[2] = showFirstSoft(array[1],$scope.finshparam.project[2]);
-                }
-                if (parseInt($scope.finshparam.project[3])>0) {
-                    showFirstSoft(array[2],$scope.finshparam.project[3]);
-                }
 
                 function showFirstSoft(id,num){
                     var param = "";
@@ -1911,10 +1874,61 @@ require(['app'],function(app){
 
                 $timeout(function () {
                     $("#schSoft,#departSoft,#citySoft,#perSoft").show();
+
+                    var array = [];
+                    if(parseInt($scope.finshparam.project[0])>0){
+                        array[0] = showFirstSoft("proSoft",$scope.finshparam.project[0]);
+                    }
+                    if(parseInt($scope.finshparam.project[1])>0){
+                        array[1] = showFirstSoft(array[0],$scope.finshparam.project[1]);
+                    }
+                    if (parseInt($scope.finshparam.project[2])>0){
+                        array[2] = showFirstSoft(array[1],$scope.finshparam.project[2]);
+                    }
+                    if (parseInt($scope.finshparam.project[3])>0) {
+                        showFirstSoft(array[2],$scope.finshparam.project[3]);
+                    }
                 },2000);
 
             }
         });
+
+        $scope.$on('cityname',function(){
+            var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
+            if (see != undefined) {
+                console.log('城市');
+                var intention = JSON.parse(localStorage.getItem('intention'));
+                //高校、城市、专业 优选项部分
+                $scope.finshparam.city_prefer[0] = intention.preferCities[0] + "";
+                $scope.finshparam.city_prefer[1] = intention.preferCities[1] + "";
+                $scope.finshparam.city_prefer[2] = intention.preferCities[2] + "";
+
+                for(var i = 0 ; i < $scope.hope.city_prefer.length ; i++ ){
+
+                    for(var j = 0 ; j<$("#provnice button[parent_id]").length;j++){
+
+                        if(parseInt($scope.hope.city_prefer[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))){
+                            $("#provnice button[parent_id]").eq(j).addClass('agree').attr("status",1);
+                            var obj = new Object();
+                            obj.id = $("#provnice button[parent_id]").eq(j).attr("city_id");
+                            obj.name = $("#provnice button[parent_id]").eq(j).html();
+                            $scope.hope.cityArr.push(obj);
+                        }
+                    }
+                }
+
+                for(var i = 0 ; i < $scope.hope.city_ignore.length ; i++ ){
+
+                    for(var j = 0 ; j<$("#provnice button[parent_id]").length;j++){
+
+                        if(parseInt(ignore[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))){
+                            $("#provnice button[parent_id]").eq(j).addClass('reject').attr("status",2);
+                        }
+                    }
+                }
+            }
+        });
+
         function arrPush(){
             var personalitylist = [];
             $scope.hope.personalitylist = personalitylist.concat($scope.hope.langueArr,$scope.hope.personalityArr);

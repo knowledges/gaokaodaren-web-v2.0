@@ -1,7 +1,30 @@
 <div class="menu-div">
     <div class="container-fluid">
-        <div class="row">
-            正文
-        </div>
+        <!--<div class="row" ng-if="condition.article.length <= 0">-->
+            <!--<h2 class="text-content">请选择查询内容</h2>-->
+        <!--</div>-->
+        <!--<div class="row" ng-if="condition.article.length > 0">-->
+            <table class="table table-hover">
+                <thead>
+                    <!--<caption class="text-center">{{condition.title}}</caption>-->
+                    <tr>
+                        <th>代号</th>
+                        <th>高校名称</th>
+                        <th>最高分</th>
+                        <th>最低分</th>
+                        <th>中分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="list in condition.article">
+                        <td>{{list.code}}</td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.maxScoreDiff}}</td>
+                        <td>{{list.minScoreDiff}}</td>
+                        <td>{{list.medScoreDiff}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        <!--</div>-->
     </div>
 </div>

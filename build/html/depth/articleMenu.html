@@ -7,16 +7,16 @@
     </div>
     <div class="col-sm-9" style="padding: 0">
         <ul class="list-group" id="menu" >
-            <li class="list-group-item" ng-repeat="list in menuArr"><a href="javascript:;;" ng-click="findMenuInfo(list.id)" idx="{{list.id}}">{{list.name}}</a></li>
+            <li class="list-group-item" ng-repeat="list in menuArr"><a href="javascript:;;" ng-click="findMenuInfo($index+1)" idx="{{list.id}}">{{list.name}}</a></li>
         </ul>
         <ul id="menu-infolist" style="display: none;" class="nav menu-nav text-center newNav">
             <li ng-repeat="list in menuInfoArr" ng-if="$first">
                 <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="true" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
                 <ul id="chart-collpsed{{list.id}}" class="collapse in" data-toggle="collapse in" aria-expanded="true">
                     <li class="list-group-item" ng-repeat="arr in list.sublist">
-                        <span class="spanClk" ng-click="subClk($event)" style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplete="{{arr.inputTemplete}}">{{arr.name}}</span>
+                        <span class="spanClk" ng-click="subClk($event)" style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" resultTemplate="{{arr.resultTemplate}}">{{arr.name}}</span>
                         <ul class="list-group list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
-                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplete="{{sub.inputTemplete}}" money="{{sub.money}}" leaf="{{sub.leaf}}" inputtemplete="{{sub.inputtemplete}}">{{sub.name}}</li>
+                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" resultTemplate="{{sub.resultTemplate}}" money="{{sub.money}}" leaf="{{sub.leaf}}" inputtemplete="{{sub.inputtemplete}}">{{sub.name}}</li>
                         </ul>
                     </li>
                 </ul>
@@ -25,9 +25,9 @@
                 <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="false" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
                 <ul id="chart-collpsed{{list.id}}" class="collapse" data-toggle="collapse in" aria-expanded="false">
                     <li class="list-group-item" ng-repeat="arr in list.sublist">
-                        <span class="spanClk" ng-click="subClk($event)"  style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplete="{{arr.inputTemplete}}">{{arr.name}}</span>
+                        <span class="spanClk" ng-click="subClk($event)"  style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" resultTemplate="{{arr.resultTemplate}}">{{arr.name}}</span>
                         <ul class="list-group  list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
-                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplete="{{sub.inputTemplete}}">{{sub.name}}</li>
+                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" resultTemplate="{{sub.resultTemplate}}">{{sub.name}}</li>
                         </ul>
                     </li>
                 </ul>
@@ -44,7 +44,7 @@
                 <h4 class="modal-title">深度查询条件选择</h4>
             </div>
             <div class="modal-body">
-                <div class="row" ng-if="condition.inputTemplete == 1">
+                <div class="row" ng-if="condition.resultTemplate == 1 || condition.resultTemplate == 0">
                     <div class="col-sm-3 text-right">
                         <label>请输入年限:</label>
                     </div>
@@ -57,7 +57,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row" ng-if="condition.inputTemplete == 2">
+                <div class="row" ng-if="condition.resultTemplate == 2">
                     <div class="col-sm-3 text-right">
                         <label>请输入年限:</label>
                     </div>
@@ -73,7 +73,7 @@
                         <input type="text" class="form-control" ng-model="condition.schlName"  placeholder="请输入高校名称"/>
                     </div>
                 </div>
-                <div class="row"  ng-if="condition.inputTemplete == 3">
+                <div class="row"  ng-if="condition.resultTemplate == 3">
                     <div class="col-sm-3 text-right">
                         <label>请输入年限:</label>
                     </div>
@@ -96,6 +96,3 @@
         </div>
     </div>
 </div>
-
-
-

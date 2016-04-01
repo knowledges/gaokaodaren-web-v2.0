@@ -247,7 +247,7 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
-                        <div class="btn-group" ng-repeat="lists in hope.fifthCities" ng-if="lists.classify == 1">
+                        <div class="btn-group" ng-repeat="lists in hope.fifthCities" on-finish-render="cityname" ng-if="lists.classify == 1">
                             <button type="button" class="btn  btn-default cancle cityClk wishId_7" parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"  ng-click="agreeCity($event)" ng-dblclick="rejectCity($event)">{{lists.name}}</button>
                             <button type="button" class="btn  btn-default cancle dropdown-toggle" city_id="{{lists.city_id}}" alt="city" ng-click="showSchoolList($event)">
                                 <span class="caret"></span>

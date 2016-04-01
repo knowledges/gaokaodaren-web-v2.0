@@ -537,27 +537,36 @@ define(['app'],function(app){
                     }]
                 }
             })
+            ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state("depth",{
                 url:"/depth",
-                templateUrl:'html/temp/tempAll.html',
-                data: { isPublic: false},
-                resolve:{
-                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/myInfo/myScore.js']);
-                    }]
-                }
-            })
-            //templateUrl:'html/showInfo/showInfo.html',
-            //controllerUrl:"js/Controller/showInfo/showInfo",
-            //controller:"onlineInfoCtr",
-            //data: { isPublic: true},
-            .state("depth.list",{
-                url:'/itemId=:itemId&param=:param&active=:active',
-                templateUrl:'html/depth/depthInfo.html',
-                controllerUrl:"",
-                controller:"",
+                templateUrl:"html/temp/tempDepath.html",
                 data: { isPublic: false}
             })
+            .state("depth.info",{
+                url:"/articleInfo",
+                templateUrl:"html/depth/articleInfo.html",
+                controllerUrl:"js/depth/depthMenu",
+                controller:"depthCtr",
+                data: { isPublic: false},
+            })
+            //.state("depth",{
+            //    url:"/depth",
+            //    templateUrl:'html/temp/tempAll.html',
+            //    data: { isPublic: false},
+            //    resolve:{
+            //        loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+            //        }]
+            //    }
+            //})
+            //.state("depth.list",{
+            //    url:'/itemId=:itemId&param=:param&active=:active',
+            //    templateUrl:'html/depth/depthInfo.html',
+            //    controllerUrl:"",
+            //    controller:"",
+            //    data: { isPublic: false}
+            //})
 //////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
             .state("pay",{
                 url:"/pay",
@@ -595,38 +604,7 @@ define(['app'],function(app){
                     }]
                 }
             })
-////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//            .state("depth",{
-//                url:"/depth",
-//                templateUrl:"html/temp/tempDepath.html",
-//                controllerUrl:"js/depth/articleMenu",
-//                controller:"artCtr",
-//                data: { isPublic: true}
-//            })
-//            .state("depth.info",{
-//                url:"/articleInfo",
-//                templateUrl:"html/depth/articleInfo.html",
-//                controllerUrl:"js/depth/depthMenu",
-//                controller:"depthCtr",
-//                data: { isPublic: true}
-//            });
-        //$httpProvider.interceptors.push('timestampMarker');
     }]);
-    //app.factory("timestampMarker",["$rootScope",function($rootScope){
-    //    var timestampMarker = {
-    //            request:function(config){
-    //                $rootScope.loading = true;
-    //                config.requestTimestamp = new Date().getTime();
-    //                return config;
-    //            },
-    //            response:function(response){
-    //                //$rootScope.loading = false;
-    //                response.config.responseTimestamp = new Date().getTime();
-    //                return response;
-    //            }
-    //        };
-    //    return timestampMarker;
-    //}]);
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
         $scope.user = {
             islogin : false,
