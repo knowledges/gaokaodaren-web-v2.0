@@ -17,7 +17,7 @@ require(['app'],function(app){
             });
         }
     }]);
-    app.controller('artCtr',["$scope","$sce",'$http','loocha',function($scope,$sce,$http,loocha){
+    app.controller('artCtr',["$scope","$sce",'$http','$stateParams','$location','loocha',function($scope,$sce,$http,$stateParams,$location,loocha){
         $scope.menuArr = [];
         $scope.orderList=[];
         $scope.menuInfoArr = [];
@@ -28,11 +28,10 @@ require(['app'],function(app){
             schlName:"",
             departName:"",
             parentTitle:"",
+            title:"111111",
             article:""
         };
-
-///////////////////$http///////////////////////////////////////////////////////////////////////////////////////////////////
-
+        console.log($location.$$url.split("batch=")[1]);
         $http.get(loocha+"/depth/query")
             .success(function(data){
                 $scope.menuArr = data.response;
@@ -44,7 +43,7 @@ require(['app'],function(app){
             $("#doc li").removeClass('active').eq(1).addClass('active');
             $("#menu").hide();
             $("#menu-infolist").show(500);
-        }
+        };
 
         /**
          *  leaf: 1：代表根节点 0：不是根节点，且有子节点，子节点同理
@@ -77,18 +76,19 @@ require(['app'],function(app){
             var that = $(e.target),money = parseInt(that.attr("money")),leaf = parseInt(that.attr("leaf")),idx= parseInt(that.attr("idx")),name=that.attr("name"),resultTemplate=that.attr("resultTemplate"),status = that.attr("status");
             if(money==0 && leaf>0){
                 //免费的可以直接给出结果 TODO 缺少批次
-                $http.get(loocha+'/depth/query/result?id='+idx+'&year='+$scope.condition.timer+'&type=3')
+                $http.get(loocha+'/depth/query/result?id='+idx+'&year='+$scope.condition.timer+'&type='+$location.$$url.split("batch=")[1])
                     .success(function (data) {
                         $scope.condition.article = data.response;
+                        $scope.condition.title = $scope.condition.parentTitle+name;
                     });
             }else if (money > 0 && leaf > 0){
                 var obj = new Object();
-                    obj.id = idx;
-                    obj.name =  $scope.condition.parentTitle+name;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = money;
-                    obj.year = $scope.condition.timer;
+                obj.id = idx;
+                obj.name =  $scope.condition.parentTitle+name;
+                obj.school = $scope.condition.schlName;
+                obj.depart = $scope.condition.departName;
+                obj.money = money;
+                obj.year = $scope.condition.timer;
                 $scope.orderList.push(obj);
                 $scope.money  += money;
                 $scope.condition.schlName = $scope.condition.departName = $scope.condition.timer = $scope.condition.parentTitle = "";
@@ -104,6 +104,11 @@ require(['app'],function(app){
             $scope.money  -= $scope.orderList[idx].money;
             $scope.orderList.splice(idx,1);
         };
+
+
+        $scope.$watch('condition.article',function(newValue,oldValue){
+            console.log("newValue="+newValue+",oldValue="+oldValue);
+        })
 
     }]);
 });

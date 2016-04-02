@@ -32,7 +32,7 @@ require(['app'],function(app){
             $scope.findCity = function(){
                 $scope.content.isfind = true;
                 var param = {};
-                param.key = $scope.content.cityName
+                param.key = $scope.content.cityName;
                 AJAX.getRequest(findCity,'GET',param)
                     .success(function(data,status){
                         $scope.content.cityList = data.response.list;

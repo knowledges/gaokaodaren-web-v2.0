@@ -541,13 +541,13 @@ define(['app'],function(app){
             .state("depth",{
                 url:"/depth",
                 templateUrl:"html/temp/tempDepath.html",
+                controllerUrl:"js/depth/articleMenu",
+                controller:"artCtr",
                 data: { isPublic: false}
             })
             .state("depth.info",{
-                url:"/articleInfo",
+                url:"/depthInfo/batch=:batch",
                 templateUrl:"html/depth/articleInfo.html",
-                controllerUrl:"js/depth/depthMenu",
-                controller:"depthCtr",
                 data: { isPublic: false},
             })
             //.state("depth",{
