@@ -53,19 +53,21 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(promise){
-                if (promise.data.status == -1) {
+                if (promise.status == -1) {
                     alert("验证码有错误");
                     getCodes();
                     return;
-                } else if (promise.data.status == 3) {
+                } else if (promise.status == 3) {
                     alert("此账户已存在");
                     return;
-                } else if (promise.data.status == 6) {
+                } else if (promise.status == 6) {
                     alert('参数错误');
                     return;
                 }
+                alert("注册成功,请登陆");
                 window.sessionStorage.setItem('usernumber', $scope.user.username);
-                $window.location.href = "#/home";
+                $window.location.href = "#/login";
+                //window.location.reload(0);
             });
         };
     }]);

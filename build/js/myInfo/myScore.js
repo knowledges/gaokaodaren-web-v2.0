@@ -60,16 +60,21 @@ require(['app'],function(app){
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
             
             $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){
-            	$scope.table.myScore = data.response;
-                $.each(data.response,function(i,v){
-                    if(v.userTime>0){
-                        sessionStorage.setItem('uScore',JSON.stringify(v));
-                        $scope.table.newScore = v.score;
-                    }
-                });
+                if(data.response.lenght>0){
+                    $scope.table.myScore = data.response;
+
+                    $.each(data.response,function(i,v){
+                        if(v.userTime>0){
+                            sessionStorage.setItem('uScore',JSON.stringify(v));
+                            $scope.table.newScore = v.score;
+                        }
+                    });
+                }else{
+                    $scope.loading = false;
+                }
+
             });
 
-            /*TODO 页面中的8个批次最好走数据库 目前是本地*/
         };
 
         $scope.$watch('table.subject',function(newValue,oldValue){

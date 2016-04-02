@@ -6,13 +6,13 @@
 </div>
 <div class="menu-div">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6" ng-if="table.newScore>0">
             <div class="alert alert-default text-left">
                 <h4 class="h_title">
                     <i class="icon-tag"></i>志愿推荐表批次选择
                 </h4>
             </div>
-            <div class="alert alert-default" ng-if="table.newScore>0">
+            <div class="alert alert-default">
                 <nav class="nav nav-pills">
                     <li><a href="javascript:;;" type="1" score="333" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科本一</a></li>
                     <li><a href="javascript:;;" type="3" score="301" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科本二</a></li>
@@ -27,13 +27,13 @@
                 </nav>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" ng-if="table.newScore>0">
             <div class="alert alert-default text-left">
                 <h4 class="h_title">
                     <i class="icon-tag"></i>志愿预测批次选择
                 </h4>
             </div>
-            <div class="alert alert-default" ng-if="table.newScore>0">
+            <div class="alert alert-default">
                 <nav class="nav nav-pills">
                     <li><a href="javascript:;;" type="1" score="333" ng-click="startChance($event)" title="点击模拟志愿概率">文科本一</a></li>
                     <li><a href="javascript:;;" type="3" score="301" ng-click="startChance($event)" title="点击模拟志愿概率">文科本二</a></li>

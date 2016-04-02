@@ -5,7 +5,7 @@
                 注册
             </h1>
             <label class="src-only" for="username"></label>
-            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\W]+$/" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="请输入用户名" required autofocus>
             <label ng-if="register.name.$error.required" class="red">用户名不能为空</label>
             <label ng-if="login.name.$error.minlength" class="red">输入格式至少是6位</label>
             <label ng-if="login.name.$error.maxlength" class="red">输入格式最大是20位</label>
