@@ -19,39 +19,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
-    app.factory('AJAX',['$http',"$q",function($http,$q){
-        var request = function(path,method,data){
-            if(method == undefined || method == 'GET'){
-                return $http({
-                    url:"/loocha"+path,
-                    method: 'GET',
-                    params:data,
-                })
-            }else{
-                var dfd = $q.defer();
-                var transform = function (data) {
-                    return $.param(data);
-                }
-                var postCfg = {
-                    transformRequest:transform,
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                    }
-                }
-                var promise = $http.post(path,data,postCfg).then(function (response) {
-                    return dfd.resolve(response) ;
-                });
-                return dfd.promise;
-            }
-        }
-        return {
-            getRequest : function(path,method,data){
-                return request(path,method,data);
-            }
-        }
-    }]);
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -70,6 +39,7 @@ define(['app'],function(app){
                     sessionStorage.removeItem('usernumber');
                     alert('登陆失效或您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
+                    $(".modal-backdrop").fadeOut(500);
                 });
             },
             isLogin:function(){
@@ -618,7 +588,7 @@ define(['app'],function(app){
                 }
             })
     }]);
-    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"AJAX",function($scope,$rootScope,$http,logoutURL,AJAX){
+    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"loocha",function($scope,$rootScope,$http,logoutURL,loocha){
         $scope.user = {
             islogin : false,
             name : "",
@@ -650,7 +620,6 @@ define(['app'],function(app){
         }
         $scope.logoff = function(){
             $http.get(logoutURL)
-            AJAX.getRequest(logoutURL,'GET',"")
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     sessionStorage.setItem('usernumber',"");

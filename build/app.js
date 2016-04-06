@@ -26,6 +26,9 @@ define(function(require,exports,module){
             homeService.htmlPage="";
             displayService.isShow = true;
             $rootScope.loading = true;
+            if(fromState.name!=""){ //是否为刷新 "" 就是刷新
+                localStorage.removeItem("type");
+            }
             var isAuthenticated = userService.isAuthenticated();
             var isPublicAction = angular.isObject(toState.data)
                 && toState.data.isPublic === true;
