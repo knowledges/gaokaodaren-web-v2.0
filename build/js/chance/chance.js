@@ -17,19 +17,12 @@ require(['app'],function(app){
         }
     });
     app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,getLoginUserInfo,loocha,arraysort){
-
         $scope.score = "";
-
         $scope.isShow = false;
-
         $scope.isChance = localStorage.getItem("type");
-
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
-
         $scope.order_id = "";
-
         $scope.money = "";
-
         $scope.forecast = {
             area:"",
             city_id:"",
@@ -560,28 +553,8 @@ require(['app'],function(app){
          * 开始缴费
          */
         $scope.pay = function(){
-            openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+localStorage.getItem("type"));
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
-            $('#zyb_random').modal('hide');
-            $("#tip").modal('show');
-        };
 
-        $scope.isPay = function(){
-            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id,function(data){
-                if(data.Response.status==1004){
-                    alert('交易失败');
-                }
-                $("#tip").modal('hide');
-            });
         };
-
 
         $(".close").unbind('click').click(function(e){
             $("#mask-school,#mask-depart").fadeOut(800);
@@ -597,7 +570,7 @@ require(['app'],function(app){
             $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
                 $scope.schoolInfo = data.response.list[0];
                 if($scope.schoolInfo.article_id>0){
-                    $http.get(loocha+"/depth/"+$scope.schoolInfo.article_id).success(function(data){
+                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
                         $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
                         $("#mask-school").fadeIn(500);
                     });
@@ -614,7 +587,7 @@ require(['app'],function(app){
             $http.get(loocha+"/depart/by?depart_id="+$scope.forecast.schl_departId).success(function(data){
                 var article_id = data.response.article_id;
                 if(article_id>0){
-                    $http.get(loocha+"/depth/show/"+article_id).success(function(data){
+                    $http.get(loocha+"/article/show/"+article_id).success(function(data){
                         $scope.forecast.departInfo = $sce.trustAsHtml(data);
                         $("#mask-depart").fadeIn(800);
                         $("#mask-depart .modal-body").scrollTop(100);

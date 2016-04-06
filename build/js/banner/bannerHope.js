@@ -2,7 +2,7 @@
  * Created by qbl on 2015/11/19.
  */
 require(['app'],function(app){
-    app.controller('addhopeCtl',['$scope','$http','$window','getLoginUserInfo',function($scope,$http,$window,getLoginUserInfo){
+    app.controller('addhopeCtl',['$scope','$http','$window','getLoginUserInfo','loocha',function($scope,$http,$window,getLoginUserInfo,loocha){
         $scope.table = {
             obl:"",
             sel:"",
@@ -46,7 +46,7 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(table){
-            getLoginUserInfo.isLogoin();
+            getLoginUserInfo.isLogin();
 
             if(table.score <=0){
                 alert('分数不能小于0！');
@@ -74,12 +74,12 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
-                alert('成绩创建成功，默认使用此成绩去模拟志愿表');
+                alert('成绩创建成功，默认“开始使用”此成绩');
                 var index = responseDate.response,score = $scope.table.score;
                 $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
                     $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
                         sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                        alert("去选择批次吧！");
+                        alert("请选择批次！");
                         $window.location.href = "#/all/allScore";
                     });
                 });

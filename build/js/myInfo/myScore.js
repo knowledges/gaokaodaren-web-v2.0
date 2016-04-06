@@ -60,7 +60,7 @@ require(['app'],function(app){
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
             
             $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){
-                if(data.response.lenght>0){
+                if(data.response!=null && data.response.length>0){
                     $scope.table.myScore = data.response;
 
                     $.each(data.response,function(i,v){

@@ -325,20 +325,30 @@ require(['app'], function (app) {
                     $("#zyb_random").show();
                 });
             })
-        }
+        };
 
         $scope.pay = function(){
             openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+localStorage.getItem("type"));
-            //localStorage.setItem("order_id",$scope.order_id);
-            //localStorage.setItem("money",$scope.money);
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
+            $('#zyb_random').modal('hide');
+            $("#tip").modal('show');
+        };
+
+        $scope.isPay = function(){
+            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id,function(data){
+                if(data.status == "1004"){
+                    alert('交易失败');
+                }
+                $("#tip").modal('hide');
+            });
+        };
+
+        function openwin(url) {
+            var a = document.createElement("a");
+            a.setAttribute("href", url);
+            a.setAttribute("target", "_blank");
+            a.setAttribute("id", "openwin");
+            document.body.appendChild(a);
+            a.click();
         }
 
     }]);

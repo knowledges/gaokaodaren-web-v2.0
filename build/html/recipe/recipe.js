@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/12/2.
  */
 require(['app'],function(app){
-    app.constant('articleURL',"/depth");
+    app.constant('articleURL',"/article");
     app.controller('recipeInfoCtr',['$scope','$stateParams','$sce','AJAX','articleURL','menuRecipeURL',function($scope,$stateParams,$sce,AJAX,articleURL,menuRecipeURL){
         //console.log($stateParams);
 
@@ -85,7 +85,7 @@ require(['app'],function(app){
         }
 
         function showInfo(id){
-            AJAX.getRequest('/depth/show/'+id,'GET','')
+            AJAX.getRequest('/article/show/'+id,'GET','')
                 .success(function(data,status){
                     $scope.title.strHtml = $sce.trustAsHtml(data);
                 })

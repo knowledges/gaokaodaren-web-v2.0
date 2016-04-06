@@ -2,19 +2,9 @@
  * Created by qbl on 2015/10/20.
  */
 require(['app'],function(app){
-    app.constant("cityList","../JSON/cityContent.json");
-    app.constant("findCity","/city");
-    app.directive('isLoading',['$rootScope',function($rootScope){
-        return{
-            restrict: 'A',
-            link:function(scope){
-                if(scope.$last == true){
-                    $rootScope.loading=false;
-                }
-            }
-        }
-    }]);
-    app.controller("cityConCtl",['$scope','$stateParams','$http','$sce','AJAX','navURL_1','cityList','findCity',function($scope,$stateParams,$http,$sce,AJAX,navURL_1,cityList,findCity){
+    //app.constant("cityList","../JSON/cityContent.json");
+    //app.constant("findCity","/city");
+    app.controller("cityConCtl",['$scope','$stateParams','$http','$sce','$rootScope','loocha',function($scope,$stateParams,$http,$sce,$rootScope,loocha){
 
             $scope.content = {
                 isfind:true,
@@ -31,21 +21,18 @@ require(['app'],function(app){
 
             $scope.findCity = function(){
                 $scope.content.isfind = true;
-                var param = {};
-                param.key = $scope.content.cityName;
-                AJAX.getRequest(findCity,'GET',param)
+                $http.get('/city?key='+$scope.content.cityName)
                     .success(function(data,status){
                         $scope.content.cityList = data.response.list;
                     });
             }
 
             $scope.findBack = function(){
-                console.log('===');
                 $scope.content.isfind = false;
             }
 
             function getCityList(num){
-                AJAX.getRequest("/city/province/"+num,'GET','')
+                $http.get(loocha+"/city/province/"+num)
                     .success(function(data,status){
                         $scope.content.isfind = false;
 
@@ -93,21 +80,8 @@ require(['app'],function(app){
                             });
                             $scope.content.listCity_0 = list_0;
                         }
-
+                        $rootScope.loading = false;
                     });
             }
-
-            //$scope.navigation = function(){/**导航*/
-            //     getRequed();
-            //}
-
-            //function getRequed(){
-            //    console.log('这个是导航');
-            //    AJAX.getRequest(navURL_1,'GET','')
-            //        .success(function(data,status){
-            //            $scope.content.page = $sce.trustAsHtml(data);
-            //        });
-            //}
-
         }])
 });

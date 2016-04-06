@@ -67,7 +67,6 @@ require(['app'],function(app){
                 alert("注册成功,请登陆");
                 window.sessionStorage.setItem('usernumber', $scope.user.username);
                 $window.location.href = "#/login";
-                //window.location.reload(0);
             });
         };
     }]);

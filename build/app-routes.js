@@ -19,7 +19,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('AJAX',['$http',"$q",function($http,$q){
         var request = function(path,method,data){
             if(method == undefined || method == 'GET'){
@@ -57,10 +58,22 @@ define(['app'],function(app){
                 return $http.get(loocha+'/user').success(function(data){
                     $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
                         if(data<=0){
-                            alert('您还没有开始使用成绩，去设置吧！');
+                            alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
                             window.location.href = "#/all/allScore";
                         }
                     });
+                }).error(function(e){
+                    sessionStorage.removeItem('type');
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                });
+            },
+            isLogin:function(){
+                return $http.get(loocha+'/user').success(function(data){
                 }).error(function(e){
                     sessionStorage.removeItem('type');
                     sessionStorage.removeItem('uScore');

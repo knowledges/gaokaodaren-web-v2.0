@@ -2,17 +2,17 @@
  * Created by qbl on 2015/10/21.
  */
 require(['app'],function(app){
-    app.constant("navURL_1","/depth/show/3289")//城市
-    app.constant("navURL_2","/depth/show/3290")//高校
-    app.constant("navURL_3","/depth/show/3291")//高校
-    app.constant("navURL_4","/depth/show/3284")//填报
-    app.constant("navURL_5","/depth/show/3286")//分析
-    app.constant("navURL_6","/depth/show/3287")//招生
-    app.constant("navURL_7","/depth/show/3293")//毕业
-    app.constant("navURL_8","/depth/show/3294")//毕业
-    app.constant("navURL_9","/depth/show/3295")//咨询
-    app.constant("navURL_10","/depth/show/4451")//关于我们
-    app.constant("navURL_11","/depth/show/3282")//志愿意向
+    app.constant("navURL_1","/article/show/3289")//城市
+    app.constant("navURL_2","/article/show/3290")//高校
+    app.constant("navURL_3","/article/show/3291")//高校
+    app.constant("navURL_4","/article/show/3284")//填报
+    app.constant("navURL_5","/article/show/3286")//分析
+    app.constant("navURL_6","/article/show/3287")//招生
+    app.constant("navURL_7","/article/show/3293")//毕业
+    app.constant("navURL_8","/article/show/3294")//毕业
+    app.constant("navURL_9","/article/show/3295")//咨询
+    app.constant("navURL_10","/article/show/4451")//关于我们
+    app.constant("navURL_11","/article/show/3282")//志愿意向
     app.controller('cityNav',['$scope','$sce','$http','navURL_1','loocha',function($scope,$sce,$http,navURL_1,loocha){
         $scope.nav = {
             content : ''

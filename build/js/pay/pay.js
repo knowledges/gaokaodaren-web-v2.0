@@ -30,18 +30,18 @@ require(['app'],function(app){
             }
         }
     })
-    app.directive('pay',['$window','$location',function($window,$location){
+    app.directive('pay',['$window','$location','loocha',function($window,$location,loocha){
         return function(scope, element, attrs){
             element.bind('click',function(element){
                 var out_trade_no = $location.$$search.order_id, order_type = $location.$$search.type;
                 var type = element.target.getAttribute("pay-type");
                 switch(type){
                     case "zhifubao":
-                        $window.open("/loocha/exam/buy?out_trade_no="+out_trade_no+"&type="+order_type);
+                        $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type="+order_type);
                         break;
                     case "bank":
                         var code = element.target.getAttribute("bank-code");
-                        window.open("/loocha/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
+                        window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
                         break;
                     case "yinhanghuikuan":
                         document.getElementById('modal').style.display = "block";
@@ -52,8 +52,7 @@ require(['app'],function(app){
 
         }
     }])
-    app.constant("buyinfoURl","/loocha/exam/order/buyinfo?limit=99")
-    app.controller('payCtr',['$scope','$location','$interval','$stateParams','$http','buyinfoURl','loocha',function($scope,$location,$interval,$stateParams,$http,buyinfoURl,loocha){
+    app.controller('payCtr',['$scope','$location','$interval','$stateParams','$http','loocha',function($scope,$location,$interval,$stateParams,$http,loocha){
 
         $scope.pay = {
             list:"",
@@ -68,8 +67,6 @@ require(['app'],function(app){
         }
 
         function init(){
-            //$scope.pay.orderId = localStorage.setItem("order_id",$scope.order_id);
-            //$scope.pay.money = localStorage.setItem("money",$scope.money);
             $scope.pay.orderId = $location.$$search.order_id;
             $scope.pay.money = $location.$$search.money;
             //getBuyInfo();

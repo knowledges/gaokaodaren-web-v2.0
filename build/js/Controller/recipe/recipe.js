@@ -2,7 +2,7 @@
  * Created by qbl on 2015/10/22.
  */
 require(['app'],function(app){
-    app.constant('articleURL',"/depth");
+    app.constant('articleURL',"/article");
     app.directive('isLoading',['$rootScope',function($rootScope){
         return{
             restrict: 'A',
@@ -114,7 +114,7 @@ require(['app'],function(app){
             }
 
             function showInfo(id){
-                $http.get(loocha+'/depth/show/'+id)
+                $http.get(loocha+'/article/show/'+id)
                     .success(function(data,status){
                         $scope.title.strHtml = $sce.trustAsHtml(data);
                     });

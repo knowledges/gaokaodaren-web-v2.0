@@ -191,7 +191,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('hopeCtr',['$scope','$window','$http','$timeout','$stateParams','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,$stateParams,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
+    app.controller('hopeCtr',['$scope','$window','$http','$timeout','$stateParams','$rootScope','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,$stateParams,$rootScope,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
         $scope.hope = {
             area: "",
             js_province: "",
@@ -206,7 +206,7 @@ require(['app'],function(app){
             fourthDepart: "",
             fifthDepart: "",
             schbatch: "",
-            batch: localStorage.getItem('type')!=null ? localStorage.getItem('type') : 1,//批次
+            batch: localStorage.getItem('type'),
             depart: [],//专业
             wish: [],//学习愿望（学文、理、工）
             department: [],//具体专业
@@ -281,7 +281,7 @@ require(['app'],function(app){
             thiDepart51:[],thiDepart52:[],thiDepart53:[],thiDepart54:[],thiDepart55:[],
             thiDepart56:[],thiDepart57:[],thiDepart58:[],thiDepart59:[],thiDepart60:[],thiDepart61:[],
             thiDepart62:[],thiDepart63:[],thiDepart64:[],thiDepart65:[],thiDepart66:[],thiDepart67:[],thiDepart68:[],
-            thiDepart69:[],thiDepart70:[],thiDepart71:[],
+            thiDepart69:[],thiDepart70:[],thiDepart71:[],thiDepart72:[],
             fourDepart1:[],fourDepart2:[],fourDepart3:[],fourDepart4:[],fourDepart5:[],fourDepart6:[],fourDepart7:[],fourDepart8:[],fourDepart9:[],fourDepart10:[],fourDepart11:[],fourDepart12:[],
             fifDepart1:[],fifDepart2:[],fifDepart3:[],fifDepart4:[],fifDepart5:[],fifDepart6:[],fifDepart7:[],fifDepart8:[],fifDepart9:[],fifDepart10:[],fifDepart11:[]
         };
@@ -299,546 +299,559 @@ require(['app'],function(app){
         function init(){
             getLoginUserInfo.isLogoin();
 
-            $scope.coverage = [
-                {
-                    id:1,
-                    name:"高校"
-                },{
-                    id:2,
-                    name:"专业"
-                },{
-                    id:3,
-                    name:"城市"
-                },{
-                    id:4,
-                    name:"个性"
+            if(localStorage.getItem('type')!= null){
+
+                $scope.hope.batch = localStorage.getItem('type');
+
+                $scope.coverage = [
+                    {
+                        id:1,
+                        name:"高校"
+                    },{
+                        id:2,
+                        name:"专业"
+                    },{
+                        id:3,
+                        name:"城市"
+                    },{
+                        id:4,
+                        name:"个性"
+                    }
+                ];
+
+                var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
+                var type = "";
+                if (see != undefined){
+                    type = see;
+                }else {
+                    type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
                 }
-            ];
 
-            var see =  window.location.hash.split("see=")[1]!=undefined ? window.location.hash.split("see=")[1] : undefined;
-            var type = "";
-            if (see != undefined){
-                type = see;
-            }else {
-                type = localStorage.getItem('type') == null ? 1:localStorage.getItem('type');
-            }
-
-            if(type<=6){
-                /*专业大门类（13个）*/
-                $http.get(loocha+'/depart/prop?type=0&depart_type=0').success(function(data,status){
-                    $.each(data.response,function(i,v){
-                        if(i<13){
-                            $scope.hope.depart.push(v);
-                        }
+                if(type<=6){
+                    /*专业大门类（13个）*/
+                    $http.get(loocha+'/depart/prop?type=0&depart_type=0').success(function(data,status){
+                        $.each(data.response,function(i,v){
+                            if(i<13){
+                                $scope.hope.depart.push(v);
+                            }
+                        });
+                        console.log($scope.hope.depart);
                     });
-                    console.log($scope.hope.depart);
-                });
-            }else{
-                /*专业大门类（13个）*/
-                $http.get(loocha+'/depart/prop?type=0&depart_type=1').success(function(data,status){
-                    $.each(data.response,function(i,v){
-                        if(i<19){
-                            $scope.hope.depart.push(v);
-                        }
-                    });
-                    console.log($scope.hope.depart);
-                });
-            }
-
-            switch (parseInt(type)){
-                case 1:
-                    $scope.info.title = "文科本一考生志愿意向表";
-                    $scope.info.subtitle = "【第一阶段填报文科类第一批本科院校志愿用表】";
-                    break;
-                case 2:
-                    $scope.info.title = "理科本一考生志愿意向表";
-                    $scope.info.subtitle = "【第一阶段填报理科类第一批本科院校志愿用表】";
-                    break;
-                case 3:
-                    $scope.info.title = "文科本二考生志愿意向表";
-                    $scope.info.subtitle = "【第一阶段填报文科类第二批本科院校志愿用表】";
-                    break;
-                case 4:
-                    $scope.info.title = "理科本二考生志愿意向表";
-                    $scope.info.subtitle = "【第一阶段填报理科类第二批本科院校志愿用表】";
-                    break;
-                case 5:
-                    $scope.info.title = "文科本三考生志愿意向表";
-                    $scope.info.subtitle = "【第二阶段填报文科类第三批本科院校志愿用表】";
-                    break;
-                case 6:
-                    $scope.info.title = "理科本三考生志愿意向表";
-                    $scope.info.subtitle = "【第二阶段填报理科类第三批本科院校志愿用表】";
-                    break;
-                case 7:
-                    $scope.info.title = "文科高职(专科)考生志愿意向表";
-                    $scope.info.subtitle = "【第二阶段填报文科类高职（专科）院校志愿用表】";
-                    break;
-                case 8:
-                    $scope.info.title = "理科高职(专科)考生志愿意向表";
-                    $scope.info.subtitle = "【第二阶段填报理科类高职（专科）院校志愿用表】";
-                    break;
-            }
-
-            var uScore =$scope.info.uScore= JSON.parse(sessionStorage.getItem('uScore'));
-
-            if(uScore == null){
-                alert('登陆失效或您还没有登陆，先去登陆吧！');
-                window.location.href = "#/login";
-            }else{
-                $scope.info.subject=uScore.subject==1?"文科":"理科";
-                $scope.info.score = uScore.score;
-                $scope.info.level = uScore.level_a+","+uScore.level_b;
-            }
-
-            /**
-             * 属地
-             */
-            $http.get(loocha+'/wish/area?batch='+$scope.hope.batch).success(function(data,status){
-                $scope.hope.area = data.response.item1;
-                $scope.hope.js_province = data.response.item2;
-                $scope.hope.firstCities = data.response.item3;
-                $scope.hope.secondCities = data.response.item4;
-                $scope.hope.thirdCities = data.response.item5;
-                $scope.hope.fourthCities = data.response.item6;
-                $scope.hope.fifthCities = data.response.item7;
-            });
-
-            /**
-             * 院校属类
-             */
-            $http.get(loocha+'/schbath?type='+$scope.hope.batch).success(function(data,status){
-                $scope.hope.schbatch = data.response;
-            });
-
-            /**
-             * 获取具体专业
-             */
-            $http.get(loocha+'/batch?type='+$scope.hope.batch).success(function(data,status){
-                $scope.hope.firstDepart = data.response.item2;
-                $scope.hope.secondDepart = data.response.item3;
-                $scope.hope.thirdDepart = data.response.item4;
-                $scope.hope.fourthDepart = data.response.item5;
-                $scope.hope.fifthDepart = data.response.item6;
-                iterator_1($scope.hope.firstDepart);
-                iterator_2($scope.hope.secondDepart);
-                iterator_3($scope.hope.thirdDepart);
-                iterator_4($scope.hope.fourthDepart);
-                iterator_5($scope.hope.fifthDepart);
-            });
-
-            function iterator_1(list){
-                $.each(list,function(i,v){
-                    switch(parseInt(v.classify)){
-                        case 1:
-                            $scope.iterator.firDepart1.push(v);
-                            break;
-                        case 2:
-                            $scope.iterator.firDepart2.push(v);
-                            break;
-                        case 3:
-                            $scope.iterator.firDepart3.push(v);
-                            break;
-                        case 4:
-                            $scope.iterator.firDepart4.push(v);
-                            break;
-                        case 5:
-                            $scope.iterator.firDepart5.push(v);
-                            break;
-                        case 6:
-                            $scope.iterator.firDepart6.push(v);
-                            break;
-                    }
-                })
-            }
-
-            function iterator_2(list){
-                $.each(list,function(i,v){
-                    switch(parseInt(v.classify)){
-                        case 1:
-                            $scope.iterator.secDepart1.push(v);
-                            break;
-                        case 2:
-                            $scope.iterator.secDepart2.push(v);
-                            break;
-                        case 3:
-                            $scope.iterator.secDepart3.push(v);
-                            break;
-                        case 4:
-                            $scope.iterator.secDepart4.push(v);
-                            break;
-                        case 5:
-                            $scope.iterator.secDepart5.push(v);
-                            break;
-                        case 6:
-                            $scope.iterator.secDepart6.push(v);
-                            break;
-                        case 7:
-                            $scope.iterator.secDepart7.push(v);
-                            break;
-                        case 8:
-                            $scope.iterator.secDepart8.push(v);
-                            break;
-                        case 9:
-                            $scope.iterator.secDepart9.push(v);
-                            break;
-                        case 10:
-                            $scope.iterator.secDepart10.push(v);
-                            break;
-                    }
-                })
-            }
-
-            function iterator_3(list){
-                $.each(list,function(i,v){
-                    switch(parseInt(v.classify)){
-                        case 1:
-                            $scope.iterator.thiDepart1.push(v);
-                            break;
-                        case 2:
-                            $scope.iterator.thiDepart2.push(v);
-                            break;
-                        case 3:
-                            $scope.iterator.thiDepart3.push(v);
-                            break;
-                        case 4:
-                            $scope.iterator.thiDepart4.push(v);
-                            break;
-                        case 5:
-                            $scope.iterator.thiDepart5.push(v);
-                            break;
-                        case 6:
-                            $scope.iterator.thiDepart6.push(v);
-                            break;
-                        case 7:
-                            $scope.iterator.thiDepart7.push(v);
-                            break;
-                        case 8:
-                            $scope.iterator.thiDepart8.push(v);
-                            break;
-                        case 9:
-                            $scope.iterator.thiDepart9.push(v);
-                            break;
-                        case 10:
-                            $scope.iterator.thiDepart10.push(v);
-                            break;
-                        case 11:
-                            $scope.iterator.thiDepart11.push(v);
-                            break;
-                        case 12:
-                            $scope.iterator.thiDepart12.push(v);
-                            break;
-                        case 13:
-                            $scope.iterator.thiDepart13.push(v);
-                            break;
-                        case 14:
-                            $scope.iterator.thiDepart14.push(v);
-                            break;
-                        case 15:
-                            $scope.iterator.thiDepart15.push(v);
-                            break;
-                        case 16:
-                            $scope.iterator.thiDepart16.push(v);
-                            break;
-                        case 17:
-                            $scope.iterator.thiDepart17.push(v);
-                            break;
-                        case 18:
-                            $scope.iterator.thiDepart18.push(v);
-                            break;
-                        case 19:
-                            $scope.iterator.thiDepart19.push(v);
-                            break;
-                        case 20:
-                            $scope.iterator.thiDepart20.push(v);
-                            break;
-                        case 21:
-                            $scope.iterator.thiDepart21.push(v);
-                            break;
-                        case 22:
-                            $scope.iterator.thiDepart22.push(v);
-                            break;
-                        case 23:
-                            $scope.iterator.thiDepart23.push(v);
-                            break;
-                        case 24:
-                            $scope.iterator.thiDepart24.push(v);
-                            break;
-                        case 25:
-                            $scope.iterator.thiDepart25.push(v);
-                            break;
-                        case 26:
-                            $scope.iterator.thiDepart26.push(v);
-                            break;
-                        case 27:
-                            $scope.iterator.thiDepart27.push(v);
-                            break;
-                        case 28:
-                            $scope.iterator.thiDepart28.push(v);
-                            break;
-                        case 29:
-                            $scope.iterator.thiDepart29.push(v);
-                            break;
-                        case 30:
-                            $scope.iterator.thiDepart30.push(v);
-                            break;
-                        case 31:
-                            $scope.iterator.thiDepart31.push(v);
-                            break;
-                        case 32:
-                            $scope.iterator.thiDepart32.push(v);
-                            break;
-                        case 33:
-                            $scope.iterator.thiDepart33.push(v);
-                            break;
-                        case 34:
-                            $scope.iterator.thiDepart34.push(v);
-                            break;
-                        case 35:
-                            $scope.iterator.thiDepart35.push(v);
-                            break;
-                        case 36:
-                            $scope.iterator.thiDepart36.push(v);
-                            break;
-                        case 37:
-                            $scope.iterator.thiDepart37.push(v);
-                            break;
-                        case 38:
-                            $scope.iterator.thiDepart38.push(v);
-                            break;
-                        case 39:
-                            $scope.iterator.thiDepart39.push(v);
-                            break;
-                        case 40:
-                            $scope.iterator.thiDepart40.push(v);
-                            break;
-                        case 41:
-                            $scope.iterator.thiDepart41.push(v);
-                            break;
-                        case 42:
-                            $scope.iterator.thiDepart42.push(v);
-                            break;
-                        case 43:
-                            $scope.iterator.thiDepart43.push(v);
-                            break;
-                        case 44:
-                            $scope.iterator.thiDepart44.push(v);
-                            break;
-                        case 45:
-                            $scope.iterator.thiDepart45.push(v);
-                            break;
-                        case 46:
-                            $scope.iterator.thiDepart46.push(v);
-                            break;
-                        case 47:
-                            $scope.iterator.thiDepart47.push(v);
-                            break;
-                        case 48:
-                            $scope.iterator.thiDepart48.push(v);
-                            break;
-                        case 49:
-                            $scope.iterator.thiDepart49.push(v);
-                            break;
-                        case 50:
-                            $scope.iterator.thiDepart50.push(v);
-                            break;
-                        case 51:
-                            $scope.iterator.thiDepart51.push(v);
-                            break;
-                        case 52:
-                            $scope.iterator.thiDepart52.push(v);
-                            break;
-                        case 53:
-                            $scope.iterator.thiDepart53.push(v);
-                            break;
-                        case 54:
-                            $scope.iterator.thiDepart54.push(v);
-                            break;
-                        case 55:
-                            $scope.iterator.thiDepart55.push(v);
-                            break;
-                        case 56:
-                            $scope.iterator.thiDepart56.push(v);
-                            break;
-                        case 57:
-                            $scope.iterator.thiDepart57.push(v);
-                            break;
-                        case 58:
-                            $scope.iterator.thiDepart58.push(v);
-                            break;
-                        case 59:
-                            $scope.iterator.thiDepart59.push(v);
-                            break;
-                        case 60:
-                            $scope.iterator.thiDepart60.push(v);
-                            break;
-                        case 61:
-                            $scope.iterator.thiDepart61.push(v);
-                            break;
-                        case 62:
-                            $scope.iterator.thiDepart62.push(v);
-                            break;
-                        case 63:
-                            $scope.iterator.thiDepart63.push(v);
-                            break;
-                        case 64:
-                            $scope.iterator.thiDepart64.push(v);
-                            break;
-                        case 65:
-                            $scope.iterator.thiDepart65.push(v);
-                            break;
-                        case 66:
-                            $scope.iterator.thiDepart66.push(v);
-                            break;
-                        case 67:
-                            $scope.iterator.thiDepart67.push(v);
-                            break;
-                        case 68:
-                            $scope.iterator.thiDepart68.push(v);
-                            break;
-                        case 69:
-                            $scope.iterator.thiDepart69.push(v);
-                            break;
-                        case 70:
-                            $scope.iterator.thiDepart70.push(v);
-                            break;
-                        case 71:
-                            $scope.iterator.thiDepart71.push(v);
-                            break;
-                    }
-                })
-            }
-
-            function iterator_4(list){
-                $.each(list,function(i,v){
-                    switch(parseInt(v.classify)){
-                        case 1:
-                            $scope.iterator.fourDepart1.push(v);
-                            break;
-                        case 2:
-                            $scope.iterator.fourDepart2.push(v);
-                            break;
-                        case 3:
-                            $scope.iterator.fourDepart3.push(v);
-                            break;
-                        case 4:
-                            $scope.iterator.fourDepart4.push(v);
-                            break;
-                        case 5:
-                            $scope.iterator.fourDepart5.push(v);
-                            break;
-                        case 6:
-                            $scope.iterator.fourDepart6.push(v);
-                            break;
-                        case 7:
-                            $scope.iterator.fourDepart7.push(v);
-                            break;
-                        case 8:
-                            $scope.iterator.fourDepart8.push(v);
-                            break;
-                        case 9:
-                            $scope.iterator.fourDepart9.push(v);
-                            break;
-                        case 10:
-                            $scope.iterator.fourDepart10.push(v);
-                            break;
-                        case 11:
-                            $scope.iterator.fourDepart11.push(v);
-                            break;
-                        case 12:
-                            $scope.iterator.fourDepart12.push(v);
-                            break;
-                    }
-                })
-            }
-
-            function iterator_5(list){
-                $.each(list,function(i,v){
-                    switch(parseInt(v.classify)){
-                        case 1:
-                            $scope.iterator.fifDepart1.push(v);
-                            break;
-                        case 2:
-                            $scope.iterator.fifDepart2.push(v);
-                            break;
-                        case 3:
-                            $scope.iterator.fifDepart3.push(v);
-                            break;
-                        case 4:
-                            $scope.iterator.fifDepart4.push(v);
-                            break;
-                        case 5:
-                            $scope.iterator.fifDepart5.push(v);
-                            break;
-                        case 6:
-                            $scope.iterator.fifDepart6.push(v);
-                            break;
-                        case 7:
-                            $scope.iterator.fifDepart7.push(v);
-                            break;
-                        case 8:
-                            $scope.iterator.fifDepart8.push(v);
-                            break;
-                        case 9:
-                            $scope.iterator.fifDepart9.push(v);
-                            break;
-                        case 10:
-                            $scope.iterator.fifDepart10.push(v);
-                            break;
-                        case 11:
-                            $scope.iterator.fifDepart11.push(v);
-                            break;
-                    }
-                })
-            }
-
-            /**
-             * 获取个性
-             */
-            $http.get(loocha+"/depart/personality").success(function(data,status){
-                $scope.hope.personality_type1 =  data.response.pmap.type1;
-                $scope.hope.personality_type2 =  data.response.pmap.type2;
-                $scope.hope.personality_type3 =  data.response.pmap.type3;
-                $scope.hope.personality_type4 =  data.response.pmap.type4;
-
-                $scope.hope.personality_type1 = arraysort.sort($scope.hope.personality_type1);
-                $scope.hope.personality_type2 = arraysort.sort($scope.hope.personality_type2);
-                $scope.hope.personality_type3 = arraysort.sort($scope.hope.personality_type3);
-                $scope.hope.personality_type4 = arraysort.sort($scope.hope.personality_type4);
-
-                var physical =  arraysort.sort($scope.hope.personality_type2[2].sublist);
-                $scope.hope.unEnglish[0] = $scope.hope.personality_type2[3];
-
-                arrClassify($scope.hope.personality_type1,$scope.hope.classify_1,$scope.hope.classify_2);
-                phyClassify(physical,$scope.hope.physical_1,$scope.hope.physical_2);
-                function arrClassify(list,arr1,arr2){
-                    $.each(list,function(i,v){
-                        if(i<4){
-                            arr1.push(v);
-                        }else{
-                            arr2.push(v);
-                        }
-                    });
-                }
-                function phyClassify(list,arr1,arr2){
-                    $.each(list,function(i,v){
-                        if(i<5){
-                            arr1.push(v);
-                        }else{
-                            arr2.push(v);
-                        }
-                    });
-                }
-            });
-
-            $(document).unbind('click').click(function(e){
-                e = window.event || e;
-                obj = $(e.srcElement || e.target);
-                if($(obj).is('.btn,.btn-default,.dropdown-toggle,.dropdown-menu,.dropdown-menu li,.dropdown-menu li a')){
                 }else{
-                    $("#provnice .dropdown-menu,#panel-footer .dropdown-menu,#character .dropdown-menu,#depart .dropdown-menu").hide();
+                    /*专业大门类（13个）*/
+                    $http.get(loocha+'/depart/prop?type=0&depart_type=1').success(function(data,status){
+                        $.each(data.response,function(i,v){
+                            if(i<19){
+                                $scope.hope.depart.push(v);
+                            }
+                        });
+                        console.log($scope.hope.depart);
+                    });
                 }
-            });
+
+                switch (parseInt(type)){
+                    case 1:
+                        $scope.info.title = "文科本一考生志愿意向表";
+                        $scope.info.subtitle = "【第一阶段填报文科类第一批本科院校志愿用表】";
+                        break;
+                    case 2:
+                        $scope.info.title = "理科本一考生志愿意向表";
+                        $scope.info.subtitle = "【第一阶段填报理科类第一批本科院校志愿用表】";
+                        break;
+                    case 3:
+                        $scope.info.title = "文科本二考生志愿意向表";
+                        $scope.info.subtitle = "【第一阶段填报文科类第二批本科院校志愿用表】";
+                        break;
+                    case 4:
+                        $scope.info.title = "理科本二考生志愿意向表";
+                        $scope.info.subtitle = "【第一阶段填报理科类第二批本科院校志愿用表】";
+                        break;
+                    case 5:
+                        $scope.info.title = "文科本三考生志愿意向表";
+                        $scope.info.subtitle = "【第二阶段填报文科类第三批本科院校志愿用表】";
+                        break;
+                    case 6:
+                        $scope.info.title = "理科本三考生志愿意向表";
+                        $scope.info.subtitle = "【第二阶段填报理科类第三批本科院校志愿用表】";
+                        break;
+                    case 7:
+                        $scope.info.title = "文科高职(专科)考生志愿意向表";
+                        $scope.info.subtitle = "【第二阶段填报文科类高职（专科）院校志愿用表】";
+                        break;
+                    case 8:
+                        $scope.info.title = "理科高职(专科)考生志愿意向表";
+                        $scope.info.subtitle = "【第二阶段填报理科类高职（专科）院校志愿用表】";
+                        break;
+                }
+
+                var uScore =$scope.info.uScore= JSON.parse(sessionStorage.getItem('uScore'));
+
+                if(uScore == null){
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else{
+                    $scope.info.subject=uScore.subject==1?"文科":"理科";
+                    $scope.info.score = uScore.score;
+                    $scope.info.level = uScore.level_a+","+uScore.level_b;
+                }
+
+                /**
+                 * 属地
+                 */
+                $http.get(loocha+'/wish/area?batch='+$scope.hope.batch).success(function(data,status){
+                    $scope.hope.area = data.response.item1;
+                    $scope.hope.js_province = data.response.item2;
+                    $scope.hope.firstCities = data.response.item3;
+                    $scope.hope.secondCities = data.response.item4;
+                    $scope.hope.thirdCities = data.response.item5;
+                    $scope.hope.fourthCities = data.response.item6;
+                    $scope.hope.fifthCities = data.response.item7;
+                });
+
+                /**
+                 * 院校属类
+                 */
+                $http.get(loocha+'/schbath?type='+$scope.hope.batch).success(function(data,status){
+                    $scope.hope.schbatch = data.response;
+                });
+
+                /**
+                 * 获取具体专业
+                 */
+                $http.get(loocha+'/batch?type='+$scope.hope.batch).success(function(data,status){
+                    $scope.hope.firstDepart = data.response.item2;
+                    $scope.hope.secondDepart = data.response.item3;
+                    $scope.hope.thirdDepart = data.response.item4;
+                    $scope.hope.fourthDepart = data.response.item5;
+                    $scope.hope.fifthDepart = data.response.item6;
+                    iterator_1($scope.hope.firstDepart);
+                    iterator_2($scope.hope.secondDepart);
+                    iterator_3($scope.hope.thirdDepart);
+                    iterator_4($scope.hope.fourthDepart);
+                    iterator_5($scope.hope.fifthDepart);
+                });
+
+                function iterator_1(list){
+                    $.each(list,function(i,v){
+                        switch(parseInt(v.classify)){
+                            case 1:
+                                $scope.iterator.firDepart1.push(v);
+                                break;
+                            case 2:
+                                $scope.iterator.firDepart2.push(v);
+                                break;
+                            case 3:
+                                $scope.iterator.firDepart3.push(v);
+                                break;
+                            case 4:
+                                $scope.iterator.firDepart4.push(v);
+                                break;
+                            case 5:
+                                $scope.iterator.firDepart5.push(v);
+                                break;
+                            case 6:
+                                $scope.iterator.firDepart6.push(v);
+                                break;
+                        }
+                    })
+                }
+
+                function iterator_2(list){
+                    $.each(list,function(i,v){
+                        switch(parseInt(v.classify)){
+                            case 1:
+                                $scope.iterator.secDepart1.push(v);
+                                break;
+                            case 2:
+                                $scope.iterator.secDepart2.push(v);
+                                break;
+                            case 3:
+                                $scope.iterator.secDepart3.push(v);
+                                break;
+                            case 4:
+                                $scope.iterator.secDepart4.push(v);
+                                break;
+                            case 5:
+                                $scope.iterator.secDepart5.push(v);
+                                break;
+                            case 6:
+                                $scope.iterator.secDepart6.push(v);
+                                break;
+                            case 7:
+                                $scope.iterator.secDepart7.push(v);
+                                break;
+                            case 8:
+                                $scope.iterator.secDepart8.push(v);
+                                break;
+                            case 9:
+                                $scope.iterator.secDepart9.push(v);
+                                break;
+                            case 10:
+                                $scope.iterator.secDepart10.push(v);
+                                break;
+                        }
+                    })
+                }
+
+                function iterator_3(list){
+                    $.each(list,function(i,v){
+                        switch(parseInt(v.classify)){
+                            case 1:
+                                $scope.iterator.thiDepart1.push(v);
+                                break;
+                            case 2:
+                                $scope.iterator.thiDepart2.push(v);
+                                break;
+                            case 3:
+                                $scope.iterator.thiDepart3.push(v);
+                                break;
+                            case 4:
+                                $scope.iterator.thiDepart4.push(v);
+                                break;
+                            case 5:
+                                $scope.iterator.thiDepart5.push(v);
+                                break;
+                            case 6:
+                                $scope.iterator.thiDepart6.push(v);
+                                break;
+                            case 7:
+                                $scope.iterator.thiDepart7.push(v);
+                                break;
+                            case 8:
+                                $scope.iterator.thiDepart8.push(v);
+                                break;
+                            case 9:
+                                $scope.iterator.thiDepart9.push(v);
+                                break;
+                            case 10:
+                                $scope.iterator.thiDepart10.push(v);
+                                break;
+                            case 11:
+                                $scope.iterator.thiDepart11.push(v);
+                                break;
+                            case 12:
+                                $scope.iterator.thiDepart12.push(v);
+                                break;
+                            case 13:
+                                $scope.iterator.thiDepart13.push(v);
+                                break;
+                            case 14:
+                                $scope.iterator.thiDepart14.push(v);
+                                break;
+                            case 15:
+                                $scope.iterator.thiDepart15.push(v);
+                                break;
+                            case 16:
+                                $scope.iterator.thiDepart16.push(v);
+                                break;
+                            case 17:
+                                $scope.iterator.thiDepart17.push(v);
+                                break;
+                            case 18:
+                                $scope.iterator.thiDepart18.push(v);
+                                break;
+                            case 19:
+                                $scope.iterator.thiDepart19.push(v);
+                                break;
+                            case 20:
+                                $scope.iterator.thiDepart20.push(v);
+                                break;
+                            case 21:
+                                $scope.iterator.thiDepart21.push(v);
+                                break;
+                            case 22:
+                                $scope.iterator.thiDepart22.push(v);
+                                break;
+                            case 23:
+                                $scope.iterator.thiDepart23.push(v);
+                                break;
+                            case 24:
+                                $scope.iterator.thiDepart24.push(v);
+                                break;
+                            case 25:
+                                $scope.iterator.thiDepart25.push(v);
+                                break;
+                            case 26:
+                                $scope.iterator.thiDepart26.push(v);
+                                break;
+                            case 27:
+                                $scope.iterator.thiDepart27.push(v);
+                                break;
+                            case 28:
+                                $scope.iterator.thiDepart28.push(v);
+                                break;
+                            case 29:
+                                $scope.iterator.thiDepart29.push(v);
+                                break;
+                            case 30:
+                                $scope.iterator.thiDepart30.push(v);
+                                break;
+                            case 31:
+                                $scope.iterator.thiDepart31.push(v);
+                                break;
+                            case 32:
+                                $scope.iterator.thiDepart32.push(v);
+                                break;
+                            case 33:
+                                $scope.iterator.thiDepart33.push(v);
+                                break;
+                            case 34:
+                                $scope.iterator.thiDepart34.push(v);
+                                break;
+                            case 35:
+                                $scope.iterator.thiDepart35.push(v);
+                                break;
+                            case 36:
+                                $scope.iterator.thiDepart36.push(v);
+                                break;
+                            case 37:
+                                $scope.iterator.thiDepart37.push(v);
+                                break;
+                            case 38:
+                                $scope.iterator.thiDepart38.push(v);
+                                break;
+                            case 39:
+                                $scope.iterator.thiDepart39.push(v);
+                                break;
+                            case 40:
+                                $scope.iterator.thiDepart40.push(v);
+                                break;
+                            case 41:
+                                $scope.iterator.thiDepart41.push(v);
+                                break;
+                            case 42:
+                                $scope.iterator.thiDepart42.push(v);
+                                break;
+                            case 43:
+                                $scope.iterator.thiDepart43.push(v);
+                                break;
+                            case 44:
+                                $scope.iterator.thiDepart44.push(v);
+                                break;
+                            case 45:
+                                $scope.iterator.thiDepart45.push(v);
+                                break;
+                            case 46:
+                                $scope.iterator.thiDepart46.push(v);
+                                break;
+                            case 47:
+                                $scope.iterator.thiDepart47.push(v);
+                                break;
+                            case 48:
+                                $scope.iterator.thiDepart48.push(v);
+                                break;
+                            case 49:
+                                $scope.iterator.thiDepart49.push(v);
+                                break;
+                            case 50:
+                                $scope.iterator.thiDepart50.push(v);
+                                break;
+                            case 51:
+                                $scope.iterator.thiDepart51.push(v);
+                                break;
+                            case 52:
+                                $scope.iterator.thiDepart52.push(v);
+                                break;
+                            case 53:
+                                $scope.iterator.thiDepart53.push(v);
+                                break;
+                            case 54:
+                                $scope.iterator.thiDepart54.push(v);
+                                break;
+                            case 55:
+                                $scope.iterator.thiDepart55.push(v);
+                                break;
+                            case 56:
+                                $scope.iterator.thiDepart56.push(v);
+                                break;
+                            case 57:
+                                $scope.iterator.thiDepart57.push(v);
+                                break;
+                            case 58:
+                                $scope.iterator.thiDepart58.push(v);
+                                break;
+                            case 59:
+                                $scope.iterator.thiDepart59.push(v);
+                                break;
+                            case 60:
+                                $scope.iterator.thiDepart60.push(v);
+                                break;
+                            case 61:
+                                $scope.iterator.thiDepart61.push(v);
+                                break;
+                            case 62:
+                                $scope.iterator.thiDepart62.push(v);
+                                break;
+                            case 63:
+                                $scope.iterator.thiDepart63.push(v);
+                                break;
+                            case 64:
+                                $scope.iterator.thiDepart64.push(v);
+                                break;
+                            case 65:
+                                $scope.iterator.thiDepart65.push(v);
+                                break;
+                            case 66:
+                                $scope.iterator.thiDepart66.push(v);
+                                break;
+                            case 67:
+                                $scope.iterator.thiDepart67.push(v);
+                                break;
+                            case 68:
+                                $scope.iterator.thiDepart68.push(v);
+                                break;
+                            case 69:
+                                $scope.iterator.thiDepart69.push(v);
+                                break;
+                            case 70:
+                                $scope.iterator.thiDepart70.push(v);
+                                break;
+                            case 71:
+                                $scope.iterator.thiDepart71.push(v);
+                                break;
+                            case 72:
+                                $scope.iterator.thiDepart72.push(v);
+                                break;
+                        }
+                    })
+                }
+
+                function iterator_4(list){
+                    $.each(list,function(i,v){
+                        switch(parseInt(v.classify)){
+                            case 1:
+                                $scope.iterator.fourDepart1.push(v);
+                                break;
+                            case 2:
+                                $scope.iterator.fourDepart2.push(v);
+                                break;
+                            case 3:
+                                $scope.iterator.fourDepart3.push(v);
+                                break;
+                            case 4:
+                                $scope.iterator.fourDepart4.push(v);
+                                break;
+                            case 5:
+                                $scope.iterator.fourDepart5.push(v);
+                                break;
+                            case 6:
+                                $scope.iterator.fourDepart6.push(v);
+                                break;
+                            case 7:
+                                $scope.iterator.fourDepart7.push(v);
+                                break;
+                            case 8:
+                                $scope.iterator.fourDepart8.push(v);
+                                break;
+                            case 9:
+                                $scope.iterator.fourDepart9.push(v);
+                                break;
+                            case 10:
+                                $scope.iterator.fourDepart10.push(v);
+                                break;
+                            case 11:
+                                $scope.iterator.fourDepart11.push(v);
+                                break;
+                            case 12:
+                                $scope.iterator.fourDepart12.push(v);
+                                break;
+                        }
+                    })
+                }
+
+                function iterator_5(list){
+                    $.each(list,function(i,v){
+                        switch(parseInt(v.classify)){
+                            case 1:
+                                $scope.iterator.fifDepart1.push(v);
+                                break;
+                            case 2:
+                                $scope.iterator.fifDepart2.push(v);
+                                break;
+                            case 3:
+                                $scope.iterator.fifDepart3.push(v);
+                                break;
+                            case 4:
+                                $scope.iterator.fifDepart4.push(v);
+                                break;
+                            case 5:
+                                $scope.iterator.fifDepart5.push(v);
+                                break;
+                            case 6:
+                                $scope.iterator.fifDepart6.push(v);
+                                break;
+                            case 7:
+                                $scope.iterator.fifDepart7.push(v);
+                                break;
+                            case 8:
+                                $scope.iterator.fifDepart8.push(v);
+                                break;
+                            case 9:
+                                $scope.iterator.fifDepart9.push(v);
+                                break;
+                            case 10:
+                                $scope.iterator.fifDepart10.push(v);
+                                break;
+                            case 11:
+                                $scope.iterator.fifDepart11.push(v);
+                                break;
+                        }
+                    })
+                }
+
+                /**
+                 * 获取个性
+                 */
+                $http.get(loocha+"/depart/personality").success(function(data,status){
+                    $scope.hope.personality_type1 =  data.response.pmap.type1;
+                    $scope.hope.personality_type2 =  data.response.pmap.type2;
+                    $scope.hope.personality_type3 =  data.response.pmap.type3;
+                    $scope.hope.personality_type4 =  data.response.pmap.type4;
+
+                    $scope.hope.personality_type1 = arraysort.sort($scope.hope.personality_type1);
+                    $scope.hope.personality_type2 = arraysort.sort($scope.hope.personality_type2);
+                    $scope.hope.personality_type3 = arraysort.sort($scope.hope.personality_type3);
+                    $scope.hope.personality_type4 = arraysort.sort($scope.hope.personality_type4);
+
+                    var physical =  arraysort.sort($scope.hope.personality_type2[2].sublist);
+                    $scope.hope.unEnglish[0] = $scope.hope.personality_type2[3];
+
+                    arrClassify($scope.hope.personality_type1,$scope.hope.classify_1,$scope.hope.classify_2);
+                    phyClassify(physical,$scope.hope.physical_1,$scope.hope.physical_2);
+                    function arrClassify(list,arr1,arr2){
+                        $.each(list,function(i,v){
+                            if(i<4){
+                                arr1.push(v);
+                            }else{
+                                arr2.push(v);
+                            }
+                        });
+                    }
+                    function phyClassify(list,arr1,arr2){
+                        $.each(list,function(i,v){
+                            if(i<5){
+                                arr1.push(v);
+                            }else{
+                                arr2.push(v);
+                            }
+                        });
+                    }
+                });
+
+                $(document).unbind('click').click(function(e){
+                    e = window.event || e;
+                    obj = $(e.srcElement || e.target);
+                    if($(obj).is('.btn,.btn-default,.dropdown-toggle,.dropdown-menu,.dropdown-menu li,.dropdown-menu li a')){
+                    }else{
+                        $("#provnice .dropdown-menu,#panel-footer .dropdown-menu,#character .dropdown-menu,#depart .dropdown-menu").hide();
+                    }
+                });
+
+            }else{
+                $("#recommend").modal('show');
+                $rootScope.loading = false;
+                return;
+            }
         }
 
         /*
@@ -1639,6 +1652,10 @@ require(['app'],function(app){
                 }
             });
 
+            clearArrayEmpty($scope.finshparam.school_prefer);
+            clearArrayEmpty($scope.finshparam.depart_prefer);
+            clearArrayEmpty($scope.finshparam.city_prefer);
+            clearArrayEmpty($scope.finshparam.personality_prefer);
             var param = {};
                 param.sprop_prefer = [];  //优先院校属类id列表
                 param.sprop_ignore = [];  //拒绝院校属类id列表
@@ -1670,15 +1687,19 @@ require(['app'],function(app){
             }).success(function(responseDate){
                 $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
                     var list = JSON.parse(data),order_id = list.response.id;
-                    $http.get('/loocha/exam/' + order_id).success(function (result) {
-                        if(result.status == 1){
-                            alert('没有找到订单');
-                            return;
-                        }
-                        $scope.hope.order_id = result.response.order_id;
-                        $scope.hope.money = result.response.money;
-                        $('#modal-pay').modal('show');
-                    });
+                    if(order_id == 0){
+                        alert("订单提交失败，请重新操作");
+                    }else{
+                        $http.get(loocha+'/exam/' + order_id).success(function (result) {
+                            if(result.status == 1){
+                                alert('没有找到订单');
+                                return;
+                            }
+                            $scope.hope.order_id = result.response.order_id;
+                            $scope.hope.money = result.response.money;
+                            $('#modal-pay').modal('show');
+                        });
+                    }
                 });
             });
         };
@@ -1698,26 +1719,33 @@ require(['app'],function(app){
                     projectSoft[3] = i+1;
                 }
             });
+
+            clearArrayEmpty($scope.finshparam.school_prefer);
+            clearArrayEmpty($scope.finshparam.depart_prefer);
+            clearArrayEmpty($scope.finshparam.city_prefer);
+            clearArrayEmpty($scope.finshparam.personality_prefer);
+
             var param = {};
-            param.sprop_prefer = [];  //优先院校属类id列表
-            param.sprop_ignore = [];  //拒绝院校属类id列表
-            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
-            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
-            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
-            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
-            param.dproptype_prefer = [];   //优先专业类别id列表
-            param.dproptype_ignore = [];    //拒绝专业类别id列表
-            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
-            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
-            param.pproptype_prefer = [];   //优先个性类别id列表
-            param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = [];   //优先个性id列表
-            param.pprop_ignore = [];   //拒绝个性id列表
-            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
-            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
-            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
-            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
+                param.sprop_prefer = [];  //优先院校属类id列表
+                param.sprop_ignore = [];  //拒绝院校属类id列表
+                param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
+                param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
+                param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
+                param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
+                param.dproptype_prefer = [];   //优先专业类别id列表
+                param.dproptype_ignore = [];    //拒绝专业类别id列表
+                param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
+                param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
+                param.pproptype_prefer = [];   //优先个性类别id列表
+                param.pproptype_ignore = [];   //拒绝个性类别id列表
+                param.pprop_prefer = [];   //优先个性id列表
+                param.pprop_ignore = [];   //拒绝个性id列表
+                param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
+                param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
+                param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
+                param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
+                param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
+
             var tramsform = function(data){
                 return $.param(data);
             };
@@ -1729,39 +1757,40 @@ require(['app'],function(app){
                 localStorage.setItem("manualInfo",JSON.stringify(responseDate.response))
                 openwin('#/refer1');
             });
-
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
         };
+        /**
+         * 数组清空
+         * @param arr
+         */
+        function clearArrayEmpty(arr){
+            var count = 0;
+            for(var i = 0 ; i<arr.length;i++){ if(arr[i]==""){++count;}}
+            for(var j = 1;j<=count;j++){for(var i = 0 ; i<arr.length;i++){ if(arr[i]==""){arr.splice(i,1);}}}
+        }
 
         $scope.pay = function(){
             openwin('#/pay?order_id='+$scope.hope.order_id+'&money='+$scope.hope.money+'&type='+localStorage.getItem("type"));
-            function openwin(url) {
-                var a = document.createElement("a");
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                a.setAttribute("id", "openwin");
-                document.body.appendChild(a);
-                a.click();
-            }
             $('#modal-pay').modal('hide');
             $("#tip").modal('show');
         };
 
         $scope.isPay = function(){
             $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id,function(data){
-                 if(data.Response.status==1004){
+                 if(data.status == "1004"){
                      alert('交易失败');
                  }
                 $("#tip").modal('hide');
             });
         };
+
+        function openwin(url) {
+            var a = document.createElement("a");
+            a.setAttribute("href", url);
+            a.setAttribute("target", "_blank");
+            a.setAttribute("id", "openwin");
+            document.body.appendChild(a);
+            a.click();
+        }
 
         $scope.$watch('hope.langue',function(newValue,oldValue){
             arrPush()
@@ -1805,11 +1834,18 @@ require(['app'],function(app){
                         for(var j = 0 ; j<list.length;j++){
 
                             if(parseInt(prefer[i]) == parseInt(list.eq(j).attr(attr))){
-                                list.eq(j).addClass('agree').attr("status",1);
+                                if(parseInt(prefer[i]) == 108 ||parseInt(prefer[i]) == 109||parseInt(prefer[i]) == 110||parseInt(prefer[i]) == 111||parseInt(prefer[i]) == 112){
+                                    var parentid = $("#langueList a[s_id=108]").attr('parentid'),
+                                        s_id = parseInt(prefer[i]),text = $("#langueList a[s_id=108]").html();
+                                    $("#languageShow").html(text).attr({parentid:parentid,s_id:s_id})
+                                }else{
+                                    list.eq(j).addClass('agree').attr("status",1);
+                                }
                                 var obj = new Object();
                                 obj.id = list.eq(j).attr(attr);
                                 obj.name = list.eq(j).html();
                                 array.push(obj);
+
                             }
                         }
                     }
@@ -1934,5 +1970,14 @@ require(['app'],function(app){
             $scope.hope.personalitylist = personalitylist.concat($scope.hope.langueArr,$scope.hope.personalityArr);
         }
 
+        $scope.startChance = function(e){
+            var that = $(e.target),score = that.attr('score'),type = that.attr('type');
+            if(score<=JSON.parse(sessionStorage.getItem('uScore')).score){
+                localStorage.setItem('type',type);
+                $window.location.href = "#/hope";
+            }else{
+                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+            }
+        }
     }]);
 });

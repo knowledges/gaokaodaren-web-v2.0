@@ -2,14 +2,14 @@
  * Created by qbl on 2015/11/20.
  */
 angular.module('gaokaoApp.factory',[])
-.constant("logoutURL","/logout")//×¢ï¿½ï¿½
-//ï¿½ï¿½Ò³8ï¿½ï¿½Ä£ï¿½ï¿½
+.constant("logoutURL","/logout")//×¢²á
+//Ê×Ò³8¸öÄ£¿é
 .constant("men2","/menu?index=0&limit=8&parent_id=15")
 .constant("men3","/menu?index=0&limit=8&parent_id=16")
 .constant("men4","/menu?index=0&limit=4&parent_id=17")
 .constant("men5","/menu?index=0&limit=4&parent_id=21")
 .constant("men6","/menu?index=0&limit=8&parent_id=22")
-.constant("men7","/depth?index=0&limit=8&menu_id=93&key=")
+.constant("men7","/article?index=0&limit=8&menu_id=93&key=")
 .factory('AJAX',['$http',"$q",function($http,$q){
     var request = function(path,method,data){
         if(method == undefined || method == 'GET'){
@@ -58,31 +58,31 @@ angular.module('gaokaoApp.factory',[])
     }
     return {
         getProvinceURL: function () {
-            /**Ê¡ï¿½ï¿½*/
+            /**Ê¡·Ý*/
             return response(provinceURL);
         },
         getHomeModel2: function () {
-            /**ï¿½î±¨Òªï¿½ï¿½*/
+            /**Ìî±¨ÒªÁì*/
             return response(men2);
         },
         getHomeModel3: function () {
-            /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+            /**·ÖÊý·ÖÎö*/
             return response(men3);
         },
         getHomeModel4: function () {
-            /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+            /**ÕÐÉúÕþ²ß*/
             return response(men4);
         },
         getHomeModel5: function () {
-            /**ï¿½ï¿½ÒµÈ¥ï¿½ï¿½*/
+            /**±ÏÒµÈ¥Ïò*/
             return response(men5);
         },
         getHomeModel6: function () {
-            /**ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+            /**¸öÐÔÌØÕ÷*/
             return response(men6);
         },
         getHomeModel7: function () {
-            /**ï¿½ï¿½Ñ¯ï¿½ï¿½Â·*/
+            /**×ÉÑ¯ÏßÂ·*/
             return response(men7);
         },
     }

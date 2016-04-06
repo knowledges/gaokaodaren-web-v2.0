@@ -43,7 +43,7 @@ require(['app'],function(app){
             $("#doc li").removeClass('active').eq(1).addClass('active');
             $("#menu").hide();
             $("#menu-infolist").show(500);
-        };
+        }
 
         /**
          *  leaf: 1：代表根节点 0：不是根节点，且有子节点，子节点同理

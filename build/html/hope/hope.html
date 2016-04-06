@@ -664,6 +664,10 @@
                         <li class="bs-radio">●</li>
                         <li ng-repeat="list in iterator.thiDepart71"   beifen><a class="departClk wishId_4" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
                     </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="iterator.thiDepart72.length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in iterator.thiDepart72"   beifen><a class="departClk wishId_4" href="javascript:;;" ng-click="agreeDepart($event)" ng-dblclick="rejectDepart($event)"  depart_id="{{list.depart_id}}"  parent_id="{{list.class_id}}">{{list.name}}</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -1237,6 +1241,33 @@
             <div class="modal-footer">
                 <button class="btn btn-success" ng-click="isPay()">是</button>
                 <button class="btn btn-default" data-dismiss="modal">否</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="recommend"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    <i class="icon-tag"></i> 志愿推荐表批次选择
+                </h4>
+            </div>
+            <div class="modal-body">
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="1" score="333" ng-click="startChance($event)" title="点击模拟志愿概率">文科本一</a></li>
+                    <li><a href="javascript:;;" type="3" score="301" ng-click="startChance($event)" title="点击模拟志愿概率">文科本二</a></li>
+                    <li><a href="javascript:;;" type="5" score="272" ng-click="startChance($event)" title="点击模拟志愿概率">文科本三</a></li>
+                    <li><a href="javascript:;;" type="7" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">文科高职</a></li>
+                </nav>
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="2" score="345" ng-click="startChance($event)" title="点击模拟志愿概率">理科本一</a></li>
+                    <li><a href="javascript:;;" type="4" score="312" ng-click="startChance($event)" title="点击模拟志愿概率">理科本二</a></li>
+                    <li><a href="javascript:;;" type="6" score="279" ng-click="startChance($event)" title="点击模拟志愿概率">理科本三</a></li>
+                    <li><a href="javascript:;;" type="8" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">理科高职</a></li>
+                </nav>
             </div>
         </div>
     </div>

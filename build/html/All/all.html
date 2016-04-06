@@ -1,6 +1,8 @@
 <div class="menu-div">
     <div class="container-fluid">
-
+        <div class="row text-center" ng-if="will.list.length<=0">
+            暂无数据.....
+        </div>
         <table class="table" ng-if="will.list.length>0">
             <thead>
                 <tr>
@@ -21,7 +23,9 @@
                 </tr>
             </tbody>
         </table>
-
+        <div class="row text-center" ng-if="refer.list.length<=0">
+            暂无数据.....
+        </div>
         <table class="table" ng-if="refer.list.length>0">
             <thead>
                 <tr>
