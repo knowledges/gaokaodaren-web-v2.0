@@ -4,14 +4,19 @@
 'use strict';
 require(['app'],function(app){
     app.controller('onlineCtr',['$scope','$sce','homeService','displayService',function($scope,$sce,homeService,displayService){
-        $scope.ishide = displayService.isShow;
+        $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";
-        $scope.$watch('service',function(newValue,oldValue){
+        $scope.$watch('service',function(newValue){
             if(newValue.htmlPage!=""){
                 $scope.ishide = false;
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }
         },true);
+
+        $scope.back = function(){
+            $scope.ishide = true;
+            $scope.insertHTML = "";
+        };
     }]);
 });

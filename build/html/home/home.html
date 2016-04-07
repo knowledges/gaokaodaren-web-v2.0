@@ -113,13 +113,16 @@
         </a>
     </div>
 </div>
+
+<div ng-include="'templete/model-article/article.html'"></div>
+
 <div class="floatAdv floatAdv_left">
     <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LhomeNewCtl"></div>
 </div>
 <div class="floatAdv floatAdv_right">
     <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="RhomeNewCtl"></div>
 </div>
-<div class="container text-left" ng-if="!ishide" ng-bind-html="insertHTML"></div>
+
 <div class="container" ng-if="ishide">
     <div style="margin:16px;" class="row">
         <div class="col-sm-6" style="border-right:1px dashed red;">
@@ -243,7 +246,7 @@
             <p class="hmodel_10">
                 <a ui-sref="school.nav"><span><strong>高校介绍</strong>--<small>抉择的落实</small> </span></a>
             </p>
-            <div class="col-sm-4" style="margin-top: 30px;">
+            <div class="col-sm-4" style="margin-top: 15px;">
                 <ul type="square" style="padding-left: 20px;">
                     <li><a ui-sref="school.list({type:1})" target="_blank">文科本一</a></li>
                     <li><a ui-sref="school.list({type:3})" target="_blank">文科本二</a></li>

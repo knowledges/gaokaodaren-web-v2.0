@@ -3,21 +3,20 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.directive('isActive',['$stateParams',function($stateParams){
+    app.directive('onFinishRender',['$rootScope','$timeout',function($rootScope,$timeout){
         return{
             restrict: 'A',
             link:function(scope,elm,attr){
-                var idx = $stateParams.code !=undefined ? $stateParams.code :0;
-                $(".ulcollapse li").removeClass('active').eq(idx).addClass("active");
-
-                $(".ulcollapse li").on('click',function(e){
-                    $(".ulcollapse li").removeClass('active');
-                    $(this).addClass('active');
-                });
+                if(scope.$last === true) {
+                    $rootScope.loading = false;
+                    $timeout(function () {
+                        scope.$emit(attr.onFinishRender);
+                    });
+                }
             }
         }
     }]);
-    app.controller("cityCtr",['$scope','$location','$http','loocha','provinceURL',function($scope,$location,$http,loocha,provinceURL){
+    app.controller("cityCtr",['$scope','$location','$http','$stateParams','loocha','provinceURL',function($scope,$location,$http,$stateParams,loocha,provinceURL){
 
         $scope.menu = {
             provincelist: ""
@@ -31,5 +30,16 @@ require(['app'],function(app){
                     $scope.loading=false;
                 });
         }
+
+        $scope.$on("methodname", function (ngRepeatFinishedEvent) {
+            var idx = $stateParams.code !=undefined ? $stateParams.code :0;
+            $(".ulcollapse li").removeClass('actived').eq(idx).addClass("actived");
+
+            $(".ulcollapse li").on('click',function(e){
+                $(".ulcollapse li").removeClass('actived');
+                $(this).addClass('actived');
+            });
+        })
+
     }]);
 });

@@ -13,5 +13,9 @@ require(['app'],function(app){
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }
         },true);
+        $scope.back = function(){
+            $scope.ishide = true;
+            $scope.insertHTML = "";
+        };
     }]);
 });

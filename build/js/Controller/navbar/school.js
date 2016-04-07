@@ -8,21 +8,20 @@ require(['app','pagging'],function(app,pagging){
     app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
     app.constant("tubeURL","/web/new/JSON/attribute.json");
-    app.directive('isActive',['$stateParams',function($stateParams){
+    app.directive('onFinishRender',['$rootScope','$timeout',function($rootScope,$timeout){
         return{
             restrict: 'A',
             link:function(scope,elm,attr){
-                var idx = $stateParams.type !=undefined ? $stateParams.type :0;
-                $(".ulcollapse li").removeClass('active').eq(idx).addClass("active");
-
-                $(".ulcollapse li").on('click',function(e){
-                    $(".ulcollapse li").removeClass('active');
-                    $(this).addClass('active');
-                });
+                if(scope.$last === true) {
+                    $rootScope.loading = false;
+                    $timeout(function () {
+                        scope.$emit(attr.onFinishRender);
+                    });
+                }
             }
         }
     }]);
-    app.controller("schoolConCtl",['$scope','$stateParams','$sce','$http','loocha','AJAX','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,$http,loocha,AJAX,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
+    app.controller("schoolConCtl",['$scope','$stateParams','$sce','$http','loocha','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,$http,loocha,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
         $scope.school = {
             isnav: true,
             isfind:false,
@@ -188,5 +187,16 @@ require(['app','pagging'],function(app,pagging){
                     $scope.info.province = $scope.area[0];
                 });
         }
+
+        $scope.$on('methodname',function(){
+            var idx = $stateParams.type !=undefined ? $stateParams.type :0;
+            $(".ulcollapse li").removeClass('actived').eq(idx).addClass("actived");
+
+            $(".ulcollapse li").on('click',function(e){
+                $(".ulcollapse li").removeClass('actived');
+                $(this).addClass('actived');
+            });
+        })
+
     }]);
 })

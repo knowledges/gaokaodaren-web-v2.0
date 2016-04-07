@@ -98,6 +98,106 @@ ul.menu-nav #div1 {
   position: absolute;
   right: 0;
 }
-.active{
+.menu-navbar {
+  margin-top: 15px;
+}
+ul.menu-nav {
+  float: left;
+  display: inline-block;
+  width: 200px;
+  height: 100%;
+  box-shadow: -2px 0 1px #E8E8E8, 0 0 0px blue, 0 0 0px red, 2px 0 1px #ECECEC;
+}
+ul.menu-nav > li > a {
+  color: #888;
+  font-size: 24px;
+  background-color: #EFEFEF;
+  box-shadow: 0 0px 4px;
+}
+ul.menu-nav > li ul {
+  padding: 0;
+  list-style: none;
+  max-height: 350px!important;
+  overflow-y: scroll;
+}
+ul.menu-nav > li ul li a {
+  color: #888;
+  font-size: 16px;
+  padding: 5px;
+  display: inline-block;
+  width: 100%;
+}
+ul.menu-nav > li ul li a:hover,
+ul.menu-nav > li ul li a:focus {
+  background: #d8d8d8;
+}
+ul.menu-nav #div1 {
+  display: none;
+}
+.menu-div {
+  float: left;
+  margin-left: 10px;
+  display: inline-block;
+  min-width: 600px;
+  min-height: 600px;
+}
+.newNav {
+  width: 280px!important;
+}
+.newNav > li {
+  text-align: left;
+}
+.newNav > li > a {
+  font-size: 14px!important;
+  color: #333!important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.newNav > li ul {
+  padding: 0!important;
+  list-style: none;
+}
+.newNav > li ul li a {
+  font-size: 12px!important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.alert .table tbody {
+  border: 1px solid #DDD;
+}
+.alert .table tbody tr td {
+  border-top: 0px;
+}
+.schStyleBg_a {
+  display: inline-block;
+  width: 35px;
+  line-height: 35px;
+  height: 35px;
+  border-radius: 35px;
+  text-align: center;
+  background: orange;
+  color: #FFF;
+  font-size: 14px;
+}
+.schStyleBg_b {
+  display: inline-block;
+  width: 80px;
+  line-height: 35px;
+  height: 35px;
+  border-radius: 35px;
+  text-align: center;
+  background: orange;
+  color: #FFF;
+}
+.schStyleDashaed {
+  border-top: 1px dashed #ccc!important;
+}
+.btn-back {
+  position: absolute;
+  right: 0;
+}
+.actived {
   background: #ccc;
 }

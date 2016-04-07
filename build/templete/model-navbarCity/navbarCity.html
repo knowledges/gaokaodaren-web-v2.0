@@ -8,8 +8,44 @@
     <li>
         <a href="javascript:;;" data-target="#chart-collpsed1" aria-expanded="true" data-toggle="collapse">城市</a>
         <ul id="chart-collpsed1" class="collapse in ulcollapse" data-toggle="collapse in" aria-expanded="true">
-            <li is-active ng-repeat="list in menu.provincelist"  ui-sref="city.list({cityId:list.id,code:$index+1})"> <a href="javascript:;;">{{list.name}}</a></li>
+            <li on-finish-render="methodname" ng-repeat="list in menu.provincelist"  ui-sref="city.list({cityId:list.id,code:$index+1})"> <a href="javascript:;;">{{list.name}}</a></li>
         </ul>
     </li>
 </ul>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-controller="cityCtr">
+    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="$first">
+        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="true" aria-controls="collapse{{lists.menu_id}}">
+                    导航
+                </a>
+            </h4>
+        </div>
+        <div id="collapse{{lists.menu_id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{lists.menu_id}}">
+            <div class="panel-body" style="max-height: 350px;overflow-y: scroll;">
+                <ul class="nav text-center newNav">
+                    <li ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="!$first">
+        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="false" aria-controls="collapse{{lists.menu_id}}">
+                    {{lists.menu_name}}
+                </a>
+            </h4>
+        </div>
+        <div id="collapse{{lists.menu_id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{lists.menu_id}}">
+            <div class="panel-body" style="max-height: 350px;overflow-y: scroll;">
+                <ul class="nav text-center newNav">
+                    <li ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 

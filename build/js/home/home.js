@@ -35,5 +35,11 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
             });
             $scope.table.provincelist = data_province.data.response.list;
         }
+
+        $scope.back = function(){
+            $scope.ishide = true;
+            $scope.insertHTML = "";
+        };
+
     }]);
 });
