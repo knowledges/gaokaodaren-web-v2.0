@@ -190,10 +190,10 @@ require(['app','pagging'],function(app,pagging){
 
         $scope.$on('methodname',function(){
             var idx = $stateParams.type !=undefined ? $stateParams.type :0;
-            $(".ulcollapse li").removeClass('actived').eq(idx).addClass("actived");
+            $(".panel-body li").removeClass('actived').eq(idx).addClass("actived");
 
-            $(".ulcollapse li").on('click',function(e){
-                $(".ulcollapse li").removeClass('actived');
+            $(".panel-body li").on('click',function(e){
+                $(".panel-body li").removeClass('actived');
                 $(this).addClass('actived');
             });
         })
