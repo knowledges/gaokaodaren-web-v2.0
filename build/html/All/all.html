@@ -16,10 +16,31 @@
             <tbody>
                 <tr ng-repeat="list in will.list"  is-loading>
                     <td>{{$index+1}}</td>
-                    <td>{{list.devision == 0?"文科":"理科"}}第{{list.level}}批次</td>
+                    <td ng-switch="list.type">
+                        <span ng-switch-when="1">文科第1批次</span>
+                        <span ng-switch-when="3">文科第2批次</span>
+                        <span ng-switch-when="5">文科第3批次</span>
+                        <span ng-switch-when="7">文科高职</span>
+                        <span ng-switch-when="2">理科第1批次</span>
+                        <span ng-switch-when="4">理科第2批次</span>
+                        <span ng-switch-when="6">理科第3批次</span>
+                        <span ng-switch-when="8">理科高职</span>
+                    </td>
+                    <!--<td>{{list.type % 2 == 1 ? "文科":"理科"}}第{{list.type}}批次</td>-->
                     <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
                     <td>{{list.money}}</td>
-                    <td><a class="btn btn-default" ng-click="seeHope(list.orderId)">查看志愿推荐</a></td>
+                    <td ng-switch="list.flag">
+                        <a href="javascript:;;" class="btn btn-default" ng-switch-when="0"
+                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                        <a href="javascript:;;" class="btn btn-default" ng-switch-when="2"
+                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                        <a href="javascript:;;" class="btn btn-default" ng-switch-when="3"
+                            ng-click="seeHope(list.orderId)">查询志愿手选表</a>
+                        <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
+                            ng-click="seeHope(list.orderId)">查询概率预测</a>
+                        <a href="javascript:;;" class="btn btn-default" ng-switch-when="5"
+                           ng-click="seeHope(list.orderId)">查询深度查询</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -39,10 +60,30 @@
             <tbody>
                 <tr ng-repeat="list in refer.list"  is-loading>
                     <td>{{$index+1}}</td>
-                    <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
+                    <td ng-switch="list.type">
+                        <span ng-switch-when="1">文科第1批次</span>
+                        <span ng-switch-when="3">文科第2批次</span>
+                        <span ng-switch-when="5">文科第3批次</span>
+                        <span ng-switch-when="7">文科高职</span>
+                        <span ng-switch-when="2">理科第1批次</span>
+                        <span ng-switch-when="4">理科第2批次</span>
+                        <span ng-switch-when="6">理科第3批次</span>
+                        <span ng-switch-when="8">理科高职</span>
+                    </td>
                     <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
                     <td>{{list.money}}</td>
-                    <td><a class="btn btn-default" href="#/refer?orderId={{list.orderId}}&type={{list.division}}">查看参考表</a></td>
+                    <td ng-switch="list.flag">
+                        <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="0"
+                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                        <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="2"
+                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                        <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="3"
+                           ng-click="seeHope(list.orderId)">查询志愿手选表</a>
+                        <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="4"
+                           ng-click="seeHope(list.orderId)">查询概率预测</a>
+                        <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="5"
+                           ng-click="seeHope(list.orderId)">查询深度查询</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

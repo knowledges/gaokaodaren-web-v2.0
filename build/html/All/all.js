@@ -21,8 +21,8 @@ require(['app'], function (app) {
         $scope.seeHope = function (orderId) {
             $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
                 .success(function (data) {
-                    //var intentionId = data.response.intentionId;
-                    var intentionId = 40;
+                    var intentionId = data.response.intentionId;
+                    //var intentionId = 40;
 
                     $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
                         localStorage.setItem("intention", JSON.stringify(data.response));

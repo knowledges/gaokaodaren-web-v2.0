@@ -166,6 +166,34 @@ require(['app'],function(app){
             }
         }
     });
+    app.factory("matchLevel",function(){
+        return {
+            ShowLevel:function(str){
+                var num = 0;
+                switch(str){
+                    case "A+":
+                        num =5;
+                        break;
+                    case "A":
+                        num =4;
+                        break;
+                    case "B+":
+                        num =3;
+                        break;
+                    case "B":
+                        num =2;
+                        break;
+                    case "C":
+                        num =1;
+                        break;
+                    case "D":
+                        num =0;
+                        break;
+                }
+                return num;
+            }
+        }
+    });
     app.directive('onFinishRender',["$rootScope","$timeout",function($rootScope,$timeout){
         return{
             restrict: 'A',
@@ -191,7 +219,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('hopeCtr',['$scope','$window','$http','$timeout','$stateParams','$rootScope','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha',function($scope,$window,$http,$timeout,$stateParams,$rootScope,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha){
+    app.controller('hopeCtr',['$scope','$window','$http','$timeout','$stateParams','$rootScope','classifyClk','classifyDBClk','getLoginUserInfo','arraysort','loocha','matchLevel',function($scope,$window,$http,$timeout,$stateParams,$rootScope,classifyClk,classifyDBClk,getLoginUserInfo,arraysort,loocha,matchLevel){
         $scope.hope = {
             area: "",
             js_province: "",
@@ -1656,8 +1684,13 @@ require(['app'],function(app){
             clearArrayEmpty($scope.finshparam.depart_prefer);
             clearArrayEmpty($scope.finshparam.city_prefer);
             clearArrayEmpty($scope.finshparam.personality_prefer);
+            var uScore = JSON.parse(sessionStorage.getItem('uScore'));
+
             var param = {};
                 param.type = localStorage.getItem("type");
+                param.obl = matchLevel.ShowLevel(uScore.level_a);
+                param.sel= matchLevel.ShowLevel(uScore.level_b);
+                param.score=uScore.score;
                 param.sprop_prefer = [];  //优先院校属类id列表
                 param.sprop_ignore = [];  //拒绝院校属类id列表
                 param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
@@ -1730,9 +1763,12 @@ require(['app'],function(app){
             clearArrayEmpty($scope.finshparam.depart_prefer);
             clearArrayEmpty($scope.finshparam.city_prefer);
             clearArrayEmpty($scope.finshparam.personality_prefer);
-
+            var uScore = JSON.parse(sessionStorage.getItem('uScore'));
             var param = {};
                 param.type = localStorage.getItem("type");
+                param.obl = matchLevel.ShowLevel(uScore.level_a);
+                param.sel= matchLevel.ShowLevel(uScore.level_b);
+                param.score=uScore.score;
                 param.sprop_prefer = [];  //优先院校属类id列表
                 param.sprop_ignore = [];  //拒绝院校属类id列表
                 param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
@@ -1959,13 +1995,14 @@ require(['app'],function(app){
                         }
                     }
                 }
+                if($scope.hope.city_ignore!=null || $scope.hope.city_ignore!=""){
+                    for(var i = 0 ; i < $scope.hope.city_ignore.length ; i++ ){
 
-                for(var i = 0 ; i < $scope.hope.city_ignore.length ; i++ ){
+                        for(var j = 0 ; j<$("#provnice button[parent_id]").length;j++){
 
-                    for(var j = 0 ; j<$("#provnice button[parent_id]").length;j++){
-
-                        if(parseInt(ignore[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))){
-                            $("#provnice button[parent_id]").eq(j).addClass('reject').attr("status",2);
+                            if(parseInt(ignore[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))){
+                                $("#provnice button[parent_id]").eq(j).addClass('reject').attr("status",2);
+                            }
                         }
                     }
                 }
