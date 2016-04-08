@@ -60,15 +60,22 @@
                     <tr>
                         <td style="vertical-align: middle;" id="chanceText"></td>
                         <td>
-                            <select class="form-control" ng-model="school.chanceSch"  ng-options="door.name for door in chance track by door.id">
+                            <select id="sch_name"
+                                    class="form-control"
+                                    ng-model="forecast.cSchool_id"
+                                    ng-change="findChaname()">
                                 <option value="">==请选择高校==</option>
+                                <option ng-repeat="list in forecast.rangeArr" value="{{list.unique_id}}">{{list.name}}</option>
                             </select>
                             <ul class="nav nav-bar">
-                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{school.chanceSch.id}}">{{school.chanceSch.name}}</a></li>
+                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.cSchool_id}}">{{forecast.cSchool_name}}</a></li>
                             </ul>
                         </td>
                         <td style="vertical-align: middle;">
-                            <button class="btn btn-default">获取概率</button>
+                            <button class="btn btn-default" ng-click="schChance_0()">获取概率</button>
+                            <div class="row">
+                                <a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance_0}}</a>
+                            </div>
                         </td>
                     </tr>
 
@@ -356,7 +363,7 @@
                                     <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank">{{schoolInfo.name}}</a>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
-                                    <span>选科等级：
+                                    <span style="display: none;">选科等级：
                                         <span ng-switch="school.art_sel_1">
                                             <em ng-switch-when="5">A+,</em>
                                             <em ng-switch-when="4">A,</em>
@@ -453,6 +460,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
                 <a ng-click="pay()" class="btn btn-primary">是</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="tip"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">交易提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>交易是否成功？</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="isPay()">是</button>
+                <button class="btn btn-default" data-dismiss="modal">否</button>
             </div>
         </div>
     </div>

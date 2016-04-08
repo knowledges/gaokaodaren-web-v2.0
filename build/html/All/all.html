@@ -16,7 +16,7 @@
             <tbody>
                 <tr ng-repeat="list in will.list"  is-loading>
                     <td>{{$index+1}}</td>
-                    <td>{{list.devision == 1?"文科":"理科"}}第{{list.level}}批次</td>
+                    <td>{{list.devision == 0?"文科":"理科"}}第{{list.level}}批次</td>
                     <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
                     <td>{{list.money}}</td>
                     <td><a class="btn btn-default" ng-click="seeHope(list.orderId)">查看志愿推荐</a></td>

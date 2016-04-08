@@ -3,7 +3,7 @@
  */
 require(['app'],function(app){
     app.constant("orderInfoURL","/exam/order/info")
-    app.controller('referCtr',['$scope','$location','$window','AJAX','orderInfoURL',function($scope,$location,$window,AJAX,orderInfoURL){
+    app.controller('referCtr',['$scope','$location','$window','$http','loocha',function($scope,$location,$window,$http,loocha){
 
         $scope.order = {
                 orderId:"",
@@ -64,11 +64,11 @@ require(['app'],function(app){
             } else {
                 window.print();
             }
-        }
+        };
 
         $scope.getReference = function(){
             getNewOrderInfo();
-        }
+        };
 
         $scope.payChance = function(){
             $scope.order.orderShow = false;
@@ -77,7 +77,7 @@ require(['app'],function(app){
 
         $scope.close = function(){
             $scope.order.orderShow = false;
-        }
+        };
 
         function init(){
             if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
@@ -90,14 +90,11 @@ require(['app'],function(app){
         }
 
         function getOrderInfo(){
-            var param = {};
-            param.out_trade_no = $scope.order.orderId;
-            AJAX.getRequest(orderInfoURL,'GET',param)
+            $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
                 .success(function(data,status){
                     if(status== 2){
                         alert('操作失败！');
                         $window.location.href="#/all/reference";
-
                         return;
                     }
                     $scope.order.name =data.response.name;
@@ -110,7 +107,7 @@ require(['app'],function(app){
         }
 
         function getNewOrderInfo(){
-            AJAX.getRequest('/exam/'+$scope.order.requestId,'GET','')
+            $http.get(loocha+'/exam/'+$scope.order.requestId)
                 .success(function(data,status){
                     $scope.orderout_trade_no = data.response.order_id;
                     $scope.order.money = data.response.money;

@@ -57,9 +57,11 @@ require(['app'],function(app){
             pDepart_Arr:[],
             pDepart_id:"",
             pDepart_name:"",
+            cSchool_id:"",
+            cSchool_name:"",
             pSchool_id:"",
             pSchool_name:"",
-            range_id:"",
+            range:"",
             range_sch_id:"",
             range_sch_name:"",
             rangeArr:"",
@@ -80,12 +82,12 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null) {
                 var param = {};
-                param.out_trade_no = $scope.order_id;
+                param.out_trade_no = $scope.order_id != "" ? $scope.order_id:localStorage.getItem("order_id");
                 param.type = $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
                 param.sel = levelNum($scope.uScore.level_b);
                 param.score = $scope.uScore.score;
-                param.admit_flag = $scope.forecast.range_id;
+                param.admit_flag = $scope.forecast.range;
 
                 $http({
                     url:loocha + "/exam/admit/school",
@@ -93,21 +95,64 @@ require(['app'],function(app){
                     params:param
                 }).success(function (data) {
                     $scope.forecast.rangeArr = data.response;
+                    $("#chanceBody").show();
                 });
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
             }
-
         };
+
+
         $scope.findSchname = function(){
             $scope.forecast.range_sch_name = $("#range_sch_name option:selected").text();
         };
+
+        $scope.schChance_0 = function(){
+            getLoginUserInfo.isLogoin();
+            if($scope.uScore != null) {
+                var param = {};
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.admit_flag = $scope.forecast.range;
+                    param.type= $scope.isChance;
+                    param.obl = levelNum($scope.uScore.level_a);
+                    param.sel = levelNum($scope.uScore.level_b);
+                    param.score = $scope.uScore.score;
+                    param.school_code = $scope.forecast.cSchool_id;
+                    param.school = $scope.forecast.cSchool_name;
+                    param.depart_code ="";
+                    param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result',
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert('订单号不存在！');
+                        return;
+                    }
+                    $scope.forecast.schChance_3 = data.response.admit;
+                })
+            }else{
+                alert('请去我的足迹“设置”并“使用”成绩');
+            }
+        };
+
+        $scope.findChaname = function(){
+            $scope.forecast.cSchool_name = $("#sch_name option:selected").text();
+        }
+
         $scope.schChance_3 = function(){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = $scope.forecast.range_id;
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.admit_flag = $scope.forecast.range;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
                     param.sel = levelNum($scope.uScore.level_b);
@@ -175,7 +220,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id;
+                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
                 param.admit_flag = 2;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -255,7 +300,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id;
+                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
                 param.admit_flag = 6;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -362,7 +407,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id;
+                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
                 param.admit_flag = 3;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -424,7 +469,7 @@ require(['app'],function(app){
                 return;
             }
             var param = {};
-            param.out_trade_no = $scope.order_id;
+            param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
             param.admit_flag = 4;
             param.type= $scope.isChance;
             param.obl = levelNum($scope.uScore.level_a);
@@ -476,7 +521,7 @@ require(['app'],function(app){
         $scope.getSchlChance = function(){
             getLoginUserInfo.isLogoin();
             var param = {};
-                param.out_trade_no = $scope.order_id;
+                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
                 param.admit_flag = 5;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -541,6 +586,7 @@ require(['app'],function(app){
                 transformRequest:tramsform
             }).success(function(data){
                 $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
+                    localStorage.setItem("order_id",result.response.order_id);
                     $scope.order_id = result.response.order_id;
                     $scope.money = result.response.money;
                     $("#zyb_random").modal('show');
@@ -553,8 +599,29 @@ require(['app'],function(app){
          * 开始缴费
          */
         $scope.pay = function(){
-
+            openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+localStorage.getItem("type"));
+            $('#zyb_random').modal('hide');
+            $("#tip").modal('show');
         };
+
+        $scope.isPay = function(){
+            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.order_id,function(data){
+                if(data.status == "1004"){
+                    alert('交易失败');
+                }
+                $("#tip").modal('hide');
+            });
+        };
+
+        function openwin(url) {
+            var a = document.createElement("a");
+            a.setAttribute("href", url);
+            a.setAttribute("target", "_blank");
+            a.setAttribute("id", "openwin");
+            document.body.appendChild(a);
+            a.click();
+        }
+
 
         $(".close").unbind('click').click(function(e){
             $("#mask-school,#mask-depart").fadeOut(800);

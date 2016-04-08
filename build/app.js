@@ -19,16 +19,21 @@ define(function(require,exports,module){
         return {
             isShow:true
         }
-    })
+    });
     //  拦截器
     app.run(['$rootScope','$state','$window','$location','userService','homeService','displayService',function ($rootScope, $state,$location ,$window , userService,homeService,displayService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             homeService.htmlPage="";
             displayService.isShow = true;
             $rootScope.loading = true;
-            if(fromState.name != "" || fromState.name == "all.will"){ //是否为刷新 "" 就是刷新
-                localStorage.removeItem("type");
+            if(fromState.name != ""){
+                if(fromState.name != "all.will" || fromState.name != "all.score"){ //是否为刷新 "" 就是刷新
+                    localStorage.removeItem("type");
+                }
             }
+            //if(fromState.name != "" || fromState.name != "all.will" || fromState.name != "all.score"){ //是否为刷新 "" 就是刷新
+            //    localStorage.removeItem("type");
+            //}
             var isAuthenticated = userService.isAuthenticated();
             var isPublicAction = angular.isObject(toState.data)
                 && toState.data.isPublic === true;

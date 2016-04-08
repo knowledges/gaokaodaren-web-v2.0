@@ -1657,6 +1657,7 @@ require(['app'],function(app){
             clearArrayEmpty($scope.finshparam.city_prefer);
             clearArrayEmpty($scope.finshparam.personality_prefer);
             var param = {};
+                param.type = localStorage.getItem("type");
                 param.sprop_prefer = [];  //优先院校属类id列表
                 param.sprop_ignore = [];  //拒绝院校属类id列表
                 param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
@@ -1685,22 +1686,27 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(responseDate){
-                $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
-                    var list = JSON.parse(data),order_id = list.response.id;
-                    if(order_id == 0){
-                        alert("订单提交失败，请重新操作");
-                    }else{
-                        $http.get(loocha+'/exam/' + order_id).success(function (result) {
-                            if(result.status == 1){
-                                alert('没有找到订单');
-                                return;
-                            }
-                            $scope.hope.order_id = result.response.order_id;
-                            $scope.hope.money = result.response.money;
-                            $('#modal-pay').modal('show');
-                        });
-                    }
-                });
+                if(responseDate.status == "1014"){
+                    alert("符合的高校太少，请在选择一些")
+                }else{
+                    $.post(loocha+"/exam/intention/auto",{id:responseDate.response.id},function(data){
+                        var list = JSON.parse(data),order_id = list.response.id;
+                        if(order_id == 0){
+                            alert("订单提交失败，请重新操作");
+                        }else{
+                            $http.get(loocha+'/exam/' + order_id).success(function (result) {
+                                if(result.status == 1){
+                                    alert('没有找到订单');
+                                    return;
+                                }
+                                $scope.hope.order_id = result.response.order_id;
+                                $scope.hope.money = result.response.money;
+                                $('#modal-pay').modal('show');
+                            });
+                        }
+                    });
+                }
+
             });
         };
 
@@ -1726,6 +1732,7 @@ require(['app'],function(app){
             clearArrayEmpty($scope.finshparam.personality_prefer);
 
             var param = {};
+                param.type = localStorage.getItem("type");
                 param.sprop_prefer = [];  //优先院校属类id列表
                 param.sprop_ignore = [];  //拒绝院校属类id列表
                 param.school_prefer = $scope.hope.school_prefer; //优先院校id列表

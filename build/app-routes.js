@@ -619,7 +619,7 @@ define(['app'],function(app){
             $scope.isShow = false;
         }
         $scope.logoff = function(){
-            $http.get(logoutURL)
+            $http.get(loocha+logoutURL)
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     sessionStorage.setItem('usernumber',"");
