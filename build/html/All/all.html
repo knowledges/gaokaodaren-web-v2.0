@@ -31,15 +31,15 @@
                     <td>{{list.money}}</td>
                     <td ng-switch="list.flag">
                         <a href="javascript:;;" class="btn btn-default" ng-switch-when="0"
-                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                           ng-click="seeHope(list.orderId,list.flag)">查询志愿推荐表</a>
                         <a href="javascript:;;" class="btn btn-default" ng-switch-when="2"
-                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                           ng-click="seeHope(list.orderId,list.flag)">查询志愿推荐表</a>
                         <a href="javascript:;;" class="btn btn-default" ng-switch-when="3"
-                            ng-click="seeHope(list.orderId)">查询志愿手选表</a>
+                            ng-click="seeHope(list.orderId,list.flag)">查询志愿手选表</a>
                         <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
-                            ng-click="seeHope(list.orderId)">查询概率预测</a>
+                            ng-click="seeHope(list.orderId,list.flag)">查询概率预测</a>
                         <a href="javascript:;;" class="btn btn-default" ng-switch-when="5"
-                           ng-click="seeHope(list.orderId)">查询深度查询</a>
+                           ng-click="seeHope(list.orderId,list.flag)">查询深度查询</a>
                     </td>
                 </tr>
             </tbody>
@@ -74,15 +74,15 @@
                     <td>{{list.money}}</td>
                     <td ng-switch="list.flag">
                         <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="0"
-                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                           >s</a>
                         <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="2"
-                           ng-click="seeHope(list.orderId)">查询志愿推荐表</a>
+                           >查询志愿推荐表</a>
                         <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="3"
-                           ng-click="seeHope(list.orderId)">查询志愿手选表</a>
+                           >查询志愿手选表</a>
                         <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="4"
-                           ng-click="seeHope(list.orderId)">查询概率预测</a>
+                           >查询概率预测</a>
                         <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="5"
-                           ng-click="seeHope(list.orderId)">查询深度查询</a>
+                           >查询深度查询</a>
                     </td>
                 </tr>
             </tbody>

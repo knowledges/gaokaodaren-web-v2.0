@@ -18,21 +18,23 @@ require(['app'], function (app) {
                 $scope.will.isShowWill = true;
             });
 
-        $scope.seeHope = function (orderId) {
+        $scope.seeHope = function (orderId,flag) {
             $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
                 .success(function (data) {
-                    var intentionId = data.response.intentionId;
-                    //var intentionId = 40;
-
-                    $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
-                        localStorage.setItem("intention", JSON.stringify(data.response));
-                        localStorage.setItem("type", data.response.type);
-                        window.location.href = "#/hope";
-                        window.location.hash = window.location.hash + "/see=" + data.response.type;
-                    })
+                    if(flag == 2){
+                        sessionStorage.setItem("admitFlag",data.response.admitFlag);
+                        window.location.href = "#/chance";
+                    }else{
+                        var intentionId = data.response.intentionId;
+                        $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
+                            localStorage.setItem("intention", JSON.stringify(data.response));
+                            localStorage.setItem("type", data.response.type);
+                            window.location.href = "#/hope";
+                            window.location.hash = window.location.hash + "/see=" + data.response.type;
+                        });
+                    }
                 });
         }
-
     }]);
     app.controller('referenceCtr', ['$scope', '$http', 'loocha', 'referUrl', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl, getLoginUserInfo) {
 
