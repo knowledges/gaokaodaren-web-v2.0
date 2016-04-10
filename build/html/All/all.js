@@ -23,6 +23,7 @@ require(['app'], function (app) {
                 .success(function (data) {
                     if(flag == 2){
                         sessionStorage.setItem("admitFlag",data.response.admitFlag);
+                        sessionStorage.setItem("order_id",data.response.orderId);
                         window.location.href = "#/chance";
                     }else{
                         var intentionId = data.response.intentionId;

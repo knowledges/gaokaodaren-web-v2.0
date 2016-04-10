@@ -74,6 +74,23 @@ require(['app'],function(app){
 
         $('.dropdown-toggle').dropdown();
 
+        init ();
+        function init(){
+            if(sessionStorage.getItem("admitFlag")!=null){
+                var flag = sessionStorage.getItem("admitFlag");
+                flag.splice(0,1);
+                flag.splice(flag.length-1,1);
+
+                for(var i = 0 ; i< flag.length ; i++){
+                    for(var j = 0 ; j < $(".chance_").length ; j++){
+                        if(flag[i] == $(".chance_").eq(j).val()){
+                            $(".chance_").eq(j).attr("checked","true");
+                        }
+                    }
+                }
+            }
+        }
+
 ////////按概率范围预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          *  根据范围ID 获取学校列表
