@@ -55,12 +55,13 @@ require(['app'],function(app){
             personality_type4:"",
             personality_id:"",
             pDepart_Arr:[],
+            pSchool_Arr:[],
             pDepart_id:"",
             pDepart_name:"",
             cSchool_id:"",
             cSchool_name:"",
-            pSchool_id:"",
-            pSchool_name:"",
+            pSchl_id:"",
+            pSchl_name:"",
             range:"",
             range_sch_id:"",
             range_sch_name:"",
@@ -111,6 +112,10 @@ require(['app'],function(app){
                     method:"GET",
                     params:param
                 }).success(function (data) {
+                    if(data.status == 2){
+                        alert("请先选择缴费");
+                        return;
+                    }
                     $scope.forecast.rangeArr = data.response;
                     $("#chanceBody").show();
                 });
@@ -129,7 +134,8 @@ require(['app'],function(app){
             if($scope.uScore != null) {
                 var param = {};
                     param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
-                    param.admit_flag = $scope.forecast.range;
+                    //param.admit_flag = $scope.forecast.range;
+                    param.admit_flag = 1;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
                     param.sel = levelNum($scope.uScore.level_b);
@@ -153,7 +159,7 @@ require(['app'],function(app){
                         alert('订单号不存在！');
                         return;
                     }
-                    $scope.forecast.schChance_3 = data.response.admit;
+                    $scope.forecast.schChance_0 = data.response.admit;
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -287,8 +293,8 @@ require(['app'],function(app){
          * 根据个性标签id 获取专业列表
          */
         $scope.getpersonalityId = function(){
-            $scope.forecast.pDepart_name = $("#departName option:selected").text();
-            $scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
+
+            //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
             $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
                     $scope.forecast.pDepart_Arr = data.response;
@@ -299,15 +305,15 @@ require(['app'],function(app){
          * 根据专业id 获取高校列表
          */
         $scope.getDepartId = function(){
-            $scope.forecast.pSchool_id= "";
-            $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_id='+$scope.forecast.pDepart_id)
+            $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_name='+$("#departName option:selected").text())
                 .success(function(data){
-                    $scope.forecast.pDepart_Arr = data.response;
+                    $scope.forecast.pSchool_Arr = data.response;
                 });
+            $scope.forecast.pDepart_name = $("#departName option:selected").text();
         };
 
-        $scope.getSchoolName = function(){
-            $scope.forecast.pSchool_name = $("#pSchool_name option:selected").text();
+        $scope.getSchlname = function(){
+            $scope.forecast.pSchl_name = $("#pSchool_name option:selected").text();
         };
 
         /**
@@ -323,8 +329,10 @@ require(['app'],function(app){
                 param.obl = levelNum($scope.uScore.level_a);
                 param.sel = levelNum($scope.uScore.level_b);
                 param.score = $scope.uScore.score;
-                param.school_code = $scope.forecast.pSchool_id;
-                param.school = $scope.forecast.pSchool_name;
+                param.school_code = $scope.forecast.pSchl_id;
+                param.school = $scope.forecast.pSchl_name;
+                //param.school_code = $("#pSchool_name option:selected").val();
+                //param.school = $("#pSchool_name option:selected").text();
                 param.depart_code = $scope.forecast.pDepart_id;
                 param.depart = $scope.forecast.pDepart_name;
                 $http({
@@ -342,7 +350,7 @@ require(['app'],function(app){
                         alert('订单号不存在！');
                         return;
                     }
-                    $scope.forecast.schChance_1 = data.response.admit;
+                    $scope.forecast.schChance_6 = data.response.admit;
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');

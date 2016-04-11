@@ -21,7 +21,7 @@ require(['app'], function (app) {
         $scope.seeHope = function (orderId,flag) {
             $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
                 .success(function (data) {
-                    if(flag == 2){
+                    if(flag == 4){
                         sessionStorage.setItem("admitFlag",data.response.admitFlag);
                         sessionStorage.setItem("order_id",data.response.orderId);
                         window.location.href = "#/chance";

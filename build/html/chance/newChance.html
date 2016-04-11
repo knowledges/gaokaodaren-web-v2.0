@@ -35,49 +35,49 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <td style="text-align: center"  width="200">
-                            <div class="row">
-                                <select class="form-control"
-                                        ng-model="forecast.range"
-                                        ng-change="selectRange()">
-                                    <option value="">==请选择概率范围==</option>
-                                    <option value="7">小概率</option>
-                                    <option value="8">25%↑~50%</option>
-                                    <option value="9">50%↑~75%</option>
-                                    <option value="10">75%↑~95%</option>
-                                    <option value="11">95%-100%</option>
-                                    <option value="12">大概率</option>
-                                    <option value="13">不确定</option>
-                                </select>
-                            </div>
-                        </td>
-                        <td style="vertical-align: middle;">学校名称</td>
-                        <td width="150" style="vertical-align: middle;">录取概率</td>
-                    </tr>
+                <tr>
+                    <td style="text-align: center"  width="200">
+                        <div class="row">
+                            <select class="form-control"
+                                    ng-model="forecast.range"
+                                    ng-change="selectRange()">
+                                <option value="">==请选择概率范围==</option>
+                                <option value="7">小概率</option>
+                                <option value="8">25%↑~50%</option>
+                                <option value="9">50%↑~75%</option>
+                                <option value="10">75%↑~95%</option>
+                                <option value="11">95%-100%</option>
+                                <option value="12">大概率</option>
+                                <option value="13">不确定</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td style="vertical-align: middle;">学校名称</td>
+                    <td width="150" style="vertical-align: middle;">录取概率</td>
+                </tr>
                 </thead>
                 <tbody id="chanceBody" style="display: none;">
-                    <tr>
-                        <td style="vertical-align: middle;" id="chanceText"></td>
-                        <td>
-                            <select id="sch_name"
-                                    class="form-control"
-                                    ng-model="forecast.cSchool_id"
-                                    ng-change="findChaname()">
-                                <option value="">==请选择高校==</option>
-                                <option ng-repeat="list in forecast.rangeArr" value="{{list.unique_id}}">{{list.name}}</option>
-                            </select>
-                            <ul class="nav nav-bar">
-                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.cSchool_id}}">{{forecast.cSchool_name}}</a></li>
-                            </ul>
-                        </td>
-                        <td style="vertical-align: middle;">
-                            <button class="btn btn-default" ng-click="schChance_0()">获取概率</button>
-                            <div class="row">
-                                <a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance_0}}</a>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td style="vertical-align: middle;" id="chanceText"></td>
+                    <td>
+                        <select id="sch_name"
+                                class="form-control"
+                                ng-model="forecast.cSchool_id"
+                                ng-change="findChaname()">
+                            <option value="">==请选择高校==</option>
+                            <option ng-repeat="list in forecast.rangeArr" value="{{list.unique_id}}">{{list.name}}</option>
+                        </select>
+                        <ul class="nav nav-bar">
+                            <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.cSchool_id}}">{{forecast.cSchool_name}}</a></li>
+                        </ul>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <button class="btn btn-default" ng-click="schChance_0()">获取概率</button>
+                        <div class="row">
+                            <a href="javascript:;;" ng-if="forecast.schChance_0.length>0">概率：{{forecast.schChance_0}}</a>
+                        </div>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
@@ -95,46 +95,46 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <td width="150">
-                            <select  class="form-control" ng-model="forecast.area" ng-change="findCity()">
-                                <option value="">院校属地</option>
-                                <option value="2">江苏省</option>
-                                <option value="3">一线城市</option>
-                                <option value="4">二线城市</option>
-                                <option value="5">三线城市</option>
-                                <option value="6">四线城市</option>
-                                <option value="7">五线城市</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle;">学校名称</td>
-                        <td width="150" style="vertical-align: middle;">概率</td>
-                    </tr>
+                <tr>
+                    <td width="150">
+                        <select  class="form-control" ng-model="forecast.area" ng-change="findCity()">
+                            <option value="">院校属地</option>
+                            <option value="2">江苏省</option>
+                            <option value="3">一线城市</option>
+                            <option value="4">二线城市</option>
+                            <option value="5">三线城市</option>
+                            <option value="6">四线城市</option>
+                            <option value="7">五线城市</option>
+                        </select>
+                    </td>
+                    <td style="vertical-align: middle;">学校名称</td>
+                    <td width="150" style="vertical-align: middle;">概率</td>
+                </tr>
                 </thead>
                 <tbody id="provinceBody"  style="display: none;">
-                    <tr>
-                        <td>
-                            <select  class="form-control" ng-model="forecast.city_id" ng-change="findSchoolList()">
-                                <option value="">==请选择==</option>
-                                <option ng-repeat="list in forecast.cityArr" value="{{list.city_id}}">{{list.name}}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" id="school_name" ng-model="forecast.school_id" ng-change="findSchoolInfo()">
-                                <option value="">==请选择高校==</option>
-                                <option ng-repeat="list in forecast.schoolArr" value="{{list.unique_id}}">{{list.name}}</option>
-                            </select>
-                            <ul class="nav nav-bar">
-                                <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.city_id}}">{{forecast.school_name}}</a></li>
-                            </ul>
-                        </td>
-                        <td style="vertical-align: middle;">
-                            <button class="btn btn-default" ng-click="schChance()">获取概率</button>
-                            <div class="row">
-                                <a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance}}</a>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <select  class="form-control" ng-model="forecast.city_id" ng-change="findSchoolList()">
+                            <option value="">==请选择==</option>
+                            <option ng-repeat="list in forecast.cityArr" value="{{list.city_id}}">{{list.name}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" id="school_name" ng-model="forecast.school_id" ng-change="findSchoolInfo()">
+                            <option value="">==请选择高校==</option>
+                            <option ng-repeat="list in forecast.schoolArr" value="{{list.unique_id}}">{{list.name}}</option>
+                        </select>
+                        <ul class="nav nav-bar">
+                            <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.city_id}}">{{forecast.school_name}}</a></li>
+                        </ul>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <button class="btn btn-default" ng-click="schChance()">获取概率</button>
+                        <div class="row">
+                            <a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance}}</a>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <p>
@@ -149,57 +149,57 @@
         </div>
         <div class="panel-body">
             <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <td width="150">
-                                <select  class="form-control"
-                                         ng-model="forecast.style_id"
-                                         ng-change="findStyleId()">
-                                    <option value="">院校属类</option>
-                                    <option value="0">属性</option>
-                                    <option value="1">属管</option>
-                                    <option value="2">类别</option>
-                                    <option value="3">类型</option>
-                                </select>
-                            </td>
-                            <td>学校名称</td>
-                            <td width="150">概率</td>
-                        </tr>
-                    </thead>
-                    <tbody  id="propNav" style="display: none;">
-                        <tr>
-                            <td>
-                                <select class="form-control"
-                                        ng-model="forecast.attr_id"
-                                        ng-change="findAttrId()">
-                                    <option value="">==请选择==</option>
-                                    <option ng-repeat="list in forecast.style_Arr" value="{{list.id}}">{{list.name}}</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="sSchool_name"
-                                        class="form-control"
-                                        ng-model="forecast.style_School_id"
-                                        ng-change="getSchName()">
-                                    <option value="">==请选择高校名称==</option>
-                                    <option ng-repeat="list in forecast.style_SchoolArr" value="{{list.unique_id}}">{{list.name}}</option>
-                                </select>
-                                <ul class="nav nav-bar">
-                                    <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.style_School_id}}">{{forecast.style_School_name}}</a></li>
-                                </ul>
-                            </td>
-                            <td style="vertical-align: middle;">
-                                <button class="btn btn-default" ng-click="schChance_1()">获取概率</button>
-                                <div class="row"><a href="javascript:;;">{{forecast.schChance_1}}</a></div>
+                <thead>
+                <tr>
+                    <td width="150">
+                        <select  class="form-control"
+                                 ng-model="forecast.style_id"
+                                 ng-change="findStyleId()">
+                            <option value="">院校属类</option>
+                            <option value="0">属性</option>
+                            <option value="1">属管</option>
+                            <option value="2">类别</option>
+                            <option value="3">类型</option>
+                        </select>
+                    </td>
+                    <td>学校名称</td>
+                    <td width="150">概率</td>
+                </tr>
+                </thead>
+                <tbody  id="propNav" style="display: none;">
+                <tr>
+                    <td>
+                        <select class="form-control"
+                                ng-model="forecast.attr_id"
+                                ng-change="findAttrId()">
+                            <option value="">==请选择==</option>
+                            <option ng-repeat="list in forecast.style_Arr" value="{{list.id}}">{{list.name}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="sSchool_name"
+                                class="form-control"
+                                ng-model="forecast.style_School_id"
+                                ng-change="getSchName()">
+                            <option value="">==请选择高校名称==</option>
+                            <option ng-repeat="list in forecast.style_SchoolArr" value="{{list.unique_id}}">{{list.name}}</option>
+                        </select>
+                        <ul class="nav nav-bar">
+                            <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.style_School_id}}">{{forecast.style_School_name}}</a></li>
+                        </ul>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <button class="btn btn-default" ng-click="schChance_1()">获取概率</button>
+                        <div class="row"><a href="javascript:;;">{{forecast.schChance_1}}</a></div>
 
-                            </td>
-                        </tr>
+                    </td>
+                </tr>
 
-                    </tbody>
-                </table>
-                <p>
-                    点击<strong>高校名称</strong>可查询学校情况,且院校属类每一类，可以查询3所高校概率
-                </p>
+                </tbody>
+            </table>
+            <p>
+                点击<strong>高校名称</strong>可查询学校情况,且院校属类每一类，可以查询3所高校概率
+            </p>
         </div>
     </div>
     <!-- 按学校预测各专业录取概率 -->
@@ -313,28 +313,28 @@
                             ng-model="forecast.pDepart_id"
                             ng-change="getDepartId()">
                         <option value="">==请选择专业==</option>
-                        <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.depart_id}}"  article_id="{{list.article_id}}">{{list.name}}</option>
+                        <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.depart_id}}"  article_id="{{list.article_id}}">{{list.depart_name}}</option>
                     </select>
-                    <ul class="nav nav-bar" ng-if="forecast.pDepart_name!=null">
+                    <ul class="nav nav-bar">
                         <li><a href="javascript:;;" depart_id="forecast.pDepart_id">{{forecast.pDepart_name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-5">
                     <select id="pSchool_name"
                             class="form-control"
-                            ng-model="forecast.pSchool_id"
-                            ng-change="getSchoolName()">
+                            ng-model="forecast.pSchl_id"
+                            ng-change="getSchlname()">
                         <option value="">==请选择高校名称==</option>
-                        <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.unque_id}}">{{list.name}}</option>
+                        <option ng-repeat="list in forecast.pSchool_Arr" value="{{list.unique_id}}">{{list.name}}</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="javascript:;;"  ng-click="showChanceSchInfo($event)"  school_id="{{forecast.pSchool_id}}">{{forecast.pSchool_name}}</a></li>
+                        <li><a href="javascript:;;"  ng-click="showChanceSchInfo($event)" school_id="{{forecast.pSchl_id}}">{{forecast.pSchl_name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <a href="javascript:;;" class="btn btn-default" ng-click="findPerChance()">录取概率</a>
                     <div class="row">
-                        <!--<a href="javascript:;;" ng-if="forecast.schChance.length>0">概率：{{forecast.schChance}}</a>-->
+                        <a href="javascript:;;" ng-if="forecast.schChance_6.length>0">概率：{{forecast.schChance_6}}</a>
                     </div>
                 </div>
             </div>
@@ -363,8 +363,8 @@
                                     <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank">{{schoolInfo.name}}</a>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
-                                    <span style="display: none;">选科等级：
-                                        <span ng-switch="school.art_sel_1">
+                                    <span>选科等级：
+                                        <span ng-if="isChance%2!=0" ng-switch="schoolInfo.art_sel_1">
                                             <em ng-switch-when="5">A+,</em>
                                             <em ng-switch-when="4">A,</em>
                                             <em ng-switch-when="3">B+,</em>
@@ -372,7 +372,23 @@
                                             <em ng-switch-when="1">C,</em>
                                             <em ng-switch-when="0">D,</em>
                                         </span>
-                                        <span ng-switch="school.art_sel_2">
+                                        <span ng-if="isChance%2!=0" ng-switch="schoolInfo.art_sel_2">
+                                            <em ng-switch-when="5">A+</em>
+                                            <em ng-switch-when="4">A</em>
+                                            <em ng-switch-when="3">B+</em>
+                                            <em ng-switch-when="2">B</em>
+                                            <em ng-switch-when="1">C</em>
+                                            <em ng-switch-when="0">D</em>
+                                        </span>
+                                        <span ng-if="isChance%2==0" ng-switch="schoolInfo.sci_sel_1">
+                                            <em ng-switch-when="5">A+,</em>
+                                            <em ng-switch-when="4">A,</em>
+                                            <em ng-switch-when="3">B+,</em>
+                                            <em ng-switch-when="2">B,</em>
+                                            <em ng-switch-when="1">C,</em>
+                                            <em ng-switch-when="0">D,</em>
+                                        </span>
+                                        <span ng-if="isChance%2==0" ng-switch="schoolInfo.sci_sel_2">
                                             <em ng-switch-when="5">A+</em>
                                             <em ng-switch-when="4">A</em>
                                             <em ng-switch-when="3">B+</em>
@@ -411,20 +427,20 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
+                            <!--<li class="active">-->
+                                <!--<a href="#panel-468191" data-toggle="tab">录取规则</a>-->
+                            <!--</li>-->
                             <li class="active">
-                                <a href="#panel-468191" data-toggle="tab">录取规则</a>
-                            </li>
-                            <li>
                                 <a href="#panel-574587" data-toggle="tab">招生章程</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="panel-468191" style="overflow-y: scroll;height: 250px;">
-                                <p>
-                                    第一部分内容.
-                                </p>
-                            </div>
-                            <div class="tab-pane" id="panel-574587" style="overflow-y: scroll;height: 250px;" ng-bind-html="schoolInfo.article_content">
+                            <!--<div class="tab-pane active" id="panel-468191" style="overflow-y: scroll;height: 250px;">-->
+                                <!--<p>-->
+                                    <!--第一部分内容.-->
+                                <!--</p>-->
+                            <!--</div>-->
+                            <div class="tab-pane active" id="panel-574587" style="overflow-y: scroll;height: 250px;" ng-bind-html="schoolInfo.article_content">
 
                             </div>
                         </div>
