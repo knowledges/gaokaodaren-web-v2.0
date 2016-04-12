@@ -19,18 +19,29 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    //app.constant("loocha","");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
                 return $http.get(loocha+'/user').success(function(data){
-                    $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
-                        if(data<=0){
-                            alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
-                            window.location.href = "#/all/allScore";
-                        }
-                    });
+                    if(data.response!=undefined && data.response.id!=undefined){
+                        $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
+                            if(data<=0){
+                                alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
+                                window.location.href = "#/all/allScore";
+                            }
+                        });
+                    }else{
+                        sessionStorage.removeItem('type');
+                        sessionStorage.removeItem('uScore');
+                        sessionStorage.removeItem('user');
+                        sessionStorage.removeItem('user_id');
+                        sessionStorage.removeItem('usernumber');
+                        alert('登陆失效或您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        $(".modal-backdrop").fadeOut(500);
+                    }
                 }).error(function(e){
                     sessionStorage.removeItem('type');
                     sessionStorage.removeItem('uScore');
@@ -564,7 +575,7 @@ define(['app'],function(app){
                 templateUrl:"html/refer/refer.html",
                 controllerUrl:"js/refer/refer",
                 controller:'referCtr',
-                data: { isPublic: false}
+                data: { isPublic: true}
             })
 ////////////////////////////////随机志愿表/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state('refer1',{

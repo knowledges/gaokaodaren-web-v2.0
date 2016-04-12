@@ -17,7 +17,11 @@ require(['app'],function(app){
                 city:"",
                 area:"",
                 requestId:"",
-                orderShow:false
+                orderShow:false,
+                departArr_0:[],
+                departArr_1:[],
+                departArr_2:[],
+
         };
 
         $scope.order.orderId = $location.$$search.orderId;
@@ -102,18 +106,81 @@ require(['app'],function(app){
                     $scope.order.city =data.response.city;
                     $scope.order.area =data.response.area;
                     $scope.order.data = data.response.list;
-                    $scope.order.requestId = data.response.request_id;
+                    $scope.order.departArr_0 = data.response.list[0].departs;
+                    $scope.order.departArr_1 = data.response.list[1].departs;
+                    $scope.order.departArr_2 = data.response.list[2].departs;
+                    $scope.order.requestId = data.response.intentionId;
                 });
         }
 
         function getNewOrderInfo(){
-            $http.get(loocha+'/exam/'+$scope.order.requestId)
-                .success(function(data,status){
-                    $scope.orderout_trade_no = data.response.order_id;
-                    $scope.order.money = data.response.money;
-                    $scope.order.orderShow = true;
+            $.post(loocha+"/exam/intention/auto",{id:$scope.order.requestId},function(data){
+                var list = JSON.parse(data),order_id = list.response.id;
+                if(order_id == 0){
+                    alert("订单提交失败，请重新操作");
+                }else{
+                    $http.get(loocha+'/exam/' + order_id).success(function (data) {
+                        if(data.status == 1){
+                            alert('没有找到订单');
+                            return;
+                        }
+                        $scope.orderout_trade_no = data.response.order_id;
+                        $scope.order.money = data.response.money;
+                        $scope.order.orderShow = true;
+                    });
+                }
+            });
+        };
 
-                });
+        $scope.showCase = function(){
+            $http.get(loocha+"/exam/intention?id="+$scope.order.requestId)
+                .success(function(data){
+                    var obj = data.response;
+                    var preferOrders = obj.preferOrders,preferSchoolNames = obj.preferSchoolNames,preferDepartNames = obj.preferDepartNames,
+                        preferCityNames = obj.preferCityNames, preferPersonalityNames = obj.preferPersonalityNames;
+
+                    caseModel (preferOrders,$scope.order.departArr_0);
+                    caseModel (preferOrders,$scope.order.departArr_1);
+                    caseModel (preferOrders,$scope.order.departArr_2);
+
+                    $scope.order.data[0].departs = $scope.order.departArr_0;
+                    $scope.order.data[1].departs = $scope.order.departArr_1;
+                    $scope.order.data[2].departs = $scope.order.departArr_2;
+
+                    $("#cased").modal('show');
+
+                    function caseModel (array,newArray){
+                        for(var j = 0 ;j < newArray.length;j++){
+
+                            var preferArr = newArray[j].prefer.split(",");
+                            newArray[j].cased =[];
+                            newArray[j].str = "";
+                            for(var i = 0;i<array.length;i++){
+
+                                for(var k = 0 ; k < preferArr.length;k++){
+                                    if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
+                                        var schl = preferSchoolNames[parseInt(preferArr[i])-1];
+                                        newArray[j].cased.push(schl);
+                                        newArray[j].str = newArray[j].str +"高校第"+preferArr[i]+"优先 "
+                                    }else if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
+                                        var dept = preferDepartNames[parseInt(preferArr[i])-1];
+                                        newArray[j].cased.push(dept);
+                                        newArray[j].str = newArray[j].str +"专业第"+preferArr[i]+"优先 "
+                                    }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
+                                        var city = preferCityNames[parseInt(preferArr[i])-1];
+                                        newArray[j].cased.push(city);
+                                        newArray[j].str = newArray[j].str +"城市第"+preferArr[i]+"优先 "
+                                    }else if (array[i] == 4 && preferArr[i]>0 && k == 0){//个性
+                                        var per = preferPersonalityNames[parseInt(preferArr[i])-1];
+                                        newArray[j].cased.push(per);
+                                        newArray[j].str = newArray[j].str +"个性第"+preferArr[i]+"优先 "
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }) ;
         }
+
     }])
 });

@@ -77,18 +77,26 @@ require(['app'],function(app){
 
         init ();
         function init(){
-            if(sessionStorage.getItem("admitFlag")!=null){
-                var flag = sessionStorage.getItem("admitFlag");
-                flag.splice(0,1);
-                flag.splice(flag.length-1,1);
+            getLoginUserInfo.isLogoin();
 
-                for(var i = 0 ; i< flag.length ; i++){
-                    for(var j = 0 ; j < $(".chance_").length ; j++){
-                        if(flag[i] == $(".chance_").eq(j).val()){
-                            $(".chance_").eq(j).attr("checked","true");
+            if(localStorage.getItem('type')!= null){
+                if(sessionStorage.getItem("admitFlag")!=null){
+                    var flag = sessionStorage.getItem("admitFlag");
+                    flag.splice(0,1);
+                    flag.splice(flag.length-1,1);
+
+                    for(var i = 0 ; i< flag.length ; i++){
+                        for(var j = 0 ; j < $(".chance_").length ; j++){
+                            if(flag[i] == $(".chance_").eq(j).val()){
+                                $(".chance_").eq(j).attr("checked","true");
+                            }
                         }
                     }
                 }
+            }else{
+                $("#recommend").modal('show');
+                //$rootScope.loading = false;
+                return;
             }
         }
 
@@ -711,6 +719,16 @@ require(['app'],function(app){
                     break;
             }
             return num;
+        }
+
+        $scope.startChance = function(e){
+            var that = $(e.target),score = that.attr('score'),type = that.attr('type');
+            if(score<=JSON.parse(sessionStorage.getItem('uScore')).score){
+                localStorage.setItem('type',type);
+                window.location.reload(0);
+            }else{
+                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+            }
         }
 
     }]);

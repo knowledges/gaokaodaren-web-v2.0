@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('searchCtr',['$scope','$http','$location','$stateParams','$sce',function($scope,$http,$location,$stateParams,$sce){
+    app.controller('searchCtr',['$scope','$http','$location','$stateParams','$sce','loocha',function($scope,$http,$location,$stateParams,$sce,loocha){
         console.log($stateParams);
         $scope.html={
             list:[],
@@ -11,9 +11,9 @@ require(['app'],function(app){
         };
         init();
         function init(){
-            $http.get('/loocha/article/search?name='+$stateParams.key+'&index='+0+'&limit='+15).success(function(data,status){
+            $http.get(loocha+'/article/search?name='+$stateParams.key+'&index='+0+'&limit='+15).success(function(data,status){
                 $scope.html.list = data.response;
-                $scope.html.content =$sce.trustAsHtml($scope.html.list[0].content);
+                //$scope.html.content =$sce.trustAsHtml($scope.html.list[0].content);
             });
         };
 

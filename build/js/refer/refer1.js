@@ -334,12 +334,13 @@ require(['app'], function (app) {
         };
 
         $scope.isPay = function(){
-            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id,function(data){
-                if(data.status == "1004"){
-                    alert('交易失败');
-                }
-                $("#tip").modal('hide');
-            });
+            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id)
+                .success(function(data){
+                    if(data.status == "1004"){
+                        alert('交易失败');
+                    }
+                    $("#tip").modal('hide');
+                });
         };
 
         function openwin(url) {
