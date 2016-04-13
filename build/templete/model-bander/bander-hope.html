@@ -2,24 +2,18 @@
 <div class="chance_tabel">
     <form ng-submit="addScore(table)">
         <div class="row">
-            <h3>高考志愿意向表</h3>
+            <h3>志愿推荐</h3>
             <div class="col-md-12">
-                <div class="col-sm-6">
-                    <div class="col-sm-4 text-right">
+                <div class="col-sm-7">
+                    <div class="col-sm-5" style="text-align: right;">
                         <label>学科：</label>
                     </div>
-                    <div class="col-sm-8 text-left">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" ng-model="table.subject" value="1">文科
-                            </label>
-                            <label>
-                                <input type="radio" ng-model="table.subject" value="2">理科
-                            </label>
-                        </div>
+                    <div class="col-sm-7 text-left">
+                        <input type="radio" ng-model="table.subject" value="1">文科
+                        <input type="radio" ng-model="table.subject" value="2">理科
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div class="col-sm-4 text-right">
                         <label>成绩：</label>
                     </div>
@@ -29,11 +23,11 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-sm-6">
-                    <div class="col-sm-4 text-right">
-                        <label>选测科目：</label>
+                <div class="col-sm-7">
+                    <div class="col-sm-5 text-right">
+                        <label>选测科目等级：</label>
                     </div>
-                    <div class="col-sm-4 text-left">
+                    <div class="col-sm-3 text-left">
                         <div class="form-group">
                             <input type="text" class="form-control"  ng-model="table.sub1" ng-readonly="table.sub1"/>
                         </div>
@@ -44,13 +38,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div class="col-sm-4 text-right">
                         <label>另一门：</label>
                     </div>
                     <div class="col-sm-4 text-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" ng-model="table.sub2" ng-readonly="table.sub2"/>
+                            <select ng-model="table.sub2" class="form-control">
+                                <option value="1">生物</option>
+                                <option value="2">化学</option>
+                                <option value="3">政治</option>
+                                <option value="4">地理</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4 text-left">
@@ -60,12 +59,58 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success btn-lg" type="submit">开始预测</button>
+            <div class="col-md-12">
+                <div class="col-sm-2 text-right">
+                    <label>批次：</label>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12">
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 文科本一
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 文科本二
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 文科本三
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 文科高职
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12"  style="margin-top: 2px;">
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 理科本一
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 理科本二
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 理科本三
+                            </label>
+                        </div>
+                        <div class="btn-group">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="economic" /> 理科高职
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-lg" type="submit" style="margin-top: 2px;">进入</button>
         </div>
     </form>
-    <!--<div ng-if="">-->
-        <!--<h1>志愿预测</h1>-->
-        <!--<p>人之所以能，是相信能</p>-->
-        <!--<p><a href="#/chance" class="btn btn-primary btn-lg" role="button">开始预测</a></p>-->
-    <!--</div>-->
 </div>

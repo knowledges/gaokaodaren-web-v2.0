@@ -1117,7 +1117,7 @@ require(['app'], function (app) {
             var isTrue = $('#style1').attr('data-istrue');
             if (isTrue == "false") {
                 var html = [];
-                $http.get(loocha + '/school/prop/' + $scope.hope.batch).success(function (data, status) {
+                $http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
@@ -1180,7 +1180,8 @@ require(['app'], function (app) {
             var isTrue = $('#prop1').attr('data-istrue');
             if (isTrue == "false") {
                 var html = [];
-                $http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
+                $http.get(loocha + '/school/attr/').success(function (data, status) {
+                //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
