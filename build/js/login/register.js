@@ -35,7 +35,7 @@ require(['app'],function(app){
             $rootScope.isShowLogin = true;
             $rootScope.isShowRegistered = false;
             $rootScope.isShowForget = false;
-        }
+        };
 
         $scope.registered = function () {
             var param = {};
@@ -43,7 +43,7 @@ require(['app'],function(app){
             param.password = $scope.user.password;
             param.newpassword = $scope.user.newpassword;
             param.code = $scope.user.code;
-            param.mobile = $scope.user.mobile;
+            //param.mobile = $scope.user.mobile;
 
             var tramsform = function(data){
                 return $.param(data);
@@ -69,5 +69,10 @@ require(['app'],function(app){
                 $window.location.href = "#/login";
             });
         };
+
+        $scope.agreen = function(){
+            $("#mask-register").fadeOut();
+        }
+
     }]);
 });

@@ -1,0 +1,153 @@
+<div class="loading-modal model" ng-if="loading">
+    <div class="loading">
+        <img src="img/loading.gif" alt=""/>
+        <span>页面正在加载中...</span>
+    </div>
+</div>
+<div class="menu-div">
+    <div class="row">
+        <div class="col-sm-6" ng-if="table.newScore>0">
+            <div class="alert alert-default text-left">
+                <h4 class="h_title">
+                    <i class="icon-tag"></i>志愿推荐表批次选择
+                </h4>
+            </div>
+            <div class="alert alert-default">
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="1" score="333" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科本一</a></li>
+                    <li><a href="javascript:;;" type="3" score="301" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科本二</a></li>
+                    <li><a href="javascript:;;" type="5" score="272" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科本三</a></li>
+                    <li><a href="javascript:;;" type="7" score="190" ng-click="startTable($event)" title="点击模拟志愿推荐表">文科高职</a></li>
+                </nav>
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="2" score="345" ng-click="startTable($event)" title="点击模拟志愿推荐表">理科本一</a></li>
+                    <li><a href="javascript:;;" type="4" score="312" ng-click="startTable($event)" title="点击模拟志愿推荐表">理科本二</a></li>
+                    <li><a href="javascript:;;" type="6" score="279" ng-click="startTable($event)" title="点击模拟志愿推荐表">理科本三</a></li>
+                    <li><a href="javascript:;;" type="8" score="190" ng-click="startTable($event)" title="点击模拟志愿推荐表">理科高职</a></li>
+                </nav>
+            </div>
+        </div>
+        <div class="col-sm-6" ng-if="table.newScore>0">
+            <div class="alert alert-default text-left">
+                <h4 class="h_title">
+                    <i class="icon-tag"></i>志愿预测批次选择
+                </h4>
+            </div>
+            <div class="alert alert-default">
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="1" score="333" ng-click="startChance($event)" title="点击模拟志愿概率">文科本一</a></li>
+                    <li><a href="javascript:;;" type="3" score="301" ng-click="startChance($event)" title="点击模拟志愿概率">文科本二</a></li>
+                    <li><a href="javascript:;;" type="5" score="272" ng-click="startChance($event)" title="点击模拟志愿概率">文科本三</a></li>
+                    <li><a href="javascript:;;" type="7" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">文科高职</a></li>
+                </nav>
+                <nav class="nav nav-pills">
+                    <li><a href="javascript:;;" type="2" score="345" ng-click="startChance($event)" title="点击模拟志愿概率">理科本一</a></li>
+                    <li><a href="javascript:;;" type="4" score="312" ng-click="startChance($event)" title="点击模拟志愿概率">理科本二</a></li>
+                    <li><a href="javascript:;;" type="6" score="279" ng-click="startChance($event)" title="点击模拟志愿概率">理科本三</a></li>
+                    <li><a href="javascript:;;" type="8" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">理科高职</a></li>
+                </nav>
+            </div>
+        </div>
+        <div class="alert alert-warning text-left" role="alert"  ng-if="table.newScore>0">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">友情提示:</span>
+            点击批次前，确认下方<i class="icon-circle-arrow-down"></i>是否有成绩被使用！否则会影响到您志愿推荐的准确性哦！
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr class="success">
+                <td>科目</td>
+                <td>成绩</td>
+                <td>选测科目等级</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="list in table.myScore" is-loading>
+                <td>{{list.subject == 1 ? "文科":"理科"}}</td>
+                <td>{{list.score}}</td>
+                <td>{{list.subject == 1 ? "历史 "+list.level_a : "物理 "+list.level_a }}，{{list.subject == 1 ? "政治 "+list.level_b : "化学 "+list.level_b }}</td>
+                <td>{{list.time | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>
+                    <span ng-if="list.userTime > 0">正在使用该成绩</span>
+                    <button class="btn btn-success"  ng-if="list.userTime == 0" score="{{list.score}}" list_id ="{{list.id}}" ng-click="setUp($event)">开始使用</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-success btn-lg"  data-toggle="modal" ng-click="createAdd($event)"><i class="icon-plus"></i>创建高考成绩</button>
+
+        <div class="modal fade bs-example-modal-sm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form ng-submit="addScore(table)">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-left"> <i class="icon-plus-sign"></i>创建新成绩</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-4 text-right">
+                                    <label>学科：</label>
+                                </div>
+                                <div class="col-sm-8 text-left">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="table.subject" value="1">文科
+                                        </label>
+                                        <label>
+                                            <input type="radio" ng-model="table.subject" value="2">理科
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>成绩：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.score"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>选测科目：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.sub1" ng-readonly="table.sub1"/>
+                                        <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
+                                            <option value=""> ---- </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4 text-right">
+                                        <label>另一门：</label>
+                                    </div>
+                                    <div class="col-sm-8 text-left">
+                                        <input type="text" class="form-control" ng-model="table.sub2" ng-readonly="table.sub2"/>
+                                        <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
+                                            <option value=""> ---- </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

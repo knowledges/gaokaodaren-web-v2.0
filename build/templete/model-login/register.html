@@ -5,7 +5,7 @@
                 注册
             </h1>
             <label class="src-only" for="username"></label>
-            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="请输入用户名" required autofocus>
+            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="考籍号/手机/邮箱" required autofocus>
             <label ng-if="register.name.$error.required" class="red">用户名不能为空</label>
             <label ng-if="login.name.$error.minlength" class="red">输入格式至少是6位</label>
             <label ng-if="login.name.$error.maxlength" class="red">输入格式最大是20位</label>
@@ -36,9 +36,9 @@
             <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
             <label ng-if="login.pwd.$error.minlength" class="red">密码最大12位数</label>
             <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
-            <lable class="src-only" for="mobile"></lable>
-            <input type="text" id="mobile" name="mobile" ng-model="user.mobile"  ng-pattern="/^1[3|4|5|8][0-9]\d{4,8}$/" class="form-control login-input" placeholder="请输入手机号">
-            <label ng-if="register.mobile.$error.pattern" class="red">手机格式不正确</label>
+            <!--<lable class="src-only" for="mobile"></lable>-->
+            <!--<input type="text" id="mobile" name="mobile" ng-model="user.mobile"  ng-pattern="/^1[3|4|5|8][0-9]\d{4,8}$/" class="form-control login-input" placeholder="请输入手机号">-->
+            <!--<label ng-if="register.mobile.$error.pattern" class="red">手机格式不正确</label>-->
             <div class="row login-input">
                 <div class="col-sm-6">
                     <button ng-disabled="login.$invalid" class="btn btn-success btn-lg btn-block" type="submit">注册</button>

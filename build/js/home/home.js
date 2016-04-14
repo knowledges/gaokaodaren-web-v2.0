@@ -66,6 +66,9 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
             $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
             function handlerIn(){
                 $('.carousel').carousel('pause');
+                var num = $("#myCarousel ol li[class='active']").data("slide-to");
+                $(".carousel-item").hide();
+                $("#item"+num).show();
             }
             function handlerOut(){
                 $('.carousel').carousel({'pause':"true"});
