@@ -15,6 +15,10 @@ require(['app'],function(app){
     }]);
     app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo',function ($scope,$window,$http,loocha,getLoginUserInfo) {
 
+     /*   $scope.$on("$includeContentLoaded",function(){
+            alert('加载ok');
+        })*/
+
         $scope.recommShow = false;
         $scope.table = {
             obl:"",
@@ -22,8 +26,10 @@ require(['app'],function(app){
             score:"",
             subject:"",
             sub1:"",
+            sub2:"",
             myScore:"",
-            newScore:0
+            newScore:0,
+            batch:""
         }
 
         init();
@@ -33,7 +39,7 @@ require(['app'],function(app){
 
             $('#myModal').modal({
                 keyboard: false
-            })
+            });
 
             $scope.firstDoor = [
                 {
@@ -56,9 +62,9 @@ require(['app'],function(app){
                     name: "D"
                 }
             ];
-            
+            $('.dropdown-toggle').dropdown();
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
-            
+
             $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){
                 if(data.response!=null && data.response.length>0){
                     $scope.table.myScore = data.response;
@@ -80,43 +86,83 @@ require(['app'],function(app){
         $scope.$watch('table.subject',function(newValue,oldValue){
             if(newValue == 1){
                 $scope.table.sub1 = "历史";
-                $scope.table.sub2 = "政治";
+                $scope.table.sub2 = "3";
             }else if(newValue == 2){
                 $scope.table.sub1 = "物理";
-                $scope.table.sub2 = "化学";
+                $scope.table.sub2 = "2";
             }
         });
 
-        $scope.addScore = function(table){
-            if(table.score <=0){
-                alert('分数不能小于0！');
-            }else if(table.sel == null){
-                alert('请选择科目等级！');
-            }else if(table.obl == null){
-                alert('请选择科目等级！');
-            }
+        $scope.addScore = function(num){
 
-            var param = {};
+            if(sessionStorage.getItem("uScore")!=null){
+                if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.obl && $scope.table.sel){
+                    localStorage.setItem("type",$scope.table.batch);
+                    if(num == 1){
+                        $window.location.href = "#/hope";
+                    }else if (num == 2){
+                        $window.location.href = "#/chance";
+                    }else{
+                        $window.location.href = "#/depath";
+                    }
+                }else if($scope.table.subject=="" && $scope.table.batch!="" ){
+                    alert("请选择学科");
+                }else if ($scope.table.subject!="" && $scope.table.batch==""){
+                    alert("请选择批次");
+                }else{
+                    addUserScore();
+                }
+            }else{
+                addUserScore();
+            }
+            /**
+             * 添加成绩
+             */
+            function addUserScore(){
+                if($scope.table.score <=0){
+                    alert('分数不能小于0！');
+                }else if($scope.table.sel == null){
+                    alert('请选择科目等级！');
+                }else if($scope.table.obl == null){
+                    alert('请选择科目等级！');
+                }
+
+                var param = {};
                 param.user_id = sessionStorage.getItem("user_id");
                 param.subject = $scope.table.subject;
                 param.score = $scope.table.score;
                 param.sub_a = $scope.table.sub1;
-                param.sub_b = $scope.table.sub2;
-                param.level_a = table.obl.name;
-                param.level_b = table.sel.name;
+                param.sub_b = $("#other option:selected").text();
+                param.level_a = $scope.table.obl.name;
+                param.level_b = $scope.table.sel.name;
                 param.year = new Date().getFullYear();
-            
-            var tramsform = function(data){
-                return $.param(data);
-            };
-            
-            $http.post(loocha+"/uscore/addscore",param,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(responseDate){
-                alert("请点击页面中‘开始使用’，我们将开始使用此次成绩！");
-            	$window.location.reload(0);
-            });
+
+                var tramsform = function(data){
+                    return $.param(data);
+                };
+
+                $http.post(loocha+"/uscore/addscore",param,{
+                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                    transformRequest:tramsform
+                }).success(function(responseDate){
+                    var id = responseDate.response;
+                    if(responseDate.status == 0){
+                        $http.get(loocha+'/uscore/uptime?id='+id+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
+                            $http.get(loocha+"/uscore/info?id="+id).success(function(data,status){
+                                sessionStorage.setItem('uScore',JSON.stringify(data.response));
+                                localStorage.setItem("type",$scope.table.batch);
+                                if(num == 1){
+                                    $window.location.href = "#/hope";
+                                }else if (num == 2){
+                                    $window.location.href = "#/chance";
+                                }else{
+                                    $window.location.href = "#/depath";
+                                }
+                            });
+                        });
+                    }
+                });
+            }
         };
 
         $scope.setUp = function(e){

@@ -1121,9 +1121,55 @@ require(['app'], function (app) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
+                        html.push('<li><a href="javascript:;;"  class="findSchoolProp" style_id="' + v.id + '">' + v.name + '</a></li>');
+                    });
+                    $("#style1").empty().prepend(html.join(''));
+                    var _time = null;
+                    $(".findSchoolProp").unbind('dblclick').dblclick(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this), status = that.attr("status"), style_id = that.attr('style_id');
+                        var list = $(".findSch[style=" + style_id + "]");
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
+                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
+                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
+                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
+                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status"), style_id = that.attr('style_id');
+                            var list = $(".findSch[style=" + style_id + "]");
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
+                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        }, 400);
+                    });
+                });
+                $('#style1').attr("data-istrue", "true");
+            };
+            $("#style1").show();
+        };
+
+        /**
+         * 属性
+         * @param e
+         */
+        $scope.proplistClk = function (e) {
+            $("#panel-footer .dropdown-menu").hide();
+            var isTrue = $('#prop1').attr('data-istrue');
+            if (isTrue == "false") {
+                var html = [];
+                $http.get(loocha + '/school/attr/').success(function (data, status) {
+                //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
+                    $scope.hope.attr = data.response;
+                    var html = [];
+                    $.each($scope.hope.attr, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findSchoolSty" prop_id="' + v.id + '">' + v.name + '</a></li>');
                     });
-                    $("#style1").append(html.join(''));
+                    $("#prop1").empty().prepend(html.join(''))
                     var _time = null;
                     $(".findSchoolSty").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
@@ -1166,54 +1212,8 @@ require(['app'], function (app) {
                         }, 400);
                     });
                 });
-                $('#style1').attr("data-istrue", "true");
-            }
-            $("#style1").show();
-        };
-
-        /**
-         * 属性
-         * @param e
-         */
-        $scope.proplistClk = function (e) {
-            $("#panel-footer .dropdown-menu").hide();
-            var isTrue = $('#prop1').attr('data-istrue');
-            if (isTrue == "false") {
-                var html = [];
-                $http.get(loocha + '/school/attr/').success(function (data, status) {
-                //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
-                    $scope.hope.attr = data.response;
-                    var html = [];
-                    $.each($scope.hope.attr, function (i, v) {
-                        html.push('<li><a href="javascript:;;"  class="findSchoolProp" style_id="' + v.id + '">' + v.name + '</a></li>');
-                    });
-                    $("#prop1").append(html.join(''));
-                    var _time = null;
-                    $(".findSchoolProp").unbind('dblclick').dblclick(function (e) {
-                        $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"), style_id = that.attr('style_id');
-                        var list = $(".findSch[style=" + style_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
-                    }).unbind('click').click(function (e) {
-                        $timeout.cancel(_time);
-                        var that = $(this);
-                        _time = $timeout(function (e) {
-                            var status = that.attr("status"), style_id = that.attr('style_id');
-                            var list = $(".findSch[style=" + style_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
-                        }, 400);
-                    });
-                });
                 $('#prop1').attr("data-istrue", "true");
-            }
+            };
             $("#prop1").show();
         };
 

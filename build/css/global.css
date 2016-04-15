@@ -25,3 +25,10 @@
 .loading span {
   display: block;
 }
+.ul_li_0 a {
+  color: #000;
+}
+#footer a,
+#footer p {
+  color: #000;
+}

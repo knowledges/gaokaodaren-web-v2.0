@@ -10,6 +10,11 @@ require(['app'],function(app){
         }
     });
     app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'loocha',function ($scope, $rootScope, $window,$http,loocha) {
+//        $scope.$on("$includeContentLoaded",function(){
+//            $("#register").click(function(){
+//            });
+//        });
+
         $scope.user = {
             username: "",
             password: "",
@@ -18,6 +23,7 @@ require(['app'],function(app){
             code: "",
             img: ""
         };
+
         $rootScope.isShowLogin = true;
         $rootScope.isShowRegistered = false;
         $rootScope.isShowForget = false;
@@ -34,12 +40,37 @@ require(['app'],function(app){
             });
         }
 
+        window.setTimeout(function(){
+            $("#hiddenIframe_3").load(function(){
+                /* JSON.parse(this.contentWindow.document.body.innerText).status ;
+                 JSON.parse(this.contentWindow.document.body.innerText).response ;*/
+                if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
+                    alert('验证码失效');
+                    getCodes();
+                    return ;
+                }
+                //路由权限
+                sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
+                sessionStorage.setItem('usernumber', JSON.parse(this.contentWindow.document.body.innerText).response.name);
+                sessionStorage.setItem('user_id',JSON.parse(this.contentWindow.document.body.innerText).response.id);
+                $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
+
+                if(localStorage.getItem('score')!=null){
+                    window.location.href = "#/home";
+                }else{
+                    window.location.href="#/all/allScore";
+                }
+            });
+
+
+        },400);
+
         $scope.signin = function () {
 
             var param = {};
-                param.j_username = $scope.user.username;
-                param.j_password = $scope.user.password;
-                param.code = $scope.user.code;
+            param.j_username = $scope.user.username;
+            param.j_password = $scope.user.password;
+            param.code = $scope.user.code;
 
             var tramsform = function(data){
                 return $.param(data);

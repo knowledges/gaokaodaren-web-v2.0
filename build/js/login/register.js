@@ -5,6 +5,9 @@
 require(['app'],function(app){
     app.constant("registerURL", "/user/register");
     app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL",'loocha',function ($scope, $rootScope,$window,$http,registerURL,loocha) {
+        /*$scope.$on("$includeContentLoaded",function(){
+         alert('加载完毕');
+         });*/
         $scope.user = {
             username: "",
             password: "",
@@ -12,7 +15,7 @@ require(['app'],function(app){
             newpassword: "",
             code: "",
             img: ""
-        }
+        };
 
         $("#mask-register").fadeIn('500');
         $(".close").click(function(){
@@ -29,7 +32,7 @@ require(['app'],function(app){
             $http.get(loocha+"/user/code?time=" + new Date().getTime()).success(function(data){
                 $scope.user.img = data;
             });
-        }
+        };
 
         $scope.showlogin = function () {
             $rootScope.isShowLogin = true;
@@ -37,42 +40,39 @@ require(['app'],function(app){
             $rootScope.isShowForget = false;
         };
 
-        $scope.registered = function () {
-            var param = {};
-            param.name = $scope.user.username;
-            param.password = $scope.user.password;
-            param.newpassword = $scope.user.newpassword;
-            param.code = $scope.user.code;
-            //param.mobile = $scope.user.mobile;
-
-            var tramsform = function(data){
-                return $.param(data);
-            };
-
-            $http.post(loocha+registerURL,param,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
-            }).success(function(promise){
-                if (promise.status == -1) {
-                    alert("验证码有错误");
-                    getCodes();
-                    return;
-                } else if (promise.status == 3) {
-                    alert("此账户已存在");
-                    return;
-                } else if (promise.status == 6) {
-                    alert('参数错误');
-                    return;
-                }
-                alert("注册成功,请登陆");
-                window.sessionStorage.setItem('usernumber', $scope.user.username);
-                $window.location.href = "#/login";
+        window.setTimeout(function(){
+            $("#hiddenIframe").load(function(){
+                /*JSON.parse(this.contentWindow.document.body.innerText).status ;
+                 JSON.parse(this.contentWindow.document.body.innerText).response ;*/
+                /*$("#code").val(JSON.parse(this.contentWindow.document.body.innerText).response);
+                window.sessionStorage.setItem('usernumber', $scope.user.username);*/
+                $("#form_update_2").trigger("click");
             });
-        };
+
+            $("#hiddenIframe_2").load(function(){
+                /* JSON.parse(this.contentWindow.document.body.innerText).status ;
+                 JSON.parse(this.contentWindow.document.body.innerText).response ;*/
+                if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
+                    alert('验证码失效');
+                    getCodes();
+                    return ;
+                }
+                //路由权限
+                sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
+                sessionStorage.setItem('usernumber', JSON.parse(this.contentWindow.document.body.innerText).response.name);
+                sessionStorage.setItem('user_id',JSON.parse(this.contentWindow.document.body.innerText).response.id);
+                $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
+
+                if(localStorage.getItem('score')!=null){
+                    window.location.href = "#/home";
+                }else{
+                    window.location.href="#/all/allScore";
+                }
+            });
+        },600);
 
         $scope.agreen = function(){
             $("#mask-register").fadeOut();
         }
-
     }]);
 });

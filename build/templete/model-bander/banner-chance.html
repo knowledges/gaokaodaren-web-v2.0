@@ -44,7 +44,8 @@
                     </div>
                     <div class="col-sm-4 text-left">
                         <div class="form-group">
-                            <select ng-model="table.sub2" class="form-control">
+                            <select id="other"  ng-model="table.sub2" class="form-control">
+                                <option value="">==</option>
                                 <option value="1">生物</option>
                                 <option value="2">化学</option>
                                 <option value="3">政治</option>
@@ -67,44 +68,44 @@
                     <div class="col-sm-12">
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本一
+                                <input type="radio" name="economic" ng-model="table.batch" value="1"/> 文科本一
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本二
+                                <input type="radio" name="economic" ng-model="table.batch"  value="3" /> 文科本二
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本三
+                                <input type="radio" name="economic" ng-model="table.batch"  value="5" /> 文科本三
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科高职
+                                <input type="radio" name="economic" ng-model="table.batch" value="7" /> 文科高职
                             </label>
                         </div>
                     </div>
                     <div class="col-sm-12"  style="margin-top: 2px;">
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本一
+                                <input type="radio" name="economic" ng-model="table.batch"  value="2" /> 理科本一
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本二
+                                <input type="radio" name="economic" ng-model="table.batch"  value="4" /> 理科本二
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本三
+                                <input type="radio" name="economic" ng-model="table.batch"  value="6" /> 理科本三
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科高职
+                                <input type="radio" name="economic" ng-model="table.batch" value="8" /> 理科高职
                             </label>
                         </div>
                     </div>

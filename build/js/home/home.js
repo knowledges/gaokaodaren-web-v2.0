@@ -2,23 +2,6 @@
  * Created by qbl on 2015/11/25.
  */
 define(['app','jquery','bootstrap'],function(app,$,bootstrap){
-    //app.directive('isLoading',['$rootScope',function($rootScope){
-    //    return{
-    //        restrict: 'A',
-    //        link:function(scope) {
-    //            if (scope.$last == true) {
-    //                $rootScope.loading = false;
-    //            }
-    //            $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
-    //            function handlerIn(){
-    //                $('.carousel').carousel('pause');
-    //            }
-    //            function handlerOut(){
-    //                $('.carousel').carousel({'pause':"true"});
-    //            }
-    //        }
-    //    }
-    //}]);
     app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
         return {
             restrict: 'A',

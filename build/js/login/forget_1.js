@@ -43,6 +43,11 @@ require(['app'],function(app){
             param.j_password = $scope.user.password;
             param.mobile = "";
             param.code = $scope.user.code;
+            //param.mobile = $scope.user.mobile;
+
+            $.post(loocha+registerURL,param,function(data){
+                debugger;
+            });
 
             var tramsform = function(data){
                 return $.param(data);

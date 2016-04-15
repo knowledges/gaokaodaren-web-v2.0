@@ -6,33 +6,11 @@
 </div>
 <div class="menu-div">
     <div class="container-fluid">
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr class="success">
-                    <td>科目</td>
-                    <td>成绩</td>
-                    <td>选测科目等级</td>
-                    <td>创建时间</td>
-                    <td>操作</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="list in table.myScore" is-loading>
-                    <td>{{list.subject == 1 ? "文科":"理科"}}</td>
-                    <td>{{list.score}}</td>
-                    <td>{{list.subject == 1 ? "历史 "+list.level_a : "物理 "+list.level_a }}，{{list.subject == 1 ? "政治 "+list.level_b : "化学 "+list.level_b }}</td>
-                    <td>{{list.time | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
-                    <td>
-                        <span ng-if="list.userTime > 0">正在使用该成绩</span>
-                        <button class="btn btn-success"  ng-if="list.userTime == 0" score="{{list.score}}" list_id ="{{list.id}}" ng-click="setUp($event)">开始使用</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div style="width: 700px;height: 275px;background: rgba(63, 115, 148, 0.48);border: 1px solid #2E88C6; border-radius: 4px;box-shadow: 0px 0px 15px #094771;">
-            <form ng-submit="addScore(table)">
+        <div style="height: 275px;background: rgba(63, 115, 148, 0.48);border: 1px solid #2E88C6; border-radius: 4px;box-shadow: 0px 0px 15px #094771;">
+            <!--ng-submit="addScore(table)"-->
+            <form>
                 <div class="row">
-                    <h3>志愿预测</h3>
+                   <h3>查询</h3>
                     <div class="col-md-12">
                         <div class="col-sm-7">
                             <div class="col-sm-5" style="text-align: right;">
@@ -74,7 +52,8 @@
                             </div>
                             <div class="col-sm-4 text-left">
                                 <div class="form-group">
-                                    <select ng-model="table.sub2" class="form-control">
+                                    <select ng-model="table.sub2" id="other" class="form-control">
+                                        <option value="">=====</option>
                                         <option value="1">生物</option>
                                         <option value="2">化学</option>
                                         <option value="3">政治</option>
@@ -97,67 +76,88 @@
                             <div class="col-sm-12">
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 文科本一
+                                        <input type="radio" name="economic" ng-model="table.batch" value="1"/> 文科本一
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 文科本二
+                                        <input type="radio" name="economic" ng-model="table.batch"  value="3" /> 文科本二
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 文科本三
+                                        <input type="radio" name="economic" ng-model="table.batch"  value="5" /> 文科本三
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 文科高职
+                                        <input type="radio" name="economic" ng-model="table.batch" value="7" /> 文科高职
                                     </label>
                                 </div>
                             </div>
                             <div class="col-sm-12"  style="margin-top: 2px;">
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 理科本一
+                                        <input type="radio" name="economic" ng-model="table.batch"  value="2" /> 理科本一
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 理科本二
+                                        <input type="radio" name="economic" ng-model="table.batch"  value="4" /> 理科本二
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 理科本三
+                                        <input type="radio" name="economic" ng-model="table.batch"  value="6" /> 理科本三
                                     </label>
                                 </div>
                                 <div class="btn-group">
                                     <label class="btn btn-primary">
-                                        <input type="radio" name="economic" /> 理科高职
+                                        <input type="radio" name="economic" ng-model="table.batch" value="8" /> 理科高职
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Split button -->
-                    <div class="btn-group" style="margin: 12px;">
-                        <button type="button" class="btn btn-primary">进入</button>
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    <div class="dropdown" style="display: inline-block;">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"  style="margin-top: 12px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="点击选择查询内容">
+                            进入
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:;;">志愿推荐</a></li>
-                            <li><a href="javascript:;;">志愿预测</a></li>
-                            <li><a href="javascript:;;">深度查询</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a href="javascript:;;" ng-click="addScore(3)">深度查询</a></li>
+                            <li><a href="javascript:;;" ng-click="addScore(1)">志愿推荐</a></li>
+                            <li><a href="javascript:;;" ng-click="addScore(2)">志愿预测</a></li>
                         </ul>
                     </div>
                     <!--<button class="btn btn-primary btn-lg" type="submit" style="margin-top: 2px;">进入</button>-->
                 </div>
             </form>
         </div>
-
+        <table class="table table-hover table-bordered" ng-if="table.myScore.length>0">
+            <thead>
+            <tr class="success">
+                <td>科目</td>
+                <td>成绩</td>
+                <td>选测科目等级</td>
+                <td>创建时间</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="list in table.myScore" is-loading>
+                <td>{{list.subject % 2 ==0 ? "理科":"文科"}}</td>
+                <td>{{list.score}}</td>
+                <td>{{list.subject == 1 ? "历史 "+list.level_a : "物理 "+list.level_a }}，{{list.subject == 1 ? "政治 "+list.level_b : "化学 "+list.level_b }}</td>
+                <td>{{list.time | date : 'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>
+                    <span ng-if="list.userTime > 0">正在使用该成绩</span>
+                    <button class="btn btn-success"  ng-if="list.userTime == 0" score="{{list.score}}" list_id ="{{list.id}}" ng-click="setUp($event)">开始使用</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <!--<button class="btn btn-success btn-lg"  data-toggle="modal" ng-click="createAdd($event)"><i class="icon-plus"></i>创建高考成绩</button>-->
     </div>
 </div>

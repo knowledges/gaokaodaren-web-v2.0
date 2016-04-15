@@ -537,7 +537,18 @@ define(['app'],function(app){
                 templateUrl:"html/temp/tempDepath.html",
                 controllerUrl:"js/depth/articleMenu",
                 controller:"artCtr",
-                data: { isPublic: false}
+                data: { isPublic: false},
+                resolve:{
+                    data_province:function($q,$http,provinceURL,loocha){
+                        var dtd = $q.defer();
+                        $http.get(loocha+provinceURL).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
+                    }
+                }
             })
             .state("depth.info",{
                 url:"/depthInfo/batch=:batch",

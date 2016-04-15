@@ -1,11 +1,20 @@
 <div class="col-md-6" role="register">
-    <form name="register" ng-submit="registered(user)" novalidate>
+    <iframe id="hiddenIframe_2" name="hiddenIframe_2" width=0 height=0 frameborder=0 src="about:blank"></iframe>
+    <form id="fabokeForm_2" method="POST" action="/login" target="hiddenIframe_2" style=" width: 0; height: 0; overflow: hidden;">
+        <input type="text" id="j_username" ng-model="user.username" name="j_username"/>
+        <input type="text" id="j_password" ng-model="user.password" name="j_password"/>
+        <input type="text" id="code" ng-model="user.code" name="code">
+        <button class="btn btn-success btn-lg btn-block"  id="form_update_2" type="submit">注册</button>
+    </form>
+    <iframe id="hiddenIframe" name="hiddenIframe" width=0 height=0 frameborder=0 src="about:blank"></iframe>
+    <form id="fabokeForm" method="POST" action="/user/register" target="hiddenIframe">
+        <!-- <form name="register" method="POST" action="/loocha/user/register"> -->
         <div class="form-horizontal form-signin text-left">
             <h1 class="form-signin-heading text-center">
                 注册
             </h1>
             <label class="src-only" for="username"></label>
-            <input type="text" id="username" name="name" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="考籍号/手机/邮箱" required autofocus>
+            <input type="text" id="username" name="j_username" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="考籍号/手机/邮箱" required autofocus>
             <label ng-if="register.name.$error.required" class="red">用户名不能为空</label>
             <label ng-if="login.name.$error.minlength" class="red">输入格式至少是6位</label>
             <label ng-if="login.name.$error.maxlength" class="red">输入格式最大是20位</label>
@@ -13,7 +22,7 @@
             <div class="row">
                 <div class="col-sm-5  login-input">
                     <lable class="src-only" for="validate"></lable>
-                    <input type="text" id="validate" name="valid" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placeholder="请输入验证码" required>
+                    <input type="text" id="validate" name="code" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placeholder="请输入验证码" required>
                 </div>
                 <div class="col-sm-4  login-input">
                     <img ng-src="{{user.img}}" alt="高考"/>
@@ -27,7 +36,7 @@
             <label ng-if="register.valid.$error.minlength" class="red">验证码个数至少4位数</label>
             <label ng-if="register.valid.$error.pattern" class="red">验证码输入有误</label>
             <lable class="src-only" for="password"></lable>
-            <input type="password" id="password" name="pwd" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placeholder="请输入密码">
+            <input type="password" id="password" name="j_password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placeholder="请输入密码">
             <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
             <label ng-if="login.pwd.$error.minlength" class="red">密码最大12位数</label>
             <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
@@ -41,14 +50,13 @@
             <!--<label ng-if="register.mobile.$error.pattern" class="red">手机格式不正确</label>-->
             <div class="row login-input">
                 <div class="col-sm-6">
-                    <button ng-disabled="login.$invalid" class="btn btn-success btn-lg btn-block" type="submit">注册</button>
-                    <!--<a href="javascript:;;" class="btn btn-success btn-lg btn-block" ng-click="registered()">注册</a>-->
+                    <button ng-disabled="login.$invalid" class="btn btn-success btn-lg btn-block"  id="form_update" type="submit">注册</button>
+                    <!--  <a href="javascript:;;" class="btn btn-success btn-lg btn-block">注册</a> -->
                 </div>
                 <div class="col-sm-6">
                     <a href="#/login" class="btn btn-default btn-lg btn-block">登陆</a>
                 </div>
             </div>
-
         </div>
     </form>
 </div>

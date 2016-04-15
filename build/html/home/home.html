@@ -120,7 +120,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="recipe.list({itemId:132,param:15,active:1})" target="_blank">前期准备</a></li>
                     <li><a ui-sref="recipe.list({itemId:148,param:15,active:2})" target="_blank">操作程序</a></li>
                     <li><a ui-sref="recipe.list({itemId:150,param:15,active:3})" target="_blank">主要原则</a></li>
@@ -139,7 +139,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="score.list({itemId:147,param:16,active:1})" target="_blank">分数线</a></li>
                     <li><a ui-sref="score.list({itemId:152,param:16,active:2})" target="_blank">分数比较法</a></li>
                     <li><a ui-sref="score.list({itemId:153,param:16,active:3})" target="_blank">考生分数分析</a></li>
@@ -160,7 +160,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="policy.list({itemId:116,param:17,active:1})" target="_blank">国家政策</a></li>
                     <li><a ui-sref="policy.list({itemId:117,param:17,active:2})" target="_blank">江苏政策</a></li>
                     <li><a ui-sref="policy.list({itemId:118,param:17,active:3})" target="_blank">高校章程</a></li>
@@ -177,7 +177,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="job.list({itemId:120,param:21,active:1})" target="_blank">就业</a></li>
                     <li><a ui-sref="job.list({itemId:122,param:21,active:2})" target="_blank">考研</a></li>
                     <li><a ui-sref="job.list({itemId:123,param:21,active:3})" target="_blank"> 出国（境）</a></li>
@@ -195,7 +195,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="unique.list({itemId:124,param:21,active:1})" target="_blank">身体条件</a></li>
                     <li><a ui-sref="unique.list({itemId:125,param:21,active:2})" target="_blank">经济条件</a></li>
                     <li><a ui-sref="unique.list({itemId:126,param:21,active:3})" target="_blank">学科强弱</a></li>
@@ -216,7 +216,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="online.list({itemId:93,param:3586,active:1})" target="_blank">分数优先咨询线路</a></li>
                     <li><a ui-sref="online.list({itemId:93,param:3597,active:2})" target="_blank">专业优先咨询线路</a></li>
                     <li><a ui-sref="online.list({itemId:93,param:3603,active:3})" target="_blank">高校优先咨询线路</a></li>
@@ -236,7 +236,7 @@
                 <a ui-sref="school.nav"><span><strong>高校介绍</strong>--<small>抉择的落实</small> </span></a>
             </p>
             <div class="col-sm-4" style="margin-top: 15px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="school.list({type:1})" target="_blank">文科本一</a></li>
                     <li><a ui-sref="school.list({type:3})" target="_blank">文科本二</a></li>
                     <li><a ui-sref="school.list({type:5})" target="_blank">文科本三</a></li>
@@ -257,7 +257,7 @@
                 <i class="triangle"></i>
             </p>
             <div class="col-sm-4" style="margin-top: 30px;">
-                <ul type="square" style="padding-left: 20px;">
+                <ul class="ul_li_0" type="square" style="padding-left: 20px;">
                     <li><a ui-sref="marjor.list({type:1})" target="_blank">文科本一</a></li>
                     <li><a ui-sref="marjor.list({type:3})" target="_blank">文科本二</a></li>
                     <li><a ui-sref="marjor.list({type:5})" target="_blank">文科本三</a></li>
@@ -279,7 +279,7 @@
                 <a ui-sref="city.nav"><span><strong>城市介绍</strong>--<small>抉择的落实</small> </span></a>
                 <i class="triangle"></i>
             </p>
-            <ul style="margin-top: 35px;" type="square">
+            <ul class="ul_li_0" style="margin-top: 35px;" type="square">
                 <li ng-repeat="list in table.provincelist" on-finish-render="loading" style="display: inline-block;">
                     &nbsp;&nbsp;<em style="font-size: 20px;">▪</em>&nbsp;&nbsp;<a ui-sref="city.list({cityId:list.id,code:$index+1})" target="_blank">{{list.name}} </a>
                 </li>

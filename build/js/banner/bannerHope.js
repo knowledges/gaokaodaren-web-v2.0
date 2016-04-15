@@ -9,8 +9,10 @@ require(['app'],function(app){
             score:"",
             subject:"",
             sub1:"",
+            sub2:"",
             myScore:"",
-            newScore:0
+            newScore:0,
+            batch:""
         };
 
         $scope.firstDoor = [
@@ -38,10 +40,10 @@ require(['app'],function(app){
         $scope.$watch('table.subject',function(newValue,oldValue){
             if(newValue == 1){
                 $scope.table.sub1 = "历史";
-                $scope.table.sub2 = "政治";
+                $scope.table.sub2 = "3";
             }else if(newValue == 2){
                 $scope.table.sub1 = "物理";
-                $scope.table.sub2 = "化学";
+                $scope.table.sub2 = "2";
             }
         });
 
@@ -61,7 +63,7 @@ require(['app'],function(app){
                 param.subject = $scope.table.subject;
                 param.score = $scope.table.score;
                 param.sub_a = $scope.table.sub1;
-                param.sub_b = $scope.table.sub2;
+                param.sub_b = $("#other option:selected").text();
                 param.level_a = table.obl.name;
                 param.level_b = table.sel.name;
                 param.year = new Date().getFullYear();
@@ -78,9 +80,9 @@ require(['app'],function(app){
                 var index = responseDate.response,score = $scope.table.score;
                 $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
                     $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
+                        localStorage.setItem('type',$scope.table.batch);
                         sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                        alert("请选择批次！");
-                        $window.location.href = "#/all/allScore";
+                        $window.location.href = "#/hope";
                     });
                 });
             });
