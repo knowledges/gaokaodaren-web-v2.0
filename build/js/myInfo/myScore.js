@@ -13,7 +13,35 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo',function ($scope,$window,$http,loocha,getLoginUserInfo) {
+    app.factory("levelName", function () {
+        return {
+            ShowLevel: function (str) {
+                var num = 0;
+                switch (str) {
+                    case "5":
+                        num = 'A+';
+                        break;
+                    case "4":
+                        num = 'A';
+                        break;
+                    case "3":
+                        num = 'B+';
+                        break;
+                    case "2":
+                        num = 'B';
+                        break;
+                    case "1":
+                        num = 'C';
+                        break;
+                    case "0":
+                        num = 'D';
+                        break;
+                }
+                return num;
+            }
+        }
+    });
+    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName) {
 
      /*   $scope.$on("$includeContentLoaded",function(){
             alert('加载ok');
@@ -96,7 +124,7 @@ require(['app'],function(app){
         $scope.addScore = function(num){
 
             if(sessionStorage.getItem("uScore")!=null){
-                if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.obl && $scope.table.sel){
+                if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.sub1!="" && $scope.table.sub2!=""){
                     localStorage.setItem("type",$scope.table.batch);
                     if(num == 1){
                         $window.location.href = "#/hope";
@@ -137,7 +165,30 @@ require(['app'],function(app){
                 param.level_b = $scope.table.sel.name;
                 param.year = new Date().getFullYear();
 
-                var tramsform = function(data){
+                $http({
+                    method:'GET',
+                    url:loocha+"/uscore/addscore",
+                    params:param
+                }).success(function(responseDate){
+                    var id = responseDate.response;
+                    if(responseDate.status == 0){
+                        $http.get(loocha+'/uscore/uptime?id='+id+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
+                            $http.get(loocha+"/uscore/info?id="+id).success(function(data,status){
+                                sessionStorage.setItem('uScore',JSON.stringify(data.response));
+                                localStorage.setItem("type",$scope.table.batch);
+                                if(num == 1){
+                                    $window.location.href = "#/hope";
+                                }else if (num == 2){
+                                    $window.location.href = "#/chance";
+                                }else{
+                                    $window.location.href = "#/depath";
+                                }
+                            });
+                        });
+                    }
+                });
+
+                /*var tramsform = function(data){
                     return $.param(data);
                 };
 
@@ -161,7 +212,7 @@ require(['app'],function(app){
                             });
                         });
                     }
-                });
+                });*/
             }
         };
 

@@ -4,6 +4,112 @@
 require(['app'], function (app) {
     app.factory("classifyClk", function () {
         return {
+            agreePropEvent:function(status, that, list, prefer, ignore, name, arr, obj,typeObj,IsNull){
+                $("#panel-footer a[school_id]").removeClass('agree cancle reject');
+                if (status == undefined || status == null || status == 0) {
+                    status = that.attr("status", "1").removeClass('cancle reject').addClass('agree');
+                    var type = new Object();    //添加大类别
+                    type.id = that.attr("pub");
+                    type.name = that.html();
+                    typeObj.push(type);
+                    //status = that.attr("status","1").addClass('agree');
+                    $.each(list, function (i, v) {
+                        //var idx = $(v).attr(id);//id = school_id
+                        //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
+                        var idx = v.s_id;
+                        $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
+                        if (ignore.indexOf(idx) >= 0) {
+                            ignore.splice(ignore.indexOf(idx), 1);
+                        }
+                        if (prefer.indexOf(idx) < 0) {
+                            if (arr != null) {
+                                obj = new Object();
+                                obj.id = idx;
+                                obj.name = v.name;
+                                arr.push(obj);
+                            }
+                            prefer.push(idx);
+                            //name.push($(v).html());
+                        }
+                    });
+                } else if (status == 1) {
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //取消大类
+                    $.each(typeObj,function(i,v){
+                        if(v!=undefined){
+                            if(that.html() == v.name){
+                                typeObj.splice(i, 1);
+                            }
+                        }
+
+                    });
+                    if(IsNull == 1){
+                        $.each(list, function (i, v) {
+                            //var idx = $(v).attr(id);//id = school_id
+                            //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
+                            var idx = v.s_id;
+                            $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
+                            if (ignore.indexOf(idx) >= 0) {
+                                ignore.splice(ignore.indexOf(idx), 1);
+                            }
+                            if (prefer.indexOf(idx) < 0) {
+                                if (arr != null) {
+                                    obj = new Object();
+                                    obj.id = idx;
+                                    obj.name = v.name;
+                                    arr.push(obj);
+                                }
+                                prefer.push(idx);
+                                //name.push($(v).html());
+                            }
+                        });
+                    }else{
+                        $.each(list, function (i, v) {
+                            var idx = v.s_id;
+                            $("#panel-footer a[school_id="+idx+"]").attr("status", 0).removeClass('agree reject').addClass('cancle');
+                            if (arr != null) {
+                                arr.splice(prefer.indexOf(idx), 1);
+                            }
+                            //name.splice(prefer.indexOf(idx),1);
+                            prefer.splice(prefer.indexOf(idx), 1);
+
+                        });
+                    }
+
+                } else if (status == 2) {
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    if(IsNull == 1){
+                        $.each(list, function (i, v) {
+                            //var idx = $(v).attr(id);//id = school_id
+                            //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
+                            var idx = v.s_id;
+                            $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
+                            if (ignore.indexOf(idx) >= 0) {
+                                ignore.splice(ignore.indexOf(idx), 1);
+                            }
+                            if (prefer.indexOf(idx) < 0) {
+                                if (arr != null) {
+                                    obj = new Object();
+                                    obj.id = idx;
+                                    obj.name = v.name;
+                                    arr.push(obj);
+                                }
+                                prefer.push(idx);
+                                //name.push($(v).html());
+                            }
+                        });
+                    }else {
+                        $.each(list, function (i, v) {
+                            var idx = v.s_id;
+                            ignore.splice(ignore.indexOf(idx), 1);
+                            $("#panel-footer a[school_id=" + idx + "]").attr("status", 0).removeClass('agree reject').addClass('cancle');
+                        });
+                    }
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+JSON.stringify(typeObj);
+            },
             /**
              * @param status 当前按钮的状态 1.同意 2.拒绝 0/null.无
              * @param that 当前对象
@@ -16,9 +122,13 @@ require(['app'], function (app) {
              * @param obj 当前对象
              * @returns {string} 同意的数组、拒绝的数组、同意的文字内容、存储Obj的数组
              */
-            agreenClsEvent: function (status, that, list, prefer, ignore, id, name, arr, obj) {
+            agreenClsEvent: function (status, that, list, prefer, ignore, id, name, arr, obj,typeObj) {
                 if (status == undefined || status == null || status == 0) {
-                    status = that.attr("status", "1");
+                    status = that.attr("status", "1").removeClass('cancle reject').addClass('agree');
+                    var type = new Object();    //添加大类别
+                        type.id = that.attr("pub");
+                        type.name = that.html();
+                        typeObj.push(type);
                     //status = that.attr("status","1").addClass('agree');
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
@@ -38,8 +148,15 @@ require(['app'], function (app) {
                         }
                     });
                 } else if (status == 1) {
-                    status = that.attr("status", "0");
-                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //取消大类
+                    $.each(typeObj,function(i,v){
+                        if(that.html() == v.name){
+                            typeObj.splice(i, 1);
+                        }
+                    });
+
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
@@ -51,15 +168,15 @@ require(['app'], function (app) {
 
                     });
                 } else if (status == 2) {
-                    status = that.attr("status", "0");
-                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
                         ignore.splice(ignore.indexOf(idx), 1);
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
                     });
                 }
-                return prefer + "-" + ignore + "-" + name + "-" + JSON.stringify(arr);
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+JSON.stringify(typeObj);
             },
             agreenCityEvent: function (status, that, prefer, ignore, id, name, value, arr, obj) {
                 if (status == undefined || status == null || status == 0) {
@@ -89,16 +206,67 @@ require(['app'], function (app) {
                         ignore.splice(ignore.indexOf(id), 1);
                     }
                 }
-                return prefer + "-" + ignore + "-" + name + "-" + JSON.stringify(arr);
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
             }
         }
     });
     app.factory("classifyDBClk", function () {
         return {
-            rejectClsEvent: function (status, that, list, prefer, ignore, id, name, arr) {
+            rejectPropEvent: function (status, that, list, prefer, ignore, name, arr,typeObj) {
+                //$("#panel-footer a[school_id]").removeClass('agree cancle reject')
                 if (status == undefined || status == null || status == 0 || status == 1) {
-                    status = that.attr("status", "2");
-                    //status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+                    //status = that.attr("status", "2");
+                    status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+
+                    //取消大类
+                    $.each(typeObj,function(i,v){
+                        if(v!=undefined){
+                            if(that.html() == v.name){
+
+                                typeObj.splice(i, 1);
+                            }
+
+                        }
+                    });
+
+                    $.each(list, function (i, v) {
+                        var idx = v.s_id;
+                        $("#panel-footer a[school_id="+idx+"]").attr("status", "2").removeClass('agree cancle').addClass('reject');
+                        if (prefer.indexOf(idx) >= 0) {
+                            arr.splice(prefer.indexOf(idx), 1);
+                            //name.splice(prefer.indexOf(idx),1);
+                            prefer.splice(prefer.indexOf(idx), 1);
+                        }
+                        if (ignore.indexOf(idx) < 0) {
+                            ignore.push(idx);
+                        }
+                    });
+                } else {
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    if (arr != null) {
+                        arr = [];
+                    }
+                    prefer = [], ignore = [];
+                    $.each(list, function (i, v) {
+                        var idx = v.s_id;
+                        $("#panel-footer a[school_id="+idx+"]").attr("status", 0).removeClass('agree reject').addClass('cancle');
+                    });
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
+            },
+            rejectClsEvent: function (status, that, list, prefer, ignore, id, name, arr,typeObj) {
+                if (status == undefined || status == null || status == 0 || status == 1) {
+                    //status = that.attr("status", "2");
+                    status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+
+                    //取消大类
+                    $.each(typeObj,function(i,v){
+                        if(that.html() == v.name){
+                            typeObj.splice(i, 1);
+                        }
+                    });
+
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
                         $(v).attr("status", "2").removeClass('agree cancle').addClass('reject');
@@ -112,8 +280,8 @@ require(['app'], function (app) {
                         }
                     });
                 } else {
-                    status = that.attr("status", "0");
-                    //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //status = that.attr("status", "0");
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     if (arr != null) {
                         arr = [];
                     }
@@ -122,7 +290,7 @@ require(['app'], function (app) {
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
                     });
                 }
-                return prefer + "-" + ignore + "-" + name + "-" + JSON.stringify(arr);
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
             },
             rejectCityEvent: function (status, that, prefer, ignore, id, name, value, arr) {
                 if (status == undefined || status == null || status == 0) {
@@ -148,7 +316,7 @@ require(['app'], function (app) {
                         ignore.splice(ignore.indexOf(id), 1);
                     }
                 }
-                return prefer + "-" + ignore + "-" + name + "-" + JSON.stringify(arr);
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
             }
         }
     });
@@ -211,7 +379,7 @@ require(['app'], function (app) {
                     var list = $("#panel-footer .nav-pills,#depart .nav-depart");
                     for (var i = 0; i < list.size(); i++) {
                         var that = list.eq(i);
-                        if (that.height() > 220) {
+                        if (that.height() > 250) {
                             that.addClass('nav-scroll');
                         }
                     }
@@ -219,8 +387,70 @@ require(['app'], function (app) {
             }
         }
     }]);
+    app.directive('onFinishWatchschl',[function(){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+
+                if (scope.$last === true) {
+                    var that = $("#watch_school");
+                    if (that.height() > 250) {
+                        that.addClass('nav-scroll');
+                    }
+                }
+            }
+        }
+    }]);
+    app.directive('onFinishWatchcity',[function(){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+
+                if (scope.$last === true) {
+                    var that = $("#watch_city");
+                    if (that.height() > 250) {
+                        that.addClass('nav-scroll');
+                    }
+                }
+            }
+        }
+    }]);
+    app.directive('onFinishWatchdepart',[function(){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+
+                if (scope.$last === true) {
+                    var that = $("#watch_depart");
+                    if (that.height() > 250) {
+                        that.addClass('nav-scroll');
+                    }
+                }
+            }
+        }
+    }]);
+    app.directive('onFinishWatchperson',[function(){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+
+                if (scope.$last === true) {
+                    var that = $("#watch_person");
+                    if (that.height() > 250) {
+                        that.addClass('nav-scroll');
+                    }
+                }
+            }
+        }
+    }]);
     app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope, classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
         $scope.hope = {
+            style:"",
+            belongs:"",
+            attribute:"",
+            prop3:"",
+            prop4:"",
+            prop8:"",
             area: "",
             js_province: "",
             firstCities: "",
@@ -277,6 +507,13 @@ require(['app'], function (app) {
             order_id: [],
             money: [],
         };
+
+        $scope.hopeClassify = {
+            genus:[],//属类
+            terr:[],//属地
+            proCate:[],//专业类别
+            personals:[]//个性
+        }
 
         $scope.info = {
             title: "",
@@ -986,7 +1223,7 @@ require(['app'], function (app) {
                 $http.get(loocha + '/wish/areatype?batch=' + $scope.hope.batch + '&city_id=' + city_id).success(function (data, status) {
                     var html = [];
                     $.each(data.response, function (i, v) {
-                        html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '">' + v.name + '</a></li>');
+                        html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
                     $("#dropdown" + city_id).append(html.join(''));
 
@@ -998,11 +1235,12 @@ require(['app'], function (app) {
                         $timeout.cancel(_time);
                         var that = $(this), status = that.attr("status"), city_id = that.attr('city_id');
                         var list = $(".cityClk[parent_id=" + city_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr);
-                        $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr,$scope.hopeClassify.terr);
+                        $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.terr = mosaic.split("|")[4]!=undefined > 0 ? JSON.parse(mosaic.split("|")[4]):[];
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
@@ -1010,12 +1248,12 @@ require(['app'], function (app) {
                             var status = that.attr("status");
                             var city_id = that.attr('city_id');
                             var list = $(".cityClk[parent_id=" + city_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj);
-                            $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
-                            console.log(JSON.stringify($scope.hope.cityArr));
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj,$scope.hopeClassify.terr);
+                            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.terr = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
                         }, 400);
                     });
                 });
@@ -1063,6 +1301,20 @@ require(['app'], function (app) {
             ul.show();
         };
 
+        /**
+         * 获取选择类别后的结果
+         * @param param
+         */
+        function getSchoolList(param){
+            $http({
+                url:loocha+"/schbath",
+                method:"GET",
+                params:param
+            }).success(function(data){
+                return data.response;
+            });
+        }
+
         /*类别*/
         $scope.atrlistClk = function (e) {
             $("#panel-footer .dropdown-menu").hide();
@@ -1072,30 +1324,103 @@ require(['app'], function (app) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
-                        html.push('<li><a href="javascript:;;" class="findSchoolArt" attr_id="' + v.id + '">' + v.name + '</a></li>');
+                        html.push('<li><a href="javascript:;;" class="findSchoolArt" attr_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
                     $("#attr1").append(html.join(''));
                     var _time = null;
                     $(".findSchoolArt").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
-                        var list = $(".findSch[attr=" + attr_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var that = $(this), status = that.attr("status");
+
+                        if (status == undefined || status == null || status == 0||status == 1) {
+                            $scope.hope.attribute = $scope.hope.attribute+that.attr("pub")+",";
+                        }else if (status == 2){
+                            var str = $scope.hope.attribute,arr = str.split(",");
+                            $.each(arr,function(i,v){
+                                if(that.html() == v.name){
+                                    arr.splice(i, 1);
+                                }
+                            });
+                            var newStr = "";
+                            for(var i = 0; i<arr.length;i++){
+                                if(arr[i]!=""){
+                                    newStr = arr[i]+","
+                                }
+                            }
+                            $scope.hope.attribute = newStr;
+                        }
+                        var param = {};
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
+
+                        $http({
+                            url:loocha+"/schbath",
+                            method:"GET",
+                            params:param
+                        }).success(function(data){
+                            var list = data.response;
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
+                            that.removeClass('cancle reject agree').addClass('reject');
+                        });
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
-                            var status = that.attr("status"), attr_id = that.attr('attr_id');
-                            var list = $(".findSch[attr=" + attr_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                            var status = that.attr("status");
+                            if (status == undefined || status == null || status == 0) {
+                                $scope.hope.attribute =$scope.hope.attribute + that.attr("pub")+",";
+                            }else if (status == 1 || status == 2){
+                                var str = $scope.hope.attribute,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("attr_id") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = arr[i]+","
+                                    }
+                                }
+                                $scope.hope.attribute = newStr;
+                            }
+                            var param = {};
+                                param.type = localStorage.getItem("type");
+                                param.style = $scope.hope.style;
+                                param.belongs = $scope.hope.belongs;
+                                param.attr = $scope.hope.attribute;
+                                param.prop3 = $scope.hope.prop3;
+                                param.prop4 = $scope.hope.prop4;
+                                param.prop8 = $scope.hope.prop8;
+
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
+
                         }, 400);
                     });
                 });
@@ -1116,35 +1441,106 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#style1').attr('data-istrue');
             if (isTrue == "false") {
-                var html = [];
+                //var html = [];
                 $http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
-                        html.push('<li><a href="javascript:;;"  class="findSchoolProp" style_id="' + v.id + '">' + v.name + '</a></li>');
+                        html.push('<li><a href="javascript:;;"  class="findSchoolProp" style_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
                     $("#style1").empty().prepend(html.join(''));
                     var _time = null;
                     $(".findSchoolProp").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"), style_id = that.attr('style_id');
-                        var list = $(".findSch[style=" + style_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var that = $(this), status = that.attr("status");
+
+                        if (status == undefined || status == null || status == 0) {
+                            $scope.hope.style = $scope.hope.style + that.attr("pub")+",";
+                        }else if (status == 2||status == 1){
+                            var str = $scope.hope.attribute,arr = str.split(",");
+                            $.each(arr,function(i,v){
+                                if(that.html() == v.name){
+                                    arr.splice(i, 1);
+                                }
+                            });
+                            var newStr = "";
+                            for(var i = 0; i<arr.length;i++){
+                                if(arr[i]!=""){
+                                    newStr = arr[i]+","
+                                }
+                            }
+                            $scope.hope.attribute = newStr;
+                        }
+                        var param = {};
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
+
+                        $http({
+                            url:loocha+"/schbath",
+                            method:"GET",
+                            params:param
+                        }).success(function(data) {
+                            var list = data.response;
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
+                        })
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
-                            var status = that.attr("status"), style_id = that.attr('style_id');
-                            var list = $(".findSch[style=" + style_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                            var status = that.attr("status");
+                            if (status == undefined || status == null || status == 0) {
+                                $scope.hope.style =$scope.hope.style+ that.attr("pub")+",";
+                            }else if (status == 1 || status == 2){
+                                var str = $scope.hope.style,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("style_id") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = arr[i]+","
+                                    }
+                                }
+                                $scope.hope.style = newStr;
+                            }
+                            var param = {};
+                                param.type = localStorage.getItem("type");
+                                param.style = $scope.hope.style;
+                                param.belongs = $scope.hope.belongs;
+                                param.attr = $scope.hope.attribute;
+                                param.prop3 = $scope.hope.prop3;
+                                param.prop4 = $scope.hope.prop4;
+                                param.prop8 = $scope.hope.prop8;
+
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data) {
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            })
                         }, 400);
                     });
                 });
@@ -1167,48 +1563,101 @@ require(['app'], function (app) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
-                        html.push('<li><a href="javascript:;;" class="findSchoolSty" prop_id="' + v.id + '">' + v.name + '</a></li>');
+                        html.push('<li><a href="javascript:;;" class="findSchoolSty" prop_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
                     $("#prop1").empty().prepend(html.join(''))
                     var _time = null;
                     $(".findSchoolSty").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"), prop_id = that.attr('prop_id'), id = 0;
-                        if (prop_id == 20) {
-                            id = 3;
-                        } else if (prop_id == 21) {
-                            id = 4;
-                        } else if (prop_id == 0) {
-                            id = 7;
-                        } else if (prop_id == 24) {
-                            id = 8;
+                        var that = $(this);
+                        var status = that.attr("status"), prop_id = that.attr('prop_id');
+                        if (status == undefined || status == null || status == 0) {
+                            if (prop_id == 20) {
+                                $scope.hope.prop3 =1 ;
+                            } else if (prop_id == 21) {
+                                $scope.hope.prop4 =1 ;
+                            } else if (prop_id == 24) {
+                                $scope.hope.prop8 =1 ;
+                            }
+                        }else if (status == 1 || status == 2){
+                            if (prop_id == 20) {
+                                $scope.hope.prop3 = "" ;
+                            } else if (prop_id == 21) {
+                                $scope.hope.prop4 = "" ;
+                            } else if (prop_id == 24) {
+                                $scope.hope.prop8 = "" ;
+                            }
                         }
-                        var list = $(".findSch[prop" + id + "=1]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var param = {};
+                        param.type = localStorage.getItem("type");
+                        param.style = $scope.hope.style;
+                        param.belongs = $scope.hope.belongs;
+                        param.attr = $scope.hope.attribute;
+                        param.prop3 = $scope.hope.prop3;
+                        param.prop4 = $scope.hope.prop4;
+                        param.prop8 = $scope.hope.prop8;
+
+                        $http({
+                            url:loocha+"/schbath",
+                            method:"GET",
+                            params:param
+                        }).success(function(data) {
+                            var list = data.response;
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
+                        });
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
-                            var status = that.attr("status"), prop_id = that.attr('prop_id'), id = 0;
-                            if (prop_id == 20) {
-                                id = 3;
-                            } else if (prop_id == 21) {
-                                id = 4;
-                            } else if (prop_id == 0) {
-                                id = 7;
-                            } else if (prop_id == 24) {
-                                id = 8;
+                            var status = that.attr("status"), prop_id = that.attr('prop_id');
+                            if (status == undefined || status == null || status == 0) {
+                                if (prop_id == 20) {
+                                    $scope.hope.prop3 =1 ;
+                                } else if (prop_id == 21) {
+                                    $scope.hope.prop4 =1 ;
+                                } else if (prop_id == 24) {
+                                    $scope.hope.prop8 =1 ;
+                                }
+                            }else if (status == 1 || status == 2){
+                                if (prop_id == 20) {
+                                    $scope.hope.prop3 = "" ;
+                                } else if (prop_id == 21) {
+                                    $scope.hope.prop4 = "" ;
+                                } else if (prop_id == 24) {
+                                    $scope.hope.prop8 = "" ;
+                                }
                             }
-                            var list = $(".findSch[prop" + id + "=1]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                            var param = {};
+                                param.type = localStorage.getItem("type");
+                                param.style = $scope.hope.style;
+                                param.belongs = $scope.hope.belongs;
+                                param.attr = $scope.hope.attribute;
+                                param.prop3 = $scope.hope.prop3;
+                                param.prop4 = $scope.hope.prop4;
+                                param.prop8 = $scope.hope.prop8;
+
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data) {
+                                var list = data.response;
+                                var isnull = 0;
+                                if ($scope.hope.style != "" || $scope.hope.attribute != "" || $scope.hope.belongs != "" || $scope.hope.prop3 != "" || $scope.hope.prop4 != "" || $scope.hope.prop8 != "") {
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus, isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
                         }, 400);
                     });
                 });
@@ -1230,30 +1679,101 @@ require(['app'], function (app) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
-                        html.push('<li><a href="javascript:;;" class="findSchoolBel"  belongs_id="' + v.id + '">' + v.name + '</a></li>');
+                        html.push('<li><a href="javascript:;;" class="findSchoolBel"  belongs_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
                     $("#belongs1").append(html.join(''));
                     var _time = null;
                     $(".findSchoolBel").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status"), belongs_id = that.attr('belongs_id');
-                        var list = $(".findSch[belongs=" + belongs_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-                        $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var that = $(this), status = that.attr("status");
+
+                        if (status == undefined || status == null || status == 0) {
+                            $scope.hope.belongs = $scope.hope.belongs+that.attr("pub")+",";
+                        }else if (status == 2||status == 1){
+                            var str = $scope.hope.attribute,arr = str.split(",");
+                            $.each(arr,function(i,v){
+                                if(that.html() == v.name){
+                                    arr.splice(i, 1);
+                                }
+                            });
+                            var newStr = "";
+                            for(var i = 0; i<arr.length;i++){
+                                if(arr[i]!=""){
+                                    newStr = arr[i]+","
+                                }
+                            }
+                            $scope.hope.attribute = newStr;
+                        }
+                        var param = {};
+                        param.type = localStorage.getItem("type");
+                        param.style = $scope.hope.style;
+                        param.belongs = $scope.hope.belongs;
+                        param.attr = $scope.hope.attribute;
+                        param.prop3 = $scope.hope.prop3;
+                        param.prop4 = $scope.hope.prop4;
+                        param.prop8 = $scope.hope.prop8;
+
+                        $http({
+                            url:loocha+"/schbath",
+                            method:"GET",
+                            params:param
+                        }).success(function(data) {
+                            var list = data.response;
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
+                        });
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
-                            var status = that.attr("status"), belongs_id = that.attr('belongs_id');
-                            var list = $(".findSch[belongs=" + belongs_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-                            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                            var status = that.attr("status");
+                            if (status == undefined || status == null || status == 0) {
+                                $scope.hope.belongs = $scope.hope.belongs+that.attr("pub")+",";
+                            }else if (status == 1 || status == 2){
+                                var str = $scope.hope.belongs,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("belongs_id") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = arr[i]+","
+                                    }
+                                }
+                                $scope.hope.belongs = newStr;
+                            }
+                            var param = {};
+                                param.type = localStorage.getItem("type");
+                                param.style = $scope.hope.style;
+                                param.belongs = $scope.hope.belongs;
+                                param.attr = $scope.hope.attribute;
+                                param.prop3 = $scope.hope.prop3;
+                                param.prop4 = $scope.hope.prop4;
+                                param.prop8 = $scope.hope.prop8;
+
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data) {
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.attribute!="" || $scope.hope.belongs!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
                         }, 400);
                     });
                 });
@@ -1272,7 +1792,7 @@ require(['app'], function (app) {
                         html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
                     } else {
                         $.each(data.response, function (i, v) {
-                            html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '">' + v.name + '</a></li>');
+                            html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="'+ v.id+'">' + v.name + '</a></li>');
                         });
                     }
                     $("#depart" + course_id).append(html.join(''));
@@ -1281,11 +1801,12 @@ require(['app'], function (app) {
                         $timeout.cancel(_time);
                         var that = $(this), status = that.attr("status"), course_id = that.attr('course_id');
                         var list = $(".departClk[parent_id=" + course_id + "]");
-                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr);
-                        $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                        $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                        $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                        $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr,$scope.hopeClassify.proCate);
+                        $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.proCate = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]):[];
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
@@ -1294,11 +1815,12 @@ require(['app'], function (app) {
                             //course_id  是专业门类
                             var course_id = that.attr('course_id');
                             var list = $(".departClk[parent_id=" + course_id + "]");
-                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj);
-                            $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                            $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                            $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                            $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj,$scope.hopeClassify.proCate);
+                            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.proCate = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
                         }, 400);
                     });
                 });
@@ -1320,10 +1842,10 @@ require(['app'], function (app) {
         $scope.agreeSch = function (e) {
             var that = $(e.target), status = that.attr('status'), school_id = that.attr('school_id');
             var mosaic = classifyClk.agreenCityEvent(status, that, $scope.hope.school_prefer, $scope.hope.school_ignore, school_id, $scope.hope.school_name, that.html(), $scope.hope.schoolArr, $scope.hope.schoolObj);
-            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
         /*
          * 院校属类 具体高校绑定双击击事件
@@ -1331,10 +1853,10 @@ require(['app'], function (app) {
         $scope.rejectSch = function (e) {
             var that = $(e.target), status = that.attr('status'), school_id = that.attr('school_id');
             var mosaic = classifyDBClk.rejectCityEvent(status, that, $scope.hope.school_prefer, $scope.hope.school_ignore, school_id, $scope.hope.school_name, that.html(), $scope.hope.schoolArr);
-            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
         /*
          * 具体的县级市绑定单击事件
@@ -1342,10 +1864,10 @@ require(['app'], function (app) {
         $scope.agreeCity = function (e) {
             var that = $(e.target), status = that.attr('status'), city_id = that.attr('city_id');
             var mosaic = classifyClk.agreenCityEvent(status, that, $scope.hope.city_prefer, $scope.hope.city_ignore, city_id, $scope.hope.city_name, that.html(), $scope.hope.cityArr, $scope.hope.cityObj);
-            $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
         /*
          * 具体的县级市绑定双击事件
@@ -1353,30 +1875,30 @@ require(['app'], function (app) {
         $scope.rejectCity = function (e) {
             var that = $(e.target), status = that.attr('status'), city_id = that.attr('city_id');
             var mosaic = classifyDBClk.rejectCityEvent(status, that, $scope.hope.city_prefer, $scope.hope.city_ignore, city_id, $scope.hope.city_name, that.html(), $scope.hope.cityArr);
-            $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
 
         /*专业单机事件*/
         $scope.agreeDepart = function (e) {
             var that = $(e.target), status = that.attr('status'), depart_id = that.attr('depart_id');
             var mosaic = classifyClk.agreenCityEvent(status, that, $scope.hope.depart_prefer, $scope.hope.depart_ignore, depart_id, $scope.hope.depart_name, that.html(), $scope.hope.departArr, $scope.hope.departObj);
-            $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
 
         /*专业双击事件*/
         $scope.rejectDepart = function (e) {
             var that = $(e.target), status = that.attr('status'), depart_id = that.attr('depart_id');
             var mosaic = classifyDBClk.rejectCityEvent(status, that, $scope.hope.depart_prefer, $scope.hope.depart_ignore, depart_id, $scope.hope.depart_name, that.html(), $scope.hope.departArr);
-            $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
 
         /**
@@ -1387,10 +1909,10 @@ require(['app'], function (app) {
             var that = $(e.target), status = that.attr('status'), isClick = that.attr("operation"), s_id = that.attr('s_id');
             if (isClick == 1 || isClick == 3) {
                 var mosaic = classifyClk.agreenCityEvent(status, that, $scope.hope.personality_prefer, $scope.hope.personality_ignore, s_id, $scope.hope.personality_name, that.html(), $scope.hope.personalityArr, $scope.hope.personalityObj);
-                $scope.hope.personality_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                $scope.hope.personality_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                $scope.hope.personality_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                $scope.hope.personalityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
             }
         };
 
@@ -1402,10 +1924,10 @@ require(['app'], function (app) {
             var that = $(e.target), status = that.attr('status'), isClick = that.attr("operation"), s_id = that.attr('s_id');
             if (isClick == 2 || isClick == 3) {
                 var mosaic = classifyDBClk.rejectCityEvent(status, that, $scope.hope.personality_prefer, $scope.hope.personality_ignore, s_id, $scope.hope.personality_name, that.html(), $scope.hope.personalityArr);
-                $scope.hope.personality_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-                $scope.hope.personality_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-                $scope.hope.personality_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-                $scope.hope.personalityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+                $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
             }
         };
 
@@ -1415,11 +1937,12 @@ require(['app'], function (app) {
          */
         $scope.agreePro = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#provnice .wishId_" + id);
-            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj);
-            $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj,$scope.hopeClassify.terr);
+            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.terr= mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
         };
 
         /**
@@ -1428,11 +1951,12 @@ require(['app'], function (app) {
          */
         $scope.rejectPro = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#provnice .wishId_" + id);
-            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr);
-            $scope.hope.city_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.city_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.city_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.cityArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr,$scope.hopeClassify.terr);
+            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.terr= mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
         };
 
         /**
@@ -1441,11 +1965,12 @@ require(['app'], function (app) {
          */
         $scope.agreeDep = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#depart .wishId_" + id);
-            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj);
-            $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj,$scope.hopeClassify.proCate);
+            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.proCate= mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
         };
 
         /**
@@ -1454,11 +1979,12 @@ require(['app'], function (app) {
          */
         $scope.rejectDep = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#depart .wishId_" + id);
-            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr);
-            $scope.hope.depart_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.depart_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.depart_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.departArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr,$scope.hopeClassify.proCate);
+            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.proCate= mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
         };
 
         /**
@@ -1467,11 +1993,12 @@ require(['app'], function (app) {
          */
         $scope.agreeSchl = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#panel-footer .wishId_" + id);
-            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj);
-            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus);
+            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
         };
 
         /**
@@ -1480,11 +2007,31 @@ require(['app'], function (app) {
          */
         $scope.rejectSchl = function (e) {
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#panel-footer .wishId_" + id);
-            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr);
-            $scope.hope.school_prefer = mosaic.split("-")[0].length > 0 ? mosaic.split("-")[0].split(",") : [];
-            $scope.hope.school_ignore = mosaic.split("-")[1].length > 0 ? mosaic.split("-")[1].split(",") : [];
-            $scope.hope.school_name = mosaic.split("-")[2].length > 0 ? mosaic.split("-")[2].split(",") : [];
-            $scope.hope.schoolArr = mosaic.split("-")[3].length > 0 ? JSON.parse(mosaic.split("-")[3].split(",")) : [];
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, "school_id", $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+        };
+
+        $scope.agreePersonl = function(e){
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart .wishId_" + id +" a");
+            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr, $scope.hope.personalityObj,$scope.hopeClassify.personals);
+            $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.personals = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+        }
+
+        $scope.rejectPersonl = function(e){
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart .wishId_" + id +" a");
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr,$scope.hopeClassify.personals);
+            $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
 
         $scope.showLanguage = function () {
@@ -1784,6 +2331,7 @@ require(['app'], function (app) {
 
             var param = {};
             param.type = localStorage.getItem("type");
+            param.number = sessionStorage.getItem("usernumber");
             param.obl = matchLevel.ShowLevel(uScore.level_a);
             param.sel = matchLevel.ShowLevel(uScore.level_b);
             param.score = uScore.score;
@@ -1866,6 +2414,7 @@ require(['app'], function (app) {
             var uScore = JSON.parse(sessionStorage.getItem('uScore'));
             var param = {};
             param.type = localStorage.getItem("type");
+            param.number = sessionStorage.getItem("usernumber");
             param.obl = matchLevel.ShowLevel(uScore.level_a);
             param.sel = matchLevel.ShowLevel(uScore.level_b);
             param.score = uScore.score;
@@ -1892,8 +2441,9 @@ require(['app'], function (app) {
             param.city_names = [$(".city_first option:selected").eq(0).text(), $(".city_first option:selected").eq(1).text(), $(".city_first option:selected").eq(2).text()];
             param.depart_names = [$(".depart_first option:selected").eq(0).text(), $(".depart_first option:selected").eq(1).text(), $(".depart_first option:selected").eq(2).text(), $(".depart_first option:selected").eq(3).text(), $(".depart_first option:selected").eq(4).text(), $(".depart_first option:selected").eq(5).text()];
             param.personality_names = [$(".person_first option:selected").eq(0).text(), $(".person_first option:selected").eq(1).text(), $(".person_first option:selected").eq(2).text(), $(".person_first option:selected").eq(3).text(), $(".person_first option:selected").eq(4).text(), $(".person_first option:selected").eq(5).text()];
+
             var tramsform = function (data) {
-                return $.param(data);
+                return $.params(data);
             };
 
             $http.post(loocha + "/exam/intention", param, {

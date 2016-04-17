@@ -12,7 +12,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4>
-                <i class="icon-building"></i> 意向高校
+                <i class="icon-building"></i> 意向高校（优先：单击—绿色；拒绝：双击—红色；可选择：原色）
             </h4>
         </div>
         <div class="panel-body" id="panel-footer">
@@ -57,52 +57,52 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="1" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)">高分高校</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="1" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)" pub="6">高分高校</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
                         <!-- -->
-                        <li ng-repeat="list in hope.schbatch"  beifen ng-if="list.swish_id==1"><a href="javascript:;;" class="findSch wishId_1" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch"  beifen ng-if="list.swish_id==1"><a href="javascript:;;" class="findSch wishId_1" attr="{{list.attr}}" belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)">偏高高校</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)" pub="7">偏高高校</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch"  beifen ng-if="list.swish_id==2"><a href="javascript:;;" class="findSch wishId_2" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch"  beifen ng-if="list.swish_id==2"><a href="javascript:;;" class="findSch wishId_2" attr="{{list.attr}}" belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="3" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)">中分高校</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="3" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)"  pub="8">中分高校</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch"   beifen  ng-if="list.swish_id==3"><a href="javascript:;;" class="findSch wishId_3" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch"   beifen  ng-if="list.swish_id==3"><a href="javascript:;;" class="findSch wishId_3" attr="{{list.attr}}" belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="4" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)">偏低高校</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="4" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)"  pub="9">偏低高校</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch"   beifen ng-if="list.swish_id==4"><a href="javascript:;;" class="findSch wishId_4" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch"   beifen ng-if="list.swish_id==4"><a href="javascript:;;" class="findSch wishId_4" attr="{{list.attr}}" belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="5" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)">低分高校</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="5" ng-click="agreeSchl($event)" ng-dblclick="rejectSchl($event)"  pub="10">低分高校</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch"  on-finish-render="methodname" ng-if="list.swish_id==5"><a href="javascript:;;" class="findSch wishId_5" attr="{{list.attr}}" belongs="{{list.belongs}}" style="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch"  on-finish-render="methodname" ng-if="list.swish_id==5"><a href="javascript:;;" class="findSch wishId_5" attr="{{list.attr}}" belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}" prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}" prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)" ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -144,7 +144,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;" class="title-btn" wishid="2" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">&nbsp;&nbsp;&nbsp;&nbsp;江苏省</a></h4>
+                    <h4><a href="javascirpt:;;" class="title-btn" wishid="2" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)" pub="8">&nbsp;&nbsp;&nbsp;&nbsp;江苏省</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-repeat="lists in hope.js_province" ng-if="lists.classify == 1">
@@ -158,7 +158,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;" class="title-btn" wishid="3" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">一线城市</a></h4>
+                    <h4><a href="javascirpt:;;" class="title-btn" wishid="3" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)" pub="10">一线城市</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-repeat="lists in hope.firstCities" ng-if="lists.classify == 1">
@@ -172,7 +172,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;" class="title-btn" wishid="4" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">二线城市</a></h4>
+                    <h4><a href="javascirpt:;;" class="title-btn" wishid="4" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)" pub="11">二线城市</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -206,7 +206,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;" class="title-btn"  wishid="5" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">三线城市</a></h4>
+                    <h4><a href="javascirpt:;;" class="title-btn"  wishid="5" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)" pub="12">三线城市</a></h4>
                 </div>
                 <div class="col-sm-10  text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -231,7 +231,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;"  class="title-btn"  wishid="6" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">四线城市</a></h4>
+                    <h4><a href="javascirpt:;;"  class="title-btn"  wishid="6" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)"  pub="13">四线城市</a></h4>
                 </div>
                 <div class="col-sm-10  text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -247,7 +247,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascirpt:;;" class="title-btn" wishid="7" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)">五线城市</a></h4>
+                    <h4><a href="javascirpt:;;" class="title-btn" wishid="7" ng-click="agreePro($event)" ng-dblclick="rejectPro($event)"  pub="14">五线城市</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
@@ -266,7 +266,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4 title="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
-                <i class="glyphicon glyphicon-education"></i> 意向专业
+                <i class="glyphicon glyphicon-education"></i> 意向专业（优先：单击—绿色；拒绝：双击—红色；可选择：原色）
             </h4>
         </div>
         <div class="panel-body" id="depart">
@@ -297,7 +297,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">热门专业</a> <img src="img/hot.png" alt="hot" style="position: absolute; top: 0; z-index:9;"/></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)" pub="8">热门专业</a></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.firDepart1.length>0">
@@ -336,7 +336,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="3" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">偏热专业</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="3" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)" pub="9">偏热专业</a></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.secDepart1.length>0">
@@ -383,7 +383,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="4" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">一般专业</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="4" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)" pub="10">一般专业</a></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart nav-scroll">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.thiDepart1.length>0">
@@ -678,7 +678,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="5" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">偏冷专业</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="5" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)" pub="11">偏冷专业</a></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.fourDepart1.length>0">
@@ -733,7 +733,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="6" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)">冷门专业</a></h4>
+                    <h4><a href="javascript:;;" class="title-btn" wishid="6" ng-click="agreeDep($event)" ng-dblclick="rejectDep($event)"  pub="12">冷门专业</a></h4>
                 </div>
                 <div class="col-sm-10 text-left nav-depart">
                     <ul class="nav nav-pills bs-callout" ng-if="iterator.fifDepart1.length>0">
@@ -788,7 +788,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4>
-                <i class="icon-fire"></i> 个性标签
+                <i class="icon-fire"></i> 个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—红色；其他：原色）
             </h4>
         </div>
         <div class="panel-body" id="character">
@@ -824,12 +824,11 @@
                 </div>
             </div>
             <!-- 基础-->
-            <div class="alert alert-default text-left">
-                <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
-            </div>
+            <hr/>
+            <h4 class="h_title text-left" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
             <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1<3">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">({{list.name}})</span></h6>
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>({{list.name}})</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -839,8 +838,8 @@
             </div>
             <!-- 体检限项 重置 start-->
             <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">(体检限项)</span></h6>
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>(体检限项)</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -850,7 +849,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info"></span></h6>
+                    <h6></h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -860,8 +859,8 @@
             </div>
             <!-- 体检限项 重置 end-->
             <div class="row" ng-repeat="list in hope.unEnglish">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">({{list.name}})</span></h6>
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>({{list.name}})</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -880,8 +879,8 @@
             </div>
 
             <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1>4">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-info">({{list.name}})</span></h6>
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>({{list.name}})</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -891,26 +890,24 @@
             </div>
 
             <!-- 期望部分 -->
-            <div class="alert alert-default text-left">
-                <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
-            </div>
-            <div class="row" ng-repeat="list in hope.personality_type3">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-success">({{list.name}})</span></h6>
+            <hr/>
+            <h4 class="h_title text-left" style="margin-left: 70px;"><i class="icon-tags"></i> 期望部分</h4>
+            <div class="row" ng-repeat="list in hope.personality_type3" id="hopePart">
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6><a href="javascript:;;" wishId="{{$index+1}} " ng-click="agreePersonl($event)" ng-dblclick="rejectPersonl($event)">({{list.name}})</a></h6>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
+                    <ul class="nav nav-pills  wishId_{{$index+1}}">
                         <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" parentId="{{sublist.parentId}}" s_id="{{sublist.id}}" operation="{{list.operation}}"  ng-click="agreePersonality($event)" ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a></li>
                     </ul>
                 </div>
             </div>
             <!-- 匹配部分-->
-            <div class="alert alert-default text-left">
-                <h4 class="h_title" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
-            </div>
+            <hr/>
+            <h4 class="h_title text-left" style="margin-left: 70px;"><i class="icon-tasks"></i> 匹配部分</h4>
             <div class="row" ng-repeat="list in hope.personality_type4">
-                <div class="col-sm-2 text-right">
-                    <h6><span class="label label-warning">({{list.name}})</span></h6>
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>({{list.name}})</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
@@ -923,42 +920,50 @@
     <!-- 优先-->
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4 title="亲，您的优先选项确定是这些吗？"> <i class="icon-thumbs-up"></i> 意向优先排序</h4>
+            <h4 title="亲，您的优先选项确定是这些吗？"> <i class="icon-thumbs-up"></i> 意向优先排序添加</h4>
         </div>
         <div class="panel-body">
-            <div class="row">
+            <div class="row"  ng-if="hope.schoolArr.length>0">
                 <div class="col-sm-2 text-right">
+                    <h4>你优先的高校：</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schoolArr" ><a href="javascript:;;">{{list.name}}</a></li>
+                    <ul class="nav nav-pills" id="watch_school">
+                        <li ng-repeat="list in hopeClassify.genus"><a href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schoolArr" on-finish-watchschl="watch_school"><a href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="hope.cityArr.length>0">
                 <div class="col-sm-2 text-right">
+                    <h4>你优先的城市：</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.cityArr" ><a href="javascript:;;">{{list.name}}</a></li>
+                    <ul class="nav nav-pills" id="watch_city">
+                        <li ng-repeat="list in hopeClassify.terr"><a href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.cityArr" on-finish-watchcity="watch_city"><a href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="hope.departArr.length>0">
                 <div class="col-sm-2 text-right">
+                    <h4>你优先的专业：</h4>
                 </div>
                 <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.departArr" ><a href="javascript:;;">{{list.name}}</a></li>
+                    <ul class="nav nav-pills" id="watch_depart">
+                        <li ng-repeat="list in hope.proCate" ><a href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.departArr" on-finish-watchdepart="watch_depart"><a href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="hope.personalitylist.length>0">
                 <div class="col-sm-2 text-right">
+                    <h4>你优先的个性：</h4>
                 </div>
-                <div class="col-sm-10 text-left">
+                <div class="col-sm-10 text-left" id="watch_persona">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.personalitylist"><a href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hopeClassify.personals"><a href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.personalitylist" on-finish-watchperson="watch_person"><a href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -1278,3 +1283,21 @@
         </div>
     </div>
 </div>
+<!--
+
+<div class="title-model">
+    <div class="mask-model">
+        <div>
+            <p>
+                亲：请将您心仪那些高校或哪类高校或哪所高校作为<br/>优先选择的高校，单击（绿色）
+            </p>
+            <p>
+                亲：请将您不想上或不愿意上或决不上的哪所高校或<br/>那些高校或哪类高校，拒绝掉，双击（灰色）
+            </p>
+
+            <p>
+                亲：对您可上可不上（可调节或可接受）的那类高校<br/>或那些高校或那所高校，保持原样。
+            </p>
+        </div>
+    </div>
+</div>-->
