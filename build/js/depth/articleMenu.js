@@ -17,6 +17,7 @@ require(['app'],function(app){
             });
         }
     }]);
+    app.factory("subLevel")
     app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$location','loocha','data_province',function($scope,$http,$sce,$stateParams,$location,loocha,data_province){
         $scope.menuArr = [];
         $scope.orderList=[];
@@ -92,6 +93,9 @@ require(['app'],function(app){
             if (money == 0 && leaf == 0){
                 $(e.target).next().fadeIn(500);
                 $scope.condition.parentTitle = name;
+            }else if (money == 0 && leaf == 0 && inputTemplate == 99){
+                $(e.target).next().fadeIn(500);
+                $scope.condition.parentTitle = name;
             }else{
                 $scope.condition.inputTemplate = inputTemplate;
                 $(".modal").show();
@@ -114,10 +118,11 @@ require(['app'],function(app){
             var depart = $scope.condition.deparName !="" ? $scope.condition.deparName :"";
             var sel = $scope.condition.level !="" ? $scope.condition.level:"";
             if(money==0 && leaf>0){
-                $http.get(loocha+'/depth/query/'+idx+'.html?year='+$scope.condition.timer+'&type='+$location.$$url.split("batch=")[1]+"&school="+school+"&depart="+depart+"&sel=A%2bA")
+                $http.get(loocha+'/depth/query/'+idx+'.html?year='+$scope.condition.timer+'&type='+$location.$$url.split("batch=")[1]+"&school="+school+"&depart="+depart+"&sel="+sel)
                     .success(function (data) {
                         $("#depathTHML").empty().prepend(data);
                         $("#condition").hide();
+                        $scope.condition.level="";
                     });
             }else if (money > 0 && leaf > 0){
                 var obj = new Object();

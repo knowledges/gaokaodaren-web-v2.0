@@ -4,36 +4,99 @@
 require(['app'], function (app) {
     app.factory("classifyClk", function () {
         return {
-            agreePropEvent:function(status, that, list, prefer, ignore, name, arr, obj,typeObj,IsNull){
-                $("#panel-footer a[school_id]").removeClass('agree cancle reject');
+            agreeTypeEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
                 if (status == undefined || status == null || status == 0) {
-                    status = that.attr("status", "1").removeClass('cancle reject').addClass('agree');
+                    status = that.attr("status","1").removeClass('reject cancle').addClass('agree');
+                    if(typeObj.indexOf(that.html())<0){
+                        var obj = new Object();
+                        obj.id = that.attr("depart_id");
+                        obj.name = that.html();
+                        typeObj.push(obj);
+                    }
+                    //添加优先的到 typeObj 中
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            var findDepar = $(".findDepart[course_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
+                            if(findDepar_status < 2 && typeObj.indexOf(findDepar.html())<0){
+                                findDepar.attr("status", "1").removeClass('cancle reject').addClass('agree');
+                                var obj = new Object();
+                                    obj.id = v;
+                                    obj.name = findDepar.html();
+                                typeObj.push(obj);
+                            }
+                        }
+                    });
+
+                    $.each(list,function(i,v){
+                        var idx = $(v).attr(id);
+                        if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)<0){
+                            var obj = new Object();
+                                obj.id = idx;
+                                obj.name = $(v).html();
+                            $(v).attr("status", "1").removeClass('reject cancle').addClass('agree');
+                            prefer.push(idx);
+                            arr.push(obj);
+                        }
+                    });
+                } else if(status == 1){
+                    status = that.attr("status","0").removeClass('reject agree').addClass('cancle');
+                    if(typeObj.indexOf(that.html())>=0){
+                        typeObj.splice(typeObj.indexOf(that.html()),1);
+                    }
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            var findDepar = $(".findDepart[course_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
+                            if(findDepar_status<2 && typeObj.indexOf(findDepar.html())>=0){
+                                findDepar.attr("status", "0").removeClass('agree reject').addClass('cancle');
+                                typeObj.splice(typeObj.indexOf(findDepar.html()),1);
+                            }
+                        }
+                    });
+
+                    $.each(list,function(i,v){
+                        var idx = $(v).attr(id);
+                        if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)>=0){
+                            $(v).attr("status", "0").removeClass('reject agree').addClass('cancle');
+                            arr.splice(prefer.indexOf(idx),1);
+                            prefer.splice(prefer.indexOf(idx),1);
+                        }
+                    });
+                }
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
+            },
+            agreePropEvent:function(status, that, list, prefer, ignore, name, arr, obj,typeObj,IsNull){
+                prefer=[],arr=[];
+                if (status == undefined || status == null || status == 0) {
+                    status = that.attr("status", "1").removeClass("cancle reject").addClass("agree");
+
                     var type = new Object();    //添加大类别
                     type.id = that.attr("pub");
                     type.name = that.html();
                     typeObj.push(type);
-                    //status = that.attr("status","1").addClass('agree');
+
+                    $("#panel-footer a[school_id]").removeClass("agree");
                     $.each(list, function (i, v) {
-                        //var idx = $(v).attr(id);//id = school_id
-                        //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
                         var idx = v.s_id;
-                        $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
-                        if (ignore.indexOf(idx) >= 0) {
-                            ignore.splice(ignore.indexOf(idx), 1);
-                        }
-                        if (prefer.indexOf(idx) < 0) {
-                            if (arr != null) {
-                                obj = new Object();
-                                obj.id = idx;
-                                obj.name = v.name;
-                                arr.push(obj);
+                        if(ignore.indexOf(idx+"") < 0){
+                            $("#panel-footer a[school_id="+idx+"]").removeClass("cancle reject").addClass("agree");
+                            if (prefer.indexOf(idx+"") < 0) {
+                                if (arr != null) {
+                                    obj = new Object();
+                                    obj.id = idx;
+                                    obj.name = v.name;
+                                    obj.parentName =  that.attr("parentname")!=undefined ? that.attr("parentname") :"";
+                                    arr.push(obj);
+                                }
+                                prefer.push(idx);
                             }
-                            prefer.push(idx);
-                            //name.push($(v).html());
                         }
                     });
+
                 } else if (status == 1) {
-                    //status = that.attr("status", "0");
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     //取消大类
                     $.each(typeObj,function(i,v){
@@ -42,73 +105,51 @@ require(['app'], function (app) {
                                 typeObj.splice(i, 1);
                             }
                         }
-
                     });
-                    if(IsNull == 1){
-                        $.each(list, function (i, v) {
-                            //var idx = $(v).attr(id);//id = school_id
-                            //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
-                            var idx = v.s_id;
-                            $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
-                            if (ignore.indexOf(idx) >= 0) {
-                                ignore.splice(ignore.indexOf(idx), 1);
-                            }
-                            if (prefer.indexOf(idx) < 0) {
-                                if (arr != null) {
-                                    obj = new Object();
-                                    obj.id = idx;
-                                    obj.name = v.name;
-                                    arr.push(obj);
-                                }
-                                prefer.push(idx);
-                                //name.push($(v).html());
-                            }
-                        });
+                    if(IsNull <=0){
+                        $("#panel-footer a[school_id]").attr("status",0).removeClass("agree");
+                        prefer = [];
                     }else{
+                        $("#panel-footer a[school_id]").removeClass("agree");
                         $.each(list, function (i, v) {
                             var idx = v.s_id;
-                            $("#panel-footer a[school_id="+idx+"]").attr("status", 0).removeClass('agree reject').addClass('cancle');
-                            if (arr != null) {
-                                arr.splice(prefer.indexOf(idx), 1);
-                            }
-                            //name.splice(prefer.indexOf(idx),1);
-                            prefer.splice(prefer.indexOf(idx), 1);
-
-                        });
-                    }
-
-                } else if (status == 2) {
-                    //status = that.attr("status", "0");
-                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                    if(IsNull == 1){
-                        $.each(list, function (i, v) {
-                            //var idx = $(v).attr(id);//id = school_id
-                            //$(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
-                            var idx = v.s_id;
-                            $("#panel-footer a[school_id="+idx+"]").removeClass('cancle reject').addClass('agree');
-                            if (ignore.indexOf(idx) >= 0) {
-                                ignore.splice(ignore.indexOf(idx), 1);
-                            }
-                            if (prefer.indexOf(idx) < 0) {
-                                if (arr != null) {
-                                    obj = new Object();
-                                    obj.id = idx;
-                                    obj.name = v.name;
-                                    arr.push(obj);
+                            if(ignore.indexOf(idx+"") < 0){
+                                $("#panel-footer a[school_id="+idx+"]").removeClass("cancle reject").addClass("agree");
+                                if (prefer.indexOf(idx+"") < 0) {
+                                    if (arr != null) {
+                                        obj = new Object();
+                                        obj.id = idx;
+                                        obj.name = v.name;
+                                        obj.parentname =  that.html();
+                                        arr.push(obj);
+                                    }
+                                    prefer.push(idx);
                                 }
-                                prefer.push(idx);
-                                //name.push($(v).html());
                             }
                         });
-                    }else {
-                        $.each(list, function (i, v) {
-                            var idx = v.s_id;
-                            ignore.splice(ignore.indexOf(idx), 1);
-                            $("#panel-footer a[school_id=" + idx + "]").attr("status", 0).removeClass('agree reject').addClass('cancle');
-                        });
                     }
+                }else if (status == 3){
+                    $("#panel-footer a[school_id]").removeClass("agree cancle reject").attr("status",0);
+                    $.each(list, function (i, v) {
+                        var idx = v.s_id;
+                        if (prefer.indexOf(idx+"") < 0) {
+                            $("#panel-footer a[school_id="+idx+"]").addClass("agree").attr("status",1);
+                            if (arr != null) {
+                                obj = new Object();
+                                obj.id = idx;
+                                obj.name = v.name;
+                                obj.parentname =  that.html();
+                                arr.push(obj);
+                            }
+                            prefer.push(idx);
+                        }
+                    });
                 }
-                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+JSON.stringify(typeObj);
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
             },
             /**
              * @param status 当前按钮的状态 1.同意 2.拒绝 0/null.无
@@ -125,30 +166,33 @@ require(['app'], function (app) {
             agreenClsEvent: function (status, that, list, prefer, ignore, id, name, arr, obj,typeObj) {
                 if (status == undefined || status == null || status == 0) {
                     status = that.attr("status", "1").removeClass('cancle reject').addClass('agree');
+
                     var type = new Object();    //添加大类别
-                        type.id = that.attr("pub");
-                        type.name = that.html();
-                        typeObj.push(type);
-                    //status = that.attr("status","1").addClass('agree');
+                    type.id = that.attr("pub");
+                    type.name = that.html();
+                    typeObj.push(type);
+
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
-                        $(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
-                        if (ignore.indexOf(idx) >= 0) {
-                            ignore.splice(ignore.indexOf(idx), 1);
-                        }
-                        if (prefer.indexOf(idx) < 0) {
-                            if (arr != null) {
-                                obj = new Object();
-                                obj.id = idx;
-                                obj.name = $(v).html();
-                                arr.push(obj);
+                        if(ignore.indexOf(idx+"") < 0){
+                            $(v).attr("status", "1").removeClass('cancle reject').addClass('agree');
+                            if (prefer.indexOf(idx+"") < 0) {
+                                if (arr != null) {
+                                    obj = new Object();
+                                    obj.id = idx;
+                                    obj.name = v.name!=""?v.name: $(v).html();
+                                    if(i == 0){
+                                        obj.parentname =  that.html();
+                                    }else{
+                                        obj.parentname ="";
+                                    }
+                                    arr.push(obj);
+                                }
+                                prefer.push(idx);
                             }
-                            prefer.push(idx);
-                            //name.push($(v).html());
                         }
                     });
                 } else if (status == 1) {
-                    //status = that.attr("status", "0");
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     //取消大类
                     $.each(typeObj,function(i,v){
@@ -159,13 +203,16 @@ require(['app'], function (app) {
 
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
-                        $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
-                        if (arr != null) {
-                            arr.splice(prefer.indexOf(idx), 1);
+                        if(ignore.indexOf(idx+"") < 0){
+                            $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
+                            if (prefer.indexOf(idx+"") < 0) {
+                                if (arr != null) {
+                                    arr.splice(prefer.indexOf(idx), 1);
+                                }
+                                //name.splice(prefer.indexOf(idx),1);
+                                prefer.splice(prefer.indexOf(idx), 1);
+                            }
                         }
-                        //name.splice(prefer.indexOf(idx),1);
-                        prefer.splice(prefer.indexOf(idx), 1);
-
                     });
                 } else if (status == 2) {
                     //status = that.attr("status", "0");
@@ -176,7 +223,11 @@ require(['app'], function (app) {
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
                     });
                 }
-                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+JSON.stringify(typeObj);
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
             },
             agreenCityEvent: function (status, that, prefer, ignore, id, name, value, arr, obj) {
                 if (status == undefined || status == null || status == 0) {
@@ -186,6 +237,13 @@ require(['app'], function (app) {
                             obj = new Object();
                             obj.id = id;
                             obj.name = value;
+                            if(that.attr("parentname") == "中学强弱学科"){
+                                obj.parentname = "中学强学科";
+                            }else if (that.attr("parentname") == "能力强弱"){
+                                obj.parentname = "能力强";
+                            }else{
+                                obj.parentname = that.attr("parentname")!=undefined ? that.attr("parentname"):"";
+                            }
                             arr.push(obj);
                         }
                         prefer.push(id);
@@ -200,7 +258,7 @@ require(['app'], function (app) {
                         //name.splice(prefer.indexOf(id),1);
                         prefer.splice(prefer.indexOf(id), 1);
                     }
-                } else if (status == 2) {
+                }else if (status == 2) {
                     status = that.attr("status", "0").removeClass('agree reject').addClass('cancle');
                     if (ignore.indexOf(id) >= 0) {
                         ignore.splice(ignore.indexOf(id), 1);
@@ -212,48 +270,98 @@ require(['app'], function (app) {
     });
     app.factory("classifyDBClk", function () {
         return {
-            rejectPropEvent: function (status, that, list, prefer, ignore, name, arr,typeObj) {
-                //$("#panel-footer a[school_id]").removeClass('agree cancle reject')
-                if (status == undefined || status == null || status == 0 || status == 1) {
-                    //status = that.attr("status", "2");
+            rejectTypeEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
+                if (status == undefined || status == null || status == 0) {
                     status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
-
-                    //取消大类
-                    $.each(typeObj,function(i,v){
-                        if(v!=undefined){
-                            if(that.html() == v.name){
-
-                                typeObj.splice(i, 1);
+                    //删除 typeObj 中存在的优先
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            $(".findDepart[course_id="+v+"]").attr("status", "2").removeClass('agree cancle').addClass('reject');
+                            if(typeObj.indexOf(v+"")>=0){
+                                typeObj.splice(typeObj.indexOf(v+""),1);
                             }
-
                         }
                     });
 
                     $.each(list, function (i, v) {
-                        var idx = v.s_id;
-                        $("#panel-footer a[school_id="+idx+"]").attr("status", "2").removeClass('agree cancle').addClass('reject');
+                        var idx = $(v).attr(id);
+                        $(v).attr("status", "2").removeClass('agree cancle').addClass('reject');
                         if (prefer.indexOf(idx) >= 0) {
                             arr.splice(prefer.indexOf(idx), 1);
-                            //name.splice(prefer.indexOf(idx),1);
                             prefer.splice(prefer.indexOf(idx), 1);
                         }
                         if (ignore.indexOf(idx) < 0) {
                             ignore.push(idx);
                         }
                     });
-                } else {
-                    //status = that.attr("status", "0");
+
+                } else if(status == 2){
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                    if (arr != null) {
-                        arr = [];
-                    }
-                    prefer = [], ignore = [];
+                    //删除 typeObj 中存在的优先
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            $(".findDepart[course_id="+v+"]").attr("status", "0").removeClass('agree reject').addClass('cancle');
+                        }
+                    });
+                    //取消灰色
                     $.each(list, function (i, v) {
-                        var idx = v.s_id;
-                        $("#panel-footer a[school_id="+idx+"]").attr("status", 0).removeClass('agree reject').addClass('cancle');
+                        var idx = $(v).attr(id);
+                        console.log(i);
+                        if (ignore.indexOf(idx) >= 0) {
+                            $(v).attr("status", "0").removeClass("agree reject").addClass('cancle');
+                            ignore.splice(ignore.indexOf(idx), 1);
+                        }
                     });
                 }
-                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
+            },
+            rejectPropEvent: function (status, that, list, prefer, ignore, name, arr,typeObj) {
+                if (status == undefined || status == null || status == 0) {
+                    status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+                    //添加大类
+                    var type = new Object();    //添加大类别
+                    type.id = that.attr("pub");
+                    type.name = that.html();
+                    typeObj.push(type);
+                } else if(status == 2 ||status == 1){
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //取消大类
+                    $.each(typeObj,function(i,v){
+                        if(v!=undefined){
+                            if(that.html() == v.name){
+                                typeObj.splice(i, 1);
+                            }
+                        }
+                    });
+                }
+                if(list.length>0){
+                    $("#panel-footer .reject[school_id]").attr("status",0).removeClass("reject");
+                    $.each(list, function (i, v) {
+                        var idx = $(v).attr("school_id");
+                        if (prefer.indexOf(idx) >= 0) {
+                            $("#panel-footer a[school_id="+idx+"]").attr("status", "0").removeClass("agree cancle reject");
+                            arr.splice(prefer.indexOf(idx), 1);
+                            prefer.splice(prefer.indexOf(idx), 1);
+                        }
+                        if (ignore.indexOf(idx) < 0) {
+                            $("#panel-footer a[school_id="+idx+"]").attr("status", "2").removeClass("agree cancle").addClass('reject');
+                            ignore.push(idx);
+                        }
+                    });
+                }else{
+                    $("#panel-footer a[school_id]").attr("status",0).removeClass("reject");
+                    ignore=[];
+                }
+
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
             },
             rejectClsEvent: function (status, that, list, prefer, ignore, id, name, arr,typeObj) {
                 if (status == undefined || status == null || status == 0 || status == 1) {
@@ -262,8 +370,10 @@ require(['app'], function (app) {
 
                     //取消大类
                     $.each(typeObj,function(i,v){
-                        if(that.html() == v.name){
-                            typeObj.splice(i, 1);
+                        if(v!=undefined){
+                            if(that.html() == v.name){
+                                typeObj.splice(i, 1);
+                            }
                         }
                     });
 
@@ -290,7 +400,11 @@ require(['app'], function (app) {
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
                     });
                 }
-                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr);
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
             },
             rejectCityEvent: function (status, that, prefer, ignore, id, name, value, arr) {
                 if (status == undefined || status == null || status == 0) {
@@ -506,6 +620,19 @@ require(['app'], function (app) {
             langueArr: [],
             order_id: [],
             money: [],
+            table:"",
+            total:"",
+            recommend:"",
+            id:""
+        };
+
+        $scope.reject = {
+            style:"",
+            belongs:"",
+            attribute : "",
+            prop3 :"",
+            prop4 :"",
+            prop8 :"",
         };
 
         $scope.hopeClassify = {
@@ -513,7 +640,7 @@ require(['app'], function (app) {
             terr:[],//属地
             proCate:[],//专业类别
             personals:[]//个性
-        }
+        };
 
         $scope.info = {
             title: "",
@@ -655,7 +782,12 @@ require(['app'], function (app) {
         init();
 
         function init() {
+
             getLoginUserInfo.isLogoin();
+
+            setInterval(function(){
+                getLoginUserInfo.isLogoin();
+            },600000);
 
             if (localStorage.getItem('type') != null) {
 
@@ -693,7 +825,7 @@ require(['app'], function (app) {
                                 $scope.hope.depart.push(v);
                             }
                         });
-                        console.log($scope.hope.depart);
+                        //console.log($scope.hope.depart);
                     });
                 } else {
                     /*专业大门类（13个）*/
@@ -703,7 +835,7 @@ require(['app'], function (app) {
                                 $scope.hope.depart.push(v);
                             }
                         });
-                        console.log($scope.hope.depart);
+                        //console.log($scope.hope.depart);
                     });
                 }
 
@@ -1295,27 +1427,15 @@ require(['app'], function (app) {
                     ul.empty().append(html.join(''));
                 });
                 //ul.attr("data-istrue", "true");
-            }
-            ;
+            };
             //}
             ul.show();
         };
 
         /**
-         * 获取选择类别后的结果
-         * @param param
+         * 类别
+         * @param e
          */
-        function getSchoolList(param){
-            $http({
-                url:loocha+"/schbath",
-                method:"GET",
-                params:param
-            }).success(function(data){
-                return data.response;
-            });
-        }
-
-        /*类别*/
         $scope.atrlistClk = function (e) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#attr1').attr('data-istrue');
@@ -1330,26 +1450,24 @@ require(['app'], function (app) {
                     var _time = null;
                     $(".findSchoolArt").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status");
-
-                        if (status == undefined || status == null || status == 0||status == 1) {
-                            $scope.hope.attribute = $scope.hope.attribute+that.attr("pub")+",";
-                        }else if (status == 2){
-                            var str = $scope.hope.attribute,arr = str.split(",");
-                            $.each(arr,function(i,v){
-                                if(that.html() == v.name){
-                                    arr.splice(i, 1);
-                                }
-                            });
-                            var newStr = "";
-                            for(var i = 0; i<arr.length;i++){
-                                if(arr[i]!=""){
-                                    newStr = arr[i]+","
-                                }
+                        //1.先取消 同类型的当前优先参数
+                        var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
+                        var str = $scope.hope.attribute,arr = str.split(",");
+                        $.each(arr,function(i,v){
+                            if(that.attr("pub") == v){
+                                arr.splice(i, 1);
                             }
-                            $scope.hope.attribute = newStr;
+                        });
+                        var newStr = "";
+                        for(var i = 0; i<arr.length;i++){
+                            if(arr[i]!=""){
+                                newStr = arr[i]+","
+                            }
                         }
-                        var param = {};
+                        $scope.hope.attribute = newStr;
+                        //2.执行 先把所有状态变成0，执行优先参数
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                            var param = {};
                             param.type = localStorage.getItem("type");
                             param.style = $scope.hope.style;
                             param.belongs = $scope.hope.belongs;
@@ -1358,31 +1476,176 @@ require(['app'], function (app) {
                             param.prop4 = $scope.hope.prop4;
                             param.prop8 = $scope.hope.prop8;
 
-                        $http({
-                            url:loocha+"/schbath",
-                            method:"GET",
-                            params:param
-                        }).success(function(data){
-                            var list = data.response;
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                                if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                    $scope.reject.attribute = $scope.reject.attribute + that.attr("pub")+",";
+                                }else if(that.attr("status") == 2){
+                                    var str = $scope.reject.attribute,arr = str.split(",");
+                                    $.each(arr,function(i,v){
+                                        if(that.attr("pub") == v){
+                                            arr.splice(i, 1);
+                                        }
+                                    });
+                                    var newStr = "";
+                                    for(var i = 0; i<arr.length;i++){
+                                        if(arr[i]!=""){
+                                            newStr = arr[i]+","
+                                        }
+                                    }
+                                    $scope.reject.attribute = newStr;
+                                }
+                                var list = [];
+                                var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                    belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                    attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                                $.each(attributeArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(styleArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(belongsArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                if($scope.reject.prop3!=""){
+                                    $.each($(".findSch[prop3=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop4!=""){
+                                    $.each($(".findSch[prop4=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop8!=""){
+                                    $.each($(".findSch[prop8=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
+                        }else{
+                            //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                            if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                $scope.reject.attribute = $scope.reject.attribute + that.attr("pub")+",";
+                            }else if(that.attr("status") == 2){
+                                var str = $scope.reject.attribute,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("pub") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = arr[i]+","
+                                    }
+                                }
+                                $scope.reject.attribute = newStr;
+                            }
+
+                            var list = [];
+                            var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                            $.each(attributeArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(styleArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(belongsArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            if($scope.reject.prop3!=""){
+                                $.each($(".findSch[prop3=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop4!=""){
+                                $.each($(".findSch[prop4=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop8!=""){
+                                $.each($(".findSch[prop8=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
-                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
-                            that.removeClass('cancle reject agree').addClass('reject');
-                        });
+                            $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
                             var status = that.attr("status");
                             if (status == undefined || status == null || status == 0) {
-                                $scope.hope.attribute =$scope.hope.attribute + that.attr("pub")+",";
-                            }else if (status == 1 || status == 2){
+                                $scope.hope.attribute = $scope.hope.attribute + that.attr("pub")+",";
+                            }else if(status == 1){
+                                /*把同类别优先项去除*/
                                 var str = $scope.hope.attribute,arr = str.split(",");
                                 $.each(arr,function(i,v){
-                                    if(that.attr("attr_id") == v){
+                                    if(that.attr("pub") == v){
                                         arr.splice(i, 1);
                                     }
                                 });
@@ -1395,13 +1658,13 @@ require(['app'], function (app) {
                                 $scope.hope.attribute = newStr;
                             }
                             var param = {};
-                                param.type = localStorage.getItem("type");
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop8 = $scope.hope.prop8;
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
 
                             $http({
                                 url:loocha+"/schbath",
@@ -1413,6 +1676,7 @@ require(['app'], function (app) {
                                 if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                                     isnull = 1;
                                 }
+
                                 var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -1431,17 +1695,12 @@ require(['app'], function (app) {
 
         /**
          * 类型
-         * prop3 :985
-         * prop4:211
-         * prop7:C9
-         * prop8:中外合作办
          * @param e
          */
         $scope.stylistClk = function (e) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#style1').attr('data-istrue');
             if (isTrue == "false") {
-                //var html = [];
                 $http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
@@ -1452,26 +1711,24 @@ require(['app'], function (app) {
                     var _time = null;
                     $(".findSchoolProp").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status");
-
-                        if (status == undefined || status == null || status == 0) {
-                            $scope.hope.style = $scope.hope.style + that.attr("pub")+",";
-                        }else if (status == 2||status == 1){
-                            var str = $scope.hope.attribute,arr = str.split(",");
-                            $.each(arr,function(i,v){
-                                if(that.html() == v.name){
-                                    arr.splice(i, 1);
-                                }
-                            });
-                            var newStr = "";
-                            for(var i = 0; i<arr.length;i++){
-                                if(arr[i]!=""){
-                                    newStr = arr[i]+","
-                                }
+                        //1.先取消 同类型的当前优先参数
+                        var that = $(this), status = that.attr("status"), style_id = that.attr('style_id');
+                        var str = $scope.hope.style,arr = str.split(",");
+                        $.each(arr,function(i,v){
+                            if(that.attr("pub") == v){
+                                arr.splice(i, 1);
                             }
-                            $scope.hope.attribute = newStr;
+                        });
+                        var newStr = "";
+                        for(var i = 0; i<arr.length;i++){
+                            if(arr[i]!=""){
+                                newStr = arr[i]+","
+                            }
                         }
-                        var param = {};
+                        $scope.hope.style = newStr;
+                        //2.执行 先把所有状态变成0，执行优先参数
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                            var param = {};
                             param.type = localStorage.getItem("type");
                             param.style = $scope.hope.style;
                             param.belongs = $scope.hope.belongs;
@@ -1480,30 +1737,101 @@ require(['app'], function (app) {
                             param.prop4 = $scope.hope.prop4;
                             param.prop8 = $scope.hope.prop8;
 
-                        $http({
-                            url:loocha+"/schbath",
-                            method:"GET",
-                            params:param
-                        }).success(function(data) {
-                            var list = data.response;
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
-                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
-                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
-                        })
-                    }).unbind('click').click(function (e) {
-                        $timeout.cancel(_time);
-                        var that = $(this);
-                        _time = $timeout(function (e) {
-                            var status = that.attr("status");
-                            if (status == undefined || status == null || status == 0) {
-                                $scope.hope.style =$scope.hope.style+ that.attr("pub")+",";
-                            }else if (status == 1 || status == 2){
-                                var str = $scope.hope.style,arr = str.split(",");
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                                if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                    $scope.reject.style = $scope.reject.style + that.attr("pub")+",";
+                                }else if(that.attr("status") == 2){
+                                    var str = $scope.reject.style,arr = str.split(",");
+                                    $.each(arr,function(i,v){
+                                        if(that.attr("pub") == v){
+                                            arr.splice(i, 1);
+                                        }
+                                    });
+                                    var newStr = "";
+                                    for(var i = 0; i<arr.length;i++){
+                                        if(arr[i]!=""){
+                                            newStr = arr[i]+","
+                                        }
+                                    }
+                                    $scope.reject.style = newStr;
+                                }
+
+                                var list = [];
+                                var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                    belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                    attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                                $.each(attributeArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(styleArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(belongsArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                if($scope.reject.prop3!=""){
+                                    $.each($(".findSch[prop3=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop4!=""){
+                                    $.each($(".findSch[prop4=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop8!=""){
+                                    $.each($(".findSch[prop8=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
+                        }else{
+                            //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                            if(that.attr("status") == 0 || that.attr("status") == undefined){// 并集
+                                $scope.reject.style = $scope.reject.style + that.attr("pub")+",";
+                            }else if(that.attr("status") == 2){
+                                var str = $scope.reject.style,arr = str.split(",");
                                 $.each(arr,function(i,v){
-                                    if(that.attr("style_id") == v){
+                                    if(that.attr("pub") == v){
                                         arr.splice(i, 1);
                                     }
                                 });
@@ -1513,16 +1841,92 @@ require(['app'], function (app) {
                                         newStr = arr[i]+","
                                     }
                                 }
+                                $scope.reject.style = newStr;
+                            }
+
+                            var list = [];
+                            var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                            $.each(attributeArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(styleArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(belongsArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            if($scope.reject.prop3!=""){
+                                $.each($(".findSch[prop3=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop4!=""){
+                                $.each($(".findSch[prop4=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop8!=""){
+                                $.each($(".findSch[prop8=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            if (status == undefined || status == null || status == 0) {
+                                $scope.hope.style =$scope.hope.style+ that.attr("pub")+",";
+                            }else if(status == 1){
+                                /*把同类别优先项去除*/
+                                var str = $scope.hope.style,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("pub") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = newStr+ arr[i]+","
+                                    }
+                                }
                                 $scope.hope.style = newStr;
                             }
                             var param = {};
-                                param.type = localStorage.getItem("type");
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop8 = $scope.hope.prop8;
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
 
                             $http({
                                 url:loocha+"/schbath",
@@ -1531,7 +1935,7 @@ require(['app'], function (app) {
                             }).success(function(data) {
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus,isnull);
@@ -1557,59 +1961,194 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#prop1').attr('data-istrue');
             if (isTrue == "false") {
-                var html = [];
                 $http.get(loocha + '/school/attr/').success(function (data, status) {
-                //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
+                    //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findSchoolSty" prop_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
-                    $("#prop1").empty().prepend(html.join(''))
+                    $("#prop1").empty().prepend(html.join(''));
                     var _time = null;
                     $(".findSchoolSty").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this);
-                        var status = that.attr("status"), prop_id = that.attr('prop_id');
-                        if (status == undefined || status == null || status == 0) {
-                            if (prop_id == 20) {
-                                $scope.hope.prop3 =1 ;
-                            } else if (prop_id == 21) {
-                                $scope.hope.prop4 =1 ;
-                            } else if (prop_id == 24) {
-                                $scope.hope.prop8 =1 ;
-                            }
-                        }else if (status == 1 || status == 2){
-                            if (prop_id == 20) {
-                                $scope.hope.prop3 = "" ;
-                            } else if (prop_id == 21) {
-                                $scope.hope.prop4 = "" ;
-                            } else if (prop_id == 24) {
-                                $scope.hope.prop8 = "" ;
-                            }
+                        //1.先取消 同类型的当前优先参数
+                        var that = $(this), status = that.attr("status"), prop_id = that.attr('prop_id');
+                        if (prop_id == 20) {
+                            $scope.hope.prop3 = "" ;
+                        } else if (prop_id == 21) {
+                            $scope.hope.prop4 = "" ;
+                        }else if (prop_id == 24) {
+                            $scope.hope.prop8 = "" ;
                         }
-                        var param = {};
-                        param.type = localStorage.getItem("type");
-                        param.style = $scope.hope.style;
-                        param.belongs = $scope.hope.belongs;
-                        param.attr = $scope.hope.attribute;
-                        param.prop3 = $scope.hope.prop3;
-                        param.prop4 = $scope.hope.prop4;
-                        param.prop8 = $scope.hope.prop8;
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                            //2.执行 先把所有状态变成0，执行优先参数
+                            var param = {};
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                                if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                    if (prop_id == 20) {
+                                        $scope.reject.prop3 = 1;
+                                    } else if (prop_id == 21) {
+                                        $scope.reject.prop4 = 1;
+                                    } else if (prop_id == 24) {
+                                        $scope.reject.prop8 = 1;
+                                    }
+                                }else if(that.attr("status") == 2){
+                                    if (prop_id == 20) {
+                                        $scope.reject.prop3 = "";
+                                    } else if (prop_id == 21) {
+                                        $scope.reject.prop4 = "";
+                                    } else if (prop_id == 24) {
+                                        $scope.reject.prop8 = "";
+                                    }
+                                }
 
-                        $http({
-                            url:loocha+"/schbath",
-                            method:"GET",
-                            params:param
-                        }).success(function(data) {
-                            var list = data.response;
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
+                                var list = [];
+                                var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                    belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                    attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                                $.each(attributeArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(styleArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(belongsArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                if($scope.reject.prop3!=""){
+                                    $.each($(".findSch[prop3=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop4!=""){
+                                    $.each($(".findSch[prop4=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                                if($scope.reject.prop8!=""){
+                                    $.each($(".findSch[prop8=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
+                        }else {
+                            //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                            if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                if (prop_id == 20) {
+                                    $scope.reject.prop3 = 1;
+                                } else if (prop_id == 21) {
+                                    $scope.reject.prop4 = 1;
+                                } else if (prop_id == 24) {
+                                    $scope.reject.prop8 = 1;
+                                }
+                            }else if(that.attr("status") == 2){
+                                if (prop_id == 20) {
+                                    $scope.reject.prop3 = "";
+                                } else if (prop_id == 21) {
+                                    $scope.reject.prop4 = "";
+                                } else if (prop_id == 24) {
+                                    $scope.reject.prop8 = "";
+                                }
+                            }
+                            var list = [];
+                            var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                            $.each(attributeArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(styleArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(belongsArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            if($scope.reject.prop3!=""){
+                                $.each($(".findSch[prop3=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop4!=""){
+                                $.each($(".findSch[prop4=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop8!=""){
+                                $.each($(".findSch[prop8=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
-                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
-                        });
+                            $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
@@ -1623,7 +2162,7 @@ require(['app'], function (app) {
                                 } else if (prop_id == 24) {
                                     $scope.hope.prop8 =1 ;
                                 }
-                            }else if (status == 1 || status == 2){
+                            }else if(status == 1){
                                 if (prop_id == 20) {
                                     $scope.hope.prop3 = "" ;
                                 } else if (prop_id == 21) {
@@ -1633,13 +2172,13 @@ require(['app'], function (app) {
                                 }
                             }
                             var param = {};
-                                param.type = localStorage.getItem("type");
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop8 = $scope.hope.prop8;
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
 
                             $http({
                                 url:loocha+"/schbath",
@@ -1648,7 +2187,7 @@ require(['app'], function (app) {
                             }).success(function(data) {
                                 var list = data.response;
                                 var isnull = 0;
-                                if ($scope.hope.style != "" || $scope.hope.attribute != "" || $scope.hope.belongs != "" || $scope.hope.prop3 != "" || $scope.hope.prop4 != "" || $scope.hope.prop8 != "") {
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus, isnull);
@@ -1661,7 +2200,7 @@ require(['app'], function (app) {
                         }, 400);
                     });
                 });
-                $('#prop1').attr("data-istrue", "true");
+                $("#prop1").attr("data-istrue", "true");
             };
             $("#prop1").show();
         };
@@ -1674,7 +2213,6 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#belongs1').attr('data-istrue');
             if (isTrue == "false") {
-                var html = [];
                 $http.get(loocha + '/school/prop?type=1&depart_type=1').success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
@@ -1685,58 +2223,129 @@ require(['app'], function (app) {
                     var _time = null;
                     $(".findSchoolBel").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        var that = $(this), status = that.attr("status");
-
-                        if (status == undefined || status == null || status == 0) {
-                            $scope.hope.belongs = $scope.hope.belongs+that.attr("pub")+",";
-                        }else if (status == 2||status == 1){
-                            var str = $scope.hope.attribute,arr = str.split(",");
-                            $.each(arr,function(i,v){
-                                if(that.html() == v.name){
-                                    arr.splice(i, 1);
-                                }
-                            });
-                            var newStr = "";
-                            for(var i = 0; i<arr.length;i++){
-                                if(arr[i]!=""){
-                                    newStr = arr[i]+","
-                                }
+                        //1.先取消 同类型的当前优先参数
+                        var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
+                        var str = $scope.hope.belongs,arr = str.split(",");
+                        $.each(arr,function(i,v){
+                            if(that.attr("pub") == v){
+                                arr.splice(i, 1);
                             }
-                            $scope.hope.attribute = newStr;
-                        }
-                        var param = {};
-                        param.type = localStorage.getItem("type");
-                        param.style = $scope.hope.style;
-                        param.belongs = $scope.hope.belongs;
-                        param.attr = $scope.hope.attribute;
-                        param.prop3 = $scope.hope.prop3;
-                        param.prop4 = $scope.hope.prop4;
-                        param.prop8 = $scope.hope.prop8;
-
-                        $http({
-                            url:loocha+"/schbath",
-                            method:"GET",
-                            params:param
-                        }).success(function(data) {
-                            var list = data.response;
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
-                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
-                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
-                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
-                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
-                            $scope.hopeClassify.genus = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]) : [];
                         });
-                    }).unbind('click').click(function (e) {
-                        $timeout.cancel(_time);
-                        var that = $(this);
-                        _time = $timeout(function (e) {
-                            var status = that.attr("status");
-                            if (status == undefined || status == null || status == 0) {
-                                $scope.hope.belongs = $scope.hope.belongs+that.attr("pub")+",";
-                            }else if (status == 1 || status == 2){
-                                var str = $scope.hope.belongs,arr = str.split(",");
+                        var newStr = "";
+                        for(var i = 0; i<arr.length;i++){
+                            if(arr[i]!=""){
+                                newStr = arr[i]+","
+                            }
+                        }
+                        $scope.hope.belongs = newStr;
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                            //2.执行 先把所有状态变成0，执行优先参数
+                            var param = {};
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
+
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                    isnull = 1;
+                                }
+                                var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                                if(that.attr("status") == 0 || that.attr("status") == undefined){
+                                    $scope.reject.belongs = $scope.reject.belongs + that.attr("pub")+",";
+                                }else if(that.attr("status") == 2){
+                                    var str = $scope.reject.belongs,arr = str.split(",");
+                                    $.each(arr,function(i,v){
+                                        if(that.attr("pub") == v){
+                                            arr.splice(i, 1);
+                                        }
+                                    });
+                                    var newStr = "";
+                                    for(var i = 0; i<arr.length;i++){
+                                        if(arr[i]!=""){
+                                            newStr = arr[i]+","
+                                        }
+                                    }
+                                    $scope.reject.belongs = newStr;
+                                }
+
+                                var list = [];
+                                var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                    belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                    attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+                                $.each(attributeArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(styleArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                $.each(belongsArr,function(i,v){
+                                    if(v!=""){
+                                        $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                            list.push(val)
+                                        })
+                                    }
+                                });
+
+                                if($scope.reject.prop3!=""){
+                                    $.each($(".findSch[prop3=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                if($scope.reject.prop4!=""){
+                                    $.each($(".findSch[prop4=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                if($scope.reject.prop8!=""){
+                                    $.each($(".findSch[prop8=1]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                                $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                                $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                                $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            });
+                        }else{
+                            //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
+                            if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
+                                $scope.reject.belongs = $scope.reject.belongs + that.attr("pub")+",";
+                            }else if(that.attr("status") == 2){
+                                var str = $scope.reject.belongs,arr = str.split(",");
                                 $.each(arr,function(i,v){
-                                    if(that.attr("belongs_id") == v){
+                                    if(that.attr("pub") == v){
                                         arr.splice(i, 1);
                                     }
                                 });
@@ -1746,16 +2355,93 @@ require(['app'], function (app) {
                                         newStr = arr[i]+","
                                     }
                                 }
+                                $scope.reject.belongs = newStr;
+                            }
+
+                            var list = [];
+                            var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
+                                belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
+                                attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[];
+
+
+                            $.each(attributeArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[attrs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(styleArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[styles=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            $.each(belongsArr,function(i,v){
+                                if(v!=""){
+                                    $.each($(".findSch[belongs=" + v + "]"),function(idx,val){
+                                        list.push(val)
+                                    })
+                                }
+                            });
+
+                            if($scope.reject.prop3!=""){
+                                $.each($(".findSch[prop3=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop4!=""){
+                                $.each($(".findSch[prop4=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+                            if($scope.reject.prop8!=""){
+                                $.each($(".findSch[prop8=1]"),function(idx,val){
+                                    list.push(val)
+                                })
+                            }
+
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            if (status == undefined || status == null || status == 0) {
+                                $scope.hope.belongs = $scope.hope.belongs+that.attr("pub")+",";
+                            }else if(status == 1){
+                                /*把同类别优先项去除*/
+                                var str = $scope.hope.belongs,arr = str.split(",");
+                                $.each(arr,function(i,v){
+                                    if(that.attr("pub") == v){
+                                        arr.splice(i, 1);
+                                    }
+                                });
+                                var newStr = "";
+                                for(var i = 0; i<arr.length;i++){
+                                    if(arr[i]!=""){
+                                        newStr = newStr+arr[i]+","
+                                    }
+                                }
                                 $scope.hope.belongs = newStr;
                             }
                             var param = {};
-                                param.type = localStorage.getItem("type");
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop8 = $scope.hope.prop8;
+                            param.type = localStorage.getItem("type");
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
 
                             $http({
                                 url:loocha+"/schbath",
@@ -1764,7 +2450,7 @@ require(['app'], function (app) {
                             }).success(function(data) {
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.attribute!="" || $scope.hope.belongs!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(status, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj, $scope.hopeClassify.genus,isnull);
@@ -1782,6 +2468,200 @@ require(['app'], function (app) {
             $("#belongs1").show();
         };
 
+        $scope.agreeDepartType = function(e){
+            var that = $(e.target),course_id = that.attr("depart_id"),status = that.attr("status");
+            var istrue = $("#depart" + course_id).attr('data-istrue');
+            if (istrue == "false" || istrue == undefined) {
+                $http.get(loocha + '/depart/specific?course_id=' + course_id + '&depart_type=' + $scope.hope.batch).success(function (data, status) {
+                    var html = [];
+                    if (data.response.length <= 0) {
+                        html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
+                    } else {
+                        $.each(data.response, function (i, v) {
+                            html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="' + v.id + '">' + v.name + '</a></li>');
+                        });
+                    }
+                    $("#depart" + course_id).append(html.join(''));
+                    var _time = null;
+                    $(".findDepart").unbind('dblclick').dblclick(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this), status = that.attr("status"), course_id = that.attr('course_id');
+                        var list = $(".departClk[parent_id=" + course_id + "]");
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr,$scope.hopeClassify.proCate);
+                        $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.proCate = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]):[];
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            //course_id  是专业门类
+                            var course_id = that.attr('course_id');
+                            var list = $(".departClk[parent_id=" + course_id + "]");
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj,$scope.hopeClassify.proCate);
+                            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.proCate = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }, 400);
+                    });
+
+                    //获取 list
+                    var str = "",list =  $("#depart"+course_id+" a");
+                    $.each(list,function(i,v){
+                        str = str + $(v).attr("course_id")+",";
+                    });
+                    //合并list 中内容
+                    var strArr = str.split(",");
+                    var newlist = [];
+                    for(var i = 0 ; i< strArr.length;i++){
+                        if(strArr[i]!=""){
+                            $.each($("#depart a[parent_id="+strArr[i]+"]"),function(idx,val){
+                                newlist.push(val);
+                            })
+                        }
+                    }
+
+                    //点击效果
+                    var mosaic = classifyClk.agreeTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
+                    $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                    $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                    $scope.hope.departArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                    $scope.hopeClassify.proCate = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+                    $("#depart" + course_id).attr("data-istrue", "true");
+                });
+            }else{
+                //获取 list
+                var str = "",list =  $("#depart"+course_id+" a");
+                $.each(list,function(i,v){
+                    str = str + $(v).attr("course_id")+",";
+                });
+                //合并list 中内容
+                var strArr = str.split(",");
+                var newlist = [];
+                for(var i = 0 ; i< strArr.length;i++){
+                    if(strArr[i]!=""){
+                        $.each($("#depart a[parent_id="+strArr[i]+"]"),function(idx,val){
+                            newlist.push(val);
+                        })
+                    }
+                }
+
+                //点击效果
+                var mosaic = classifyClk.agreeTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
+                $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.departArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                $scope.hopeClassify.proCate = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+            }
+        };
+
+        /**
+         * 专业大类的父类双击事件
+         * @param e
+         */
+        $scope.rejectDepartType = function(e){
+            var that = $(e.target),course_id = that.attr("depart_id"),status = that.attr("status");
+            var istrue = $("#depart" + course_id).attr('data-istrue');
+            if (istrue == "false" || istrue == undefined) {
+                $http.get(loocha + '/depart/specific?course_id=' + course_id + '&depart_type=' + $scope.hope.batch).success(function (data, status) {
+                    var html = [];
+                    if (data.response.length <= 0) {
+                        html.push('<li><a href="javascript:;;">没有找到任何数据！</a></li>');
+                    } else {
+                        $.each(data.response, function (i, v) {
+                            html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="' + v.id + '">' + v.name + '</a></li>');
+                        });
+                    }
+                    $("#depart" + course_id).append(html.join(''));
+                    var _time = null;
+                    $(".findDepart").unbind('dblclick').dblclick(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this), status = that.attr("status"), course_id = that.attr('course_id');
+                        var list = $(".departClk[parent_id=" + course_id + "]");
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr,$scope.hopeClassify.proCate);
+                        $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.proCate = mosaic.split("|")[4] != undefined ? JSON.parse(mosaic.split("|")[4]):[];
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            //course_id  是专业门类
+                            var course_id = that.attr('course_id');
+                            var list = $(".departClk[parent_id=" + course_id + "]");
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.depart_prefer, $scope.hope.depart_ignore, "depart_id", $scope.hope.depart_name, $scope.hope.departArr, $scope.hope.departObj,$scope.hopeClassify.proCate);
+                            $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.depart_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.departArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.proCate = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }, 400);
+                    });
+
+                    //获取 list
+                    var str = "";
+                    var list =  $("#depart"+course_id+" a");
+                    $.each(list,function(i,v){
+                        str = str + $(v).attr("course_id")+",";
+                    });
+                    //合并list 中内容
+                    var strArr = str.split(",")
+                    var newlist = [];
+                    for(var i = 0 ; i< strArr.length;i++){
+                        if(strArr[i]!=""){
+                            $.each($("#depart a[parent_id="+strArr[i]+"]"),function(idx,val){
+                                newlist.push(val);
+                            })
+                        }
+                    }
+
+                    //点击效果
+                    console.log(newlist);
+                    var mosaic = classifyDBClk.rejectTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
+                    $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                    $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                    $scope.hope.departArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                    $scope.hopeClassify.proCate = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+                    $("#depart" + course_id).attr("data-istrue", "true");
+                });
+            }else{
+                var str = "";
+                var list =  $("#depart"+course_id+" a");
+                $.each(list,function(i,v){
+                    str = str + $(v).attr("course_id")+",";
+                });
+                //合并list 中内容
+                var strArr = str.split(",")
+                var newlist = [];
+                for(var i = 0 ; i< strArr.length;i++){
+                    if(strArr[i]!=""){
+                        $.each($("#depart a[parent_id="+strArr[i]+"]"),function(idx,val){
+                            newlist.push(val);
+                        })
+                    }
+                }
+
+                //点击效果
+                var mosaic = classifyDBClk.rejectTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
+                $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.departArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                $scope.hopeClassify.proCate = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+            }
+
+        };
+        /**
+         * 获取专业大类
+         * @param course_id
+         */
         $scope.showDepartCls = function (course_id) {
             $("#depart .dropdown-menu").hide();
             var istrue = $("#depart" + course_id).attr('data-istrue');
@@ -2027,6 +2907,25 @@ require(['app'], function (app) {
 
         $scope.rejectPersonl = function(e){
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart .wishId_" + id +" a");
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr,$scope.hopeClassify.personals);
+            $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+        };
+
+        $scope.agreePersonl_1 = function(e){
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart_1 .wishId_" + id +" a");
+            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr, $scope.hope.personalityObj,$scope.hopeClassify.personals);
+            $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+            $scope.hopeClassify.personals = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+        }
+
+        $scope.rejectPersonl_1 = function(e){
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart_1 .wishId_" + id +" a");
             var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr,$scope.hopeClassify.personals);
             $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
             $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -2302,96 +3201,10 @@ require(['app'], function (app) {
             });
         };
 
+        /**
+         * 确定
+         * */
         $scope.reqOrder = function () {
-            $('#myModal').modal('show');
-        };
-
-        $scope.readom = function () {
-            getLoginUserInfo.isLogoin();
-
-            var projectSoft = [];
-
-            $.each($scope.finshparam.project, function (i, v) {
-                if (v == 1) {//高校
-                    projectSoft[0] = i + 1;
-                } else if (v == 2) { //专业
-                    projectSoft[1] = i + 1;
-                } else if (v == 3) {//城市
-                    projectSoft[2] = i + 1;
-                } else {
-                    projectSoft[3] = i + 1;
-                }
-            });
-
-            clearArrayEmpty($scope.finshparam.school_prefer);
-            clearArrayEmpty($scope.finshparam.depart_prefer);
-            clearArrayEmpty($scope.finshparam.city_prefer);
-            clearArrayEmpty($scope.finshparam.personality_prefer);
-            var uScore = JSON.parse(sessionStorage.getItem('uScore'));
-
-            var param = {};
-            param.type = localStorage.getItem("type");
-            param.number = sessionStorage.getItem("usernumber");
-            param.obl = matchLevel.ShowLevel(uScore.level_a);
-            param.sel = matchLevel.ShowLevel(uScore.level_b);
-            param.score = uScore.score;
-            param.sprop_prefer = [];  //优先院校属类id列表
-            param.sprop_ignore = [];  //拒绝院校属类id列表
-            param.school_prefer = $scope.hope.school_prefer; //优先院校id列表
-            param.school_ignore = $scope.hope.school_ignore; //拒绝院校id列表
-            param.city_prefer = $scope.hope.city_prefer;   //优先城市id列表
-            param.city_ignore = $scope.hope.city_ignore;    //拒绝城市id列表
-            param.dproptype_prefer = [];   //优先专业类别id列表
-            param.dproptype_ignore = [];    //拒绝专业类别id列表
-            param.dprop_prefer = $scope.hope.depart_prefer;   //优先专业id列表
-            param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
-            param.pproptype_prefer = [];   //优先个性类别id列表
-            param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = $scope.hope.personality_prefer;   //优先个性id列表
-            param.pprop_ignore = $scope.hope.personality_ignore;   //拒绝个性id列表
-            param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
-            param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
-            param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
-            param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
-            param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
-            param.school_names = [$(".schl_first option:selected").eq(0).text(), $(".schl_first option:selected").eq(1).text(), $(".schl_first option:selected").eq(2).text()];
-            param.city_names = [$(".city_first option:selected").eq(0).text(), $(".city_first option:selected").eq(1).text(), $(".city_first option:selected").eq(2).text()];
-            param.depart_names = [$(".depart_first option:selected").eq(0).text(), $(".depart_first option:selected").eq(1).text(), $(".depart_first option:selected").eq(2).text(), $(".depart_first option:selected").eq(3).text(), $(".depart_first option:selected").eq(4).text(), $(".depart_first option:selected").eq(5).text()];
-            param.personality_names = [$(".person_first option:selected").eq(0).text(), $(".person_first option:selected").eq(1).text(), $(".person_first option:selected").eq(2).text(), $(".person_first option:selected").eq(3).text(), $(".person_first option:selected").eq(4).text(), $(".person_first option:selected").eq(5).text()];
-
-            var tramsform = function (data) {
-                return $.param(data);
-            };
-
-            $http.post(loocha + "/exam/intention", param, {
-                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest: tramsform
-            }).success(function (responseDate) {
-                if (responseDate.status == "1014") {
-                    alert("符合的高校太少，请在选择一些")
-                } else {
-                    $.post(loocha + "/exam/intention/auto", {id: responseDate.response.id}, function (data) {
-                        var list = JSON.parse(data), order_id = list.response.id;
-                        if (order_id == 0) {
-                            alert("订单提交失败，请重新操作");
-                        } else {
-                            $http.get(loocha + '/exam/' + order_id).success(function (result) {
-                                if (result.status == 1) {
-                                    alert('没有找到订单');
-                                    return;
-                                }
-                                $scope.hope.order_id = result.response.order_id;
-                                $scope.hope.money = result.response.money;
-                                $('#modal-pay').modal('show');
-                            });
-                        }
-                    });
-                }
-
-            });
-        };
-
-        $scope.manual = function () {
             getLoginUserInfo.isLogoin();
 
             var projectSoft = [];
@@ -2413,7 +3226,7 @@ require(['app'], function (app) {
             clearArrayEmpty($scope.finshparam.personality_prefer);
             var uScore = JSON.parse(sessionStorage.getItem('uScore'));
             var param = {};
-            param.type = localStorage.getItem("type");
+            param.type = $scope.hope.batch;
             param.number = sessionStorage.getItem("usernumber");
             param.obl = matchLevel.ShowLevel(uScore.level_a);
             param.sel = matchLevel.ShowLevel(uScore.level_b);
@@ -2443,16 +3256,52 @@ require(['app'], function (app) {
             param.personality_names = [$(".person_first option:selected").eq(0).text(), $(".person_first option:selected").eq(1).text(), $(".person_first option:selected").eq(2).text(), $(".person_first option:selected").eq(3).text(), $(".person_first option:selected").eq(4).text(), $(".person_first option:selected").eq(5).text()];
 
             var tramsform = function (data) {
-                return $.params(data);
+                return $.param(data);
             };
 
             $http.post(loocha + "/exam/intention", param, {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (responseDate) {
-                localStorage.setItem("manualInfo", JSON.stringify(responseDate.response))
-                openwin('#/refer1');
+                if (responseDate.status == "1014") {
+                    alert("符合的高校太少，请在选择一些");
+                }else{
+                    $scope.hope.id = responseDate.response.id;
+                    $scope.hope.recommend = responseDate.response.recommend;
+                    $scope.hope.table = responseDate.response.table;
+                    $scope.hope.total = responseDate.response.total;
+                    localStorage.setItem("manualInfo", JSON.stringify(responseDate.response));
+                    $('#myModal').modal('show');
+                }
             });
+        };
+
+        /**
+         * 系统推荐
+         */
+        $scope.readom = function () {
+            $.post(loocha + "/exam/intention/auto", {id: $scope.hope.id}, function (data) {
+                var list = JSON.parse(data), order_id = list.response.id;
+                if (order_id == 0) {
+                    alert("订单提交失败，请重新操作");
+                } else {
+                    $http.get(loocha + '/exam/' + order_id).success(function (result) {
+                        if (result.status == 1) {
+                            alert('没有找到订单');
+                            return;
+                        }
+                        $scope.hope.order_id = result.response.order_id;
+                        $scope.hope.money = result.response.money;
+                        $('#modal-pay').modal('show');
+                    });
+                }
+            });
+        };
+        /**
+         * 随机自选
+         */
+        $scope.manual = function () {
+            openwin('#/refer1');
         };
         /**
          * 数组清空
@@ -2475,7 +3324,7 @@ require(['app'], function (app) {
         }
 
         $scope.pay = function () {
-            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + localStorage.getItem("type"));
+            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $scope.hope.batch);
             $('#modal-pay').modal('hide');
             $("#tip").modal('show');
         };
@@ -2489,6 +3338,10 @@ require(['app'], function (app) {
                     $("#tip").modal('hide');
                 });
         };
+
+        $scope.sortSelShow = function(){
+            $("#sortSelShow").show();
+        }
 
         function openwin(url) {
             var a = document.createElement("a");

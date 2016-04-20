@@ -95,15 +95,15 @@
                         <label>请选择选科等级:</label>
                     </div>
                     <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.level">
+                        <select class="form-control timer" ng-model="condition.\">
                             <option value="">==请选择选科等级==</option>
-                            <option value="A&#43;A&#43;">A+,A+</option>
-                            <option value="A&#43;A">A+,A</option>
+                            <option value="A%2bA%2b">A+,A+</option>
+                            <option value="A%2bA">A+,A</option>
                             <option value="AA">A,A</option>
-                            <option value="AB&#43;">A,B+</option>
+                            <option value="AB%2b;">A,B+</option>
                             <option value="AB">A,B</option>
-                            <option value="B&#43;B&#43;">B+,B+</option>
-                            <option value="B&#43;B">B+,B</option>
+                            <option value="B%2bB%2b">B+,B+</option>
+                            <option value="B%2bB">B+,B</option>
                             <option value="BB">B,B</option>
                             <option value="BC">B,C</option>
                             <option value="CC">C,C</option>
@@ -206,6 +206,17 @@
                 <div class="row" ng-if="condition.inputTemplate == 10">
                     <div class="col-sm-3 text-right">
                         <label>请输入:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
+                    </div>
+                </div>
+                <div class="row" ng-if="condition.inputTemplate == 11">
+                    <div class="col-sm-3 text-right">
+                        <label>请选择:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>

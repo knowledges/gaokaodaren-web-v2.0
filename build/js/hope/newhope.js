@@ -1313,7 +1313,6 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#belongs1').attr('data-istrue');
             if (isTrue == "false") {
-                var html = [];
                 $http.get(loocha + '/school/prop?type=1&depart_type=1').success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];

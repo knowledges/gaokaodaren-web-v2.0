@@ -2,8 +2,18 @@
  * Created by qbl on 2015/10/27.
  */
 require(['app'],function(app){
-    app.constant("orderInfoURL","/exam/order/info")
-    app.controller('referCtr',['$scope','$location','$window','$http','loocha',function($scope,$location,$window,$http,loocha){
+    app.constant("orderInfoURL","/exam/order/info");
+    app.directive('onFinishRender',["$rootScope",'$timeout',function($rootScope,$timeout){
+        return {
+            restrict: 'A',
+            link:function(scope,element,attr){
+                if(scope.$last == true){
+                    $rootScope.loading = false;
+                }
+            }
+        }
+    }])
+    app.controller('referCtr',['$scope','$location','$window','$http','loocha','getLoginUserInfo',function($scope,$location,$window,$http,loocha,getLoginUserInfo){
 
         $scope.order = {
                 orderId:"",
@@ -75,8 +85,9 @@ require(['app'],function(app){
         };
 
         $scope.payChance = function(){
+            getLoginUserInfo.isLogoin();
             $scope.order.orderShow = false;
-            window.location.href="#/pay?out_trade_no="+$scope.orderout_trade_no+"&type="+$scope.order.type;
+            window.location.href="#/pay?order_id="+$scope.orderout_trade_no+"&money="+$scope.order.money+"&type="+$scope.order.type;
         }
 
         $scope.close = function(){
@@ -84,20 +95,19 @@ require(['app'],function(app){
         };
 
         function init(){
-            if(sessionStorage.getItem('usernumber') == null || sessionStorage.getItem('usernumber') == "" || sessionStorage.getItem('usernumber').length<= 0){
-                $window.location.href="#/login";
-                return;
-            }
+            getLoginUserInfo.isLogoin();
+
             $scope.order.subtitle = yxb_title[$scope.order.type];
             $scope.order.caption = caption [$scope.order.type];
             getOrderInfo();
         }
 
         function getOrderInfo(){
+            getLoginUserInfo.isLogoin();
             $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
                 .success(function(data,status){
                     if(status== 2){
-                        alert('操作失败！');
+                        alert('订单不存在！');
                         $window.location.href="#/all/reference";
                         return;
                     }
@@ -106,6 +116,7 @@ require(['app'],function(app){
                     $scope.order.city =data.response.city;
                     $scope.order.area =data.response.area;
                     $scope.order.data = data.response.list;
+                    $scope.order.money = data.response.money;
                     $scope.order.departArr_0 = data.response.list[0].departs;
                     $scope.order.departArr_1 = data.response.list[1].departs;
                     $scope.order.departArr_2 = data.response.list[2].departs;
@@ -130,6 +141,10 @@ require(['app'],function(app){
                     });
                 }
             });
+        };
+
+        $scope.showChance = function(){
+            $("#chanced").modal('show');
         };
 
         $scope.showCase = function(){

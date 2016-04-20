@@ -20,14 +20,16 @@ define(function(require,exports,module){
             isShow:true
         }
     });
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     //  拦截器
-    app.run(['$rootScope','$state','$window','$location','userService','homeService','displayService',function ($rootScope, $state,$location ,$window , userService,homeService,displayService) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    app.run(['$rootScope','$state','$window','$location','$http','loocha','userService','homeService','displayService',function ($rootScope, $state,$window ,$location ,$http, loocha,userService,homeService,displayService) {
+        $rootScope.$on('$stateChangeStart',function (event, toState, toParams, fromState, fromParams) {
             homeService.htmlPage="";
             displayService.isShow = true;
             $rootScope.loading = true;
             if(fromState.name != ""){
-                if(fromState.name != "all.will" && fromState.name != "all.score"){ //是否为刷新 "" 就是刷新
+                if( fromState.name != "home"  && fromState.name != "all.will" && fromState.name != "all.score"){ //是否为刷新 "" 就是刷新
                     localStorage.removeItem("type");
                 }
             }
@@ -37,13 +39,11 @@ define(function(require,exports,module){
             if (isPublicAction || isAuthenticated) {
                 return;
             }
-
             event.preventDefault();
-
             userService.getAuthObject().then(function (user) {
                 var isAuthenticated = user.isAuthenticated === true;
                 if (isAuthenticated) {
-                    $state.go(toState, toParams)
+                    $state.go(toState, toParams);
                     return;
                 }
                 $state.go("login");

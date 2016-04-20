@@ -9,7 +9,7 @@ require(['app'],function(app){
             isSigin: ""
         }
     });
-    app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'loocha',function ($scope, $rootScope, $window,$http,loocha) {
+    app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'getLoginUserInfo','loocha',function ($scope, $rootScope, $window,$http,getLoginUserInfo,loocha) {
 //        $scope.$on("$includeContentLoaded",function(){
 //            $("#register").click(function(){
 //            });
@@ -60,10 +60,14 @@ require(['app'],function(app){
                 }else{
                     window.location.href="#/all/allScore";
                 }
+
+                setInterval(function(){
+                    getLoginUserInfo.isLogoin();
+                },600000);
+
             });
-
-
         },400);
+
 
         $scope.signin = function () {
 

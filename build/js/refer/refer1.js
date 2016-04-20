@@ -2,7 +2,7 @@
  * Created by qbl on 2016/2/1.
  */
 require(['app'], function (app) {
-    app.controller('referCtr', ['$scope', '$http', '$stateParams','getLoginUserInfo', function ($scope, $http, $stateParams,getLoginUserInfo) {
+    app.controller('referCtr', ['$scope', '$http', '$stateParams','loocha','getLoginUserInfo', function ($scope, $http, $stateParams,loocha,getLoginUserInfo) {
 
         $scope.info = {
             title: "",
@@ -51,6 +51,10 @@ require(['app'], function (app) {
 
         function init() {
             getLoginUserInfo.isLogoin();
+
+            setInterval(function(){
+                getLoginUserInfo.isLogoin();
+            },600000);
 
             var type = localStorage.getItem('type') == null ? 1 : localStorage.getItem('type');
             var manualInfo = JSON.parse(localStorage.getItem("manualInfo"));
@@ -315,11 +319,11 @@ require(['app'], function (app) {
                 return $.param(data);
             };
 
-            $http.post("/loocha/exam/intention/manual", param, {
+            $http.post(loocha+"/exam/intention/manual", param, {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (data) {
-                $http.get('/loocha/exam/' + data.response.id).success(function (result) {
+                $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
                     $scope.order_id = result.response.order_id;
                     $scope.money = result.response.money;
                     $("#zyb_random").show();
@@ -334,7 +338,7 @@ require(['app'], function (app) {
         };
 
         $scope.isPay = function(){
-            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.hope.order_id)
+            $http.get(loocha+'/exam/order/info?out_trade_no='+$scope.order_id)
                 .success(function(data){
                     if(data.status == "1004"){
                         alert('交易失败');

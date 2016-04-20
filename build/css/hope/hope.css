@@ -6,10 +6,6 @@
   text-decoration: none;
   background: none;
 }
-.cancle:hover {
-  text-decoration: none;
-  background-color: #928F8F!important;
-}
 .agree {
   background: green!important;
   color: #FFF!important;

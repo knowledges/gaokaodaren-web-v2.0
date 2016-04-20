@@ -19,13 +19,16 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
                 return $http.get(loocha+'/user').success(function(data){
                     if(data.response!=undefined && data.response.id!=undefined){
+                        sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
+                        sessionStorage.setItem("user_id",data.response.id);
+                        sessionStorage.setItem("usernumber",data.response.name);
                         $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
                             if(data<=0){
                                 alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
@@ -488,7 +491,7 @@ define(['app'],function(app){
             .state('all', {
                 url: '/all',
                 templateUrl:'html/temp/tempAll.html',
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
@@ -500,7 +503,7 @@ define(['app'],function(app){
                 templateUrl:'html/myInfo/myScore.html',
                 controllerUrl:"js/myInfo/myScore",
                 controller:"myScore",
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
@@ -512,7 +515,7 @@ define(['app'],function(app){
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"willCtr",
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['html/All/all.js']);
@@ -524,12 +527,12 @@ define(['app'],function(app){
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",
-                data: { isPublic: false},
-                resolve:{
+                data: { isPublic: true},
+                /*resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['html/All/all.js']);
                     }]
-                }
+                }*/
             })
             ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state("depth",{
