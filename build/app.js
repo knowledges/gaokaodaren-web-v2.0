@@ -27,8 +27,11 @@ define(function(require,exports,module){
             displayService.isShow = true;
             $rootScope.loading = true;
             if(fromState.name != ""){
-                if(fromState.name != "all.will" && fromState.name != "all.score"){ //是否为刷新 "" 就是刷新
+                if(fromState.name != "all.will" && fromState.name != "all.score" && fromState.name != "refer"){ //是否为刷新 "" 就是刷新
                     localStorage.removeItem("type");
+                }
+                if(fromState.name != "all.will"&&fromState.name !="refer" ){
+                    sessionStorage.removeItem("admitFlag");
                 }
             }
             var isAuthenticated = userService.isAuthenticated();

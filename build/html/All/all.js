@@ -22,8 +22,10 @@ require(['app'], function (app) {
             $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
                 .success(function (data) {
                     if(flag == 4){
+                        localStorage.setItem("type",data.response.type);
                         sessionStorage.setItem("admitFlag",data.response.admitFlag);
                         sessionStorage.setItem("order_id",data.response.orderId);
+                        sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
                         window.location.href = "#/chance";
                     }else{
                         var intentionId = data.response.intentionId;

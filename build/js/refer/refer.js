@@ -36,6 +36,7 @@ require(['app'],function(app){
 
         $scope.order.orderId = $location.$$search.orderId;
         $scope.order.type = $location.$$search.type;
+        $scope.order.flag = $location.$$search.flag;
 
         var yxb_title = [
             "",
@@ -97,9 +98,24 @@ require(['app'],function(app){
         function init(){
             getLoginUserInfo.isLogoin();
 
-            $scope.order.subtitle = yxb_title[$scope.order.type];
-            $scope.order.caption = caption [$scope.order.type];
-            getOrderInfo();
+            if($scope.order.flag == 4){
+                $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
+                    .success(function (data) {
+                        if(flag == 4){
+                            sessionStorage.setItem("admitFlag",data.response.admitFlag);
+                            localStorage.setItem("type",data.response.type);
+                            sessionStorage.setItem("order_id",data.response.orderId);
+                            sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
+                            window.location.href = "#/chance";
+                        }
+                    });
+                window.location.href="#/chance";
+                window.location.reload(0);
+            }else{
+                $scope.order.subtitle = yxb_title[$scope.order.type];
+                $scope.order.caption = caption [$scope.order.type];
+                getOrderInfo();
+            }
         }
 
         function getOrderInfo(){

@@ -122,8 +122,8 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(num){
-
-            if(sessionStorage.getItem("uScore")!=null){
+            addUserScore();
+            /*if(sessionStorage.getItem("uScore")!=null){
                 if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.sub1!="" && $scope.table.sub2!=""){
                     localStorage.setItem("type",$scope.table.batch);
                     if(num == 1){
@@ -142,17 +142,27 @@ require(['app'],function(app){
                 }
             }else{
                 addUserScore();
-            }
+            }*/
             /**
              * 添加成绩
              */
             function addUserScore(){
+                if($scope.table.subject == ""){
+                    alert("请选择科别");
+                    return;
+                }
                 if($scope.table.score <=0){
-                    alert('分数不能小于0！');
-                }else if($scope.table.sel == null){
-                    alert('请选择科目等级！');
-                }else if($scope.table.obl == null){
-                    alert('请选择科目等级！');
+                    alert('分数不能小于0！');return;
+                }
+                if($scope.table.obl == null || $scope.table.obl == ""){
+                    alert('请选择科目等级');return;
+                }
+                if($scope.table.sel == null || $scope.table.sel == ""){
+                    alert('请选择另一门等级');return;
+                }
+                if($scope.table.batch == ""){
+                    alert("请选择批次");
+                    return;
                 }
 
                 var param = {};

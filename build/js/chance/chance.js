@@ -68,6 +68,24 @@ require(['app'],function(app){
             rangeArr:"",
             schChance_3:"",
         };
+        $scope.modelInfo = {
+            model_1:[],
+            model_2:[],
+            model_3:[],
+            model_4:[],
+            model_5:[],
+            model_6:[],
+        }
+
+        $scope.userInfo = {
+            uScore:"",
+            subject:"",
+            sub_a:"",
+            sub_b:"",
+            level_a:"",
+            level_b:"",
+            score:"",
+        }
 
         $scope.changePay = function(){
             $scope.isShow = true;
@@ -79,9 +97,51 @@ require(['app'],function(app){
         function init(){
             getLoginUserInfo.isLogoin();
 
+            setInterval(function(){
+                getLoginUserInfo.isLogoin();
+            },600000);
+
+            $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
+            $scope.userInfo.subject =subStr($scope.isChance);
+            $scope.userInfo.score = $scope.userInfo.uScore.score;
+            $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;
+            $scope.userInfo.sub_b = $scope.userInfo.uScore.sub_b;
+            $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
+            $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+
+            function subStr(str){
+
+                switch(parseInt(str)){
+                    case 1:
+                        return "文科本一";
+                        break;
+                    case 3:
+                        return "文科本二";
+                        break;
+                    case 5:
+                        return "文科本三";
+                        break;
+                    case 7:
+                        return "文科高职";
+                        break;
+                    case 2:
+                        return "理科本一";
+                        break;
+                    case 4:
+                        return "理科本二";
+                        break;
+                    case 6:
+                        return "理科本三";
+                        break;
+                    case 8:
+                        return "理科高职";
+                        break;
+                }
+            }
+
             if(localStorage.getItem('type')!= null){
                 if(sessionStorage.getItem("admitFlag")!=null){
-                    var flag = sessionStorage.getItem("admitFlag");
+                    var flag = sessionStorage.getItem("admitFlag").split(",");
                     flag.splice(0,1);
                     flag.splice(flag.length-1,1);
 
@@ -92,12 +152,33 @@ require(['app'],function(app){
                             }
                         }
                     }
+
+                    var adminlist = JSON.parse(sessionStorage.getItem("admits"));
+                    if(adminlist.length>0){
+                        $.each(adminlist,function(i,v){
+                            if(v.flag == 1){
+                                $scope.modelInfo.model_1.push(v);
+                            }else if (v.flag == "2"){
+                                $scope.modelInfo.model_2.push(v);
+                            }else if (v.flag == "3"){
+                                $scope.modelInfo.model_3.push(v);
+                            }else if (v.flag == "4"){
+                                $scope.modelInfo.model_4.push(v);
+                            }else if (v.flag == "5"){
+                                $scope.modelInfo.model_5.push(v);
+                            }else {
+                                $scope.modelInfo.model_6.push(v);
+                            }
+                        })
+                    }
                 }
             }else{
                 $("#recommend").modal('show');
                 //$rootScope.loading = false;
                 return;
             }
+
+
         }
 
 ////////按概率范围预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,10 +201,12 @@ require(['app'],function(app){
                     method:"GET",
                     params:param
                 }).success(function (data) {
-                    if(data.status == 2){
-                        alert("请先选择缴费");
+                    if (data.status == "2"){
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=2]").attr("checked","true");
                         return;
                     }
+
                     $scope.forecast.rangeArr = data.response;
                     $("#chanceBody").show();
                 });
@@ -164,7 +247,18 @@ require(['app'],function(app){
                         alert('已查询！');
                         return;
                     }else if (data.status == "2"){
-                        alert('订单号不存在！');
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=1]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("请重新缴费，才能查询");
+                        $(".chance_[value=1]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_0 = data.response.admit;
@@ -176,6 +270,7 @@ require(['app'],function(app){
 
         $scope.findChaname = function(){
             $scope.forecast.cSchool_name = $("#sch_name option:selected").text();
+            $scope.forecast.schChance_0 = "";
         }
 
         $scope.schChance_3 = function(){
@@ -243,6 +338,7 @@ require(['app'],function(app){
          */
         $scope.findSchoolInfo = function(){
             $scope.forecast.school_name = $("#school_name option:selected").text();
+            $scope.forecast.schChance = "";
         };
         /**
          * 按院校属地预测高校录取概率
@@ -251,16 +347,16 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
-                param.admit_flag = 2;
-                param.type= $scope.isChance;
-                param.obl = levelNum($scope.uScore.level_a);
-                param.sel = levelNum($scope.uScore.level_b);
-                param.score = $scope.uScore.score;
-                param.school_code = $scope.forecast.school_id;
-                param.school = $scope.forecast.school_name;
-                param.depart_code ="";
-                param.depart = "";
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.admit_flag = 2;
+                    param.type= $scope.isChance;
+                    param.obl = levelNum($scope.uScore.level_a);
+                    param.sel = levelNum($scope.uScore.level_b);
+                    param.score = $scope.uScore.score;
+                    param.school_code = $scope.forecast.school_id;
+                    param.school = $scope.forecast.school_name;
+                    param.depart_code ="";
+                    param.depart = "";
                 $http({
                     url:loocha+'/exam/admit/result',
                     method: 'GET',
@@ -273,7 +369,18 @@ require(['app'],function(app){
                         alert('已查询！');
                         return;
                     }else if (data.status == "2"){
-                        alert('订单号不存在！');
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("请重新缴费，才能查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance = data.response.admit;
@@ -306,6 +413,7 @@ require(['app'],function(app){
             $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
                     $scope.forecast.pDepart_Arr = data.response;
+                    $scope.forecast.schChance_6 = "";
                 });
         };
 
@@ -316,12 +424,14 @@ require(['app'],function(app){
             $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_name='+$("#departName option:selected").text())
                 .success(function(data){
                     $scope.forecast.pSchool_Arr = data.response;
+                    $scope.forecast.schChance_6 = "";
                 });
             $scope.forecast.pDepart_name = $("#departName option:selected").text();
         };
 
         $scope.getSchlname = function(){
             $scope.forecast.pSchl_name = $("#pSchool_name option:selected").text();
+            $scope.forecast.schChance_6 = "";
         };
 
         /**
@@ -355,7 +465,18 @@ require(['app'],function(app){
                         alert('已查询！');
                         return;
                     }else if (data.status == "2"){
-                        alert('订单号不存在！');
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=6]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("请重新缴费，才能查询");
+                        $(".chance_[value=6]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_6 = data.response.admit;
@@ -434,6 +555,7 @@ require(['app'],function(app){
 
         $scope.getSchName = function(){
             $scope.forecast.style_School_name = $("#sSchool_name option:selected").text();
+            $scope.forecast.schChance_1 = "";
         };
 
         $scope.schChance_1 =function(){
@@ -462,7 +584,18 @@ require(['app'],function(app){
                         alert('已查询！');
                         return;
                     }else if (data.status == "2"){
-                        alert('订单号不存在！');
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=3]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("请重新缴费，才能查询");
+                        $(".chance_[value=3]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_1 = data.response.admit;
@@ -490,6 +623,7 @@ require(['app'],function(app){
         $scope.getDepartName = function(){
             $scope.forecast.schl_departName = $("#schl_departName option:selected").text();
             $scope.forecast.schl_article_id = $("#schl_departName option:selected").attr("article_id");
+            $scope.forecast.departChance = "";
         };
 
         /**
@@ -527,7 +661,18 @@ require(['app'],function(app){
                     alert('输入参数有错！');
                     return;
                 }else if (data.status == "2"){
-                    alert('订单号不存在！');
+                    alert("请确认‘预测项目’选项，缴费预测");
+                    $(".chance_[value=4]").attr("checked","true");
+                    return;
+                }else if(data.status == "1015"){
+                    alert("请重新缴费，才能查询");
+                    $(".chance_[value=4]").attr("checked","true");
+                    return;
+                }else if (data.status == "1013"){
+                    alert("该高校仅招生两年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1012"){
+                    alert("该高校仅招生一年，计算概率没有意义");
                     return;
                 }
                 $scope.forecast.departChance = data.response.admit;
@@ -549,6 +694,7 @@ require(['app'],function(app){
 
         $scope.getDschlName=function(){
             $scope.forecast.d_schl_name = $("#d_schl_id option:selected").text();
+            $scope.forecast.schChance_2 = "";
         };
 
         $scope.getSchlChance = function(){
@@ -579,7 +725,18 @@ require(['app'],function(app){
                     alert('输入参数有错！');
                     return;
                 }else if (data.status == "2"){
-                    alert('订单号不存在！');
+                    alert("请确认‘预测项目’选项，缴费预测");
+                    $(".chance_[value=5]").attr("checked","true");
+                    return;
+                }else if(data.status == "1015"){
+                    alert("请重新缴费，才能查询");
+                    $(".chance_[value=5]").attr("checked","true");
+                    return;
+                }else if (data.status == "1013"){
+                    alert("该高校仅招生两年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1012"){
+                    alert("该高校仅招生一年，计算概率没有意义");
                     return;
                 }
                 $scope.forecast.schChance_2 = data.response.admit;
@@ -621,7 +778,7 @@ require(['app'],function(app){
                 $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
                     localStorage.setItem("order_id",result.response.order_id);
                     $scope.order_id = result.response.order_id;
-                    $scope.money = result.response.money;
+                    $scope.money = result.response.money/100;
                     $("#zyb_random").modal('show');
                 });
             });

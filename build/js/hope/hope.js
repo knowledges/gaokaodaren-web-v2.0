@@ -39,16 +39,28 @@ require(['app'], function (app) {
                         }
                     });
                 } else if(status == 1){
-                    status = that.attr("status","0").removeClass('reject agree').addClass('cancle');
-                    if(typeObj.indexOf(that.html())>=0){
+                    $.each(typeObj,function(i,v){
+                        if(v!=undefined && v.name == that.html()){
+                            status = that.attr("status","0").removeClass('reject agree').addClass('cancle');
+                            typeObj.splice(i,1);
+                        }
+                    });
+
+                   /* if(typeObj.indexOf(that.html())>=0){
+
                         typeObj.splice(typeObj.indexOf(that.html()),1);
-                    }
+                    }*/
                     $.each(parent,function(i,v){
                         if(v!=""){
                             var findDepar = $(".findDepart[course_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
-                            if(findDepar_status<2 && typeObj.indexOf(findDepar.html())>=0){
-                                findDepar.attr("status", "0").removeClass('agree reject').addClass('cancle');
-                                typeObj.splice(typeObj.indexOf(findDepar.html()),1);
+                            if(findDepar_status<2){
+                                $.each(typeObj,function(i,v){
+                                    if(v!=undefined &&  v.name == findDepar.html()){
+                                        findDepar.attr("status", "0").removeClass('agree reject').addClass('cancle');
+                                        typeObj.splice(i,1);
+                                    }
+                                });
+                                //typeObj.splice(typeObj.indexOf(findDepar.html()),1);
                             }
                         }
                     });
@@ -196,7 +208,7 @@ require(['app'], function (app) {
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     //取消大类
                     $.each(typeObj,function(i,v){
-                        if(that.html() == v.name){
+                        if(v!=undefined && that.html() == v.name){
                             typeObj.splice(i, 1);
                         }
                     });
@@ -205,7 +217,7 @@ require(['app'], function (app) {
                         var idx = $(v).attr(id);
                         if(ignore.indexOf(idx+"") < 0){
                             $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
-                            if (prefer.indexOf(idx+"") < 0) {
+                            if (prefer.indexOf(idx+"") >= 0) {
                                 if (arr != null) {
                                     arr.splice(prefer.indexOf(idx), 1);
                                 }
@@ -3380,8 +3392,11 @@ require(['app'], function (app) {
                 effectPrefer($scope.hope.school_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
                 effectIgnore($scope.hope.school_ignore, $("#panel-footer a[school_id]"), "school_id");
 
-                effectPrefer($scope.hope.depart_prefer, $("#depart a[depart_id]"), "depart_id", $scope.hope.departArr);
-                effectIgnore($scope.hope.depart_ignore, $("#depart a[depart_id]"), "depart_id");
+                effectPrefer($scope.hope.city_prefer, $("#panel-footer a[city_id]"), "city_id", $scope.hope.cityArr);
+                effectIgnore($scope.hope.city_ignore, $("#panel-footer a[city_id]"), "city_id");
+
+                effectPrefer($scope.hope.city_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
+                effectIgnore($scope.hope.city_ignore, $("#panel-footer a[school_id]"), "school_id");
 
                 effectPrefer($scope.hope.personality_prefer, $("#character a[s_id]"), "s_id", $scope.hope.personalityArr);
                 effectIgnore($scope.hope.personality_ignore, $("#character a[s_id]"), "s_id");
