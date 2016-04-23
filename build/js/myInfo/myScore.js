@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.directive('isLoading',['$rootScope',function($rootScope){
+    /*app.directive('isLoading',['$rootScope',function($rootScope){
         return{
             restrict: 'A',
             link:function(scope){
@@ -12,7 +12,7 @@ require(['app'],function(app){
                 }
             }
         }
-    }]);
+    }]);*/
     app.factory("levelName", function () {
         return {
             ShowLevel: function (str) {
@@ -122,27 +122,20 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(num){
-            addUserScore();
-            /*if(sessionStorage.getItem("uScore")!=null){
-                if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.sub1!="" && $scope.table.sub2!=""){
-                    localStorage.setItem("type",$scope.table.batch);
-                    if(num == 1){
-                        $window.location.href = "#/hope";
-                    }else if (num == 2){
-                        $window.location.href = "#/chance";
-                    }else{
-                        $window.location.href = "#/depath";
+            if(sessionStorage.getItem("uScore")!=null){
+                if($scope.table.subject!="" && $scope.table.batch!="" && $scope.table.score == "" && $scope.table.sub1!="" && $scope.table.sub2!="") {
+                    localStorage.setItem("type", $scope.table.batch);
+                    if (num == 3) {
+                        window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
+                    } else{
+                        addUserScore();
                     }
-                }else if($scope.table.subject=="" && $scope.table.batch!="" ){
-                    alert("请选择学科");
-                }else if ($scope.table.subject!="" && $scope.table.batch==""){
-                    alert("请选择批次");
                 }else{
                     addUserScore();
                 }
             }else{
                 addUserScore();
-            }*/
+            }
             /**
              * 添加成绩
              */
@@ -191,7 +184,7 @@ require(['app'],function(app){
                                 }else if (num == 2){
                                     $window.location.href = "#/chance";
                                 }else{
-                                    $window.location.href = "#/depath";
+                                    window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
                                 }
                             });
                         });

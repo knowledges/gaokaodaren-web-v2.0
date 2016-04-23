@@ -189,7 +189,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null) {
                 var param = {};
-                param.out_trade_no = $scope.order_id != "" ? $scope.order_id:localStorage.getItem("order_id");
+                param.out_trade_no = $scope.order_id != "" ? $scope.order_id:sessionStorage.getItem("order_id");
                 param.type = $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
                 param.sel = levelNum($scope.uScore.level_b);
@@ -224,7 +224,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     //param.admit_flag = $scope.forecast.range;
                     param.admit_flag = 1;
                     param.type= $scope.isChance;
@@ -277,7 +277,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     param.admit_flag = $scope.forecast.range;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
@@ -347,7 +347,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     param.admit_flag = 2;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
@@ -441,7 +441,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 6;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -562,7 +562,7 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 3;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -636,7 +636,7 @@ require(['app'],function(app){
                 return;
             }
             var param = {};
-            param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+            param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
             param.admit_flag = 4;
             param.type= $scope.isChance;
             param.obl = levelNum($scope.uScore.level_a);
@@ -700,7 +700,7 @@ require(['app'],function(app){
         $scope.getSchlChance = function(){
             getLoginUserInfo.isLogoin();
             var param = {};
-                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : localStorage.getItem("order_id");
+                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 5;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -776,7 +776,7 @@ require(['app'],function(app){
                 transformRequest:tramsform
             }).success(function(data){
                 $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
-                    localStorage.setItem("order_id",result.response.order_id);
+                    sessionStorage.setItem("order_id",result.response.order_id);
                     $scope.order_id = result.response.order_id;
                     $scope.money = result.response.money/100;
                     $("#zyb_random").modal('show');

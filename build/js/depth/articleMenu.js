@@ -17,6 +17,25 @@ require(['app'],function(app){
             });
         }
     }]);
+    app.directive("onFinishRender",function(){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $("#menu-infolist > li > a").click(function(e){
+                        var list = $("#menu-infolist > li > a");
+                        $.each(list,function(i,v){
+                            var id = $(this).data("target");
+                            $(id).attr("aria-expaneded","false").hide();
+                        });
+
+                        var id = $(this).data("target");
+                        $(id).attr("aria-expaneded","true").show();
+                    })
+                }
+            }
+        }
+    });
     app.factory("subLevel")
     app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$location','loocha','data_province',function($scope,$http,$sce,$stateParams,$location,loocha,data_province){
         $scope.menuArr = [];
@@ -66,6 +85,15 @@ require(['app'],function(app){
                         }
                     });
                 });
+
+            $(document).unbind('click').click(function (e) {
+                e = window.event || e;
+                var obj = $(e.srcElement || e.target);
+                if (!$(obj).is('.spanClk')) {
+                    $(".newNav ul li ul").hide();
+                }
+            });
+
         }
 
         $http.get(loocha+"/depth/query")
@@ -120,7 +148,12 @@ require(['app'],function(app){
             if(money==0 && leaf>0){
                 $http.get(loocha+'/depth/query/'+idx+'.html?year='+$scope.condition.timer+'&type='+$location.$$url.split("batch=")[1]+"&school="+school+"&depart="+depart+"&sel="+sel)
                     .success(function (data) {
-                        $("#depathTHML").empty().prepend(data);
+                        if(data.length>0){
+                            $("#depathTHML").empty().prepend(data);
+                        }else{
+                            $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
+                        }
+
                         $("#condition").hide();
                         $scope.condition.level="";
                     });

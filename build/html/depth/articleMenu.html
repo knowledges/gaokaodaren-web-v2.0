@@ -21,7 +21,7 @@
                     </li>
                 </ul>
             </li>
-            <li ng-repeat="list in menuInfoArr" ng-if="!$first">
+            <li ng-repeat="list in menuInfoArr" on-finish-render="depthlist" ng-if="!$first">
                 <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="false" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
                 <ul id="chart-collpsed{{list.id}}" class="collapse" data-toggle="collapse in" aria-expanded="false">
                     <li class="list-group-item" ng-repeat="arr in list.sublist">
