@@ -1,50 +1,11 @@
 /**
  * Created by qbl on 2015/11/25.
  */
-'use strict';
-angular.module("gaokaoAPP",[
-    "ui.router",
-    "gaokaoApp.factory",
-    "gaokaoAPP.home",
-    "gaokaoAPP.hope",
-    "gaokaoAPP.chance",
-    "gaokaoAPP.login.childApp",
-    "gaokaoAPP.temp.city",
-    "gaokaoAPP.navbar.citymenu",
-    "gaokaoAPP.navbar",
-    "gaokaoAPP.city.content",
-    "gaokaoAPP.temp.school",
-    "gaokaoAPP.navbar.School",
-    "gaokaoAPP.temp.marjor",
-    "gaokaoAPP.navbar.marjor",
-    "gaokaoAPP.temp.recipe",
-    "gaokaoAPP.group.recipe",
-    "gaokaoAPP.group.recipe.list",
-    "gaokaoAPP.temp.score",
-    "gaokaoAPP.group.score",
-    "gaokaoAPP.temp.policy",
-    "gaokaoAPP.group.policy",
-    "gaokaoAPP.temp.job",
-    "gaokaoAPP.group.job",
-    "gaokaoAPP.temp.unique",
-    "gaokaoAPP.group.unique",
-    "gaokaoAPP.temp.online",
-    "gaokaoAPP.group.online",
-    "gaokaoAPP.temp.online.showInfo",
-    "gaokaoAPP.about",
-    "gaokaoAPP.temp.all",
-    "gaokaoAPP.group.all",
-    "gaokaoAPP.temp.example",
-    "gaokaoAPP.refer",
-    "gaokaoAPP.pay",
-    "gaokaoAPP.myInfo.myScore",
-    "gaokaoApp.home.new",
-    "gaokaoApp.banner.hope",
-    "gaokaoApp.banner.chance",
-])
-    .run(['$rootScope',function($rootScope){
-        $rootScope.defaultPage = "#/home";
+define(['app'],function(app){
+
+    app.run(['$rootScope',function($rootScope){
         $rootScope.studentId = "";
+        $rootScope.loading = true;
         deassign();
         window.onresize = function(){
             deassign();
@@ -53,135 +14,606 @@ angular.module("gaokaoAPP",[
             var clientHeight = window.innerHeight;
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
+    }]);
 
-    }])
-    .factory('userService',['$rootScope','$timeout','$q',function ($rootScope,$timeout, $q) {
-        var user ={};
-        return {
-            getAuthObject: function () {
-                user = JSON.parse(sessionStorage.getItem('user'));
-                var deferred = $q.defer();
-                if (user) {
-                    return $q.when(user);
-                }
-                $timeout(function () {
-                    user = {isAuthenticated: false};
-                    deferred.resolve(user)
-                }, 500)
-                return deferred.promise;
+    //注销
+    app.constant("logoutURL","/logout");
+    app.constant("provinceURL","/city/province");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
+    app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
+        var userInfo ={
+            isLogoin:function(){
+                return $http.get(loocha+'/user').success(function(data){
+                    if(data.response!=undefined && data.response.id!=undefined){
+                        sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
+                        sessionStorage.setItem("user_id",data.response.id);
+                        sessionStorage.setItem("usernumber",data.response.name);
+                        $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
+                            if(data<=0){
+                                alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
+                                window.location.href = "#/all/allScore";
+                            }
+                        });
+                    }else{
+                        sessionStorage.removeItem('type');
+                        sessionStorage.removeItem('uScore');
+                        sessionStorage.removeItem('user');
+                        sessionStorage.removeItem('user_id');
+                        sessionStorage.removeItem('usernumber');
+                        alert('登陆失效或您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        $(".modal-backdrop").fadeOut(500);
+                    }
+                }).error(function(e){
+                    sessionStorage.removeItem('type');
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    $(".modal-backdrop").fadeOut(500);
+                });
             },
-            isAuthenticated: function () {
-                user = JSON.parse(sessionStorage.getItem('user'));
-                return user !== null
-                    && user.isAuthenticated;
+            isLogin:function(){
+                return $http.get(loocha+'/user').success(function(data){
+                }).error(function(e){
+                    sessionStorage.removeItem('type');
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                });
             }
-        };
-    }])
-    .run(['$rootScope','$state','$window','$location','userService','homeService',function ($rootScope, $state,$location ,$window , userService,homeService) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            homeService.htmlPage="";
-            var isAuthenticated = userService.isAuthenticated();
-            var isPublicAction = angular.isObject(toState.data)
-                && toState.data.isPublic === true;
-            if (isPublicAction || isAuthenticated) {
-                return;
-            }
+        }
+        return userInfo;
 
-            event.preventDefault();
-
-            userService.getAuthObject().then(function (user) {
-                var isAuthenticated = user.isAuthenticated === true;
-                if (isAuthenticated) {
-                    $state.go(toState, toParams)
-                    return;
-                }
-                $state.go("login");
-            })
-
-        })
-    }])
-    .config(function ($stateProvider, $urlRouterProvider) {
-
+    }]);
+    app.config(["$stateProvider","$urlRouterProvider","$httpProvider",function($stateProvider, $urlRouterProvider,$httpProvider){
         $urlRouterProvider.when("", "/home");
         $stateProvider
-            .state("home", {
+            .state("home", {//主页
                 url: "/home",
                 templateUrl: "html/home/home.html",
-                controller:"homeCtr",
+                controllerUrl:"js/home/home",
+                controller:"homeCtrl",
                 data: { isPublic: true},
                 resolve:{
-                    data_province: function(newService) {
-                        return newService.getProvinceURL();
-                    },
-                    data_HomeModel2:function(newService){
-                        return newService.getHomeModel2();
-                    },
-                    data_HomeModel3:function(newService){
-                        return newService.getHomeModel3();
-                    },
-                    data_HomeModel4:function(newService){
-                        return newService.getHomeModel4();
-                    },
-                    data_HomeModel5:function(newService){
-                        return newService.getHomeModel5();
-                    },
-                    data_HomeModel6:function(newService){
-                        return newService.getHomeModel6();
-                    },
-                    data_HomeModel7:function(newService){
-                        return newService.getHomeModel7();
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/banner/bannerHope.js','js/banner/bannerChance.js','js/Controller/navbar/new.js']);
+                    }],
+                    data_province:function($q,$http,provinceURL,loocha){
+                        var dtd = $q.defer();
+                        $http.get(loocha+provinceURL).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
                     }
                 }
             })
-            .state("chance", {
-                url: "/chance",
-                templateUrl: "html/chance/chance.html",
-                controller:"chanceCtr",
-                data: { isPublic: false}
-            })
-            .state("hope", {
+            .state("hope", {/*意向*/
                 url: "/hope",
                 templateUrl: "html/hope/hope.html",
-                data: { isPublic: false}
+                //controllerUrl:"js/hope/hope",
+                controller:"hopeCtr",
+                data: { isPublic: true}
+                //resolve:{
+                //    deps:['$ocLazyLoad',function($ocLazyLoad){
+                //        return $ocLazyLoad.load(['js/hope/hope.js']);
+                //    }]
+                //}
             })
-            .state("login", {
+            .state("chance", {//预测
+                url: "/chance",
+                templateUrl: "html/chance/newChance.html",
+                controllerUrl:"js/chance/chance",
+                controller:"chanceCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/banner/bannerChance.js','js/chance/chance.js']);
+                    }]
+                }
+            })
+/////////////////////////////志愿范例///////////////////////////////////////////////////////
+            .state('example',{
+                url:'/example',
+                templateUrl:"html/temp/tempExample.html",
+                //controllerUrl:"js/example/example",
+                controller:"exampleAllCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('example.nav',{
+                url:"/navExample",
+                templateUrl:"html/nav/nav.html",
+                controller:"exampleNav",
+                data: { isPublic: true}
+                //resolve:{
+                //    deps:['$ocLazyLoad',function($ocLazyLoad){
+                //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+                //    }]
+                //}
+            })
+            .state("example.list",{
+                url:'/itemId=:itemId&param=:param',
+                templateUrl:'html/recipe/recipe.html',
+                //controllerUrl:"js/Controller/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+////////////////////////////////////志愿咨询Start////////////////////////////////////////////////////////////////////////////////////
+            .state('online',{//咨询线路
+                url:"/online",
+                templateUrl:"html/temp/tempOnline.html",
+                //controllerUrl:"js/online/online",
+                controller:"onlineCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/showInfo/showInfo.js']);
+                    }]
+                }
+            })
+            .state('online.nav',{
+                url:"/navOnline",
+                templateUrl:"html/nav/nav.html",
+                controller:"onlineNav",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/showInfo/showInfo.js']);
+                    }]
+                }
+            })
+            .state('online.list',{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/showInfo/showInfo.html',
+                controllerUrl:"js/Controller/showInfo/showInfo",
+                controller:"onlineInfoCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/showInfo/showInfo.js']);
+                    }]
+                }
+            })
+            .state('city', {//城市介绍
+                url: '/city',
+                templateUrl:'html/temp/tempCity.html',
+                //controllerUrl:"js/city/city",
+                controller:"tempCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/city.js','js/Controller/navbar/content.js','js/Controller/navbar/new.js','js/Controller/menu/menu.js']);
+                    }]
+                }
+            })
+            .state('city.nav',{
+                url:'/navCity',
+                templateUrl:'html/nav/nav.html',
+                controller:"cityNav",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/city/city.js','js/Controller/navbar/city.js','js/Controller/navbar/new.js','js/Controller/navbar/content.js','js/Controller/menu/menu.js']);
+                    }]
+                }
+            })
+            .state('city.list',{
+                url:'/cityId=:cityId&code=:code',
+                templateUrl:'html/city/city.html',
+                controllerUrl:"js/Controller/navbar/city",
+                controller:"cityConCtl",
+                data: { isPublic: true},
+            })
+            .state('school',{//學校
+                url:"/school",
+                templateUrl:"html/temp/tempSchool.html",
+                //controllerUrl:"js/school/school",
+                controller:"schlCtl",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/school.js']);
+                    }]
+                }
+            })
+            .state('school.nav',{
+                url:"/navSchool",
+                templateUrl:"html/nav/nav.html",
+                controller:"schoolNav",
+                data: { isPublic: true }
+                //resolve: {
+                //    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+                //    }]
+                //}
+            })
+            .state('school.list',{
+                url:"/{type:[0-9]{1,4}}",
+                templateUrl:"html/school/school.html",
+                //controllerUrl:"js/Controller/navbar/school",
+                controller:"schoolConCtl",
+                data: { isPublic: true },
+            })
+            .state('marjor',{//专业
+                abstract: true,
+                url:"/marjor",
+                templateUrl:"html/temp/tempMarjor.html",
+                //controllerUrl:"js/marjor/marjor",
+                controller:"marjorCtl",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js']);
+                    }]
+                }
+            })
+            .state('marjor.nav',{
+                url:"/navMarjor",
+                templateUrl:"html/nav/nav.html",
+                data: { isPublic: true},
+                controller:"marjorNav",
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/marjor.js']);
+                    }]
+                }
+            })
+            .state('marjor.list',{
+                url:"/{type:[0-9]{1,4}}",
+                templateUrl:"html/marjor/marjor.html",
+                controllerUrl:"js/Controller/navbar/marjorInfo",
+                controller:"marjorConCtr",
+                data: { isPublic: true}
+            })
+            .state('recipe',{//填报要领
+                url:'/recipe',
+                templateUrl:'html/temp/tempRecipe.html',
+                controller:"reciptCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('recipe.nav',{
+                url:'/navRecipe',
+                templateUrl:'html/nav/nav.html',
+                controller:'recipeNav',
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('recipe.list',{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/recipe/recipe.html',
+                //controllerUrl:"js/Controller/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('score',{//分数分析
+                url:"/score",
+                templateUrl:"html/temp/tempScore.html",
+                controller:"scoreCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/score/score.js']);
+                    }]
+                }
+            })
+            .state('score.nav',{
+                url:"/navScore",
+                templateUrl:"html/nav/nav.html",
+                controller:"scoreNav",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('score.list',{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/recipe/recipe.html',
+                controllerUrl:"js/Controller/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('policy',{//招生政策
+                url:"/policy",
+                templateUrl:"html/temp/tempPolicy.html",
+                //controllerUrl:"js/policy/policy",
+                controller:"policyCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupPolicy.js']);
+                    }]
+                }
+            })
+            .state('policy.nav',{
+                url:"/navPolicy",
+                templateUrl:"html/nav/nav.html",
+                controller:"policyNav",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('policy.list',{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/recipe/recipe.html',
+                controllerUrl:"js/Controller/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('job', {//毕业去向
+                url: "/job",
+                templateUrl: "html/temp/tempJob.html",
+                //controllerUrl:"js/job/job",
+                controller: "jobCtr",
+                data: {isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupJob.js','js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('job.nav', {
+                url: "/jobNav",
+                templateUrl: "html/nav/nav.html",
+                controller: "jobNav",
+                data: {isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupJob.js','js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('job.list', {
+                url: '/itemId=:itemId&param=:param&active=:active',
+                templateUrl: 'html/recipe/recipe.html',
+                controllerUrl:"js/Controller/recipe/recipe",
+                controller: "recipeInfoCtr",
+                data: {isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('unique',{//个性特征
+                url:"/unique",
+                templateUrl:"html/temp/tempUnique.html",
+                //controllerUrl:"js/unique/unique",
+                controller:"uniqueCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/listGroup/groupUnique.js','js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+            .state('unique.nav',{
+                url:"/navUnique",
+                templateUrl:"html/nav/nav.html",
+                controller:"uniqueNav",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/navbar/new.js']);
+                    }]
+                }
+            })
+            .state('unique.list',{
+                url:'/itemId=:itemId&param=:param&active=:active',
+                templateUrl:'html/recipe/recipe.html',
+                controllerUrl:"js/Controller/recipe/recipe",
+                controller:"recipeInfoCtr",
+                data: { isPublic: true },
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+                    }]
+                }
+            })
+////////////////////////////////////志愿咨询end///////////////////////////////////////////////////////////////////////////////////////////
+            .state("login", {//登陆
                 url: "/login",
                 templateUrl: "html/login/login.html",
-                controller:"logonCtr",
-                data: { isPublic: true}
-            })
-            .state("register", {
-                url: "/register",
+                controller:"logCtr",
                 data: { isPublic: true},
-                templateUrl: "html/login/register.html",
-                controller:"registerCtr"
             })
-            .state("forget", {
+            .state("register", {//注册
+                url: "/register",
+                templateUrl: "html/login/register.html",
+                controllerUrl:"js/login/register",
+                controller:"registerCtr",
+                data: { isPublic: true},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/register.js']);
+                    }]
+                }
+            })
+            .state("forget", {//忘记密码
                 url: "/forget",
                 templateUrl: "html/login/forget.html",
+                controllerUrl:"js/login/forget",
                 controller:"forgetCtr",
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['lib/AES.js','js/login/forget.js']);
+                    }]
+                }
             })
-            .state("refer",{
-                url:"/refer",
-                templateUrl:"html/refer/refer.html",
+///////////////////////////////我的足迹///////////////////////////////////////////////////////////////////////////////////
+            .state('all', {
+                url: '/all',
+                templateUrl:'html/temp/tempAll.html',
+                data: { isPublic: true},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+                    }]
+                }
+            })
+            .state('all.score',{
+                url:'/allScore',
+                templateUrl:'html/myInfo/myScore.html',
+                controllerUrl:"js/myInfo/myScore",
+                controller:"myScore",
+                data: { isPublic: true},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+                    }]
+                }
+            })
+            .state('all.will',{
+                url:'/allWill',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"willCtr",
+                data: { isPublic: true},
+                resolve:{
+                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['html/All/all.js']);
+                    }]
+                }
+            })
+            .state('all.reference',{
+                url:'/allReference',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"referenceCtr",
+                data: { isPublic: true},
+                /*resolve:{
+                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                 return $ocLazyLoad.load(['html/All/all.js']);
+                 }]
+                 }*/
+            })
+            ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            .state("depth",{
+                url:"/depth",
+                templateUrl:"html/temp/tempDepath.html",
+                controllerUrl:"js/depth/articleMenu",
+                controller:"artCtr",
                 data: { isPublic: false},
-                controller:'referCtr'
+                resolve:{
+                    data_province:function($q,$http,provinceURL,loocha){
+                        var dtd = $q.defer();
+                        $http.get(loocha+provinceURL).then(function (response) {
+                            dtd.resolve(response);
+                        }, function (response) {
+                            dtd.resolve(response);
+                        });
+                        return dtd.promise;
+                    }
+                }
             })
+            .state("depth.info",{
+                url:"/depthInfo/batch=:batch",
+                templateUrl:"html/depth/articleInfo.html",
+                data: { isPublic: false},
+            })
+            //.state("depth",{
+            //    url:"/depth",
+            //    templateUrl:'html/temp/tempAll.html',
+            //    data: { isPublic: false},
+            //    resolve:{
+            //        loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/myInfo/myScore.js']);
+            //        }]
+            //    }
+            //})
+            //.state("depth.list",{
+            //    url:'/itemId=:itemId&param=:param&active=:active',
+            //    templateUrl:'html/depth/depthInfo.html',
+            //    controllerUrl:"",
+            //    controller:"",
+            //    data: { isPublic: false}
+            //})
+//////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
             .state("pay",{
                 url:"/pay",
                 templateUrl:"html/pay/pay.html",
+                controllerUrl:"js/pay/pay",
                 controller:'payCtr',
                 data: { isPublic: false}
             })
+////////////////////////////////志愿表////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            .state("refer",{
+                url:"/refer",
+                templateUrl:"html/refer/refer.html",
+                controllerUrl:"js/refer/refer",
+                controller:'referCtr',
+                data: { isPublic: true}
+            })
+////////////////////////////////随机志愿表/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state('refer1',{
                 url:"/refer1",
                 templateUrl:"html/refer/refer1.html",
+                controllerUrl:"js/refer/refer1",
+                controller:'referCtr',
                 data: { isPublic: true}
             })
-
-    })
-    .controller("appCtr",['$scope','$rootScope','$http','logoutURL','isShowModel',"AJAX",function($scope,$rootScope,$http,logoutURL,isShowModel,AJAX){
+////////////////////////////////全站搜索///////////////////////////////////////////////////////////////////////////////////////
+            .state("search",{
+                url:"/search/key=:key",
+                templateUrl:"html/search/search.html",
+                controllerUrl:"js/search/search",
+                controller:"searchCtr",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/search/search.js']);
+                    }]
+                }
+            })
+    }]);
+    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"loocha",function($scope,$rootScope,$http,logoutURL,loocha){
         $scope.user = {
             islogin : false,
             name : "",
@@ -212,7 +644,7 @@ angular.module("gaokaoAPP",[
             $scope.isShow = false;
         }
         $scope.logoff = function(){
-            AJAX.getRequest(logoutURL,'GET',"")
+            $http.get(loocha+logoutURL)
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     sessionStorage.setItem('usernumber',"");
@@ -226,12 +658,11 @@ angular.module("gaokaoAPP",[
         $scope.totalSearch = function(){
             window.location.href = "#/search/key="+$scope.user.search;
         }
-
-    }])
-    .controller("pageJumpCtr",['$scope','$window',function($scope,$window){
+    }]);
+    app.controller("pageJumpCtr",['$scope','$window',function($scope,$window){
         $scope.pageJump = function(type,user_level){
             $window.location.href="#/hope?type="+type+"&user_level="+user_level;
             $window.location.reload();
         }
     }]);
-
+});

@@ -10,160 +10,6 @@
                 <i class="icon-building"></i> 意向高校（优先：单击—绿色；拒绝：双击—灰色；可选择：原色）
             </h4>
         </div>
-        <div class="panel-body" id="panel-footer">
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4 title="亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。">
-                        <a href="javascript:;;" class="title-btn">院校属类</a>
-                    </h4>
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" href="javascript:;;" ng-click="atrlistClk($event)">
-                                类别
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" id="attr1" data-istrue="false"></ul>
-                        </li>
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" href="javascript:;;" ng-click="stylistClk($event)">
-                                类型
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" id="style1" data-istrue="false"></ul>
-                        </li>
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" href="javascript:;;" ng-click="proplistClk($event)">
-                                属性
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" id="prop1" data-istrue="false"></ul>
-                        </li>
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" href="javascript:;;" ng-click="belongslistClk($event)">
-                                属管
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" id="belongs1" data-istrue="false"></ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="1" pub="6" ng-click="agreeSchl($event)"
-                           ng-dblclick="rejectSchl($event)">高分高校</a></h4> <!--// -->
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <!-- -->
-                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==1"><a href="javascript:;;"
-                                                                                                 class="findSch wishId_1"
-                                                                                                 attrs="{{list.attr}}"
-                                                                                                 belongs="{{list.belongs}}"
-                                                                                                 styles="{{list.style}}"
-                                                                                                 prop3="{{list.prop3}}"
-                                                                                                 prop4="{{list.prop4}}"
-                                                                                                 prop7="{{list.prop7}}"
-                                                                                                 prop8="{{list.prop8}}"
-                                                                                                 prop9="{{list.prop9}}"
-                                                                                                 school_id="{{list.s_id}}"
-                                                                                                 ng-click="agreeSch($event)"
-                                                                                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="2" pub="7" ng-click="agreeSchl($event)"
-                           ng-dblclick="rejectSchl($event)">偏高高校</a></h4> <!--//-->
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==2"><a href="javascript:;;"
-                                                                                                 class="findSch wishId_2"
-                                                                                                 attrs="{{list.attr}}"
-                                                                                                 belongs="{{list.belongs}}"
-                                                                                                 styles="{{list.style}}"
-                                                                                                 prop3="{{list.prop3}}"
-                                                                                                 prop4="{{list.prop4}}"
-                                                                                                 prop7="{{list.prop7}}"
-                                                                                                 prop8="{{list.prop8}}"
-                                                                                                 prop9="{{list.prop9}}"
-                                                                                                 school_id="{{list.s_id}}"
-                                                                                                 ng-click="agreeSch($event)"
-                                                                                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="3" pub="8" ng-click="agreeSchl($event)"
-                           ng-dblclick="rejectSchl($event)">中分高校</a></h4> <!--//-->
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==3"><a href="javascript:;;"
-                                                                                                 class="findSch wishId_3"
-                                                                                                 attrs="{{list.attr}}"
-                                                                                                 belongs="{{list.belongs}}"
-                                                                                                 styles="{{list.style}}"
-                                                                                                 prop3="{{list.prop3}}"
-                                                                                                 prop4="{{list.prop4}}"
-                                                                                                 prop7="{{list.prop7}}"
-                                                                                                 prop8="{{list.prop8}}"
-                                                                                                 prop9="{{list.prop9}}"
-                                                                                                 school_id="{{list.s_id}}"
-                                                                                                 ng-click="agreeSch($event)"
-                                                                                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="4" pub="9" ng-click="agreeSchl($event)"
-                           ng-dblclick="rejectSchl($event)">偏低高校</a></h4> <!---->
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==4"><a href="javascript:;;"
-                                                                                                 class="findSch wishId_4"
-                                                                                                 attrs="{{list.attr}}"
-                                                                                                 belongs="{{list.belongs}}"
-                                                                                                 styles="{{list.style}}"
-                                                                                                 prop3="{{list.prop3}}"
-                                                                                                 prop4="{{list.prop4}}"
-                                                                                                 prop7="{{list.prop7}}"
-                                                                                                 prop8="{{list.prop8}}"
-                                                                                                 prop9="{{list.prop9}}"
-                                                                                                 school_id="{{list.s_id}}"
-                                                                                                 ng-click="agreeSch($event)"
-                                                                                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 text-right">
-                    <h4><a href="javascript:;;" class="title-btn" wishid="5" pub="10" ng-click="agreeSchl($event)"
-                           ng-dblclick="rejectSchl($event)">低分高校</a></h4> <!---->
-                </div>
-                <div class="col-sm-10 text-left">
-                    <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch" on-finish-render="methodname" ng-if="list.swish_id==5"><a
-                                href="javascript:;;" class="findSch wishId_5" attrs="{{list.attr}}"
-                                belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}"
-                                prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}"
-                                prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)"
-                                ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="panel-footer" id="provnice" style="background: #FFF!important;">
             <div class="row">
                 <div class="col-sm-2 text-right">
@@ -174,41 +20,42 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
-                        <ul class="nav nav-pills">
-                            <li role="presentation" class="dropdown" ng-repeat="lists in hope.area"
-                                ng-if="lists.classify == 1 && $index == 0">
-                                <a class="dropdown-toggle" href="javascript:;;" city_id="{{lists.city_id}}">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;{{lists.name}}&nbsp;&nbsp;&nbsp;
-                                </a>
-                            </li>
-                            <li role="presentation" class="dropdown" ng-repeat="lists in hope.area"
-                                ng-if="lists.classify == 1 && $index > 0">
-                                <a class="dropdown-toggle" href="javascript:;;" city_id="{{lists.city_id}}"
-                                   ng-click="showClassify(lists.city_id)">
-                                    {{lists.name}} <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
-                            </li>
-                        </ul>
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index == 0">
+                            <button type="button" class="btn cancle cityClk" style="padding: 0 28px;" city_id="{{lists.city_id}}">
+                                {{lists.name}}
+                            </button>
+                        </div>
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 1 && $index > 0">
+                            <button type="button" class="btn cancle cityClk" city_id="{{lists.city_id}}"
+                                    ng-click="agreeAreaType($event)" ng-dblclick="rejectAreaType($event)">{{lists.name}}
+                            </button>
+                            <button type="button" class="btn cancle dropdown-toggle" city_id="{{lists.city_id}}"
+                                    ng-click="showClassify(lists.city_id)">
+                                    <span class="caret" city_id="{{lists.city_id}}"
+                                          ng-click="showClassify(lists.city_id)"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                        </div>
                     </div>
                     <div class="col-sm-12" style="padding: 0;">
-                        <ul class="nav nav-pills">
-                            <li role="presentation" class="dropdown" ng-repeat="lists in hope.area"
-                                ng-if="lists.classify == 2">
-                                <a class="dropdown-toggle" href="javascript:;;" city_id="{{lists.city_id}}"
-                                   ng-click="showClassify(lists.city_id)">
-                                    {{lists.name}} <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
-                            </li>
-                        </ul>
+                        <div class="btn-group" ng-repeat="lists in hope.area" ng-if="lists.classify == 2">
+                            <button type="button" class="btn cancle cityClk" city_id="{{lists.city_id}}"
+                                    ng-click="agreeAreaType($event)" ng-dblclick="rejectAreaType($event)">{{lists.name}}
+                            </button>
+                            <button type="button" class="btn cancle dropdown-toggle" city_id="{{lists.city_id}}"
+                                    ng-click="showClassify(lists.city_id)">
+                                    <span class="caret" city_id="{{lists.city_id}}"
+                                          ng-click="showClassify(lists.city_id)"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown{{lists.city_id}}" data-istrue="false"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
                     <h4><a href="javascirpt:;;" class="title-btn" wishid="2" ng-click="agreePro($event)"
-                           ng-dblclick="rejectPro($event)" pub="8">&nbsp;&nbsp;&nbsp;&nbsp;江苏省</a></h4>
+                           ng-dblclick="rejectPro($event)" pub="8">江苏省</a></h4>
                 </div>
                 <div class="col-sm-10 text-left">
                     <div class="btn-group" ng-repeat="lists in hope.js_province" ng-if="lists.classify == 1">
@@ -365,6 +212,164 @@
                             <ul class="dropdown-menu" data-istrue="false"></ul>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" id="panel-footer" style="border-top: 1px solid #ccc;">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4 title="亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。">
+                        <a href="javascript:;;" class="title-btn">院校属类</a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="atrlistClk($event)">
+                                类别
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="attr1" data-istrue="false"></ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="stylistClk($event)">
+                                类型
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="style1" data-istrue="false"></ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="proplistClk($event)">
+                                属性
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="prop1" data-istrue="false"></ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="belongslistClk($event)">
+                                属管
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="belongs1" data-istrue="false"></ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="1" pub="6" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">高分高校</a></h4> <!--// -->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <!-- -->
+                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==1">
+                            <a href="javascript:;;"
+                                 class="findSch wishId_1"
+                                 attrs="{{list.attr}}"
+                                 belongs="{{list.belongs}}"
+                                 styles="{{list.style}}"
+                                 prop3="{{list.prop3}}"
+                                 prop4="{{list.prop4}}"
+                                 prop7="{{list.prop7}}"
+                                 prop8="{{list.prop8}}"
+                                 prop9="{{list.prop9}}"
+                                 school_id="{{list.s_id}}"
+                                 ng-click="agreeSch($event)"
+                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="2" pub="7" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">偏高高校</a></h4> <!--//-->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==2">
+                            <a href="javascript:;;"
+                                 class="findSch wishId_2"
+                                 attrs="{{list.attr}}"
+                                 belongs="{{list.belongs}}"
+                                 styles="{{list.style}}"
+                                 prop3="{{list.prop3}}"
+                                 prop4="{{list.prop4}}"
+                                 prop7="{{list.prop7}}"
+                                 prop8="{{list.prop8}}"
+                                 prop9="{{list.prop9}}"
+                                 school_id="{{list.s_id}}"
+                                 ng-click="agreeSch($event)"
+                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="3" pub="8" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">中分高校</a></h4> <!--//-->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==3">
+                            <a href="javascript:;;"
+                                 class="findSch wishId_3"
+                                 attrs="{{list.attr}}"
+                                 belongs="{{list.belongs}}"
+                                 styles="{{list.style}}"
+                                 prop3="{{list.prop3}}"
+                                 prop4="{{list.prop4}}"
+                                 prop7="{{list.prop7}}"
+                                 prop8="{{list.prop8}}"
+                                 prop9="{{list.prop9}}"
+                                 school_id="{{list.s_id}}"
+                                 ng-click="agreeSch($event)"
+                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="4" pub="9" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">偏低高校</a></h4> <!---->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==4">
+                            <a href="javascript:;;"
+                                 class="findSch wishId_4"
+                                 attrs="{{list.attr}}"
+                                 belongs="{{list.belongs}}"
+                                 styles="{{list.style}}"
+                                 prop3="{{list.prop3}}"
+                                 prop4="{{list.prop4}}"
+                                 prop7="{{list.prop7}}"
+                                 prop8="{{list.prop8}}"
+                                 prop9="{{list.prop9}}"
+                                 school_id="{{list.s_id}}"
+                                 ng-click="agreeSch($event)"
+                                 ng-dblclick="rejectSch($event)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="5" pub="10" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">低分高校</a></h4> <!---->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schbatch" on-finish-render="methodname" ng-if="list.swish_id==5"><a
+                                href="javascript:;;" class="findSch wishId_5" attrs="{{list.attr}}"
+                                belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}"
+                                prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}"
+                                prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)"
+                                ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1571,11 +1576,12 @@
                                 </a>
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
-                                    <li ng-repeat="sublist in list.sublist"><a href="javascript:;;"
-                                                                               wishId="{{$index+1}}"
-                                                                               ng-click="agreePersonl($event)"
-                                                                               ng-dblclick="rejectPersonl($event)"
-                                                                               type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    <li ng-repeat="sublist in list.sublist">
+                                        <a href="javascript:;;"
+                                           wishId="{{$index+1}}"
+                                           ng-click="agreePersonl($event)"
+                                           ng-dblclick="rejectPersonl($event)"
+                                           type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -1586,8 +1592,9 @@
                                 </a>
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
-                                    <li ng-repeat="sublist in list.sublist"><a href="javascript:;;"
-                                                                               type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    <li ng-repeat="sublist in list.sublist">
+                                        <a href="javascript:;;"
+                                           type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -1598,11 +1605,12 @@
                                 </a>
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
-                                    <li ng-repeat="sublist in list.sublist"><a href="javascript:;;"
-                                                                               wishId="{{$index+1}}"
-                                                                               ng-click="agreePersonl_1($event)"
-                                                                               ng-dblclick="rejectPersonl_1($event)"
-                                                                               type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    <li ng-repeat="sublist in list.sublist">
+                                        <a href="javascript:;;"
+                                           wishId="{{$index+1}}"
+                                           ng-click="agreePersonl_1($event)"
+                                           ng-dblclick="rejectPersonl_1($event)"
+                                           type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -1637,7 +1645,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index+1 > 0">
+                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index+1 > 1">
                                 <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
                                    ng-click="showCharacter(list.id)">
                                     {{list.name}}<span class="caret"></span>
@@ -1695,13 +1703,14 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist" ng-if="$index+1>=6"><a href="javascript:;;"
-                                                                                       s_id="{{sublist.id}}"
-                                                                                       parentname="{{list.name}}"
-                                                                                       parentId="{{sublist.parentId}}"
-                                                                                       operation="{{list.operation}}"
-                                                                                       ng-click="agreePersonality($event)"
-                                                                                       ng-dblclick="rejecPersonality($event)">{{sublist.desc}}</a>
+                        <li ng-repeat="sublist in list.sublist" ng-if="$index+1>=6">
+                            <a href="javascript:;;"
+                               s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.desc}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1712,12 +1721,13 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" s_id="{{sublist.id}}"
-                                                                   parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1738,9 +1748,10 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" id="langueList">
-                                <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" s_id="{{sublist.id}}"
-                                                                           parentId="{{sublist.parentId}}"
-                                                                           ng-click="findLanguage($event)">{{sublist.name}}</a>
+                                <li ng-repeat="sublist in list.sublist">
+                                    <a href="javascript:;;" s_id="{{sublist.id}}"
+                                       parentId="{{sublist.parentId}}"
+                                       ng-click="findLanguage($event)">{{sublist.name}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -1754,12 +1765,13 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" s_id="{{sublist.id}}"
-                                                                   parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1776,11 +1788,12 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills  wishId_{{$index+1}}">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1796,11 +1809,12 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills wishId_{{$index+1}}">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1811,11 +1825,12 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}" s_id="{{sublist.id}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1835,7 +1850,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_school">
                         <li ng-repeat="list in hopeClassify.genus"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.schoolArr" on-finish-watchschl="watch_school"><a
+                        <li ng-repeat="list in hope.schoolArr"><a
                                 href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
@@ -1847,7 +1862,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_city">
                         <li ng-repeat="list in hopeClassify.terr"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.cityArr" on-finish-watchcity="watch_city"><a href="javascript:;;">{{list.name}}</a>
+                        <li ng-repeat="list in hope.cityArr"><a href="javascript:;;">{{list.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1859,7 +1874,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_depart">
                         <li ng-repeat="list in hopeClassify.proCate"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.departArr" on-finish-watchdepart="watch_depart"><a
+                        <li ng-repeat="list in hope.departArr"><a
                                 href="javascript:;;">{{list.name}}</a></li>
                     </ul>
                 </div>
@@ -1871,7 +1886,7 @@
                 <div class="col-sm-10 text-left" id="watch_persona">
                     <ul class="nav nav-pills">
                         <li ng-repeat="list in hopeClassify.personals"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.personalitylist" on-finish-watchperson="watch_person"><a
+                        <li ng-repeat="list in hope.personalitylist"><a
                                 href="javascript:;;">{{list.parentname}} {{list.name}}</a></li>
                     </ul>
                 </div>

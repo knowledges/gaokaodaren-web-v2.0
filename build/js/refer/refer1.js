@@ -34,6 +34,20 @@ require(['app'], function (app) {
             thiDepart_4: "",
             thiDepart_5: "",
             thiDepart_6: "",
+            fourSchName: "",
+            fourDepart_1: "",
+            fourDepart_2: "",
+            fourDepart_3: "",
+            fourDepart_4: "",
+            fourDepart_5: "",
+            fourDepart_6: "",
+            fifthSchName: "",
+            fifthDepart_1: "",
+            fifthDepart_2: "",
+            fifthDepart_3: "",
+            fifthDepart_4: "",
+            fifthDepart_5: "",
+            fifthDepart_6: "",
         };
 
         $scope.money = "";
@@ -42,6 +56,8 @@ require(['app'], function (app) {
             a: [],
             b: [],
             c: [],
+            d: [],
+            e: [],
             id: ""
         };
 
@@ -104,8 +120,12 @@ require(['app'], function (app) {
                 $scope.num = 'A';
             } else if (idx == 2) {
                 $scope.num = 'B';
-            } else {
+            } else if(idx == 3){
                 $scope.num = 'C';
+            } else if(idx == 4){
+                $scope.num = 'D';
+            } else if(idx == 5){
+                $scope.num = 'E';
             }
         };
 
@@ -114,34 +134,68 @@ require(['app'], function (app) {
             var select = window.location.hash.split('#/refer1/select=')[1];
             $(".depart_" + select).attr("school_id", sid);
             if (select == 1) {
-                $scope.param.firSchName = $scope.info.model = name;
+                $scope.param.firSchName = $scope.info.model = "【"+sid+"】"+name;
                 $.each($scope.persons, function (i, v) {
-                    v.disabled = false;
-                });
-            } else if (select == 2) {
-                $scope.param.senSchName = $scope.info.model = name;
-                $.each($scope.persons, function (i, v) {
-                    if (v.name != $scope.param.firSchName) {
+                    if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
-            } else {
-                $scope.param.thiSchName = $scope.info.model = name;
+            } else if (select == 2) {
+                $scope.param.senSchName = $scope.info.model = "【"+sid+"】"+name;
                 $.each($scope.persons, function (i, v) {
-                    if (v.name != $scope.param.firSchName && v.name != $scope.param.senSchName) {
+                    if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
+                        v.disabled = false;
+                    }
+                });
+            } else if (select == 3) {
+                $scope.param.thiSchName = $scope.info.model ="【"+sid+"】"+name;
+                $.each($scope.persons, function (i, v) {
+                    if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (select == 4) {
+                $scope.param.fourSchName = $scope.info.model = "【"+sid+"】"+name;
+                $.each($scope.persons, function (i, v) {
+                    if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (select == 5) {
+                $scope.param.fifthSchName = $scope.info.model = "【"+sid+"】"+name;
+                $.each($scope.persons, function (i, v) {
+                    if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
             }
             $scope.persons[num - 1].disabled = true;
+            $("#myModal").modal("hide");
+            window.location.hash = window.location.hash.substr(0, 8) + "";
         };
 
-        $scope.unSetUp = function (e, num) {
+        $scope.unSetUpSch = function (e, num) {
+            var that = $(e.target),school_name = that.attr("name");
             $scope.persons[num - 1].disabled = false;
+            if($scope.param.firSchName.indexOf(school_name)>0){
+                $scope.param.firSchName ="";
+            }
+            if($scope.param.senSchName.indexOf(school_name)>0){
+                $scope.param.senSchName ="";
+            }
+            if($scope.param.thiSchName.indexOf(school_name)>0){
+                $scope.param.thiSchName ="";
+            }
+            if($scope.param.fourSchName.indexOf(school_name)>0){
+                $scope.param.fourSchName ="";
+            }
+            if($scope.param.fifthSchName.indexOf(school_name)>0){
+                $scope.param.fifthSchName ="";
+            }
         }
 
         $scope.sch_close = function () {
-            $("#myModal").hide();
+            $("#myModal").modal("hide");
             window.location.hash = window.location.hash.substr(0, 8) + "";
         }
 
@@ -149,14 +203,20 @@ require(['app'], function (app) {
             var that = $(e.target), volunteer = that.attr('hope'), marjor_id = that.attr('marjor');
             window.location.hash = window.location.hash.substr(0, 8) + "/marjor_id=" + marjor_id;
             if (volunteer == 1) {
-                $scope.info.model = $scope.param.firSchName;
+                $scope.info.model = $scope.param.firSchName.split("】")[1];
                 $scope.num = "A";
             } else if (volunteer == 2) {
-                $scope.info.model = $scope.param.senSchName;
+                $scope.info.model = $scope.param.senSchName.split("】")[1];
                 $scope.num = "B";
-            } else {
-                $scope.info.model = $scope.param.thiSchName;
+            } else if (volunteer == 3)  {
+                $scope.info.model = $scope.param.thiSchName.split("】")[1];
                 $scope.num = "C";
+            } else if (volunteer == 4)  {
+                $scope.info.model = $scope.param.fourSchName.split("】")[1];
+                $scope.num = "D";
+            } else if (volunteer == 5)  {
+                $scope.info.model = $scope.param.fifthSchName.split("】")[1];
+                $scope.num = "E";
             }
             $("#zyb_marjor").show();
         };
@@ -164,7 +224,7 @@ require(['app'], function (app) {
         $scope.setUpMar = function (e, num) {
             var that = $(e.target), volunteer = that.attr('hope'), did = that.attr('did'), name = that.attr('name');
             var marjor_id = parseInt(window.location.hash.split('#/refer1/marjor_id=')[1]);
-            if (volunteer == 'A') {
+            if (volunteer == "A") {
                 switch (marjor_id) {
                     case 1:
                         $scope.param.firDepart_1 = name;
@@ -185,7 +245,7 @@ require(['app'], function (app) {
                         $scope.param.firDepart_6 = name;
                         break;
                 }
-            } else if (volunteer == 'B') {
+            } else if (volunteer == "B") {
                 switch (marjor_id) {
                     case 1:
                         $scope.param.senDepart_1 = name;
@@ -206,7 +266,7 @@ require(['app'], function (app) {
                         $scope.param.senDepart_6 = name;
                         break;
                 }
-            } else {
+            } else if (volunteer == "C") {
                 switch (marjor_id) {
                     case 1:
                         $scope.param.thiDepart_1 = name;
@@ -227,20 +287,70 @@ require(['app'], function (app) {
                         $scope.param.thiDepart_6 = name;
                         break;
                 }
+            }else if (volunteer == "D") {
+                switch (marjor_id) {
+                    case 1:
+                        $scope.param.fourDepart_1 = name;
+                        break;
+                    case 2:
+                        $scope.param.fourDepart_2 = name;
+                        break;
+                    case 3:
+                        $scope.param.fourDepart_3 = name;
+                        break;
+                    case 4:
+                        $scope.param.fourDepart_4 = name;
+                        break;
+                    case 5:
+                        $scope.param.fourDepart_5 = name;
+                        break;
+                    case 6:
+                        $scope.param.fourDepart_6 = name;
+                        break;
+                }
+            }else if (volunteer == "E") {
+                switch (marjor_id) {
+                    case 1:
+                        $scope.param.fifthDepart_1 = name;
+                        break;
+                    case 2:
+                        $scope.param.fifthDepart_2 = name;
+                        break;
+                    case 3:
+                        $scope.param.fifthDepart_3 = name;
+                        break;
+                    case 4:
+                        $scope.param.fifthDepart_4 = name;
+                        break;
+                    case 5:
+                        $scope.param.fifthDepart_5 = name;
+                        break;
+                    case 6:
+                        $scope.param.fifthDepart_6 = name;
+                        break;
+                }
             }
 
             $.each($scope.persons, function (i, v) {
                 if (volunteer == 'A') {
-                    if (v.name == $scope.param.firSchName) {
+                    if (v.name == $scope.param.firSchName.split("】")[1]) {
                         departSet(v, num, $scope.sub.a);
                     }
                 } else if (volunteer == 'B') {
-                    if (v.name == $scope.param.senSchName) {
+                    if (v.name == $scope.param.senSchName.split("】")[1]) {
                         departSet(v, num, $scope.sub.b);
                     }
-                } else {
-                    if (v.name == $scope.param.thiSchName) {
+                } else if (volunteer == 'C') {
+                    if (v.name == $scope.param.thiSchName.split("】")[1]) {
                         departSet(v, num, $scope.sub.c);
+                    }
+                } else if (volunteer == 'D') {
+                    if (v.name == $scope.param.fourSchName.split("】")[1]) {
+                        departSet(v, num, $scope.sub.d);
+                    }
+                } else if (volunteer == 'E') {
+                    if (v.name == $scope.param.fifthSchName.split("】")[1]) {
+                        departSet(v, num, $scope.sub.e);
                     }
                 }
             });
@@ -248,41 +358,55 @@ require(['app'], function (app) {
             function departSet(v, num, array) {
                 if (marjor_id == 1) {
                     $.each(v.departs, function (c_i, c_v) {
-                        c_v.disabled = false;
+                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
+                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
+                            c_v.disabled = false;
+                        }
                     });
                     array[1] = v.departs[num - 1].sdid;
                 } else if (marjor_id == 2) {
                     $.each(v.departs, function (c_i, c_v) {
-                        if (c_v.name != $scope.param.firDepart_1
-                            && c_v.name != $scope.param.senDepart_1
-                            && c_v.name != $scope.param.thiDepart_1) {
+                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
+                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
                             c_v.disabled = false;
                         }
                     });
                     array[2] = v.departs[num - 1].sdid;
                 } else if (marjor_id == 3) {
                     $.each(v.departs, function (c_i, c_v) {
-                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2
-                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2
-                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2) {
+                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
+                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
                             c_v.disabled = false;
                         }
                     });
                     array[3] = v.departs[num - 1].sdid;
                 } else if (marjor_id == 4) {
                     $.each(v.departs, function (c_i, c_v) {
-                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3
-                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3
-                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3) {
+                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
+                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
                             c_v.disabled = false;
                         }
                     });
                     array[4] = v.departs[num - 1].sdid;
                 } else if (marjor_id == 5) {
                     $.each(v.departs, function (c_i, c_v) {
-                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4
-                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4
-                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4) {
+                        if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
+                            && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
                             c_v.disabled = false;
                         }
                     });
@@ -291,29 +415,134 @@ require(['app'], function (app) {
                     $.each(v.departs, function (c_i, c_v) {
                         if (c_v.name != $scope.param.firDepart_1 && c_v.name != $scope.param.firDepart_2 && c_v.name != $scope.param.firDepart_3 && c_v.name != $scope.param.firDepart_4 && c_v.name != $scope.param.firDepart_5
                             && c_v.name != $scope.param.senDepart_1 && c_v.name != $scope.param.senDepart_2 && c_v.name != $scope.param.senDepart_3 && c_v.name != $scope.param.senDepart_4 && c_v.name != $scope.param.senDepart_5
-                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5) {
+                            && c_v.name != $scope.param.thiDepart_1 && c_v.name != $scope.param.thiDepart_2 && c_v.name != $scope.param.thiDepart_3 && c_v.name != $scope.param.thiDepart_4 && c_v.name != $scope.param.thiDepart_5
+                            && c_v.name != $scope.param.fourDepart_1 && c_v.name != $scope.param.fourDepart_2 && c_v.name != $scope.param.fourDepart_3 && c_v.name != $scope.param.fourDepart_4 && c_v.name != $scope.param.fourDepart_5
+                            && c_v.name != $scope.param.fifthDepart_1 && c_v.name != $scope.param.fifthDepart_2 && c_v.name != $scope.param.fifthDepart_3 && c_v.name != $scope.param.fifthDepart_4 && c_v.name != $scope.param.fifthDepart_5) {
                             c_v.disabled = false;
                         }
                     });
                     array[6] = v.departs[num - 1].sdid;
                 }
                 v.departs[num - 1].disabled = true;
+                $("#zyb_marjor").modal("hide");
+                window.location.hash = window.location.hash.substr(0, 8) + "";
             }
         };
 
-        $scope.unSetUpMar = function (e, num) {
+        $scope.unSetUpMar = function (e, num,param) {
+            param.disabled = false;
+            var that = $(e.target),hope = that.attr("hope"),name = that.attr("name");
+            if(hope == "A"){
+                if($scope.param.firDepart_1.indexOf(name)>=0){
+                    $scope.param.firDepart_1="";
+                }
+                if($scope.param.firDepart_2.indexOf(name)>=0){
+                    $scope.param.firDepart_2="";
+                }
+                if($scope.param.firDepart_3.indexOf(name)>=0){
+                    $scope.param.firDepart_3="";
+                }
+                if($scope.param.firDepart_4.indexOf(name)>=0){
+                    $scope.param.firDepart_4="";
+                }
+                if($scope.param.firDepart_5.indexOf(name)>=0){
+                    $scope.param.firDepart_5="";
+                }
+                if($scope.param.firDepart_6.indexOf(name)>=0){
+                    $scope.param.firDepart_6="";
+                }
+            }else if(hope == "B"){
+                if($scope.param.senDepart_1.indexOf(name)>=0){
+                    $scope.param.senDepart_1="";
+                }
+                if($scope.param.senDepart_2.indexOf(name)>=0){
+                    $scope.param.senDepart_2="";
+                }
+                if($scope.param.senDepart_3.indexOf(name)>=0){
+                    $scope.param.senDepart_3="";
+                }
+                if($scope.param.senDepart_4.indexOf(name)>=0){
+                    $scope.param.senDepart_4="";
+                }
+                if($scope.param.senDepart_5.indexOf(name)>=0){
+                    $scope.param.senDepart_5="";
+                }
+                if($scope.param.senDepart_6.indexOf(name)>=0){
+                    $scope.param.senDepart_6="";
+                }
+            }else if(hope == "C"){
+                if($scope.param.thiDepart_1.indexOf(name)>=0){
+                    $scope.param.thiDepart_1="";
+                }
+                if($scope.param.thiDepart_2.indexOf(name)>=0){
+                    $scope.param.thiDepart_2="";
+                }
+                if($scope.param.thiDepart_3.indexOf(name)>=0){
+                    $scope.param.thiDepart_3="";
+                }
+                if($scope.param.thiDepart_4.indexOf(name)>=0){
+                    $scope.param.thiDepart_4="";
+                }
+                if($scope.param.thiDepart_5.indexOf(name)>=0){
+                    $scope.param.thiDepart_5="";
+                }
+                if($scope.param.thiDepart_6.indexOf(name)>=0){
+                    $scope.param.thiDepart_6="";
+                }
+            }else if(hope == "D"){
+                if($scope.param.fourDepart_1.indexOf(name)>=0){
+                    $scope.param.fourDepart_1="";
+                }
+                if($scope.param.fourDepart_2.indexOf(name)>=0){
+                    $scope.param.fourDepart_2="";
+                }
+                if($scope.param.fourDepart_3.indexOf(name)>=0){
+                    $scope.param.fourDepart_3="";
+                }
+                if($scope.param.fourDepart_4.indexOf(name)>=0){
+                    $scope.param.fourDepart_4="";
+                }
+                if($scope.param.fourDepart_5.indexOf(name)>=0){
+                    $scope.param.fourDepart_5="";
+                }
+                if($scope.param.fourDepart_6.indexOf(name)>=0){
+                    $scope.param.fourDepart_6="";
+                }
+            }else if(hope == "E"){
+                if($scope.param.fifthDepart_1.indexOf(name)>=0){
+                    $scope.param.fifthDepart_1="";
+                }
+                if($scope.param.fifthDepart_2.indexOf(name)>=0){
+                    $scope.param.fifthDepart_2="";
+                }
+                if($scope.param.fifthDepart_3.indexOf(name)>=0){
+                    $scope.param.fifthDepart_3="";
+                }
+                if($scope.param.fifthDepart_4.indexOf(name)>=0){
+                    $scope.param.fifthDepart_4="";
+                }
+                if($scope.param.fifthDepart_5.indexOf(name)>=0){
+                    $scope.param.fifthDepart_5="";
+                }
+                if($scope.param.fifthDepart_6.indexOf(name)>=0){
+                    $scope.param.fifthDepart_6="";
+                }
+            }
         };
 
 
         $scope.reqOrder = function () {
             getLoginUserInfo.isLogoin();
 
-            $scope.sub.a[0] = $scope.sub.b[0] = $scope.sub.c[0] = 0;
+            $scope.sub.a[0] = $scope.sub.b[0] = $scope.sub.c[0] = $scope.sub.d[0] = $scope.sub.e[0] = 0;
             var param = {};
-            param.id = $scope.sub.id;
-            param.a = $scope.sub.a;
-            param.b = $scope.sub.b;
-            param.c = $scope.sub.c;
+                param.id = $scope.sub.id;
+                param.a = $scope.sub.a;
+                param.b = $scope.sub.b;
+                param.c = $scope.sub.c;
+                param.d = $scope.sub.d;
+                param.e = $scope.sub.e;
+
 
             var tramsform = function (data) {
                 return $.param(data);

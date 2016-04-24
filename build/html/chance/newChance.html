@@ -203,7 +203,7 @@
                         </select>
                     </td>
                     <td style="vertical-align: middle;">学校名称</td>
-                    <td width="150" style="vertical-align: middle;">概率</td>
+                    <td width="150" style="vertical-align: middle;">录取概率</td>
                 </tr>
                 </thead>
                 <tbody id="provinceBody"  style="display: none;">
@@ -285,7 +285,7 @@
                     </td>
                     <td style="vertical-align: middle;">
                         <button class="btn btn-default" ng-click="schChance_1()">获取概率</button>
-                        <div class="row"><a href="javascript:;;">{{forecast.schChance_1}}</a></div>
+                        <div class="row"><a href="javascript:;;">概率：{{forecast.schChance_1}}</a></div>
 
                     </td>
                 </tr>
@@ -327,9 +327,9 @@
                     </ul>
                 </div>
                 <div class="col-sm-2 text-center">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="getdepartChance()">录取概率</a>
+                    <a href="javascript:;;" class="btn btn-default" ng-click="getdepartChance()">获取概率</a>
                     <div class="row">
-                        <a href="javascript:;;">{{forecast.departChance}}</a>
+                        <a href="javascript:;;">概率：{{forecast.departChance}}</a>
                     </div>
                 </div>
             </div>
@@ -362,13 +362,13 @@
                         <option ng-repeat="list in forecast.d_schlArr" value="{{list.unique_id}}">{{list.name}}</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="javascript:;;" school_id="{{forecast.d_schl_id}}">{{forecast.d_schl_name}}</a></li>
+                        <li><a href="javascript:;;" school_id="{{forecast.d_schl_id}}" ng-click="showChanceSchInfo($event)">{{forecast.d_schl_name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="getSchlChance()">录取概率</a>
+                    <a href="javascript:;;" class="btn btn-default" ng-click="getSchlChance()">获取概率</a>
                     <div class="row">
-                        <a href="javascript:;;">{{forecast.schChance_2}}</a>
+                        <a href="javascript:;;">概率：{{forecast.schChance_2}}</a>
                     </div>
                 </div>
             </div>
@@ -411,7 +411,7 @@
                         <option ng-repeat="list in forecast.pDepart_Arr" value="{{list.depart_id}}"  article_id="{{list.article_id}}">{{list.depart_name}}</option>
                     </select>
                     <ul class="nav nav-bar">
-                        <li><a href="javascript:;;" depart_id="forecast.pDepart_id">{{forecast.pDepart_name}}</a></li>
+                        <li><a href="javascript:;;" depart_id="{{forecast.pDepart_id}}" article_id="{{forecast.pArticle_id}}" ng-click="findDepartInfo($event)">{{forecast.pDepart_name}}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-5">
@@ -427,7 +427,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-3">
-                    <a href="javascript:;;" class="btn btn-default" ng-click="findPerChance()">录取概率</a>
+                    <a href="javascript:;;" class="btn btn-default" ng-click="findPerChance()">获取概率</a>
                     <div class="row">
                         <a href="javascript:;;" ng-if="forecast.schChance_6.length>0">概率：{{forecast.schChance_6}}</a>
                     </div>

@@ -251,7 +251,7 @@ require(['app'],function(app){
                         $(".chance_[value=1]").attr("checked","true");
                         return;
                     }else if(data.status == "1015"){
-                        alert("请重新缴费，才能查询");
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
                         $(".chance_[value=1]").attr("checked","true");
                         return;
                     }else if (data.status == "1013"){
@@ -259,6 +259,9 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == "1012"){
                         alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该高校为新招高校，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_0 = data.response.admit;
@@ -373,7 +376,7 @@ require(['app'],function(app){
                         $(".chance_[value=2]").attr("checked","true");
                         return;
                     }else if(data.status == "1015"){
-                        alert("请重新缴费，才能查询");
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
                         $(".chance_[value=2]").attr("checked","true");
                         return;
                     }else if (data.status == "1013"){
@@ -381,6 +384,9 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == "1012"){
                         alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该高校为新招高校，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance = data.response.admit;
@@ -427,6 +433,7 @@ require(['app'],function(app){
                     $scope.forecast.schChance_6 = "";
                 });
             $scope.forecast.pDepart_name = $("#departName option:selected").text();
+            $scope.forecast.pArticle_id = $("#departName option:selected").attr("article_id");
         };
 
         $scope.getSchlname = function(){
@@ -469,7 +476,7 @@ require(['app'],function(app){
                         $(".chance_[value=6]").attr("checked","true");
                         return;
                     }else if(data.status == "1015"){
-                        alert("请重新缴费，才能查询");
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
                         $(".chance_[value=6]").attr("checked","true");
                         return;
                     }else if (data.status == "1013"){
@@ -477,6 +484,9 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == "1012"){
                         alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该专业为新招专业，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_6 = data.response.admit;
@@ -496,13 +506,13 @@ require(['app'],function(app){
             $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
             var style_id = $scope.forecast.style_id;
             if(style_id == 0){
-                url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
+                url=loocha+"/school/attr/";
             }else if(style_id == 1){
                 url=loocha+"/school/prop?type=1&depart_type=1";
             }else if(style_id == 2){
                 url=loocha+"/school/prop?type=2&depart_type=2";
             }else if(style_id == 3){
-                url=loocha+"/school/prop/1";
+                url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
             }
             if(style_id !=""){
                 $http.get(url).success(function(data){
@@ -588,7 +598,7 @@ require(['app'],function(app){
                         $(".chance_[value=3]").attr("checked","true");
                         return;
                     }else if(data.status == "1015"){
-                        alert("请重新缴费，才能查询");
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
                         $(".chance_[value=3]").attr("checked","true");
                         return;
                     }else if (data.status == "1013"){
@@ -596,6 +606,9 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == "1012"){
                         alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该高校为新招高校，计算概率没有意义");
                         return;
                     }
                     $scope.forecast.schChance_1 = data.response.admit;
@@ -665,7 +678,7 @@ require(['app'],function(app){
                     $(".chance_[value=4]").attr("checked","true");
                     return;
                 }else if(data.status == "1015"){
-                    alert("请重新缴费，才能查询");
+                    alert("本次预测个数已使用完，请重新缴费继续查询");
                     $(".chance_[value=4]").attr("checked","true");
                     return;
                 }else if (data.status == "1013"){
@@ -673,6 +686,9 @@ require(['app'],function(app){
                     return;
                 }else if (data.status == "1012"){
                     alert("该高校仅招生一年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1010"){
+                    alert("该专业为新招专业，计算概率没有意义");
                     return;
                 }
                 $scope.forecast.departChance = data.response.admit;
@@ -729,7 +745,7 @@ require(['app'],function(app){
                     $(".chance_[value=5]").attr("checked","true");
                     return;
                 }else if(data.status == "1015"){
-                    alert("请重新缴费，才能查询");
+                    alert("本次预测个数已使用完，请重新缴费继续查询");
                     $(".chance_[value=5]").attr("checked","true");
                     return;
                 }else if (data.status == "1013"){
@@ -737,6 +753,9 @@ require(['app'],function(app){
                     return;
                 }else if (data.status == "1012"){
                     alert("该高校仅招生一年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1010"){
+                    alert("该专业为新招专业，计算概率没有意义");
                     return;
                 }
                 $scope.forecast.schChance_2 = data.response.admit;

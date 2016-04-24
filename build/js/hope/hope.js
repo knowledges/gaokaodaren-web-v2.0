@@ -4,6 +4,82 @@
 require(['app'], function (app) {
     app.factory("classifyClk", function () {
         return {
+            agreeAreaEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
+                if (status == undefined || status == null || status == 0) {
+                    status = that.attr("status","1").removeClass('reject cancle').addClass('agree');
+                    if(typeObj.indexOf(that.html())<0){
+                        var obj = new Object();
+                        obj.id = that.attr(id);
+                        obj.name = that.html();
+                        typeObj.push(obj);
+                    }
+                    //添加优先的到 typeObj 中
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            var findDepar = $(".findCity[city_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
+                            if(findDepar_status < 2 && typeObj.indexOf(findDepar.html())<0){
+                                findDepar.attr("status", "1").removeClass('cancle reject').addClass('agree');
+                                var obj = new Object();
+                                obj.id = v;
+                                obj.name = findDepar.html();
+                                typeObj.push(obj);
+                            }
+                        }
+                    });
+
+                    $.each(list,function(i,v){
+                        var idx = $(v).attr(id);
+                        if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)<0){
+                            var obj = new Object();
+                            obj.id = idx;
+                            obj.name = $(v).html();
+                            $(v).attr("status", "1").removeClass('reject cancle').addClass('agree');
+                            prefer.push(idx);
+                            arr.push(obj);
+                        }
+                    });
+                } else if(status == 1){
+                    $.each(typeObj,function(i,v){
+                        if(v!=undefined && v.name == that.html()){
+                            status = that.attr("status","0").removeClass('reject agree').addClass('cancle');
+                            typeObj.splice(i,1);
+                        }
+                    });
+
+                    /* if(typeObj.indexOf(that.html())>=0){
+
+                     typeObj.splice(typeObj.indexOf(that.html()),1);
+                     }*/
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            var findDepar = $(".findCity[city_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
+                            if(findDepar_status<2){
+                                $.each(typeObj,function(i,v){
+                                    if(v!=undefined &&  v.name == findDepar.html()){
+                                        findDepar.attr("status", "0").removeClass('agree reject').addClass('cancle');
+                                        typeObj.splice(i,1);
+                                    }
+                                });
+                                //typeObj.splice(typeObj.indexOf(findDepar.html()),1);
+                            }
+                        }
+                    });
+
+                    $.each(list,function(i,v){
+                        var idx = $(v).attr(id);
+                        if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)>=0){
+                            $(v).attr("status", "0").removeClass('reject agree').addClass('cancle');
+                            arr.splice(prefer.indexOf(idx),1);
+                            prefer.splice(prefer.indexOf(idx),1);
+                        }
+                    });
+                }
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
+            },
             agreeTypeEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
                 if (status == undefined || status == null || status == 0) {
                     status = that.attr("status","1").removeClass('reject cancle').addClass('agree');
@@ -282,6 +358,55 @@ require(['app'], function (app) {
     });
     app.factory("classifyDBClk", function () {
         return {
+            rejectAreaEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
+                if (status == undefined || status == null || status == 0) {
+                    status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
+                    //删除 typeObj 中存在的优先
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            $(".findCity[city_id="+v+"]").attr("status", "2").removeClass('agree cancle').addClass('reject');
+                            if(typeObj.indexOf(v+"")>=0){
+                                typeObj.splice(typeObj.indexOf(v+""),1);
+                            }
+                        }
+                    });
+
+                    $.each(list, function (i, v) {
+                        var idx = $(v).attr(id);
+                        $(v).attr("status", "2").removeClass('agree cancle').addClass('reject');
+                        if (prefer.indexOf(idx) >= 0) {
+                            arr.splice(prefer.indexOf(idx), 1);
+                            prefer.splice(prefer.indexOf(idx), 1);
+                        }
+                        if (ignore.indexOf(idx) < 0) {
+                            ignore.push(idx);
+                        }
+                    });
+
+                } else if(status == 2){
+                    status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
+                    //删除 typeObj 中存在的优先
+                    $.each(parent,function(i,v){
+                        if(v!=""){
+                            $(".findCity[city_id="+v+"]").attr("status", "0").removeClass('agree reject').addClass('cancle');
+                        }
+                    });
+                    //取消灰色
+                    $.each(list, function (i, v) {
+                        var idx = $(v).attr(id);
+                        console.log(i);
+                        if (ignore.indexOf(idx) >= 0) {
+                            $(v).attr("status", "0").removeClass("agree reject").addClass('cancle');
+                            ignore.splice(ignore.indexOf(idx), 1);
+                        }
+                    });
+                }
+                var newTypeOBj = "[]";
+                if(typeObj.length>0){
+                    newTypeOBj = JSON.stringify(typeObj);
+                }
+                return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
+            },
             rejectTypeEvent:function(that,status,parent,list,id,prefer,ignore,arr,typeObj){
                 if (status == undefined || status == null || status == 0) {
                     status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
@@ -508,62 +633,6 @@ require(['app'], function (app) {
                         if (that.height() > 250) {
                             that.addClass('nav-scroll');
                         }
-                    }
-                }
-            }
-        }
-    }]);
-    app.directive('onFinishWatchschl',[function(){
-        return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
-
-                if (scope.$last === true) {
-                    var that = $("#watch_school");
-                    if (that.height() > 250) {
-                        that.addClass('nav-scroll');
-                    }
-                }
-            }
-        }
-    }]);
-    app.directive('onFinishWatchcity',[function(){
-        return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
-
-                if (scope.$last === true) {
-                    var that = $("#watch_city");
-                    if (that.height() > 250) {
-                        that.addClass('nav-scroll');
-                    }
-                }
-            }
-        }
-    }]);
-    app.directive('onFinishWatchdepart',[function(){
-        return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
-
-                if (scope.$last === true) {
-                    var that = $("#watch_depart");
-                    if (that.height() > 250) {
-                        that.addClass('nav-scroll');
-                    }
-                }
-            }
-        }
-    }]);
-    app.directive('onFinishWatchperson',[function(){
-        return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
-
-                if (scope.$last === true) {
-                    var that = $("#watch_person");
-                    if (that.height() > 250) {
-                        that.addClass('nav-scroll');
                     }
                 }
             }
@@ -1357,7 +1426,193 @@ require(['app'], function (app) {
             }
         }
 
-        /*
+        /**
+         * 地区添加单击事件
+         * @param e
+         */
+        $scope.agreeAreaType = function(e){
+            var that = $(e.target),city_id = that.attr("city_id"),status = that.attr("status");
+            var istrue = $("#dropdown" + city_id).attr('data-istrue');
+            if (istrue == "false") {
+                $http.get(loocha + '/wish/areatype?batch=' + $scope.hope.batch + '&city_id=' + city_id).success(function (data, status) {
+                    var html = [];
+                    $.each(data.response, function (i, v) {
+                        html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
+                    });
+                    $("#dropdown" + city_id).append(html.join(''));
+
+                    /*
+                     * 具体是省份绑定点击、双击事件
+                     * */
+                    var _time = null;
+                    $(".findCity").unbind('dblclick').dblclick(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this), status = that.attr("status"), city_id = that.attr('city_id');
+                        var list = $(".cityClk[parent_id=" + city_id + "]");
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr,$scope.hopeClassify.terr);
+                        $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.terr = mosaic.split("|")[4]!=undefined > 0 ? JSON.parse(mosaic.split("|")[4]):[];
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            var city_id = that.attr('city_id');
+                            var list = $(".cityClk[parent_id=" + city_id + "]");
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj,$scope.hopeClassify.terr);
+                            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.terr = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }, 400);
+                    });
+
+                    //获取 list
+                    var str = "",list =  $("#dropdown"+city_id+" a");
+                    $.each(list,function(i,v){
+                        str = str + $(v).attr("city_id")+",";
+                    });
+                    //合并list 中内容
+                    var strArr = str.split(",");
+                    var newlist = [];
+                    for(var i = 0 ; i< strArr.length;i++){
+                        if(strArr[i]!=""){
+                            $.each($("#provnice button[parent_id="+strArr[i]+"]"),function(idx,val){
+                                newlist.push(val);
+                            })
+                        }
+                    }
+                    //点击效果
+                    var mosaic = classifyClk.agreeAreaEvent(that,that.attr("status"),strArr,newlist,"city_id",$scope.hope.city_prefer,$scope.hope.city_ignore,$scope.hope.cityArr,$scope.hopeClassify.terr);
+                    $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                    $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                    $scope.hope.cityArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                    $scope.hopeClassify.terr = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+
+                    $("#dropdown" + city_id).attr("data-istrue", "true");
+
+                });
+            }else{
+                //获取 list
+                var str = "",list =  $("#dropdown"+city_id+" a");
+                $.each(list,function(i,v){
+                    str = str + $(v).attr("city_id")+",";
+                });
+                //合并list 中内容
+                var strArr = str.split(",");
+                var newlist = [];
+                for(var i = 0 ; i< strArr.length;i++){
+                    if(strArr[i]!=""){
+                        $.each($("#provnice button[parent_id="+strArr[i]+"]"),function(idx,val){
+                            newlist.push(val);
+                        })
+                    }
+                }
+                //点击效果
+                var mosaic = classifyClk.agreeAreaEvent(that,that.attr("status"),strArr,newlist,"city_id",$scope.hope.city_prefer,$scope.hope.city_ignore,$scope.hope.cityArr,$scope.hopeClassify.terr);
+                $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.cityArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                $scope.hopeClassify.terr = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+            }
+        };
+
+        $scope.rejectAreaType = function(e){
+            var that = $(e.target),city_id = that.attr("city_id"),status = that.attr("status");
+            var istrue = $("#dropdown" + city_id).attr('data-istrue');
+            if (istrue == "false") {
+                $http.get(loocha + '/wish/areatype?batch=' + $scope.hope.batch + '&city_id=' + city_id).success(function (data, status) {
+                    var html = [];
+                    $.each(data.response, function (i, v) {
+                        html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
+                    });
+                    $("#dropdown" + city_id).append(html.join(''));
+
+                    /*
+                     * 具体是省份绑定点击、双击事件
+                     * */
+                    var _time = null;
+                    $(".findCity").unbind('dblclick').dblclick(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this), status = that.attr("status"), city_id = that.attr('city_id');
+                        var list = $(".cityClk[parent_id=" + city_id + "]");
+                        var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr,$scope.hopeClassify.terr);
+                        $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                        $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                        $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                        $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                        $scope.hopeClassify.terr = mosaic.split("|")[4]!=undefined > 0 ? JSON.parse(mosaic.split("|")[4]):[];
+                    }).unbind('click').click(function (e) {
+                        $timeout.cancel(_time);
+                        var that = $(this);
+                        _time = $timeout(function (e) {
+                            var status = that.attr("status");
+                            var city_id = that.attr('city_id');
+                            var list = $(".cityClk[parent_id=" + city_id + "]");
+                            var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.city_prefer, $scope.hope.city_ignore, "city_id", $scope.hope.city_name, $scope.hope.cityArr, $scope.hope.cityObj,$scope.hopeClassify.terr);
+                            $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                            $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                            $scope.hope.city_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+                            $scope.hope.cityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+                            $scope.hopeClassify.terr = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                        }, 400);
+                    });
+
+                    //获取 list
+                    var str = "",list =  $("#dropdown"+city_id+" a");
+                    $.each(list,function(i,v){
+                        str = str + $(v).attr("city_id")+",";
+                    });
+                    //合并list 中内容
+                    var strArr = str.split(",");
+                    var newlist = [];
+                    for(var i = 0 ; i< strArr.length;i++){
+                        if(strArr[i]!=""){
+                            $.each($("#provnice button[parent_id="+strArr[i]+"]"),function(idx,val){
+                                newlist.push(val);
+                            })
+                        }
+                    }
+                    //点击效果
+                    var mosaic = classifyDBClk.rejectAreaEvent(that,that.attr("status"),strArr,newlist,"city_id",$scope.hope.city_prefer,$scope.hope.city_ignore,$scope.hope.cityArr,$scope.hopeClassify.terr);
+                    $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                    $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                    $scope.hope.cityArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                    $scope.hopeClassify.terr = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+
+                    $("#dropdown" + city_id).attr("data-istrue", "true");
+
+                });
+            }else{
+                //获取 list
+                var str = "",list =  $("#dropdown"+city_id+" a");
+                $.each(list,function(i,v){
+                    str = str + $(v).attr("city_id")+",";
+                });
+                //合并list 中内容
+                var strArr = str.split(",");
+                var newlist = [];
+                for(var i = 0 ; i< strArr.length;i++){
+                    if(strArr[i]!=""){
+                        $.each($("#provnice button[parent_id="+strArr[i]+"]"),function(idx,val){
+                            newlist.push(val);
+                        })
+                    }
+                }
+                //点击效果
+                var mosaic = classifyDBClk.rejectAreaEvent(that,that.attr("status"),strArr,newlist,"city_id",$scope.hope.city_prefer,$scope.hope.city_ignore,$scope.hope.cityArr,$scope.hopeClassify.terr);
+                $scope.hope.city_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+                $scope.hope.city_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+                $scope.hope.cityArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
+                $scope.hopeClassify.terr = mosaic.split("|")[3] != undefined ? JSON.parse(mosaic.split("|")[3]):[];
+            }
+        };
+
+        /**
          * 根据批次、地区ID 显示对应的省份
          * */
         $scope.showClassify = function (city_id) {
@@ -2480,6 +2735,10 @@ require(['app'], function (app) {
             $("#belongs1").show();
         };
 
+        /**
+         * 专业大类的父类单击事件
+         * @param e
+         */
         $scope.agreeDepartType = function(e){
             var that = $(e.target),course_id = that.attr("depart_id"),status = that.attr("status");
             var istrue = $("#depart" + course_id).attr('data-istrue');
@@ -2539,7 +2798,7 @@ require(['app'], function (app) {
                     }
 
                     //点击效果
-                    var mosaic = classifyClk.agreeTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
+                    var mosaic = classifyClk.agreeTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate);
                     $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                     $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                     $scope.hope.departArr = mosaic.split("|")[2].length > 0 ? JSON.parse(mosaic.split("|")[2]) : [];
