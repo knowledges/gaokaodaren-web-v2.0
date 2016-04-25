@@ -52,6 +52,9 @@
   font-size: 16px;
   text-indent: 2em;
 }
-#watch_school a {
+#watch_school a,
+#watch_city a,
+#watch_depart a,
+#watch_persona a {
   color: #000;
 }

@@ -16,10 +16,11 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,getLoginUserInfo,loocha,arraysort){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,$stateParams,getLoginUserInfo,loocha,arraysort){
         $scope.score = "";
         $scope.isShow = false;
-        $scope.isChance = localStorage.getItem("type");
+        $scope.isChance = $stateParams.batch;
+        //$scope.isChance = localStorage.getItem("type");
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
         $scope.order_id = "";
         $scope.money = "";
@@ -95,6 +96,7 @@ require(['app'],function(app){
 
         init ();
         function init(){
+            console.log($stateParams.batch);
             getLoginUserInfo.isLogoin();
 
             setInterval(function(){
@@ -898,7 +900,7 @@ require(['app'],function(app){
             return num;
         }
 
-        $scope.startChance = function(e){
+        /*$scope.startChance = function(e){
             var that = $(e.target),score = that.attr('score'),type = that.attr('type');
             if(score<=JSON.parse(sessionStorage.getItem('uScore')).score){
                 localStorage.setItem('type',type);
@@ -906,7 +908,7 @@ require(['app'],function(app){
             }else{
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }
-        }
+        }*/
 
     }]);
 });

@@ -180,9 +180,9 @@ require(['app'],function(app){
                                 sessionStorage.setItem('uScore',JSON.stringify(data.response));
                                 localStorage.setItem("type",$scope.table.batch);
                                 if(num == 1){
-                                    $window.location.href = "#/hope";
+                                    $window.location.href = "#/hope/batch="+$scope.table.batch;
                                 }else if (num == 2){
-                                    $window.location.href = "#/chance";
+                                    $window.location.href = "#/chance/batch="+$scope.table.batch;
                                 }else{
                                     window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
                                 }
@@ -238,7 +238,7 @@ require(['app'],function(app){
             var that = $(e.target),score = that.attr('score'),type = that.attr('type');
             if(score<=$scope.table.newScore){
                 localStorage.setItem("type",type);
-                $window.location.href = "#/hope";
+                $window.location.href = "#/hope/batch="+$scope.table.batch;
             }else{
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }
@@ -247,7 +247,7 @@ require(['app'],function(app){
             var that = $(e.target),score = that.attr('score'),type = that.attr('type');
             if(score<=$scope.table.newScore){
                 localStorage.setItem('type',type);
-                $window.location.href = "#/chance";
+                $window.location.href = "#/chance/batch="+type;
             }else{
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }

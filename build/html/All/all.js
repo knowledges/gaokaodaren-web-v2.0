@@ -26,13 +26,13 @@ require(['app'], function (app) {
                         sessionStorage.setItem("admitFlag",data.response.admitFlag);
                         sessionStorage.setItem("order_id",data.response.orderId);
                         sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
-                        window.location.href = "#/chance";
+                        window.location.href = "#/chance/batch="+data.response.type;
                     }else{
                         var intentionId = data.response.intentionId;
                         $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
-                            window.location.href = "#/hope";
+                            window.location.href = "#/hope/batch="+data.response.type;
                             window.location.hash = window.location.hash + "/see=" + data.response.type;
                         });
                     }
@@ -53,5 +53,41 @@ require(['app'], function (app) {
                 $scope.refer.isShowRefer = true;
                 $scope.refer.list = data.response.list;
             });
+    }]);
+
+    app.controller('allChanceCtr', ['$scope', '$http', 'loocha', 'referUrl', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl, getLoginUserInfo) {
+        $scope.chance = {
+            isShowWill: false,
+            list: ""
+        };
+
+        getLoginUserInfo.isLogoin();
+
+        $http.get(loocha + referUrl)
+            .success(function (data) {
+                $scope.chance.list = data.response.list;
+                $scope.chance.isShowWill = true;
+            });
+
+        $scope.seeHope = function (orderId,flag) {
+            $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
+                .success(function (data) {
+                    if(flag == 4){
+                        localStorage.setItem("type",data.response.type);
+                        sessionStorage.setItem("admitFlag",data.response.admitFlag);
+                        sessionStorage.setItem("order_id",data.response.orderId);
+                        sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
+                        window.location.href = "#/chance/batch="+data.response.type;
+                    }else{
+                        var intentionId = data.response.intentionId;
+                        $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
+                            localStorage.setItem("intention", JSON.stringify(data.response));
+                            localStorage.setItem("type", data.response.type);
+                            window.location.href = "#/hope/batch="+data.response.type;
+                            window.location.hash = window.location.hash + "/see=" + data.response.type;
+                        });
+                    }
+                });
+        }
     }]);
 });

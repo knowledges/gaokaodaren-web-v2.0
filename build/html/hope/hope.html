@@ -1,7 +1,9 @@
 <div ng-include="'templete/model-loading/loading.html'"></div>
 <div class="container text-center">
     <div>
-        <h1 title="请把您的志愿意向填入（“点击”）《志愿意向表》">{{info.title}}</h1>
+        <h1 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="请把您的志愿意向填入（“点击”）《志愿意向表》">
+           {{info.title}}
+        </h1>
         <h4>{{info.subtitle}}</h4>
     </div>
     <div class="panel panel-primary">
@@ -13,9 +15,10 @@
         <div class="panel-footer" id="provnice" style="background: #FFF!important;">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4 data-toggle="tooltip" data-placement="left"
-                        title="亲：请将您一心向往的那座城市或哪线城市或哪个省、哪个地区的城市，作为优先选择的城市，单击（绿色）&#10;亲：请将您不想去或不愿意去或坚决不去的那座城市或哪线城市或哪个省、哪个地区的城市，拒绝掉！双击（灰色）&#10;亲：对于您可去可不去（可调节可接受）的那座城市或哪线城市或哪个省、哪个地区的城市，保持原样。">
-                        <a href="javascript:;;" class="title-btn">院校属地</a>
+                    <h4 data-toggle="tooltip" data-placement="left">
+                        <a href="javascript:;;" class="title-btn"  ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="
+                        亲：请将您一心向往的那座城市或哪线城市或哪个省、哪个地区的城市，作为优先选择的城市，单击（绿色）&#10;亲：请将您不想去或不愿意去或坚决不去的那座城市或哪线城市或哪个省、哪个地区的城市，拒绝掉！双击（灰色）&#10;亲：对于您可去可不去（可调节可接受）的那座城市或哪线城市或哪个省、哪个地区的城市，保持原样。
+                        ">院校属地</a>
                     </h4>
                 </div>
                 <div class="col-sm-10 text-left">
@@ -218,8 +221,10 @@
         <div class="panel-body" id="panel-footer" style="border-top: 1px solid #ccc;">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4 title="亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。">
-                        <a href="javascript:;;" class="title-btn">院校属类</a>
+                    <h4>
+                        <a href="javascript:;;" class="title-btn" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="
+                        亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。
+                        ">院校属类</a>
                     </h4>
                 </div>
                 <div class="col-sm-10 text-left">
@@ -376,14 +381,14 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4 title="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
+            <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle=亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
                 <i class="glyphicon glyphicon-education"></i> 意向专业（优先：单击—绿色；拒绝：双击—灰色；可选择：原色）
             </h4>
         </div>
         <div class="panel-body" id="depart">
             <div class="row">
                 <div class="col-sm-2 text-right">
-                    <h4 title="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
+                    <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
                         <a href="javascript:;;" class="title-btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别</a>
                     </h4>
                 </div>
@@ -1557,7 +1562,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4>
+            <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="">
                 <i class="icon-fire"></i> 个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—灰色；其他：原色）
             </h4>
         </div>
@@ -1592,9 +1597,15 @@
                                 </a>
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
-                                    <li ng-repeat="sublist in list.sublist">
+                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1<3">
                                         <a href="javascript:;;"
                                            type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    </li>
+                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1==3">
+                                        <a href="javascript:;;"
+                                           wishId="6"
+                                           type_id="{{sublist.id}}"
+                                           ng-dblclick="rejectPersonl_0($event)">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -1671,12 +1682,13 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist"><a href="javascript:;;" s_id="{{sublist.id}}"
-                                                                   parentname="{{list.name}}"
-                                                                   parentId="{{sublist.parentId}}"
-                                                                   operation="{{list.operation}}"
-                                                                   ng-click="agreePersonality($event)"
-                                                                   ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1687,13 +1699,14 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist" ng-if="$index+1<6"><a href="javascript:;;"
-                                                                                      s_id="{{sublist.id}}"
-                                                                                      parentname="{{list.name}}"
-                                                                                      parentId="{{sublist.parentId}}"
-                                                                                      operation="{{list.operation}}"
-                                                                                      ng-click="agreePersonality($event)"
-                                                                                      ng-dblclick="rejecPersonality($event)">{{sublist.desc}}</a>
+                        <li ng-repeat="sublist in list.sublist" ng-if="$index+1<6">
+                            <a href="javascript:;;"
+                              s_id="{{sublist.id}}"
+                              parentname="{{list.name}}"
+                              parentId="{{sublist.parentId}}"
+                              operation="{{list.operation}}"
+                              ng-click="agreePersonality($event)"
+                              ng-dblclick="rejecPersonality($event)">{{sublist.desc}}</a>
                         </li>
                     </ul>
                 </div>
@@ -1759,7 +1772,42 @@
                 </div>
             </div>
 
-            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1>4">
+            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1==5">
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6>({{list.name}})</h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row"  id="hopePart_0" ng-repeat="list in hope.personality_type2" ng-if="$index+1==6">
+                <div class="col-sm-2 text-right" style="margin-top: 6px;">
+                    <h6><a href="javascript:;;" wishId="{{$index+1}}"
+                           ng-dblclick="rejectPersonl_0($event)">({{list.name}})</a></h6>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills wishId_{{$index+1}}">
+                        <li ng-repeat="sublist in list.sublist">
+                            <a href="javascript:;;" s_id="{{sublist.id}}"
+                               parentname="{{list.name}}"
+                               parentId="{{sublist.parentId}}"
+                               operation="{{list.operation}}"
+                               ng-click="agreePersonality($event)"
+                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1==7">
                 <div class="col-sm-2 text-right" style="margin-top: 6px;">
                     <h6>({{list.name}})</h6>
                 </div>
@@ -1840,7 +1888,7 @@
     <!-- 优先-->
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4 title="亲，您的优先选项确定是这些吗？"><i class="icon-thumbs-up"></i> 意向优先汇总</h4>
+            <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="亲，您的优先选项确定是这些吗？"><i class="icon-thumbs-up"></i> 意向优先汇总</h4>
         </div>
         <div class="panel-body">
             <div class="row" ng-if="hope.schoolArr.length>0 || hopeClassify.genus.length>0">
@@ -2170,20 +2218,18 @@
 </div>
 <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">生成推荐表</h4>
+                <h3 class="modal-title text-center">生成推荐表</h3>
             </div>
-            <div class="modal-body" style="font-size:16px;">
+            <div class="modal-body" style="font-size:16px; text-indent: 2em;">
                 <p>符合您的高校有<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.total}}</span>所</p>
+                <p>系统为您推荐<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.recommend}}</span>所（包含优先选项最多且概率在50%以上的高校）</p>
+                <p>前 {{hope.num}} 分推荐表（包含{{hope.recommend}}所不同的高校）可全部呈现</p>
 
-                <p>系统为您推荐<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.recommend}}</span>所（包含在概率在50%以上的）
-                </p>
-
-                <p>可生成推荐表<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.table}}</span>份</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" ng-click="readom()"
@@ -2234,7 +2280,7 @@
     </div>
 </div>
 <!--批次选择-->
-<div class="modal fade" id="recommend" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<!--<div class="modal fade" id="recommend" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -2268,22 +2314,5 @@
             </div>
         </div>
     </div>
-</div>
-<!--
-
-<div class="title-model">
-    <div class="mask-model">
-        <div>
-            <p>
-                亲：请将您心仪那些高校或哪类高校或哪所高校作为<br/>优先选择的高校，单击（绿色）
-            </p>
-            <p>
-                亲：请将您不想上或不愿意上或决不上的哪所高校或<br/>那些高校或哪类高校，拒绝掉，双击（灰色）
-            </p>
-
-            <p>
-                亲：对您可上可不上（可调节或可接受）的那类高校<br/>或那些高校或那所高校，保持原样。
-            </p>
-        </div>
-    </div>
 </div>-->
+<div id="qTip" style="left:740px;top:350px;display: none;"></div>

@@ -19,8 +19,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -106,7 +106,8 @@ define(['app'],function(app){
                 }
             })
             .state("hope", {/*意向*/
-                url: "/hope",
+                //url: "/hope",
+                url: "/hope/batch=:batch",
                 templateUrl: "html/hope/hope.html",
                 //controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
@@ -118,7 +119,8 @@ define(['app'],function(app){
                 //}
             })
             .state("chance", {//预测
-                url: "/chance",
+                //url: "/chance",
+                url: "/chance/batch=:batch",
                 templateUrl: "html/chance/newChance.html",
                 controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
@@ -543,6 +545,18 @@ define(['app'],function(app){
                     }]
                 }*/
             })
+            .state('all.chance',{
+               url:'/allChance',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"allChanceCtr",
+                data: { isPublic: true},
+                /*resolve:{
+                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                 return $ocLazyLoad.load(['html/All/all.js']);
+                 }]
+                 }*/
+            })
             ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state("depth",{
                 url:"/depth",
@@ -598,7 +612,12 @@ define(['app'],function(app){
                 templateUrl:"html/refer/refer.html",
                 controllerUrl:"js/refer/refer",
                 controller:'referCtr',
-                data: { isPublic: true}
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/alt.js']);
+                    }]
+                }
             })
 ////////////////////////////////随机志愿表/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state('refer1',{

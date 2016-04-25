@@ -5,13 +5,13 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A志愿,江苏达人,全国唯一的高考志愿填报专门网,普及高考志愿填报知识,提供志愿推荐、志愿预测、志愿范例、志愿咨询、深度查询等高考志愿填报咨询服务">
-    <meta name="Keywords" content="A志愿,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
+    <meta name="description" content="达人志愿,江苏达人,全国唯一的高考志愿填报专门网,普及高考志愿填报知识,提供志愿推荐、志愿预测、志愿范例、志愿咨询、深度查询等高考志愿填报咨询服务">
+    <meta name="Keywords" content="达人志愿,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
     <meta name="fragment" content="!"/>
     <meta name="baidu-site-verification" content="J6qe6Ox6BK" />
     <!--<meta name="baidu-site-verification" content="PrvFCnC5JN"/>-->
     <meta name="sogou_site_verification" content="8luOQrhhrl"/>
-    <title>A志愿——江苏达人网全国唯一的高考志愿填报专门网_普及高考志愿填报知识_提供志愿推荐、志愿预测、志愿范例、志愿咨询、深度查询等高考志愿填报咨询服务</title>
+    <title>达人志愿——江苏达人网全国唯一的高考志愿填报专门网_大数据建模_个性化定制_免费提供志愿咨询_免费提供志愿范例_直接推荐志愿_直接预测志愿_直接深度查询</title>
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
     <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" id="bs-theme-stylesheet"/>-->
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
@@ -22,6 +22,24 @@
     <script src="lib/respond.min.js"></script>
     <link href="favicon.ico" rel="shortcut icon"/>
     <![endif]-->
+    <style>
+        /*下面这个样式用来控制title属性显示的那个方框样式的*/
+        div#qTip {
+            padding:5px 25px 15px 25px ;
+            border: #abab98 1px solid;
+            display: none;
+            font-size: 16px;
+            z-index: 1200;
+            background: #fefeda;
+            color: #000;
+            line-height: 30px;
+            position: absolute;
+            text-indent: 2em;
+            text-align: left;
+            letter-spacing:2px;
+            margin-top:-4px;
+        }
+    </style>
     <!--[if lte IE 8]>
     <script>
         document.createElement('ng-include');
@@ -72,9 +90,17 @@
                 <li><a ui-sref="home">首页</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" title="
-                        亲本栏目免费与您交流高考志愿填报有关话题：&#10;1.填报高考志愿有那些要领？（填报要领）&#10;2.如何恰到好处地利用您的高考分数和名次填报高考志愿（分数分析）&#10;3.如何充分利用高校招生政策填报高考志愿？（招生政策）&#10;4.您将要奔赴求学的大学长得啥样？（高校介绍）&#10;5.您将要在大学里学有成就，究竟能学到啥？（专业介绍）&#10;6.您将要生活今年的那个城市长的啥样？（城市介绍）&#10;7.您未来发展的前程路径可能怎样？（毕业去向）&#10;8.如何充分利用您的个性特征填报高考志愿？（个性特征）&#10;9.比较典型的填报高考志愿的倾向性思维模式有哪些？（咨询线路）&#10;您可以尽享其中
-                        ">志愿咨询
+                       aria-expanded="false" title="<br/>本栏目免费与您交流高考志愿填报有关话题：<br/>
+                        1.填报高考志愿有哪些要领？（填报要领） <br/>
+                        2.如何恰到好处地利用您的高考分数和名次填报高考志愿？（分数分析） <br/>
+                        3.如何充分利用高校招生政策填报高考志愿？（招生政策） <br/>
+                        4.您将要奔赴求学的大学长得啥样？（高校介绍） <br/>
+                        5.您将要在大学里学有成就，究竟能学到啥？（专业介绍） <br/>
+                        6.您将要生活几年的那个城市长的啥样？（城市介绍）<br/>
+                        7.您未来发展的前程路径可能怎样？（毕业去向） <br/>
+                        8.如何充分利用您的个性特征填报高考志愿？（个性特征） <br/>
+                        9.比较典型的填报高考志愿的倾向性思维模式有哪些？（咨询线路） <br/>
+                        您可以尽享其中<br/>">志愿咨询
                         <!--<span class="caret"></span>-->
                     </a>
                     <ul class="dropdown-menu">
@@ -109,12 +135,36 @@
                         <li><a ui-sref="depth.info({batch:8})">理科高职</a></li>
                     </ul>
                 </li>
-                <li><a ui-sref="hope" title="
-                    亲本栏目属于个性化服务栏目，将针对您本人的具体情况为您量身定做,推荐适合您自己的高考志愿，给出适合您自己的《高考志愿推荐表》供您参考。&#10;亲当您将您本人的具体想法或意向或要求填入（“点击”）为您设置的《考生志愿意向表》。就可以向您提供适合您自己的《考生志愿推荐表》，提供参考&#10;亲当您获取《考生志愿推荐表》之后，还可以查阅向您推荐的高校、专业、与您志愿意向的吻合情况和录取情况&#10;亲本栏目为交费栏目，一般获取1~3份《考生志愿推荐表》就可以了，当然如果有多份也可以获取
-                    ">志愿推荐</a></li>
-                <li><a ui-sref="chance" title="
-                    亲本栏目帮您预测您所填报或将要填报的高校专业、可能录取的概率情况，让您心中有数&#10;亲本栏目为交费栏目，可以有两种方式使用本栏目：一是先明确录取概率，再查找想上的高校、想上的专业；二是先明确想上的高校，想上的专业，在查询可能录取的概率&#10;亲本栏目可以帮助您预测，某个大学的哪个专业，录取您的概率大，哪个专业录取您概率小，也可以帮助您预测某个专业，哪个大学录取您概率大。哪个大学录取您的概率小。当然利用本栏目还可以预测.........
-                    ">志愿预测</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" title="">志愿推荐</a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="hope({batch:1})">文科本一</a></li>
+                        <li><a ui-sref="hope({batch:3})">文科本二</a></li>
+                        <li><a ui-sref="hope({batch:5})">文科本三</a></li>
+                        <li><a ui-sref="hope({batch:7})">文科高职</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a ui-sref="hope({batch:2})">理科本一</a></li>
+                        <li><a ui-sref="hope({batch:4})">理科本二</a></li>
+                        <li><a ui-sref="hope({batch:6})">理科本三</a></li>
+                        <li><a ui-sref="hope({batch:8})">理科高职</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" title="">志愿预测</a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="chance({batch:1})">文科本一</a></li>
+                        <li><a ui-sref="chance({batch:3})">文科本二</a></li>
+                        <li><a ui-sref="chance({batch:5})">文科本三</a></li>
+                        <li><a ui-sref="chance({batch:7})">文科高职</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a ui-sref="chance({batch:2})">理科本一</a></li>
+                        <li><a ui-sref="chance({batch:4})">理科本二</a></li>
+                        <li><a ui-sref="chance({batch:6})">理科本三</a></li>
+                        <li><a ui-sref="chance({batch:8})">理科高职</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a ui-sref="example.nav"
                        title="亲本栏目为免费栏目，在本栏目您可以查看与您相仿科别相同、选测科目等级相同、高考分数相近、名次相近的高考，高考志愿填报成功的范例，供您参考。">志愿范例</a>
@@ -135,7 +185,8 @@
                         <i class="glyphicon glyphicon-search" ng-click="totalSearch()"></i>
                     </a>
                 </form>
-                <li><a ng-click="login()" href="javascript:;;" ng-if="!user.islogin">登陆/注册</a><a style="padding-left:0;padding-right:0;" ng-if="user.islogin">{{user.name}}</a>
+                <li>
+                    <a ui-sref="login" ng-if="!user.islogin" style="display: inline-block;padding-left: 0;padding-right: 5px;">登陆 /</a><a ui-sref="register" ng-if="!user.islogin" style="display: inline-block;padding-left: 5px;">注册</a><a style="padding-left:0;padding-right:0;" ng-if="user.islogin">{{user.name}}</a>
                 </li>
                 <li><a ui-sref="all.score" href="javascript:;;" style="text-decoration: underline;font-weight:700;" ng-if="user.islogin">我的足迹</a></li>
                 <li><a ng-if="user.islogin" href="javascript:;;"style="padding-left:0;padding-right:0;"  ng-click="logoff()">注销</a></li>
@@ -183,6 +234,7 @@
 <script src="lib/require.js"></script>
 <script src="lib/main.js"></script>
 <script src="js/json2.js"></script>
+<script src="js/alt.js"></script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/example/example.js"></script>

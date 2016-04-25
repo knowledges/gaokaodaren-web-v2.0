@@ -1,5 +1,32 @@
 <div class="menu-div">
     <div class="container-fluid">
+        <div class="row text-center" ng-if="chance.list.length<=0">
+            暂无数据.....
+        </div>
+        <table class="table" ng-if="chance.list.length>0">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>列表</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <!--// is-loading-->
+            <tr ng-repeat="list in chance.list" ng-if="list.flag== 4">
+                <td>{{$index+1}}</td>
+                <td ng-switch="list.flag">
+                    <span ng-switch-when="4"> 第{{$index+1}}份概率表</span>
+                </td>
+                <!--<td>{{list.type % 2 == 1 ? "文科":"理科"}}第{{list.type}}批次</td>-->
+                <td ng-switch="list.flag">
+                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
+                       ng-click="seeHope(list.orderId,list.flag)">查询概率预测</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <div class="row text-center" ng-if="will.list.length<=0">
             暂无数据.....
         </div>
@@ -13,12 +40,12 @@
             </thead>
             <tbody>
             <!--// is-loading-->
-            <tr ng-repeat="list in will.list" ng-if="list.flag==2 || list.flag==3 || list.flag== 4">
+            <tr ng-repeat="list in will.list" ng-if="list.flag==2 || list.flag==3">
                 <td>{{$index+1}}</td>
                 <td ng-switch="list.flag">
                     <span ng-switch-when="2"> 第{{$index+1}}份推荐表</span>
                     <span ng-switch-when="3"> 第{{$index+1}}份推荐表</span>
-                    <span ng-switch-when="4"> 第{{$index+1}}份概率表</span>
+                    <!--<span ng-switch-when="4"> 第{{$index+1}}份概率表</span>-->
                 </td>
                 <!--<td ng-switch="list.type">
                     <span ng-switch-when="1">文科第1批次</span>
@@ -32,16 +59,16 @@
                 </td>-->
                 <!--<td>{{list.type % 2 == 1 ? "文科":"理科"}}第{{list.type}}批次</td>-->
                 <td ng-switch="list.flag">
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="0"
-                       ng-click="seeHope(list.orderId,list.flag)">查询推荐表</a>
+                    <!--<a href="javascript:;;" class="btn btn-default" ng-switch-when="0"
+                       ng-click="seeHope(list.orderId,list.flag)">查询推荐表</a>-->
                     <a href="javascript:;;" class="btn btn-default" ng-switch-when="2"
                        ng-click="seeHope(list.orderId,list.flag)">查询推荐表</a>
                     <a href="javascript:;;" class="btn btn-default" ng-switch-when="3"
                        ng-click="seeHope(list.orderId,list.flag)">查询志愿手选表</a>
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
+                   <!-- <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
                        ng-click="seeHope(list.orderId,list.flag)">查询概率预测</a>
                     <a href="javascript:;;" class="btn btn-default" ng-switch-when="5"
-                       ng-click="seeHope(list.orderId,list.flag)">查询深度查询</a>
+                       ng-click="seeHope(list.orderId,list.flag)">查询深度查询</a>-->
                 </td>
             </tr>
             </tbody>

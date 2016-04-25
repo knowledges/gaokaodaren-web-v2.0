@@ -19,7 +19,7 @@ require(['app'],function(app){
                 orderId:"",
                 type:"",
                 data:"",
-                title:"普通高校招生考生志愿参考表",
+                title:"普通高校招生考生志愿推荐表",
                 subtitle:"",
                 caption:"",
                 name:"",
@@ -211,7 +211,25 @@ require(['app'],function(app){
                         }
                     }
                 }) ;
-        }
+        };
 
+        $scope.showTipTitle = function(e){
+            var x=0, y=0;
+            if (document.all) {//IE
+                x = (document.documentElement && document.documentElement.scrollLeft) ? document.documentElement.scrollLeft : document.body.scrollLeft;
+                y = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop : document.body.scrollTop;
+                x += window.event.clientX;
+                y += window.event.clientY;
+
+            } else {//Good Browsers
+                x = e.pageX;
+                y = e.pageY;
+            }
+            var that = $(e.target),tip = that.attr("tiptitle");
+            $("#qTip").empty().attr("style","left:"+ (x+e.offsetX)+"px!important;top:"+ (y+e.offsetY)+"px!important;").prepend(tip).show();
+        };
+        $scope.hideTipTitle = function(e){
+            $("#qTip").hide();
+        };
     }])
 });

@@ -659,7 +659,7 @@ require(['app'], function (app) {
             fourthDepart: "",
             fifthDepart: "",
             schbatch: "",
-            batch: localStorage.getItem('type'),
+            batch: $stateParams.batch,
             depart: [],//专业
             wish: [],//学习愿望（学文、理、工）
             department: [],//具体专业
@@ -864,15 +864,17 @@ require(['app'], function (app) {
 
         function init() {
 
+            console.log($stateParams.batch);
+
             getLoginUserInfo.isLogoin();
 
             setInterval(function(){
                 getLoginUserInfo.isLogoin();
             },600000);
 
-            if (localStorage.getItem('type') != null) {
+            if ($stateParams.batch != null) {
 
-                $scope.hope.batch = localStorage.getItem('type');
+               /* $scope.hope.batch = $stateParams.batch;*/
 
                 $scope.coverage = [
                     {
@@ -895,7 +897,7 @@ require(['app'], function (app) {
                 if (see != undefined) {
                     type = see;
                 } else {
-                    type = localStorage.getItem('type') == null ? 1 : localStorage.getItem('type');
+                    type = $scope.hope.batch == null ? 1 : $scope.hope.batch;
                 }
 
                 if (type <= 6) {
@@ -1521,6 +1523,10 @@ require(['app'], function (app) {
             }
         };
 
+        /**
+         * 地区添加双击事件
+         * @param e
+         */
         $scope.rejectAreaType = function(e){
             var that = $(e.target),city_id = that.attr("city_id"),status = that.attr("status");
             var istrue = $("#dropdown" + city_id).attr('data-istrue');
@@ -3185,6 +3191,14 @@ require(['app'], function (app) {
             $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
         };
 
+        $scope.rejectPersonl_0 = function(e){
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart_0 .wishId_" + id +" a");
+            var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr,$scope.hopeClassify.personals);
+            $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
+            $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
+            $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
+            $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
+        };
         $scope.agreePersonl_1 = function(e){
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart_1 .wishId_" + id +" a");
             var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr, $scope.hope.personalityObj,$scope.hopeClassify.personals);
@@ -3193,7 +3207,7 @@ require(['app'], function (app) {
             $scope.hope.personality_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
             $scope.hope.personalityArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
             $scope.hopeClassify.personals = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
-        }
+        };
 
         $scope.rejectPersonl_1 = function(e){
             var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart_1 .wishId_" + id +" a");
@@ -3535,12 +3549,13 @@ require(['app'], function (app) {
                 transformRequest: tramsform
             }).success(function (responseDate) {
                 if (responseDate.status == "1014") {
-                    alert("符合的高校太少，请在选择一些");
+                    alert("符合的高校太少，请再选择一些");
                 }else{
                     $scope.hope.id = responseDate.response.id;
                     $scope.hope.recommend = responseDate.response.recommend;
                     $scope.hope.table = responseDate.response.table;
                     $scope.hope.total = responseDate.response.total;
+                    $scope.hope.num = Math.ceil(responseDate.response.recommend/5);
                     localStorage.setItem("manualInfo", JSON.stringify(responseDate.response));
                     $('#myModal').modal('show');
                 }
@@ -3803,7 +3818,7 @@ require(['app'], function (app) {
             $scope.hope.personalitylist = personalitylist.concat($scope.hope.langueArr, $scope.hope.personalityArr);
         }
 
-        $scope.startChance = function (e) {
+        /*$scope.startChance = function (e) {
             var that = $(e.target), score = that.attr('score'), type = that.attr('type');
             if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
                 localStorage.setItem('type', type);
@@ -3811,6 +3826,35 @@ require(['app'], function (app) {
             } else {
                 alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
             }
-        }
+        };*/
+
+        /**
+         * hover事件
+         * @param e
+         */
+        $scope.showTipTitle = function(e){
+            var x=0, y=0;
+            if (document.all) {//IE
+                x = (document.documentElement && document.documentElement.scrollLeft) ? document.documentElement.scrollLeft : document.body.scrollLeft;
+                y = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop : document.body.scrollTop;
+                x += window.event.clientX;
+                y += window.event.clientY;
+
+            } else {//Good Browsers
+                x = e.pageX;
+                y = e.pageY;
+            }
+            var that = $(e.target),tip = that.attr("tiptitle");
+            $("#qTip").empty().attr("style","left:"+x+"px!important;top:"+y+"px!important;").prepend(tip).show();
+        };
+        /**
+         * 离开事件
+         * @param e
+         */
+        $scope.hideTipTitle = function(e){
+            $("#qTip").hide();
+        };
+
+
     }]);
 });
