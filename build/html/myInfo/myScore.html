@@ -5,7 +5,7 @@
             <form>
                 <div class="row">
                    <h3></h3>
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="padding-bottom: 20px;">
                         <div class="col-sm-7">
                             <div class="col-sm-6 text-right">
                                 <label>学科：</label>
@@ -23,12 +23,22 @@
                                 <label>批次：</label>
                             </div>
                             <div class="col-sm-8 text-left">
-                                <select class="form-control" ng-model="table.batch">
+                                <select class="form-control" ng-if="table.subject.length<=0" ng-model="table.batch">
+                                    <option value="">==请选择==</option>
+                                </select>
+                                <select class="form-control" ng-if="table.subject==1" ng-model="table.batch">
                                     <option value="">==请选择==</option>
                                     <option value="1">第一批次</option>
-                                    <option value="2">第二批次</option>
-                                    <option value="3">第三批次</option>
-                                    <option value="4">第四批次</option>
+                                    <option value="3">第二批次</option>
+                                    <option value="5">第三批次</option>
+                                    <option value="7">第四批次</option>
+                                </select>
+                                <select class="form-control"  ng-if="table.subject==2"  ng-model="table.batch">
+                                    <option value="">==请选择==</option>
+                                    <option value="2">第一批次</option>
+                                    <option value="4">第二批次</option>
+                                    <option value="6">第三批次</option>
+                                    <option value="8">第四批次</option>
                                 </select>
                             </div>
                         </div>
@@ -65,7 +75,7 @@
                             <div class="col-sm-6 text-right">
                                 <label>另一门：</label>
                             </div>
-                            <div class="col-sm-3 text-left">
+                            <div class="col-sm-3 text-left" style="padding: 0 10px;">
                                 <div class="form-group">
                                     <select ng-model="table.sub2" id="other" class="form-control">
                                         <option value="">=====</option>
@@ -93,58 +103,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="col-md-12">
-                        <div class="col-sm-2 text-right">
-                            <label>批次：</label>
-                        </div>
-                        <div class="col-sm-10  text-left">
-                            <div class="col-sm-12">
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch" value="1"/> 文科本一
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch"  value="3" /> 文科本二
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch"  value="5" /> 文科本三
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch" value="7" /> 文科高职
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12"  style="margin-top: 2px;">
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch"  value="2" /> 理科本一
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch"  value="4" /> 理科本二
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch"  value="6" /> 理科本三
-                                    </label>
-                                </div>
-                                <div class="btn-group">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="economic" ng-model="table.batch" value="8" /> 理科高职
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <div class="dropdown" style="display: inline-block;">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"  style="margin-top: 12px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="点击选择查询内容">
                             进入

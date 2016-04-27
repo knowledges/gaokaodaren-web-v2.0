@@ -3,28 +3,47 @@
     <form ng-submit="addScore(table)">
         <div class="row">
             <h3>志愿预测</h3>
-            <div class="col-md-12">
+            <div class="col-md-12" style="padding-bottom: 20px;">
                 <div class="col-sm-7">
-                    <div class="col-sm-5" style="text-align: right;">
+                    <div class="col-sm-6 text-right">
                         <label>学科：</label>
                     </div>
-                    <div class="col-sm-7 text-left">
-                        <input type="radio" ng-model="table.subject" value="1">文科
-                        <input type="radio" ng-model="table.subject" value="2">理科
+                    <div class="col-sm-6 text-left">
+                        <select class="form-control" ng-model="table.subject">
+                            <option value="">==请选择==</option>
+                            <option value="1">文科</option>
+                            <option value="2">理科</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="col-sm-4 text-right">
-                        <label>成绩：</label>
+                        <label>批次：</label>
                     </div>
                     <div class="col-sm-8 text-left">
-                        <input type="number" class="form-control" ng-model="table.score" placeholder="请输入分数"/>
+                        <select class="form-control" ng-if="table.subject.length<=0" ng-model="table.batch">
+                            <option value="">==请选择==</option>
+                        </select>
+                        <select class="form-control" ng-if="table.subject==1" ng-model="table.batch">
+                            <option value="">==请选择==</option>
+                            <option value="1">第一批次</option>
+                            <option value="3">第二批次</option>
+                            <option value="5">第三批次</option>
+                            <option value="7">第四批次</option>
+                        </select>
+                        <select class="form-control"  ng-if="table.subject==2"  ng-model="table.batch">
+                            <option value="">==请选择==</option>
+                            <option value="2">第一批次</option>
+                            <option value="4">第二批次</option>
+                            <option value="6">第三批次</option>
+                            <option value="8">第四批次</option>
+                        </select>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-sm-7">
-                    <div class="col-sm-5 text-right">
+                    <div class="col-sm-6 text-right">
                         <label>选测科目等级：</label>
                     </div>
                     <div class="col-sm-3 text-left">
@@ -32,7 +51,7 @@
                             <input type="text" class="form-control"  ng-model="table.sub1" ng-readonly="table.sub1"/>
                         </div>
                     </div>
-                    <div class="col-sm-4 text-left">
+                    <div class="col-sm-3 text-left">
                         <select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">
                             <option value=""> ---- </option>
                         </select>
@@ -40,12 +59,24 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="col-sm-4 text-right">
+                        <label>考分：</label>
+                    </div>
+                    <div class="col-sm-8 text-left">
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="table.score" placeholder="请输入分数"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-sm-7">
+                    <div class="col-sm-6 text-right">
                         <label>另一门：</label>
                     </div>
-                    <div class="col-sm-4 text-left">
+                    <div class="col-sm-3 text-left" style="padding: 0 10px;">
                         <div class="form-group">
-                            <select id="other"  ng-model="table.sub2" class="form-control">
-                                <option value="">==</option>
+                            <select ng-model="table.sub2" id="other" class="form-control">
+                                <option value="">=====</option>
                                 <option value="1">生物</option>
                                 <option value="2">化学</option>
                                 <option value="3">政治</option>
@@ -53,60 +84,19 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 text-left">
+                    <div class="col-sm-3 text-left">
                         <select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">
                             <option value=""> ---- </option>
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-sm-2 text-right">
-                    <label>批次：</label>
-                </div>
-                <div class="col-sm-10  text-left">
-                    <div class="col-sm-12">
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch" value="1"/> 文科本一
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch"  value="3" /> 文科本二
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch"  value="5" /> 文科本三
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch" value="7" /> 文科高职
-                            </label>
-                        </div>
+                <div class="col-sm-5">
+                    <div class="col-sm-4 text-right">
+                        <label>名次：</label>
                     </div>
-                    <div class="col-sm-12"  style="margin-top: 2px;">
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch"  value="2" /> 理科本一
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch"  value="4" /> 理科本二
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch"  value="6" /> 理科本三
-                            </label>
-                        </div>
-                        <div class="btn-group">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="economic" ng-model="table.batch" value="8" /> 理科高职
-                            </label>
+                    <div class="col-sm-8 text-left">
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="table.soft" placeholder="请输入名次"/>
                         </div>
                     </div>
                 </div>
@@ -115,63 +105,3 @@
         </div>
     </form>
 </div>
-<!--<div class="carousel-caption">-->
-    <!--<form ng-submit="addScore(table)">-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-5 hope_tabel">-->
-                <!--<h3>高考志愿预测</h3>-->
-                <!--<div class="row">-->
-                    <!--<div class="col-sm-4 text-right">-->
-                        <!--<label>学科：</label>-->
-                    <!--</div>-->
-                    <!--<div class="col-sm-8 text-left">-->
-                        <!--<div class="radio">-->
-                            <!--<label>-->
-                                <!--<input type="radio" ng-model="table.subject" value="1">文科-->
-                            <!--</label>-->
-                            <!--<label>-->
-                                <!--<input type="radio" ng-model="table.subject" value="2">理科-->
-                            <!--</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="col-sm-4 text-right">-->
-                        <!--<label>选测科目：</label>-->
-                    <!--</div>-->
-                    <!--<div class="col-sm-8 text-left">-->
-                        <!--<select class="form-control" ng-model="table.obl" ng-options="door.name for door in firstDoor track by door.id">-->
-                            <!--<option value=""> &#45;&#45;&#45;&#45; </option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="col-sm-4 text-right">-->
-                        <!--<label>另一门：</label>-->
-                    <!--</div>-->
-                    <!--<div class="col-sm-8 text-left">-->
-                        <!--<select class="form-control" ng-model="table.sel" ng-options="door.name for door in firstDoor track by door.id">-->
-                            <!--<option value=""> &#45;&#45;&#45;&#45; </option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="col-sm-4 text-right">-->
-                        <!--<label>成绩：</label>-->
-                    <!--</div>-->
-                    <!--<div class="col-sm-8 text-left">-->
-                        <!--<input type="number" class="form-control" ng-model="table.score" placeholder="请输入提报成绩"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<button class="btn btn-success btn-lg" type="submit">开始预测</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
-    <!--<div ng-if="">-->
-        <!--<h1>志愿预测</h1>-->
-        <!--<p>人之所以能，是相信能</p>-->
-        <!--<p><a href="#/chance" class="btn btn-primary btn-lg" role="button">开始预测</a></p>-->
-    <!--</div>-->
-<!--</div>-->

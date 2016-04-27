@@ -1,5 +1,6 @@
 /**
- * Created by Administrator on 2015/12/14.
+ * Created by qbl on 2016/4/26.
+ * 手动支付修改前
  */
 require(['app'], function (app) {
     app.factory("classifyClk", function () {
@@ -96,8 +97,8 @@ require(['app'], function (app) {
                             if(findDepar_status < 2 && typeObj.indexOf(findDepar.html())<0){
                                 findDepar.attr("status", "1").removeClass('cancle reject').addClass('agree');
                                 var obj = new Object();
-                                    obj.id = v;
-                                    obj.name = findDepar.html();
+                                obj.id = v;
+                                obj.name = findDepar.html();
                                 typeObj.push(obj);
                             }
                         }
@@ -107,8 +108,8 @@ require(['app'], function (app) {
                         var idx = $(v).attr(id);
                         if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)<0){
                             var obj = new Object();
-                                obj.id = idx;
-                                obj.name = $(v).html();
+                            obj.id = idx;
+                            obj.name = $(v).html();
                             $(v).attr("status", "1").removeClass('reject cancle').addClass('agree');
                             prefer.push(idx);
                             arr.push(obj);
@@ -122,10 +123,10 @@ require(['app'], function (app) {
                         }
                     });
 
-                   /* if(typeObj.indexOf(that.html())>=0){
+                    /* if(typeObj.indexOf(that.html())>=0){
 
-                        typeObj.splice(typeObj.indexOf(that.html()),1);
-                    }*/
+                     typeObj.splice(typeObj.indexOf(that.html()),1);
+                     }*/
                     $.each(parent,function(i,v){
                         if(v!=""){
                             var findDepar = $(".findDepart[course_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
@@ -864,17 +865,17 @@ require(['app'], function (app) {
 
         function init() {
 
-            /*console.log($stateParams.batch);*/
-            $("#recommend").modal('show');
+            console.log($stateParams.batch);
+
             getLoginUserInfo.isLogoin();
 
-            /*setInterval(function(){
+            setInterval(function(){
                 getLoginUserInfo.isLogoin();
             },600000);
-*/
+
             if ($stateParams.batch != null) {
 
-               /* $scope.hope.batch = $stateParams.batch;*/
+                /* $scope.hope.batch = $stateParams.batch;*/
 
                 $scope.coverage = [
                     {
@@ -1422,6 +1423,7 @@ require(['app'], function (app) {
                 });
 
             } else {
+                $("#recommend").modal('show');
                 $rootScope.loading = false;
                 return;
             }
@@ -3577,7 +3579,6 @@ require(['app'], function (app) {
                         }
                         $scope.hope.order_id = result.response.order_id;
                         $scope.hope.money = result.response.money;
-                        localStorage.setItem("type",$scope.hope.batch);
                         $('#modal-pay').modal('show');
                     });
                 }
@@ -3587,36 +3588,7 @@ require(['app'], function (app) {
          * 随机自选
          */
         $scope.manual = function () {
-            var param = {};
-                param.id =  $scope.hope.id;
-                param.a = [];
-                param.b = [];
-                param.c = [];
-                param.d = [];
-                param.e = [];
-
-            var tramsform = function (data) {
-                return $.param(data);
-            };
-
-            $http.post(loocha + "/exam/intention/manual", param, {
-                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest: tramsform
-            }).success(function (responseDate) {
-                    debugger;
-                    $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (result) {
-                        if (result.status == 1) {
-                            alert('没有找到订单');
-                            return;
-                        }
-                        $scope.hope.order_id = result.response.order_id;
-                        $scope.hope.money = result.response.money;
-                        localStorage.setItem("type",$scope.hope.batch);
-                        $('#modal-pay').modal('show');
-                    });
-            });
-
-            //openwin('#/refer1');
+            openwin('#/refer1');
         };
         /**
          * 数组清空
@@ -3848,14 +3820,14 @@ require(['app'], function (app) {
         }
 
         /*$scope.startChance = function (e) {
-            var that = $(e.target), score = that.attr('score'), type = that.attr('type');
-            if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
-                localStorage.setItem('type', type);
-                window.location.reload(0);
-            } else {
-                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
-            }
-        };*/
+         var that = $(e.target), score = that.attr('score'), type = that.attr('type');
+         if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
+         localStorage.setItem('type', type);
+         window.location.reload(0);
+         } else {
+         alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+         }
+         };*/
 
         /**
          * hover事件

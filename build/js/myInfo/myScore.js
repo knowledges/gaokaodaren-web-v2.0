@@ -90,7 +90,9 @@ require(['app'],function(app){
                     name: "D"
                 }
             ];
+
             $('.dropdown-toggle').dropdown();
+
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
 
             $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){

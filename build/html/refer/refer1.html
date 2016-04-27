@@ -1,8 +1,9 @@
+<div ng-include="'templete/model-loading/loading.html'"></div>
 <div class="container-fluid">
     <div class="row" id="table">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-            <div class="row" class="text-center"  id="main">
+            <div class="row" class="text-center" id="main">
                 <table id="tab_yxb" border="1" width="100%" cellpadding="0" cellspacing="0" table-layout="fixed">
                     <thead>
                     <tr class="text-center">
@@ -11,7 +12,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td  width="60">&nbsp;</td>
+                        <td width="60">&nbsp;</td>
                         <td class="text-center">
                             <h4>学校</h4>
                         </td>
@@ -25,317 +26,423 @@
                     </thead>
 
                     <tbody class="text-center">
-                        <tr>
-                            <td rowspan="6">A</td>
-                            <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firSchName" placeholder="1.请选择高校"/>
+                    <tr>
+                        <td rowspan="6">A</td>
+                        <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firSchName"
+                                       placeholder="1.请选择高校"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel(1)" data-target="#myModal">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    ng-click="showModel(1)" data-target="#myModal">
                                                 选择
                                             </button>
                                         </span>
-                                </div>
-                            </td>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_1" placeholder="1.请选择专业"/>
+                            </div>
+                        </td>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_1"
+                                       placeholder="1.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" hope="1" marjor="1" data-toggle="modal" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1" hope="1"
+                                                        marjor="1" data-toggle="modal" ng-click="showMarjor($event)"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                            <td rowspan="6" >
-                                是
-                            </td>
-                        </tr>
-                        <tr >
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_2" placeholder="2.请选择专业"/>
+                            </div>
+                        </td>
+                        <td rowspan="6">
+                            是
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_2"
+                                       placeholder="2.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" hope="1" marjor="2" data-toggle="modal" ng-click="showMarjor($event)"  data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1" hope="1"
+                                                        marjor="2" data-toggle="modal" ng-click="showMarjor($event)"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_3" placeholder="3.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_3"
+                                       placeholder="3.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="3" ng-click="showMarjor($event)"  data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1"
+                                                        data-toggle="modal" hope="1" marjor="3"
+                                                        ng-click="showMarjor($event)" data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_4" placeholder="4.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_4"
+                                       placeholder="4.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="4" ng-click="showMarjor($event)"  data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1"
+                                                        data-toggle="modal" hope="1" marjor="4"
+                                                        ng-click="showMarjor($event)" data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_5" placeholder="5.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_5"
+                                       placeholder="5.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="5" ng-click="showMarjor($event)"  data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1"
+                                                        data-toggle="modal" hope="1" marjor="5"
+                                                        ng-click="showMarjor($event)" data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.firDepart_6" placeholder="6.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.firDepart_6"
+                                       placeholder="6.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_1" data-toggle="modal" hope="1" marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_1"
+                                                        data-toggle="modal" hope="1" marjor="6"
+                                                        ng-click="showMarjor($event)" data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                     <tbody class="text-center">
-                        <tr>
-                            <td rowspan="6">B</td>
-                            <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senSchName" placeholder="2.请选择高校"/>
+                    <tr>
+                        <td rowspan="6">B</td>
+                        <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senSchName"
+                                       placeholder="2.请选择高校"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel(2)" data-target="#myModal">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    ng-click="showModel(2)" data-target="#myModal">
                                                 选择
                                             </button>
                                         </span>
-                                </div>
-                            </td>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_1" placeholder="1.请选择专业"/>
+                            </div>
+                        </td>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_1"
+                                       placeholder="1.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_2" hope="2" marjor="1" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary depart_2" hope="2" marjor="1"
+                                                    ng-click="showMarjor($event)" data-toggle="modal"
+                                                    data-target="#zyb_marjor">选择
+                                            </button>
                                         </span>
-                                </div>
-                            </td>
-                            <td rowspan="6" >
-                                是
-                            </td>
-                        </tr>
-                        <tr >
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_2" placeholder="2.请选择专业"/>
+                            </div>
+                        </td>
+                        <td rowspan="6">
+                            是
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_2"
+                                       placeholder="2.请选择专业"/>
                                             <span class="input-group-btn">
-                                               <button type="button" class="btn btn-primary depart_2" hope="2" marjor="2" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                               <button type="button" class="btn btn-primary depart_2" hope="2"
+                                                       marjor="2" ng-click="showMarjor($event)" data-toggle="modal"
+                                                       data-target="#zyb_marjor">选择
+                                               </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_3" placeholder="3.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_3"
+                                       placeholder="3.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_2" hope="2" marjor="3" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_2" hope="2"
+                                                        marjor="3" ng-click="showMarjor($event)" data-toggle="modal"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_4" placeholder="4.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_4"
+                                       placeholder="4.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_2" hope="2" marjor="4" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_2" hope="2"
+                                                        marjor="4" ng-click="showMarjor($event)" data-toggle="modal"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_5" placeholder="5.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_5"
+                                       placeholder="5.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_2" hope="2" marjor="5" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_2" hope="2"
+                                                        marjor="5" ng-click="showMarjor($event)" data-toggle="modal"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.senDepart_6" placeholder="6.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.senDepart_6"
+                                       placeholder="6.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_2" hope="2" marjor="6" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_2" hope="2"
+                                                        marjor="6" ng-click="showMarjor($event)" data-toggle="modal"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                     <tbody class="text-center">
-                        <tr>
-                            <td rowspan="6">C</td>
-                            <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiSchName" placeholder="3.请选择高校"/>
+                    <tr>
+                        <td rowspan="6">C</td>
+                        <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiSchName"
+                                       placeholder="3.请选择高校"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel(3)" data-target="#myModal">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        ng-click="showModel(3)" data-target="#myModal">
                                                     选择
                                                 </button>
                                             </span>
-                                </div>
-                            </td>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiDepart_1"  placeholder="1.请选择专业"/>
+                            </div>
+                        </td>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_1"
+                                       placeholder="1.请选择专业"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary depart_3" hope="3" marjor="1" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                                <button type="button" class="btn btn-primary depart_3" hope="3"
+                                                        marjor="1" ng-click="showMarjor($event)" data-toggle="modal"
+                                                        data-target="#zyb_marjor">选择
+                                                </button>
                                             </span>
-                                </div>
-                            </td>
-                            <td rowspan="6" >
-                                是
-                            </td>
-                        </tr>
-                        <tr >
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiDepart_2" placeholder="2.请选择专业"/>
+                            </div>
+                        </td>
+                        <td rowspan="6">
+                            是
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_2"
+                                       placeholder="2.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_3" hope="3" marjor="2" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary depart_3" hope="3" marjor="2"
+                                                    ng-click="showMarjor($event)" data-toggle="modal"
+                                                    data-target="#zyb_marjor">选择
+                                            </button>
                                         </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiDepart_3" placeholder="3.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_3"
+                                       placeholder="3.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_3"  hope="3" marjor="3" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary depart_3" hope="3" marjor="3"
+                                                    ng-click="showMarjor($event)" data-toggle="modal"
+                                                    data-target="#zyb_marjor">选择
+                                            </button>
                                         </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiDepart_4" placeholder="4.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_4"
+                                       placeholder="4.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_3"  hope="3" marjor="4" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary depart_3" hope="3" marjor="4"
+                                                    ng-click="showMarjor($event)" data-toggle="modal"
+                                                    data-target="#zyb_marjor">选择
+                                            </button>
                                         </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control"  ng-model="param.thiDepart_5" placeholder="5.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_5"
+                                       placeholder="5.请选择专业"/>
                                         <span class="input-group-btn">
-                                           <button type="button" class="btn btn-primary depart_3"  hope="3" marjor="5" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                           <button type="button" class="btn btn-primary depart_3" hope="3" marjor="5"
+                                                   ng-click="showMarjor($event)" data-toggle="modal"
+                                                   data-target="#zyb_marjor">选择
+                                           </button>
                                         </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.thiDepart_6" placeholder="6.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.thiDepart_6"
+                                       placeholder="6.请选择专业"/>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary depart_3" data-toggle="modal" hope="3" marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
+                                            <button type="button" class="btn btn-primary depart_3" data-toggle="modal"
+                                                    hope="3" marjor="6" ng-click="showMarjor($event)"
+                                                    data-target="#zyb_marjor">选择
+                                            </button>
                                         </span>
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                     <tbody class="text-center">
-                        <tr>
-                            <td rowspan="6">D</td>
-                            <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourSchName" placeholder="4.请选择高校"/>
+                    <tr>
+                        <td rowspan="6">D</td>
+                        <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourSchName"
+                                       placeholder="4.请选择高校"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel(4)" data-target="#myModal">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                ng-click="showModel(4)" data-target="#myModal">
                                             选择
                                         </button>
                                     </span>
-                                </div>
-                            </td>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourDepart_1"  placeholder="1.请选择专业"/>
+                            </div>
+                        </td>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_1"
+                                       placeholder="1.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="1" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="1"
+                                                ng-click="showMarjor($event)" data-toggle="modal"
+                                                data-target="#zyb_marjor">选择
+                                        </button>
                                     </span>
-                                </div>
-                            </td>
-                            <td rowspan="6" >
-                                是
-                            </td>
-                        </tr>
-                        <tr >
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourDepart_2" placeholder="2.请选择专业"/>
+                            </div>
+                        </td>
+                        <td rowspan="6">
+                            是
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_2"
+                                       placeholder="2.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="2" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="2"
+                                                ng-click="showMarjor($event)" data-toggle="modal"
+                                                data-target="#zyb_marjor">选择
+                                        </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourDepart_3" placeholder="3.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_3"
+                                       placeholder="3.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary depart_4"  hope="4" marjor="3" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="3"
+                                                ng-click="showMarjor($event)" data-toggle="modal"
+                                                data-target="#zyb_marjor">选择
+                                        </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourDepart_4" placeholder="4.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_4"
+                                       placeholder="4.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary depart_4"  hope="4" marjor="4" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary depart_4" hope="4" marjor="4"
+                                                ng-click="showMarjor($event)" data-toggle="modal"
+                                                data-target="#zyb_marjor">选择
+                                        </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control"  ng-model="param.fourDepart_5" placeholder="5.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_5"
+                                       placeholder="5.请选择专业"/>
                                     <span class="input-group-btn">
-                                       <button type="button" class="btn btn-primary depart_4"  hope="4" marjor="5" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                       <button type="button" class="btn btn-primary depart_4" hope="4" marjor="5"
+                                               ng-click="showMarjor($event)" data-toggle="modal"
+                                               data-target="#zyb_marjor">选择
+                                       </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:5px;">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="param.fourDepart_6" placeholder="6.请选择专业"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="param.fourDepart_6"
+                                       placeholder="6.请选择专业"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary depart_4" data-toggle="modal" hope="4" marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
+                                        <button type="button" class="btn btn-primary depart_4" data-toggle="modal"
+                                                hope="4" marjor="6" ng-click="showMarjor($event)"
+                                                data-target="#zyb_marjor">选择
+                                        </button>
                                     </span>
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                     <tbody class="text-center">
                     <tr>
                         <td rowspan="6">E</td>
-                        <td rowspan="6"  valign="top" style="padding:5px;vertical-align: middle;">
+                        <td rowspan="6" valign="top" style="padding:5px;vertical-align: middle;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fifthSchName" placeholder="5.请选择高校"/>
+                                <input type="text" class="form-control" ng-model="param.fifthSchName"
+                                       placeholder="5.请选择高校"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showModel(5)" data-target="#myModal">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                ng-click="showModel(5)" data-target="#myModal">
                                             选择
                                         </button>
                                     </span>
@@ -343,22 +450,30 @@
                         </td>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fifthDepart_1"  placeholder="1.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fifthDepart_1"
+                                       placeholder="1.请选择专业"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="1" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="1"
+                                            ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">
+                                        选择
+                                    </button>
                                 </span>
                             </div>
                         </td>
-                        <td rowspan="6" >
+                        <td rowspan="6">
                             是
                         </td>
                     </tr>
-                    <tr >
+                    <tr>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fifthDepart_2" placeholder="2.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fifthDepart_2"
+                                       placeholder="2.请选择专业"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="2" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="2"
+                                            ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">
+                                        选择
+                                    </button>
                                 </span>
                             </div>
                         </td>
@@ -366,9 +481,13 @@
                     <tr>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fifthDepart_3" placeholder="3.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fifthDepart_3"
+                                       placeholder="3.请选择专业"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary depart_5"  hope="5" marjor="3" ng-click="showMarjor($event)"  data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="3"
+                                            ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">
+                                        选择
+                                    </button>
                                 </span>
                             </div>
                         </td>
@@ -376,9 +495,13 @@
                     <tr>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fifthDepart_4" placeholder="4.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fifthDepart_4"
+                                       placeholder="4.请选择专业"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary depart_5"  hope="5" marjor="4" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary depart_5" hope="5" marjor="4"
+                                            ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">
+                                        选择
+                                    </button>
                                 </span>
                             </div>
                         </td>
@@ -386,9 +509,13 @@
                     <tr>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control"  ng-model="param.fifthDepart_5" placeholder="5.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fifthDepart_5"
+                                       placeholder="5.请选择专业"/>
                                 <span class="input-group-btn">
-                                   <button type="button" class="btn btn-primary depart_5"  hope="5" marjor="5" ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">选择</button>
+                                   <button type="button" class="btn btn-primary depart_5" hope="5" marjor="5"
+                                           ng-click="showMarjor($event)" data-toggle="modal" data-target="#zyb_marjor">
+                                       选择
+                                   </button>
                                 </span>
                             </div>
                         </td>
@@ -396,9 +523,12 @@
                     <tr>
                         <td style="padding:5px;">
                             <div class="input-group">
-                                <input type="text" class="form-control" ng-model="param.fourDepart_6" placeholder="6.请选择专业"/>
+                                <input type="text" class="form-control" ng-model="param.fourDepart_6"
+                                       placeholder="6.请选择专业"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary depart_5" data-toggle="modal" hope="5" marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择</button>
+                                    <button type="button" class="btn btn-primary depart_5" data-toggle="modal" hope="5"
+                                            marjor="6" ng-click="showMarjor($event)" data-target="#zyb_marjor">选择
+                                    </button>
                                 </span>
                             </div>
                         </td>
@@ -407,7 +537,9 @@
                 </table>
 
                 <div class="row col-sm-6">
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#zyb_random">提交</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" ng-click="reqOrder()">
+                        提交
+                    </button>
                 </div>
                 <div class="row col-sm-6">
                     <a href="javascript:history.go(0);" class="btn btn-warning  btn-block">重置</a>
@@ -417,14 +549,17 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"  ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" ng-click="close()"
+                                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4>获取下一份参考表</h4>
                             </div>
                             <div class="modal-body">
                                 需要支付{{order.money}}元，是否立即支付?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">取消</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">
+                                    取消
+                                </button>
                                 <button type="button" class="btn btn-primary" ng-click="payChance()">确定</button>
                             </div>
                         </div>
@@ -436,12 +571,12 @@
     </div>
 
     <!--mask start-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="sch_close"  ng-click="sch_close()">&times;</span>
+                        <span aria-hidden="true" class="sch_close" ng-click="sch_close()">&times;</span>
                     </button>
                     <h4 class="modal-title">以下学校适合作为志愿填报，请手动选择：</h4>
                 </div>
@@ -450,6 +585,7 @@
                         <p><i class=" icon-info-sign"></i>
                             1、下面推荐的是适合您“冲一冲”的学校，过于冒险、过于保守和选测等级不符合的学校不会被推荐；
                         </p>
+
                         <p>
                             2、投档概率为系统估算，仅供考生和家长参考，不代表最终实际投档结果！
                         </p>
@@ -468,15 +604,22 @@
                                 <h4 class="text-left">{{list.name}}</h4>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary" sid="{{list.id}}" name="{{list.name}}" ng-click="setUpSch($event,$index+1)" ng-if="!list.disabled">选为{{num}}志愿</button>
-                                <button class="btn btn-default" sid="{{list.id}}" name="{{list.name}}" ng-click="unSetUpSch($event,$index+1)" ng-click="unSetUp($event,index+1)" ng-if="list.disabled">取消</button>
+                                <button class="btn btn-primary" sid="{{list.id}}" name="{{list.name}}"
+                                        ng-click="setUpSch($event,$index+1)" ng-if="!list.disabled">选为{{num}}志愿
+                                </button>
+                                <button class="btn btn-default" sid="{{list.id}}" name="{{list.name}}"
+                                        ng-click="unSetUpSch($event,$index+1)" ng-click="unSetUp($event,index+1)"
+                                        ng-if="list.disabled">取消
+                                </button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default sch_close" data-dismiss="modal" ng-click="sch_close()">Close</button>
+                    <button type="button" class="btn btn-default sch_close" data-dismiss="modal" ng-click="sch_close()">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -497,6 +640,7 @@
                         <p><i class=" icon-info-sign"></i>
                             1、以下专业招生计划可能会有变动，以江苏省教育考试院公布的为准。
                         </p>
+
                         <p>
                             2、实际填报时，请务必对照最新《招生计划》确认招生专业和代码；
                         </p>
@@ -515,8 +659,14 @@
                                 <h4 class="text-left">{{deplist.name}}</h4>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary departSet" did="{{deplist.sdid}}" name="{{deplist.name}}" hope="{{num}}" ng-if="!deplist.disabled" ng-click="setUpMar($event,$index+1)">选择专业</button>
-                                <button class="btn btn-default departSet" did="{{deplist.sdid}}" name="{{deplist.name}}" hope="{{num}}" ng-if="deplist.disabled" ng-click="unSetUpMar($event,$index+1,deplist)">取消</button>
+                                <button class="btn btn-primary departSet" did="{{deplist.sdid}}" name="{{deplist.name}}"
+                                        hope="{{num}}" ng-if="!deplist.disabled" ng-click="setUpMar($event,$index+1)">
+                                    选择专业
+                                </button>
+                                <button class="btn btn-default departSet" did="{{deplist.sdid}}" name="{{deplist.name}}"
+                                        hope="{{num}}" ng-if="deplist.disabled"
+                                        ng-click="unSetUpMar($event,$index+1,deplist)">取消
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -529,11 +679,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="zyb_random" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <!-- <div class="modal fade" id="zyb_random" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">支付</h4>
                 </div>
                 <div class="modal-body">
@@ -545,13 +696,14 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <div class="modal fade" id="tip"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal fade" id="tip" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">交易提示</h4>
                 </div>
                 <div class="modal-body">

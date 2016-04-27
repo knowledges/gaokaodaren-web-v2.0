@@ -2,12 +2,12 @@
  * Created by qbl on 2016/2/1.
  */
 require(['app'], function (app) {
-    app.controller('referCtr', ['$scope', '$http', '$stateParams','loocha','getLoginUserInfo', function ($scope, $http, $stateParams,loocha,getLoginUserInfo) {
+    app.controller('referCtr', ['$rootScope','$scope', '$http', '$stateParams','$window','loocha','getLoginUserInfo', function ($rootScope,$scope, $http, $stateParams,$window,loocha,getLoginUserInfo) {
 
         $scope.info = {
             title: "",
             subtitle: "",
-            model: ""
+            model: "",
         };
 
         $scope.num = "";
@@ -68,14 +68,19 @@ require(['app'], function (app) {
         function init() {
             getLoginUserInfo.isLogoin();
 
-            setInterval(function(){
+            /*setInterval(function(){
                 getLoginUserInfo.isLogoin();
-            },600000);
+            },600000);*/
+
+            $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no"))
+                .success(function(data){
+                    var manualInfo = data.response;
+                    $scope.persons = manualInfo.schools;
+                    $scope.sub.id = manualInfo.id;
+                    $rootScope.loading = false;
+                });
 
             var type = localStorage.getItem('type') == null ? 1 : localStorage.getItem('type');
-            var manualInfo = JSON.parse(localStorage.getItem("manualInfo"));
-            $scope.persons = manualInfo.schools;
-            $scope.sub.id = manualInfo.id;
             switch (parseInt(type)) {
                 case 1:
                     $scope.info.title = "文科本一考生志愿意向表";
@@ -536,7 +541,7 @@ require(['app'], function (app) {
 
             $scope.sub.a[0] = $scope.sub.b[0] = $scope.sub.c[0] = $scope.sub.d[0] = $scope.sub.e[0] = 0;
             var param = {};
-                param.id = $scope.sub.id;
+                param.out_trade_no = localStorage.getItem("out_trade_no");
                 param.a = $scope.sub.a;
                 param.b = $scope.sub.b;
                 param.c = $scope.sub.c;
@@ -548,15 +553,16 @@ require(['app'], function (app) {
                 return $.param(data);
             };
 
-            $http.post(loocha+"/exam/intention/manual", param, {
+            $http.post(loocha+"/exam/intention/manual/save", param, {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (data) {
-                $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
-                    $scope.order_id = result.response.order_id;
-                    $scope.money = result.response.money;
-                    $("#zyb_random").show();
-                });
+                if(data.status == 3){
+                    alert("已提交");
+                }else if(data.status == 0){
+                    $window.location.href = "#/refer?orderId="+localStorage.getItem('out_trade_no')+"&type="+localStorage.getItem('type')+"&flag="+3;
+                    $window.location.reload(0);
+                }
             })
         };
 

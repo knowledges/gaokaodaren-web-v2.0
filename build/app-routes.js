@@ -29,12 +29,12 @@ define(['app'],function(app){
                         sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
                         sessionStorage.setItem("user_id",data.response.id);
                         sessionStorage.setItem("usernumber",data.response.name);
-                        $http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
+                        /*$http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
                             if(data<=0){
                                 alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
                                 window.location.href = "#/all/allScore";
                             }
-                        });
+                        });*/
                         $http.get(loocha+"/uscore?user_id="+data.response.id).success(function(data){
                             if(data.response!=null && data.response.length>0){
                                 $.each(data.response,function(i,v){

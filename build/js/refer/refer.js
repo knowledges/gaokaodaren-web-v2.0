@@ -13,7 +13,7 @@ require(['app'],function(app){
             }
         }
     }])
-    app.controller('referCtr',['$scope','$location','$window','$http','loocha','getLoginUserInfo',function($scope,$location,$window,$http,loocha,getLoginUserInfo){
+    app.controller('referCtr',['$scope','$location','$window','$http','$stateParams','loocha','getLoginUserInfo',function($scope,$location,$window,$http,$stateParams,loocha,getLoginUserInfo){
 
         $scope.order = {
                 orderId:"",
@@ -28,16 +28,25 @@ require(['app'],function(app){
                 area:"",
                 requestId:"",
                 orderShow:false,
+                schlArr_0:[],
+                schlArr_1:[],
+                schlArr_2:[],
+                schlArr_3:[],
+                schlArr_4:[],
                 departArr_0:[],
                 departArr_1:[],
                 departArr_2:[],
+                departArr_3:[],
+                departArr_4:[],
+                flag:"",
+                intentionId:"",
 
         };
 
         $scope.order.orderId = $location.$$search.orderId;
         $scope.order.type = $location.$$search.type;
-        $scope.order.flag = $location.$$search.flag;
-
+        $scope.order.flag = $location.$$search.flag!=undefined?$location.$$search.flag:window.location.hash.split("type=")[1];
+        $scope.order.title = $scope.order.flag == 2 ? "普通高校招生考生志愿推荐表":"普通高校招生考生志愿自选表";
         var yxb_title = [
             "",
             "【第一阶段填报文科类第一批本科院校志愿用表】",
@@ -81,8 +90,43 @@ require(['app'],function(app){
             }
         };
 
+        /**
+         * 获取下一份
+         */
         $scope.getReference = function(){
             getNewOrderInfo();
+        };
+        /**
+         * 获取下一份
+         */
+        $scope.getReference_1 = function(){
+            var param = {};
+            param.id =  $scope.order.intentionId;
+            param.a = [];
+            param.b = [];
+            param.c = [];
+            param.d = [];
+            param.e = [];
+
+            var tramsform = function (data) {
+                return $.param(data);
+            };
+
+            $http.post(loocha + "/exam/intention/manual", param, {
+                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest: tramsform
+            }).success(function (responseDate) {
+                $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
+                    if (data.status == 1) {
+                        alert('没有找到订单');
+                        return;
+                    }
+                    localStorage.setItem("type",$scope.order.type);
+                    $scope.orderout_trade_no = data.response.order_id;
+                    $scope.order.money = data.response.money;
+                    $scope.order.orderShow = true;
+                });
+            });
         };
 
         $scope.payChance = function(){
@@ -97,7 +141,6 @@ require(['app'],function(app){
 
         function init(){
             getLoginUserInfo.isLogoin();
-
             if($scope.order.flag == 4){
                 $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
                     .success(function (data) {
@@ -122,20 +165,33 @@ require(['app'],function(app){
             getLoginUserInfo.isLogoin();
             $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
                 .success(function(data,status){
-                    if(status== 2){
+                    if(data.status== 2){
                         alert('订单不存在！');
                         $window.location.href="#/all/reference";
                         return;
+                    }else if (data.status == "1016"){
+                        localStorage.setItem("out_trade_no",$scope.order.orderId);
+                        $window.location.href="#/refer1";
+                        return;
                     }
+                    $scope.order.intentionId = data.response.intentionId;
+                    $scope.order.type = data.response.type;
                     $scope.order.name =data.response.name;
                     $scope.order.number =data.response.number;
                     $scope.order.city =data.response.city;
                     $scope.order.area =data.response.area;
                     $scope.order.data = data.response.list;
                     $scope.order.money = data.response.money;
+                    $scope.order.schlArr_0 = data.response.list[0];
+                    $scope.order.schlArr_1 = data.response.list[1];
+                    $scope.order.schlArr_2 = data.response.list[2];
+                    $scope.order.schlArr_3 = data.response.list[3];
+                    $scope.order.schlArr_4 = data.response.list[4];
                     $scope.order.departArr_0 = data.response.list[0].departs;
                     $scope.order.departArr_1 = data.response.list[1].departs;
                     $scope.order.departArr_2 = data.response.list[2].departs;
+                    $scope.order.departArr_3 = data.response.list[3].departs;
+                    $scope.order.departArr_4 = data.response.list[4].departs;
                     $scope.order.requestId = data.response.intentionId;
                 });
         }
@@ -164,22 +220,69 @@ require(['app'],function(app){
         };
 
         $scope.showCase = function(){
-            $http.get(loocha+"/exam/intention?id="+$scope.order.requestId)
+            $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
                 .success(function(data){
                     var obj = data.response;
-                    var preferOrders = obj.preferOrders,preferSchoolNames = obj.preferSchoolNames,preferDepartNames = obj.preferDepartNames,
-                        preferCityNames = obj.preferCityNames, preferPersonalityNames = obj.preferPersonalityNames;
+                    var preferOrders = obj.preferOrders,
+                        preferSchoolNames = obj.preferSchoolNames,
+                        preferDepartNames = obj.preferDepartNames,
+                        preferCityNames = obj.preferCityNames,
+                        preferPersonalityNames = obj.preferPersonalityNames;
+
+                    caseModelScl (preferOrders,$scope.order.schlArr_0);
+                    caseModelScl (preferOrders,$scope.order.schlArr_1);
+                    caseModelScl (preferOrders,$scope.order.schlArr_2);
+                    caseModelScl (preferOrders,$scope.order.schlArr_3);
+                    caseModelScl (preferOrders,$scope.order.schlArr_4);
 
                     caseModel (preferOrders,$scope.order.departArr_0);
                     caseModel (preferOrders,$scope.order.departArr_1);
                     caseModel (preferOrders,$scope.order.departArr_2);
+                    caseModel (preferOrders,$scope.order.departArr_3);
+                    caseModel (preferOrders,$scope.order.departArr_4);
+
+                    $scope.order.data[0] = $scope.order.schlArr_0;
+                    $scope.order.data[1] = $scope.order.schlArr_1;
+                    $scope.order.data[2] = $scope.order.schlArr_2;
+                    $scope.order.data[3] = $scope.order.schlArr_3;
+                    $scope.order.data[4] = $scope.order.schlArr_4;
 
                     $scope.order.data[0].departs = $scope.order.departArr_0;
                     $scope.order.data[1].departs = $scope.order.departArr_1;
                     $scope.order.data[2].departs = $scope.order.departArr_2;
+                    $scope.order.data[3].departs = $scope.order.departArr_3;
+                    $scope.order.data[4].departs = $scope.order.departArr_4;
 
                     $("#cased").modal('show');
 
+                    function caseModelScl (array,newArray){
+
+                        var preferArr = newArray.schoolPrefer.split(",");
+                        newArray.cased =[];
+                        newArray.str = "";
+                        for(var i = 0;i<array.length;i++){
+
+                            for(var k = 0 ; k < preferArr.length;k++){
+                                if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
+                                    var schl = preferSchoolNames[parseInt(preferArr[i])-1];
+                                    newArray.cased.push(schl);
+                                    newArray.str = newArray.str +"高校第"+preferArr[i]+"优先 "
+                                /*}else if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
+                                    var dept = preferDepartNames[parseInt(preferArr[i])-1];
+                                    newArray[j].cased.push(dept);
+                                    newArray[j].str = newArray[j].str +"专业第"+preferArr[i]+"优先 "*/
+                                }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
+                                    var city = preferCityNames[parseInt(preferArr[i])-1];
+                                    newArray.cased.push(city);
+                                    newArray.str = newArray.str +"城市第"+preferArr[i]+"优先 "
+                                /*}else if (array[i] == 4 && preferArr[i]>0 && k == 0){//个性
+                                    var per = preferPersonalityNames[parseInt(preferArr[i])-1];
+                                    newArray[j].cased.push(per);
+                                    newArray[j].str = newArray[j].str +"个性第"+preferArr[i]+"优先 "*/
+                                }
+                            }
+                        }
+                    }
                     function caseModel (array,newArray){
                         for(var j = 0 ;j < newArray.length;j++){
 
@@ -189,18 +292,19 @@ require(['app'],function(app){
                             for(var i = 0;i<array.length;i++){
 
                                 for(var k = 0 ; k < preferArr.length;k++){
-                                    if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
+                                    /*if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
                                         var schl = preferSchoolNames[parseInt(preferArr[i])-1];
                                         newArray[j].cased.push(schl);
                                         newArray[j].str = newArray[j].str +"高校第"+preferArr[i]+"优先 "
-                                    }else if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
+                                    }else */
+                                    if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
                                         var dept = preferDepartNames[parseInt(preferArr[i])-1];
                                         newArray[j].cased.push(dept);
                                         newArray[j].str = newArray[j].str +"专业第"+preferArr[i]+"优先 "
-                                    }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
+                                   /* }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
                                         var city = preferCityNames[parseInt(preferArr[i])-1];
                                         newArray[j].cased.push(city);
-                                        newArray[j].str = newArray[j].str +"城市第"+preferArr[i]+"优先 "
+                                        newArray[j].str = newArray[j].str +"城市第"+preferArr[i]+"优先 "*/
                                     }else if (array[i] == 4 && preferArr[i]>0 && k == 0){//个性
                                         var per = preferPersonalityNames[parseInt(preferArr[i])-1];
                                         newArray[j].cased.push(per);

@@ -18,7 +18,8 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
     }]);
     app.controller("homeCtrl",['$rootScope','$scope','$window','$sce','homeService','data_province','displayService',function($rootScope,$scope,$window,$sce,homeService,data_province,displayService) {
         $scope.table = {
-            provincelist:""
+            provincelist:"",
+            economic:"",
         };
 
         $scope.ishide = displayService.isShow;
@@ -43,6 +44,13 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         $scope.back = function(){
             $scope.ishide = true;
             $scope.insertHTML = "";
+        };
+        $scope.intoDepth = function(){
+            if($scope.table.economic!=""){
+                $window.location.href="#/depth/depthInfo/batch="+$scope.table.economic;
+            }else{
+                alert("请选择批次");
+            }
         };
 
         $scope.$on("loading", function (ngRepeatFinishedEvent) {

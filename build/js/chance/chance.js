@@ -96,12 +96,12 @@ require(['app'],function(app){
 
         init ();
         function init(){
-            console.log($stateParams.batch);
+            //console.log($stateParams.batch);
             getLoginUserInfo.isLogoin();
 
-            setInterval(function(){
+            /*setInterval(function(){
                 getLoginUserInfo.isLogoin();
-            },600000);
+            },600000);*/
 
             $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
             $scope.userInfo.subject =subStr($scope.isChance);

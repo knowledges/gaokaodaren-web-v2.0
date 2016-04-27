@@ -61,9 +61,9 @@ require(['app'],function(app){
                     window.location.href="#/all/allScore";
                 }
 
-                setInterval(function(){
+             /*   setInterval(function(){
                     getLoginUserInfo.isLogoin();
-                },600000);
+                },600000);*/
 
             });
         },400);

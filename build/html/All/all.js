@@ -28,8 +28,7 @@ require(['app'], function (app) {
                         sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
                         window.location.href = "#/chance/batch="+data.response.type;
                     }else{
-                        var intentionId = data.response.intentionId;
-                        $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
+                        $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
                             window.location.href = "#/hope/batch="+data.response.type;
@@ -79,8 +78,8 @@ require(['app'], function (app) {
                         sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
                         window.location.href = "#/chance/batch="+data.response.type;
                     }else{
-                        var intentionId = data.response.intentionId;
-                        $http.get(loocha + '/exam/intention?id=' + intentionId).success(function (data) {
+                        //var intentionId = data.response.intentionId;
+                        $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
                             window.location.href = "#/hope/batch="+data.response.type;

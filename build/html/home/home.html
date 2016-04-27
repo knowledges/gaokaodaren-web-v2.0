@@ -23,7 +23,7 @@
                 <img src="img/005.jpg" alt="...">
                 <div class="carousel-caption">
                     <h1>志愿咨询</h1>
-                    <p><a class="btn btn-primary btn-lg" href="#/home" role="button">开始咨询</a></p>
+                    <p><a class="btn btn-primary btn-lg" href="#/home" role="button">进入</a></p>
                 </div>
             </div>
             <div class="item">
@@ -32,48 +32,48 @@
                     <div class="col-sm-12" style="margin-top:15px;">
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本一
+                                <input type="radio" ng-model="table.economic" value="1" /> 文科本一
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本二
+                                <input type="radio" ng-model="table.economic" value="3" /> 文科本二
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科本三
+                                <input type="radio" ng-model="table.economic" value="5" /> 文科本三
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 文科高职
+                                <input type="radio" ng-model="table.economic" value="7" /> 文科高职
                             </label>
                         </div>
                     </div>
                     <div class="col-sm-12" style="margin-top:15px;">
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本一
+                                <input type="radio" ng-model="table.economic" value="2" /> 理科本一
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本二
+                                <input type="radio" ng-model="table.economic" value="4" /> 理科本二
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科本三
+                                <input type="radio" ng-model="table.economic" value="6" /> 理科本三
                             </label>
                         </div>
                         <div class="btn-group">
                             <label class="btn btn-primary">
-                                <input type="radio" name="economic" /> 理科高职
+                                <input type="radio" ng-model="table.economic" value="8" /> 理科高职
                             </label>
                         </div>
                     </div>
-                    <div class="btn btn-primary btn-lg" style="margin-top:15px;">查询</div>
+                    <div class="btn btn-primary btn-lg" style="margin-top:15px;" ng-click="intoDepth()">进入</div>
                 </div>
                 <img src="img/bannersd.jpg" alt="...">
                 <div class="carousel-caption">
@@ -85,7 +85,7 @@
                 <img src="img/002.jpg" alt="...">
                 <div class="carousel-caption">
                     <h1>志愿范例</h1>
-                    <p><a class="btn btn-primary btn-lg" ui-sref="example.nav" role="button">去看看。</a></p>
+                    <p><a class="btn btn-primary btn-lg" ui-sref="example.nav" role="button">进入</a></p>
                 </div>
             </div>
         </div>

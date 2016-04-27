@@ -69,6 +69,7 @@ require(['app'],function(app){
 //
             $scope.condition.provincelist=data_province.data.response.list;
 //
+            $("#recommend").modal('show');
             var url ="";
             if($scope.condition.type<7){
                 url="/depart/prop?type=0&depart_type=0";

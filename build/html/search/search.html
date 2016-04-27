@@ -1,19 +1,21 @@
+<div ng-include="'templete/model-loading/loading.html'"></div>
 <div class="container text-center">
     <div class="container">
         <nav class="navbar menu-navbar">
-            <div class="text-center">
+            <div class="text-center"  ng-if="html.list.length<=0">
                 <h3>对不起没有找到任何内容！</h3>
             </div>
-            <!--  <div class="collapse navbar-collapse" ng-if="html.list.length>0">
+            <div class="collapse navbar-collapse" ng-if="html.list.length>0">
                  <div class="col-md-3">
                      <div class="list-group">
-                         <a class="list-group-item"  ng-repeat="list in html.list" content="{{list.content}}" ng-click="searchArticle($event)">{{list.name}}</a>
+                         <!--ng-click="searchArticle($event)" content="{{list.content}}" -->
+                         <a href="javascript:;;" class="list-group-item"  ng-repeat="list in html.list" on-finish-render="articleload" artice_id="{{list.id}}">{{list.title}}</a>
                      </div>
                  </div>
                  <div class="col-md-9">
                      <div ng-bind-html="html.content" class="text-left"></div>
                  </div>
-             </div> -->
+             </div>
         </nav>
     </div>
 </div>
