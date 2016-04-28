@@ -6,22 +6,14 @@
         <table class="table" ng-if="chance.list.length>0">
             <thead>
             <tr>
-                <td>#</td>
                 <td>列表</td>
-                <td>操作</td>
             </tr>
             </thead>
             <tbody>
-            <!--// is-loading-->
-            <tr ng-repeat="list in chance.list" ng-if="list.flag== 4">
-                <td>{{$index+1}}</td>
-                <td ng-switch="list.flag">
-                    <span ng-switch-when="4"> 第{{$index+1}}份概率表</span>
-                </td>
-                <!--<td>{{list.type % 2 == 1 ? "文科":"理科"}}第{{list.type}}批次</td>-->
-                <td ng-switch="list.flag">
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
-                       ng-click="seeHope(list.orderId,list.flag)">查询概率预测</a>
+            <tr ng-repeat="list in chance.list">
+                <td>
+                    <a href="javascript:;;" style="color:#000;"
+                       ng-click="seeHope(list.orderId,list.flag)">第{{$index+1}}份概率表</a>
                 </td>
             </tr>
             </tbody>
@@ -33,42 +25,16 @@
         <table class="table" ng-if="will.list.length>0">
             <thead>
             <tr>
-                <td>#</td>
                 <td>列表</td>
-                <td>操作</td>
             </tr>
             </thead>
             <tbody>
-            <!--// is-loading-->
-            <tr ng-repeat="list in will.list" ng-if="list.flag==2 || list.flag==3">
-                <td>{{$index+1}}</td>
-                <td ng-switch="list.flag">
-                    <span ng-switch-when="2"> 第{{$index+1}}份推荐表</span>
-                    <span ng-switch-when="3"> 第{{$index+1}}份推荐表</span>
-                    <!--<span ng-switch-when="4"> 第{{$index+1}}份概率表</span>-->
+            <tr ng-repeat="list in will.list">
+                <td ng-if="list.flag == 2">
+                    <a href="javascript:;;"  ng-click="seeHope(list.orderId,2)">第{{$index+1}}份推荐表</a>
                 </td>
-                <!--<td ng-switch="list.type">
-                    <span ng-switch-when="1">文科第1批次</span>
-                    <span ng-switch-when="3">文科第2批次</span>
-                    <span ng-switch-when="5">文科第3批次</span>
-                    <span ng-switch-when="7">文科高职</span>
-                    <span ng-switch-when="2">理科第1批次</span>
-                    <span ng-switch-when="4">理科第2批次</span>
-                    <span ng-switch-when="6">理科第3批次</span>
-                    <span ng-switch-when="8">理科高职</span>
-                </td>-->
-                <!--<td>{{list.type % 2 == 1 ? "文科":"理科"}}第{{list.type}}批次</td>-->
-                <td ng-switch="list.flag">
-                    <!--<a href="javascript:;;" class="btn btn-default" ng-switch-when="0"
-                       ng-click="seeHope(list.orderId,list.flag)">查询推荐表</a>-->
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="2"
-                       ng-click="seeHope(list.orderId,list.flag)">查询推荐表</a>
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="3"
-                       ng-click="seeHope(list.orderId,list.flag)">查询志愿手选表</a>
-                   <!-- <a href="javascript:;;" class="btn btn-default" ng-switch-when="4"
-                       ng-click="seeHope(list.orderId,list.flag)">查询概率预测</a>
-                    <a href="javascript:;;" class="btn btn-default" ng-switch-when="5"
-                       ng-click="seeHope(list.orderId,list.flag)">查询深度查询</a>-->
+                <td ng-if="list.flag == 3">
+                    <a href="javascript:;;" ng-click="seeHope(list.orderId,3)"> 第{{$index+1}}份推荐表(手动)</a>
                 </td>
             </tr>
             </tbody>
@@ -79,39 +45,18 @@
         <table class="table" ng-if="refer.list.length>0">
             <thead>
             <tr>
-                <td>#</td>
                 <td>科目</td>
-                <td>订单生成时间</td>
-                <td>交易金额</td>
-                <td>操作</td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="list in refer.list"  ng-if="list.flag==2||list.flag==3">
-                <td>{{$index+1}}</td>
-                <td ng-switch="list.type">
-                    <span ng-switch-when="1">文科第1批次</span>
-                    <span ng-switch-when="3">文科第2批次</span>
-                    <span ng-switch-when="5">文科第3批次</span>
-                    <span ng-switch-when="7">文科高职</span>
-                    <span ng-switch-when="2">理科第1批次</span>
-                    <span ng-switch-when="4">理科第2批次</span>
-                    <span ng-switch-when="6">理科第3批次</span>
-                    <span ng-switch-when="8">理科高职</span>
+            <tr ng-repeat="list in refer.list">
+                <td ng-if="list.flag == 2">
+                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=2" style="color:#000;"
+                            >第{{$index+1}}意向表</a>
                 </td>
-                <td>{{list.time | date :'yyyy-MM-dd hh:mm'}}</td>
-                <td>{{list.money}}</td>
-                <td ng-switch="list.flag">
-                    <!--<a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="0"
-                            s</a>-->
-                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=2" class="btn btn-default" ng-switch-when="2"
-                            >查询志愿推荐表</a>
-                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=3" class="btn btn-default" ng-switch-when="3"
-                            >查询志愿手选表</a>
-                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="4"
-                            >查询概率预测</a>
-                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}" class="btn btn-default" ng-switch-when="5"
-                            >查询深度查询</a>
+                <td ng-if="list.flag == 3">
+                    <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=3"  style="color:#000;"
+                            >第{{$index+1}}意向表(手动)</a>
                 </td>
             </tr>
             </tbody>

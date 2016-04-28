@@ -6,225 +6,61 @@
         </ul>
     </div>
     <div class="col-sm-9" style="padding: 0">
-        <ul class="list-group" id="menu" >
-            <li class="list-group-item" ng-repeat="list in menuArr"><a href="javascript:;;" ng-click="findMenuInfo($index+1)" idx="{{list.id}}">{{list.name}}</a></li>
-        </ul>
-        <ul id="menu-infolist" style="display: none;" class="nav menu-nav text-center newNav">
-            <li ng-repeat="list in menuInfoArr" ng-if="$first">
-                <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="true" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
-                <ul id="chart-collpsed{{list.id}}" class="collapse in" data-toggle="collapse in" aria-expanded="true">
-                    <li class="list-group-item" ng-repeat="arr in list.sublist">
-                        <span class="spanClk" ng-click="subClk($event)" style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}">{{arr.name}}</span>
-                        <ul class="list-group list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
-                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplate="{{sub.inputTemplate}}" money="{{sub.money}}" leaf="{{sub.leaf}}" inputtemplete="{{sub.inputtemplete}}">{{sub.name}}</li>
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default" ng-repeat="list in menuArr" on-finish-render="depthmenu">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title text-left">
+                        <a href="javascript:;;" idx="{{list.id}}">
+                            {{list.name}}
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse collapse in" ng-if="$first">
+                    <div ng-repeat="sub in list.sublist" on-finish-childrender="depthChilaMenu">
+                        <div class="panel-footer text-left" style="border-top:1px solid #ccc; cursor: pointer;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{sub.name}}
+                        </div>
+                         <ul class="list-group" ng-if="$first">
+                            <li class="list-group-item" ng-repeat="arr in sub.sublist" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}" flag="{{arr.flag}}"  style="cursor: pointer;" >
+                                {{arr.name}}
+                                <ul class="list-group" style="margin: 0;" ng-if="arr.leaf==0">
+                                    <li class="list-group-item text-right" ng-repeat="sublist in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sublist.id}}" inputTemplate="{{sublist.inputTemplate}}" money="{{sublist.money}}" leaf="{{sublist.leaf}}" inputtemplete="{{sublist.inputtemplete}}" flag="{{sublist.flag}}">{{sublist.name}}</li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                </ul>
-            </li>
-            <li ng-repeat="list in menuInfoArr" on-finish-render="depthlist" ng-if="!$first">
-                <a href="javascript:;;" data-target="#chart-collpsed{{list.id}}" aria-expanded="false" data-toggle="collapse" title="{{list.name}}">{{list.name}}</a>
-                <ul id="chart-collpsed{{list.id}}" class="collapse" data-toggle="collapse in" aria-expanded="false">
-                    <li class="list-group-item" ng-repeat="arr in list.sublist">
-                        <span class="spanClk" ng-click="subClk($event)"  style="cursor: pointer;" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}">{{arr.name}}</span>
-                        <ul class="list-group  list-group-ul" ng-if="arr.leaf==0" style="display:none;position: absolute; top: 0;z-index: 999;right: 0;">
-                            <li class="list-group-item" ng-repeat="sub in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sub.id}}" inputTemplate="{{sub.inputTemplate}}">{{sub.name}}</li>
+                        <ul class="list-group" ng-if="!$first" style="display: none;">
+                            <li class="list-group-item" ng-repeat="arr in sub.sublist" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}" flag="{{arr.flag}}"  style="cursor: pointer;">
+                                {{arr.name}}
+                                <ul class="list-group" style="margin: 0;" ng-if="arr.leaf==0">
+                                    <li class="list-group-item text-right" ng-repeat="sublist in arr.sublist"  ng-click="subClk($event)" style="cursor: pointer;" idx="{{sublist.id}}" inputTemplate="{{sublist.inputTemplate}}" money="{{sublist.money}}" leaf="{{sublist.leaf}}" inputtemplete="{{sublist.inputtemplete}}" flag="{{sublist.flag}}"  style="cursor: pointer;" >{{sublist.name}}</li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="modal " style="background: rgba(0, 0, 0, 0.75); display:none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">深度查询条件选择</h4>
-            </div>
-            <div class="modal-body">
-                <!--|| condition.inputTemplate == 0-->
-                <div class="row" ng-if="condition.inputTemplate == 0">
-                    <div class="col-sm-3 text-right">
-                        <label>请输入年限:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control  timer" ng-model="condition.timer">
-                            <option value="">==请选择年限==</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                        </select>
                     </div>
                 </div>
-                <div class="row" ng-if="condition.inputTemplate == 1">
-                    <div class="col-sm-3 text-right">
-                        <label>请输入年限:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.timer">
-                            <option value="">==请选择年限==</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName"  placeholder="请输入高校名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 2">
-                    <div class="col-sm-3 text-right">
-                        <label>请输入年限:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.timer">
-                            <option value="">==请选择年限==</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
+                <div class="panel-collapse collapse" ng-if="!$first">
+                    <div ng-repeat="sub in list.sublist">
+                        <div class="panel-footer text-left" style="border-top:1px solid #ccc; cursor: pointer;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{sub.name}}
+                        </div>
+                        <ul class="list-group" ng-if="$first">
+                            <li class="list-group-item" ng-repeat="arr in sub.sublist" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}" flag="{{arr.flag}}"  style="cursor: pointer;" >
+                                {{arr.name}}
+                                <ul class="list-group" style="margin: 0;" ng-if="arr.leaf==0">
+                                    <li class="list-group-item text-right" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sublist.id}}" inputTemplate="{{sublist.inputTemplate}}" money="{{sublist.money}}" leaf="{{sublist.leaf}}" inputtemplete="{{sublist.inputtemplete}}" flag="{{sublist.flag}}">{{sublist.name}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="list-group" ng-if="!$first" style="display: none;">
+                            <li class="list-group-item" ng-repeat="arr in sub.sublist" idx="{{arr.id}}" money="{{arr.money}}" leaf="{{arr.leaf}}" inputTemplate="{{arr.inputTemplate}}" flag="{{arr.flag}}"  style="cursor: pointer;">
+                                {{arr.name}}
+                                <ul class="list-group" style="margin: 0;" ng-if="arr.leaf==0">
+                                    <li class="list-group-item text-right" ng-repeat="sublist in arr.sublist" ng-click="subClk($event)" style="cursor: pointer;" idx="{{sublist.id}}" inputTemplate="{{sublist.inputTemplate}}" money="{{sublist.money}}" leaf="{{sublist.leaf}}" inputtemplete="{{sublist.inputtemplete}}" flag="{{sublist.flag}}"  style="cursor: pointer;" >{{sublist.name}}</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="row" ng-if="condition.inputTemplate == 3">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择选科等级:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.\">
-                            <option value="">==请选择选科等级==</option>
-                            <option value="A%2bA%2b">A+,A+</option>
-                            <option value="A%2bA">A+,A</option>
-                            <option value="AA">A,A</option>
-                            <option value="AB%2b;">A,B+</option>
-                            <option value="AB">A,B</option>
-                            <option value="B%2bB%2b">B+,B+</option>
-                            <option value="B%2bB">B+,B</option>
-                            <option value="BB">B,B</option>
-                            <option value="BC">B,C</option>
-                            <option value="CC">C,C</option>
-                            <option value="CD">C,D</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 4">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择类别:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.attr">
-                            <option value="">==请选择类别==</option>
-                            <option value="17">公办</option>
-                            <option value="18">民办</option>
-                            <option value="24">中外合作办</option>
-                            <option value="20">985工程高校</option>
-                            <option value="21">211工程高校</option>
-                            <option value="1">综合类</option>
-                            <option value="2">工科类</option>
-                            <option value="3">农业类</option>
-                            <option value="4">林业类</option>
-                            <option value="5">医药类</option>
-                            <option value="6">师范类</option>
-                            <option value="7">语言类</option>
-                            <option value="8">财经类</option>
-                            <option value="9">政法类</option>
-                            <option value="10">体育类</option>
-                            <option value="11">民族类</option>
-                            <option value="12">教育部直属</option>
-                            <option value="32">分校区（办学点）</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 5">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择大类:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.departprop">
-                            <option value="">==请选择大类==</option>
-                            <option ng-repeat="list in condition.departproplist" value="{{list.id}}">{{list.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 6">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择年限:</label>
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-control timer" ng-model="condition.timer">
-                            <option value="">==请选择==</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3 text-right">
-                        <label>请选择城市:</label>
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-control timer" ng-model="condition.city">
-                            <option value="">==请选择==</option>
-                            <option ng-repeat="list in condition.provincelist" value="{{list.id}}">{{list.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 7">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择收费标准:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.charge">
-                            <option value="">==请选择==</option>
-                            <option value="104">部分多收费</option>
-                            <option value="105">中外合作办学</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 8">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择城市:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.city">
-                            <option value="">==请选择==</option>
-                            <option ng-repeat="list in condition.provincelist" value="{{list.id}}">{{list.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 9">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 10">
-                    <div class="col-sm-3 text-right">
-                        <label>请输入:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 11">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="subInfo" ng-click="subOrder($event)">提交订单</button>
             </div>
         </div>
     </div>

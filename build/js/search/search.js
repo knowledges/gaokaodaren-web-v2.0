@@ -20,7 +20,8 @@ require(['app'],function(app){
         console.log($stateParams);
         $scope.html={
             list:[],
-            content:""
+            content:"",
+            key:$stateParams.key
         };
         init();
         function init(){
@@ -31,19 +32,19 @@ require(['app'],function(app){
             });
         };
 
-     /*   $scope.searchArticle = function(id){
-           $http.get(loocha+"/article/show/"+id)
-               .success(function(data){
-                   $scope.html.content =$sce.trustAsHtml(data);
-               });
-        };*/
+        /*   $scope.searchArticle = function(id){
+         $http.get(loocha+"/article/show/"+id)
+         .success(function(data){
+         $scope.html.content =$sce.trustAsHtml(data);
+         });
+         };*/
 
         $scope.$on("articleload", function (ngRepeatFinishedEvent) {
             $(".list-group-item").click(function(e){
                 var that = $(e.target),artice_id = that.attr("artice_id");
                 $(".list-group-item").removeClass("active");
                 that.addClass("active");
-                $http.get(loocha+"/article/show/"+artice_id)
+                $http.get(loocha+"/article/show/"+artice_id + "?key=" + $scope.html.key)
                     .success(function(data){
                         $scope.html.content =$sce.trustAsHtml(data);
                     });

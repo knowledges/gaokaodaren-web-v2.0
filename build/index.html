@@ -86,19 +86,19 @@
             </a>
         </div>
         <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" ng-controller="pageJumpCtr" >
                 <li><a ui-sref="home">首页</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="<br/>本栏目免费与您交流高考志愿填报有关话题：<br/>
-                        1.填报高考志愿有哪些要领？（填报要领） <br/>
-                        2.如何恰到好处地利用您的高考分数和名次填报高考志愿？（分数分析） <br/>
-                        3.如何充分利用高校招生政策填报高考志愿？（招生政策） <br/>
-                        4.您将要奔赴求学的大学长得啥样？（高校介绍） <br/>
-                        5.您将要在大学里学有成就，究竟能学到啥？（专业介绍） <br/>
-                        6.您将要生活几年的那个城市长的啥样？（城市介绍）<br/>
-                        7.您未来发展的前程路径可能怎样？（毕业去向） <br/>
-                        8.如何充分利用您的个性特征填报高考志愿？（个性特征） <br/>
-                        9.比较典型的填报高考志愿的倾向性思维模式有哪些？（咨询线路） <br/>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="<br/>本栏目免费向您提供高考志愿填报的有关咨询： <br/>
+                        1.填报高考志愿有哪些要领？（“填报要领”栏目）<br/>
+                        2.2.如何恰到好处地利用您的高考分数和名次填报高考志愿？（“分数分析”栏目）  <br/>
+                        3.如何充分利用高校招生政策填报高考志愿？（“招生政策”栏目） <br/>
+                        4.您将要奔赴求学的大学长的啥样？（“高校介绍”栏目） <br/>
+                        5.您将要在大学里学有成就，究竟能学到啥？（“专业介绍”栏目）<br/>
+                        6.您将要生活几年的那个城市长的啥样？（“城市介绍”栏目）<br/>
+                        7.您未来发展的前程路径可能怎样？（“毕业去向”栏目） <br/>
+                        8.如何充分利用您的个性特征填报高考志愿？（“个性特征”栏目） <br/>
+                        9.比较典型的填报高考志愿的模式有哪些？（“咨询线路”栏目） <br/>
                         您可以尽享其中<br/>">志愿咨询
                         <!--<span class="caret"></span>-->
                     </a>
@@ -116,8 +116,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" title="<br/>
+                    <a href="javascript:;;" ng-click="jumpPage(1);" title="<br/>
                         本栏目将向您提供填报高考志愿需要深度查询的有关资料，请注意以下几点：<br/>
                         1、多数资料属于内部资料，属于保密资料，不得下载，不得转录！ <br/>
                         2、多数资料属于本网站整理资料，解释权属于本网站！<br/>
@@ -131,7 +130,7 @@
                         ">深度查询
                         <!--<span class="caret"></span>-->
                     </a>
-                    <ul class="dropdown-menu">
+                   <!-- <ul class="dropdown-menu">
                         <li><a ui-sref="depth.info({batch:1})">文科本一</a></li>
                         <li><a ui-sref="depth.info({batch:3})">文科本二</a></li>
                         <li><a ui-sref="depth.info({batch:5})">文科本三</a></li>
@@ -141,11 +140,10 @@
                         <li><a ui-sref="depth.info({batch:4})">理科本二</a></li>
                         <li><a ui-sref="depth.info({batch:6})">理科本三</a></li>
                         <li><a ui-sref="depth.info({batch:8})">理科高职</a></li>
-                    </ul>
+                    </ul>-->
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" title="<br/>
+                    <a href="javascript:;;"   ng-click="jumpPage(2);"  title="<br/>
                        &nbsp;&nbsp;&nbsp;&nbsp;本栏目属于个性化服务栏目，量身定制。操作步骤如下：<br/>
                        &nbsp;&nbsp;&nbsp;&nbsp;1、注册、登陆<br/>
                        &nbsp;&nbsp;&nbsp;&nbsp;2、填写（“点击”）成绩等基本信息<br/>
@@ -163,7 +161,7 @@
                        &nbsp;&nbsp;&nbsp;&nbsp;8、打印（非必需）<br/>
                        &nbsp;&nbsp;&nbsp;&nbsp;9、获取下一份（如果存在，一般获取1-3份《推荐表》参考就可以了，当然如果有多份也可以获取。） <br/>
                        ">志愿推荐</a>
-                    <ul class="dropdown-menu">
+                   <!-- <ul class="dropdown-menu">
                         <li><a ui-sref="hope({batch:1})">文科本一</a></li>
                         <li><a ui-sref="hope({batch:3})">文科本二</a></li>
                         <li><a ui-sref="hope({batch:5})">文科本三</a></li>
@@ -173,11 +171,10 @@
                         <li><a ui-sref="hope({batch:4})">理科本二</a></li>
                         <li><a ui-sref="hope({batch:6})">理科本三</a></li>
                         <li><a ui-sref="hope({batch:8})">理科高职</a></li>
-                    </ul>
+                    </ul>-->
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" title="
+                    <a href="javascript:;;"  ng-click="jumpPage(3);"  title="<br/>
                        本栏目一是帮您预测您所填报或将要填报的高校、专业，可能录取的概率情况，（计算概率没有意义的四类除外：i）今年新招生的高校或专业；ii）仅招生一年的高校或专业；iii）仅招生二年的高校或专业；iv）压线考生。其中压线考生请查阅本网站“深度查询”栏目、“分数分析深度查询”专题、“压线考生深度查询”条款）让您心中有数；（根据高校或专业查概率）
                        <p>二是帮您寻找哪些高校或某一具体高校的哪些专业可能录取您的概率，哪些可以冲一冲，哪些可以稳一稳，哪些可以保底。（根据概率查高校，进而查专业）<br/></p>
                        具体操作步骤如下：<br/>
@@ -187,7 +184,7 @@
                        4、缴费（10元/校，10元/专业）<br/>
                        5、具体预测<br/>
                        ">志愿预测</a>
-                    <ul class="dropdown-menu">
+                    <!--<ul class="dropdown-menu">
                         <li><a ui-sref="chance({batch:1})">文科本一</a></li>
                         <li><a ui-sref="chance({batch:3})">文科本二</a></li>
                         <li><a ui-sref="chance({batch:5})">文科本三</a></li>
@@ -197,11 +194,11 @@
                         <li><a ui-sref="chance({batch:4})">理科本二</a></li>
                         <li><a ui-sref="chance({batch:6})">理科本三</a></li>
                         <li><a ui-sref="chance({batch:8})">理科高职</a></li>
-                    </ul>
+                    </ul>-->
                 </li>
                 <li>
                     <a ui-sref="example.nav"
-                       title="本栏目免费向您提供与您科别相同、选测科目等级相同、高考分数相近、名次相近的考生，高考志愿填报成功的范例，供您参考。 
+                       title="<br/>本栏目免费向您提供与您科别相同、选测科目等级相同、高考分数相近、名次相近的考生，高考志愿填报成功的范例，供您参考。 
                        ">志愿范例</a>
                 </li>
             </ul>

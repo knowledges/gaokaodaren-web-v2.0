@@ -35,9 +35,6 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         init();
 
         function init() {
-            $('.carousel').carousel({
-                interval: 5000
-            });
             $scope.table.provincelist = data_province.data.response.list;
         }
 
@@ -54,6 +51,10 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         };
 
         $scope.$on("loading", function (ngRepeatFinishedEvent) {
+            $('.carousel').carousel({
+                interval: 5000
+            });
+
             $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
             function handlerIn(){
                 $('.carousel').carousel('pause');

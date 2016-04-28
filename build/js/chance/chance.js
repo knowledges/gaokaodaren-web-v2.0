@@ -141,7 +141,7 @@ require(['app'],function(app){
                 }
             }
 
-            if(localStorage.getItem('type')!= null){
+            if($scope.isChance!= null){
                 if(sessionStorage.getItem("admitFlag")!=null){
                     var flag = sessionStorage.getItem("admitFlag").split(",");
                     flag.splice(0,1);
@@ -207,6 +207,10 @@ require(['app'],function(app){
                         alert("请确认‘预测项目’选项，缴费预测");
                         $(".chance_[value=2]").attr("checked","true");
                         return;
+                    }else if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
                     }
 
                     $scope.forecast.rangeArr = data.response;
@@ -265,8 +269,21 @@ require(['app'],function(app){
                     }else if (data.status == "1010"){
                         alert("该高校为新招高校，计算概率没有意义");
                         return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance_0 = data.response.admit;
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
                     }
-                    $scope.forecast.schChance_0 = data.response.admit;
+
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -306,6 +323,11 @@ require(['app'],function(app){
                     }else if (data.status == "2"){
                         alert('订单号不存在！');
                         return;
+                    }else if (data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
                     }
                     $scope.forecast.schChance_3 = data.response.admit;
                 })
@@ -390,8 +412,20 @@ require(['app'],function(app){
                     }else if (data.status == "1010"){
                         alert("该高校为新招高校，计算概率没有意义");
                         return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance = data.response.admit;
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
                     }
-                    $scope.forecast.schChance = data.response.admit;
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -416,7 +450,7 @@ require(['app'],function(app){
          * 根据个性标签id 获取专业列表
          */
         $scope.getpersonalityId = function(){
-
+            $scope.forecast.pDepart_id = "",$scope.forecast.pSchool_id = "";
             //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
             $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
@@ -490,8 +524,21 @@ require(['app'],function(app){
                     }else if (data.status == "1010"){
                         alert("该专业为新招专业，计算概率没有意义");
                         return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance_6 = data.response.admit;
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
                     }
-                    $scope.forecast.schChance_6 = data.response.admit;
+
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -508,7 +555,7 @@ require(['app'],function(app){
             $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
             var style_id = $scope.forecast.style_id;
             if(style_id == 0){
-                url=loocha+"/school/attr/";
+                url=loocha+"/school/attr?type=" + $scope.isChance;
             }else if(style_id == 1){
                 url=loocha+"/school/prop?type=1&depart_type=1";
             }else if(style_id == 2){
@@ -612,8 +659,20 @@ require(['app'],function(app){
                     }else if (data.status == "1010"){
                         alert("该高校为新招高校，计算概率没有意义");
                         return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance_1 = data.response.admit;
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
                     }
-                    $scope.forecast.schChance_1 = data.response.admit;
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -628,7 +687,7 @@ require(['app'],function(app){
             if(e.keyCode == 229){
                 $timeout.cancel(_time);
                 _time = $timeout(function(e){
-                    $http.get(loocha+"/departlist?type="+$scope.isChance+"&name="+$scope.forecast.schl_name+"&index=0&limit=999").success(function(data){
+                    $http.get(loocha+"/departlist?type="+$scope.isChance+"&code="+$scope.forecast.schl_id+"&name="+$scope.forecast.schl_name+"&index=0&limit=999").success(function(data){
                         $scope.forecast.schl_departArr = data.response.list;
                     });
                 },500);
@@ -692,8 +751,20 @@ require(['app'],function(app){
                 }else if (data.status == "1010"){
                     alert("该专业为新招专业，计算概率没有意义");
                     return;
+                }else if(data.status == "1004"){
+                    alert("订单已存在，请先支付继续查询");
+                    $(".chance_[value=2]").attr("checked","true");
+                    return;
+                }else if(data.status == 0){
+                    $scope.forecast.departChance = data.response.admit;
+                }else if (data.status == "1009"){
+                    alert("您是压线考生");
+                }else if (data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else{
+                    alert("未知错误");
                 }
-                $scope.forecast.departChance = data.response.admit;
             })
         };
 
@@ -759,8 +830,20 @@ require(['app'],function(app){
                 }else if (data.status == "1010"){
                     alert("该专业为新招专业，计算概率没有意义");
                     return;
+                }else if(data.status == "1004"){
+                    alert("订单已存在，请先支付继续查询");
+                    $(".chance_[value=2]").attr("checked","true");
+                    return;
+                }else if(data.status == 0){
+                    $scope.forecast.schChance_2 = data.response.admit;
+                }else if (data.status == "1009"){
+                    alert("您是压线考生");
+                }else if (data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else{
+                    alert("未知错误");
                 }
-                $scope.forecast.schChance_2 = data.response.admit;
             })
         };
 
@@ -796,6 +879,11 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(data){
+                if (data.status == 4){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
                     sessionStorage.setItem("order_id",result.response.order_id);
                     $scope.order_id = result.response.order_id;
@@ -810,7 +898,7 @@ require(['app'],function(app){
          * 开始缴费
          */
         $scope.pay = function(){
-            openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+localStorage.getItem("type"));
+            openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+$scope.isChance);
             $('#zyb_random').modal('hide');
             $("#tip").modal('show');
         };
@@ -853,6 +941,8 @@ require(['app'],function(app){
                         $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
                         $("#mask-school").fadeIn(500);
                     });
+                }else{
+                    alert("没有找到相关文章");
                 }
             });
         };
@@ -863,16 +953,15 @@ require(['app'],function(app){
          */
         $scope.findDepartInfo = function(e){
             var that = $(e.target),article_id = that.attr("article_id");
-            $http.get(loocha+"/depart/by?depart_id="+$scope.forecast.schl_departId).success(function(data){
-                var article_id = data.response.article_id;
                 if(article_id>0){
                     $http.get(loocha+"/article/show/"+article_id).success(function(data){
                         $scope.forecast.departInfo = $sce.trustAsHtml(data);
                         $("#mask-depart").fadeIn(800);
                         $("#mask-depart .modal-body").scrollTop(100);
                     });
+                }else{
+                    alert("暂无关联文章");
                 }
-            });
         };
 
         function levelNum(str){

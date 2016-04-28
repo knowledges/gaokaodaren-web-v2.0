@@ -41,7 +41,57 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName) {
+    app.factory("levelNumber", function () {
+        return {
+            ShowLevel: function (str) {
+                var num = "";
+                switch (str) {
+                    case "A+":
+                        num = "5";
+                        break;
+                    case "A":
+                        num = "4";
+                        break;
+                    case "B+":
+                        num = "3";
+                        break;
+                    case "B":
+                        num = "2";
+                        break;
+                    case "C":
+                        num = "1";
+                        break;
+                    case "D":
+                        num = "0";
+                        break;
+                }
+                return num;
+            }
+        }
+    });
+    app.factory("doorStr", function () {
+        return {
+            ShowDoor: function (num) {
+                var str ="";
+                switch(num){
+                    case "生物":
+                        str ="1";
+                        break;
+                    case "化学":
+                        str ="2";
+                        break;
+                    case "政治":
+                        str ="3";
+                        break;
+                    case "地理":
+                        str ="4";
+                        break;
+                }
+                return str;
+            }
+        }
+    });
+    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName','levelNumber','doorStr',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName,levelNumber,doorStr) {
 
      /*   $scope.$on("$includeContentLoaded",function(){
             alert('加载ok');
@@ -95,20 +145,33 @@ require(['app'],function(app){
 
             var user_id  = parseInt(sessionStorage.getItem("user_id"));
 
-            $http.get(loocha+"/uscore?user_id="+user_id).success(function(data){
+            $http.get(loocha+"/uscore").success(function(data){
                 if(data.response!=null && data.response.length>0){
                     $scope.table.myScore = data.response;
+                    sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
+                    $("#obl option[value=''],#sel option[value='']").removeAttr("selected");
+                    var obj = data.response[0];
+                        $scope.table.subject = obj.subject+"";
+                        $scope.table.obl = levelNumber.ShowLevel(obj.level_a);
+                        $scope.table.sel =  levelNumber.ShowLevel(obj.level_b);
+                        $("#obl option[value="+$scope.table.obl+"]").attr("selected","true");
+                        $("#sel option[value="+$scope.table.sel+"]").attr("selected","true");
+                        $scope.table.score =obj.score ;
+                        $scope.table.sub1 = obj.sub_a;
+                        $scope.table.sub2 = doorStr.ShowDoor(obj.sub_b);
+                        $scope.table.myScore = obj.score;
+                        $scope.table.newScore = obj.score;
+                        $scope.table.batch =obj.type+"" ;
+                      /*  setTimeout(function(){
+                            $("#obl").text(obj.level_a);
+                            $("#sel").text(obj.level_b);
+                        },500);*/
 
-                    $.each(data.response,function(i,v){
-                        if(v.userTime>0){
-                            sessionStorage.setItem('uScore',JSON.stringify(v));
-                            $scope.table.newScore = v.score;
-                        }
-                    });
+
                 }else{
                     $scope.loading = false;
                 }
-
+                $(".modal-backdrop").removeClass("in").hide();//取消掉黑框
             });
 
         };
@@ -162,12 +225,13 @@ require(['app'],function(app){
 
                 var param = {};
                 param.user_id = sessionStorage.getItem("user_id");
+                param.type = $scope.table.batch;
                 param.subject = $scope.table.subject;
                 param.score = $scope.table.score;
                 param.sub_a = $scope.table.sub1;
                 param.sub_b = $("#other option:selected").text();
-                param.level_a = $scope.table.obl.name;
-                param.level_b = $scope.table.sel.name;
+                param.level_a = levelName.ShowLevel($scope.table.obl);
+                param.level_b = levelName.ShowLevel($scope.table.sel);
                 param.year = new Date().getFullYear();
 
                 $http({
@@ -175,21 +239,19 @@ require(['app'],function(app){
                     url:loocha+"/uscore/addscore",
                     params:param
                 }).success(function(responseDate){
-                    var id = responseDate.response;
                     if(responseDate.status == 0){
-                        $http.get(loocha+'/uscore/uptime?id='+id+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                            $http.get(loocha+"/uscore/info?id="+id).success(function(data,status){
-                                sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                                localStorage.setItem("type",$scope.table.batch);
-                                if(num == 1){
-                                    $window.location.href = "#/hope/batch="+$scope.table.batch;
-                                }else if (num == 2){
-                                    $window.location.href = "#/chance/batch="+$scope.table.batch;
-                                }else{
-                                    window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
-                                }
-                            });
-                        });
+                        getLoginUserInfo.isScores();
+                        localStorage.setItem("type",$scope.table.batch);
+                        if(num == 1){
+                            $window.location.href = "#/hope/batch="+$scope.table.batch;
+                        }else if (num == 2){
+                            $window.location.href = "#/chance/batch="+$scope.table.batch;
+                        }else{
+                            $window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
+                        }
+                    }else if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
                     }
                 });
 
@@ -221,7 +283,7 @@ require(['app'],function(app){
             }
         };
 
-        $scope.setUp = function(e){
+      /*  $scope.setUp = function(e){
             var that = $(e.target),index = that.attr("list_id"),score = that.attr("score");
             $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
                 alert("该成绩已开始使用");
@@ -230,7 +292,7 @@ require(['app'],function(app){
                     $window.location.reload(0);
                 });
             });
-        };
+        };*/
 
         /**
          * 填志愿意向表前的判断

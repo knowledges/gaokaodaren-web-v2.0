@@ -1,13 +1,13 @@
 <div ng-include="'templete/model-loading/loading.html'"></div>
-<div class="menu-div">
+<div class="menu-div" style="border: 1px #ccc dashed;padding: 10px;">
     <div class="container-fluid" ng-if="!title.strHtml">
         <div class="row" ng-repeat="list in title.list" is-loading>
-            <div class="col-sm-8 text-left">
-                <li><a href="javascript:;;" ng-click="listInfo(list.id)">{{list.title}}</a> </li>
+            <div class="col-sm-12 text-left">
+                <li style="padding: 7px 0;font-size: 16px;"><a href="javascript:;;" ng-click="listInfo(list.id)" style="color: #000;">{{list.title}}</a> </li>
             </div>
-            <div. class="col-sm-4 text-right">
+            <!--<div. class="col-sm-4 text-right">
                 <span>{{list.update_time | date :'yyyy-MM-dd hh:mm:ss'}}</span>
-            </div.>
+            </div.>-->
             <br/>
         </div>
     </div>

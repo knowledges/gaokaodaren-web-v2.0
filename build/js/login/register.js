@@ -54,6 +54,7 @@ require(['app'],function(app){
                  JSON.parse(this.contentWindow.document.body.innerText).response ;*/
                 if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
                     alert('验证码失效');
+                    $scope.user.code="";
                     getCodes();
                     return ;
                 }
@@ -62,12 +63,17 @@ require(['app'],function(app){
                 sessionStorage.setItem('usernumber', JSON.parse(this.contentWindow.document.body.innerText).response.name);
                 sessionStorage.setItem('user_id',JSON.parse(this.contentWindow.document.body.innerText).response.id);
                 $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
-
-                if(localStorage.getItem('score')!=null){
+                $http.get(loocha+"/uscore").success(function(data){
+                    if(data.response!=null && data.response.length>0){
+                        sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
+                    }
+                });
+                window.location.href = "#/home";
+                /*if(localStorage.getItem('score')!=null){
                     window.location.href = "#/home";
                 }else{
                     window.location.href="#/all/allScore";
-                }
+                }*/
             });
         },600);
 

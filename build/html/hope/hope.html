@@ -11,8 +11,8 @@
         <div class="panel-heading text-left">
             <h4>
                 <i class="icon-building"></i> <span  ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle=" <br/>
-                <p>江苏达人网关于“热门专业、偏热专业、一般专业、偏冷专业、冷门专业”模糊归类的说明：</p>
-                <p>为方便考生填报高考志愿，本网站根据文、理科分开，在同批次可比性原则，将近三年在江苏招生高校专业录取的最低分排序，同一专业在不同高校位于前列平均次数多的专业为热门专业，次多的专业为偏热专业，同一专业在不同高校位于后列平均次数多的专业为冷门专业，次多的专业为偏冷专业，其他专业为一般专业。（同一专业在不同高校既有位于前列，又有位于后列时，按抵冲后的相对数计算。）特此说明。</p>
+                <p>江苏达人网关于“高分高校、偏高高校、中分高校、偏低高校、低分高校”模糊归类的说明：</p>
+                <p>为方便考生填报高考志愿，本网站根据文、理科分开，在同批次可比性原则，将近三年在江苏招生高校录取最低分从低到高排序，三年都在前几十名的高校为高分高校，次几十名的高校为偏高高校，三年都在后几十名的高校为低分高校，次后几十名的高校为偏低高校，其他高校为中分高校。特此说明。</p>
                 <p class='text-right'>江苏达人网高考志愿填报工作室</p>
                 <p class='text-right'>2016年5月30日</p>
                 ">意向高校</span> （优先：单击—绿色；拒绝：双击—灰色；可选择：原色）
@@ -387,7 +387,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle=亲：请将您最想上的那个专业或那类专业、哪个学科的专业或那些专业，单击（绿色）&#10;亲：请将您不想上或不愿意上或坚决不上的哪个专业或那类专业、哪个学科的专业或那些专业，拒绝掉！双击（灰色）&#10;亲：对于您可上可不上（可调节可接受）的哪个专业或那类专业、哪个学科的专业或那些专业，保持原样。">
-                <i class="glyphicon glyphicon-education"></i> <span ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="
+                <i class="glyphicon glyphicon-education"></i> <span ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="<br/>
                 <p>江苏达人网关于“热门专业、偏热专业、一般专业、偏冷专业、冷门专业”模糊归类的说明：</p>
                 <p>为方便考生填报高考志愿，本网站根据文、理科分开，在同批次可比性原则，将近三年在江苏招生高校专业录取的最低分排序，同一专业在不同高校位于前列平均次数多的专业为热门专业，次多的专业为偏热专业，同一专业在不同高校位于后列平均次数多的专业为冷门专业，次多的专业为偏冷专业，其他专业为一般专业。（同一专业在不同高校既有位于前列，又有位于后列时，按抵冲后的相对数计算。）特此说明。</p>
                 <p class='text-right'>江苏达人网高考志愿填报工作室</p>
@@ -1573,7 +1573,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
-            <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="">
+            <h4>
                 <i class="icon-fire"></i> 个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—灰色；其他：原色）
             </h4>
         </div>
@@ -1944,7 +1944,7 @@
                 </div>
                 <div class="col-sm-10 text-left" id="watch_persona">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hopeClassify.personals"><a href="javascript:;;">{{list.name}}</a></li>
+                       <!-- <li ng-repeat="list in hopeClassify.personals"><a href="javascript:;;">{{list.name}}</a></li>-->
                         <li ng-repeat="list in hope.personalitylist"><a
                                 href="javascript:;;">{{list.parentname}} {{list.name}}</a></li>
                     </ul>
@@ -2034,6 +2034,28 @@
                                 ng-model="finshparam.school_prefer[2]"
                                 ng-change="selectSchol(finshparam.school_prefer[2],3)">
                             <option value="">第三优先</option>
+                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}" ng-disabled="arr.disabled">
+                                {{arr.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.schoolArr.length>3">
+                        <select
+                                class="form-control schl_first"
+                                ng-model="finshparam.school_prefer[3]"
+                                ng-change="selectSchol(finshparam.school_prefer[3],4)">
+                            <option value="">第四优先</option>
+                            <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}" ng-disabled="arr.disabled">
+                                {{arr.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.schoolArr.length>4">
+                        <select
+                                class="form-control schl_first"
+                                ng-model="finshparam.school_prefer[4]"
+                                ng-change="selectSchol(finshparam.school_prefer[4],5)">
+                            <option value="">第五优先</option>
                             <option ng-repeat="arr in hope.schoolArr" value="{{arr.id}}" ng-disabled="arr.disabled">
                                 {{arr.name}}
                             </option>
@@ -2143,6 +2165,28 @@
                                 ng-model="finshparam.city_prefer[2]"
                                 ng-change="selectCity(finshparam.city_prefer[2],3)">
                             <option value="">第三优先</option>
+                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}" ng-disabled="arr.disabled">
+                                {{arr.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.cityArr.length>3">
+                        <select
+                                class="form-control city_first"
+                                ng-model="finshparam.city_prefer[3]"
+                                ng-change="selectCity(finshparam.city_prefer[3],4)">
+                            <option value="">第四优先</option>
+                            <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}" ng-disabled="arr.disabled">
+                                {{arr.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn-group" ng-if="hope.cityArr.length>4">
+                        <select
+                                class="form-control city_first"
+                                ng-model="finshparam.city_prefer[4]"
+                                ng-change="selectCity(finshparam.city_prefer[4],5)">
+                            <option value="">第五优先</option>
                             <option ng-repeat="arr in hope.cityArr" value="{{arr.id}}" ng-disabled="arr.disabled">
                                 {{arr.name}}
                             </option>
@@ -2298,26 +2342,26 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-left">
-                    《考生志愿意向表》便捷步骤
+                    《考生志愿意向表》便捷步骤:
                 </h4>
             </div>
             <div class="modal-body" style="text-indent: 2em;">
                 <p>一看、二拒、三优先、四具体</p>
                 <p>一看：“点击”志愿要素（“意向高校”、“院校属地”、“院校属类”、“意向专业”、“个性标签”）栏目内第一行或第二行中的“▼”</p>
-                <p>看：  地区中的省份</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  属类中的小类</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  学科中的专业类</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  个性归类中的小类</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看：地区中的省份</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  属类中的小类</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  学科中的专业类</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  个性归类中的小类</p>
                 <p>二拒：（“双击”—灰色）拒绝  某“地区”、某“省”或某“线”城市</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拒绝  某“类”或某“分”高校</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拒绝  某“学科”、某“类”或某“门”专业</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拒绝  个性中的“弱”项、“限”项、不适合选项。</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拒绝  某“类”或某“分”高校</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拒绝  某“学科”、某“类”或某“门”专业</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拒绝  个性中的“弱”项、“限”项、不适合选项。</p>
                 <p>三优先：（“单击”—绿色）优先选择：某“地区”、某“省”或某“线”城市。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优先选择：某“类”或某 “分”高校。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优先选择：某“学科”、某“类”或某“门”专业。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优先选择：个性中的“强”项、“是”项、“有”项。</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：某“类”或某 “分”高校。</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：某“学科”、某“类”或某“门”专业。</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：个性中的“强”项、“是”项、“有”项。</p>
                 <p>四具体：具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先，对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
-                <p>具体查看“拒绝选项”中的城市、高校、专业、个性是否
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;具体查看“拒绝选项”中的城市、高校、专业、个性是否
                     可以不拒绝，对于不拒绝选项，“点击”恢复（原色），甚至优先（绿色）。</p>
             </div>
         </div>

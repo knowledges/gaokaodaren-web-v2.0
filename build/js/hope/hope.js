@@ -156,7 +156,7 @@ require(['app'], function (app) {
                 }
                 return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
             },
-            agreePropEvent:function(status, that, list, prefer, ignore, name, arr, obj,typeObj,IsNull){
+            agreePropEvent:function(status, that, list, prefer, ignore, name, arr, obj,preferObj,IsNull){
                 prefer=[],arr=[];
                 if (status == undefined || status == null || status == 0) {
                     status = that.attr("status", "1").removeClass("cancle reject").addClass("agree");
@@ -164,7 +164,7 @@ require(['app'], function (app) {
                     var type = new Object();    //添加大类别
                     type.id = that.attr("pub");
                     type.name = that.html();
-                    typeObj.push(type);
+                    preferObj.push(type);
 
                     $("#panel-footer a[school_id]").removeClass("agree");
                     $.each(list, function (i, v) {
@@ -187,10 +187,10 @@ require(['app'], function (app) {
                 } else if (status == 1) {
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     //取消大类
-                    $.each(typeObj,function(i,v){
+                    $.each(preferObj,function(i,v){
                         if(v!=undefined){
                             if(that.html() == v.name){
-                                typeObj.splice(i, 1);
+                                preferObj.splice(i, 1);
                             }
                         }
                     });
@@ -234,8 +234,8 @@ require(['app'], function (app) {
                     });
                 }
                 var newTypeOBj = "[]";
-                if(typeObj.length>0){
-                    newTypeOBj = JSON.stringify(typeObj);
+                if(preferObj.length>0){
+                    newTypeOBj = JSON.stringify(preferObj);
                 }
                 return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
             },
@@ -456,21 +456,28 @@ require(['app'], function (app) {
                 }
                 return prefer + "|" + ignore + "|"  + JSON.stringify(arr)+"|"+newTypeOBj;
             },
-            rejectPropEvent: function (status, that, list, prefer, ignore, name, arr,typeObj) {
+            rejectPropEvent: function (status, that, list, prefer, ignore, name, arr,preferObj,ignoreObj) {
                 if (status == undefined || status == null || status == 0) {
                     status = that.attr("status","2").removeClass('agree cancle').addClass('reject');
                     //添加大类
                     var type = new Object();    //添加大类别
                     type.id = that.attr("pub");
                     type.name = that.html();
-                    typeObj.push(type);
+                    ignoreObj.push(type);
                 } else if(status == 2 ||status == 1){
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
                     //取消大类
-                    $.each(typeObj,function(i,v){
+                    $.each(ignoreObj,function(i,v){
                         if(v!=undefined){
                             if(that.html() == v.name){
-                                typeObj.splice(i, 1);
+                                ignoreObj.splice(i, 1);
+                            }
+                        }
+                    });
+                    $.each(preferObj,function(i,v){
+                        if(v!=undefined){
+                            if(that.html() == v.name){
+                                preferObj.splice(i, 1);
                             }
                         }
                     });
@@ -494,11 +501,14 @@ require(['app'], function (app) {
                     ignore=[];
                 }
 
-                var newTypeOBj = "[]";
-                if(typeObj.length>0){
-                    newTypeOBj = JSON.stringify(typeObj);
+                var newPreferObj = "[]",newIgnoreObj = "[]";
+                if(preferObj.length>0){
+                    newPreferObj = JSON.stringify(preferObj);
                 }
-                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newTypeOBj;
+                if(ignoreObj.length>0){
+                    newIgnoreObj = JSON.stringify(ignoreObj);
+                }
+                return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+newPreferObj+"|"+newIgnoreObj;
             },
             rejectClsEvent: function (status, that, list, prefer, ignore, id, name, arr,typeObj) {
                 if (status == undefined || status == null || status == 0 || status == 1) {
@@ -718,9 +728,13 @@ require(['app'], function (app) {
 
         $scope.hopeClassify = {
             genus:[],//属类
+            genusIgnore:[],//拒接属类
             terr:[],//属地
+            terrIgnore:[],//拒接属地
             proCate:[],//专业类别
-            personals:[]//个性
+            proCateIgnore:[],//拒接专业类别
+            personals:[],//个性
+            personalsIgnore:[],//拒接个性
         };
 
         $scope.info = {
@@ -866,7 +880,7 @@ require(['app'], function (app) {
 
             /*console.log($stateParams.batch);*/
             $("#recommend").modal('show');
-            getLoginUserInfo.isLogoin();
+            /*getLoginUserInfo.isLogoin();*/
 
             /*setInterval(function(){
                 getLoginUserInfo.isLogoin();
@@ -1440,7 +1454,7 @@ require(['app'], function (app) {
                     $.each(data.response, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
-                    $("#dropdown" + city_id).append(html.join(''));
+                    $("#dropdown" + city_id).empty().append(html.join(''));
 
                     /*
                      * 具体是省份绑定点击、双击事件
@@ -1535,7 +1549,7 @@ require(['app'], function (app) {
                     $.each(data.response, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
-                    $("#dropdown" + city_id).append(html.join(''));
+                    $("#dropdown" + city_id).empty().append(html.join(''));
 
                     /*
                      * 具体是省份绑定点击、双击事件
@@ -1629,7 +1643,7 @@ require(['app'], function (app) {
                     $.each(data.response, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findCity" city_id="' + v.city_id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
-                    $("#dropdown" + city_id).append(html.join(''));
+                    $("#dropdown" + city_id).empty().append(html.join(''));
 
                     /*
                      * 具体是省份绑定点击、双击事件
@@ -1718,7 +1732,7 @@ require(['app'], function (app) {
                     $.each($scope.hope.attr, function (i, v) {
                         html.push('<li><a href="javascript:;;" class="findSchoolArt" attr_id="' + v.id + '" pub="'+ v.id+'">' + v.name + '</a></li>');
                     });
-                    $("#attr1").append(html.join(''));
+                    $("#attr1").empty().append(html.join(''));
                     var _time = null;
                     $(".findSchoolArt").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
@@ -1827,12 +1841,13 @@ require(['app'], function (app) {
                                     })
                                 }
 
-                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                                 $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                                 $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
-                                $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                $scope.hopeClassify.genusIgnore= mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                             });
                         }else{
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
@@ -1899,12 +1914,13 @@ require(['app'], function (app) {
                                 })
                             }
 
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                             $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            $scope.hopeClassify.genusIgnore= mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
@@ -2089,12 +2105,13 @@ require(['app'], function (app) {
                                     })
                                 }
 
-                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                                 $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                                 $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                                 $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                             });
                         }else{
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
@@ -2161,12 +2178,13 @@ require(['app'], function (app) {
                                 })
                             }
 
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                             $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
@@ -2233,7 +2251,7 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#prop1').attr('data-istrue');
             if (isTrue == "false") {
-                $http.get(loocha + '/school/attr/').success(function (data, status) {
+                $http.get(loocha + '/school/attr?type=' + $scope.hope.batch).success(function (data, status) {
                     //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
@@ -2343,12 +2361,13 @@ require(['app'], function (app) {
                                     })
                                 }
 
-                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                                 $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                                 $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                                 $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                             });
                         }else {
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
@@ -2414,12 +2433,13 @@ require(['app'], function (app) {
                                 })
                             }
 
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus);
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr, $scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                             $scope.hopeClassify.genus = mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
@@ -2603,12 +2623,13 @@ require(['app'], function (app) {
                                     })
                                 }
 
-                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                                var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                                 $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                                 $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                                 $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                                $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                             });
                         }else{
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
@@ -2676,12 +2697,13 @@ require(['app'], function (app) {
                                 })
                             }
 
-                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus);
+                            var mosaic = classifyDBClk.rejectPropEvent(status, that, list, $scope.hope.school_prefer, [], $scope.hope.school_name, $scope.hope.schoolArr,$scope.hopeClassify.genus,$scope.hopeClassify.genusIgnore);
                             $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                             $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
                             $scope.hope.school_name = mosaic.split("|")[2].length > 0 ? mosaic.split("|")[2].split(",") : [];
                             $scope.hope.schoolArr = mosaic.split("|")[3].length > 0 ? JSON.parse(mosaic.split("|")[3]) : [];
                             $scope.hopeClassify.genus =mosaic.split("|")[4].length > 0 ? JSON.parse(mosaic.split("|")[4]) : [];
+                            $scope.hopeClassify.genusIgnore =mosaic.split("|")[5].length > 0 ? JSON.parse(mosaic.split("|")[5]) : [];
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
@@ -2757,7 +2779,7 @@ require(['app'], function (app) {
                             html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="' + v.id + '">' + v.name + '</a></li>');
                         });
                     }
-                    $("#depart" + course_id).append(html.join(''));
+                    $("#depart" + course_id).empty().append(html.join(''));
                     var _time = null;
                     $(".findDepart").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
@@ -2853,7 +2875,7 @@ require(['app'], function (app) {
                             html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="' + v.id + '">' + v.name + '</a></li>');
                         });
                     }
-                    $("#depart" + course_id).append(html.join(''));
+                    $("#depart" + course_id).empty().append(html.join(''));
                     var _time = null;
                     $(".findDepart").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
@@ -2951,7 +2973,7 @@ require(['app'], function (app) {
                             html.push('<li><a href="javascript:;;" class="findDepart" course_id="' + v.id + '"  pub="'+ v.id+'">' + v.name + '</a></li>');
                         });
                     }
-                    $("#depart" + course_id).append(html.join(''));
+                    $("#depart" + course_id).empty().append(html.join(''));
                     var _time = null;
                     $(".findDepart").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
@@ -3295,18 +3317,34 @@ require(['app'], function (app) {
          */
         $scope.selectSchol = function (idx, num) {
             if (num == 1) {
-                $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] = "";
+                $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
                 $.each($scope.hope.schoolArr, function (i, v) {
                     v.disabled = false;
                 });
             } else if (num == 2) {
-                $scope.finshparam.school_prefer[2] = "";
+                $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
                 $.each($scope.hope.schoolArr, function (i, v) {
                     if (v.id != $scope.finshparam.school_prefer[0]) {
                         v.disabled = false;
                     }
                 });
             } else if (num == 3) {
+                $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]
+                        && v.id != $scope.finshparam.school_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 4){
+                $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]
+                        && v.id != $scope.finshparam.school_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
                 $.each($scope.hope.schoolArr, function (i, v) {
                     if (v.id != $scope.finshparam.school_prefer[0]
                         && v.id != $scope.finshparam.school_prefer[1]) {
@@ -3394,21 +3432,40 @@ require(['app'], function (app) {
          */
         $scope.selectCity = function (idx, num) {
             if (num == 1) {
-                $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] = "";
+                $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] = $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
                 $.each($scope.hope.cityArr, function (i, v) {
                     v.disabled = false;
                 });
             } else if (num == 2) {
-                $scope.finshparam.city_prefer[2] = "";
+                $scope.finshparam.city_prefer[2]= $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
                 $.each($scope.hope.cityArr, function (i, v) {
                     if (v.id != $scope.finshparam.city_prefer[0]) {
                         v.disabled = false;
                     }
                 });
             } else if (num == 3) {
+                $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
                 $.each($scope.hope.cityArr, function (i, v) {
                     if (v.id != $scope.finshparam.city_prefer[0]
                         && v.id != $scope.finshparam.city_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 4){
+                 $scope.finshparam.city_prefer[4]  = "";
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]
+                        && v.id != $scope.finshparam.city_prefer[1]
+                        && v.id != $scope.finshparam.city_prefer[2]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]
+                        && v.id != $scope.finshparam.city_prefer[1]
+                        && v.id != $scope.finshparam.city_prefer[2]
+                        && v.id != $scope.finshparam.city_prefer[3]) {
                         v.disabled = false;
                     }
                 });
@@ -3489,7 +3546,7 @@ require(['app'], function (app) {
          * 确定
          * */
         $scope.reqOrder = function () {
-            getLoginUserInfo.isLogoin();
+            //getLoginUserInfo.isLogoin();
 
             var projectSoft = [];
             $.each($scope.finshparam.project, function (i, v) {
@@ -3527,8 +3584,8 @@ require(['app'], function (app) {
             param.dprop_ignore = $scope.hope.depart_ignore;   //拒绝专业id列表
             param.pproptype_prefer = [];   //优先个性类别id列表
             param.pproptype_ignore = [];   //拒绝个性类别id列表
-            param.pprop_prefer = [];   //优先个性id列表
-            param.pprop_ignore = [];   //拒绝个性id列表
+            param.pprop_prefer = $scope.hope.personality_prefer;   //优先个性id列表
+            param.pprop_ignore = $scope.hope.personality_ignore;   //拒绝个性id列表
             param.prefer_order = projectSoft;   //志愿意向排序 学校、专业、城市、个性
             param.school_order = $scope.finshparam.school_prefer;   //高校优先id列表
             param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
@@ -3549,7 +3606,10 @@ require(['app'], function (app) {
             }).success(function (responseDate) {
                 if (responseDate.status == "1014") {
                     alert("符合的高校太少，请再选择一些");
-                }else{
+                }else if (responseDate.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else if(responseDate.status == "0"){
                     $scope.hope.id = responseDate.response.id;
                     $scope.hope.recommend = responseDate.response.recommend;
                     $scope.hope.table = responseDate.response.table;
@@ -3557,6 +3617,8 @@ require(['app'], function (app) {
                     $scope.hope.num = Math.ceil(responseDate.response.recommend/5);
                     localStorage.setItem("manualInfo", JSON.stringify(responseDate.response));
                     $('#myModal').modal('show');
+                }else {
+                    alert("未知错误");
                 }
             });
         };
@@ -3566,6 +3628,11 @@ require(['app'], function (app) {
          */
         $scope.readom = function () {
             $.post(loocha + "/exam/intention/auto", {id: $scope.hope.id}, function (data) {
+                if(data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 var list = JSON.parse(data), order_id = list.response.id;
                 if (order_id == 0) {
                     alert("订单提交失败，请重新操作");
@@ -3603,10 +3670,13 @@ require(['app'], function (app) {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (responseDate) {
-                    debugger;
                     $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (result) {
                         if (result.status == 1) {
                             alert('没有找到订单');
+                            return;
+                        }else if (data.status == 4){
+                            alert('您还没有登陆，先去登陆吧！');
+                            window.location.href = "#/login";
                             return;
                         }
                         $scope.hope.order_id = result.response.order_id;

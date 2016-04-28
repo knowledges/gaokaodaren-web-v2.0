@@ -94,7 +94,7 @@ require(['app'],function(app){
          * 获取下一份
          */
         $scope.getReference = function(){
-            getNewOrderInfo();
+            getNewOrderInfo($scope.order.requestId);
         };
         /**
          * 获取下一份
@@ -120,6 +120,10 @@ require(['app'],function(app){
                     if (data.status == 1) {
                         alert('没有找到订单');
                         return;
+                    }else if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
                     }
                     localStorage.setItem("type",$scope.order.type);
                     $scope.orderout_trade_no = data.response.order_id;
@@ -144,16 +148,16 @@ require(['app'],function(app){
             if($scope.order.flag == 4){
                 $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
                     .success(function (data) {
-                        if(flag == 4){
+                        if(data.response.flag == 4){
                             sessionStorage.setItem("admitFlag",data.response.admitFlag);
                             localStorage.setItem("type",data.response.type);
                             sessionStorage.setItem("order_id",data.response.orderId);
                             sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
-                            window.location.href = "#/chance";
+                            window.location.href = "#/chance/batch="+data.response.type;
+                            window.location.reload(0);
                         }
                     });
-                window.location.href="#/chance";
-                window.location.reload(0);
+
             }else{
                 $scope.order.subtitle = yxb_title[$scope.order.type];
                 $scope.order.caption = caption [$scope.order.type];
@@ -172,6 +176,11 @@ require(['app'],function(app){
                     }else if (data.status == "1016"){
                         localStorage.setItem("out_trade_no",$scope.order.orderId);
                         $window.location.href="#/refer1";
+                        return;
+                    }else if(data.status == "1004"){
+                        alert("未支付，请支付");
+                        $scope.loading = false;
+                        getNewOrderInfo(data.response.intentionId);
                         return;
                     }
                     $scope.order.intentionId = data.response.intentionId;
@@ -196,8 +205,13 @@ require(['app'],function(app){
                 });
         }
 
-        function getNewOrderInfo(){
-            $.post(loocha+"/exam/intention/auto",{id:$scope.order.requestId},function(data){
+        function getNewOrderInfo(id){
+            $.post(loocha+"/exam/intention/auto",{id:id},function(data){
+                if(data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 var list = JSON.parse(data),order_id = list.response.id;
                 if(order_id == 0){
                     alert("订单提交失败，请重新操作");
@@ -222,6 +236,11 @@ require(['app'],function(app){
         $scope.showCase = function(){
             $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
                 .success(function(data){
+                    if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
                     var obj = data.response;
                     var preferOrders = obj.preferOrders,
                         preferSchoolNames = obj.preferSchoolNames,
@@ -256,29 +275,30 @@ require(['app'],function(app){
                     $("#cased").modal('show');
 
                     function caseModelScl (array,newArray){
+                        if(newArray.schoolPrefer!=null){
+                            var preferArr = newArray.schoolPrefer.split(",");
+                            newArray.cased =[];
+                            newArray.str = "";
+                            for(var i = 0;i<array.length;i++){
 
-                        var preferArr = newArray.schoolPrefer.split(",");
-                        newArray.cased =[];
-                        newArray.str = "";
-                        for(var i = 0;i<array.length;i++){
-
-                            for(var k = 0 ; k < preferArr.length;k++){
-                                if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
-                                    var schl = preferSchoolNames[parseInt(preferArr[i])-1];
-                                    newArray.cased.push(schl);
-                                    newArray.str = newArray.str +"高校第"+preferArr[i]+"优先 "
-                                /*}else if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
-                                    var dept = preferDepartNames[parseInt(preferArr[i])-1];
-                                    newArray[j].cased.push(dept);
-                                    newArray[j].str = newArray[j].str +"专业第"+preferArr[i]+"优先 "*/
-                                }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
-                                    var city = preferCityNames[parseInt(preferArr[i])-1];
-                                    newArray.cased.push(city);
-                                    newArray.str = newArray.str +"城市第"+preferArr[i]+"优先 "
-                                /*}else if (array[i] == 4 && preferArr[i]>0 && k == 0){//个性
-                                    var per = preferPersonalityNames[parseInt(preferArr[i])-1];
-                                    newArray[j].cased.push(per);
-                                    newArray[j].str = newArray[j].str +"个性第"+preferArr[i]+"优先 "*/
+                                for(var k = 0 ; k < preferArr.length;k++){
+                                    if(array[i] == 1 && preferArr[i]>0 && k == 0){//高校
+                                        var schl = preferSchoolNames[parseInt(preferArr[i])-1];
+                                        newArray.cased.push(schl);
+                                        newArray.str = newArray.str +"高校第"+preferArr[i]+"优先 "
+                                        /*}else if (array[i] == 2 && preferArr[i]>0 && k == 0){//专业
+                                         var dept = preferDepartNames[parseInt(preferArr[i])-1];
+                                         newArray[j].cased.push(dept);
+                                         newArray[j].str = newArray[j].str +"专业第"+preferArr[i]+"优先 "*/
+                                    }else if (array[i] == 3 && preferArr[i]>0 && k == 0){//城市
+                                        var city = preferCityNames[parseInt(preferArr[i])-1];
+                                        newArray.cased.push(city);
+                                        newArray.str = newArray.str +"城市第"+preferArr[i]+"优先 "
+                                        /*}else if (array[i] == 4 && preferArr[i]>0 && k == 0){//个性
+                                         var per = preferPersonalityNames[parseInt(preferArr[i])-1];
+                                         newArray[j].cased.push(per);
+                                         newArray[j].str = newArray[j].str +"个性第"+preferArr[i]+"优先 "*/
+                                    }
                                 }
                             }
                         }

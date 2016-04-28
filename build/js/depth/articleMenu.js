@@ -22,7 +22,16 @@ require(['app'],function(app){
             restrict: 'A',
             link: function (scope, element, attr) {
                 if (scope.$last === true) {
-                    $("#menu-infolist > li > a").click(function(e){
+                    $(".panel-heading").unbind("click").click(function(e){
+                        $(".panel-heading").next().removeClass("in");
+                        $(this).next().addClass("in").find(".panel-footer").eq(0).next().show();
+                    });
+
+                    $(".panel-footer").unbind("click").click(function(e){
+                        $(".panel-footer").next().hide();
+                        $(this).next().show();
+                    });
+                    /*$("#menu-infolist > li > a").click(function(e){
                         var list = $("#menu-infolist > li > a");
                         $.each(list,function(i,v){
                             var id = $(this).data("target");
@@ -31,11 +40,19 @@ require(['app'],function(app){
 
                         var id = $(this).data("target");
                         $(id).attr("aria-expaneded","true").show();
-                    })
+                    })*/
                 }
             }
         }
     });
+    app.directive("onFinishChildrender",function(){
+        return {
+            restrict:'A',
+            link:function(scope,element,attr){
+
+            }
+        }
+    })
     app.factory("subLevel")
     app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$location','loocha','data_province',function($scope,$http,$sce,$stateParams,$location,loocha,data_province){
         $scope.menuArr = [];
@@ -69,7 +86,7 @@ require(['app'],function(app){
 //
             $scope.condition.provincelist=data_province.data.response.list;
 //
-            $("#recommend").modal('show');
+            $("#recommend").show();
             var url ="";
             if($scope.condition.type<7){
                 url="/depart/prop?type=0&depart_type=0";
@@ -127,14 +144,14 @@ require(['app'],function(app){
                 $scope.condition.parentTitle = name;
             }else{
                 $scope.condition.inputTemplate = inputTemplate;
-                $(".modal").show();
+                /*$(".modal").show();*/
                 $("#subInfo").attr({idx:idx,money:money,leaf:leaf,name:name,inputTemplate:inputTemplate,status:1});
             }
 
         };
 
         $scope.close = function(){
-            $(".modal").hide();
+            $("#recommend").hide();
         };
 
         /**

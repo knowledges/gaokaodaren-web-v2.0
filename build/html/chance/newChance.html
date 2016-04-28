@@ -23,14 +23,14 @@
                    <td><strong>预测项目</strong></td>
                    <td><strong>预测个数</strong></td>
                    <td><strong>缴费金额</strong></td>
-                   <td><strong>侧否</strong></td>
+                   <td><strong>测否</strong></td>
                </tr>
            </thead>
             <tbody>
                 <tr>
                     <td>按院校属地预测高校录取概率</td>
-                    <td>3</td>
-                    <td>30元</td>
+                    <td>5</td>
+                    <td>50元</td>
                     <td>
                         <label class="btn">
                             <input type="checkbox" class="chance_" value="2">
@@ -39,8 +39,8 @@
                 </tr>
                 <tr>
                     <td>按院校属类预测高校录取概率</td>
-                    <td>3</td>
-                    <td>30元</td>
+                    <td>5</td>
+                    <td>50元</td>
                     <td>
                         <label class="btn">
                             <input type="checkbox" class="chance_" value="3">
@@ -59,8 +59,8 @@
                 </tr>
                 <tr>
                     <td>按具体专业招生高校预测高校录取概率</td>
-                    <td>3</td>
-                    <td>30元</td>
+                    <td>5</td>
+                    <td>50元</td>
                     <td>
                         <label class="btn">
                             <input type="checkbox" class="chance_" value="5">
@@ -69,8 +69,8 @@
                 </tr>
                 <tr>
                     <td>按满足个性的招生专业高校预测高校录取概率</td>
-                    <td>3</td>
-                    <td>30元</td>
+                    <td>5</td>
+                    <td>50元</td>
                     <td>
                         <label class="btn">
                             <input type="checkbox" class="chance_" value="6">
@@ -79,8 +79,8 @@
                 </tr>
                 <tr>
                     <td>按概率范围预测高校录取概率</td>
-                    <td>3</td>
-                    <td>30元</td>
+                    <td>5</td>
+                    <td>50元</td>
                     <td>
                         <label class="btn">
                             <input type="checkbox" class="chance_" value="1">
@@ -89,7 +89,7 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay()">缴费预测</button>
+        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay()">确认缴费预测</button>
     </div>
 
     <div class="row text-center" ng-if="modelInfo.model_1.length > 0 || modelInfo.model_2.length > 0 || modelInfo.model_3.length > 0 || modelInfo.model_4.length > 0 || modelInfo.model_5.length > 0 || modelInfo.model_6.length > 0 ">
@@ -232,9 +232,9 @@
                 </tr>
                 </tbody>
             </table>
-            <p>
+            <!--<p>
                 点击<strong>高校名称</strong>可查询城市情况,且院校属地每一类，可以查询3所高校概率
-            </p>
+            </p>-->
         </div>
     </div>
     <!-- 按属类-->
@@ -285,16 +285,16 @@
                     </td>
                     <td style="vertical-align: middle;">
                         <button class="btn btn-default" ng-click="schChance_1()">获取概率</button>
-                        <div class="row"><a href="javascript:;;">概率：{{forecast.schChance_1}}</a></div>
+                        <div class="row"><a href="javascript:;;" ng-if="forecast.schChance_1.length>0">概率：{{forecast.schChance_1}}</a></div>
 
                     </td>
                 </tr>
 
                 </tbody>
             </table>
-            <p>
+            <!--<p>
                 点击<strong>高校名称</strong>可查询学校情况,且院校属类每一类，可以查询3所高校概率
-            </p>
+            </p>-->
         </div>
     </div>
     <!-- 按学校预测各专业录取概率 -->
@@ -329,11 +329,11 @@
                 <div class="col-sm-2 text-center">
                     <a href="javascript:;;" class="btn btn-default" ng-click="getdepartChance()">获取概率</a>
                     <div class="row">
-                        <a href="javascript:;;">概率：{{forecast.departChance}}</a>
+                        <a href="javascript:;;"  ng-if="forecast.departChance.length>0">概率：{{forecast.departChance}}</a>
                     </div>
                 </div>
             </div>
-            <p >点击<strong>专业名称</strong>可查询专业情况</p>
+           <!-- <p >点击<strong>专业名称</strong>可查询专业情况</p>-->
         </div>
     </div>
     <!-- 按专业预测高校录取概率 -->
@@ -368,13 +368,13 @@
                 <div class="col-sm-2">
                     <a href="javascript:;;" class="btn btn-default" ng-click="getSchlChance()">获取概率</a>
                     <div class="row">
-                        <a href="javascript:;;">概率：{{forecast.schChance_2}}</a>
+                        <a href="javascript:;;" ng-if="forecast.schChance_2.length>0" >概率：{{forecast.schChance_2}}</a>
                     </div>
                 </div>
             </div>
-            <p>
+            <!--<p>
                 点击 <strong>高校名称</strong> 可查询具体信息
-            </p>
+            </p>-->
         </div>
     </div>
     <!-- 按个性标签预测学校概率 -->
@@ -433,9 +433,9 @@
                     </div>
                 </div>
             </div>
-            <p>
+           <!-- <p>
                 点击 <strong>高校、专业名称</strong> 可查询具体信息
-            </p>
+            </p>-->
         </div>
     </div>
     <!-- 按概率-->
@@ -492,9 +492,9 @@
 
                 </tbody>
             </table>
-            <p>
+           <!-- <p>
                 点击<strong>高校名称</strong>可查询学校情况,且概率范围每一类，可以查询3所高校概率
-            </p>
+            </p>-->
         </div>
 
     </div>
@@ -556,17 +556,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="136" height="23">类别：{{schoolInfo.attr_name}}</td>
-                            <td width="128">属地：{{schoolInfo.city_name}}</td>
-                            <td width="128">招生计划：{{schoolInfo.artST2014}}</td>
-                            <td width="98">
+                            <td style="padding-left: 50px;" height="23">类别：{{schoolInfo.attr_name}}</td>
+                            <td>属地：{{schoolInfo.city_name}}</td>
+                            <td>
                                 <a href="{{schoolInfo.website}}" target="_blank" class="btn btn-info">去校园看看</a>
                             </td>
                         </tr>
                         <tr>
-                            <td height="23">类型：{{schoolInfo.style_name}}</td>
-                            <td>&nbsp;</td>
-                            <td>录取情况：{{schoolInfo.artST2014}}</td>
+                            <td style="padding-left: 50px;" height="23">类型：{{schoolInfo.style_name}}</td>
+                            <td>招生计划：{{schoolInfo.artST2014}}</td>
+                            <!--录取情况：{{schoolInfo.artST2014}}-->
                             <td>
                                 <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank" class="btn btn-info">简介</a>
                             </td>

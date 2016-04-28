@@ -74,6 +74,11 @@ require(['app'], function (app) {
 
             $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no"))
                 .success(function(data){
+                    if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
                     var manualInfo = data.response;
                     $scope.persons = manualInfo.schools;
                     $scope.sub.id = manualInfo.id;
@@ -175,32 +180,66 @@ require(['app'], function (app) {
                 });
             }
             $scope.persons[num - 1].disabled = true;
-            $("#myModal").modal("hide");
+            $("#myModal").hide();
             window.location.hash = window.location.hash.substr(0, 8) + "";
         };
 
         $scope.unSetUpSch = function (e, num) {
             var that = $(e.target),school_name = that.attr("name");
             $scope.persons[num - 1].disabled = false;
-            if($scope.param.firSchName.indexOf(school_name)>0){
-                $scope.param.firSchName ="";
+            var list = $scope.persons[num - 1].departs;
+            $.each(list, function (i, v) {
+                v.disabled = false;
+            });
+            if($scope.param.firSchName!=undefined && $scope.param.firSchName.indexOf(school_name)>0){
+                    $scope.param.firSchName ="";
+                    $scope.param.firDepart_1= "";
+                    $scope.param.firDepart_2= "";
+                    $scope.param.firDepart_3= "";
+                    $scope.param.firDepart_4="";
+                    $scope.param.firDepart_5="";
+                    $scope.param.firDepart_6="";
             }
-            if($scope.param.senSchName.indexOf(school_name)>0){
-                $scope.param.senSchName ="";
+            if($scope.param.senSchName!=undefined && $scope.param.senSchName.indexOf(school_name)>0){
+                    $scope.param.senSchName="";
+                    $scope.param.senDepart_1= "";
+                    $scope.param.senDepart_2= "";
+                    $scope.param.senDepart_3= "";
+                    $scope.param.senDepart_4= "";
+                    $scope.param.senDepart_5= "";
+                    $scope.param.senDepart_6= "";
             }
-            if($scope.param.thiSchName.indexOf(school_name)>0){
-                $scope.param.thiSchName ="";
+            if($scope.param.thiSchName!=undefined && $scope.param.thiSchName.indexOf(school_name)>0){
+                    $scope.param.thiSchName="";
+                    $scope.param.thiDepart_1= "";
+                    $scope.param.thiDepart_2= "";
+                    $scope.param.thiDepart_3= "";
+                    $scope.param.thiDepart_4= "";
+                    $scope.param.thiDepart_5= "";
+                    $scope.param.thiDepart_6= "";
             }
-            if($scope.param.fourSchName.indexOf(school_name)>0){
-                $scope.param.fourSchName ="";
+            if($scope.param.fourSchName!=undefined && $scope.param.fourSchName.indexOf(school_name)>0){
+                    $scope.param.fourSchName="";
+                    $scope.param.fourDepart_1= "";
+                    $scope.param.fourDepart_2= "";
+                    $scope.param.fourDepart_3= "";
+                    $scope.param.fourDepart_4= "";
+                    $scope.param.fourDepart_5= "";
+                    $scope.param.fourDepart_6= "";
             }
-            if($scope.param.fifthSchName.indexOf(school_name)>0){
-                $scope.param.fifthSchName ="";
+            if($scope.param.fifthSchName!=undefined && $scope.param.fifthSchName.indexOf(school_name)>0){
+                    $scope.param.fifthSchName="";
+                    $scope.param.fifthDepart_1="";
+                    $scope.param.fifthDepart_2="";
+                    $scope.param.fifthDepart_3="";
+                    $scope.param.fifthDepart_4="";
+                    $scope.param.fifthDepart_5="";
+                    $scope.param.fifthDepart_6="";
             }
         }
 
         $scope.sch_close = function () {
-            $("#myModal").modal("hide");
+            $("#myModal,#zyb_marjor").hide();
             window.location.hash = window.location.hash.substr(0, 8) + "";
         }
 
@@ -429,7 +468,7 @@ require(['app'], function (app) {
                     array[6] = v.departs[num - 1].sdid;
                 }
                 v.departs[num - 1].disabled = true;
-                $("#zyb_marjor").modal("hide");
+                $("#zyb_marjor").hide();
                 window.location.hash = window.location.hash.substr(0, 8) + "";
             }
         };
@@ -562,6 +601,10 @@ require(['app'], function (app) {
                 }else if(data.status == 0){
                     $window.location.href = "#/refer?orderId="+localStorage.getItem('out_trade_no')+"&type="+localStorage.getItem('type')+"&flag="+3;
                     $window.location.reload(0);
+                }else if (data.status == 4){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
                 }
             })
         };

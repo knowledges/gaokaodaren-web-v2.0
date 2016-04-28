@@ -30,7 +30,7 @@ define(function(require,exports,module){
                 if(fromState.name != "all.will" && fromState.name != "all.score" && fromState.name != "refer"){ //是否为刷新 "" 就是刷新
                     localStorage.removeItem("type");
                 }
-                if(fromState.name != "all.will"&&fromState.name !="refer" ){
+                if(fromState.name != "all.will" && fromState.name !="refer" && fromState.name !="all.chance" && fromState.name !="allChance"){
                     sessionStorage.removeItem("admitFlag");
                 }
             }

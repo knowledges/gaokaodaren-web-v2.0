@@ -25,34 +25,14 @@ define(['app'],function(app){
         var userInfo ={
             isLogoin:function(){
                 return $http.get(loocha+'/user').success(function(data){
+                    if(data.status == "-1"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }
                     if(data.response!=undefined && data.response.id!=undefined){
                         sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
                         sessionStorage.setItem("user_id",data.response.id);
                         sessionStorage.setItem("usernumber",data.response.name);
-                        /*$http.get(loocha+'/uscore/setup?user_id='+data.response.id).success(function(data){
-                            if(data<=0){
-                                alert('您还没有“开始使用或创建”成绩，点击“开始使用或创建高考成绩”吧');
-                                window.location.href = "#/all/allScore";
-                            }
-                        });*/
-                        $http.get(loocha+"/uscore?user_id="+data.response.id).success(function(data){
-                            if(data.response!=null && data.response.length>0){
-                                $.each(data.response,function(i,v){
-                                    if(v.userTime>0){
-                                        sessionStorage.setItem('uScore',JSON.stringify(v));
-                                    }
-                                });
-                            }
-                        });
-                    }else{
-                        sessionStorage.removeItem('type');
-                        sessionStorage.removeItem('uScore');
-                        sessionStorage.removeItem('user');
-                        sessionStorage.removeItem('user_id');
-                        sessionStorage.removeItem('usernumber');
-                        alert('登陆失效或您还没有登陆，先去登陆吧！');
-                        window.location.href = "#/login";
-                        $(".modal-backdrop").fadeOut(500);
                     }
                 }).error(function(e){
                     sessionStorage.removeItem('type');
@@ -65,14 +45,12 @@ define(['app'],function(app){
                     $(".modal-backdrop").fadeOut(500);
                 });
             },
-            isLogin:function(){
-                return $http.get(loocha+'/user').success(function(data){
+            isScores:function(){
+                return $http.get(loocha+"/uscore").success(function(data){
+                    if(data.response!=null && data.response.length>0){
+                        sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
+                    }
                 }).error(function(e){
-                    sessionStorage.removeItem('type');
-                    sessionStorage.removeItem('uScore');
-                    sessionStorage.removeItem('user');
-                    sessionStorage.removeItem('user_id');
-                    sessionStorage.removeItem('usernumber');
                     alert('登陆失效或您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
                 });
@@ -502,7 +480,7 @@ define(['app'],function(app){
             .state('all', {
                 url: '/all',
                 templateUrl:'html/temp/tempAll.html',
-                data: { isPublic: true},
+                data: { isPublic: false},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
@@ -514,7 +492,7 @@ define(['app'],function(app){
                 templateUrl:'html/myInfo/myScore.html',
                 controllerUrl:"js/myInfo/myScore",
                 controller:"myScore",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/myInfo/myScore.js']);
@@ -526,7 +504,7 @@ define(['app'],function(app){
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"willCtr",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 resolve:{
                     loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['html/All/all.js']);
@@ -538,19 +516,19 @@ define(['app'],function(app){
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 /*resolve:{
-                    loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['html/All/all.js']);
-                    }]
-                }*/
+                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
+                 return $ocLazyLoad.load(['html/All/all.js']);
+                 }]
+                 }*/
             })
             .state('all.chance',{
-               url:'/allChance',
+                url:'/allChance',
                 templateUrl:'html/All/all.html',
                 controllerUrl:"html/All/all",
                 controller:"allChanceCtr",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 /*resolve:{
                  loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
                  return $ocLazyLoad.load(['html/All/all.js']);
@@ -610,7 +588,7 @@ define(['app'],function(app){
             .state("refer",{
                 url:"/refer",
                 templateUrl:"html/refer/refer.html",
-                controllerUrl:"js/refer/refer",
+                /*controllerUrl:"js/refer/refer",*/
                 controller:'referCtr',
                 data: { isPublic: true},
                 resolve:{
@@ -641,7 +619,7 @@ define(['app'],function(app){
                 }
             })
     }]);
-    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"loocha",function($scope,$rootScope,$http,logoutURL,loocha){
+    app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"loocha","getLoginUserInfo",function($scope,$rootScope,$http,logoutURL,loocha,getLoginUserInfo){
         $scope.user = {
             islogin : false,
             name : "",
@@ -676,21 +654,45 @@ define(['app'],function(app){
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     sessionStorage.setItem('usernumber',"");
+                    sessionStorage.setItem('uScore',"");
                     sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
                     $scope.user.name ="";
                     window.location.href = "#/home";
                 });
         }
 
-        /*TODO 查询*/
         $scope.totalSearch = function(){
             window.location.href = "#/search/key="+$scope.user.search;
-        }
+        };
+
     }]);
-    app.controller("pageJumpCtr",['$scope','$window',function($scope,$window){
-        $scope.pageJump = function(type,user_level){
-            $window.location.href="#/hope?type="+type+"&user_level="+user_level;
-            $window.location.reload();
-        }
+    app.controller("pageJumpCtr",['$scope','$window','getLoginUserInfo',function($scope,$window,getLoginUserInfo){
+        /*   $scope.pageJump = function(type,user_level){
+         $window.location.href="#/hope?type="+type+"&user_level="+user_level;
+         $window.location.reload();
+         }*/
+
+        /**
+         *
+         * @param num 1 深度 2 推荐 3 预测
+         */
+        $scope.jumpPage = function(num){
+            getLoginUserInfo.isLogoin();
+            getLoginUserInfo.isScores();
+            var uScore = JSON.parse(sessionStorage.getItem("uScore"));
+            var type ="";
+            if(uScore !=null){
+                type =uScore.type;
+                if(num == 1){
+                    window.location.href = "#/depth/depthInfo/batch="+type;
+                }else if (num == 2){
+                    window.location.href = "#/hope/batch="+type;
+                }else if (num == 3){
+                    window.location.href = "#/chance/batch="+type;
+                }
+            }
+
+
+        };
     }]);
 });

@@ -3,8 +3,10 @@
  */
 require(['app'], function (app) {
     //app.constant('willUrl','/exam/request/all?index=0&limit=999');
-    app.constant('referUrl', '/exam/order/all?index=0&limit=999&type=1');
-    app.controller('willCtr', ['$scope', '$http', 'loocha', 'referUrl', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl, getLoginUserInfo) {
+    app.constant('referUrl2', '/exam/order/all?flag=0&index=0&limit=999&type=1');
+    app.constant('referUrl3', '/exam/order/all?flag=0&index=0&limit=999&type=1');
+    app.constant('referUrl4', '/exam/order/all?flag=4&index=0&limit=999&type=1');
+    app.controller('referenceCtr', ['$scope', '$http', 'loocha', 'referUrl2', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl2, getLoginUserInfo) {
         $scope.will = {
             isShowWill: false,
             list: ""
@@ -12,8 +14,13 @@ require(['app'], function (app) {
 
         getLoginUserInfo.isLogoin();
 
-        $http.get(loocha + referUrl)
+        $http.get(loocha + referUrl2)
             .success(function (data) {
+                if(data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 $scope.will.list = data.response.list;
                 $scope.will.isShowWill = true;
             });
@@ -29,6 +36,11 @@ require(['app'], function (app) {
                         window.location.href = "#/chance/batch="+data.response.type;
                     }else{
                         $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
+                            if(data.status == "4"){
+                                alert('您还没有登陆，先去登陆吧！');
+                                window.location.href = "#/login";
+                                return;
+                            }
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
                             window.location.href = "#/hope/batch="+data.response.type;
@@ -38,7 +50,7 @@ require(['app'], function (app) {
                 });
         }
     }]);
-    app.controller('referenceCtr', ['$scope', '$http', 'loocha', 'referUrl', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl, getLoginUserInfo) {
+    app.controller('willCtr', ['$scope', '$http', 'loocha', 'referUrl3', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl3, getLoginUserInfo) {
 
         $scope.refer = {
             isShowRefer: false,
@@ -47,14 +59,18 @@ require(['app'], function (app) {
 
         getLoginUserInfo.isLogoin();
 
-        $http.get(loocha + referUrl)
+        $http.get(loocha + referUrl3)
             .success(function (data, status) {
+                if(data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 $scope.refer.isShowRefer = true;
                 $scope.refer.list = data.response.list;
             });
     }]);
-
-    app.controller('allChanceCtr', ['$scope', '$http', 'loocha', 'referUrl', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl, getLoginUserInfo) {
+    app.controller('allChanceCtr', ['$scope', '$http', 'loocha', 'referUrl4', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl4, getLoginUserInfo) {
         $scope.chance = {
             isShowWill: false,
             list: ""
@@ -62,8 +78,13 @@ require(['app'], function (app) {
 
         getLoginUserInfo.isLogoin();
 
-        $http.get(loocha + referUrl)
+        $http.get(loocha + referUrl4)
             .success(function (data) {
+                if(data.status == "4"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                    return;
+                }
                 $scope.chance.list = data.response.list;
                 $scope.chance.isShowWill = true;
             });
@@ -80,6 +101,11 @@ require(['app'], function (app) {
                     }else{
                         //var intentionId = data.response.intentionId;
                         $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
+                            if(data.status == "4"){
+                                alert('您还没有登陆，先去登陆吧！');
+                                window.location.href = "#/login";
+                                return;
+                            }
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
                             window.location.href = "#/hope/batch="+data.response.type;

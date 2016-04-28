@@ -48,43 +48,68 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(table){
-            getLoginUserInfo.isLogin();
+            getLoginUserInfo.isLogoin();
 
             if(table.score <=0){
                 alert('分数不能小于0！');
+                return;
             }else if(table.sel == null){
                 alert('请选择科目等级！');
+                return;
             }else if(table.obl == null){
                 alert('请选择科目等级！');
+                return;
+            }else if (table.batch ==""){
+                alert('请选择批次！');
+                return;
+            }else if (table.subject == ""){
+                alert('请选择科别！');
+                return;
             }
 
             var param = {};
                 param.user_id = sessionStorage.getItem("user_id");
+                param.type = $scope.table.batch;
                 param.subject = $scope.table.subject;
                 param.score = $scope.table.score;
                 param.sub_a = $scope.table.sub1;
-                param.sub_b = $("#other option:selected").text();
+                param.sub_b = subStr($scope.table.sub2);
                 param.level_a = table.obl.name;
                 param.level_b = table.sel.name;
                 param.year = new Date().getFullYear();
 
-            var tramsform = function(data){
-                return $.param(data);
-            };
+            function subStr(num){
+                var str ="";
+                switch(parseInt(num)){
+                    case 1:
+                        str ="生物";
+                        break;
+                    case 2:
+                        str ="化学";
+                        break;
+                    case 3:
+                        str ="政治";
+                        break;
+                    case 4:
+                        str ="地理";
+                        break;
+                }
+                return str;
+            }
 
-            $http.post(loocha+"/uscore/addscore",param,{
-                headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest:tramsform
+            $http({
+                method:'GET',
+                url:loocha+"/uscore/addscore",
+                params:param
             }).success(function(responseDate){
-                alert('成绩创建成功，默认“开始使用”此成绩');
-                var index = responseDate.response,score = $scope.table.score;
-                $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                    $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
-                        localStorage.setItem('type',$scope.table.batch);
-                        sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                        $window.location.href = "#/hope";
-                    });
-                });
+                if(responseDate.status == 0) {
+                    getLoginUserInfo.isScores();
+                    localStorage.setItem("type", $scope.table.batch);
+                    $window.location.href = "#/hope/batch="+$scope.table.batch;
+                }else if (data.status == 4){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }
             });
         }
     }]);
