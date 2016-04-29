@@ -96,8 +96,8 @@ require(['app'], function (app) {
                             if(findDepar_status < 2 && typeObj.indexOf(findDepar.html())<0){
                                 findDepar.attr("status", "1").removeClass('cancle reject').addClass('agree');
                                 var obj = new Object();
-                                    obj.id = v;
-                                    obj.name = findDepar.html();
+                                obj.id = v;
+                                obj.name = findDepar.html();
                                 typeObj.push(obj);
                             }
                         }
@@ -107,8 +107,8 @@ require(['app'], function (app) {
                         var idx = $(v).attr(id);
                         if(ignore.indexOf(idx)<0 && prefer.indexOf(idx)<0){
                             var obj = new Object();
-                                obj.id = idx;
-                                obj.name = $(v).html();
+                            obj.id = idx;
+                            obj.name = $(v).html();
                             $(v).attr("status", "1").removeClass('reject cancle').addClass('agree');
                             prefer.push(idx);
                             arr.push(obj);
@@ -122,10 +122,10 @@ require(['app'], function (app) {
                         }
                     });
 
-                   /* if(typeObj.indexOf(that.html())>=0){
+                    /* if(typeObj.indexOf(that.html())>=0){
 
-                        typeObj.splice(typeObj.indexOf(that.html()),1);
-                    }*/
+                     typeObj.splice(typeObj.indexOf(that.html()),1);
+                     }*/
                     $.each(parent,function(i,v){
                         if(v!=""){
                             var findDepar = $(".findDepart[course_id="+v+"]"),findDepar_status = findDepar.attr("status")!=undefined ? findDepar.attr("status"):0;
@@ -623,31 +623,6 @@ require(['app'], function (app) {
             }
         }
     });
-    app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
-
-                if (scope.$last === true) {
-                    $rootScope.loading = false;
-                    $timeout(function () {
-                        scope.$emit(attr.onFinishRender);
-                    });
-
-                    /**
-                     * 把 nav 高度大于 220 的添加 scroll
-                     */
-                    var list = $("#panel-footer .nav-pills,#depart .nav-depart");
-                    for (var i = 0; i < list.size(); i++) {
-                        var that = list.eq(i);
-                        if (that.height() > 250) {
-                            that.addClass('nav-scroll');
-                        }
-                    }
-                }
-            }
-        }
-    }]);
     app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope, classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
         $scope.hope = {
             style:"",
@@ -883,12 +858,12 @@ require(['app'], function (app) {
             /*getLoginUserInfo.isLogoin();*/
 
             /*setInterval(function(){
-                getLoginUserInfo.isLogoin();
-            },600000);
-*/
+             getLoginUserInfo.isLogoin();
+             },600000);
+             */
             if ($stateParams.batch != null) {
 
-               /* $scope.hope.batch = $stateParams.batch;*/
+                /* $scope.hope.batch = $stateParams.batch;*/
 
                 $scope.coverage = [
                     {
@@ -3452,7 +3427,7 @@ require(['app'], function (app) {
                     }
                 });
             }else if (num == 4){
-                 $scope.finshparam.city_prefer[4]  = "";
+                $scope.finshparam.city_prefer[4]  = "";
                 $.each($scope.hope.cityArr, function (i, v) {
                     if (v.id != $scope.finshparam.city_prefer[0]
                         && v.id != $scope.finshparam.city_prefer[1]
@@ -3655,12 +3630,12 @@ require(['app'], function (app) {
          */
         $scope.manual = function () {
             var param = {};
-                param.id =  $scope.hope.id;
-                param.a = [];
-                param.b = [];
-                param.c = [];
-                param.d = [];
-                param.e = [];
+            param.id =  $scope.hope.id;
+            param.a = [];
+            param.b = [];
+            param.c = [];
+            param.d = [];
+            param.e = [];
 
             var tramsform = function (data) {
                 return $.param(data);
@@ -3670,20 +3645,20 @@ require(['app'], function (app) {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (responseDate) {
-                    $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (result) {
-                        if (result.status == 1) {
-                            alert('没有找到订单');
-                            return;
-                        }else if (data.status == 4){
-                            alert('您还没有登陆，先去登陆吧！');
-                            window.location.href = "#/login";
-                            return;
-                        }
-                        $scope.hope.order_id = result.response.order_id;
-                        $scope.hope.money = result.response.money;
-                        localStorage.setItem("type",$scope.hope.batch);
-                        $('#modal-pay').modal('show');
-                    });
+                $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
+                    if (data.status == 1) {
+                        alert('没有找到订单');
+                        return;
+                    }else if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
+                    $scope.hope.order_id = data.response.order_id;
+                    $scope.hope.money = data.response.money;
+                    localStorage.setItem("type",$scope.hope.batch);
+                    $('#modal-pay').modal('show');
+                });
             });
 
             //openwin('#/refer1');
@@ -3696,7 +3671,12 @@ require(['app'], function (app) {
             var count = 0;
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i] == "") {
-                    ++count;
+                    if(arr[i] == 0){
+                        alert("第一优先不能为空");
+                        return;
+                    }else{
+                        ++count;
+                    }
                 }
             }
             for (var j = 1; j <= count; j++) {
@@ -3918,14 +3898,14 @@ require(['app'], function (app) {
         }
 
         /*$scope.startChance = function (e) {
-            var that = $(e.target), score = that.attr('score'), type = that.attr('type');
-            if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
-                localStorage.setItem('type', type);
-                window.location.reload(0);
-            } else {
-                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
-            }
-        };*/
+         var that = $(e.target), score = that.attr('score'), type = that.attr('type');
+         if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
+         localStorage.setItem('type', type);
+         window.location.reload(0);
+         } else {
+         alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
+         }
+         };*/
 
         /**
          * hover事件
@@ -3955,5 +3935,30 @@ require(['app'], function (app) {
         };
 
 
+    }]);
+    app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+
+                if (scope.$last === true) {
+                    $rootScope.loading = false;
+                    $timeout(function () {
+                        scope.$emit(attr.onFinishRender);
+                    });
+
+                    /**
+                     * 把 nav 高度大于 220 的添加 scroll
+                     */
+                    var list = $("#panel-footer .nav-pills,#depart .nav-depart");
+                    for (var i = 0; i < list.size(); i++) {
+                        var that = list.eq(i);
+                        if (that.height() > 250) {
+                            that.addClass('nav-scroll');
+                        }
+                    }
+                }
+            }
+        }
     }]);
 });

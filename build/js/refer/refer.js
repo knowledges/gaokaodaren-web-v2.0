@@ -144,7 +144,8 @@ require(['app'],function(app){
         };
 
         function init(){
-            getLoginUserInfo.isLogoin();
+            /*getLoginUserInfo.isLogoin();*/
+
             if($scope.order.flag == 4){
                 $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
                     .success(function (data) {
@@ -166,7 +167,7 @@ require(['app'],function(app){
         }
 
         function getOrderInfo(){
-            getLoginUserInfo.isLogoin();
+            /*getLoginUserInfo.isLogoin();*/
             $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
                 .success(function(data,status){
                     if(data.status== 2){
@@ -182,26 +183,31 @@ require(['app'],function(app){
                         $scope.loading = false;
                         getNewOrderInfo(data.response.intentionId);
                         return;
+                    }else if (data.status == 4){
+                        alert("您还没有登陆或登陆失效，请重新登陆！");
+                        window.location.href="#/login";
+                    }else if(data.status == 0){
+                        $scope.order.intentionId = data.response.intentionId;
+                        $scope.order.type = data.response.type;
+                        $scope.order.name =data.response.name;
+                        $scope.order.number =data.response.number;
+                        $scope.order.city =data.response.city;
+                        $scope.order.area =data.response.area;
+                        $scope.order.data = data.response.list;
+                        $scope.order.money = data.response.money;
+                        $scope.order.schlArr_0 = data.response.list[0];
+                        $scope.order.schlArr_1 = data.response.list[1];
+                        $scope.order.schlArr_2 = data.response.list[2];
+                        $scope.order.schlArr_3 = data.response.list[3];
+                        $scope.order.schlArr_4 = data.response.list[4];
+                        $scope.order.departArr_0 = data.response.list[0].departs;
+                        $scope.order.departArr_1 = data.response.list[1].departs;
+                        $scope.order.departArr_2 = data.response.list[2].departs;
+                        $scope.order.departArr_3 = data.response.list[3].departs;
+                        $scope.order.departArr_4 = data.response.list[4].departs;
+                        $scope.order.requestId = data.response.intentionId;
                     }
-                    $scope.order.intentionId = data.response.intentionId;
-                    $scope.order.type = data.response.type;
-                    $scope.order.name =data.response.name;
-                    $scope.order.number =data.response.number;
-                    $scope.order.city =data.response.city;
-                    $scope.order.area =data.response.area;
-                    $scope.order.data = data.response.list;
-                    $scope.order.money = data.response.money;
-                    $scope.order.schlArr_0 = data.response.list[0];
-                    $scope.order.schlArr_1 = data.response.list[1];
-                    $scope.order.schlArr_2 = data.response.list[2];
-                    $scope.order.schlArr_3 = data.response.list[3];
-                    $scope.order.schlArr_4 = data.response.list[4];
-                    $scope.order.departArr_0 = data.response.list[0].departs;
-                    $scope.order.departArr_1 = data.response.list[1].departs;
-                    $scope.order.departArr_2 = data.response.list[2].departs;
-                    $scope.order.departArr_3 = data.response.list[3].departs;
-                    $scope.order.departArr_4 = data.response.list[4].departs;
-                    $scope.order.requestId = data.response.intentionId;
+
                 });
         }
 

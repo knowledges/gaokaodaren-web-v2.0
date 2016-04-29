@@ -1,24 +1,7 @@
-<!--<ul class="nav menu-nav text-center newNav">-->
-<!--<li ng-repeat="lists in news" ng-if="$first">-->
-<!--<a href="javascript:;;" data-target="#chart-collpsed{{lists.menu_id}}" aria-expanded="true" data-toggle="collapse">-->
-<!--{{lists.menu_name}}-->
-<!--</a>-->
-<!--<ul id="chart-collpsed{{lists.menu_id}}" class="collapse in" data-toggle="collapse in" aria-expanded="true">-->
-<!--<li ng-repeat="list in lists.articles.list"><a href="javascript:;;" ng-click="info(list.id)">{{list.title}}</a></li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--<li ng-repeat="lists in news" ng-if="!$first">-->
-<!--<a href="javascript:;;" data-target="#chart-collpsed{{lists.menu_id}}" aria-expanded="false" data-toggle="collapse">{{lists.menu_name}}</a>-->
-<!--<ul id="chart-collpsed{{lists.menu_id}}" class="collapse" data-toggle="collapse" aria-expanded="false">-->
-<!--<li ng-repeat="list in lists.articles.list"><a href="javascript:;;" ng-click="info(list.id)">{{list.title}}</a></li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--</ul>-->
-
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="$first">
+    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="$first" style="width: 190px;">
         <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
-            <h4 class="panel-title text-left">
+            <h4 class="panel-title text-left" style="font-size:14px;">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="true" aria-controls="collapse{{lists.menu_id}}">
                     {{lists.menu_name}}
                 </a>
@@ -27,14 +10,14 @@
         <div id="collapse{{lists.menu_id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{lists.menu_id}}">
             <div class="panel-body" style="max-height: 180px;overflow-y: scroll;">
                 <ul class="nav text-center newNav">
-                    <li ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
+                    <li style="font-size:12px;" ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="!$first">
+    <div class="panel panel-default"  ng-repeat="lists in news" ng-if="!$first"  style="width: 190px;">
         <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
-            <h4 class="panel-title text-left">
+            <h4 class="panel-title text-left"  style="font-size:14px;">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="false" aria-controls="collapse{{lists.menu_id}}">
                     {{lists.menu_name}}
                 </a>
@@ -43,7 +26,7 @@
         <div id="collapse{{lists.menu_id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{lists.menu_id}}">
             <div class="panel-body" style="max-height: 180px;overflow-y: scroll;">
                 <ul class="nav text-center newNav">
-                    <li ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
+                    <li style="font-size:12px;" ng-repeat="list in lists.articles.list"><a href="javascript:;;" style="padding: 0 0;" ng-click="info(list.id)">{{list.title}}</a></li>
                 </ul>
             </div>
         </div>

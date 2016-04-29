@@ -66,11 +66,7 @@ require(['app'], function (app) {
         init();
 
         function init() {
-            getLoginUserInfo.isLogoin();
-
-            /*setInterval(function(){
-                getLoginUserInfo.isLogoin();
-            },600000);*/
+           /* getLoginUserInfo.isLogoin();*/
 
             $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no"))
                 .success(function(data){
@@ -604,7 +600,6 @@ require(['app'], function (app) {
                 }else if (data.status == 4){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
-                    return;
                 }
             })
         };

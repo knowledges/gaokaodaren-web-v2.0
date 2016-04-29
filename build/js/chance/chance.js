@@ -884,10 +884,10 @@ require(['app'],function(app){
                     window.location.href = "#/login";
                     return;
                 }
-                $http.get(loocha+'/exam/' + data.response.id).success(function (result) {
-                    sessionStorage.setItem("order_id",result.response.order_id);
-                    $scope.order_id = result.response.order_id;
-                    $scope.money = result.response.money/100;
+                $http.get(loocha+'/exam/' + data.response.id).success(function (data) {
+                    sessionStorage.setItem("order_id",data.response.order_id);
+                    $scope.order_id = data.response.order_id;
+                    $scope.money = data.response.money/100;
                     $("#zyb_random").modal('show');
                 });
             });
@@ -988,16 +988,5 @@ require(['app'],function(app){
             }
             return num;
         }
-
-        /*$scope.startChance = function(e){
-            var that = $(e.target),score = that.attr('score'),type = that.attr('type');
-            if(score<=JSON.parse(sessionStorage.getItem('uScore')).score){
-                localStorage.setItem('type',type);
-                window.location.reload(0);
-            }else{
-                alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
-            }
-        }*/
-
     }]);
 });

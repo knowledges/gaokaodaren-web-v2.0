@@ -35,6 +35,7 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         init();
 
         function init() {
+            $(".modal-backdrop").hide();
             $scope.table.provincelist = data_province.data.response.list;
         }
 

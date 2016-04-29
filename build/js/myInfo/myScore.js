@@ -162,12 +162,6 @@ require(['app'],function(app){
                         $scope.table.myScore = obj.score;
                         $scope.table.newScore = obj.score;
                         $scope.table.batch =obj.type+"" ;
-                      /*  setTimeout(function(){
-                            $("#obl").text(obj.level_a);
-                            $("#sel").text(obj.level_b);
-                        },500);*/
-
-
                 }else{
                     $scope.loading = false;
                 }
@@ -238,8 +232,8 @@ require(['app'],function(app){
                     method:'GET',
                     url:loocha+"/uscore/addscore",
                     params:param
-                }).success(function(responseDate){
-                    if(responseDate.status == 0){
+                }).success(function(data){
+                    if(data.status == 0){
                         getLoginUserInfo.isScores();
                         localStorage.setItem("type",$scope.table.batch);
                         if(num == 1){
@@ -255,44 +249,8 @@ require(['app'],function(app){
                     }
                 });
 
-                /*var tramsform = function(data){
-                    return $.param(data);
-                };
-
-                $http.post(loocha+"/uscore/addscore",param,{
-                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                    transformRequest:tramsform
-                }).success(function(responseDate){
-                    var id = responseDate.response;
-                    if(responseDate.status == 0){
-                        $http.get(loocha+'/uscore/uptime?id='+id+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                            $http.get(loocha+"/uscore/info?id="+id).success(function(data,status){
-                                sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                                localStorage.setItem("type",$scope.table.batch);
-                                if(num == 1){
-                                    $window.location.href = "#/hope";
-                                }else if (num == 2){
-                                    $window.location.href = "#/chance";
-                                }else{
-                                    $window.location.href = "#/depath";
-                                }
-                            });
-                        });
-                    }
-                });*/
             }
         };
-
-      /*  $scope.setUp = function(e){
-            var that = $(e.target),index = that.attr("list_id"),score = that.attr("score");
-            $http.get(loocha+'/uscore/uptime?id='+index+'&user_id='+sessionStorage.getItem("user_id")).success(function(data){
-                alert("该成绩已开始使用");
-                $http.get(loocha+"/uscore/info?id="+index).success(function(data,status){
-                    sessionStorage.setItem('uScore',JSON.stringify(data.response));
-                    $window.location.reload(0);
-                });
-            });
-        };*/
 
         /**
          * 填志愿意向表前的判断

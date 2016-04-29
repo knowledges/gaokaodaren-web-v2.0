@@ -103,8 +103,8 @@ require(['app'],function(app){
                 method:'GET',
                 url:loocha+"/uscore/addscore",
                 params:param
-            }).success(function(responseDate){
-                if(responseDate.status == 0) {
+            }).success(function(data){
+                if(data.status == 0) {
                     getLoginUserInfo.isScores();
                     localStorage.setItem("type", $scope.table.batch);
                     $window.location.href = "#/chance/batch="+$scope.table.batch;

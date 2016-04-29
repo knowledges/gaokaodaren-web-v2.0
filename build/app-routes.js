@@ -19,15 +19,21 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    //app.constant("loocha","");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
                 return $http.get(loocha+'/user').success(function(data){
                     if(data.status == "-1"){
-                        alert('您还没有登陆，先去登陆吧！');
+                        sessionStorage.removeItem('type');
+                        sessionStorage.removeItem('uScore');
+                        sessionStorage.removeItem('user');
+                        sessionStorage.removeItem('user_id');
+                        sessionStorage.removeItem('usernumber');
+                        alert('登陆失效或您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
+                        $(".modal-backdrop").hide();
                     }
                     if(data.response!=undefined && data.response.id!=undefined){
                         sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
@@ -42,7 +48,7 @@ define(['app'],function(app){
                     sessionStorage.removeItem('usernumber');
                     alert('登陆失效或您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
-                    $(".modal-backdrop").fadeOut(500);
+                    $(".modal-backdrop").hide();
                 });
             },
             isScores:function(){
@@ -690,6 +696,9 @@ define(['app'],function(app){
                 }else if (num == 3){
                     window.location.href = "#/chance/batch="+type;
                 }
+            }else{
+                alert("您还还没有填写成绩，请填写成绩");
+                window.location.href = "#/all/allScore";
             }
 
 
