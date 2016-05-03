@@ -37,14 +37,19 @@ require(['app','jquery'],function(app,jquery){
                 })
         }
        $scope.showInfo = function(id){
-            $scope.marjor.info = true;
-            $scope.marjor.seacrChCon = false;
-            $scope.marjor.content = false;
-            $scope.search = false;
-            $http.get(loocha+'/article/show/'+id)
-               .success(function(data,status){
-                   $scope.marjor.strHtml = $sce.trustAsHtml(data);
-               });
+           if(id>0){
+               $scope.marjor.info = true;
+               $scope.marjor.seacrChCon = false;
+               $scope.marjor.content = false;
+               $scope.search = false;
+               $http.get(loocha+'/article/show/'+id)
+                   .success(function(data,status){
+                       $scope.marjor.strHtml = $sce.trustAsHtml(data);
+                   });
+           }else{
+               alert("没遇到找到对应的文章！");
+           }
+
        }
 
        $scope.findMarjor = function(){

@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="panel panel-default" ng-repeat="marjors in marjorType">
-            <div class="panel-heading text-left" style="color: orangered;">
-                <i class="icon-sitemap" style=" color: orangered;"></i>&nbsp; {{marjors.class_name}}（{{marjors.class_id}}）
+            <div class="panel-heading text-left" style="color: #000000;">
+                <i class="icon-sitemap" style=" color: #000000!important;"></i>&nbsp; {{marjors.class_name}}（{{marjors.class_id}}）
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills">
                     <li ng-repeat="list in marjors.list">
-                        <a href="javascript:;;" ng-click="showInfo(list.article_id)">{{list.name}}</a>
+                        <a href="javascript:;;" style="color: #000!important;" ng-click="showInfo(list.article_id)">{{list.name}}</a>
                     </li>
                 </ul>
             </div>

@@ -96,12 +96,6 @@ require(['app'],function(app){
 
         init ();
         function init(){
-            //console.log($stateParams.batch);
-            getLoginUserInfo.isLogoin();
-
-            /*setInterval(function(){
-                getLoginUserInfo.isLogoin();
-            },600000);*/
 
             $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
             $scope.userInfo.subject =subStr($scope.isChance);
@@ -155,23 +149,25 @@ require(['app'],function(app){
                         }
                     }
 
-                    var adminlist = JSON.parse(sessionStorage.getItem("admits"));
-                    if(adminlist.length>0){
-                        $.each(adminlist,function(i,v){
-                            if(v.flag == 1){
-                                $scope.modelInfo.model_1.push(v);
-                            }else if (v.flag == "2"){
-                                $scope.modelInfo.model_2.push(v);
-                            }else if (v.flag == "3"){
-                                $scope.modelInfo.model_3.push(v);
-                            }else if (v.flag == "4"){
-                                $scope.modelInfo.model_4.push(v);
-                            }else if (v.flag == "5"){
-                                $scope.modelInfo.model_5.push(v);
-                            }else {
-                                $scope.modelInfo.model_6.push(v);
-                            }
-                        })
+                    if(sessionStorage.getItem("admits")!="null"){
+                        var adminlist = JSON.parse(sessionStorage.getItem("admits"));
+                        if(adminlist.length>0){
+                            $.each(adminlist,function(i,v){
+                                if(v.flag == 1){
+                                    $scope.modelInfo.model_1.push(v);
+                                }else if (v.flag == "2"){
+                                    $scope.modelInfo.model_2.push(v);
+                                }else if (v.flag == "3"){
+                                    $scope.modelInfo.model_3.push(v);
+                                }else if (v.flag == "4"){
+                                    $scope.modelInfo.model_4.push(v);
+                                }else if (v.flag == "5"){
+                                    $scope.modelInfo.model_5.push(v);
+                                }else {
+                                    $scope.modelInfo.model_6.push(v);
+                                }
+                            })
+                        }
                     }
                 }
             }else{
@@ -188,7 +184,7 @@ require(['app'],function(app){
          *  根据范围ID 获取学校列表
          */
         $scope.selectRange = function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null) {
                 var param = {};
                 param.out_trade_no = $scope.order_id != "" ? $scope.order_id:sessionStorage.getItem("order_id");
@@ -227,7 +223,7 @@ require(['app'],function(app){
         };
 
         $scope.schChance_0 = function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null) {
                 var param = {};
                     param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
@@ -280,6 +276,16 @@ require(['app'],function(app){
                     }else if (data.status == "4"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("用户等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
                     }else{
                         alert("未知错误");
                     }
@@ -296,7 +302,7 @@ require(['app'],function(app){
         }
 
         $scope.schChance_3 = function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null) {
                 var param = {};
                     param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
@@ -340,7 +346,7 @@ require(['app'],function(app){
          * 查询城市列表
          */
         $scope.findCity = function(){
-            getLoginUserInfo.isLogoin();
+
             $scope.forecast.city_id ="";
             if($scope.forecast.area!=""){
                 $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area).success(function(data){
@@ -371,7 +377,7 @@ require(['app'],function(app){
          * 按院校属地预测高校录取概率
          */
         $scope.schChance =function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null){
                 var param = {};
                     param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
@@ -423,6 +429,16 @@ require(['app'],function(app){
                     }else if (data.status == "4"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("用户等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
                     }else{
                         alert("未知错误");
                     }
@@ -450,7 +466,7 @@ require(['app'],function(app){
          * 根据个性标签id 获取专业列表
          */
         $scope.getpersonalityId = function(){
-            $scope.forecast.pDepart_id = "",$scope.forecast.pSchool_id = "";
+            $scope.forecast.pDepart_id = "",$scope.forecast.pSchl_id = "";
             //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
             $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
@@ -467,6 +483,8 @@ require(['app'],function(app){
                 .success(function(data){
                     $scope.forecast.pSchool_Arr = data.response;
                     $scope.forecast.schChance_6 = "";
+                    $scope.forecast.pSchl_id="";
+                    $scope.forecast.pSchl_name ="";
                 });
             $scope.forecast.pDepart_name = $("#departName option:selected").text();
             $scope.forecast.pArticle_id = $("#departName option:selected").attr("article_id");
@@ -481,7 +499,7 @@ require(['app'],function(app){
          * 获取概率
          */
         $scope.findPerChance = function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null){
                 var param = {};
                 param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
@@ -535,6 +553,16 @@ require(['app'],function(app){
                     }else if (data.status == "4"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("用户等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
                     }else{
                         alert("未知错误");
                     }
@@ -613,12 +641,13 @@ require(['app'],function(app){
         };
 
         $scope.getSchName = function(){
+            $scope.forecast.style_School_article = $("#sSchool_name option:selected").attr("article_id");
             $scope.forecast.style_School_name = $("#sSchool_name option:selected").text();
             $scope.forecast.schChance_1 = "";
         };
 
         $scope.schChance_1 =function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.uScore != null){
                 var param = {};
                 param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
@@ -670,6 +699,16 @@ require(['app'],function(app){
                     }else if (data.status == "4"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("用户等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
                     }else{
                         alert("未知错误");
                     }
@@ -704,7 +743,7 @@ require(['app'],function(app){
          * 获取专业的概率
          */
         $scope.getdepartChance = function(){
-            getLoginUserInfo.isLogoin();
+
             if($scope.forecast.schl_id==""){
                 alert("请填写高校代号");
                 return;
@@ -762,6 +801,16 @@ require(['app'],function(app){
                 }else if (data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
+                }else if (data.status == "1006"){
+                    alert("该批次没找到该招生高校");
+                }else if (data.status == "1007"){
+                    alert("用户等级太低");
+                }else if (data.status == "1008"){
+                    alert("未找到该专业");
+                }else if (data.status == "1006"){
+                    alert("压线分数");
+                }else if (data.status == "1"){
+                    alert("操作失败");
                 }else{
                     alert("未知错误");
                 }
@@ -787,7 +836,7 @@ require(['app'],function(app){
         };
 
         $scope.getSchlChance = function(){
-            getLoginUserInfo.isLogoin();
+
             var param = {};
                 param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 5;
@@ -841,6 +890,16 @@ require(['app'],function(app){
                 }else if (data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
+                }else if (data.status == "1006"){
+                    alert("该批次没找到该招生高校");
+                }else if (data.status == "1007"){
+                    alert("用户等级太低");
+                }else if (data.status == "1008"){
+                    alert("未找到该专业");
+                }else if (data.status == "1006"){
+                    alert("压线分数");
+                }else if (data.status == "1"){
+                    alert("操作失败");
                 }else{
                     alert("未知错误");
                 }
@@ -852,7 +911,7 @@ require(['app'],function(app){
          *  缴费选择
          */
         $scope.startPay = function(){
-            getLoginUserInfo.isLogoin();
+
             var checklist = $(".chance_[type='checkbox']:checked");
             var array = "";
 
@@ -934,16 +993,21 @@ require(['app'],function(app){
          */
         $scope.showChanceSchInfo = function(e){
             var that = $(e.target),key = that.html();
-            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&key="+key).success(function(data){
-                $scope.schoolInfo = data.response.list[0];
-                if($scope.schoolInfo.article_id>0){
-                    $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
-                        $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
-                        $("#mask-school").fadeIn(500);
-                    });
+            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&code="+that.attr("article_id")+"&key="+key).success(function(data){
+                if(data.response.list.length<=0){
+                    alert("该批次未找到该校信息");
                 }else{
-                    alert("没有找到相关文章");
+                    $scope.schoolInfo = data.response.list[0];
+                    if($scope.schoolInfo.article_id>0){
+                        $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
+                            $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
+                            $("#mask-school").fadeIn(500);
+                        });
+                    }else{
+                        alert("没有找到相关文章");
+                    }
                 }
+
             });
         };
 

@@ -685,23 +685,26 @@ define(['app'],function(app){
         $scope.jumpPage = function(num){
             getLoginUserInfo.isLogoin();
             getLoginUserInfo.isScores();
-            var uScore = JSON.parse(sessionStorage.getItem("uScore"));
-            var type ="";
-            if(uScore !=null){
-                type =uScore.type;
-                if(num == 1){
-                    window.location.href = "#/depth/depthInfo/batch="+type;
-                }else if (num == 2){
-                    window.location.href = "#/hope/batch="+type;
-                }else if (num == 3){
-                    window.location.href = "#/chance/batch="+type;
-                }
-            }else{
+            if(sessionStorage.getItem("uScore") == ""){
                 alert("您还还没有填写成绩，请填写成绩");
                 window.location.href = "#/all/allScore";
+            }else{
+                var uScore = JSON.parse(sessionStorage.getItem("uScore"));
+                var type ="";
+                if(uScore !=null){
+                    type =uScore.type;
+                    if(num == 1){
+                        window.location.href = "#/depth/depthInfo/batch="+type;
+                    }else if (num == 2){
+                        window.location.href = "#/hope/batch="+type;
+                    }else if (num == 3){
+                        window.location.href = "#/chance/batch="+type;
+                    }
+                }else{
+                    alert("您还还没有填写成绩，请填写成绩");
+                    window.location.href = "#/all/allScore";
+                }
             }
-
-
         };
     }]);
 });

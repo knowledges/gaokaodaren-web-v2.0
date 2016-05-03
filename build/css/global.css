@@ -32,3 +32,13 @@
 #footer p {
   color: #000;
 }
+#marjorInfo h1,
+#marjorInfo h2,
+#marjorInfo h3,
+#marjorInfo h4,
+#marjorInfo h5,
+#marjorInfo h6,
+#marjorInfo p {
+  margin: 0 0;
+  padding: 0 0;
+}

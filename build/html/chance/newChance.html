@@ -277,10 +277,10 @@
                                 ng-model="forecast.style_School_id"
                                 ng-change="getSchName()">
                             <option value="">==请选择高校名称==</option>
-                            <option ng-repeat="list in forecast.style_SchoolArr" value="{{list.unique_id}}">{{list.name}}</option>
+                            <option ng-repeat="list in forecast.style_SchoolArr" article_id="{{list.article_id}}"  value="{{list.unique_id}}">{{list.name}}</option>
                         </select>
                         <ul class="nav nav-bar">
-                            <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" school_id="{{forecast.style_School_id}}">{{forecast.style_School_name}}</a></li>
+                            <li><a href="javascript:;;" ng-click="showChanceSchInfo($event)" article_id="{{forecast.style_School_article}}" school_id="{{forecast.style_School_id}}">{{forecast.style_School_name}}</a></li>
                         </ul>
                     </td>
                     <td style="vertical-align: middle;">
