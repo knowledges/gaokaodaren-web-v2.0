@@ -62,6 +62,11 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
                 var num = $("#myCarousel ol li[class='active']").data("slide-to");
                 $(".carousel-item").hide();
                 $("#item"+num).show();
+                if(num>0 && num <4){
+                    $(".floatAdv").hide();
+                }else{
+                    $(".floatAdv").show();
+                }
             }
             function handlerOut(){
                 $('.carousel').carousel({'pause':"true"});

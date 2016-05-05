@@ -1,6 +1,6 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default"  ng-repeat="lists in news" ng-if="$first" style="width: 190px;">
-        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
+        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}" style="background:#FFF;">
             <h4 class="panel-title text-left" style="font-size:14px;">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="true" aria-controls="collapse{{lists.menu_id}}">
                     {{lists.menu_name}}
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="panel panel-default"  ng-repeat="lists in news" ng-if="!$first"  style="width: 190px;">
-        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}">
+        <div class="panel-heading" role="tab" id="heading{{lists.menu_id}}" style="background:#FFF;">
             <h4 class="panel-title text-left"  style="font-size:14px;">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{lists.menu_id}}" aria-expanded="false" aria-controls="collapse{{lists.menu_id}}">
                     {{lists.menu_name}}

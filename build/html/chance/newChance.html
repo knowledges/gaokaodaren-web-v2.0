@@ -515,7 +515,7 @@
                             </td>
                             <td height="44" colspan="4" style="border-bottom: 1px dashed #ccc;">
                                 <h3>
-                                    <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank">{{schoolInfo.name}}</a>
+                                    <a ng-click="gobike(schoolInfo.name)" href="javascript:;;"  target="_blank">({{schoolInfo.unique_id}}){{schoolInfo.name}}</a>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
                                     <span>选科等级：
@@ -567,7 +567,7 @@
                             <td>招生计划：{{schoolInfo.artST2014}}</td>
                             <!--录取情况：{{schoolInfo.artST2014}}-->
                             <td>
-                                <a href="http://baike.baidu.com/item/{{schoolInfo.name}}"  target="_blank" class="btn btn-info">简介</a>
+                                <a ng-click="gobike(schoolInfo.name)" href="javascript:;;"  target="_blank" class="btn btn-info">简介</a>
                             </td>
                         </tr>
                         <tr>
@@ -626,11 +626,12 @@
                 <h4 class="modal-title">支付</h4>
             </div>
             <div class="modal-body">
-                <p>是否愿意支付{{money}}元，获取志愿参概率</p>
+                <p>10元／校·专业</p>
+                <p>共计缴费{{money}}元。</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                <a ng-click="pay()" class="btn btn-primary">是</a>
+                <a ng-click="pay()" class="btn btn-primary">同意</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">拒绝</button>
             </div>
         </div>
     </div>

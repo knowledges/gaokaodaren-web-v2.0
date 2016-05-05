@@ -40,10 +40,10 @@
 .ad {
   position: fixed;
   display: inline-block;
-  width: 300px;
-  z-index: 10;
-  bottom: 2%;
-  right: 5%;
+  width: 177px;
+  z-index: 1300;
+  bottom: 0;
+  right: 0;
 }
 .ad ul.ad-ul {
   padding: 0;

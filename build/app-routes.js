@@ -6,6 +6,7 @@ define(['app'],function(app){
     app.run(['$rootScope',function($rootScope){
         $rootScope.studentId = "";
         $rootScope.loading = true;
+        $rootScope.isFromDepth=false;
         deassign();
         window.onresize = function(){
             deassign();
@@ -65,6 +66,20 @@ define(['app'],function(app){
         return userInfo;
 
     }]);
+    app.factory("baidubaike",function(){
+        var baike = {
+            openwin:function(url){
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                a.setAttribute("id", "openwin");
+                document.body.appendChild(a);
+                a.click();
+            }
+        }
+        return baike;
+
+    });
     app.config(["$stateProvider","$urlRouterProvider","$httpProvider",function($stateProvider, $urlRouterProvider,$httpProvider){
         $urlRouterProvider.when("", "/home");
         $stateProvider
@@ -121,15 +136,15 @@ define(['app'],function(app){
                 templateUrl:"html/temp/tempExample.html",
                 //controllerUrl:"js/example/example",
                 controller:"exampleAllCtr",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
                     }]
                 }
             })
-            .state('example.nav',{
-                url:"/navExample",
+            /*.state('example.nav',{
+                url:"/batch=:batch",
                 templateUrl:"html/nav/nav.html",
                 controller:"exampleNav",
                 data: { isPublic: true}
@@ -138,13 +153,13 @@ define(['app'],function(app){
                 //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
                 //    }]
                 //}
-            })
+            })*/
             .state("example.list",{
-                url:'/itemId=:itemId&param=:param',
+                url:'/itemId=:itemId&param=:param&batch=:batch',
                 templateUrl:'html/recipe/recipe.html',
                 //controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",
-                data: { isPublic: true},
+                data: { isPublic: false},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
@@ -541,13 +556,27 @@ define(['app'],function(app){
                  }]
                  }*/
             })
+            .state('all.depth',{
+                url:'/allDepth',
+                templateUrl:'html/All/all.html',
+                controllerUrl:"html/All/all",
+                controller:"alldepthCtr",
+                data: { isPublic: false},
+            })
+            .state("all.orderdepth",{
+                url:'/out_trade_no=:out_trade_no',
+                templateUrl:"html/All/order.html",
+                //controllerUrl:"html/All/order",
+                controller:"orderDepthCtr",
+                data:{isPublic:false}
+            })
             ////////////////////////////////深度查询////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             .state("depth",{
                 url:"/depth",
                 templateUrl:"html/temp/tempDepath.html",
                 controllerUrl:"js/depth/articleMenu",
                 controller:"artCtr",
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     data_province:function($q,$http,provinceURL,loocha){
                         var dtd = $q.defer();
@@ -563,25 +592,8 @@ define(['app'],function(app){
             .state("depth.info",{
                 url:"/depthInfo/batch=:batch",
                 templateUrl:"html/depth/articleInfo.html",
-                data: { isPublic: false},
+                data: { isPublic: true},
             })
-            //.state("depth",{
-            //    url:"/depth",
-            //    templateUrl:'html/temp/tempAll.html',
-            //    data: { isPublic: false},
-            //    resolve:{
-            //        loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
-            //            return $ocLazyLoad.load(['js/myInfo/myScore.js']);
-            //        }]
-            //    }
-            //})
-            //.state("depth.list",{
-            //    url:'/itemId=:itemId&param=:param&active=:active',
-            //    templateUrl:'html/depth/depthInfo.html',
-            //    controllerUrl:"",
-            //    controller:"",
-            //    data: { isPublic: false}
-            //})
 //////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
             .state("pay",{
                 url:"/pay",
@@ -659,6 +671,7 @@ define(['app'],function(app){
             $http.get(loocha+logoutURL)
                 .success(function(data,status){
                     $scope.user.islogin = false;
+                    $rootScope.isFromDepth = false;
                     sessionStorage.setItem('usernumber',"");
                     sessionStorage.setItem('uScore',"");
                     sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));

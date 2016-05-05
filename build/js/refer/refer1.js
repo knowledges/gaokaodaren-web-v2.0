@@ -136,39 +136,39 @@ require(['app'], function (app) {
         };
 
         $scope.setUpSch = function (e, num) {
-            var that = $(e.target), sid = that.attr('sid'), name = that.attr('name');
+            var that = $(e.target), sid = that.attr('sid'), name = that.attr('name'),unique_id = that.attr("unique_id");
             var select = window.location.hash.split('#/refer1/select=')[1];
             $(".depart_" + select).attr("school_id", sid);
             if (select == 1) {
-                $scope.param.firSchName = $scope.info.model = "【"+sid+"】"+name;
+                $scope.param.firSchName = $scope.info.model = "【"+unique_id+"】"+name;
                 $.each($scope.persons, function (i, v) {
                     if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
             } else if (select == 2) {
-                $scope.param.senSchName = $scope.info.model = "【"+sid+"】"+name;
+                $scope.param.senSchName = $scope.info.model = "【"+unique_id+"】"+name;
                 $.each($scope.persons, function (i, v) {
                     if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
             } else if (select == 3) {
-                $scope.param.thiSchName = $scope.info.model ="【"+sid+"】"+name;
+                $scope.param.thiSchName = $scope.info.model ="【"+unique_id+"】"+name;
                 $.each($scope.persons, function (i, v) {
                     if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
             }else if (select == 4) {
-                $scope.param.fourSchName = $scope.info.model = "【"+sid+"】"+name;
+                $scope.param.fourSchName = $scope.info.model = "【"+unique_id+"】"+name;
                 $.each($scope.persons, function (i, v) {
                     if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;
                     }
                 });
             }else if (select == 5) {
-                $scope.param.fifthSchName = $scope.info.model = "【"+sid+"】"+name;
+                $scope.param.fifthSchName = $scope.info.model = "【"+unique_id+"】"+name;
                 $.each($scope.persons, function (i, v) {
                     if (v.name != $scope.param.firSchName.split("】")[1] && v.name != $scope.param.senSchName.split("】")[1] && v.name != $scope.param.thiSchName.split("】")[1] && v.name != $scope.param.fourSchName.split("】")[1]) {
                         v.disabled = false;

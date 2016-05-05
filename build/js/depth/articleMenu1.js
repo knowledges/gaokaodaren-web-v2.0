@@ -63,7 +63,6 @@ require(['app'],function(app){
 //        console.log($location.$$url.split("batch=")[1]);
         init();
         function init(){
-            localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             $("#depthModal").show();
             $scope.condition.provincelist=data_province.data.response.list;
             //$("#recommend").show();
@@ -163,10 +162,7 @@ require(['app'],function(app){
                         url :loocha+"/depth/query/"+idx+".html",
                         params:param
                     }).success(function (data) {
-                        if(data.status == "-1" || data.status == "4"){
-                            alert("需要登录请登录");
-                            window.location.href="#/login";
-                        }else if(data.length>0){
+                        if(data.length>0){
                             $("#depathTHML").empty().prepend(data);
                         }else{
                             $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
@@ -187,7 +183,7 @@ require(['app'],function(app){
             e.stopPropagation();
         };
 
-        $scope.showInfo = function(){
+        $scope.showInfo = function(num){
 
             var school = $scope.condition.schlName !="" ? $scope.condition.schlName :"";
             var depart = $scope.condition.departName !="" ? $scope.condition.departName :"";
@@ -208,10 +204,7 @@ require(['app'],function(app){
                 url :loocha+"/depth/query/"+$scope.condition.titleId+".html",
                 params:param
             }).success(function (data) {
-                if(data.status == "-1" || data.status == "4"){
-                    alert("需要登录请登录");
-                    window.location.href="#/login";
-                }else if(data.length>0){
+                if(data.length>0){
                     $("#depathTHML").empty().prepend(data);
                 }else{
                     $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
@@ -232,38 +225,28 @@ require(['app'],function(app){
          */
         $scope.subOrder = function(e){
 
-            angular.forEach($scope.condition.timer,function(i,v){
-                if(i != undefined && i == true){
-                    var year = 0;
-                    switch (parseInt(v)){
-                        case 0:
-                            year = 2012;
-                            break;
-                        case 1:
-                            year = 2013;
-                            break;
-                        case 2:
-                            year = 2014;
-                            break;
-                    }
+            var list = $("input[type='checkbox']");
 
+            angular.forEach(list,function(data,index,array){
+                if($(data).is(":checked")){
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
                     obj.parentTitle = $scope.condition.parentTitle;
                     obj.title = $scope.condition.title;
                     obj.name = $scope.condition.childTitle;
                     obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = year;
+                    obj.year = $(data).val();
                     obj.school = $scope.condition.schlName;
                     obj.depart = $scope.condition.departName;
                     obj.money = $scope.condition.money;
                     $scope.money+=($scope.condition.money/100);
                     $scope.orderList.push(obj);
-
                 }
             });
 
+
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));
+            localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             localStorage.setItem("depthmoney",$scope.money);
             $(".modal").hide();
         };
@@ -311,7 +294,7 @@ require(['app'],function(app){
                             if (data.status == 1) {
                                 alert('没有找到订单');
                                 return;
-                            }else if (data.status == 4||data.status == "-1"){
+                            }else if (data.status == 4){
                                 alert('您还没有登陆，先去登陆吧！');
                                 window.location.href = "#/login";
                                 return;
@@ -328,7 +311,7 @@ require(['app'],function(app){
         };
 
         $scope.pay = function () {
-            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $location.$$url.split("batch=")[1]);
+            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $scope.hope.batch);
             $('#modal-pay').modal('hide');
             $("#tip").modal('show');
         };

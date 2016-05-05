@@ -234,14 +234,14 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li role="presentation" class="dropdown">
+                        <li role="presentation" class="dropdown"  ng-if="hope.batch != 5 && hope.batch != 6">
                             <a class="dropdown-toggle" href="javascript:;;" ng-click="atrlistClk($event)">
                                 类别
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" id="attr1" data-istrue="false"></ul>
                         </li>
-                        <li role="presentation" class="dropdown">
+                        <li role="presentation" class="dropdown"  ng-if="hope.batch != 5 && hope.batch != 6 ">
                             <a class="dropdown-toggle" href="javascript:;;" ng-click="stylistClk($event)">
                                 类型
                                 <span class="caret"></span>
@@ -1612,7 +1612,7 @@
                                         <a href="javascript:;;"
                                            type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
-                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1==3">
+                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1==3 && hope.batch != 5 && hope.batch != 6">
                                         <a href="javascript:;;"
                                            wishId="6"
                                            type_id="{{sublist.id}}"
@@ -1652,7 +1652,23 @@
                     </div>
                     <div class="col-sm-12" style="padding: 0;">
                         <ul class="nav nav-pills">
-                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index == 0">
+                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index < 1">
+                                <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
+                                   ng-click="showCharacter(list.id)">
+                                    {{list.name}}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
+                                    style="display: none;">
+                                    <li ng-repeat="sublist in list.sublist">
+                                        <a href="javascript:;;"
+                                           wishId="{{$index+4}}"
+                                           ng-click="agreePersonl($event)"
+                                           ng-dblclick="rejectPersonl($event)"
+                                           type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index+1 > 1 && $index+1<=3">
                                 <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
                                    ng-click="showCharacter(list.id)">
                                     {{list.name}}<span class="caret"></span>
@@ -1660,22 +1676,22 @@
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
                                     <li ng-repeat="sublist in list.sublist"><a href="javascript:;;"
-                                                                               wishId="{{$index+4}}"
-                                                                               ng-click="agreePersonl($event)"
-                                                                               ng-dblclick="rejectPersonl($event)"
                                                                                type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index+1 > 1">
+                            <li class="dropdown" ng-repeat="list in hope.classify_2" ng-if="$index+1 == 4">
                                 <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
                                    ng-click="showCharacter(list.id)">
                                     {{list.name}}<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" id="pills{{list.id}}" data-istrue="true"
                                     style="display: none;">
-                                    <li ng-repeat="sublist in list.sublist"><a href="javascript:;;"
-                                                                               type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1 <= 2">
+                                        <a href="javascript:;;" type_id="{{sublist.id}}">{{sublist.name}}</a>
+                                    </li>
+                                    <li ng-repeat="sublist in list.sublist" ng-if="$index+1 > 2 && hope.batch != 5 && hope.batch != 6">
+                                        <a href="javascript:;;" type_id="{{sublist.id}}">{{sublist.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -1687,7 +1703,7 @@
             <hr/>
             <h4 class="h_title text-left" style="margin-left: 70px;"><i class="icon-tag"></i>基础部分</h4>
 
-            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1==1">
+            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1==1 && hope.batch != 5 && hope.batch != 6">
                 <div class="col-sm-2 text-right" style="margin-top: 6px;">
                     <h6>({{list.name}})</h6>
                 </div>
@@ -1800,7 +1816,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row"  id="hopePart_0" ng-repeat="list in hope.personality_type2" ng-if="$index+1==6">
+            <div class="row"  id="hopePart_0" ng-repeat="list in hope.personality_type2" ng-if="$index+1==6 &&hope.batch != 5 && hope.batch != 6">
                 <div class="col-sm-2 text-right" style="margin-top: 6px;">
                     <h6><a href="javascript:;;" wishId="{{$index+1}}"
                            ng-dblclick="rejectPersonl_0($event)">({{list.name}})</a></h6>
@@ -2283,7 +2299,11 @@
             <div class="modal-body" style="font-size:16px; text-indent: 2em;">
                 <p>符合您的高校有<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.total}}</span>所</p>
                 <p>系统为您推荐<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.recommend}}</span>所（包含优先选项最多且概率在50%以上的高校）</p>
-                <p>前 {{hope.num}} 分推荐表（包含{{hope.recommend}}所不同的高校）可全部呈现</p>
+                <p ng-if="hope.table==1">
+                    1分推荐表
+                </p>
+                <p ng-if="hope.table>1 && hope.table<=3">前 {{hope.table}} 分推荐表可全部呈现（包含{{hope.recommend}}所不同的高校）</p>
+                <p ng-if="hope.table>3">可以推荐多份，其中前 {{hope.table}} 分推荐表（包含{{hope.recommend}}所不同的高校）</p>
 
             </div>
             <div class="modal-footer">
@@ -2291,6 +2311,35 @@
                         data-target="#modal-pay">网站推荐
                 </button>
                 <a ng-click="manual()" class="btn btn-success">考生自选</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="payStart" tabindex="-2" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">支付</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5 text-right">
+                        <label>请输入要查询学校的个数:</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" ng-model="hope.number" style="width: 80%;" />
+                    </div>
+                    <div class="col-sm-4">
+                        （最多不能超过{{hope.recommend}}所）
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a ng-click="newManual()" class="btn btn-primary">确定</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
@@ -2306,11 +2355,12 @@
                 <h4 class="modal-title">支付</h4>
             </div>
             <div class="modal-body">
-                <p>是否愿意支付{{hope.money/100}}元，获取志愿参考表</p>
+                <p>10元／校·专业</p>
+                <p>共计缴费{{hope.money/100}}元。</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                <a ng-click="pay()" class="btn btn-primary">是</a>
+                <a ng-click="pay()" class="btn btn-primary">同意</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">拒绝</button>
             </div>
         </div>
     </div>
@@ -2346,23 +2396,27 @@
                 </h4>
             </div>
             <div class="modal-body" style="text-indent: 2em;">
+                <p>填写（“点击”）《考生志愿意向表》后，获取《考生志愿推荐表》或《考生志愿自选表》</p>
+                <p>填写（“点击”）《考生志愿意向表》便捷流程：</p>
                 <p>一看、二拒、三优先、四具体</p>
-                <p>一看：“点击”志愿要素（“意向高校”、“院校属地”、“院校属类”、“意向专业”、“个性标签”）栏目内第一行或第二行中的“▼”</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看：地区中的省份</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  属类中的小类</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  学科中的专业类</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或  个性归类中的小类</p>
-                <p>二拒：（“双击”—灰色）拒绝  某“地区”、某“省”或某“线”城市</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拒绝  某“类”或某“分”高校</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拒绝  某“学科”、某“类”或某“门”专业</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拒绝  个性中的“弱”项、“限”项、不适合选项。</p>
-                <p>三优先：（“单击”—绿色）优先选择：某“地区”、某“省”或某“线”城市。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：某“类”或某 “分”高校。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：某“学科”、某“类”或某“门”专业。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优先选择：个性中的“强”项、“是”项、“有”项。</p>
-                <p>四具体：具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先，对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;具体查看“拒绝选项”中的城市、高校、专业、个性是否
-                    可以不拒绝，对于不拒绝选项，“点击”恢复（原色），甚至优先（绿色）。</p>
+                <p>一看：“点击”志愿要素（“意向高校”（“院校属地”、“院校属类”）、“意向专业、“个性标签”）栏目内第一行或第二行中的“▼”</p>
+                <p style="margin-left:15px;">看：地区中的省份</p>
+                <p style="margin-left:42px;">属类中的小类</p>
+                <p style="margin-left:42px;">学科中的专业类</p>
+                <p style="margin-left:42px;">个性归类中的小类</p>
+                <p>二拒：（“双击”—灰色）</p>
+                <p style="margin-left:15px;">拒绝：某“地区”、某“省”或某“线”城市或具体城市；</p>
+                <p style="margin-left:15px;">拒绝：某“类”或某“分”高校或具体高校；</p>
+                <p style="margin-left:15px;">拒绝：某“学科”、某“类”或某“门”专业或具体专业；</p>
+                <p style="margin-left:15px;">拒绝：个性中的“弱”项、“限”项、不适合选项。</p>
+                <p>三优先：（“单击”—绿色）</p>
+                <p style="margin-left:15px;">优先选择：某“地区”、某“省”或某“线”城市或具体城市。</p>
+                <p style="margin-left:15px;">优先选择：某“类”或某 “分”高校或具体高校。</p>
+                <p style="margin-left:15px;">优先选择：某“学科”、某“类”或某“门”专业或具体专业。</p>
+                <p style="margin-left:15px;">优先选择：个性中的“强”项、“是”项、“有”项。</p>
+                <p>四具体：</p>
+                <p style="margin-left:15px;">具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
+                <p style="margin-left:15px;">具体查看“拒绝选项”中的城市、高校、专业、个性是否可以不拒绝，对于不拒绝选项，“点击”恢复（原色），甚至优先（绿色）。</p>
             </div>
         </div>
     </div>

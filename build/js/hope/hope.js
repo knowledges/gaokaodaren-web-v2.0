@@ -625,6 +625,7 @@ require(['app'], function (app) {
     });
     app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope, classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
         $scope.hope = {
+            number:"",
             style:"",
             belongs:"",
             attribute:"",
@@ -3628,44 +3629,56 @@ require(['app'], function (app) {
                 }
             });
         };
+
         /**
          * 随机自选
          */
         $scope.manual = function () {
-            var param = {};
-            param.id =  $scope.hope.id;
-            param.a = [];
-            param.b = [];
-            param.c = [];
-            param.d = [];
-            param.e = [];
-
-            var tramsform = function (data) {
-                return $.param(data);
-            };
-
-            $http.post(loocha + "/exam/intention/manual", param, {
-                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest: tramsform
-            }).success(function (responseDate) {
-                $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
-                    if (data.status == 1) {
-                        alert('没有找到订单');
-                        return;
-                    }else if (data.status == 4){
-                        alert('您还没有登陆，先去登陆吧！');
-                        window.location.href = "#/login";
-                        return;
-                    }
-                    $scope.hope.order_id = data.response.order_id;
-                    $scope.hope.money = data.response.money;
-                    localStorage.setItem("type",$scope.hope.batch);
-                    $('#modal-pay').modal('show');
-                });
-            });
-
+            $("#payStart").modal("show");
             //openwin('#/refer1');
         };
+
+        $scope.newManual = function(){
+            if($scope.hope.number>0){
+                $("#payStart").modal("hide");
+                var param = {};
+                param.id =  $scope.hope.id;
+                param.num = $scope.hope.number;
+                param.a = [];
+                param.b = [];
+                param.c = [];
+                param.d = [];
+                param.e = [];
+
+                var tramsform = function (data) {
+                    return $.param(data);
+                };
+
+                $http.post(loocha + "/exam/intention/manual", param, {
+                    headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    transformRequest: tramsform
+                }).success(function (responseDate) {
+                    $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
+                        if (data.status == 1) {
+                            alert('没有找到订单');
+                            return;
+                        }else if (data.status == 4){
+                            alert('您还没有登陆，先去登陆吧！');
+                            window.location.href = "#/login";
+                            return;
+                        }else if (data.status == 0){
+                            $scope.hope.order_id = data.response.order_id;
+                            $scope.hope.money = data.response.money;
+                            localStorage.setItem("type",$scope.hope.batch);
+                            $('#modal-pay').modal('show');
+                        }
+                    });
+                });
+            }else{
+                alert("请输入查询院校个数");
+            }
+        }
+
         /**
          * 数组清空
          * @param arr

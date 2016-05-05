@@ -371,6 +371,7 @@ require(['app'],function(app){
          */
         $scope.findSchoolInfo = function(){
             $scope.forecast.school_name = $("#school_name option:selected").text();
+            $scope.forecast.school_id = $("#school_name option:selected").val();
             $scope.forecast.schChance = "";
         };
         /**
@@ -970,6 +971,11 @@ require(['app'],function(app){
                     }
                     $("#tip").modal('hide');
                 });
+        };
+
+        $scope.gobike = function(name){
+            var item = name.split("(")[0].split("★")[0];
+            openwin("http://baike.baidu.com/item/"+item);
         };
 
         function openwin(url) {

@@ -70,14 +70,15 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"  ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4>获取下一份参考表</h4>
+                                <h4>支付</h4>
                             </div>
                             <div class="modal-body">
-                                需要支付{{order.money/100}}元，是否立即支付?
+                                <p>10元／校·专业</p>
+                                <p>共计缴费{{order.money/100}}元。</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">否</button>
-                                <button type="button" class="btn btn-primary" ng-click="payChance()">是</button>
+                                <button type="button" class="btn btn-primary" ng-click="payChance()">同意</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">拒绝</button>
                             </div>
                         </div>
                     </div>

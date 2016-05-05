@@ -1,39 +1,3 @@
-<!--<ul class="nav menu-nav text-center">-->
-	<!--<li><a href="javascript:;;" data-target="#chart-collpsed"-->
-		<!--aria-expanded="true" data-toggle="collapse">导航</a>-->
-		<!--<ul id="chart-collpsed" data-toggle="collapse in" aria-expanded="true"-->
-			<!--class="collapse in ulcollapse">-->
-			<!--<li class="active"><a is-active ui-sref="marjor.nav"-->
-				<!--href="javascript:;;">导航</a></li>-->
-		<!--</ul></li>-->
-	<!--<li><a href="javascript:;;" data-target="#chart-collpsed1"-->
-		<!--aria-expanded="true" data-toggle="collapse">本科院校</a>-->
-		<!--<ul id="chart-collpsed1" class="collapse in ulcollapse"-->
-			<!--data-toggle="collapse in" aria-expanded="true">-->
-			<!--<li><a is-active ui-sref="marjor.list({type:1})"-->
-				<!--href="javascript:;;">文科本一</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:3})"-->
-				<!--href="javascript:;;">文科本二</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:5})"-->
-				<!--href="javascript:;;">文科本三</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:2})"-->
-				<!--href="javascript:;;">理科本一</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:4})"-->
-				<!--href="javascript:;;">理科本二</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:6})"-->
-				<!--href="javascript:;;">理科本三</a></li>-->
-		<!--</ul></li>-->
-	<!--<li><a href="javascript:;;" data-target="#chart-collpsed2"-->
-		<!--aria-expanded="true" data-toggle="collapse">高职院校</a>-->
-		<!--<ul id="chart-collpsed2" class="collapse in ulcollapse"-->
-			<!--data-toggle="collapse in" aria-expanded="true">-->
-			<!--<li><a is-active ui-sref="marjor.list({type:7})"-->
-				<!--href="javascript:;;">文科高职（专科）</a></li>-->
-			<!--<li><a is-active ui-sref="marjor.list({type:8})"-->
-				<!--href="javascript:;;">理科高职（专科）</a></li>-->
-		<!--</ul></li>-->
-<!--</ul>-->
-
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-controller="cityCtr">
 	<div class="panel panel-default">
 		<div class="panel-heading" role="tab" id="headingOne">
@@ -46,7 +10,7 @@
 		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			<div class="panel-body" style="padding:0 0;">
 				<ul class="nav text-center">
-					<li ui-sref="school.nav"  on-finish-render="methodname" class="actived"><a href="javascript:;;">导航</a></li>
+					<li ui-sref="school.nav" idx="0" class="navli actived" ><a href="javascript:;;">导航</a></li>
 				</ul>
 			</div>
 		</div>
@@ -59,20 +23,20 @@
 				</a>
 			</h4>
 		</div>
-		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+		<div id="collapseTwo" class="panel-collapse collapse  in" role="tabpanel" aria-labelledby="headingTwo">
 			<div class="panel-body" style="padding:0 0;max-height: 350px;overflow-y: scroll;">
 				<ul class="nav text-center">
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:1})"
+					<li class="navli" idx="1"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:1})"
 						   href="javascript:;;">文科本一</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:3})"
+					<li class="navli" idx="3"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:3})"
 						   href="javascript:;;">文科本二</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:5})"
+					<li class="navli" idx="5"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:5})"
 						   href="javascript:;;">文科本三</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:2})"
+					<li class="navli" idx="2"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:2})"
 						   href="javascript:;;">理科本一</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:4})"
+					<li class="navli" idx="4"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:4})"
 						   href="javascript:;;">理科本二</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:6})"
+					<li class="navli" idx="6"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:6})"
 						   href="javascript:;;">理科本三</a></li>
 				</ul>
 			</div>
@@ -86,12 +50,12 @@
 				</a>
 			</h4>
 		</div>
-		<div id="collapseThir" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThir">
+		<div id="collapseThir" class="panel-collapse collapse  in" role="tabpanel" aria-labelledby="headingThir">
 			<div class="panel-body" style="padding:0 0;">
 				<ul class="nav text-center">
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:7})"
+					<li class="navli" idx="7"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:7})"
 						   href="javascript:;;">文科高职（专科）</a></li>
-					<li><a on-finish-render="methodname" ui-sref="marjor.list({type:8})"
+					<li class="navli" idx="8"  ng-click="addClkCss($event)"><a ui-sref="marjor.list({type:8})"
 						   href="javascript:;;">理科高职（专科）</a></li>
 				</ul>
 			</div>

@@ -9,13 +9,15 @@
                 <tbody  ng-repeat="list in schoolList">
                     <tr class="text-left">
                         <td rowspan="3"><img src="img/school.png" width="125" height="125" alt=""/></td>
-                        <td colspan="2" ><strong>({{list.id}}) {{list.name}}</strong> <i class="schStyleBg_a"  ng-if="list.is_985">985</i>  <i class="schStyleBg_a"  ng-if="list.is_211">211</i>  <i class="schStyleBg_b" ng-if="!list.is_211 && !list.is_985 && list.belongs_name =='' ">地方所属</i></td>
+                        <td colspan="2" ><strong>({{list.unique_id}}) {{list.name}}</strong> <i class="schStyleBg_a"  ng-if="list.is_985">985</i>  <i class="schStyleBg_a"  ng-if="list.is_211">211</i>  <i class="schStyleBg_b" ng-if="!list.is_211 && !list.is_985 && list.belongs_name =='' ">地方所属</i></td>
                         <td width="203">&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="schStyleDashaed text-left"><strong>高校类型：</strong>{{list.style_name}}</td>
-                        <td class="schStyleDashaed"><strong>隶属：</strong>{{list.belongs_name}}</td>
-                        <td><a href="http://baike.baidu.com/item/{{list.name}}" target="_blank" class="btn btn-success">学校简介</a></td>
+                        <td class="schStyleDashaed">
+                            <strong>隶属：</strong>
+                            {{list.belongs_name}}</td>
+                        <td><a ng-click="gobike(list.name)" href="javascript:;;" target="_blank" class="btn btn-success">学校简介</a></td>
                     </tr>
                     <tr>
                         <td class="text-left"><strong>性质：</strong>{{list.attr_name}}</td>

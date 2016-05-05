@@ -1,32 +1,30 @@
 <div class="container text-center">
-    <div class="row">
-        <div class="alert alert-success" ng-if="orderList.length>0">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <td>标题</td>
-                        <td>高校名称</td>
-                        <td>专业名称</td>
-                        <td>时间</td>
-                        <td>金额</td>
-                        <td>状态</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="list in orderList">
-                        <td>{{list.name}}</td>
-                        <td>{{list.school}}</td>
-                        <td>{{list.depart}}</td>
-                        <td>{{list.year}}</td>
-                        <td>{{list.money}}</td>
-                        <td><a href="javascript:;;" class="btn btn-default" ng-click="remClk($index)">移除</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h4 class="text-right">总计：{{money}}元</h4>
-            <div class="row text-right">
-                <a href="javascript:;;" class="btn btn-success">去支付</a>
-            </div>
+    <div class="row"  ng-if="orderList.length>0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>标题</td>
+                    <td>高校名称</td>
+                    <td>专业名称</td>
+                    <td>年份</td>
+                    <td>金额</td>
+                    <td>状态</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="list in orderList">
+                    <td>{{list.title}}{{list.name}}</td>
+                    <td>{{list.school}}</td>
+                    <td>{{list.depart}}</td>
+                    <td>{{list.year}}</td>
+                    <td>{{list.money/100}}</td>
+                    <td><a href="javascript:;;" class="btn btn-default" ng-click="remClk($index)">移除</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 class="text-right">总计：{{money}}元</h4>
+        <div class="row text-right">
+            <a href="javascript:;;" class="btn btn-success" ng-click="payOrder()">确认缴费查询</a>
         </div>
     </div>
     <div class="container">
@@ -60,6 +58,44 @@
                 <p>4、打“√”：在需要查询条款后方框内打“√”；</p>
                 <p>5、“确认”：确认需要查询条款的汇总缴费金额；</p>
                 <p>6、“缴费查”：缴费之后，具体一一查询所需内容。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">支付</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否愿意支付{{hope.money/100}}元</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                <a ng-click="pay()" class="btn btn-primary">是</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--交易提示-->
+<div class="modal fade" id="tip" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">交易提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>交易是否成功？</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="isPay()">是</button>
+                <button class="btn btn-default" data-dismiss="modal">否</button>
             </div>
         </div>
     </div>

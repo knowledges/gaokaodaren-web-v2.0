@@ -61,7 +61,12 @@ require(['app'],function(app){
                         sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
                     }
                 });
-                window.location.href = "#/home";
+                if($rootScope.isFromDepth == true){
+                    window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");;
+                }else{
+                    window.location.href = "#/home";
+                }
+
 
                 /*if(localStorage.getItem('score')!=null){
                     window.location.href = "#/home";

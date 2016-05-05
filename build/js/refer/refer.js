@@ -159,6 +159,8 @@ require(['app'],function(app){
                         }
                     });
 
+            }else if($scope.order.flag == 5){
+                window.location.href = "#/all/out_trade_no="+$scope.order.orderId;
             }else{
                 $scope.order.subtitle = yxb_title[$scope.order.type];
                 $scope.order.caption = caption [$scope.order.type];

@@ -4,7 +4,7 @@
 'use strict';
 require(['app','pagging'],function(app,pagging){
     app.constant("navURL_1","/article/show/3289");//城市
-    app.constant('findSchoolURL',"/school");
+    app.constant('findSchoolURL',"/school/search");
     app.constant("propURL","/school/prop?depart_type=1");
     app.constant("provinceURL","/city/province");
     app.constant("tubeURL","/web/new/JSON/attribute.json");
@@ -21,7 +21,7 @@ require(['app','pagging'],function(app,pagging){
             }
         }
     }]);
-    app.controller("schoolConCtl",['$scope','$stateParams','$sce','$http','loocha','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL',function($scope,$stateParams,$sce,$http,loocha,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL){
+    app.controller("schoolConCtl",['$scope','$stateParams','$sce','$http','loocha','navURL_1','propURL','tubeURL','provinceURL','findSchoolURL','baidubaike',function($scope,$stateParams,$sce,$http,loocha,navURL_1,propURL,tubeURL,provinceURL,findSchoolURL,baidubaike){
         $scope.school = {
             isnav: true,
             isfind:false,
@@ -75,19 +75,39 @@ require(['app','pagging'],function(app,pagging){
         };
 
         $scope.findSchool = function(info){
+            $scope.info.index = 1;
             pageation($scope.info.index,info);
+        };
+
+        $scope.gobike = function(name){
+            var item = name.split("(")[0].split("★")[0];
+            baidubaike.openwin("http://baike.baidu.com/item/"+item);
         };
 
         function pageation(currentIdx,info) {
             var param = {};
                 param.type = info.type;
-                param.key = info.key;
-                param.style = info.style;
-                param.attr = info.attr;
-                param.belongs = info.belongs;
-                param.level = typeof(info.level) == 'object' ? info.level.type : typeof(info.level) == null ? 0 : info.level.type;
-                param.province_id = info.province_id;
-                param.city_id = info.city_id;
+                if(info.key!="" && info.key!=null){
+                    param.key = info.key;
+                }
+                if(info.style !="" && info.style != null){
+                    param.style = info.style.id;
+                }
+                if(info.attr != "" && info.attr !=null){
+                    param.attr = info.attr.id;
+                }
+                if(info.belongs!="" && info.belongs !=null){
+                    param.belongs = info.belongs.id;
+                }
+                if(info.level != "" && info.level !=null){
+                    param.level = typeof(info.level) == "object" ? info.level.id : typeof(info.level) == "number" ? 0 : info.level.id;
+                }
+                if(info.province_id !="" && info.province_id != null){
+                    param.province_id = info.province_id.id;
+                }
+                if(info.city_id !="" && info.city_id!=null){
+                    param.city_id = info.city_id.id;
+                }
                 param.index = currentIdx - 1;
                 param.limit = 10;
                 param.junior = info.junior;
@@ -99,7 +119,7 @@ require(['app','pagging'],function(app,pagging){
             })
             .success(function (data, status) {
 
-                $scope.info.pageSize = data.response.sum;
+                $scope.info.pageSize = data.response.sum  > 0 ? data.response.sum :0;
                 $scope.schoolList = data.response.list;
 
                 $("#pagging").pagging({
@@ -107,7 +127,6 @@ require(['app','pagging'],function(app,pagging){
                     param: param,
                     current: $scope.info.index,
                     callback: function (idx, param) {
-                        debugger;
                         $scope.info.index = idx;
                         pageation($scope.info.index, info);
                     }

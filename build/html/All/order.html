@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td style="border: 1px solid #000;">标题</td>
+                <td style="border: 1px solid #000;">高校名称</td>
+                <td style="border: 1px solid #000;">专业名称</td>
+                <td style="border: 1px solid #000;">年份</td>
+                <!--<td>金额</td>-->
+                <td style="border: 1px solid #000;">选择</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="list in order.conditions">
+            <td style="border: 1px solid #000;">{{list.name}}</td>
+            <td style="border: 1px solid #000;">{{list.school}}</td>
+            <td style="border: 1px solid #000;">{{list.depart}}</td>
+            <td style="border: 1px solid #000;">{{list.year}}</td>
+            <!--<td>{{list.money/100}}</td>-->
+            <td style="border: 1px solid #000;"><a href="javascript:;;" class="btn btn-primary" ng-click="showOrderInfo($index+1)">查看</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div id="depathTHML"></div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">支付</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否愿意支付{{hope.money/100}}元,查看内容</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                <a ng-click="pay()" class="btn btn-primary">是</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--交易提示-->
+<div class="modal fade" id="tip" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">交易提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>交易是否成功？</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="isPay()">是</button>
+                <button class="btn btn-default" data-dismiss="modal">否</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'templete/model-loading/loading.html'"></div>

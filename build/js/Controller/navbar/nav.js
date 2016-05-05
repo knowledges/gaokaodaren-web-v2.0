@@ -124,9 +124,9 @@ require(['app'],function(app){
                 $scope.loading = false;
             });
     }]);
-    app.controller('exampleNav',['$scope','$sce','$http','navURL_11','loocha',function($scope,$sce,$http,navURL_11,loocha){
+    app.controller('exampleNav',['$scope','$sce','$http','$stateParams','navURL_11','loocha',function($scope,$sce,$http,$stateParams,navURL_11,loocha){
         $scope.nav = {
-            content : ''
+            content : '',
         };
 
         $http.get(loocha+navURL_11)

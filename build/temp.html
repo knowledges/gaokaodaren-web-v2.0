@@ -19,12 +19,16 @@
                 param.j_password = $("#j_password").val();
                 param.code = $("#code").val();
 
+          /*  $.post(url,{username:option.username,password:option.password,code:option.code,mobile:option.mobile},function(result){
+                response(result,option);
+            },"html");*/
+
             $.ajax({
                 url:'/loocha/login',// 跳转到 action
                 data:param,
                 type:'post',
                 cache:false,
-                dataType:"json",
+                dataType:"html",
                 success:function(data) {
                     alert(data);
                 },

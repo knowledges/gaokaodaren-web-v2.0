@@ -601,7 +601,7 @@
                                 <h4 class="text-left">{{list.name}}</h4>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary" sid="{{list.id}}" name="{{list.name}}"
+                                <button class="btn btn-primary" sid="{{list.id}}" unique_id="{{list.code}}" name="{{list.name}}"
                                         ng-click="setUpSch($event,$index+1)" ng-if="!list.disabled">选为{{num}}志愿
                                 </button>
                                 <button class="btn btn-default" sid="{{list.id}}" name="{{list.name}}"

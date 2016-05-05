@@ -13,7 +13,26 @@ require(['app'],function(app){
                 $scope.insertHTML = $sce.trustAsHtml(newValue.htmlPage);
             }
         },true);
+        init ();
+        function init (){
+            setTimeout(function(){
+                var idx =window.location.href.split("#/marjor/")[1];
+                $(".navli,.navli > a").removeClass("actived");
 
+                $.each($(".navli"),function(i,v){
+                    if($(v).attr("idx") == idx){
+                        $(v).addClass("actived");
+                    }
+                })
+
+            },1000)
+        }
+
+        $scope.addClkCss = function(e){
+            var that = $(e.target);
+            $(".navli,.navli > a").removeClass("actived");
+            that.addClass("actived");
+        };
         $scope.back = function(){
             $scope.ishide = true;
             $scope.insertHTML = "";
