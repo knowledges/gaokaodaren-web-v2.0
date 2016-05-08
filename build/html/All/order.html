@@ -5,8 +5,12 @@
                 <td style="border: 1px solid #000;">标题</td>
                 <td style="border: 1px solid #000;">高校名称</td>
                 <td style="border: 1px solid #000;">专业名称</td>
+                <td style="border: 1px solid #000;">城市</td>
+                <td style="border: 1px solid #000;">等级</td>
+                <td style="border: 1px solid #000;">加试</td>
+                <td style="border: 1px solid #000;">个数</td>
+                <td style="border: 1px solid #000;">收费标准</td>
                 <td style="border: 1px solid #000;">年份</td>
-                <!--<td>金额</td>-->
                 <td style="border: 1px solid #000;">选择</td>
             </tr>
         </thead>
@@ -15,17 +19,39 @@
             <td style="border: 1px solid #000;">{{list.name}}</td>
             <td style="border: 1px solid #000;">{{list.school}}</td>
             <td style="border: 1px solid #000;">{{list.depart}}</td>
-            <td style="border: 1px solid #000;">{{list.year}}</td>
+            <td style="border: 1px solid #000;">{{list.city}}</td>
+            <td style="border: 1px solid #000;">{{list.sel}}</td>
+            <td style="border: 1px solid #000;">{{list.subject}}</td>
+            <td style="border: 1px solid #000;">{{list.count}}</td>
+            <td style="border: 1px solid #000;">
+                <span ng-switch="list.fee">
+                    <span ng-switch-when="1">＜6000</span>
+                    <span ng-switch-when="2">6000~10000</span>
+                    <span ng-switch-when="3">10000~15000</span>
+                    <span ng-switch-when="4">15000~20000</span>
+                    <span ng-switch-when="5">≥20000</span>
+                </span>
+            </td>
+            <td style="border: 1px solid #000;">{{list.year == "0" ? "" :list.year}}</td>
             <!--<td>{{list.money/100}}</td>-->
             <td style="border: 1px solid #000;"><a href="javascript:;;" class="btn btn-primary" ng-click="showOrderInfo($index+1)">查看</a></td>
         </tr>
         </tbody>
     </table>
-    <div class="row">
-        <div id="depathTHML"></div>
+</div>
+<div class="modal" id="mask-depart" style="display: none; background:rgba(0, 0, 0, 0.53);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">详情</h4>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: scroll;">
+                <div id="depathTHML"></div>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="modal fade bs-example-modal-sm-pay" id="modal-pay" tabindex="-2" role="dialog"
      aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm">
@@ -65,3 +91,4 @@
     </div>
 </div>
 <div ng-include="'templete/model-loading/loading.html'"></div>
+

@@ -76,8 +76,10 @@ require(['app'], function (app) {
             }).success(function (data) {
                 if(data.length>0){
                     $("#depathTHML").empty().prepend(data);
+                    $("#mask-depart").modal("show");
                 }else{
                     $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
+                    $("#mask-depart").modal("show");
                 }
                 $rootScope.loading = false;
             });

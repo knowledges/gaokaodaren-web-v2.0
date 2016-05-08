@@ -203,7 +203,7 @@ require(['app'],function(app){
                         alert("请确认‘预测项目’选项，缴费预测");
                         $(".chance_[value=2]").attr("checked","true");
                         return;
-                    }else if (data.status == 4){
+                    }else if (data.status == 4 || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                         return;
@@ -273,7 +273,7 @@ require(['app'],function(app){
                         $scope.forecast.schChance_0 = data.response.admit;
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
-                    }else if (data.status == "4"){
+                    }else if (data.status == "4" || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                     }else if (data.status == "1006"){
@@ -329,7 +329,7 @@ require(['app'],function(app){
                     }else if (data.status == "2"){
                         alert('订单号不存在！');
                         return;
-                    }else if (data.status == "4"){
+                    }else if (data.status == "4" || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                     }else{
@@ -427,7 +427,7 @@ require(['app'],function(app){
                         $scope.forecast.schChance = data.response.admit;
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
-                    }else if (data.status == "4"){
+                    }else if (data.status == "4" || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                     }else if (data.status == "1006"){
@@ -551,7 +551,7 @@ require(['app'],function(app){
                         $scope.forecast.schChance_6 = data.response.admit;
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
-                    }else if (data.status == "4"){
+                    }else if (data.status == "4" || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                     }else if (data.status == "1006"){
@@ -697,7 +697,7 @@ require(['app'],function(app){
                         $scope.forecast.schChance_1 = data.response.admit;
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
-                    }else if (data.status == "4"){
+                    }else if (data.status == "4" || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                     }else if (data.status == "1006"){
@@ -799,7 +799,7 @@ require(['app'],function(app){
                     $scope.forecast.departChance = data.response.admit;
                 }else if (data.status == "1009"){
                     alert("您是压线考生");
-                }else if (data.status == "4"){
+                }else if (data.status == "4" || data.status == "-1"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
                 }else if (data.status == "1006"){
@@ -833,6 +833,7 @@ require(['app'],function(app){
 
         $scope.getDschlName=function(){
             $scope.forecast.d_schl_name = $("#d_schl_id option:selected").text();
+            $scope.forecast.d_schl_id = $("#d_schl_id option:selected").val();
             $scope.forecast.schChance_2 = "";
         };
 
@@ -888,7 +889,7 @@ require(['app'],function(app){
                     $scope.forecast.schChance_2 = data.response.admit;
                 }else if (data.status == "1009"){
                     alert("您是压线考生");
-                }else if (data.status == "4"){
+                }else if (data.status == "4" || data.status == "-1"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
                 }else if (data.status == "1006"){
@@ -939,17 +940,25 @@ require(['app'],function(app){
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(data){
-                if (data.status == 4){
+                if (data.status == 4 || data.status == "-1"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
                     return;
+                }else if(data.status == 6){
+                    alert("先勾选选测条件");
+                }else if (data.status == 0){
+                    $http.get(loocha+'/exam/' + data.response.id).success(function (data) {
+                        sessionStorage.setItem("order_id",data.response.order_id);
+                        $scope.order_id = data.response.order_id;
+                        $scope.money = data.response.money/100;
+                        $("#zyb_random").modal('show');
+                    });
+                }else if(data.status == "1005"){
+                    alert("您的分数太低，不能缴费");
+                }else if (data.status == "1009"){
+                    alert("您是压线考生，不能缴费");
                 }
-                $http.get(loocha+'/exam/' + data.response.id).success(function (data) {
-                    sessionStorage.setItem("order_id",data.response.order_id);
-                    $scope.order_id = data.response.order_id;
-                    $scope.money = data.response.money/100;
-                    $("#zyb_random").modal('show');
-                });
+
             });
 
         };

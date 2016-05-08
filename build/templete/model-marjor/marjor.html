@@ -2,11 +2,11 @@
     <div class="row">
         <div class="panel panel-default" ng-repeat="marjors in marjorType">
             <div class="panel-heading text-left" style="color: #000000;">
-                <i class="icon-sitemap" style=" color: #000000!important;"></i>&nbsp; {{marjors.class_name}}（{{marjors.class_id}}）
+                <i class="icon-sitemap" style=" color: #000000!important;"></i>&nbsp; {{marjors.class_name}}
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills">
-                    <li ng-repeat="list in marjors.list">
+                    <li ng-repeat="list in marjors.list" ng-if="list.article_id > 0">
                         <a href="javascript:;;" style="color: #000!important;" ng-click="showInfo(list.article_id)">{{list.name}}</a>
                     </li>
                 </ul>

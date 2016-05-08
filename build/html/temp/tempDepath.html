@@ -1,11 +1,17 @@
 <div class="container text-center">
-    <div class="row"  ng-if="orderList.length>0">
+    <div class="row" ng-if="orderList.length>0">
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <td style="display: none;">#</td>
                     <td>标题</td>
                     <td>高校名称</td>
                     <td>专业名称</td>
+                    <td>城市</td>
+                    <td>等级</td>
+                    <td>加试</td>
+                    <td>个数</td>
+                    <td>收费标准</td>
                     <td>年份</td>
                     <td>金额</td>
                     <td>状态</td>
@@ -13,9 +19,23 @@
             </thead>
             <tbody>
                 <tr ng-repeat="list in orderList">
-                    <td>{{list.title}}{{list.name}}</td>
+                    <td style="display: none;">{{$index+1}}</td>
+                    <td>{{list.name}}</td>
                     <td>{{list.school}}</td>
                     <td>{{list.depart}}</td>
+                    <td>{{list.city}}</td>
+                    <td>{{list.sel}}</td>
+                    <td>{{list.subject}}</td>
+                    <td>{{list.count}}</td>
+                    <td>
+                        <span ng-switch="list.fee">
+                            <span ng-switch-when="1">＜6000</span>
+                            <span ng-switch-when="2">6000~10000</span>
+                            <span ng-switch-when="3">10000~15000</span>
+                            <span ng-switch-when="4">15000~20000</span>
+                            <span ng-switch-when="5">≥20000</span>
+                        </span>
+                    </td>
                     <td>{{list.year}}</td>
                     <td>{{list.money/100}}</td>
                     <td><a href="javascript:;;" class="btn btn-default" ng-click="remClk($index)">移除</a></td>
@@ -72,11 +92,11 @@
                 <h4 class="modal-title">支付</h4>
             </div>
             <div class="modal-body">
-                <p>是否愿意支付{{hope.money/100}}元</p>
+                <p>支付{{hope.money/100}}元</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
                 <a ng-click="pay()" class="btn btn-primary">是</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
             </div>
         </div>
     </div>

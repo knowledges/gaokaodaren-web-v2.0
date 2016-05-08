@@ -33,8 +33,8 @@ require(['app','pagging'],function(app,pagging){
             type: "",
             key: "",
             style: 0,
-            attr: 0,
-            belongs: 0,
+            attr: "",
+            belongs: "",
             level: 0,
             province_id: 0,
             city_id: 0,
@@ -79,6 +79,11 @@ require(['app','pagging'],function(app,pagging){
             pageation($scope.info.index,info);
         };
 
+        $scope.findSchoolInfo = function(info){
+            $scope.info.index = 1;
+            pageationInfo($scope.info.index,info);
+        };
+
         $scope.gobike = function(name){
             var item = name.split("(")[0].split("★")[0];
             baidubaike.openwin("http://baike.baidu.com/item/"+item);
@@ -90,27 +95,8 @@ require(['app','pagging'],function(app,pagging){
                 if(info.key!="" && info.key!=null){
                     param.key = info.key;
                 }
-                if(info.style !="" && info.style != null){
-                    param.style = info.style.id;
-                }
-                if(info.attr != "" && info.attr !=null){
-                    param.attr = info.attr.id;
-                }
-                if(info.belongs!="" && info.belongs !=null){
-                    param.belongs = info.belongs.id;
-                }
-                if(info.level != "" && info.level !=null){
-                    param.level = typeof(info.level) == "object" ? info.level.id : typeof(info.level) == "number" ? 0 : info.level.id;
-                }
-                if(info.province_id !="" && info.province_id != null){
-                    param.province_id = info.province_id.id;
-                }
-                if(info.city_id !="" && info.city_id!=null){
-                    param.city_id = info.city_id.id;
-                }
                 param.index = currentIdx - 1;
                 param.limit = 10;
-                param.junior = info.junior;
 
             $http({
                 method:'GET',
@@ -132,6 +118,52 @@ require(['app','pagging'],function(app,pagging){
                     }
                 })
             });
+        }
+
+        function pageationInfo(currentIdx,info) {
+            var param = {};
+            param.type = info.type;
+            if(info.style !="" && info.style != null){
+                param.style = info.style.id;
+            }
+            if(info.attr != "" && info.attr !=null){
+                param.attr = info.attr.id;
+            }
+            if(info.belongs!="" && info.belongs !=null){
+                param.belongs = info.belongs.id;
+            }
+            if(info.level != "" && info.level !=null){
+                param.level = typeof(info.level) == "object" ? info.level.id : typeof(info.level) == "number" ? 0 : info.level.id;
+            }
+            if(info.province_id !="" && info.province_id != null){
+                param.province_id = info.province_id.id;
+            }
+            if(info.city_id !="" && info.city_id!=null){
+                param.city_id = info.city_id.id;
+            }
+            param.index = currentIdx - 1;
+            param.limit = 10;
+            param.junior = info.junior;
+
+            $http({
+                method:'GET',
+                url:loocha+findSchoolURL,
+                params:param
+            }).success(function (data, status) {
+
+                    $scope.info.pageSize = data.response.sum  > 0 ? data.response.sum :0;
+                    $scope.schoolList = data.response.list;
+
+                    $("#pagging").pagging({
+                        sum: $scope.info.pageSize,
+                        param: param,
+                        current: $scope.info.index,
+                        callback: function (idx, param) {
+                            $scope.info.index = idx;
+                            pageationInfo($scope.info.index, info);
+                        }
+                    })
+                });
         }
 
         $scope.showChar = function(id){

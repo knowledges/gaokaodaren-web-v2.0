@@ -5,22 +5,27 @@
             <div class="col-sm-12 text-left">
                 <li style="padding: 7px 0;font-size: 16px;"><a href="javascript:;;" ng-click="listInfo(list.id,$index)" style="color: #000;">{{list.title}}</a> </li>
             </div>
-            <!--<div. class="col-sm-4 text-right">
-                <span>{{list.update_time | date :'yyyy-MM-dd hh:mm:ss'}}</span>
-            </div.>-->
             <br/>
         </div>
-    </div>
-
-    <!--<div class="row" ng-if="title.strHtml">
-        <div class="container-fluid">
-            <ol class="breadcrumb text-left">
-                <li><a href="javascript:history.go(0);">填报要领</a></li>
-                <li ng-repeat="list in title.menuList" ng-if=" title.breadcrumb_no == list.menu_id "><a href="javascript:history.go(0);" >{{list.title}}</a></li>
-            </ol>
+        <div ng-if="title.list.length<=0" class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="schoolname" ng-model="info.key" placeholder="请输入院校名称">
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-block" ng-click="findSch()">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-pills">
+                <li ng-repeat="list in info.schools"><a href="javascript:;;" ng-click="showInfo(list.article_id)">{{list.name}}</a></li>
+            </ul>
+            <div ng-if="info.shcoolInfos" ng-bind-html="info.shcoolInfos" class="text-left"></div>
         </div>
-
-    </div>-->
+    </div>
 
     <div class="row" ng-if="title.strHtml">
         <div class="container-fluid text-right">

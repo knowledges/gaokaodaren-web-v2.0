@@ -276,6 +276,7 @@
                         <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==1">
                             <a href="javascript:;;"
                                  class="findSch wishId_1"
+                                 city_id="{{list.city_id}}"
                                  attrs="{{list.attr}}"
                                  belongs="{{list.belongs}}"
                                  styles="{{list.style}}"
@@ -301,6 +302,7 @@
                         <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==2">
                             <a href="javascript:;;"
                                  class="findSch wishId_2"
+                                 city_id="{{list.city_id}}"
                                  attrs="{{list.attr}}"
                                  belongs="{{list.belongs}}"
                                  styles="{{list.style}}"
@@ -326,6 +328,7 @@
                         <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==3">
                             <a href="javascript:;;"
                                  class="findSch wishId_3"
+                                 city_id="{{list.city_id}}"
                                  attrs="{{list.attr}}"
                                  belongs="{{list.belongs}}"
                                  styles="{{list.style}}"
@@ -351,6 +354,7 @@
                         <li ng-repeat="list in hope.schbatch" beifen ng-if="list.swish_id==4">
                             <a href="javascript:;;"
                                  class="findSch wishId_4"
+                                 city_id="{{list.city_id}}"
                                  attrs="{{list.attr}}"
                                  belongs="{{list.belongs}}"
                                  styles="{{list.style}}"
@@ -373,12 +377,22 @@
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="list in hope.schbatch" on-finish-render="methodname" ng-if="list.swish_id==5"><a
-                                href="javascript:;;" class="findSch wishId_5" attrs="{{list.attr}}"
-                                belongs="{{list.belongs}}" styles="{{list.style}}" prop3="{{list.prop3}}"
-                                prop4="{{list.prop4}}" prop7="{{list.prop7}}" prop8="{{list.prop8}}"
-                                prop9="{{list.prop9}}" school_id="{{list.s_id}}" ng-click="agreeSch($event)"
-                                ng-dblclick="rejectSch($event)">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schbatch" on-finish-render="methodname" ng-if="list.swish_id==5">
+                            <a  href="javascript:;;"
+                                class="findSch wishId_5"
+                                city_id="{{list.city_id}}"
+                                attrs="{{list.attr}}"
+                                belongs="{{list.belongs}}"
+                                styles="{{list.style}}"
+                                prop3="{{list.prop3}}"
+                                prop4="{{list.prop4}}"
+                                prop7="{{list.prop7}}"
+                                prop8="{{list.prop8}}"
+                                prop9="{{list.prop9}}"
+                                school_id="{{list.s_id}}"
+                                ng-click="agreeSch($event)"
+                                ng-dblclick="rejectSch($event)">{{list.name}}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -2303,7 +2317,7 @@
                     1分推荐表
                 </p>
                 <p ng-if="hope.table>1 && hope.table<=3">前 {{hope.table}} 分推荐表可全部呈现（包含{{hope.recommend}}所不同的高校）</p>
-                <p ng-if="hope.table>3">可以推荐多份，其中前 {{hope.table}} 分推荐表（包含{{hope.recommend}}所不同的高校）</p>
+                <p ng-if="hope.table>3">可以推荐多份，其中前 3 分推荐表 包含{{hope.recommend}}所不同的高校 </p>
 
             </div>
             <div class="modal-footer">
@@ -2355,7 +2369,7 @@
                 <h4 class="modal-title">支付</h4>
             </div>
             <div class="modal-body">
-                <p>10元／校·专业</p>
+                <p>10元／校·专业 x {{hope.money/1000}}</p>
                 <p>共计缴费{{hope.money/100}}元。</p>
             </div>
             <div class="modal-footer">
@@ -2392,7 +2406,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-left">
-                    《考生志愿意向表》便捷步骤:
+                    推荐志愿说明
                 </h4>
             </div>
             <div class="modal-body" style="text-indent: 2em;">
@@ -2406,16 +2420,16 @@
                 <p style="margin-left:42px;">个性归类中的小类</p>
                 <p>二拒：（“双击”—灰色）</p>
                 <p style="margin-left:15px;">拒绝：某“地区”、某“省”或某“线”城市或具体城市；</p>
-                <p style="margin-left:15px;">拒绝：某“类”或某“分”高校或具体高校；</p>
-                <p style="margin-left:15px;">拒绝：某“学科”、某“类”或某“门”专业或具体专业；</p>
-                <p style="margin-left:15px;">拒绝：个性中的“弱”项、“限”项、不适合选项。</p>
+                <p style="margin-left:56px;">某“类”或某“分”高校或具体高校；</p>
+                <p style="margin-left:56px;">某“学科”、某“类”或某“门”专业或具体专业；</p>
+                <p style="margin-left:56px;">个性中的“弱”项、“限”项、不适合选项。</p>
                 <p>三优先：（“单击”—绿色）</p>
                 <p style="margin-left:15px;">优先选择：某“地区”、某“省”或某“线”城市或具体城市。</p>
-                <p style="margin-left:15px;">优先选择：某“类”或某 “分”高校或具体高校。</p>
-                <p style="margin-left:15px;">优先选择：某“学科”、某“类”或某“门”专业或具体专业。</p>
-                <p style="margin-left:15px;">优先选择：个性中的“强”项、“是”项、“有”项。</p>
+                <p style="margin-left:85px;">某“类”或某 “分”高校或具体高校。</p>
+                <p style="margin-left:85px;">某“学科”、某“类”或某“门”专业或具体专业。</p>
+                <p style="margin-left:85px;">个性中的“强”项、“是”项、“有”项。</p>
                 <p>四具体：</p>
-                <p style="margin-left:15px;">具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
+                <p style="margin-left:15px;">具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先，对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
                 <p style="margin-left:15px;">具体查看“拒绝选项”中的城市、高校、专业、个性是否可以不拒绝，对于不拒绝选项，“点击”恢复（原色），甚至优先（绿色）。</p>
             </div>
         </div>

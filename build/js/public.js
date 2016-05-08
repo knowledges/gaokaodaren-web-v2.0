@@ -104,7 +104,7 @@
                 }
 
                 html.push('	<li ' + (options.current >= totalpages ? 'class="disabled" data-idx="-1"' : 'data-idx="' + (options.current + 1)) + '"' + '>');
-                html.push('		<a href="#" aria-label="Next">');
+                html.push('		<a href="javascript:;;" aria-label="Next">');
                 html.push('			<span aria-hidden="true">&raquo;</span>');
                 html.push('		</a>');
                 html.push('	</li>');

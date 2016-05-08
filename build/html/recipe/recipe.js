@@ -38,9 +38,32 @@ require(['app'],function(app){
             infoId:[],
             current:0
         };
+        $scope.info = {
+            key:"",
+            schools:"",
+            shcoolInfos:""
+        }
 
         init();
         $scope.title.breadcrumb_no = $stateParams.itemId;
+
+        $scope.findSch = function(){
+            $http.get(loocha+"/school?key="+$scope.info.key+"&index=0&limit=20")
+                .success(function(data){
+                    $scope.info.schools = data.response.list;
+                });
+        };
+
+        $scope.showInfo = function(id){
+            if(id>0){
+                $http.get(loocha+"/article/show/"+id)
+                    .success(function(data){
+                        $scope.info.shcoolInfos = $sce.trustAsHtml(data);
+                    });
+            }else{
+                alert("没有找到文章");
+            }
+        }
 
         $scope.listInfo = function(id){
             showInfo(id);
@@ -107,10 +130,9 @@ require(['app'],function(app){
                 method:"GET",
                 params:parame
             })
-                .success(function (data, status) {
-                    $scope.title.menuList = data.response.list;
-
-                });
+            .success(function (data, status) {
+                $scope.title.menuList = data.response.list;
+            });
         }
 
         function showInfo(id){

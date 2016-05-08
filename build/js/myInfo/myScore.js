@@ -236,6 +236,7 @@ require(['app'],function(app){
                     if(data.status == 0){
                         getLoginUserInfo.isScores();
                         localStorage.setItem("type",$scope.table.batch);
+                        sessionStorage.setItem('uScore',JSON.stringify(param));
                         if(num == 1){
                             $window.location.href = "#/hope/batch="+$scope.table.batch;
                         }else if (num == 2){

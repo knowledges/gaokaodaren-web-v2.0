@@ -65,12 +65,12 @@ require(['app'],function(app){
         function init(){
             $("#depthModal").show();
             $scope.condition.provincelist=data_province.data.response.list;
-            //$("#recommend").show();
-            var url ="";
-            if($scope.condition.type<7){
-                url="/depart/prop?type=0&depart_type=0";
-            }else{
-                url="/depart/prop?type=0&depart_type=1";
+                //$("#recommend").show();
+                var url ="";
+                if($scope.condition.type<7){
+                    url="/depart/prop?type=0&depart_type=0";
+                }else{
+                    url="/depart/prop?type=0&depart_type=1";
             }
             $http.get(loocha+url)
                 .success(function(data){
@@ -93,7 +93,7 @@ require(['app'],function(app){
 
             if(localStorage.getItem("orderList") != null && localStorage.getItem("orderList")!=""){
                 $scope.orderList = JSON.parse(localStorage.getItem("orderList"));
-                $scope.money = localStorage.getItem("depthmoney");
+                $scope.money = parseInt(localStorage.getItem("depthmoney"));
             }
 
         }
@@ -275,11 +275,26 @@ require(['app'],function(app){
                 obj.name = data.name;
                 obj.type = data.type;
                 obj.year = data.year;
-                if(data.school !="" ){
+                if(obj.school != undefined && data.school !="" ){
                     obj.school = data.school;
                 }
-                if(data.depart != ""){
+                if(obj.depart != undefined && data.depart != ""){
                     obj.depart = data.depart;
+                }
+                if(obj.city != undefined && data.city !=""){
+                    obj.city = data.city;
+                }
+                if(obj.subject != undefined && data.subject != ""){
+                    obj.subject = data.subject;
+                }
+                if(obj.fee != undefined && data.fee!=""){
+                    obj.fee = data.fee;
+                }
+                if(obj.count != undefined && data.count!=""){
+                    obj.fee = data.fee;
+                }
+                if(obj.sel != undefined && data.sel!=""){
+                    data.sel = data.sel;
                 }
                 conditons.push(obj);
             });
