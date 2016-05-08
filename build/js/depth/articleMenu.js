@@ -49,9 +49,7 @@ require(['app'],function(app){
             sel:"",
             charge:"",
             titleId:"",
-            parentTitle:"",
             title:"",
-            childTitle:"",
             innserTHML:"",
             provincelist:"",
             departproplist:[],
@@ -125,7 +123,7 @@ require(['app'],function(app){
                 money = parseInt(that.attr("money")),
                 leaf = parseInt(that.attr("leaf")),
                 idx= parseInt(that.attr("idx")),
-                name=that.text().trim(),
+                name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
             if(idx == 65){
                 alert("请到高校介绍中查询");
@@ -135,7 +133,7 @@ require(['app'],function(app){
             }
 
             $scope.condition.titleId = idx;
-            $scope.condition.childTitle = name;
+            $scope.condition.title = name;
             $scope.condition.flag = flag;
             $scope.condition.money = money;
             var school = $scope.condition.schlName !="" ? $scope.condition.schlName :"";
@@ -247,9 +245,7 @@ require(['app'],function(app){
             if($scope.condition.inputTemplate == "98"){
                 var obj = new Object();
                 obj.id = $scope.condition.titleId;
-                obj.parentTitle = $scope.condition.parentTitle;
-                obj.title = $scope.condition.title;
-                obj.name = $scope.condition.childTitle;
+                obj.name = $scope.condition.title;
                 obj.type = $location.$$url.split("batch=")[1];
                 obj.year = new Date().getFullYear()-1;
                 obj.school = "";
@@ -265,9 +261,7 @@ require(['app'],function(app){
         }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
             var obj = new Object();
             obj.id = $scope.condition.titleId;
-            obj.parentTitle = $scope.condition.parentTitle;
-            obj.title = $scope.condition.title;
-            obj.name = $scope.condition.childTitle;
+            obj.name = $scope.condition.title;
             obj.type = $location.$$url.split("batch=")[1];
             obj.year = "";
             obj.school = $scope.condition.schlName;
@@ -299,9 +293,7 @@ require(['app'],function(app){
 
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
                     obj.year = year;
                     obj.school = $scope.condition.schlName;
@@ -361,9 +353,7 @@ require(['app'],function(app){
 
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
                     obj.year = new Date().getFullYear()-1;
                     obj.school = $scope.condition.schlName;
@@ -399,9 +389,7 @@ require(['app'],function(app){
 
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
                     obj.year = new Date().getFullYear()-1;
                     obj.school = $scope.condition.schlName;
@@ -444,9 +432,7 @@ require(['app'],function(app){
 
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
                     obj.year = new Date().getFullYear()-1;
                     obj.school = $scope.condition.schlName;
@@ -483,9 +469,7 @@ require(['app'],function(app){
 
                     var obj = new Object();
                     obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
                     obj.year = new Date().getFullYear()-1;
                     obj.school = $scope.condition.schlName;
@@ -507,7 +491,7 @@ require(['app'],function(app){
             $(".modal").hide();
 
             $scope.condition.timer=[];
-            $scope.condition.titleId = $scope.condition.parentTitle = $scope.condition.title = $scope.condition.childTitle=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
+            $scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
         };
 
         /**
@@ -615,11 +599,11 @@ require(['app'],function(app){
 
         $scope.$on("depthmenu", function (ngRepeatFinishedEvent) {
             $(".panel-heading").unbind("click").click(function(e){
-                $scope.condition.parentTitle = $(this).find("h4").attr("titles");
+                //$scope.condition.parentTitle = $(this).find("h4").attr("titles");
                 $(".panel-heading").next().removeClass("in");
                 $(".panel-footer").next().hide();
                 $(this).next().addClass("in").find(".panel-footer").bind("click",function(e){
-                    $scope.condition.title = $(this).attr("titles");
+                    //$scope.condition.title = $(this).attr("titles");
                     $(".panel-footer").next().hide();
                     $(this).next().show();
                     $(this).next().find("li").bind("click",function(e){

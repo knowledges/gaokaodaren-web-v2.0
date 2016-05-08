@@ -691,6 +691,10 @@ define(['app'],function(app){
          $window.location.reload();
          }*/
 
+        $(".dropdown-menu li a").click(function(e){
+                $(".dropdown").removeClass("open");
+        });
+
         /**
          *
          * @param num 1 深度 2 推荐 3 预测

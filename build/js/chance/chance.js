@@ -297,7 +297,7 @@ require(['app'],function(app){
         };
 
         $scope.findChaname = function(){
-            $scope.forecast.cSchool_name = $("#sch_name option:selected").text();
+            $scope.forecast.cSchool_name = $("#sch_name option:selected").text().trim();
             $scope.forecast.schChance_0 = "";
         }
 
@@ -370,7 +370,7 @@ require(['app'],function(app){
          * 获取高校名称
          */
         $scope.findSchoolInfo = function(){
-            $scope.forecast.school_name = $("#school_name option:selected").text();
+            $scope.forecast.school_name = $("#school_name option:selected").text().trim();
             $scope.forecast.school_id = $("#school_name option:selected").val();
             $scope.forecast.schChance = "";
         };
@@ -487,12 +487,12 @@ require(['app'],function(app){
                     $scope.forecast.pSchl_id="";
                     $scope.forecast.pSchl_name ="";
                 });
-            $scope.forecast.pDepart_name = $("#departName option:selected").text();
+            $scope.forecast.pDepart_name = $("#departName option:selected").text().trim();
             $scope.forecast.pArticle_id = $("#departName option:selected").attr("article_id");
         };
 
         $scope.getSchlname = function(){
-            $scope.forecast.pSchl_name = $("#pSchool_name option:selected").text();
+            $scope.forecast.pSchl_name = $("#pSchool_name option:selected").text().trim();
             $scope.forecast.schChance_6 = "";
         };
 
@@ -643,7 +643,7 @@ require(['app'],function(app){
 
         $scope.getSchName = function(){
             $scope.forecast.style_School_article = $("#sSchool_name option:selected").attr("article_id");
-            $scope.forecast.style_School_name = $("#sSchool_name option:selected").text();
+            $scope.forecast.style_School_name = $("#sSchool_name option:selected").text().trim();
             $scope.forecast.schChance_1 = "";
         };
 
@@ -735,7 +735,7 @@ require(['app'],function(app){
         };
 
         $scope.getDepartName = function(){
-            $scope.forecast.schl_departName = $("#schl_departName option:selected").text();
+            $scope.forecast.schl_departName = $("#schl_departName option:selected").text().trim();
             $scope.forecast.schl_article_id = $("#schl_departName option:selected").attr("article_id");
             $scope.forecast.departChance = "";
         };
@@ -832,7 +832,7 @@ require(['app'],function(app){
         };
 
         $scope.getDschlName=function(){
-            $scope.forecast.d_schl_name = $("#d_schl_id option:selected").text();
+            $scope.forecast.d_schl_name = $("#d_schl_id option:selected").text().trim();
             $scope.forecast.d_schl_id = $("#d_schl_id option:selected").val();
             $scope.forecast.schChance_2 = "";
         };

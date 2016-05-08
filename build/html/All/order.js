@@ -58,6 +58,7 @@ require(['app'], function (app) {
         };
 
         $scope.showOrderInfo = function(num){
+            $(".btn-primary").eq(num-1).addClass("actived")
             $rootScope.loading = true;
             var obj = $scope.order.conditions[num-1];
             var param = {};
@@ -66,6 +67,7 @@ require(['app'], function (app) {
             param.year = obj.year;
             param.school = obj.school;
             param.depart = obj.depart;
+            param.count = obj.count;
             param.sel = obj.sel;
             param.city = obj.city;
             param.fee = obj.fee;
