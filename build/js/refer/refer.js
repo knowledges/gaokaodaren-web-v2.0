@@ -202,11 +202,21 @@ require(['app'],function(app){
                         $scope.order.schlArr_2 = data.response.list[2];
                         $scope.order.schlArr_3 = data.response.list[3];
                         $scope.order.schlArr_4 = data.response.list[4];
-                        $scope.order.departArr_0 = data.response.list[0].departs;
-                        $scope.order.departArr_1 = data.response.list[1].departs;
-                        $scope.order.departArr_2 = data.response.list[2].departs;
-                        $scope.order.departArr_3 = data.response.list[3].departs;
-                        $scope.order.departArr_4 = data.response.list[4].departs;
+                        if(data.response.list[0]!=undefined){
+                            $scope.order.departArr_0 = data.response.list[0].departs;
+                        }
+                        if(data.response.list[1]!=undefined){
+                            $scope.order.departArr_1 = data.response.list[1].departs;
+                        }
+                        if(data.response.list[2]!=undefined){
+                            $scope.order.departArr_2 = data.response.list[2].departs;
+                        }
+                        if(data.response.list[3]!=undefined){
+                            $scope.order.departArr_3 = data.response.list[3].departs;
+                        }
+                        if(data.response.list[4]!=undefined){
+                            $scope.order.departArr_4 = data.response.list[4].departs;
+                        }
                         $scope.order.requestId = data.response.intentionId;
                     }
 
@@ -268,22 +278,31 @@ require(['app'],function(app){
                     caseModel (preferOrders,$scope.order.departArr_3);
                     caseModel (preferOrders,$scope.order.departArr_4);
 
-                    $scope.order.data[0] = $scope.order.schlArr_0;
-                    $scope.order.data[1] = $scope.order.schlArr_1;
-                    $scope.order.data[2] = $scope.order.schlArr_2;
-                    $scope.order.data[3] = $scope.order.schlArr_3;
-                    $scope.order.data[4] = $scope.order.schlArr_4;
-
-                    $scope.order.data[0].departs = $scope.order.departArr_0;
-                    $scope.order.data[1].departs = $scope.order.departArr_1;
-                    $scope.order.data[2].departs = $scope.order.departArr_2;
-                    $scope.order.data[3].departs = $scope.order.departArr_3;
-                    $scope.order.data[4].departs = $scope.order.departArr_4;
+                    if($scope.order.data[0]!=undefined){
+                        $scope.order.data[0] = $scope.order.schlArr_0;
+                        $scope.order.data[0].departs = $scope.order.departArr_0;
+                    }
+                    if($scope.order.data[1]!=undefined){
+                        $scope.order.data[1] = $scope.order.schlArr_1;
+                        $scope.order.data[1].departs = $scope.order.departArr_1;
+                    }
+                    if($scope.order.data[2]!=undefined){
+                        $scope.order.data[2] = $scope.order.schlArr_2;
+                        $scope.order.data[2].departs = $scope.order.departArr_2;
+                    }
+                    if($scope.order.data[3]!=undefined){
+                        $scope.order.data[3] = $scope.order.schlArr_3;
+                        $scope.order.data[3].departs = $scope.order.departArr_3;
+                    }
+                    if($scope.order.data[4]!=undefined){
+                        $scope.order.data[4] = $scope.order.schlArr_4;
+                        $scope.order.data[4].departs = $scope.order.departArr_4;
+                    }
 
                     $("#cased").modal('show');
 
                     function caseModelScl (array,newArray){
-                        if(newArray.schoolPrefer!=null){
+                        if(newArray!=undefined && newArray.schoolPrefer!=null){
                             var preferArr = newArray.schoolPrefer.split(",");
                             newArray.cased =[];
                             newArray.str = "";
