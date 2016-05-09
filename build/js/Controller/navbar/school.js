@@ -32,10 +32,10 @@ require(['app','pagging'],function(app,pagging){
         $scope.info = {
             type: "",
             key: "",
-            style: 0,
+            style: "",
             attr: "",
             belongs: "",
-            level: 0,
+            level: "",
             province_id: 0,
             city_id: 0,
             index: 1,
@@ -127,13 +127,13 @@ require(['app','pagging'],function(app,pagging){
                 param.style = info.style.id;
             }
             if(info.attr != "" && info.attr !=null){
-                param.attr = info.attr.id;
+                param.attr = info.attr;
             }
             if(info.belongs!="" && info.belongs !=null){
-                param.belongs = info.belongs.id;
+                param.belongs = info.belongs;
             }
             if(info.level != "" && info.level !=null){
-                param.level = typeof(info.level) == "object" ? info.level.id : typeof(info.level) == "number" ? 0 : info.level.id;
+                param.level =info.level;
             }
             if(info.province_id !="" && info.province_id != null){
                 param.province_id = info.province_id.id;

@@ -1894,7 +1894,7 @@ require(['app'], function (app) {
             var styleArr = $scope.reject.style!="" ? $scope.reject.style.split(",") :[],
                 belongsArr = $scope.reject.belongs!="" ? $scope.reject.belongs.split(",") :[],
                 attributeArr = $scope.reject.attribute!="" ? $scope.reject.attribute.split(",") :[],
-                citys = $scope.reject.citys!="" ? $scope.reject.citys.split(",") :[];
+                citys = $scope.reject.citys;
 
             $.each(citys,function(i,v){
                 if(v!=""){
@@ -1972,41 +1972,43 @@ require(['app'], function (app) {
                         $timeout.cancel(_time);
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
-                        var str = $scope.hope.attribute,arr = str.split(",");
-                        $.each(arr,function(i,v){
-                            if(that.attr("pub") == v){
-                                arr.splice(i, 1);
-                            }
-                        });
+                        var str = $scope.reject.attribute;
+                        //!=""?$scope.reject.attribute:[]
+                        if(str.indexOf(attr_id)>=0){
+                        //   str = str + attr_id+",";
+                        //}else{
+                            str.split(str.indexOf(attr_id),1);
+                        }
+                        var arr = str.split(",")
                         var newStr = "";
                         for(var i = 0; i<arr.length;i++){
                             if(arr[i]!=""){
                                 newStr = arr[i]+","
                             }
                         }
-                        $scope.hope.attribute = newStr;
+                        $scope.reject.attribute = newStr;
                         //2.执行 先把所有状态变成0，执行优先参数
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
                             param.type = $scope.hope.batch;
-                            param.style = $scope.hope.style;
-                            param.belongs = $scope.hope.belongs;
-                            param.attr = $scope.hope.attribute;
-                            param.prop3 = $scope.hope.prop3;
-                            param.prop4 = $scope.hope.prop4;
-                            param.prop8 = $scope.hope.prop8;
-                            param.citys = $scope.hope.citys;
+                                param.style = $scope.hope.style;
+                                param.belongs = $scope.hope.belongs;
+                                param.attr = $scope.hope.attribute;
+                                param.prop3 = $scope.hope.prop3;
+                                param.prop4 = $scope.hope.prop4;
+                                param.prop8 = $scope.hope.prop8;
+                                param.citys = $scope.hope.citys;
 
-                            $http({
-                                url:loocha+"/schbath",
-                                method:"GET",
-                                params:param
-                            }).success(function(data){
-                                var list = data.response;
-                                var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
-                                    isnull = 1;
-                                }
+                                $http({
+                                    url:loocha+"/schbath",
+                                    method:"GET",
+                                    params:param
+                                }).success(function(data){
+                                    var list = data.response;
+                                    var isnull = 0;
+                                    if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                                        isnull = 1;
+                                    }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -2053,12 +2055,13 @@ require(['app'], function (app) {
                                 }
                                 $scope.reject.attribute = newStr;
                             }
-                            pubMenthod(status, that);
+                            //pubMenthod(status, that);
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
+                            console.log("，建立了，，")
                             var status = that.attr("status");
                             if (status == undefined || status == null || status == 0) {
                                 $scope.hope.attribute = $scope.hope.attribute + that.attr("pub")+",";
@@ -2107,19 +2110,21 @@ require(['app'], function (app) {
                         $timeout.cancel(_time);
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), style_id = that.attr('style_id');
-                        var str = $scope.hope.style,arr = str.split(",");
-                        $.each(arr,function(i,v){
-                            if(that.attr("pub") == v){
-                                arr.splice(i, 1);
-                            }
-                        });
+                        var str = $scope.reject.style;
+                        //!=""?$scope.reject.style:[]
+                        if(str.indexOf(style_id)>=0){
+                        //    str = str + style_id+",";
+                        //}else{
+                            str.split(str.indexOf(style_id),1);
+                        }
+                        var arr = str.split(",")
                         var newStr = "";
                         for(var i = 0; i<arr.length;i++){
                             if(arr[i]!=""){
                                 newStr = arr[i]+","
                             }
                         }
-                        $scope.hope.style = newStr;
+                        $scope.reject.style = newStr;
                         //2.执行 先把所有状态变成0，执行优先参数
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
@@ -2243,11 +2248,11 @@ require(['app'], function (app) {
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), prop_id = that.attr('prop_id');
                         if (prop_id == 20) {
-                            $scope.hope.prop3 = "" ;
+                            $scope.reject.prop3 = "" ;
                         } else if (prop_id == 21) {
-                            $scope.hope.prop4 = "" ;
+                            $scope.reject.prop4 = "" ;
                         }else if (prop_id == 24) {
-                            $scope.hope.prop8 = "" ;
+                            $scope.reject.prop8 = "" ;
                         }
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                             //2.执行 先把所有状态变成0，执行优先参数
@@ -2369,19 +2374,21 @@ require(['app'], function (app) {
                         $timeout.cancel(_time);
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
-                        var str = $scope.hope.belongs,arr = str.split(",");
-                        $.each(arr,function(i,v){
-                            if(that.attr("pub") == v){
-                                arr.splice(i, 1);
-                            }
-                        });
+                        var str = $scope.reject.belongs;
+                        //!=""?$scope.reject.belongs:[]
+                        if(str.indexOf(attr_id)>=0){
+                        //    str = str + attr_id+",";
+                        //}else{
+                            str.split(str.indexOf(attr_id),1);
+                        }
+                        var arr = str.split(",");
                         var newStr = "";
                         for(var i = 0; i<arr.length;i++){
                             if(arr[i]!=""){
                                 newStr = arr[i]+","
                             }
                         }
-                        $scope.hope.belongs = newStr;
+                        $scope.reject.belongs = newStr;
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
                             //2.执行 先把所有状态变成0，执行优先参数
                             var param = {};

@@ -34,14 +34,28 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-if="info.type <5 ">
                 <div class="col-sm-4">
                     <label for="prop">属性:</label>
                 </div>
                 <div class="col-sm-8">
-                    <select name="" id="prop" class="form-control" ng-model="info.level" ng-options="list.name for list in tube track by list.id">
+                    <select name="" id="prop" class="form-control" ng-model="info.level">
                         <option value="">-- 请选择 --</option>
-                        <!--<option ng-repeat="list in tube" value="{{list.id}}">{{list.name}}</option>-->
+                        <option value="1" ng-if="info.type !=3 && info.type !=4 ">985工程高校</option>
+                        <option value="2">211工程高校</option>
+                        <option value="4" ng-if="info.type !=3 && info.type !=4 ">中外合作办学</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="info.type ==7 || info.type ==8">
+                <div class="col-sm-4">
+                    <label for="prop">属性:</label>
+                </div>
+                <div class="col-sm-8">
+                    <select name="" id="prop" class="form-control" ng-model="info.level">
+                        <option value="">-- 请选择 --</option>
+                        <option value="5">国家示范性高等职业院校</option>
+                        <option value="6">国家级实训基地院校</option>
                     </select>
                 </div>
             </div>

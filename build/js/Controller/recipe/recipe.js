@@ -1,17 +1,14 @@
 /**
- * Created by Administrator on 2015/12/2.
+ * Created by qbl on 2015/10/22.
  */
 require(['app'],function(app){
     app.constant('articleURL',"/article");
-    app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
-        return {
+    app.directive('isLoading',['$rootScope',function($rootScope){
+        return{
             restrict: 'A',
-            link: function (scope, element, attr) {
-                if (scope.$last === true) {
-                    $rootScope.loading = false;
-                    $timeout(function () {
-                        scope.$emit(attr.onFinishRender);
-                    });
+            link:function(scope){
+                if(scope.$last == true){
+                    $rootScope.loading=false;
                 }
             }
         }
@@ -32,9 +29,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('recipeInfoCtr',['$scope','$stateParams','$sce','$http','articleURL','menuRecipeURL','loocha',function($scope,$stateParams,$sce,$http,articleURL,menuRecipeURL,loocha){
-        //console.log($stateParams);
-
+    app.controller("recipeInfoCtr",['$scope','$stateParams','$http','$sce','loocha','articleURL','menuRecipeURL',function($scope,$stateParams,$http,$sce,loocha,articleURL,menuRecipeURL){
         $scope.title = {
             list :"",
             menuList:"",
@@ -42,21 +37,41 @@ require(['app'],function(app){
             breadcrumb_no:0,
             infoId:[],
             current:0
+        };
+        $scope.info = {
+            key:"",
+            schools:"",
+            shcoolInfos:""
         }
 
         init();
-
         $scope.title.breadcrumb_no = $stateParams.itemId;
 
-        $scope.listInfo = function(id,idx){
-            showInfo(id);
-            $scope.title.current = idx;
+        $scope.findSch = function(){
+            $http.get(loocha+"/school?key="+$scope.info.key+"&index=0&limit=20")
+                .success(function(data){
+                    $scope.info.schools = data.response.list;
+                });
+        };
+
+        $scope.showInfo = function(id){
+            if(id>0){
+                $http.get(loocha+"/article/show/"+id)
+                    .success(function(data){
+                        $scope.info.shcoolInfos = $sce.trustAsHtml(data);
+                    });
+            }else{
+                alert("没有找到文章");
+            }
         }
+
+        $scope.listInfo = function(id){
+            showInfo(id);
+        };
 
         $scope.previous = function(idx){
             $scope.title.current-=1;
-            if($scope.title.current<0){
-                $scope.title.current = 0;
+            if($scope.title.current<=0){
                 return;
             }else{
                 showInfo($scope.title.infoId[$scope.title.current]);
@@ -65,8 +80,9 @@ require(['app'],function(app){
 
         $scope.next = function(idx){
             $scope.title.current+=1;
+
             if($scope.title.current>=$scope.title.infoId.length){
-                $scope.title.current = $scope.title.infoId.length-1;
+                $scope.title.current = $scope.title.infoId.length;
                 return;
             }else{
                 showInfo($scope.title.infoId[$scope.title.current]);
@@ -86,21 +102,22 @@ require(['app'],function(app){
             param.limit = 999;
             param.menu_id = id;
             param.key="";
+
             $http({
-                method:"GET",
                 url:loocha+articleURL,
+                method:"GET",
                 params:param
-            }).success(function(data,status){
-                $scope.title.list = data.response.list;
+            })
+                .success(function(data){
+                    $scope.title.list = data.response.list;
 
-                var arr = [];
-                $.each(data.response.list,function(i,v){
-                    arr.push(v.id);
+                    var arr = [];
+                    $.each(data.response.list,function(i,v){
+                        arr.push(v.id);
+                    });
+
+                    $scope.title.infoId = arr;
                 });
-
-                $scope.title.infoId = arr;
-
-            });
         }
 
         function loadingMenuList(){
@@ -108,10 +125,9 @@ require(['app'],function(app){
             parame.index = 0;
             parame.limit = 999;
             parame.parent_id = $stateParams.param;
-            $http.get(loocha+menuRecipeURL,parame)
             $http({
-                method:"GET",
                 url:loocha+menuRecipeURL,
+                method:"GET",
                 params:parame
             })
                 .success(function (data, status) {
@@ -123,7 +139,7 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id)
                 .success(function(data,status){
                     $scope.title.strHtml = $sce.trustAsHtml(data);
-                })
+                });
         }
     }]);
 });

@@ -58,6 +58,8 @@ require(['app'], function (app) {
         };
 
         $scope.showOrderInfo = function(num){
+            $(".modal-body").eq(0).scrollTop(0);
+            $(".btn-primary").removeClass("actived");
             $(".btn-primary").eq(num-1).addClass("actived")
             $rootScope.loading = true;
             var obj = $scope.order.conditions[num-1];
@@ -67,6 +69,7 @@ require(['app'], function (app) {
             param.year = obj.year;
             param.school = obj.school;
             param.depart = obj.depart;
+            param.subject = obj.subject;
             param.count = obj.count;
             param.sel = obj.sel;
             param.city = obj.city;
