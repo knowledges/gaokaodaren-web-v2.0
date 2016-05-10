@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.constant("registerURL", "/user/register");
-    app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL",'loocha',function ($scope, $rootScope,$window,$http,registerURL,loocha) {
+    app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL","loocha",function ($scope, $rootScope,$window,$http,registerURL,loocha) {
         /*$scope.$on("$includeContentLoaded",function(){
          alert('加载完毕');
          });*/
@@ -42,16 +42,10 @@ require(['app'],function(app){
 
         window.setTimeout(function(){
             $("#hiddenIframe").load(function(){
-                /*JSON.parse(this.contentWindow.document.body.innerText).status ;
-                 JSON.parse(this.contentWindow.document.body.innerText).response ;*/
-                /*$("#code").val(JSON.parse(this.contentWindow.document.body.innerText).response);
-                window.sessionStorage.setItem('usernumber', $scope.user.username);*/
                 $("#form_update_2").trigger("click");
             });
 
             $("#hiddenIframe_2").load(function(){
-                /* JSON.parse(this.contentWindow.document.body.innerText).status ;
-                 JSON.parse(this.contentWindow.document.body.innerText).response ;*/
                 if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
                     alert('验证码失效');
                     $scope.user.code="";
@@ -59,25 +53,25 @@ require(['app'],function(app){
                     return ;
                 }
                 //路由权限
-                sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
-                sessionStorage.setItem('usernumber', JSON.parse(this.contentWindow.document.body.innerText).response.name);
-                sessionStorage.setItem('user_id',JSON.parse(this.contentWindow.document.body.innerText).response.id);
+                sessionStorage.setItem("user",JSON.stringify({"isAuthenticated": true}));
+                sessionStorage.setItem("usernumber", JSON.parse(this.contentWindow.document.body.innerText).response.name);
+                sessionStorage.setItem("user_id",JSON.parse(this.contentWindow.document.body.innerText).response.id);
                 $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
                 $http.get(loocha+"/uscore").success(function(data){
                     if(data.response!=null && data.response.length>0){
-                        sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
+                        sessionStorage.setItem("uScore",JSON.stringify(data.response[0]));
                     }
                 });
                 if($rootScope.isFromDepth == true){
-                    window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");;
+                    window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
                 }else{
-                    window.location.href = "#/home";
+                    window.location.href = "#/all/allScore";
                 }
             });
         },600);
 
-        $scope.agreen = function(){
+         $scope.agreen = function(){
             $("#mask-register").fadeOut();
-        }
+         }
     }]);
 });

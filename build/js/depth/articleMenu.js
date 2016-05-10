@@ -36,6 +36,7 @@ require(['app'],function(app){
         $scope.money = 0;
         $scope.insertHTML="";
         $scope.condition={
+            type:$location.$$url.split("batch=")[1],
             inputTemplate : "",
             timer:"",
             schlName:"",
@@ -126,9 +127,7 @@ require(['app'],function(app){
                 name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
             if(idx == 65){
-                alert("请到高校介绍中查询");
-                window.location.href="#/school/"+ $location.$$url.split("batch=")[1];
-                openwin("#/school/"+ $location.$$url.split("batch=")[1]);
+                alert(" 1.免费\n 2.请到志愿咨询栏目，高校介绍专题汇总中查询");
                 return;
             }
 
@@ -348,6 +347,9 @@ require(['app'],function(app){
                             break;
                         case 11:
                             sel  = "";
+                            break;
+                        case 12:
+                            sel  = "AC";
                             break;
                     }
 

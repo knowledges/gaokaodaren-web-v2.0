@@ -552,40 +552,6 @@
                                     <a ng-click="gobike(schoolInfo.name)" href="javascript:;;" target="_blank">({{schoolInfo.unique_id}}){{schoolInfo.name}}</a>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
                                     <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
-                                    <span>选科等级：
-                                        <span ng-if="isChance%2!=0" ng-switch="schoolInfo.art_sel_1">
-                                            <em ng-switch-when="5">A+,</em>
-                                            <em ng-switch-when="4">A,</em>
-                                            <em ng-switch-when="3">B+,</em>
-                                            <em ng-switch-when="2">B,</em>
-                                            <em ng-switch-when="1">C,</em>
-                                            <em ng-switch-when="0">D,</em>
-                                        </span>
-                                        <span ng-if="isChance%2!=0" ng-switch="schoolInfo.art_sel_2">
-                                            <em ng-switch-when="5">A+</em>
-                                            <em ng-switch-when="4">A</em>
-                                            <em ng-switch-when="3">B+</em>
-                                            <em ng-switch-when="2">B</em>
-                                            <em ng-switch-when="1">C</em>
-                                            <em ng-switch-when="0">D</em>
-                                        </span>
-                                        <span ng-if="isChance%2==0" ng-switch="schoolInfo.sci_sel_1">
-                                            <em ng-switch-when="5">A+,</em>
-                                            <em ng-switch-when="4">A,</em>
-                                            <em ng-switch-when="3">B+,</em>
-                                            <em ng-switch-when="2">B,</em>
-                                            <em ng-switch-when="1">C,</em>
-                                            <em ng-switch-when="0">D,</em>
-                                        </span>
-                                        <span ng-if="isChance%2==0" ng-switch="schoolInfo.sci_sel_2">
-                                            <em ng-switch-when="5">A+</em>
-                                            <em ng-switch-when="4">A</em>
-                                            <em ng-switch-when="3">B+</em>
-                                            <em ng-switch-when="2">B</em>
-                                            <em ng-switch-when="1">C</em>
-                                            <em ng-switch-when="0">D</em>
-                                        </span>
-                                    </span>
                                 </h3>
                             </td>
                         </tr>
@@ -694,30 +660,3 @@
         </div>
     </div>
 </div>
-<!--
-<div class="modal fade" id="recommend"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    <i class="icon-tag"></i> 志愿推荐表批次选择
-                </h4>
-            </div>
-            <div class="modal-body">
-                <nav class="nav nav-pills">
-                    <li><a href="javascript:;;" type="1" score="333" ng-click="startChance($event)" title="点击模拟志愿概率">文科本一</a></li>
-                    <li><a href="javascript:;;" type="3" score="301" ng-click="startChance($event)" title="点击模拟志愿概率">文科本二</a></li>
-                    <li><a href="javascript:;;" type="5" score="272" ng-click="startChance($event)" title="点击模拟志愿概率">文科本三</a></li>
-                    <li><a href="javascript:;;" type="7" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">文科高职</a></li>
-                </nav>
-                <nav class="nav nav-pills">
-                    <li><a href="javascript:;;" type="2" score="345" ng-click="startChance($event)" title="点击模拟志愿概率">理科本一</a></li>
-                    <li><a href="javascript:;;" type="4" score="312" ng-click="startChance($event)" title="点击模拟志愿概率">理科本二</a></li>
-                    <li><a href="javascript:;;" type="6" score="279" ng-click="startChance($event)" title="点击模拟志愿概率">理科本三</a></li>
-                    <li><a href="javascript:;;" type="8" score="190" ng-click="startChance($event)" title="点击模拟志愿概率">理科高职</a></li>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>-->

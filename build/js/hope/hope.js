@@ -395,7 +395,6 @@ require(['app'], function (app) {
                     //取消灰色
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
-                        //console.log(i);
                         if (ignore.indexOf(idx) >= 0) {
                             $(v).attr("status", "0").removeClass("agree reject").addClass('cancle');
                             ignore.splice(ignore.indexOf(idx), 1);
@@ -444,7 +443,6 @@ require(['app'], function (app) {
                     //取消灰色
                     $.each(list, function (i, v) {
                         var idx = $(v).attr(id);
-                        console.log(i);
                         if (ignore.indexOf(idx) >= 0) {
                             $(v).attr("status", "0").removeClass("agree reject").addClass('cancle');
                             ignore.splice(ignore.indexOf(idx), 1);
@@ -530,12 +528,18 @@ require(['app'], function (app) {
                     });
                 } else if(status == 2) {
                     //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                    if (arr != null) {
+                  /*  if (arr != null) {
                         arr = [];
-                    }
-                    prefer = [], ignore = [],cityIgnore=[];
+                    }*/
+                    //prefer = [], ignore = [],cityIgnore=[];
                     $.each(list, function (i, v) {
-                        $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
+                        if(ignore.indexOf($(v).attr("school_id"))>=0){
+                            ignore.splice(ignore.indexOf($(v).attr("school_id")),1);
+                        }
+                        if(cityIgnore.indexOf($(v).attr("city_id"))>=0){
+                            cityIgnore.splice(cityIgnore.indexOf($(v).attr("city_id")),1);
+                        }
+                        $(v).attr("status", 0).removeClass("agree reject").addClass("cancle");
                     });
                 }
                 return prefer + "|" + ignore + "|" + name + "|" + JSON.stringify(arr)+"|"+cityIgnore;
@@ -569,11 +573,15 @@ require(['app'], function (app) {
                 } else if(status == 2){
                     //status = that.attr("status", "0");
                     status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                    if (arr != null) {
-                        arr = [];
-                    }
-                    prefer = [], ignore = [];
+                    //if (arr != null) {
+                    //    arr = [];
+                    //}
+                    //prefer = [], ignore = [];
                     $.each(list, function (i, v) {
+                        debugger;
+                        if(ignore.indexOf($(v).attr(id))>=0){
+                            ignore.splice(ignore.indexOf($(v).attr(id)),1);
+                        }
                         $(v).attr("status", 0).removeClass('agree reject').addClass('cancle');
                     });
                 }
@@ -885,19 +893,9 @@ require(['app'], function (app) {
         init();
 
         function init() {
-
-            /*console.log($stateParams.batch);*/
+            //getLoginUserInfo.isScores();
             $("#recommend").modal('show');
-            /*getLoginUserInfo.isLogoin();*/
-
-            /*setInterval(function(){
-             getLoginUserInfo.isLogoin();
-             },600000);
-             */
             if ($stateParams.batch != null) {
-
-                /* $scope.hope.batch = $stateParams.batch;*/
-
                 $scope.coverage = [
                     {
                         id: 1,
@@ -930,7 +928,6 @@ require(['app'], function (app) {
                                 $scope.hope.depart.push(v);
                             }
                         });
-                        //console.log($scope.hope.depart);
                     });
                 } else {
                     /*专业大门类（13个）*/
@@ -940,7 +937,6 @@ require(['app'], function (app) {
                                 $scope.hope.depart.push(v);
                             }
                         });
-                        //console.log($scope.hope.depart);
                     });
                 }
 
@@ -1634,7 +1630,7 @@ require(['app'], function (app) {
                         $scope.hope.school_name = mosaic1.split("|")[2].length > 0 ? mosaic1.split("|")[2].split(",") : [];
                         $scope.hope.schoolArr = mosaic1.split("|")[3].length > 0 ? JSON.parse(mosaic1.split("|")[3]) : [];
                         $scope.reject.citys = mosaic1.split("|")[4].length > 0 ? mosaic1.split("|")[4].split(","): [];
-                        console.log(JSON.stringify($scope.reject.citys));
+                       
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
@@ -1689,7 +1685,7 @@ require(['app'], function (app) {
                     $scope.hope.school_name = mosaic1.split("|")[2].length > 0 ? mosaic1.split("|")[2].split(",") : [];
                     $scope.hope.schoolArr = mosaic1.split("|")[3].length > 0 ? JSON.parse(mosaic1.split("|")[3]) : [];
                     $scope.reject.citys = mosaic1.split("|")[4].length > 0 ? mosaic1.split("|")[4].split(","): [];
-                    console.log(JSON.stringify($scope.reject.citys));
+                   
 
                 });
             }else{
@@ -1729,7 +1725,7 @@ require(['app'], function (app) {
                 $scope.hope.school_name = mosaic1.split("|")[2].length > 0 ? mosaic1.split("|")[2].split(",") : [];
                 $scope.hope.schoolArr = mosaic1.split("|")[3].length > 0 ? JSON.parse(mosaic1.split("|")[3]) : [];
                 $scope.reject.citys = mosaic1.split("|")[4].length > 0 ? mosaic1.split("|")[4].split(","): [];
-                console.log(JSON.stringify($scope.reject.citys));
+               
             }
         };
 
@@ -1776,7 +1772,7 @@ require(['app'], function (app) {
                         $scope.hope.school_name = mosaic1.split("|")[2].length > 0 ? mosaic1.split("|")[2].split(",") : [];
                         $scope.hope.schoolArr = mosaic1.split("|")[3].length > 0 ? JSON.parse(mosaic1.split("|")[3]) : [];
                         $scope.reject.citys = mosaic1.split("|")[4].length > 0 ? mosaic1.split("|")[4].split(","): [];
-                        console.log(JSON.stringify($scope.reject.citys));
+                       
 
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
@@ -1970,6 +1966,7 @@ require(['app'], function (app) {
                     var _time = null;
                     $(".findSchoolArt").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
+                        console.log("城市："+$scope.reject.citys);
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
                         var str = $scope.reject.attribute;
@@ -1990,7 +1987,7 @@ require(['app'], function (app) {
                         //2.执行 先把所有状态变成0，执行优先参数
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
-                            param.type = $scope.hope.batch;
+                                param.type = $scope.hope.batch;
                                 param.style = $scope.hope.style;
                                 param.belongs = $scope.hope.belongs;
                                 param.attr = $scope.hope.attribute;
@@ -2037,6 +2034,7 @@ require(['app'], function (app) {
                                 pubMenthod(status, that);
                             });
                         }else{
+                            console.log("城市："+$scope.reject.citys);
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
                             if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
                                 $scope.reject.attribute = $scope.reject.attribute + that.attr("pub")+",";
@@ -2055,13 +2053,12 @@ require(['app'], function (app) {
                                 }
                                 $scope.reject.attribute = newStr;
                             }
-                            //pubMenthod(status, that);
+                            pubMenthod(status, that);
                         }
                     }).unbind('click').click(function (e) {
                         $timeout.cancel(_time);
                         var that = $(this);
                         _time = $timeout(function (e) {
-                            console.log("，建立了，，")
                             var status = that.attr("status");
                             if (status == undefined || status == null || status == 0) {
                                 $scope.hope.attribute = $scope.hope.attribute + that.attr("pub")+",";
@@ -2254,7 +2251,7 @@ require(['app'], function (app) {
                         }else if (prop_id == 24) {
                             $scope.reject.prop8 = "" ;
                         }
-                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             //2.执行 先把所有状态变成0，执行优先参数
                             var param = {};
                             param.type = $scope.hope.batch;
@@ -2272,7 +2269,7 @@ require(['app'], function (app) {
                             }).success(function(data){
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!="" ){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
@@ -2650,7 +2647,6 @@ require(['app'], function (app) {
                     }
 
                     //点击效果
-                    console.log(newlist);
                     var mosaic = classifyDBClk.rejectTypeEvent(that,that.attr("status"),strArr,newlist,"depart_id",$scope.hope.depart_prefer,$scope.hope.depart_ignore,$scope.hope.departArr,$scope.hopeClassify.proCate)
                     $scope.hope.depart_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                     $scope.hope.depart_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -2937,7 +2933,7 @@ require(['app'], function (app) {
             $scope.hope.school_name = mosaic1.split("|")[2].length > 0 ? mosaic1.split("|")[2].split(",") : [];
             $scope.hope.schoolArr = mosaic1.split("|")[3].length > 0 ? JSON.parse(mosaic1.split("|")[3]) : [];
             $scope.reject.citys = mosaic1.split("|")[4].length > 0 ? mosaic1.split("|")[4].split(","): [];
-            console.log(JSON.stringify($scope.reject.citys));
+           
         };
 
         /**

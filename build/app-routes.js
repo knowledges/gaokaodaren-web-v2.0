@@ -642,20 +642,23 @@ define(['app'],function(app){
             islogin : false,
             name : "",
             search:""
-        }
+        };
         $scope.isShow = false;
-        $scope.user.name = sessionStorage.getItem('usernumber') ;
+        $scope.user.name = sessionStorage.getItem("usernumber") ;
+
         if($scope.user.name != null && $scope.user.name.length>= 1){
             $scope.user.islogin = true;
         }else{
             $scope.user.islogin = false;
         }
+
         $scope.$watch('studentId',function(newValue,oldValue){
             if(newValue !=""){
                 $scope.user.name = $rootScope.studentId;
                 $scope.user.islogin = true;
             }
-        })
+        });
+
         $scope.login = function(){
             var url =  window.location.hash.indexOf('hope');
             if(url>=0){
@@ -663,36 +666,34 @@ define(['app'],function(app){
             }else{
                 window.location.href = "#/login";
             }
-        }
+        };
+
         $scope.close = function(){
             $scope.isShow = false;
-        }
+        };
+
         $scope.logoff = function(){
             $http.get(loocha+logoutURL)
                 .success(function(data,status){
                     $scope.user.islogin = false;
                     $rootScope.isFromDepth = false;
+                    $scope.user.name ="";
                     sessionStorage.setItem('usernumber',"");
                     sessionStorage.setItem('uScore',"");
                     sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
-                    $scope.user.name ="";
                     window.location.href = "#/home";
                 });
-        }
+        };
 
         $scope.totalSearch = function(){
             window.location.href = "#/search/key="+$scope.user.search;
         };
 
     }]);
-    app.controller("pageJumpCtr",['$scope','$window','getLoginUserInfo',function($scope,$window,getLoginUserInfo){
-        /*   $scope.pageJump = function(type,user_level){
-         $window.location.href="#/hope?type="+type+"&user_level="+user_level;
-         $window.location.reload();
-         }*/
+    app.controller("pageJumpCtr",["$scope","$window","getLoginUserInfo",function($scope,$window,getLoginUserInfo){
 
         $(".dropdown-menu li a").click(function(e){
-                $(".dropdown").removeClass("open");
+            $(".dropdown").removeClass("open");
         });
 
         /**
@@ -701,27 +702,29 @@ define(['app'],function(app){
          */
         $scope.jumpPage = function(num){
             getLoginUserInfo.isLogoin();
-            getLoginUserInfo.isScores();
-            if(sessionStorage.getItem("uScore") == ""){
-                alert("您还还没有填写成绩，请填写成绩");
-                window.location.href = "#/all/allScore";
-            }else{
-                var uScore = JSON.parse(sessionStorage.getItem("uScore"));
-                var type ="";
-                if(uScore !=null){
-                    type =uScore.type;
-                    if(num == 1){
-                        window.location.href = "#/depth/depthInfo/batch="+type;
-                    }else if (num == 2){
-                        window.location.href = "#/hope/batch="+type;
-                    }else if (num == 3){
-                        window.location.href = "#/chance/batch="+type;
-                    }
-                }else{
-                    alert("您还还没有填写成绩，请填写成绩");
-                    window.location.href = "#/all/allScore";
+            var uScore = JSON.parse(sessionStorage.getItem("uScore"));
+            if(uScore != null){
+                var type =uScore.type;
+                if (num == 2){
+                    $window.location.href = "#/hope/batch="+type;
+                }else if (num == 3){
+                    $window.location.href = "#/chance/batch="+type;
                 }
+            }else{
+                alert("您还还没有填写成绩，请填写成绩");
+                $window.location.href = "#/all/allScore";
             }
+
+            /*if(sessionStorage.getItem("uScore") == ""){
+                alert("您还还没有填写成绩，请填写成绩");
+                $window.location.href = "#/all/allScore";
+            }else{
+
+               else{
+                    alert("您还还没有填写成绩，请填写成绩");
+                    $window.location.href = "#/all/allScore";
+                }
+            }*/
         };
     }]);
 });

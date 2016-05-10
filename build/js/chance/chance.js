@@ -20,7 +20,6 @@ require(['app'],function(app){
         $scope.score = "";
         $scope.isShow = false;
         $scope.isChance = $stateParams.batch;
-        //$scope.isChance = localStorage.getItem("type");
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
         $scope.order_id = "";
         $scope.money = "";
@@ -95,7 +94,9 @@ require(['app'],function(app){
         $('.dropdown-toggle').dropdown();
 
         init ();
+
         function init(){
+            //getLoginUserInfo.isScores();
 
             $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
             $scope.userInfo.subject =subStr($scope.isChance);
@@ -172,11 +173,8 @@ require(['app'],function(app){
                 }
             }else{
                 $("#recommend").modal('show');
-                //$rootScope.loading = false;
                 return;
             }
-
-
         }
 
 ////////按概率范围预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////////////////

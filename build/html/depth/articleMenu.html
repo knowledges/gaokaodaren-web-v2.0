@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="modal" id="depthModal">
+<div class="modal" id="depthModal" style="margin-left:40%;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,7 +204,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('A+A+',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=2">
                                 <td>A+,A</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[1]" value="A%2bA"/>
@@ -213,7 +213,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('A+A',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=2">
                                 <td>A,A</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[2]" value="AA"/>
@@ -222,7 +222,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('AA',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=2">
                                 <td>A,B+</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[3]" value="AB%2b"/>
@@ -231,7 +231,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('AB+',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=2">
                                 <td>A,B</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[4]" value="AB"/>
@@ -240,7 +240,16 @@
                                     <button class="btn btn-primary" ng-click="showInfo('AB',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type ==2">
+                                <td>A,C</td>
+                                <td ng-if="condition.money/100>0">
+                                    <input type="checkbox" ng-model="condition.sel[12]" value="AC"/>
+                                </td>
+                                <td ng-if="condition.money/100<=0">
+                                    <button class="btn btn-primary" ng-click="showInfo('AC',3)">查看</button>
+                                </td>
+                            </tr>
+                            <tr ng-if="condition.type <=4">
                                 <td>B+,B+</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[5]" value="B%2bB%2b"/>
@@ -249,7 +258,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('B+B+',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=4">
                                 <td>B+,B</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[6]" value="B%2bB"/>
@@ -258,7 +267,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('B+B',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=4">
                                 <td>B,B</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[7]" value="BB"/>
@@ -267,7 +276,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('BB',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type <=6">
                                 <td>B,C</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[8]" value="BC"/>
@@ -276,7 +285,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('BC',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type >=5">
                                 <td>C,C</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[9]" value="CC"/>
@@ -285,7 +294,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('CC',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type >6">
                                 <td>C,D</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[10]"  value="CD"/>
@@ -294,7 +303,7 @@
                                     <button class="btn btn-primary" ng-click="showInfo('CD',3)">查看</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type >6">
                                 <td>不要求</td>
                                 <td ng-if="condition.money/100>0">
                                     <input type="checkbox" ng-model="condition.sel[11]"   value=""/>
@@ -772,11 +781,11 @@
                             </thead>
                             <!--本一、本二、高职-->
                             <tbody>
-                            <tr>
+                            <tr ng-if="condition.type!=5 && condition.type!=6">
                                 <td>6000~10000</td>
                                 <td><input type="checkbox" ng-model="condition.fee[0]" value="2"/> </td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type!=5 && condition.type!=6">
                                 <td>10000~15000</td>
                                 <td><input type="checkbox" ng-model="condition.fee[1]"  value="3"/></td>
                             </tr>
@@ -784,18 +793,11 @@
                                 <td>15000~20000</td>
                                 <td><input type="checkbox" ng-model="condition.fee[2]"  value="4"/></td>
                             </tr>
-                            <tr>
+                            <tr ng-if="condition.type!=5 && condition.type!=6">
                                 <td>20000以上</td>
                                 <td><input type="checkbox" ng-model="condition.fee[3]"  value="5"/></td>
                             </tr>
                             </tbody>
-                            <!--本三-->
-                           <!-- <tbody>
-                            <tr>
-                                <td>10000~10000</td>
-                                <td><input type="checkbox" value="4"/> </td>
-                            </tr>
-                            </tbody>-->
                         </table>
                     </div>
                     <div class="col-sm-2">
@@ -924,21 +926,7 @@
                     </div>
                 </div>
                 <div class="row" ng-if="condition.inputTemplate == 98">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <td>年份</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2015</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2" ng-if="condition.money/100>0">
+                    <div class="col-sm-5" ng-if="condition.money/100>0">
                         {{condition.money/100}}元/条
                     </div>
                 </div>
@@ -950,7 +938,7 @@
         </div>
     </div>
 </div>
-<div class="modal" id="baikeModal" style="background: rgba(0, 0, 0, 0.75);">
+<div class="modal" id="baikeModal" style="background: rgba(0, 0, 0, 0.75);margin-left: 10%;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
