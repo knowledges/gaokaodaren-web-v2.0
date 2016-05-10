@@ -36,6 +36,7 @@ require(['app'],function(app){
         $scope.money = 0;
         $scope.insertHTML="";
         $scope.condition={
+            type:$location.$$url.split("batch=")[1],
             inputTemplate : "",
             timer:"",
             schlName:"",
@@ -46,11 +47,10 @@ require(['app'],function(app){
             departprop:"",
             city:"",
             fee:"",
+            sel:"",
             charge:"",
             titleId:"",
-            parentTitle:"",
             title:"",
-            childTitle:"",
             innserTHML:"",
             provincelist:"",
             departproplist:[],
@@ -63,14 +63,15 @@ require(['app'],function(app){
 //        console.log($location.$$url.split("batch=")[1]);
         init();
         function init(){
+            localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             $("#depthModal").show();
             $scope.condition.provincelist=data_province.data.response.list;
-                //$("#recommend").show();
-                var url ="";
-                if($scope.condition.type<7){
-                    url="/depart/prop?type=0&depart_type=0";
-                }else{
-                    url="/depart/prop?type=0&depart_type=1";
+            //$("#recommend").show();
+            var url ="";
+            if($scope.condition.type<7){
+                url="/depart/prop?type=0&depart_type=0";
+            }else{
+                url="/depart/prop?type=0&depart_type=1";
             }
             $http.get(loocha+url)
                 .success(function(data){
@@ -123,11 +124,15 @@ require(['app'],function(app){
                 money = parseInt(that.attr("money")),
                 leaf = parseInt(that.attr("leaf")),
                 idx= parseInt(that.attr("idx")),
-                name=that.text().trim(),
+                name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
+            if(idx == 65){
+                alert(" 1.免费\n 2.请到志愿咨询栏目，高校介绍专题汇总中查询");
+                return;
+            }
 
             $scope.condition.titleId = idx;
-            $scope.condition.childTitle = name;
+            $scope.condition.title = name;
             $scope.condition.flag = flag;
             $scope.condition.money = money;
             var school = $scope.condition.schlName !="" ? $scope.condition.schlName :"";
@@ -135,7 +140,7 @@ require(['app'],function(app){
             var sel = $scope.condition.level !="" ? $scope.condition.level:"";
             var city = $scope.condition.city !="" ? $scope.condition.city:"";
             var fee =  $scope.condition.fee !="" ? $scope.condition.fee:0;
-            var year = $scope.condition.timer !="" ? $scope.condition.timer:2016;
+            var year = $scope.condition.timer !="" ? $scope.condition.timer: new Date().getFullYear()-1;
             $(".list-group-item").removeClass("active");
 
             if(leaf == 0){
@@ -162,7 +167,10 @@ require(['app'],function(app){
                         url :loocha+"/depth/query/"+idx+".html",
                         params:param
                     }).success(function (data) {
-                        if(data.length>0){
+                        if(data.status == "-1" || data.status == "4"){
+                            alert("需要登录请登录");
+                            window.location.href="#/login";
+                        }else if(data.length>0){
                             $("#depathTHML").empty().prepend(data);
                         }else{
                             $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
@@ -183,7 +191,7 @@ require(['app'],function(app){
             e.stopPropagation();
         };
 
-        $scope.showInfo = function(num){
+        $scope.showInfo = function(num,type){
 
             var school = $scope.condition.schlName !="" ? $scope.condition.schlName :"";
             var depart = $scope.condition.departName !="" ? $scope.condition.departName :"";
@@ -192,10 +200,15 @@ require(['app'],function(app){
             var fee =  $scope.condition.fee !="" ? $scope.condition.fee:0;
             var param = {};
             param.type = $location.$$url.split("batch=")[1];
-            param.year = num;
+            if(type==0){
+                param.year = num;
+            }
             param.school = school;
             param.depart = depart;
-            param.sel = sel;
+            if(type == 3){
+                param.sel = num;
+                param.year = 2015;
+            }
             param.city = city;
             param.fee = fee;
 
@@ -204,7 +217,10 @@ require(['app'],function(app){
                 url :loocha+"/depth/query/"+$scope.condition.titleId+".html",
                 params:param
             }).success(function (data) {
-                if(data.length>0){
+                if(data.status == "-1" || data.status == "4"){
+                    alert("需要登录请登录");
+                    window.location.href="#/login";
+                }else if(data.length>0){
                     $("#depathTHML").empty().prepend(data);
                 }else{
                     $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
@@ -220,35 +236,272 @@ require(['app'],function(app){
             $("#recommend,#depthModal,#baikeModal").hide();
         };
 
+        var _count = 0;
         /**
          * 提交信息
          */
         $scope.subOrder = function(e){
+            ++_count;
+            if($scope.condition.inputTemplate == "98"){
+                var obj = new Object();
+                obj.id = _count;
+                obj.titleId = $scope.condition.titleId;
+                obj.name = $scope.condition.title;
+                obj.type = $location.$$url.split("batch=")[1];
+                obj.year = new Date().getFullYear()-1;
+                obj.school = "";
+                obj.depart = "";
+                obj.city = "";
+                obj.subject = "";
+                obj.fee =  "";
+                obj.count = "";
+                obj.sel = "";
+                obj.money = $scope.condition.money;
+                $scope.money+=($scope.condition.money/100);
+                $scope.orderList.push(obj);
+            }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
+                var obj = new Object();
+                obj.id = _count;
+                obj.titleId = $scope.condition.titleId;
+                obj.name = $scope.condition.title;
+                obj.type = $location.$$url.split("batch=")[1];
+                obj.year = "";
+                obj.school = $scope.condition.schlName;
+                obj.depart = $scope.condition.departName;
+                obj.money = $scope.condition.money;
+                obj.city = $scope.condition.city;
+                obj.subject = "";
+                obj.fee =  "";
+                obj.count = "";
+                obj.sel = "";
+                $scope.money+=($scope.condition.money/100);
+                $scope.orderList.push(obj);
+            }
 
-            var list = $("input[type='checkbox']");
+            angular.forEach($scope.condition.timer,function(i,v){
+                if(i != undefined && i == true){
+                    var year = 0;
+                    switch (parseInt(v)){
+                        case 0:
+                            year = 2012;
+                            break;
+                        case 1:
+                            year = 2013;
+                            break;
+                        case 2:
+                            year = 2014;
+                            break;
+                    }
 
-            angular.forEach(list,function(data,index,array){
-                if($(data).is(":checked")){
                     var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.parentTitle = $scope.condition.parentTitle;
-                    obj.title = $scope.condition.title;
-                    obj.name = $scope.condition.childTitle;
+                    obj.id = _count;
+                    obj.titleId = $scope.condition.titleId;
+                    obj.name = $scope.condition.title;
                     obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = $(data).val();
+                    obj.year = year;
                     obj.school = $scope.condition.schlName;
                     obj.depart = $scope.condition.departName;
                     obj.money = $scope.condition.money;
+                    obj.city = "";
+                    obj.subject = "";
+                    obj.count = "";
+                    obj.fee =  "";
+                    obj.sel = "";
                     $scope.money+=($scope.condition.money/100);
                     $scope.orderList.push(obj);
                 }
             });
 
+            angular.forEach($scope.condition.sel,function(i,v){
+                if(i != undefined && i == true){
+                    var sel ="";
+                    switch (parseInt(v)){
+                        case 0:
+                            sel  = "A+A+";
+                            break;
+                        case 1:
+                            sel  = "A+A";
+                            break;
+                        case 2:
+                            sel  = "AA";
+                            break;
+                        case 3:
+                            sel  = "AB+";
+                            break;
+                        case 4:
+                            sel  = "AB";
+                            break;
+                        case 5:
+                            sel  = "B+B+";
+                            break;
+                        case 6:
+                            sel  = "B+B";
+                            break;
+                        case 7:
+                            sel  = "BB";
+                            break;
+                        case 8:
+                            sel  = "BC";
+                            break;
+                        case 9:
+                            sel  = "CC";
+                            break;
+                        case 10:
+                            sel  = "CD";
+                            break;
+                        case 11:
+                            sel  = "不要求";
+                            break;
+                        case 12:
+                            sel  = "AC";
+                            break;
+                    }
+
+                    var obj = new Object();
+                    obj.id = _count;
+                    obj.titleId = $scope.condition.titleId;
+                    obj.name = $scope.condition.title;
+                    obj.type = $location.$$url.split("batch=")[1];
+                    obj.year = new Date().getFullYear()-1;
+                    obj.school = $scope.condition.schlName;
+                    obj.depart = $scope.condition.departName;
+                    obj.money = $scope.condition.money;
+                    obj.city = "";
+                    obj.subject = "";
+                    obj.count = "";
+                    obj.fee =  "";
+                    obj.sel = sel;
+                    $scope.money+=($scope.condition.money/100);
+                    $scope.orderList.push(obj);
+                }
+            });
+
+            angular.forEach($scope.condition.fee,function(i,v){
+                if(i != undefined && i == true){
+                    var fee ="";
+                    switch (parseInt(v)){
+                        case 0:
+                            fee  = "2";
+                            break;
+                        case 1:
+                            fee  = "3";
+                            break;
+                        case 2:
+                            fee  = "4";
+                            break;
+                        case 3:
+                            fee  = "5";
+                            break;
+                    }
+
+                    var obj = new Object();
+                    obj.id = _count;
+                    obj.titleId = $scope.condition.titleId;
+                    obj.name = $scope.condition.title;
+                    obj.type = $location.$$url.split("batch=")[1];
+                    obj.year = new Date().getFullYear()-1;
+                    obj.school = $scope.condition.schlName;
+                    obj.depart = $scope.condition.departName;
+                    obj.money = $scope.condition.money;
+                    obj.city = "";
+                    obj.subject = "";
+                    obj.count = "";
+                    obj.fee =  fee;
+                    obj.sel = "";
+                    obj.subject = "";
+                    $scope.money+=($scope.condition.money/100);
+                    $scope.orderList.push(obj);
+                }
+            });
+
+            angular.forEach($scope.condition.count,function(i,v){
+                if(i != undefined && i == true){
+                    var count ="";
+                    switch (parseInt(v)){
+                        case 0:
+                            count  = "1";
+                            break;
+                        case 1:
+                            count  = "2";
+                            break;
+                        case 2:
+                            count  = "3";
+                            break;
+                        case 3:
+                            count  = "4";
+                            break;
+                        case 4:
+                            count  = "5";
+                            break;
+                        case 5:
+                            count  = "6";
+                            break;
+                    }
+
+                    var obj = new Object();
+                    obj.id = _count;
+                    obj.titleId = $scope.condition.titleId;
+                    obj.name = $scope.condition.title;
+                    obj.type = $location.$$url.split("batch=")[1];
+                    obj.year = new Date().getFullYear()-1;
+                    obj.school = $scope.condition.schlName;
+                    obj.depart = $scope.condition.departName;
+                    obj.money = $scope.condition.money;
+                    obj.city = "";
+                    obj.subject = "";
+                    obj.count = count;
+                    obj.fee =  "";
+                    obj.sel = "";
+                    obj.subject = "";
+                    $scope.money+=($scope.condition.money/100);
+                    $scope.orderList.push(obj);
+                }
+            });
+
+            angular.forEach($scope.condition.subject,function(i,v){
+                if(i != undefined && i == true){
+                    var subject ="";
+                    switch (parseInt(v)){
+                        case 0:
+                            subject  = "(口)";
+                            break;
+                        case 1:
+                            subject  = "美术";
+                            break;
+                        case 2:
+                            subject  = "艺术";
+                            break;
+                        case 3:
+                            subject  = "高水平运动员";
+                            break;
+                    }
+
+                    var obj = new Object();
+                    obj.id = _count;
+                    obj.titleId = $scope.condition.titleId;
+                    obj.name = $scope.condition.title;
+                    obj.type = $location.$$url.split("batch=")[1];
+                    obj.year = new Date().getFullYear()-1;
+                    obj.school = $scope.condition.schlName;
+                    obj.depart = $scope.condition.departName;
+                    obj.money = $scope.condition.money;
+                    obj.city = "";
+                    obj.subject = "";
+                    obj.count = "";
+                    obj.fee =  "";
+                    obj.sel = "";
+                    obj.subject = subject;
+                    $scope.money+=($scope.condition.money/100);
+                    $scope.orderList.push(obj);
+                }
+            });
 
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));
-            localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             localStorage.setItem("depthmoney",$scope.money);
             $(".modal").hide();
+
+            $scope.condition.timer=[];
+            $scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
         };
 
         /**
@@ -271,30 +524,30 @@ require(['app'],function(app){
             var conditons = [];
             angular.forEach($scope.orderList,function(data){
                 var obj = new Object();
-                obj.id = data.id;
+                obj.id = data.titleId;
                 obj.name = data.name;
                 obj.type = data.type;
                 obj.year = data.year;
-                if(obj.school != undefined && data.school !="" ){
+                if(data.school != undefined && data.school !="" ){
                     obj.school = data.school;
                 }
-                if(obj.depart != undefined && data.depart != ""){
+                if(data.depart != undefined && data.depart != ""){
                     obj.depart = data.depart;
                 }
-                if(obj.city != undefined && data.city !=""){
+                if(data.city != undefined && data.city !=""){
                     obj.city = data.city;
                 }
-                if(obj.subject != undefined && data.subject != ""){
+                if(data.subject != undefined && data.subject != ""){
                     obj.subject = data.subject;
                 }
-                if(obj.fee != undefined && data.fee!=""){
+                if(data.fee != undefined && data.fee!=""){
                     obj.fee = data.fee;
                 }
-                if(obj.count != undefined && data.count!=""){
-                    obj.fee = data.fee;
+                if(data.count != undefined && data.count!=""){
+                    obj.count = data.count;
                 }
-                if(obj.sel != undefined && data.sel!=""){
-                    data.sel = data.sel;
+                if(data.sel != undefined && data.sel!=""){
+                    obj.sel = data.sel;
                 }
                 conditons.push(obj);
             });
@@ -309,7 +562,7 @@ require(['app'],function(app){
                             if (data.status == 1) {
                                 alert('没有找到订单');
                                 return;
-                            }else if (data.status == 4){
+                            }else if (data.status == 4||data.status == "-1"){
                                 alert('您还没有登陆，先去登陆吧！');
                                 window.location.href = "#/login";
                                 return;
@@ -326,7 +579,7 @@ require(['app'],function(app){
         };
 
         $scope.pay = function () {
-            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $scope.hope.batch);
+            openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $location.$$url.split("batch=")[1]);
             $('#modal-pay').modal('hide');
             $("#tip").modal('show');
         };
@@ -336,6 +589,10 @@ require(['app'],function(app){
                 .success(function (data) {
                     if (data.status == "1004") {
                         alert('交易失败');
+                    }else if(data.status == "0"){
+                        localStorage.removeItem("orderList");
+                        localStorage.removeItem("depthmoney");
+                        window.location.reload(0);
                     }
                     $("#tip").modal('hide');
                 });
@@ -352,11 +609,11 @@ require(['app'],function(app){
 
         $scope.$on("depthmenu", function (ngRepeatFinishedEvent) {
             $(".panel-heading").unbind("click").click(function(e){
-                $scope.condition.parentTitle = $(this).find("h4").text().trim();
+                //$scope.condition.parentTitle = $(this).find("h4").attr("titles");
                 $(".panel-heading").next().removeClass("in");
                 $(".panel-footer").next().hide();
                 $(this).next().addClass("in").find(".panel-footer").bind("click",function(e){
-                    $scope.condition.title = $(this).text().trim();
+                    //$scope.condition.title = $(this).attr("titles");
                     $(".panel-footer").next().hide();
                     $(this).next().show();
                     $(this).next().find("li").bind("click",function(e){

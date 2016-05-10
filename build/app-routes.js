@@ -714,17 +714,12 @@ define(['app'],function(app){
                 alert("您还还没有填写成绩，请填写成绩");
                 $window.location.href = "#/all/allScore";
             }
-
-            /*if(sessionStorage.getItem("uScore") == ""){
-                alert("您还还没有填写成绩，请填写成绩");
-                $window.location.href = "#/all/allScore";
-            }else{
-
-               else{
-                    alert("您还还没有填写成绩，请填写成绩");
-                    $window.location.href = "#/all/allScore";
-                }
-            }*/
         };
+
+        $scope.jumpDepth = function(num){
+            $window.location.href = "#/depth/depthInfo/batch="+num;
+            $window.location.reload(0);
+        }
+
     }]);
 });

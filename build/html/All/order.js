@@ -58,7 +58,6 @@ require(['app'], function (app) {
         };
 
         $scope.showOrderInfo = function(num){
-            $(".modal-body").eq(0).scrollTop(0);
             $(".btn-primary").removeClass("actived");
             $(".btn-primary").eq(num-1).addClass("actived")
             $rootScope.loading = true;
@@ -71,7 +70,7 @@ require(['app'], function (app) {
             param.depart = obj.depart;
             param.subject = obj.subject;
             param.count = obj.count;
-            param.sel = obj.sel;
+            param.sel = obj.sel == "不要求"?"":obj.sel;
             param.city = obj.city;
             param.fee = obj.fee;
             $http({
@@ -82,6 +81,7 @@ require(['app'], function (app) {
                 if(data.length>0){
                     $("#depathTHML").empty().prepend(data);
                     $("#mask-depart").modal("show");
+                    $(".modal-body").eq(0).scrollTop(0);
                 }else{
                     $("#depathTHML").empty().prepend('<h2 class="text-content">数据还在筹备中....</h2>');
                     $("#mask-depart").modal("show");

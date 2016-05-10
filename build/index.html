@@ -110,15 +110,15 @@
                         <!--<span class="caret"></span>-->
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="depth.info({batch:1})">文科本一</a></li>
-                        <li><a ui-sref="depth.info({batch:3})">文科本二</a></li>
-                        <li><a ui-sref="depth.info({batch:5})">文科本三</a></li>
-                        <li><a ui-sref="depth.info({batch:7})">文科高职</a></li>
+                        <li><a ng-click="jumpDepth(1)" style="cursor: pointer;">文科本一</a></li>
+                        <li><a ng-click="jumpDepth(3)" style="cursor: pointer;">文科本二</a></li>
+                        <li><a ng-click="jumpDepth(5)" style="cursor: pointer;">文科本三</a></li>
+                        <li><a ng-click="jumpDepth(7)" style="cursor: pointer;">文科高职</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a ui-sref="depth.info({batch:2})">理科本一</a></li>
-                        <li><a ui-sref="depth.info({batch:4})">理科本二</a></li>
-                        <li><a ui-sref="depth.info({batch:6})">理科本三</a></li>
-                        <li><a ui-sref="depth.info({batch:8})">理科高职</a></li>
+                        <li><a ng-click="jumpDepth(2)" style="cursor: pointer;">理科本一</a></li>
+                        <li><a ng-click="jumpDepth(4)" style="cursor: pointer;">理科本二</a></li>
+                        <li><a ng-click="jumpDepth(6)" style="cursor: pointer;">理科本三</a></li>
+                        <li><a ng-click="jumpDepth(8)" style="cursor: pointer;">理科高职</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

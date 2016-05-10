@@ -323,8 +323,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="forecast.schl_name" placeholder="请输入高校名称"
-                               ng-keydown="findDepart($event)"/>
+                        <input type="text" class="form-control" ng-model="forecast.schl_name" placeholder="请输入高校名称"/>
+                        <!--ng-keydown="findDepart($event)"-->
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -369,7 +369,8 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="forecast.d_departname"
-                               ng-keydown="findSchl($event)" placeholder="请输入专业名称"/>
+                               placeholder="请输入专业名称"/>
+                        <!--ng-keydown="findSchl($event)"-->
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -633,7 +634,7 @@
             <div class="modal-body">
                 <p>10元／校，10元／专业</p>
 
-                <p>共计缴费{{money}}元。</p>
+                <p>共计缴费{{money/100}}元。</p>
             </div>
             <div class="modal-footer">
                 <a ng-click="pay()" class="btn btn-primary">同意</a>

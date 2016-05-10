@@ -99,12 +99,16 @@ require(['app'],function(app){
             //getLoginUserInfo.isScores();
 
             $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
-            $scope.userInfo.subject =subStr($scope.isChance);
-            $scope.userInfo.score = $scope.userInfo.uScore.score;
-            $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;
-            $scope.userInfo.sub_b = $scope.userInfo.uScore.sub_b;
-            $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
-            $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+            if($scope.userInfo.uScore == null){
+                getLoginUserInfo.isLogoin();
+            }else{
+                $scope.userInfo.subject =subStr($scope.isChance);
+                $scope.userInfo.score = $scope.userInfo.uScore.score;
+                $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;
+                $scope.userInfo.sub_b = $scope.userInfo.uScore.sub_b;
+                $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
+                $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+            }
 
             function subStr(str){
 
@@ -719,19 +723,6 @@ require(['app'],function(app){
 
 ////////按具体院校预测可能录取高校专业录取概率/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        var _time = null;
-        $scope.findDepart = function(e){
-            $scope.forecast.schl_departId = "";
-            if(e.keyCode == 229){
-                $timeout.cancel(_time);
-                _time = $timeout(function(e){
-                    $http.get(loocha+"/departlist?type="+$scope.isChance+"&code="+$scope.forecast.schl_id+"&name="+$scope.forecast.schl_name+"&index=0&limit=999").success(function(data){
-                        $scope.forecast.schl_departArr = data.response.list;
-                    });
-                },500);
-            }
-        };
-
         $scope.getDepartName = function(){
             $scope.forecast.schl_departName = $("#schl_departName option:selected").text().trim();
             $scope.forecast.schl_article_id = $("#schl_departName option:selected").attr("article_id");
@@ -817,17 +808,6 @@ require(['app'],function(app){
         };
 
 ////////按具体专业预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////
-        $scope.findSchl = function(e){
-            $scope.forecast.d_schl_id = "";
-            if(e.keyCode == 229){
-                $timeout.cancel(_time);
-                _time = $timeout(function(e){
-                    $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+$scope.forecast.d_departname).success(function(data){
-                        $scope.forecast.d_schlArr = data.response;
-                    });
-                },500);
-            }
-        };
 
         $scope.getDschlName=function(){
             $scope.forecast.d_schl_name = $("#d_schl_id option:selected").text().trim();
@@ -948,7 +928,7 @@ require(['app'],function(app){
                     $http.get(loocha+'/exam/' + data.response.id).success(function (data) {
                         sessionStorage.setItem("order_id",data.response.order_id);
                         $scope.order_id = data.response.order_id;
-                        $scope.money = data.response.money/100;
+                        $scope.money = data.response.money;
                         $("#zyb_random").modal('show');
                     });
                 }else if(data.status == "1005"){
@@ -1065,5 +1045,22 @@ require(['app'],function(app){
             }
             return num;
         }
+
+        $scope.$watch("forecast.schl_name",function(newvalue,oldvalue){
+            if(newvalue!=oldvalue) {
+                $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + $scope.forecast.schl_name + "&index=0&limit=999").success(function (data) {
+                    $scope.forecast.schl_departArr = data.response.list;
+                });
+            }
+        });
+
+        $scope.$watch("forecast.d_departname",function(newvalue,oldvalue){
+            if(newvalue!=oldvalue){
+                $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+newvalue).success(function(data){
+                    $scope.forecast.d_schlArr = data.response;
+                });
+            }
+        });
+
     }]);
 });

@@ -44,6 +44,8 @@ require(['app'],function(app){
             level:"",
             attr:"",
             flag:"",
+            count:"",
+            subject:"",
             departprop:"",
             city:"",
             fee:"",
@@ -236,46 +238,19 @@ require(['app'],function(app){
             $("#recommend,#depthModal,#baikeModal").hide();
         };
 
+        var _count = 0;
         /**
          * 提交信息
          */
-        $scope.subOrder = function(e){
+        $scope.orderInfo = function(condition){
+            var type = $location.$$url.split("batch=")[1];
+            if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
+                addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+            }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
+                addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+            }
 
-            if($scope.condition.inputTemplate == "98"){
-                var obj = new Object();
-                obj.id = $scope.condition.titleId;
-                obj.name = $scope.condition.title;
-                obj.type = $location.$$url.split("batch=")[1];
-                obj.year = new Date().getFullYear()-1;
-                obj.school = "";
-                obj.depart = "";
-            obj.city = "";
-            obj.subject = "";
-            obj.fee =  "";
-            obj.count = "";
-            obj.sel = "";
-            obj.money = $scope.condition.money;
-            $scope.money+=($scope.condition.money/100);
-            $scope.orderList.push(obj);
-        }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-            var obj = new Object();
-            obj.id = $scope.condition.titleId;
-            obj.name = $scope.condition.title;
-            obj.type = $location.$$url.split("batch=")[1];
-            obj.year = "";
-            obj.school = $scope.condition.schlName;
-            obj.depart = $scope.condition.departName;
-            obj.money = $scope.condition.money;
-            obj.city = $scope.condition.city;
-            obj.subject = "";
-            obj.fee =  "";
-            obj.count = "";
-            obj.sel = "";
-            $scope.money+=($scope.condition.money/100);
-            $scope.orderList.push(obj);
-        }
-
-            angular.forEach($scope.condition.timer,function(i,v){
+            angular.forEach(condition.timer,function(i,v){
                 if(i != undefined && i == true){
                     var year = 0;
                     switch (parseInt(v)){
@@ -289,26 +264,11 @@ require(['app'],function(app){
                             year = 2014;
                             break;
                     }
-
-                    var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = year;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,year,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.sel,function(i,v){
+            angular.forEach(condition.sel,function(i,v){
                 if(i != undefined && i == true){
                     var sel ="";
                     switch (parseInt(v)){
@@ -346,32 +306,18 @@ require(['app'],function(app){
                             sel  = "CD";
                             break;
                         case 11:
-                            sel  = "";
+                            sel  = "不要求";
                             break;
                         case 12:
                             sel  = "AC";
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = sel;
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
                 }
             });
 
-            angular.forEach($scope.condition.fee,function(i,v){
+            angular.forEach(condition.fee,function(i,v){
                 if(i != undefined && i == true){
                     var fee ="";
                     switch (parseInt(v)){
@@ -388,27 +334,11 @@ require(['app'],function(app){
                             fee  = "5";
                             break;
                     }
-
-                    var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  fee;
-                    obj.sel = "";
-                    obj.subject = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.count,function(i,v){
+            angular.forEach(condition.count,function(i,v){
                 if(i != undefined && i == true){
                     var count ="";
                     switch (parseInt(v)){
@@ -432,26 +362,11 @@ require(['app'],function(app){
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = count;
-                    obj.fee =  "";
-                    obj.sel = "";
-                    obj.subject = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.subject,function(i,v){
+            angular.forEach(condition.subject,function(i,v){
                 if(i != undefined && i == true){
                     var subject ="";
                     switch (parseInt(v)){
@@ -469,31 +384,46 @@ require(['app'],function(app){
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = "";
-                    obj.subject = subject;
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
                 }
             });
 
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));
             localStorage.setItem("depthmoney",$scope.money);
-            $(".modal").hide();
 
+            $(".modal").hide();
             $scope.condition.timer=[];
             $scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
+
+            function addOrders(id,titleId,title,type,year,schoolname,departname,money,city,subject,count,fee,sel){
+                debugger;
+                var isTrue = true;
+                angular.forEach($scope.orderList,function(v,i){
+                    /*TODO 如果好批次有关 就要把type 加上*/
+                    if(v.titleId == titleId && v.year == year && v.school == schoolname && v.depart == departname && v.city == city && v.subject == subject && v.count == count && v.fee == fee && v.sel == sel){
+                        alert("该选项已存在订单中");
+                        isTrue = false;
+                    }
+                });
+                if(isTrue){
+                    var obj = new Object();
+                    obj.id = id;
+                    obj.titleId = titleId;
+                    obj.name = title;
+                    obj.type = type;
+                    obj.year = year;
+                    obj.school = schoolname;
+                    obj.depart = departname;
+                    obj.money = money;
+                    obj.city = city;
+                    obj.subject = subject;
+                    obj.count = count;
+                    obj.fee =  fee;
+                    obj.sel = sel;
+                    $scope.money+=(money/100);
+                    $scope.orderList.push(obj);
+                }
+            };
         };
 
         /**
@@ -511,12 +441,11 @@ require(['app'],function(app){
          */
         $scope.payOrder = function(){
             getLoginUserInfo.isLogoin();
-
-            var type = $location.$$url.split("batch=")[1];
             var conditons = [];
+            var type = $location.$$url.split("batch=")[1];
             angular.forEach($scope.orderList,function(data){
                 var obj = new Object();
-                obj.id = data.id;
+                obj.id = data.titleId;
                 obj.name = data.name;
                 obj.type = data.type;
                 obj.year = data.year;
