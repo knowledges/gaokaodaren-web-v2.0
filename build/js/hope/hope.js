@@ -670,6 +670,8 @@ require(['app'], function (app) {
             attribute:"",
             prop3:"",
             prop4:"",
+            prop5:"",
+            prop6:"",
             prop8:"",
             area: "",
             js_province: "",
@@ -739,6 +741,8 @@ require(['app'], function (app) {
             attribute : "",
             prop3 :"",
             prop4 :"",
+            prop5:"",
+            prop6:"",
             prop8 :"",
         };
 
@@ -1863,6 +1867,8 @@ require(['app'], function (app) {
             param.attr = $scope.hope.attribute;
             param.prop3 = $scope.hope.prop3;
             param.prop4 = $scope.hope.prop4;
+            param.prop5 = $scope.hope.prop5;
+            param.prop6 = $scope.hope.prop6;
             param.prop8 = $scope.hope.prop8;
             param.citys = $scope.hope.citys;
 
@@ -1873,7 +1879,7 @@ require(['app'], function (app) {
             }).success(function(data){
                 var list = data.response;
                 var isnull = 0;
-                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                     isnull = 1;
                 }
 
@@ -1935,6 +1941,16 @@ require(['app'], function (app) {
                     list.push(val)
                 })
             }
+            if($scope.reject.prop5!=""){
+                $.each($(".findSch[prop5=1]"),function(idx,val){
+                    list.push(val)
+                })
+            }
+            if($scope.reject.prop6!=""){
+                $.each($(".findSch[prop6=1]"),function(idx,val){
+                    list.push(val)
+                })
+            }
             if($scope.reject.prop8!=""){
                 $.each($(".findSch[prop8=1]"),function(idx,val){
                     list.push(val)
@@ -1986,7 +2002,7 @@ require(['app'], function (app) {
                         }
                         $scope.reject.attribute = newStr;
                         //2.执行 先把所有状态变成0，执行优先参数
-                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
                                 param.type = $scope.hope.batch;
                                 param.style = $scope.hope.style;
@@ -1994,6 +2010,8 @@ require(['app'], function (app) {
                                 param.attr = $scope.hope.attribute;
                                 param.prop3 = $scope.hope.prop3;
                                 param.prop4 = $scope.hope.prop4;
+                                param.prop5 = $scope.hope.prop5;
+                                param.prop6 = $scope.hope.prop6;
                                 param.prop8 = $scope.hope.prop8;
                                 param.citys = $scope.hope.citys;
 
@@ -2004,7 +2022,7 @@ require(['app'], function (app) {
                                 }).success(function(data){
                                     var list = data.response;
                                     var isnull = 0;
-                                    if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                                    if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                                         isnull = 1;
                                     }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
@@ -2132,6 +2150,8 @@ require(['app'], function (app) {
                             param.attr = $scope.hope.attribute;
                             param.prop3 = $scope.hope.prop3;
                             param.prop4 = $scope.hope.prop4;
+                            param.prop5 = $scope.hope.prop5;
+                            param.prop6 = $scope.hope.prop6;
                             param.prop8 = $scope.hope.prop8;
                             param.citys =  $scope.hope.citys;
                             $http({
@@ -2141,7 +2161,7 @@ require(['app'], function (app) {
                             }).success(function(data){
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
@@ -2232,7 +2252,13 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#prop1').attr('data-istrue');
             if (isTrue == "false") {
-                $http.get(loocha + '/school/attr?type=' + $scope.hope.batch).success(function (data) {
+                var url = "";
+                if($scope.hope.batch<=6){
+                    url=loocha + '/school/attr?type=' + $scope.hope.batch;
+                }else {
+                    url="../JSON/shuxing.json"
+                }
+                $http.get(url).success(function (data) {
                     //$http.get(loocha + '/school/prop?type=0&depart_type=' + $scope.hope.batch).success(function (data, status) {
                     $scope.hope.attr = data.response;
                     var html = [];
@@ -2249,10 +2275,14 @@ require(['app'], function (app) {
                             $scope.reject.prop3 = "" ;
                         } else if (prop_id == 21) {
                             $scope.reject.prop4 = "" ;
+                        }else if (prop_id == 22) {
+                            $scope.reject.prop5 = "" ;
+                        }else if (prop_id == 23) {
+                            $scope.reject.prop6 = "" ;
                         }else if (prop_id == 24) {
                             $scope.reject.prop8 = "" ;
                         }
-                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!=""  || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             //2.执行 先把所有状态变成0，执行优先参数
                             var param = {};
                             param.type = $scope.hope.batch;
@@ -2261,6 +2291,8 @@ require(['app'], function (app) {
                             param.attr = $scope.hope.attribute;
                             param.prop3 = $scope.hope.prop3;
                             param.prop4 = $scope.hope.prop4;
+                            param.prop5 = $scope.hope.prop5;
+                            param.prop6 = $scope.hope.prop6;
                             param.prop8 = $scope.hope.prop8;
                             param.citys = $scope.hope.citys;
                             $http({
@@ -2270,7 +2302,7 @@ require(['app'], function (app) {
                             }).success(function(data){
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!="" ){
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!="" ){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
@@ -2285,6 +2317,10 @@ require(['app'], function (app) {
                                         $scope.reject.prop3 = 1;
                                     } else if (prop_id == 21) {
                                         $scope.reject.prop4 = 1;
+                                    } else if (prop_id == 22) {
+                                        $scope.reject.prop5 = 1;
+                                    } else if (prop_id == 23) {
+                                        $scope.reject.prop6 = 1;
                                     } else if (prop_id == 24) {
                                         $scope.reject.prop8 = 1;
                                     }
@@ -2293,6 +2329,10 @@ require(['app'], function (app) {
                                         $scope.reject.prop3 = "";
                                     } else if (prop_id == 21) {
                                         $scope.reject.prop4 = "";
+                                    } else if (prop_id == 22) {
+                                        $scope.reject.prop5 = "";
+                                    } else if (prop_id == 23) {
+                                        $scope.reject.prop6 = "";
                                     } else if (prop_id == 24) {
                                         $scope.reject.prop8 = "";
                                     }
@@ -2307,6 +2347,10 @@ require(['app'], function (app) {
                                     $scope.reject.prop3 = 1;
                                 } else if (prop_id == 21) {
                                     $scope.reject.prop4 = 1;
+                                } else if (prop_id == 22) {
+                                    $scope.reject.prop5 = 1;
+                                } else if (prop_id == 23) {
+                                    $scope.reject.prop6 = 1;
                                 } else if (prop_id == 24) {
                                     $scope.reject.prop8 = 1;
                                 }
@@ -2315,6 +2359,10 @@ require(['app'], function (app) {
                                     $scope.reject.prop3 = "";
                                 } else if (prop_id == 21) {
                                     $scope.reject.prop4 = "";
+                                } else if (prop_id == 22) {
+                                    $scope.reject.prop5 = "";
+                                } else if (prop_id == 23) {
+                                    $scope.reject.prop6 = "";
                                 } else if (prop_id == 24) {
                                     $scope.reject.prop8 = "";
                                 }
@@ -2331,6 +2379,10 @@ require(['app'], function (app) {
                                     $scope.hope.prop3 =1 ;
                                 } else if (prop_id == 21) {
                                     $scope.hope.prop4 =1 ;
+                                } else if (prop_id == 22) {
+                                    $scope.hope.prop5 =1 ;
+                                } else if (prop_id == 23) {
+                                    $scope.hope.prop6 =1 ;
                                 } else if (prop_id == 24) {
                                     $scope.hope.prop8 =1 ;
                                 }
@@ -2339,6 +2391,10 @@ require(['app'], function (app) {
                                     $scope.hope.prop3 = "" ;
                                 } else if (prop_id == 21) {
                                     $scope.hope.prop4 = "" ;
+                                } else if (prop_id == 22) {
+                                    $scope.hope.prop5 = "" ;
+                                } else if (prop_id == 23) {
+                                    $scope.hope.prop6 = "" ;
                                 } else if (prop_id == 24) {
                                     $scope.hope.prop8 = "" ;
                                 }
@@ -2360,7 +2416,7 @@ require(['app'], function (app) {
             $("#panel-footer .dropdown-menu").hide();
             var isTrue = $('#belongs1').attr('data-istrue');
             if (isTrue == "false") {
-                $http.get(loocha + '/school/prop?type=1&depart_type=1').success(function (data) {
+                $http.get(loocha + '/school/prop?type=1&depart_type='+$scope.hope.batch).success(function (data) {
                     $scope.hope.attr = data.response;
                     var html = [];
                     $.each($scope.hope.attr, function (i, v) {
@@ -2387,7 +2443,7 @@ require(['app'], function (app) {
                             }
                         }
                         $scope.reject.belongs = newStr;
-                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                        if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!=""|| $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!=""){
                             //2.执行 先把所有状态变成0，执行优先参数
                             var param = {};
                             param.type = $scope.hope.batch;
@@ -2396,6 +2452,8 @@ require(['app'], function (app) {
                             param.attr = $scope.hope.attribute;
                             param.prop3 = $scope.hope.prop3;
                             param.prop4 = $scope.hope.prop4;
+                            param.prop5 = $scope.hope.prop5;
+                            param.prop6 = $scope.hope.prop6;
                             param.prop8 = $scope.hope.prop8;
                             param.citys = $scope.hope.citys;
                             $http({
@@ -2405,7 +2463,7 @@ require(['app'], function (app) {
                             }).success(function(data){
                                 var list = data.response;
                                 var isnull = 0;
-                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!=""){
+                                if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!=""  || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!=""){
                                     isnull = 1;
                                 }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);

@@ -681,6 +681,9 @@ define(['app'],function(app){
                     sessionStorage.setItem('usernumber',"");
                     sessionStorage.setItem('uScore',"");
                     sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
+                    localStorage.removeItem("orderList");
+                    localStorage.removeItem("depthbatch");
+                    localStorage.removeItem("depthmoney");
                     window.location.href = "#/home";
                 });
         };
@@ -702,17 +705,20 @@ define(['app'],function(app){
          */
         $scope.jumpPage = function(num){
             getLoginUserInfo.isLogoin();
-            var uScore = JSON.parse(sessionStorage.getItem("uScore"));
-            if(uScore != null){
-                var type =uScore.type;
+            var uScore = sessionStorage.getItem("uScore");
+            if(uScore != "" && uScore!=null ){
+                var type =JSON.parse(uScore).type;
                 if (num == 2){
                     $window.location.href = "#/hope/batch="+type;
                 }else if (num == 3){
                     $window.location.href = "#/chance/batch="+type;
                 }
             }else{
-                alert("您还还没有填写成绩，请填写成绩");
-                $window.location.href = "#/all/allScore";
+                if (num == 2){
+                    $window.location.href = "#/hope/batch=0";
+                }else if (num == 3){
+                    $window.location.href = "#/chance/batch=0";
+                }
             }
         };
 
