@@ -271,12 +271,50 @@
                 <tbody id="propNav" style="display: none;">
                 <tr>
                     <td>
-                        <select class="form-control"
+                        <select  ng-if="forecast.style_id == 0 && isChance <5 "
+                                 class="form-control"
+                                 ng-model="forecast.attr_id"
+                                 ng-change="findAttrId()">
+                            <option value="">==请选择==</option>
+                            <option value="1" ng-if="isChance !=3 && isChance !=4 ">985工程高校</option>
+                            <option value="2">211工程高校</option>
+                            <option value="4" ng-if="isChance !=3 && isChance !=4 ">中外合作办学</option>
+                        </select>
+                        <select  ng-if="forecast.style_id == 0 && isChance>6 "
+                                 class="form-control"
+                                 ng-model="forecast.attr_id"
+                                 ng-change="findAttrId()">
+                            <option value="">==请选择==</option>
+                            <option value="5">国家示范性高等职业院校</option>
+                            <option value="6">国家级实训基地院校</option>
+                        </select>
+                        <select  ng-if="forecast.style_id == 1"
+                                class="form-control"
+                                ng-model="forecast.attr_id"
+                                ng-change="findAttrId()">
+                            <option value="">==请选择==</option>
+                            <option value="14" ng-if="isChance < 5 ">教育部直属</option>
+                            <option value="15" ng-if="isChance !=5 && isChance !=6 ">其他中央部委所属</option>
+                            <option value="16">地方所属</option>
+                            <option value="32">分校(办学点)</option>
+                        </select>
+                        <select ng-if="forecast.style_id == 2"
+                                class="form-control"
+                                ng-model="forecast.attr_id"
+                                ng-change="findAttrId()">
+                            <option value="" selected="selected">==请选择==</option>
+                            <option value="17" ng-if="isChance !=5 && isChance !=6 ">公办</option>
+                            <option ng-repeat="list in forecast.style_Arr" value="{{list.id}}">{{list.name}}</option>
+                            <!--<option value="{{list.id}}">{{list.name}}</option>-->
+                        </select>
+                        <select ng-if="forecast.style_id == 3"
+                                class="form-control"
                                 ng-model="forecast.attr_id"
                                 ng-change="findAttrId()">
                             <option value="">==请选择==</option>
                             <option ng-repeat="list in forecast.style_Arr" value="{{list.id}}">{{list.name}}</option>
                         </select>
+
                     </td>
                     <td>
                         <select id="sSchool_name"
