@@ -97,17 +97,18 @@ require(['app'],function(app){
 
         function init(){
             //getLoginUserInfo.isScores();
-
-            $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
-            if($scope.userInfo.uScore == null){
-                getLoginUserInfo.isLogoin();
-            }else{
+            var uScore = sessionStorage.getItem('uScore');
+            if (uScore != "" && uScore!=null) {
+                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
                 $scope.userInfo.subject =subStr($scope.isChance);
                 $scope.userInfo.score = $scope.userInfo.uScore.score;
                 $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;
                 $scope.userInfo.sub_b = $scope.userInfo.uScore.sub_b;
                 $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
                 $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+            }else{
+                alert('请创建成绩！');
+                window.location.href = "#/all/allScore";
             }
 
             function subStr(str){

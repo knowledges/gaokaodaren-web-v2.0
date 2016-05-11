@@ -1,5 +1,6 @@
 /**
- * Created by Administrator on 2015/12/14.
+ * Created by Administrator on 2016-5-11
+ * 去掉： 优先后取消disabled之前
  */
 require(['app'], function (app) {
     app.factory("classifyClk", function () {
@@ -528,9 +529,9 @@ require(['app'], function (app) {
                     });
                 } else if(status == 2) {
                     //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                  /*  if (arr != null) {
-                        arr = [];
-                    }*/
+                    /*  if (arr != null) {
+                     arr = [];
+                     }*/
                     //prefer = [], ignore = [],cityIgnore=[];
                     $.each(list, function (i, v) {
                         if(ignore.indexOf($(v).attr("school_id"))>=0){
@@ -597,18 +598,18 @@ require(['app'], function (app) {
                     if (ignore.indexOf(id) < 0) {
                         ignore.push(id);
                     }
-               /* } else if (status == 1) {
-                    status = that.attr("status", "2").removeClass('agree cancle').addClass('reject');
-                    if (prefer.indexOf(id) >= 0) {
-                        if (arr != null) {
-                            arr.splice(prefer.indexOf(id), 1);
-                        }
-                        //name.splice(prefer.indexOf(id),1);
-                        prefer.splice(prefer.indexOf(id), 1);
-                    }
-                    if (ignore.indexOf(id) < 0) {
-                        ignore.push(id);
-                    }*/
+                    /* } else if (status == 1) {
+                     status = that.attr("status", "2").removeClass('agree cancle').addClass('reject');
+                     if (prefer.indexOf(id) >= 0) {
+                     if (arr != null) {
+                     arr.splice(prefer.indexOf(id), 1);
+                     }
+                     //name.splice(prefer.indexOf(id),1);
+                     prefer.splice(prefer.indexOf(id), 1);
+                     }
+                     if (ignore.indexOf(id) < 0) {
+                     ignore.push(id);
+                     }*/
                 } else if (status == 2) {
                     status = that.attr("status", "0").removeClass('agree reject').addClass('cancle');
                     if (ignore.indexOf(id) >= 0) {
@@ -1973,8 +1974,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.attribute;
                         //!=""?$scope.reject.attribute:[]
                         if(str.indexOf(attr_id)>=0){
-                        //   str = str + attr_id+",";
-                        //}else{
+                            //   str = str + attr_id+",";
+                            //}else{
                             str.split(str.indexOf(attr_id),1);
                         }
                         var arr = str.split(",")
@@ -1988,25 +1989,25 @@ require(['app'], function (app) {
                         //2.执行 先把所有状态变成0，执行优先参数
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
-                                param.type = $scope.hope.batch;
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop8 = $scope.hope.prop8;
-                                param.citys = $scope.hope.citys;
+                            param.type = $scope.hope.batch;
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop8 = $scope.hope.prop8;
+                            param.citys = $scope.hope.citys;
 
-                                $http({
-                                    url:loocha+"/schbath",
-                                    method:"GET",
-                                    params:param
-                                }).success(function(data){
-                                    var list = data.response;
-                                    var isnull = 0;
-                                    if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
-                                        isnull = 1;
-                                    }
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                                    isnull = 1;
+                                }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -2111,8 +2112,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.style;
                         //!=""?$scope.reject.style:[]
                         if(str.indexOf(style_id)>=0){
-                        //    str = str + style_id+",";
-                        //}else{
+                            //    str = str + style_id+",";
+                            //}else{
                             str.split(str.indexOf(style_id),1);
                         }
                         var arr = str.split(",")
@@ -2375,8 +2376,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.belongs;
                         //!=""?$scope.reject.belongs:[]
                         if(str.indexOf(attr_id)>=0){
-                        //    str = str + attr_id+",";
-                        //}else{
+                            //    str = str + attr_id+",";
+                            //}else{
                             str.split(str.indexOf(attr_id),1);
                         }
                         var arr = str.split(",");
@@ -3056,17 +3057,25 @@ require(['app'], function (app) {
                 $scope.finshparam.project[1] = "";
                 $scope.finshparam.project[2] = "";
                 $scope.finshparam.project[3] = "";
+                $.each($scope.coverage, function (i, v) {
+                    v.disabled = false;
+                });
             } else if (num == 2) {
                 $scope.finshparam.project[2] = "";
                 $scope.finshparam.project[3] = "";
+                $.each($scope.coverage, function (i, v) {
+                    if (v.id != $scope.finshparam.project[0]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 3) {
                 $.each($scope.coverage, function (i, v) {
-                    if ($scope.coverage[idx - 1].id != v.id) {
+                    if (v.disabled == false && $scope.coverage[idx - 1].id != v.id) {
                         $scope.finshparam.project[3] = v.id + "";
                     }
                 });
             }
-            //$scope.coverage[idx - 1].disabled = true;
+            $scope.coverage[idx - 1].disabled = true;
             $("#schSoft,#departSoft,#citySoft,#perSoft").hide();
             var array = [];
             if (parseInt($scope.finshparam.project[0]) > 0) {
@@ -3109,13 +3118,49 @@ require(['app'], function (app) {
         $scope.selectSchol = function (idx, num) {
             if (num == 1) {
                 $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    v.disabled = false;
+                });
             } else if (num == 2) {
                 $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 3) {
                 $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]
+                        && v.id != $scope.finshparam.school_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
             }else if (num == 4){
                 $scope.finshparam.school_prefer[4]  = "";
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]
+                        && v.id != $scope.finshparam.school_prefer[1]
+                        && v.id != $scope.finshparam.school_prefer[2]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
+                $.each($scope.hope.schoolArr, function (i, v) {
+                    if (v.id != $scope.finshparam.school_prefer[0]
+                        && v.id != $scope.finshparam.school_prefer[1]
+                        && v.id != $scope.finshparam.school_prefer[2]
+                        && v.id != $scope.finshparam.school_prefer[3]) {
+                        v.disabled = false;
+                    }
+                });
             }
+
+            $.each($scope.hope.schoolArr, function (i, v) {
+                if (v.id == idx) {
+                    v.disabled = true;
+                }
+            });
 
         };
 
@@ -3127,16 +3172,60 @@ require(['app'], function (app) {
         $scope.selectDepart = function (idx, num) {
             if (num == 1) {
                 $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+                $.each($scope.hope.departArr, function (i, v) {
+                    v.disabled = false;
+                });
             } else if (num == 2) {
                 $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+                $.each($scope.hope.departArr, function (i, v) {
+                    if (v.id != $scope.finshparam.depart_prefer[0]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 3) {
                 $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+                $.each($scope.hope.departArr, function (i, v) {
+                    if (v.id != $scope.finshparam.depart_prefer[0]
+                        && v.id != $scope.finshparam.depart_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 4) {
                 $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+                $.each($scope.hope.departArr, function (i, v) {
+                    if (v.id != $scope.finshparam.depart_prefer[0]
+                        && v.id != $scope.finshparam.depart_prefer[1]
+                        && v.id != $scope.finshparam.depart_prefer[2]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 5) {
                 $scope.finshparam.depart_prefer[5] = "";
+                $.each($scope.hope.departArr, function (i, v) {
+                    if (v.id != $scope.finshparam.depart_prefer[0]
+                        && v.id != $scope.finshparam.depart_prefer[1]
+                        && v.id != $scope.finshparam.depart_prefer[2]
+                        && v.id != $scope.finshparam.depart_prefer[3]) {
+                        v.disabled = false;
+                    }
+                });
+            } else if (num == 6) {
+                $.each($scope.hope.departArr, function (i, v) {
+                    if (v.id != $scope.finshparam.depart_prefer[0]
+                        && v.id != $scope.finshparam.depart_prefer[1]
+                        && v.id != $scope.finshparam.depart_prefer[2]
+                        && v.id != $scope.finshparam.depart_prefer[3]
+                        && v.id != $scope.finshparam.depart_prefer[4]) {
+                        v.disabled = false;
+                    }
+                });
             }
 
+            $.each($scope.hope.departArr, function (i, v) {
+                if (v.id == idx) {
+                    v.disabled = true;
+                }
+            });
         };
 
         /**
@@ -3147,13 +3236,49 @@ require(['app'], function (app) {
         $scope.selectCity = function (idx, num) {
             if (num == 1) {
                 $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] = $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+                $.each($scope.hope.cityArr, function (i, v) {
+                    v.disabled = false;
+                });
             } else if (num == 2) {
                 $scope.finshparam.city_prefer[2]= $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 3) {
                 $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]
+                        && v.id != $scope.finshparam.city_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
             }else if (num == 4){
                 $scope.finshparam.city_prefer[4]  = "";
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]
+                        && v.id != $scope.finshparam.city_prefer[1]
+                        && v.id != $scope.finshparam.city_prefer[2]) {
+                        v.disabled = false;
+                    }
+                });
+            }else if (num == 5){
+                $.each($scope.hope.cityArr, function (i, v) {
+                    if (v.id != $scope.finshparam.city_prefer[0]
+                        && v.id != $scope.finshparam.city_prefer[1]
+                        && v.id != $scope.finshparam.city_prefer[2]
+                        && v.id != $scope.finshparam.city_prefer[3]) {
+                        v.disabled = false;
+                    }
+                });
             }
+
+            $.each($scope.hope.cityArr, function (i, v) {
+                if (v.id == idx) {
+                    v.disabled = true;
+                }
+            });
         };
 
         /**
@@ -3164,16 +3289,60 @@ require(['app'], function (app) {
         $scope.selectPerson = function (idx, num) {
             if (num == 1) {
                 $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    v.disabled = false;
+                });
             } else if (num == 2) {
                 $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    if (v.id != $scope.finshparam.personality_prefer[0]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 3) {
                 $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    if (v.id != $scope.finshparam.personality_prefer[0]
+                        && v.id != $scope.finshparam.personality_prefer[1]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 4) {
                 $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    if (v.id != $scope.finshparam.personality_prefer[0]
+                        && v.id != $scope.finshparam.personality_prefer[1]
+                        && v.id != $scope.finshparam.personality_prefer[2]) {
+                        v.disabled = false;
+                    }
+                });
             } else if (num == 5) {
                 $scope.finshparam.personality_prefer[5] = "";
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    if (v.id != $scope.finshparam.personality_prefer[0]
+                        && v.id != $scope.finshparam.personality_prefer[1]
+                        && v.id != $scope.finshparam.personality_prefer[2]
+                        && v.id != $scope.finshparam.personality_prefer[3]) {
+                        v.disabled = false;
+                    }
+                });
+            } else if (num == 6) {
+                $.each($scope.hope.personalitylist, function (i, v) {
+                    if (v.id != $scope.finshparam.personality_prefer[0]
+                        && v.id != $scope.finshparam.personality_prefer[1]
+                        && v.id != $scope.finshparam.personality_prefer[2]
+                        && v.id != $scope.finshparam.personality_prefer[3]
+                        && v.id != $scope.finshparam.personality_prefer[4]) {
+                        v.disabled = false;
+                    }
+                });
             }
 
+            $.each($scope.hope.personalitylist, function (i, v) {
+                if (v.id == idx) {
+                    v.disabled = true;
+                }
+            });
         };
 
         /**

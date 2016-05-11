@@ -128,7 +128,82 @@ require(['app'],function(app){
                 idx= parseInt(that.attr("idx")),
                 name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
+
+            if(idx == 49){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （三）压线考分考生的深度查询中\n  1、近三年高校录取分数线比省控线高3分的高校");
+            }else if(idx == 48){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  2、近三年高校录取分数线比省控线高2分的高校");
+            }else if (idx == 47){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  3、近三年高校录取分数线比省控线高1分的高校");
+            }else if (idx == 46){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  4、近三年高校录取分数线等于省控线的高校");
+            }else if (idx == 45){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  5、近三年降分录取高校");
+            }else if (idx == 44 || idx == 105){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
+            }else if (idx == 43 || idx == 104){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  6、近三年一次录取人数不足（通过征求志愿录取）的高校、专业");
+            }else if (idx == 63 || idx == 102){
+                alert(" 该内容同： \n 招生政策深度查询目录下 \n（一）平行志愿投档规则深度查询中\n 1、选科等级要求分类统计");
+            }else if (idx == 57){
+                alert(" 该内容同： \n 招生政策深度查询目录下 \n（二）进档考生录取规则深度查询中\n 8、按专业录取附加条件分类统计");
+            }else if (idx == 108){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  1、近三年高校录取最低分排序表");
+            }else if (idx == 109){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  2、近三年高校录取中点分排序表");
+            }else if (idx == 110){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  3、近三年高校录取最高分排序表");
+            }else if (idx == 111){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  7、在江苏招生仅三年的高校");
+            }else if (idx == 112){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  6、在江苏招生仅两年的高校");
+            }else if (idx == 113){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  5、在江苏新招生的高校");
+            }else if (idx == 77){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  10、高校在江苏招生仅三年的专业");
+            }else if (idx == 78){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  9、高校在江苏招生仅两年的专业");
+            }else if (idx == 79){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  8、高校在江苏第一次招生的专业");
+            }
+
+            if($scope.condition.type == 1){
+                if(idx >= 95 && idx<=96){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("改批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type == 3 || $scope.condition.type == 4 ){
+                if(idx >= 95 && idx<=97){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("改批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type >= 5){
+                if(idx >= 94 && idx<=97){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("改批次中没有此内容");
+                    return;
+                }
+            }
+            if($scope.condition.type >= 7){
+                if(idx == 76){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("改批次中没有此内容");
+                    return;
+                }
+            }
             if(idx == 65){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
                 alert(" 1.免费\n 2.请到志愿咨询栏目，高校介绍专题汇总中查询");
                 return;
             }
@@ -374,10 +449,10 @@ require(['app'],function(app){
                             subject  = "(口)";
                             break;
                         case 1:
-                            subject  = "美术";
+                            subject  = "艺术";
                             break;
                         case 2:
-                            subject  = "艺术";
+                            subject  = "美术";
                             break;
                         case 3:
                             subject  = "高水平运动员";
@@ -392,11 +467,9 @@ require(['app'],function(app){
             localStorage.setItem("depthmoney",$scope.money);
 
             $(".modal").hide();
-            $scope.condition.timer=[];
-            $scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
 
             function addOrders(id,titleId,title,type,year,schoolname,departname,money,city,subject,count,fee,sel){
-                debugger;
                 var isTrue = true;
                 angular.forEach($scope.orderList,function(v,i){
                     /*TODO 如果好批次有关 就要把type 加上*/

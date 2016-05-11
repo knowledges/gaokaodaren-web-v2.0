@@ -5,78 +5,39 @@
     <title>页面正在转载中..........</title>
 </head>
 <body>
-    <input type="text" id="j_username"/>
-    <input type="text" id="j_password"/>
-    <input type="text" id="code"/>
-    <button id="subClk">提交</button>
+<input type="text" id="j_username"/>
+<input type="text" id="j_password"/>
+<input type="text" id="code"/>
+<button id="subClk">提交</button>
 </body>
 <script src="lib/jquery.min.js"></script>
 <script>
     $(function(){
         $("#subClk").click(function(){
             var param = {};
-                param.j_username = $("#j_username").val();
-                param.j_password = $("#j_password").val();
-                param.code = $("#code").val();
+            param.j_username = $("#j_username").val();
+            param.j_password = $("#j_password").val();
+            param.code = $("#code").val();
 
-          /*  $.post(url,{username:option.username,password:option.password,code:option.code,mobile:option.mobile},function(result){
-                response(result,option);
-            },"html");*/
-
-            $.ajax({
-                url:'/loocha/login',// 跳转到 action
-                data:param,
-                type:'post',
-                cache:false,
-                dataType:"html",
-                success:function(data) {
-                    alert(data);
-                },
-                error : function(data) {
-                    alert(data);
-                }
+            $.post("/loocha/login",{j_username:$("#j_username").val(),j_password:$("#j_password").val(),code:$("#code").val()},function(data){
+                alert(data);
             });
+
+//            $.ajax({
+//                url:"/loocha/login",// 跳转到 action
+//                data:{username: $("#j_username").val(),password:$("#j_password").val(),code:$("#code").val()},
+//                type:"post",
+//                cache:false,
+//                dataType:"html",
+//                success:function(data) {
+//                    alert(JSON.stringify(data));
+//                },
+//                error : function(data) {
+//                    alert(JSON.stringify(data));
+//                }
+//            });
         });
 
-
-        /*function GetQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r!=null) return (r[2]); return null;
-        }
-
-        function openwin(url) {
-            var a = document.createElement("a");
-            a.setAttribute("href", url);
-            a.setAttribute("target", "_blank");
-            a.setAttribute("id", "openwin");
-            document.body.appendChild(a);
-            a.click();
-        }
-
-        init();
-        function init(){
-            $.get("/loocha/user",function(data){
-                if(data.status == -1){
-                    alert('登陆失效或您还没有登陆，先去登陆吧！');
-                    window.location.href = window.location.pathname.split('temp.html')[0]+"#/login";
-                }else{
-                    alert(data);
-                  /!*   var orderId = GetQueryString("orderId"),type = GetQueryString("type"),flag = GetQueryString("flag");
-                    openwin(window.location.pathname.split('temp.html')[0]+"#/home");
-                    openwin(window.location.pathname.split('temp.html')[0]+"#/depth/depthInfo/batch=1");
-                    openwin(window.location.pathname.split('temp.html')[0]+"/html/refer/refer.html?orderId=E1L6ZC1294Fe520163191051372Ew7ZMxIwvCDmSHftmHiLBL4FF1UnueiXmGkdq&type=2");*!/
-                    openwin(window.location.pathname.split('temp.html')[0]+"#/refer?orderId=E1L6ZC1294Fe520163191051372Ew7ZMxIwvCDmSHftmHiLBL4FF1UnueiXmGkdq&type=2");
-                    if(type == 2 || type == 3 ){
-                         setTimeout(function(){
-                             //openwin(window.location.pathname.split('temp.html')[0]+"#/refer?orderId=E1L6ZC1294Fe520163191051372Ew7ZMxIwvCDmSHftmHiLBL4FF1UnueiXmGkdq&type=2");
-
-                         },1000)
-
-                     }
-                }
-            })
-        }*/
     });
 </script>
 </html>
