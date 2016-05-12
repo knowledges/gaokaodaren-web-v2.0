@@ -129,7 +129,13 @@ require(['app'],function(app){
                 name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
 
-            if(idx == 49){
+            if (idx == 108 || idx == 150 ){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  1、近三年高校录取最低分排序表");
+            }else if (idx == 109 || idx == 151 ){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  2、近三年高校录取中点分排序表");
+            }else if (idx == 110 || idx == 152){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  3、近三年高校录取最高分排序表");
+            }else if(idx == 49){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n （三）压线考分考生的深度查询中\n  1、近三年高校录取分数线比省控线高3分的高校");
             }else if(idx == 48){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  2、近三年高校录取分数线比省控线高2分的高校");
@@ -139,54 +145,96 @@ require(['app'],function(app){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  4、近三年高校录取分数线等于省控线的高校");
             }else if (idx == 45){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  5、近三年降分录取高校");
-            }else if (idx == 44){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
-            }else if (idx == 43){
+            }else if (idx == 43 || idx == 147){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  6、近三年一次录取人数不足（通过征求志愿录取）的高校、专业");
-            }else if (idx == 63 || idx == 102){
+            }else if (idx == 44 || idx == 104  || idx == 105 || idx == 148){
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
+            }else if (idx == 106 || idx == 149) {
+                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n 8、近三年服从志愿录取人数不足（降分录取）的高校、专业");
+            }else if (idx == 63 || idx == 102|| idx == 141){
                 alert(" 该内容同： \n 招生政策深度查询目录下 \n（一）平行志愿投档规则深度查询中\n 1、选科等级要求分类统计");
             }else if (idx == 78){
                 alert(" 该内容同： \n 招生政策深度查询目录下 \n（二）进档考生录取规则深度查询中\n 8、按专业录取附加条件分类统计");
-            }else if (idx == 104){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n 6、近三年一次录取人数不足（通过征求志愿录取）的高校、专业");
-            }else if (idx == 105){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n 7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
-            }else if (idx == 106){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n 8、近三年服从志愿录取人数不足（降分录取）的高校、专业");
-            }else if (idx == 108){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  1、近三年高校录取最低分排序表");
-            }else if (idx == 109){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  2、近三年高校录取中点分排序表");
-            }else if (idx == 110){
-                alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  3、近三年高校录取最高分排序表");
             }else if (idx == 111){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  7、在江苏招生仅三年的高校");
             }else if (idx == 112){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  6、在江苏招生仅两年的高校");
             }else if (idx == 113){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  5、在江苏新招生的高校");
+            }else if (idx == 137){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n 4、高校行业归类统计");
+            }else if (idx == 142){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n 2、高校近三年招生计划对比表");
             }else if (idx == 123){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  10、高校在江苏招生仅三年的专业");
             }else if (idx == 124){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  9、高校在江苏招生仅两年的专业");
             }else if (idx == 125){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  8、高校在江苏第一次招生的专业");
+            }else if (idx == 171) {
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 6、专业录取要求满足本校自测条件或本校招生章程的高校、专业");
+            }else if(idx == 167||idx == 144){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 2、按大类招生的高校、专业");
+            }else if(idx == 168||idx == 145){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 3、招收试验班（预科班、基地班）的高校、专业");
+            }else if(idx == 169||idx == 146 ){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 4、招收中外合作办学班的高校、专业");
+            }else if(idx == 170 || idx == 197 || idx == 199 || idx == 200){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 5、专业录取加试的高校、专业");
+            }else if(idx == 172){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 7、专业录取的附加条件归类");
+            }else if(idx == 185){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （三）按城市深度查询中\n 1、各城市在江苏省招生的高校");
+            }else if(idx == 186){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （三）按城市深度查询中\n 2、各城市在江苏省招生的专业");
+            }else if (idx == 143){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （一）按高校深度查询中\n 6、近三年高校招生录取情况录取数对比");
+            }else if (idx == 153 || idx == 178){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 5、近三年各高校录取专业排序");
+            }else if (idx == 174){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 1、近三年相同专业录取的高校录取数对比（排序）");
+            }else if (idx == 175){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 2、近三年相同专业录取的高校最低分排序");
+            }else if (idx == 176){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 3、近三年相同专业录取的高校中点分排序");
+            }else if (idx == 177) {
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 4、近三年相同专业录取的高校最高分排序");
+            }else if (idx == 188){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 3、近三年各城市在江苏录取考生的人数排序");
+            }else if (idx == 189){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 1、近三年各城市在江苏录取考生的高校（按录取数排序）");
+            }else if (idx == 190){
+                alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 2、近三年各城市在江苏录取考生的专业（按录取数排序）");
+            }else if (idx == 198){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
+                alert("该批次中没有此内容");
+                return;
             }
 
             if($scope.condition.type == 1){
                 if(idx >= 95 && idx<=96){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
-                    alert("改批次中没有此内容");
+                    alert("该批次中没有此内容");
                     return;
                 }
             }
 
-            if($scope.condition.type == 3 || $scope.condition.type == 4 ){
+            if($scope.condition.type >= 3 && $scope.condition.type <= 4 ){
                 if(idx >= 95 && idx<=97){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
-                    alert("改批次中没有此内容");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type >= 5 &&$scope.condition.type <= 6 ){
+                if(idx >= 29 && idx<=36){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
                     return;
                 }
             }
@@ -195,7 +243,14 @@ require(['app'],function(app){
                 if(idx >= 94 && idx<=97){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
-                    alert("改批次中没有此内容");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+
+                if(idx == 74 || idx == 145 || idx == 168){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
                     return;
                 }
             }
@@ -203,11 +258,11 @@ require(['app'],function(app){
                 if(idx == 76){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
-                    alert("改批次中没有此内容");
+                    alert("该批次中没有此内容");
                     return;
                 }
             }
-            if(idx == 65){
+            if(idx == 65 || idx == 136){
                 $(".list-group-item").removeClass("active");
                 that.addClass("active");
                 alert(" 1.免费\n 2.请到志愿咨询栏目，高校介绍专题汇总中查询");
@@ -234,8 +289,18 @@ require(['app'],function(app){
                 },0,false);
             }else{
                 that.addClass("active");
+                $scope.condition.inputTemplate = inputTemplate;
                 /*直接展示的*/
                 if(money<=0 && flag == 1){
+
+                    if(idx >= 132 && idx <=135){
+                        $("#baikeModal").show();
+                        return;
+                    }else if (idx >=160&&idx<=163){
+                        $("#baikeModal").show();
+                        return;
+                    }
+
                     var param = {};
                     param.type = $location.$$url.split("batch=")[1];
                     param.year = year;
@@ -265,8 +330,15 @@ require(['app'],function(app){
                     return ;
                 }
 
-                $scope.condition.inputTemplate = inputTemplate;
-                $("#depthModal").show();
+                //$scope.condition.inputTemplate = inputTemplate;
+
+                if(idx >= 132 && idx <=135){
+                    $("#baikeModal").show();
+                }else if (idx >=160&&idx<=163){
+                    $("#baikeModal").show();
+                }else{
+                    $("#depthModal").show();
+                }
                 //    TODO 所有参数都清空
                 $("input[type='checkbox']").attr("checked",false);
 
@@ -313,7 +385,22 @@ require(['app'],function(app){
                 $scope.condition.level="";
             });
 
-        }
+        };
+
+        $scope.baikeClk = function(){
+            var url ="http://baike.baidu.com/item/";
+            if($scope.condition.departName !=""){
+                url ="http://baike.baidu.com/item/"+$scope.condition.departName;
+            }
+            if($scope.condition.schlName !=""){
+                url ="http://baike.baidu.com/item/"+$scope.condition.schlName;
+            }
+            openwin(url);
+
+            $timeout(function(){
+                $scope.condition.departName=$scope.condition.schlName="";
+            },500);
+        };
 
         $scope.close = function(){
             $("#recommend,#depthModal,#baikeModal").hide();

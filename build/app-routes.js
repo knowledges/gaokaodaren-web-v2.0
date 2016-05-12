@@ -80,6 +80,38 @@ define(['app'],function(app){
         return baike;
 
     });
+    app.factory("inLine",function(){
+        var isline = {
+            scores:function(type,score){
+                var num = 0;
+                switch (parseInt(type)){
+                    case 1:
+                        num  = score - 342;
+                        break;
+                    case 2:
+                        num  = score - 344;
+                        break;
+                    case 3:
+                        num  = score - 313;
+                        break;
+                    case 4:
+                        num  = score - 310;
+                        break;
+                    case 7:
+                        num  = score - 215;
+                        break;
+                    case 8:
+                        num  = score - 215;
+                        break;
+                }
+
+                if(num>=-10 && num<=2){
+                    alert(" 您是压线考生，计算概率没有意义\n 请查阅网站“深度查询”栏目 \n “分数分析”专题（三）“压线考分考生的深度查询”条款");
+                }
+            }
+        }
+        return isline;
+    });
     app.config(["$stateProvider","$urlRouterProvider","$httpProvider",function($stateProvider, $urlRouterProvider,$httpProvider){
         $urlRouterProvider.when("", "/home");
         $stateProvider

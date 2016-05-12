@@ -91,7 +91,7 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName','levelNumber','doorStr',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName,levelNumber,doorStr) {
+    app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName','levelNumber','doorStr','inLine',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName,levelNumber,doorStr,inLine) {
 
      /*   $scope.$on("$includeContentLoaded",function(){
             alert('加载ok');
@@ -240,6 +240,7 @@ require(['app'],function(app){
                         if(num == 1){
                             $window.location.href = "#/hope/batch="+$scope.table.batch;
                         }else if (num == 2){
+                            inLine.scores($scope.table.batch,$scope.table.score);
                             $window.location.href = "#/chance/batch="+$scope.table.batch;
                         }else{
                             $window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;

@@ -90,7 +90,7 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay()">确认缴费预测
+        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay(0)">确认缴费预测
         </button>
     </div>
 
@@ -276,17 +276,17 @@
                                  ng-model="forecast.attr_id"
                                  ng-change="findAttrId()">
                             <option value="">==请选择==</option>
-                            <option value="1" ng-if="isChance !=3 && isChance !=4 ">985工程高校</option>
-                            <option value="2">211工程高校</option>
-                            <option value="4" ng-if="isChance !=3 && isChance !=4 ">中外合作办学</option>
+                            <option value="20" ng-if="isChance !=3 && isChance !=4 ">985工程高校</option>
+                            <option value="21">211工程高校</option>
+                            <option value="24" ng-if="isChance !=3 && isChance !=4 ">中外合作办学</option>
                         </select>
                         <select  ng-if="forecast.style_id == 0 && isChance>6 "
                                  class="form-control"
                                  ng-model="forecast.attr_id"
                                  ng-change="findAttrId()">
                             <option value="">==请选择==</option>
-                            <option value="5">国家示范性高等职业院校</option>
-                            <option value="6">国家级实训基地院校</option>
+                            <option value="22">国家示范性高等职业院校</option>
+                            <option value="23">国家级实训基地院校</option>
                         </select>
                         <select  ng-if="forecast.style_id == 1"
                                 class="form-control"

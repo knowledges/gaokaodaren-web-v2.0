@@ -996,7 +996,7 @@
         </div>
     </div>
 </div>
-<div class="modal" id="baikeModal" style="background: rgba(0, 0, 0, 0.75);margin-left: 10%;">
+<div class="modal" id="baikeModal" style="margin-left: 10%;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1005,21 +1005,21 @@
             </div>
             <div class="modal-body">
                 <div class="row" ng-if="condition.inputTemplate == 22">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="condition.city" placeholder="请输入城市名称">
+                            <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">查询</button>
+                                <button class="btn btn-default" ng-click="baikeClk()" type="button">查询</button>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="row" ng-if="condition.inputTemplate == 23">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="input-group">
                             <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">查询</button>
+                                <button class="btn btn-default" ng-click="baikeClk()" type="button">查询</button>
                             </span>
                         </div>
                     </div>

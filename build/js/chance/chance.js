@@ -16,7 +16,7 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','getLoginUserInfo','loocha','arraysort',function($scope,$http,$sce,$timeout,$window,$stateParams,getLoginUserInfo,loocha,arraysort){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,getLoginUserInfo,loocha,arraysort,inLine){
         $scope.score = "";
         $scope.isShow = false;
         $scope.isChance = $stateParams.batch;
@@ -96,7 +96,6 @@ require(['app'],function(app){
         init ();
 
         function init(){
-            //getLoginUserInfo.isScores();
             var uScore = sessionStorage.getItem('uScore');
             if (uScore != "" && uScore!=null) {
                 $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
@@ -106,9 +105,53 @@ require(['app'],function(app){
                 $scope.userInfo.sub_b = $scope.userInfo.uScore.sub_b;
                 $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
                 $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+                $timeout(function(){
+                    inLine.scores($scope.isChance, $scope.userInfo.score);
+                },1000);
             }else{
                 alert('请创建成绩！');
                 window.location.href = "#/all/allScore";
+            }
+
+            if($scope.isChance!= null){
+
+                if(sessionStorage.getItem("admitFlag")!=null){
+                    var flag = sessionStorage.getItem("admitFlag").split(",");
+                    flag.splice(0,1);
+                    flag.splice(flag.length-1,1);
+
+                    for(var i = 0 ; i< flag.length ; i++){
+                        for(var j = 0 ; j < $(".chance_").length ; j++){
+                            if(flag[i] == $(".chance_").eq(j).val()){
+                                $(".chance_").eq(j).attr("checked","true");
+                            }
+                        }
+                    }
+
+                    /*if(sessionStorage.getItem("admits")!="null" && sessionStorage.getItem("admits")!="undefined"){
+                        var adminlist = JSON.parse(sessionStorage.getItem("admits"));
+                        if(adminlist.length>0){
+                            $.each(adminlist,function(i,v){
+                                if(v.flag == 1){
+                                    $scope.modelInfo.model_1.push(v);
+                                }else if (v.flag == "2"){
+                                    $scope.modelInfo.model_2.push(v);
+                                }else if (v.flag == "3"){
+                                    $scope.modelInfo.model_3.push(v);
+                                }else if (v.flag == "4"){
+                                    $scope.modelInfo.model_4.push(v);
+                                }else if (v.flag == "5"){
+                                    $scope.modelInfo.model_5.push(v);
+                                }else {
+                                    $scope.modelInfo.model_6.push(v);
+                                }
+                            })
+                        }
+                    }*/
+                }
+            }else{
+                $("#recommend").modal('show');
+                return;
             }
 
             function subStr(str){
@@ -141,45 +184,6 @@ require(['app'],function(app){
                 }
             }
 
-            if($scope.isChance!= null){
-                if(sessionStorage.getItem("admitFlag")!=null){
-                    var flag = sessionStorage.getItem("admitFlag").split(",");
-                    flag.splice(0,1);
-                    flag.splice(flag.length-1,1);
-
-                    for(var i = 0 ; i< flag.length ; i++){
-                        for(var j = 0 ; j < $(".chance_").length ; j++){
-                            if(flag[i] == $(".chance_").eq(j).val()){
-                                $(".chance_").eq(j).attr("checked","true");
-                            }
-                        }
-                    }
-
-                    if(sessionStorage.getItem("admits")!="null"){
-                        var adminlist = JSON.parse(sessionStorage.getItem("admits"));
-                        if(adminlist.length>0){
-                            $.each(adminlist,function(i,v){
-                                if(v.flag == 1){
-                                    $scope.modelInfo.model_1.push(v);
-                                }else if (v.flag == "2"){
-                                    $scope.modelInfo.model_2.push(v);
-                                }else if (v.flag == "3"){
-                                    $scope.modelInfo.model_3.push(v);
-                                }else if (v.flag == "4"){
-                                    $scope.modelInfo.model_4.push(v);
-                                }else if (v.flag == "5"){
-                                    $scope.modelInfo.model_5.push(v);
-                                }else {
-                                    $scope.modelInfo.model_6.push(v);
-                                }
-                            })
-                        }
-                    }
-                }
-            }else{
-                $("#recommend").modal('show');
-                return;
-            }
         }
 
 ////////按概率范围预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -563,7 +567,7 @@ require(['app'],function(app){
                         alert("用户等级太低");
                     }else if (data.status == "1008"){
                         alert("未找到该专业");
-                    }else if (data.status == "1006"){
+                    }else if (data.status == "1005"){
                         alert("压线分数");
                     }else if (data.status == "1"){
                         alert("操作失败");
@@ -582,6 +586,7 @@ require(['app'],function(app){
          * 根据 院校属类 id  获取属类列表
          */
         $scope.findStyleId = function(){
+            $scope.forecast.attr_id = "";
             var url = "";
             $("#propNav").show();
             $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
@@ -620,6 +625,10 @@ require(['app'],function(app){
                 level_id = 1;
             }else if (condition == 21){
                 level_id = 2;
+            }else if (condition == 22){
+                level_id = 5;
+            }else if (condition == 23){
+                level_id = 6;
             }else if (condition == 24){
                 level_id = 4;
             }else if ($scope.forecast.attr_id == null || $scope.forecast.attr_id == "" || $scope.forecast.attr_id == undefined){
@@ -891,7 +900,7 @@ require(['app'],function(app){
         /**
          *  缴费选择
          */
-        $scope.startPay = function(){
+        $scope.startPay = function(num){
 
             var checklist = $(".chance_[type='checkbox']:checked");
             var array = "";
@@ -910,7 +919,7 @@ require(['app'],function(app){
             param.sel = levelNum($scope.uScore.level_b);
             param.score = $scope.uScore.score;
             param.flags = array;
-
+            param.confirm = num;
             var tramsform = function(data){
                 return $.param(data);
             };
@@ -932,13 +941,18 @@ require(['app'],function(app){
                         $scope.money = data.response.money;
                         $("#zyb_random").modal('show');
                     });
-                }else if(data.status == "1005"){
-                    alert("您的分数太低，不能缴费");
-                }else if (data.status == "1009"){
-                    alert("您是压线考生，不能缴费");
+                }else if(data.status == "1005" || data.status == "1009"){
+                    show_confirm(param);
                 }
 
             });
+
+            function show_confirm(){
+                var result = confirm("您是压线考生，是否咨询缴费");
+                if(result){
+                    $scope.startPay(1);
+                }
+            }
 
         };
 
