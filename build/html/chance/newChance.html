@@ -79,7 +79,7 @@
                 </td>
             </tr>
             <tr>
-                <td>按概率范围预测高校录取概率</td>
+                <td>按概率范围预测录取高校</td>
                 <td>5</td>
                 <!--<td>50元</td>-->
                 <td>
@@ -170,7 +170,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_1" ng-if="$index+1 == 1 && modelInfo.model_1.length>0">
-                <td>按概率范围预测高校录取概率：</td>
+                <td>按概率范围预测录取高校：</td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -294,7 +294,7 @@
                                 ng-change="findAttrId()">
                             <option value="">==请选择==</option>
                             <option value="14" ng-if="isChance < 5 ">教育部直属</option>
-                            <option value="15" ng-if="isChance !=5 && isChance !=6 ">其他中央部委所属</option>
+                            <option value="15" ng-if="isChance < 5 ">其他中央部委所属</option>
                             <option value="16">地方所属</option>
                             <option value="32">分校(办学点)</option>
                         </select>
@@ -510,7 +510,7 @@
     <!-- 按概率-->
     <div class="panel panel-default">
         <div class="panel-heading text-left">
-            <h4><i class="icon-signal"></i> 按概率范围预测高校录取概率</h4>
+            <h4><i class="icon-signal"></i> 按概率范围预测录取高校</h4>
         </div>
         <div class="panel-body">
             <table class="table table-hover">

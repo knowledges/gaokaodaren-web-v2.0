@@ -687,6 +687,7 @@ require(['app'], function (app) {
             fifthDepart: "",
             schbatch: "",
             batch: $stateParams.batch,
+            out_trade_no:$stateParams.out_trade_no,
             depart: [],//专业
             wish: [],//学习愿望（学文、理、工）
             department: [],//具体专业
@@ -898,8 +899,8 @@ require(['app'], function (app) {
 
         function init() {
             //getLoginUserInfo.isScores();
-            $("#recommend").modal('show');
             if ($stateParams.batch != null) {
+                $("#recommend").modal('show');
                 $scope.coverage = [
                     {
                         id: 1,
@@ -1445,9 +1446,184 @@ require(['app'], function (app) {
                 });
 
             } else {
+                $("#recommend").modal('show');
                 $rootScope.loading = false;
                 return;
             }
+
+            if($stateParams.out_trade_no!=""){
+                $("#recommend").modal('hide');
+                $timeout(function(){
+                    $http.get(loocha + '/exam/intention?out_trade_no=' + $scope.hope.out_trade_no).success(function (data) {
+                        if(data.status == "4"){
+                            alert('您还没有登陆，先去登陆吧！');
+                            window.location.href = "#/login";
+                            return;
+                        }
+                        var intention = data.response;
+                        $scope.hope.school_prefer = intention.schoolAccepts;
+                        $scope.hope.school_ignore = intention.schoolRejects;
+
+                        $scope.hope.depart_prefer = intention.departAccepts;
+                        $scope.hope.depart_ignore = intention.departRejects;
+
+                        $scope.hope.city_prefer = intention.cityAccepts;
+                        $scope.hope.city_ignore = intention.cityRejects;
+
+                        $scope.hope.personality_prefer = intention.personalityAccepts;
+                        $scope.hope.personality_ignore = intention.personalityRejects;
+
+                        effectPrefer($scope.hope.school_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
+                        effectIgnore($scope.hope.school_ignore, $("#panel-footer a[school_id]"), "school_id");
+
+                        effectPrefer($scope.hope.depart_prefer, $("#depart a[depart_id]"), "depart_id", $scope.hope.depart_prefer);
+                        effectIgnore($scope.hope.depart_ignore, $("#depart a[depart_id]"), "depart_id");
+
+                        effectPrefer($scope.hope.personality_prefer, $("#character a[s_id]"), "s_id", $scope.hope.personalityArr);
+                        effectIgnore($scope.hope.personality_ignore, $("#character a[s_id]"), "s_id");
+
+                        function effectPrefer(prefer, list, attr, array) {
+
+                            for (var i = 0; i < prefer.length; i++) {
+
+                                for (var j = 0; j < list.length; j++) {
+
+                                    if (parseInt(prefer[i]) == parseInt(list.eq(j).attr(attr))) {
+                                        if (parseInt(prefer[i]) == 108 || parseInt(prefer[i]) == 109 || parseInt(prefer[i]) == 110 || parseInt(prefer[i]) == 111 || parseInt(prefer[i]) == 112) {
+                                            var parentid = $("#langueList a[s_id=108]").attr('parentid'),
+                                                s_id = parseInt(prefer[i]), text = $("#langueList a[s_id=108]").html();
+                                            $("#languageShow").html(text).attr({parentid: parentid, s_id: s_id})
+                                        } else {
+                                            list.eq(j).addClass('agree').attr("status", 1);
+                                        }
+                                        var obj = new Object();
+                                        obj.id = list.eq(j).attr(attr);
+                                        obj.name = list.eq(j).html();
+                                        array.push(obj);
+
+                                    }
+                                }
+                            }
+                        }
+
+                        function effectIgnore(ignore, list, attr) {
+
+                            for (var i = 0; i < ignore.length; i++) {
+
+                                for (var j = 0; j < list.length; j++) {
+
+                                    if (parseInt(ignore[i]) == parseInt(list.eq(j).attr(attr))) {
+                                        list.eq(j).addClass('reject').attr("status", 2);
+                                    }
+                                }
+                            }
+                        }
+
+                        //城市优先、专业、高校排序 展示部分
+                        $scope.finshparam.city_prefer[0] = intention.preferCities[0] + "";
+                        $scope.finshparam.city_prefer[1] = intention.preferCities[1] + "";
+                        $scope.finshparam.city_prefer[2] = intention.preferCities[2] + "";
+                        $scope.finshparam.city_prefer[3] = intention.preferCities[3] + "";
+                        $scope.finshparam.city_prefer[4] = intention.preferCities[4] + "";
+
+                        $scope.finshparam.school_prefer[0] = intention.preferSchools[0] != undefined ? intention.preferSchools[0] + "" : "";
+                        $scope.finshparam.school_prefer[1] = intention.preferSchools[1] != undefined ? intention.preferSchools[1] + "" : "";
+                        $scope.finshparam.school_prefer[2] = intention.preferSchools[2] != undefined ? intention.preferSchools[2] + "" : "";
+                        $scope.finshparam.school_prefer[3] = intention.preferSchools[3] != undefined ? intention.preferSchools[3] + "" : "";
+                        $scope.finshparam.school_prefer[4] = intention.preferSchools[4] != undefined ? intention.preferSchools[4] + "" : "";
+
+                        $scope.finshparam.depart_prefer[0] = intention.preferDeparts[0] != undefined ? intention.preferDeparts[0] + "" : "";
+                        $scope.finshparam.depart_prefer[1] = intention.preferDeparts[1] != undefined ? intention.preferDeparts[1] + "" : "";
+                        $scope.finshparam.depart_prefer[2] = intention.preferDeparts[2] != undefined ? intention.preferDeparts[2] + "" : "";
+                        $scope.finshparam.depart_prefer[3] = intention.preferDeparts[3] != undefined ? intention.preferDeparts[3] + "" : "";
+                        $scope.finshparam.depart_prefer[4] = intention.preferDeparts[4] != undefined ? intention.preferDeparts[4] + "" : "";
+                        $scope.finshparam.depart_prefer[5] = intention.preferDeparts[5] != undefined ? intention.preferDeparts[5] + "" : "";
+
+                        $scope.finshparam.personality_prefer[0] = intention.preferPersonalities[0] != undefined ? intention.preferPersonalities[0] + "" : "";
+                        $scope.finshparam.personality_prefer[1] = intention.preferPersonalities[1] != undefined ? intention.preferPersonalities[1] + "" : "";
+                        $scope.finshparam.personality_prefer[2] = intention.preferPersonalities[2] != undefined ? intention.preferPersonalities[2] + "" : "";
+                        $scope.finshparam.personality_prefer[3] = intention.preferPersonalities[3] != undefined ? intention.preferPersonalities[3] + "" : "";
+                        $scope.finshparam.personality_prefer[4] = intention.preferPersonalities[4] != undefined ? intention.preferPersonalities[4] + "" : "";
+                        $scope.finshparam.personality_prefer[5] = intention.preferPersonalities[5] != undefined ? intention.preferPersonalities[5] + "" : "";
+
+                        //志愿项目优先排序 展示部分
+                        $scope.finshparam.project[0] = intention.preferOrders[0] != undefined ? intention.preferOrders[0] + "" : "";
+                        $scope.finshparam.project[1] = intention.preferOrders[1] != undefined ? intention.preferOrders[1] + "" : "";
+                        $scope.finshparam.project[2] = intention.preferOrders[2] != undefined ? intention.preferOrders[2] + "" : "";
+                        $scope.finshparam.project[3] = intention.preferOrders[3] != undefined ? intention.preferOrders[3] + "" : "";
+
+                        for (var i = 0; i < $scope.hope.city_prefer.length; i++) {
+
+                            for (var j = 0; j < $("#provnice button[parent_id]").length; j++) {
+
+                                if (parseInt($scope.hope.city_prefer[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))) {
+                                    $("#provnice button[parent_id]").eq(j).addClass('agree').attr("status", 1);
+                                    var obj = new Object();
+                                    obj.id = $("#provnice button[parent_id]").eq(j).attr("city_id");
+                                    obj.name = $("#provnice button[parent_id]").eq(j).html();
+                                    $scope.hope.cityArr.push(obj);
+                                }
+                            }
+                        }
+                        if ($scope.hope.city_ignore != null || $scope.hope.city_ignore != "") {
+                            for (var i = 0; i < $scope.hope.city_ignore.length; i++) {
+
+                                for (var j = 0; j < $("#provnice button[parent_id]").length; j++) {
+
+                                    if (parseInt( $scope.hope.city_ignore[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))) {
+                                        $("#provnice button[parent_id]").eq(j).addClass('reject').attr("status", 2);
+                                    }
+                                }
+                            }
+                        }
+
+                        function showFirstSoft(id, num) {
+                            var param = "";
+                            if (num == 1) {
+                                $("#" + id).after($("#schSoft").show());
+                                param = "schSoft";
+                            } else if (num == 2) {
+                                $("#" + id).after($("#departSoft").show());
+                                param = "departSoft";
+                            } else if (num == 3) {
+                                $("#" + id).after($("#citySoft").show());
+                                param = "citySoft";
+                            } else {
+                                $("#" + id).after($("#perSoft").show());
+                                param = "perSoft";
+                            }
+                            return param;
+                        }
+
+                        $timeout(function () {
+                            $("#schSoft,#departSoft,#citySoft,#perSoft,#sortSelShow").show();
+
+                            var array = [];
+                            if (parseInt($scope.finshparam.project[0]) > 0) {
+                                array[0] = showFirstSoft("proSoft", $scope.finshparam.project[0]);
+                            }
+                            if (parseInt($scope.finshparam.project[1]) > 0) {
+                                array[1] = showFirstSoft(array[0], $scope.finshparam.project[1]);
+                            }
+                            if (parseInt($scope.finshparam.project[2]) > 0) {
+                                array[2] = showFirstSoft(array[1], $scope.finshparam.project[2]);
+                            }
+                            if (parseInt($scope.finshparam.project[3]) > 0) {
+                                showFirstSoft(array[2], $scope.finshparam.project[3]);
+                            }
+
+                            $("a,button,select").unbind("click").click(function(e){
+                               var result = confirm("请去推荐表操作！")
+                                if(result){
+                                    openwin("#/hope/batch="+$scope.hope.batch+"&out_trade_no=");
+                                }
+                            });
+
+                        }, 2000);
+                    });
+                },2000);
+            }
+
         }
 
         /**
@@ -3451,187 +3627,10 @@ require(['app'], function (app) {
             arrPush()
         });
 
-        $scope.$on("methodname", function (ngRepeatFinishedEvent) {
-            var see = window.location.hash.split("see=")[1] != undefined ? window.location.hash.split("see=")[1] : undefined;
-            if (see != undefined) {
-                var intention = JSON.parse(localStorage.getItem('intention'));
-                //高校、城市、专业 优选项部分
-                $scope.hope.school_prefer = intention.schoolAccepts;
-                $scope.hope.school_ignore = intention.schoolRejects;
-
-                $scope.hope.depart_prefer = intention.departAccepts;
-                $scope.hope.depart_ignore = intention.departRejects;
-
-                $scope.hope.city_prefer = intention.cityAccepts;
-                $scope.hope.city_ignore = intention.cityRejects;
-
-                $scope.hope.personality_prefer = intention.personalityAccepts;
-                $scope.hope.personality_ignore = intention.personalityRejects;
-
-                effectPrefer($scope.hope.school_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
-                effectIgnore($scope.hope.school_ignore, $("#panel-footer a[school_id]"), "school_id");
-
-                effectPrefer($scope.hope.city_prefer, $("#panel-footer a[city_id]"), "city_id", $scope.hope.cityArr);
-                effectIgnore($scope.hope.city_ignore, $("#panel-footer a[city_id]"), "city_id");
-
-                effectPrefer($scope.hope.city_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
-                effectIgnore($scope.hope.city_ignore, $("#panel-footer a[school_id]"), "school_id");
-
-                effectPrefer($scope.hope.personality_prefer, $("#character a[s_id]"), "s_id", $scope.hope.personalityArr);
-                effectIgnore($scope.hope.personality_ignore, $("#character a[s_id]"), "s_id");
-
-                function effectPrefer(prefer, list, attr, array) {
-
-                    for (var i = 0; i < prefer.length; i++) {
-
-                        for (var j = 0; j < list.length; j++) {
-
-                            if (parseInt(prefer[i]) == parseInt(list.eq(j).attr(attr))) {
-                                if (parseInt(prefer[i]) == 108 || parseInt(prefer[i]) == 109 || parseInt(prefer[i]) == 110 || parseInt(prefer[i]) == 111 || parseInt(prefer[i]) == 112) {
-                                    var parentid = $("#langueList a[s_id=108]").attr('parentid'),
-                                        s_id = parseInt(prefer[i]), text = $("#langueList a[s_id=108]").html();
-                                    $("#languageShow").html(text).attr({parentid: parentid, s_id: s_id})
-                                } else {
-                                    list.eq(j).addClass('agree').attr("status", 1);
-                                }
-                                var obj = new Object();
-                                obj.id = list.eq(j).attr(attr);
-                                obj.name = list.eq(j).html();
-                                array.push(obj);
-
-                            }
-                        }
-                    }
-                }
-
-                function effectIgnore(ignore, list, attr) {
-
-                    for (var i = 0; i < ignore.length; i++) {
-
-                        for (var j = 0; j < list.length; j++) {
-
-                            if (parseInt(ignore[i]) == parseInt(list.eq(j).attr(attr))) {
-                                list.eq(j).addClass('reject').attr("status", 2);
-                            }
-                        }
-                    }
-                }
-
-                //城市优先、专业、高校排序 展示部分
-                $scope.finshparam.school_prefer[0] = intention.preferSchools[0] != undefined ? intention.preferSchools[0] + "" : "";
-                $scope.finshparam.school_prefer[1] = intention.preferSchools[1] != undefined ? intention.preferSchools[1] + "" : "";
-                $scope.finshparam.school_prefer[2] = intention.preferSchools[2] != undefined ? intention.preferSchools[2] + "" : "";
-
-                $scope.finshparam.depart_prefer[0] = intention.preferDeparts[0] != undefined ? intention.preferDeparts[0] + "" : "";
-                $scope.finshparam.depart_prefer[1] = intention.preferDeparts[1] != undefined ? intention.preferDeparts[1] + "" : "";
-                $scope.finshparam.depart_prefer[2] = intention.preferDeparts[2] != undefined ? intention.preferDeparts[2] + "" : "";
-                $scope.finshparam.depart_prefer[3] = intention.preferDeparts[3] != undefined ? intention.preferDeparts[3] + "" : "";
-                $scope.finshparam.depart_prefer[4] = intention.preferDeparts[4] != undefined ? intention.preferDeparts[4] + "" : "";
-                $scope.finshparam.depart_prefer[5] = intention.preferDeparts[5] != undefined ? intention.preferDeparts[5] + "" : "";
-
-                $scope.finshparam.personality_prefer[0] = intention.preferPersonalities[0] != undefined ? intention.preferPersonalities[0] + "" : "";
-                $scope.finshparam.personality_prefer[1] = intention.preferPersonalities[1] != undefined ? intention.preferPersonalities[1] + "" : "";
-                $scope.finshparam.personality_prefer[2] = intention.preferPersonalities[2] != undefined ? intention.preferPersonalities[2] + "" : "";
-                $scope.finshparam.personality_prefer[3] = intention.preferPersonalities[3] != undefined ? intention.preferPersonalities[3] + "" : "";
-                $scope.finshparam.personality_prefer[4] = intention.preferPersonalities[4] != undefined ? intention.preferPersonalities[4] + "" : "";
-                $scope.finshparam.personality_prefer[5] = intention.preferPersonalities[5] != undefined ? intention.preferPersonalities[5] + "" : "";
-
-                //志愿项目优先排序 展示部分
-                $scope.finshparam.project[0] = intention.preferOrders[0] != undefined ? intention.preferOrders[0] + "" : "";
-                $scope.finshparam.project[1] = intention.preferOrders[1] != undefined ? intention.preferOrders[1] + "" : "";
-                $scope.finshparam.project[2] = intention.preferOrders[2] != undefined ? intention.preferOrders[2] + "" : "";
-                $scope.finshparam.project[3] = intention.preferOrders[3] != undefined ? intention.preferOrders[3] + "" : "";
-
-
-                function showFirstSoft(id, num) {
-                    var param = "";
-                    if (num == 1) {
-                        $("#" + id).after($("#schSoft").show());
-                        param = "schSoft";
-                    } else if (num == 2) {
-                        $("#" + id).after($("#departSoft").show());
-                        param = "departSoft";
-                    } else if (num == 3) {
-                        $("#" + id).after($("#citySoft").show());
-                        param = "citySoft";
-                    } else {
-                        $("#" + id).after($("#perSoft").show());
-                        param = "perSoft";
-                    }
-                    return param;
-                }
-
-                $timeout(function () {
-                    $("#schSoft,#departSoft,#citySoft,#perSoft").show();
-
-                    var array = [];
-                    if (parseInt($scope.finshparam.project[0]) > 0) {
-                        array[0] = showFirstSoft("proSoft", $scope.finshparam.project[0]);
-                    }
-                    if (parseInt($scope.finshparam.project[1]) > 0) {
-                        array[1] = showFirstSoft(array[0], $scope.finshparam.project[1]);
-                    }
-                    if (parseInt($scope.finshparam.project[2]) > 0) {
-                        array[2] = showFirstSoft(array[1], $scope.finshparam.project[2]);
-                    }
-                    if (parseInt($scope.finshparam.project[3]) > 0) {
-                        showFirstSoft(array[2], $scope.finshparam.project[3]);
-                    }
-                }, 2000);
-
-            }
-        });
-
-        $scope.$on('cityname', function () {
-            var see = window.location.hash.split("see=")[1] != undefined ? window.location.hash.split("see=")[1] : undefined;
-            if (see != undefined) {
-                var intention = JSON.parse(localStorage.getItem('intention'));
-                //高校、城市、专业 优选项部分
-                $scope.finshparam.city_prefer[0] = intention.preferCities[0] + "";
-                $scope.finshparam.city_prefer[1] = intention.preferCities[1] + "";
-                $scope.finshparam.city_prefer[2] = intention.preferCities[2] + "";
-
-                for (var i = 0; i < $scope.hope.city_prefer.length; i++) {
-
-                    for (var j = 0; j < $("#provnice button[parent_id]").length; j++) {
-
-                        if (parseInt($scope.hope.city_prefer[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))) {
-                            $("#provnice button[parent_id]").eq(j).addClass('agree').attr("status", 1);
-                            var obj = new Object();
-                            obj.id = $("#provnice button[parent_id]").eq(j).attr("city_id");
-                            obj.name = $("#provnice button[parent_id]").eq(j).html();
-                            $scope.hope.cityArr.push(obj);
-                        }
-                    }
-                }
-                if ($scope.hope.city_ignore != null || $scope.hope.city_ignore != "") {
-                    for (var i = 0; i < $scope.hope.city_ignore.length; i++) {
-
-                        for (var j = 0; j < $("#provnice button[parent_id]").length; j++) {
-
-                            if (parseInt(ignore[i]) == parseInt($("#provnice button[parent_id]").eq(j).attr("city_id"))) {
-                                $("#provnice button[parent_id]").eq(j).addClass('reject').attr("status", 2);
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
         function arrPush() {
             var personalitylist = [];
             $scope.hope.personalitylist = personalitylist.concat($scope.hope.langueArr, $scope.hope.personalityArr);
         }
-
-        /*$scope.startChance = function (e) {
-         var that = $(e.target), score = that.attr('score'), type = that.attr('type');
-         if (score <= JSON.parse(sessionStorage.getItem('uScore')).score) {
-         localStorage.setItem('type', type);
-         window.location.reload(0);
-         } else {
-         alert('您的分数没有达到该批次最低投档标准，请换别的批次！');
-         }
-         };*/
 
         /**
          * hover事件

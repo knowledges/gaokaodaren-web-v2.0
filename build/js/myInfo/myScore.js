@@ -238,7 +238,7 @@ require(['app'],function(app){
                         localStorage.setItem("type",$scope.table.batch);
                         sessionStorage.setItem('uScore',JSON.stringify(param));
                         if(num == 1){
-                            $window.location.href = "#/hope/batch="+$scope.table.batch;
+                            $window.location.href = "#/hope/batch="+$scope.table.batch+"&out_trade_no=";
                         }else if (num == 2){
                             inLine.scores($scope.table.batch,$scope.table.score);
                             $window.location.href = "#/chance/batch="+$scope.table.batch;

@@ -138,7 +138,7 @@ define(['app'],function(app){
             })
             .state("hope", {/*意向*/
                 //url: "/hope",
-                url: "/hope/batch=:batch",
+                url: "/hope/batch=:batch&out_trade_no=:out_trade_no",
                 templateUrl: "html/hope/hope.html",
                 //controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
@@ -741,13 +741,13 @@ define(['app'],function(app){
             if(uScore != "" && uScore!=null ){
                 var type =JSON.parse(uScore).type;
                 if (num == 2){
-                    $window.location.href = "#/hope/batch="+type;
+                    $window.location.href = "#/hope/batch="+type+"&out_trade_no=";
                 }else if (num == 3){
                     $window.location.href = "#/chance/batch="+type;
                 }
             }else{
                 if (num == 2){
-                    $window.location.href = "#/hope/batch=0";
+                    $window.location.href = "#/hope/batch=0&out_trade_no=";
                 }else if (num == 3){
                     $window.location.href = "#/chance/batch=0";
                 }

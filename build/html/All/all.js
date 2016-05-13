@@ -44,8 +44,8 @@ require(['app'], function (app) {
                             }
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
-                            window.location.href = "#/hope/batch="+data.response.type;
-                            window.location.hash = window.location.hash + "/see=" + data.response.type;
+                            window.location.href = "#/hope/batch="+data.response.type+"&out_trade_no="+orderId;
+                            //window.location.hash = window.location.hash + "/see=" + data.response.type;
                         });
                     }
                 });
@@ -109,8 +109,8 @@ require(['app'], function (app) {
                             }
                             localStorage.setItem("intention", JSON.stringify(data.response));
                             localStorage.setItem("type", data.response.type);
-                            window.location.href = "#/hope/batch="+data.response.type;
-                            window.location.hash = window.location.hash + "/see=" + data.response.type;
+                            window.location.href = "#/hope/batch="+data.response.type+"&out_trade_no="+orderId;
+                            //window.location.hash = window.location.hash + "/see=" + data.response.type;
                         });
                     }
                 });
