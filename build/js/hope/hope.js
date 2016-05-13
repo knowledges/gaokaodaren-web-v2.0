@@ -1612,11 +1612,12 @@ require(['app'], function (app) {
                                 showFirstSoft(array[2], $scope.finshparam.project[3]);
                             }
 
-                            $("a,button,select").unbind("click").click(function(e){
-                               var result = confirm("请去推荐表操作！")
+                            $("#content a,#content button,#content select").unbind("click").click(function(e){
+                               var result = confirm("你要重新填写考生志愿意向表吗？");
                                 if(result){
                                     openwin("#/hope/batch="+$scope.hope.batch+"&out_trade_no=");
                                 }
+
                             });
 
                         }, 2000);
@@ -3459,10 +3460,10 @@ require(['app'], function (app) {
             param.depart_order = $scope.finshparam.depart_prefer;   //专业优先id列表
             param.city_order = $scope.finshparam.city_prefer;     //城市优先id列表
             param.personality_order = $scope.finshparam.personality_prefer;  //个性满足优先id列表
-            param.school_names = [$(".schl_first option:selected").eq(0).text(), $(".schl_first option:selected").eq(1).text(), $(".schl_first option:selected").eq(2).text()];
-            param.city_names = [$(".city_first option:selected").eq(0).text(), $(".city_first option:selected").eq(1).text(), $(".city_first option:selected").eq(2).text()];
-            param.depart_names = [$(".depart_first option:selected").eq(0).text(), $(".depart_first option:selected").eq(1).text(), $(".depart_first option:selected").eq(2).text(), $(".depart_first option:selected").eq(3).text(), $(".depart_first option:selected").eq(4).text(), $(".depart_first option:selected").eq(5).text()];
-            param.personality_names = [$(".person_first option:selected").eq(0).text(), $(".person_first option:selected").eq(1).text(), $(".person_first option:selected").eq(2).text(), $(".person_first option:selected").eq(3).text(), $(".person_first option:selected").eq(4).text(), $(".person_first option:selected").eq(5).text()];
+            //param.school_names = [$(".schl_first option:selected").eq(0).text(), $(".schl_first option:selected").eq(1).text(), $(".schl_first option:selected").eq(2).text()];
+            //param.city_names = [$(".city_first option:selected").eq(0).text(), $(".city_first option:selected").eq(1).text(), $(".city_first option:selected").eq(2).text()];
+            //param.depart_names = [$(".depart_first option:selected").eq(0).text(), $(".depart_first option:selected").eq(1).text(), $(".depart_first option:selected").eq(2).text(), $(".depart_first option:selected").eq(3).text(), $(".depart_first option:selected").eq(4).text(), $(".depart_first option:selected").eq(5).text()];
+            //param.personality_names = [$(".person_first option:selected").eq(0).text(), $(".person_first option:selected").eq(1).text(), $(".person_first option:selected").eq(2).text(), $(".person_first option:selected").eq(3).text(), $(".person_first option:selected").eq(4).text(), $(".person_first option:selected").eq(5).text()];
 
             var tramsform = function (data) {
                 return $.param(data);

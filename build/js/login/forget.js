@@ -3,8 +3,8 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.constant("registerURL", "/user/register");
-    app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL",'loocha',function ($scope, $rootScope,$window,$http,registerURL,loocha) {
+    app.constant("referinURL", "/user/reset");
+    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "referinURL", "loocha", function ($scope, $rootScope, $http, referinURL, loocha) {
         $scope.user = {
             username: "",
             password: "",
@@ -12,12 +12,7 @@ require(['app'],function(app){
             newpassword: "",
             code: "",
             img: ""
-        }
-
-        $("#mask-register").fadeIn('500');
-        $(".close").click(function(){
-            $("#mask-register").fadeOut('800');
-        });
+        };
 
         getCodes();
 
@@ -31,47 +26,37 @@ require(['app'],function(app){
             });
         }
 
-        $scope.showlogin = function () {
-            $rootScope.isShowLogin = true;
-            $rootScope.isShowRegistered = false;
+        $scope.showRegistered = function () {
+            $rootScope.isShowLogin = false;
+            $rootScope.isShowRegistered = true;
             $rootScope.isShowForget = false;
         };
 
-        $scope.registered = function () {
+        $scope.referin = function () {
             var param = {};
-            param.j_username = $scope.user.username;
-            param.j_password = $scope.user.password;
-            param.mobile = "";
+            param.name = $scope.user.username;
+            param.password = $scope.user.password;
+            param.newpassword = $scope.user.newpassword;
             param.code = $scope.user.code;
 
             var tramsform = function(data){
                 return $.param(data);
             };
 
-            $http.post(loocha+registerURL,param,{
+            $http.post(loocha+referinURL,param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
             }).success(function(promise){
-                if (promise.status == -1) {
-                    alert("验证码有错误");
-                    getCodes();
-                    return;
-                } else if (promise.status == 3) {
-                    alert("此账户已存在");
-                    return;
-                } else if (promise.status == 6) {
-                    alert('参数错误');
-                    return;
-                }
-                alert("注册成功,请登陆");
-                window.sessionStorage.setItem('usernumber', $scope.user.username);
-                $window.location.href = "#/login";
+                $scope.showlogin();
             });
+
         };
 
-        $scope.agreen = function(){
-            $("#mask-register").fadeOut();
-        }
-
+        $scope.showlogin = function () {
+            $rootScope.isShowLogin = true;
+            $rootScope.isShowRegistered = false;
+            $rootScope.isShowForget = false;
+        };
     }]);
+
 });

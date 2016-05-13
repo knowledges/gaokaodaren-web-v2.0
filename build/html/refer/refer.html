@@ -137,8 +137,9 @@
                             <td width="50">{{list.departs[0].code}}</td>
                             <td>{{list.departs[0].name}}</td>
                             <!--<td>{{list.departs[0].admit!=""?list.departs[0].admit:"不确定"}}</td>-->
-                            <td ng-if="list.departs[0].admit.length>0">{{list.departs[0].admit}}</td>
-                            <td ng-if="list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</td>
+                            <td ng-if="!list.pointUser && list.departs[0].admit.length>0">{{list.departs[0].admit}}</td>
+                            <td ng-if="list.pointUser">压线考生，计算概率没有意义</td>
+                            <td ng-if="!list.pointUser && list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</td>
                             <td rowspan="6">是</td>
                         </tr>
                         <tr ng-repeat="departlist in list.departs" ng-if="!$first && $index+1<=6">
