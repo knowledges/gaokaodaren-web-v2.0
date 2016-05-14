@@ -128,7 +128,7 @@ require(['app'],function(app){
                         }
                     }
 
-                    /*if(sessionStorage.getItem("admits")!="null" && sessionStorage.getItem("admits")!="undefined"){
+                    if(sessionStorage.getItem("admits")!="null" && sessionStorage.getItem("admits")!="undefined"){
                         var adminlist = JSON.parse(sessionStorage.getItem("admits"));
                         if(adminlist.length>0){
                             $.each(adminlist,function(i,v){
@@ -147,7 +147,7 @@ require(['app'],function(app){
                                 }
                             })
                         }
-                    }*/
+                    }
                 }
             }else{
                 $("#recommend").modal('show');

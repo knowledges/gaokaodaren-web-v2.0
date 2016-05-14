@@ -129,26 +129,46 @@
                             <td rowspan="6" width="60">{{list.schoolCode}}</td>
                             <td rowspan="6">
                                 {{list.schoolName}} <br/>
-                                <span ng-if="!list.pointUser && list.schoolAdmit.length>0">
-                                    录取概率：{{list.schoolAdmit}}</span>
-                                <span  ng-if="list.pointUser">压线考生，计算概率没有意义</span></td>
-                                <span  ng-if="!list.pointUser && list.schoolAdmit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该高校为新招生专业或者该高校仅招收1/2年，计算概率没有意义">录取概率：不确定</span></td>
+                                <span ng-if="order.type!=5 && order.type!=6">
+                                    <span ng-if="!list.pointUser && list.schoolAdmit.length>0">{{list.schoolAdmit}}</span>
+                                    <span ng-if="list.pointUser">压线考生，计算概率没有意义</span>
+                                    <span ng-if="!list.pointUser && list.schoolAdmit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该高校为新招生专业或者该高校仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
+                                <span ng-if="order.type==5 || order.type==6">
+                                    <span ng-if="list.schoolAdmit.length>0">{{list.schoolAdmit}}</span>
+                                    <span ng-if="list.schoolAdmit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
                             <td width="30">1</td>
                             <td width="50">{{list.departs[0].code}}</td>
                             <td>{{list.departs[0].name}}</td>
-                            <!--<td>{{list.departs[0].admit!=""?list.departs[0].admit:"不确定"}}</td>-->
-                            <td ng-if="!list.pointUser && list.departs[0].admit.length>0">{{list.departs[0].admit}}</td>
-                            <td ng-if="list.pointUser">压线考生，计算概率没有意义</td>
-                            <td ng-if="!list.pointUser && list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</td>
+                            <td>
+                                <span ng-if="order.type!=5 && order.type!=6">
+                                    <span ng-if="!list.pointUser && list.departs[0].admit.length>0">{{list.departs[0].admit}}</span>
+                                    <span ng-if="list.pointUser">压线考生，计算概率没有意义</span>
+                                    <span ng-if="!list.pointUser && list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
+                                <span ng-if="order.type==5 || order.type==6">
+                                    <span ng-if="list.departs[0].admit.length>0">{{departlist.admit}}</span>
+                                    <span ng-if="list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
+                            </td>
                             <td rowspan="6">是</td>
                         </tr>
                         <tr ng-repeat="departlist in list.departs" ng-if="!$first && $index+1<=6">
                             <td>{{$index+1}}</td>
                             <td>{{departlist.code}}</td>
                             <td>{{departlist.name}}</td>
-                            <td ng-if="!list.pointUser && departlist.admit.length>0">{{departlist.admit}}</td>
-                            <td ng-if="list.pointUser">压线考生，计算概率没有意义</td>
-                            <td ng-if="!list.pointUser && departlist.admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</td>
+                            <td>
+                                <span ng-if="order.type!=5 && order.type!=6">
+                                    <span ng-if="!list.pointUser && departlist.admit.length>0">{{departlist.admit}}</span>
+                                    <span ng-if="list.pointUser">压线考生，计算概率没有意义</span>
+                                    <span ng-if="!list.pointUser && departlist.admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
+                                <span ng-if="order.type==5 || order.type==6">
+                                    <span ng-if="departlist.admit.length>0">{{departlist.admit}}</span>
+                                    <span ng-if="departlist.admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
