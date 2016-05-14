@@ -10,8 +10,27 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
                 if (scope.$last === true) {
                     $rootScope.loading = false;
                     $timeout(function () {
-                        scope.$emit(attr.onFinishRender);
-                    });
+                        $('.carousel').carousel({
+                            interval: 5000
+                        });
+
+                        $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
+                        function handlerIn(){
+                            $('.carousel').carousel('pause');
+                            var num = $("#myCarousel ol li[class='active']").data("slide-to");
+                            $(".carousel-item").hide();
+                            $("#item"+num).show();
+                            if(num>0 && num <4){
+                                $(".floatAdv").hide();
+                            }else{
+                                $(".floatAdv").show();
+                            }
+                        }
+                        function handlerOut(){
+                            $('.carousel').carousel({'pause':"true"});
+                        }
+                        //scope.$emit(attr.onFinishRender);
+                    },1000);
                 }
             }
         }
@@ -52,25 +71,7 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         };
 
         $scope.$on("loading", function (ngRepeatFinishedEvent) {
-            $('.carousel').carousel({
-                interval: 5000
-            });
 
-            $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
-            function handlerIn(){
-                $('.carousel').carousel('pause');
-                var num = $("#myCarousel ol li[class='active']").data("slide-to");
-                $(".carousel-item").hide();
-                $("#item"+num).show();
-                if(num>0 && num <4){
-                    $(".floatAdv").hide();
-                }else{
-                    $(".floatAdv").show();
-                }
-            }
-            function handlerOut(){
-                $('.carousel').carousel({'pause':"true"});
-            }
         });
     }]);
 });

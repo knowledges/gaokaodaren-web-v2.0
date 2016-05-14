@@ -149,7 +149,7 @@ require(['app'],function(app){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  6、近三年一次录取人数不足（通过征求志愿录取）的高校、专业");
             }else if (idx == 44 || idx == 104  || idx == 105 || idx == 148){
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
-            }else if (idx == 106 || idx == 149 || idx == 36) {
+            }else if (idx == 106 || idx == 149 || idx == 33) {
                 alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  8、近三年服从志愿录取人数不足（降分录取）的高校、专业");
             }else if (idx == 63 || idx == 102|| idx == 141){
                 alert(" 该内容同： \n 招生政策深度查询目录下 \n（一）平行志愿投档规则深度查询中\n 1、选科等级要求分类统计");
@@ -291,7 +291,7 @@ require(['app'],function(app){
                 that.addClass("active");
                 $scope.condition.inputTemplate = inputTemplate;
                 /*直接展示的*/
-                if(money<=0 && flag == 1){
+                if(money<=0){
 
                     if(idx >= 132 && idx <=135){
                         $("#baikeModal").show();
@@ -481,7 +481,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
                 }
             });
 
@@ -502,7 +502,7 @@ require(['app'],function(app){
                             fee  = "5";
                             break;
                     }
-                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
                 }
             });
 
@@ -530,7 +530,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
                 }
             });
 
@@ -552,7 +552,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
                 }
             });
 
@@ -676,6 +676,7 @@ require(['app'],function(app){
                 .success(function (data) {
                     if (data.status == "1004") {
                         alert('交易失败');
+                        window.location.reload(0);
                     }else if(data.status == "0"){
                         localStorage.removeItem("orderList");
                         localStorage.removeItem("depthmoney");
