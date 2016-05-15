@@ -255,7 +255,7 @@ require(['app'],function(app){
                 }
             }
             if($scope.condition.type >= 7){
-                if(idx == 76){
+                if(idx == 76 || idx == 170){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
                     alert("该批次中没有此内容");
@@ -413,9 +413,9 @@ require(['app'],function(app){
         $scope.orderInfo = function(condition){
             var type = $location.$$url.split("batch=")[1];
             if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
-                addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-                addOrders(++_count,condition.titleId,condition.title,type,new Date().getFullYear()-1,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }
 
             angular.forEach(condition.timer,function(i,v){

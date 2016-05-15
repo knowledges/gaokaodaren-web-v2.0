@@ -528,9 +528,9 @@ require(['app'], function (app) {
                     });
                 } else if(status == 2) {
                     //status = that.attr("status","0").removeClass('agree reject').addClass('cancle');
-                  /*  if (arr != null) {
-                        arr = [];
-                    }*/
+                    /*  if (arr != null) {
+                     arr = [];
+                     }*/
                     //prefer = [], ignore = [],cityIgnore=[];
                     $.each(list, function (i, v) {
                         if(ignore.indexOf($(v).attr("school_id"))>=0){
@@ -597,18 +597,18 @@ require(['app'], function (app) {
                     if (ignore.indexOf(id) < 0) {
                         ignore.push(id);
                     }
-               /* } else if (status == 1) {
-                    status = that.attr("status", "2").removeClass('agree cancle').addClass('reject');
-                    if (prefer.indexOf(id) >= 0) {
-                        if (arr != null) {
-                            arr.splice(prefer.indexOf(id), 1);
-                        }
-                        //name.splice(prefer.indexOf(id),1);
-                        prefer.splice(prefer.indexOf(id), 1);
-                    }
-                    if (ignore.indexOf(id) < 0) {
-                        ignore.push(id);
-                    }*/
+                    /* } else if (status == 1) {
+                     status = that.attr("status", "2").removeClass('agree cancle').addClass('reject');
+                     if (prefer.indexOf(id) >= 0) {
+                     if (arr != null) {
+                     arr.splice(prefer.indexOf(id), 1);
+                     }
+                     //name.splice(prefer.indexOf(id),1);
+                     prefer.splice(prefer.indexOf(id), 1);
+                     }
+                     if (ignore.indexOf(id) < 0) {
+                     ignore.push(id);
+                     }*/
                 } else if (status == 2) {
                     status = that.attr("status", "0").removeClass('agree reject').addClass('cancle');
                     if (ignore.indexOf(id) >= 0) {
@@ -1613,7 +1613,7 @@ require(['app'], function (app) {
                             }
 
                             $("#content a,#content button,#content select").unbind("click").click(function(e){
-                               var result = confirm("你要重新填写考生志愿意向表吗？");
+                                var result = confirm("你要重新填写考生志愿意向表吗？");
                                 if(result){
                                     openwin("#/hope/batch="+$scope.hope.batch+"&out_trade_no=");
                                 }
@@ -2166,8 +2166,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.attribute;
                         //!=""?$scope.reject.attribute:[]
                         if(str.indexOf(attr_id)>=0){
-                        //   str = str + attr_id+",";
-                        //}else{
+                            //   str = str + attr_id+",";
+                            //}else{
                             str.split(str.indexOf(attr_id),1);
                         }
                         var arr = str.split(",")
@@ -2181,27 +2181,27 @@ require(['app'], function (app) {
                         //2.执行 先把所有状态变成0，执行优先参数
                         if($scope.hope.style!="" || $scope.hope.belongs!="" || $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
                             var param = {};
-                                param.type = $scope.hope.batch;
-                                param.style = $scope.hope.style;
-                                param.belongs = $scope.hope.belongs;
-                                param.attr = $scope.hope.attribute;
-                                param.prop3 = $scope.hope.prop3;
-                                param.prop4 = $scope.hope.prop4;
-                                param.prop5 = $scope.hope.prop5;
-                                param.prop6 = $scope.hope.prop6;
-                                param.prop8 = $scope.hope.prop8;
-                                param.citys = $scope.hope.citys;
+                            param.type = $scope.hope.batch;
+                            param.style = $scope.hope.style;
+                            param.belongs = $scope.hope.belongs;
+                            param.attr = $scope.hope.attribute;
+                            param.prop3 = $scope.hope.prop3;
+                            param.prop4 = $scope.hope.prop4;
+                            param.prop5 = $scope.hope.prop5;
+                            param.prop6 = $scope.hope.prop6;
+                            param.prop8 = $scope.hope.prop8;
+                            param.citys = $scope.hope.citys;
 
-                                $http({
-                                    url:loocha+"/schbath",
-                                    method:"GET",
-                                    params:param
-                                }).success(function(data){
-                                    var list = data.response;
-                                    var isnull = 0;
-                                    if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
-                                        isnull = 1;
-                                    }
+                            $http({
+                                url:loocha+"/schbath",
+                                method:"GET",
+                                params:param
+                            }).success(function(data){
+                                var list = data.response;
+                                var isnull = 0;
+                                if($scope.hope.style!="" || $scope.hope.belongs!=""|| $scope.hope.attribute!="" || $scope.hope.prop3!="" || $scope.hope.prop4!="" || $scope.hope.prop5!="" || $scope.hope.prop6!="" || $scope.hope.prop8!="" || $scope.hope.citys!=""){
+                                    isnull = 1;
+                                }
                                 var mosaic = classifyClk.agreePropEvent(3, that, list, $scope.hope.school_prefer, $scope.hope.school_ignore, $scope.hope.school_name, $scope.hope.schoolArr, $scope.hope.schoolObj,$scope.hopeClassify.genus,isnull);
                                 $scope.hope.school_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
                                 $scope.hope.school_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -2306,8 +2306,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.style;
                         //!=""?$scope.reject.style:[]
                         if(str.indexOf(style_id)>=0){
-                        //    str = str + style_id+",";
-                        //}else{
+                            //    str = str + style_id+",";
+                            //}else{
                             str.split(str.indexOf(style_id),1);
                         }
                         var arr = str.split(",")
@@ -2608,8 +2608,8 @@ require(['app'], function (app) {
                         var str = $scope.reject.belongs;
                         //!=""?$scope.reject.belongs:[]
                         if(str.indexOf(attr_id)>=0){
-                        //    str = str + attr_id+",";
-                        //}else{
+                            //    str = str + attr_id+",";
+                            //}else{
                             str.split(str.indexOf(attr_id),1);
                         }
                         var arr = str.split(",");
@@ -3473,6 +3473,11 @@ require(['app'], function (app) {
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (data) {
+                if(data.status == "-1"){
+                    alert("登陆失效，请重新登陆");
+                    $window.location.href="#/login";
+                    return ;
+                }
                 if (data.status == "1014") {
                     alert("符合的高校太少，请再选择一些");
                 }else if (data.status == "4"){
@@ -3497,6 +3502,11 @@ require(['app'], function (app) {
          */
         $scope.readom = function () {
             $.post(loocha + "/exam/intention/auto", {id: $scope.hope.id}, function (data) {
+                if(data.status == "-1"){
+                    alert("登陆失效，请重新登陆");
+                    $window.location.href="#/login";
+                    return ;
+                }
                 if(data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";
@@ -3547,8 +3557,13 @@ require(['app'], function (app) {
                 $http.post(loocha + "/exam/intention/manual", param, {
                     headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                     transformRequest: tramsform
-                }).success(function (responseDate) {
-                    $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
+                }).success(function (data) {
+                    if(data.status == "-1"){
+                        alert("登陆失效，请重新登陆");
+                        $window.location.href="#/login";
+                        return ;
+                    }
+                    $http.get(loocha + '/exam/' +data.response.id ).success(function (data) {
                         if (data.status == 1) {
                             alert('没有找到订单');
                             return;
