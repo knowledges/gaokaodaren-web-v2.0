@@ -215,8 +215,11 @@ require(['app'],function(app){
                         window.location.href = "#/login";
                         return;
                     }
-
+                    if(data.response.length<=0){
+                        alert("没有搜索到内容！")
+                    }
                     $scope.forecast.rangeArr = data.response;
+                    $scope.forecast.cSchool_id = "";
                     $("#chanceBody").show();
                 });
             }else{
@@ -478,6 +481,9 @@ require(['app'],function(app){
             //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
             $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
                 .success(function(data){
+                    if(data.response.length<=0){
+                        alert("没有搜索到内容！");
+                    }
                     $scope.forecast.pDepart_Arr = data.response;
                     $scope.forecast.schChance_6 = "";
                 });

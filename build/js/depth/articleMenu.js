@@ -121,6 +121,8 @@ require(['app'],function(app){
          * @param e
          */
         $scope.subClk = function(e){
+            $("#depathTHML").empty().prepend('<h2 class="text-content">请选择查询内容</h2>');
+            $("#condition").hide();
             var that = $(e.target),
                 flag = parseInt(that.attr("flag")),
                 money = parseInt(that.attr("money")),
