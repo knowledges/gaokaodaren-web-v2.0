@@ -5,9 +5,11 @@
 require(['app'],function(app){
     app.constant("registerURL", "/user/register");
     app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL","loocha",function ($scope, $rootScope,$window,$http,registerURL,loocha) {
-        /*$scope.$on("$includeContentLoaded",function(){
-         alert('加载完毕');
-         });*/
+        $scope.$on("$includeContentLoaded",function(){
+            setTimeout(function(){
+                $("input").placeholder();
+            },500);
+        });
         $scope.user = {
             username: "",
             password: "",

@@ -10,10 +10,11 @@ require(['app'],function(app){
         }
     });
     app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'getLoginUserInfo','loocha',function ($scope, $rootScope, $window,$http,getLoginUserInfo,loocha) {
-//        $scope.$on("$includeContentLoaded",function(){
-//            $("#register").click(function(){
-//            });
-//        });
+        $scope.$on("$includeContentLoaded",function(){
+            setTimeout(function(){
+                $("input").placeholder();
+            },500);
+        });
 
         $scope.user = {
             username: "",
@@ -69,14 +70,14 @@ require(['app'],function(app){
 
 
                 /*if(localStorage.getItem('score')!=null){
-                    window.location.href = "#/home";
-                }else{
-                    window.location.href="#/all/allScore";
-                }*/
+                 window.location.href = "#/home";
+                 }else{
+                 window.location.href="#/all/allScore";
+                 }*/
 
-             /*   setInterval(function(){
-                    getLoginUserInfo.isLogoin();
-                },600000);*/
+                /*   setInterval(function(){
+                 getLoginUserInfo.isLogoin();
+                 },600000);*/
 
             });
         },400);

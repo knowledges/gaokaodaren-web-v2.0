@@ -2,25 +2,24 @@
 <html xmlns:ng="http://angularjs.org" lang="en" id="ng-app">
 <head>
     <meta charset="utf-8">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="JSDRW,jsdrw,江苏达人网,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
     <meta name="Keywords" content="JSDRW,jsdrw,江苏达人网,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
     <meta name="fragment" content="!"/>
     <meta name="baidu-site-verification" content="J6qe6Ox6BK" />
-    <!--<meta name="baidu-site-verification" content="PrvFCnC5JN"/>-->
     <meta name="sogou_site_verification" content="8luOQrhhrl"/>
     <title>江苏达人网_大数据建模_个性化定制_免费提供志愿咨询_免费提供志愿范例_直接推荐志愿_直接预测志愿_直接深度查询</title>
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
     <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" id="bs-theme-stylesheet"/>-->
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+    <link href="favicon.ico" rel="shortcut icon"/>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="lib/html5shiv.min.js"></script>
     <script src="lib/respond.min.js"></script>
-    <link href="favicon.ico" rel="shortcut icon"/>
     <![endif]-->
     <style>
         /*下面这个样式用来控制title属性显示的那个方框样式的*/
@@ -69,7 +68,7 @@
 </head>
 <body ng-cloak>
 
-<!--[if lt IE 10]>
+<!--[if lt IE 9]>
 <div class="browser-happy">
     <div class="content">
         <p>童鞋，您的浏览器太OUT，为何不是试试更先进的浏览器呢～～</p>
@@ -123,17 +122,17 @@
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;;" ng-click="jumpPage(2);">志愿推荐</a>
-                   <!-- <ul class="dropdown-menu">
-                        <li><a ui-sref="hope({batch:1})">文科本一</a></li>
-                        <li><a ui-sref="hope({batch:3})">文科本二</a></li>
-                        <li><a ui-sref="hope({batch:5})">文科本三</a></li>
-                        <li><a ui-sref="hope({batch:7})">文科高职</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a ui-sref="hope({batch:2})">理科本一</a></li>
-                        <li><a ui-sref="hope({batch:4})">理科本二</a></li>
-                        <li><a ui-sref="hope({batch:6})">理科本三</a></li>
-                        <li><a ui-sref="hope({batch:8})">理科高职</a></li>
-                    </ul>-->
+                    <!-- <ul class="dropdown-menu">
+                         <li><a ui-sref="hope({batch:1})">文科本一</a></li>
+                         <li><a ui-sref="hope({batch:3})">文科本二</a></li>
+                         <li><a ui-sref="hope({batch:5})">文科本三</a></li>
+                         <li><a ui-sref="hope({batch:7})">文科高职</a></li>
+                         <li role="separator" class="divider"></li>
+                         <li><a ui-sref="hope({batch:2})">理科本一</a></li>
+                         <li><a ui-sref="hope({batch:4})">理科本二</a></li>
+                         <li><a ui-sref="hope({batch:6})">理科本三</a></li>
+                         <li><a ui-sref="hope({batch:8})">理科高职</a></li>
+                     </ul>-->
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;;" ng-click="jumpPage(3);">志愿预测</a>
@@ -152,16 +151,16 @@
                 <li  class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿范例</a>
                     <ul class="dropdown-menu">
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:1})">文科本一</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:3})">文科本二</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:5})">文科本三</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:7})">文科高职</a></li>
-                       <li role="separator" class="divider"></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:2})">理科本一</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:4})">理科本二</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:6})">理科本三</a></li>
-                       <li><a ui-sref="example.list({itemId:157,param:13,batch:8})">理科高职</a></li>
-                   </ul>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:1})">文科本一</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:3})">文科本二</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:5})">文科本三</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:7})">文科高职</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:2})">理科本一</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:4})">理科本二</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:6})">理科本三</a></li>
+                        <li><a ui-sref="example.list({itemId:157,param:13,batch:8})">理科高职</a></li>
+                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
@@ -230,6 +229,7 @@
 <script src="js/json2.js"></script>
 <script src="js/alt.js"></script>
 <script src="lib/jquery.min.js"></script>
+<script src="lib/jquery-placeholder.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/example/example.js"></script>
 <script src="js/hope/hope.js"></script>

@@ -20,8 +20,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -760,6 +760,10 @@ define(['app'],function(app){
             $window.location.href = "#/depth/depthInfo/batch="+num;
             $window.location.reload(0);
         }
-
+        $scope.$on("$includeContentLoaded",function(){
+            setTimeout(function(){
+                $("input").placeholder();
+            },500);
+        });
     }]);
 });

@@ -248,8 +248,12 @@ require(['app'],function(app){
         };
 
         $scope.showChance = function(){
-            $("#chanced").modal('show');
+            $("#chanced").show();
         };
+
+        $scope.close = function(){
+            $("#chanced,#cased").hide();
+        }
 
         $scope.showCase = function(){
             $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
@@ -299,7 +303,7 @@ require(['app'],function(app){
                         $scope.order.data[4].departs = $scope.order.departArr_4;
                     }
 
-                    $("#cased").modal('show');
+                    $("#cased").show();
 
                     function caseModelScl (array,newArray){
                         if(newArray!=undefined && newArray.schoolPrefer!=null){

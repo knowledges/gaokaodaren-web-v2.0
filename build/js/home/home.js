@@ -70,6 +70,12 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
             }
         };
 
+        $scope.toggleOpen = function(e){
+            var that = $(e.target),_id = $(that).data("target");
+            $(".adv_collapse").removeClass("in");
+            $(_id).addClass("in");
+        };
+
         $scope.$on("loading", function (ngRepeatFinishedEvent) {
 
         });
