@@ -181,9 +181,11 @@ require(['app'],function(app){
                         $window.location.href="#/refer1";
                         return;
                     }else if(data.status == "1004"){
-                        alert("未支付，请支付");
+                        var result = confirm("未支付,请重新缴费");
                         $scope.loading = false;
-                        getNewOrderInfo(data.response.intentionId);
+                        if(result){
+                            getNewOrderInfo(data.response.intentionId);
+                        }
                         return;
                     }else if (data.status == 4){
                         alert("您还没有登陆或登陆失效，请重新登陆！");

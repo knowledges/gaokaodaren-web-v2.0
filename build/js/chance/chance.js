@@ -289,7 +289,7 @@ require(['app'],function(app){
                     }else if (data.status == "1006"){
                         alert("该批次没找到该招生高校");
                     }else if (data.status == "1007"){
-                        alert("用户等级太低");
+                        alert("科目等级太低");
                     }else if (data.status == "1008"){
                         alert("未找到该专业");
                     }else if (data.status == "1006"){
@@ -443,7 +443,7 @@ require(['app'],function(app){
                     }else if (data.status == "1006"){
                         alert("该批次没找到该招生高校");
                     }else if (data.status == "1007"){
-                        alert("用户等级太低");
+                        alert("科目等级太低");
                     }else if (data.status == "1008"){
                         alert("未找到该专业");
                     }else if (data.status == "1006"){
@@ -570,7 +570,7 @@ require(['app'],function(app){
                     }else if (data.status == "1006"){
                         alert("该批次没找到该招生高校");
                     }else if (data.status == "1007"){
-                        alert("用户等级太低");
+                        alert("科目等级太低");
                     }else if (data.status == "1008"){
                         alert("未找到该专业");
                     }else if (data.status == "1005"){
@@ -721,7 +721,7 @@ require(['app'],function(app){
                     }else if (data.status == "1006"){
                         alert("该批次没找到该招生高校");
                     }else if (data.status == "1007"){
-                        alert("用户等级太低");
+                        alert("科目等级太低");
                     }else if (data.status == "1008"){
                         alert("未找到该专业");
                     }else if (data.status == "1006"){
@@ -810,7 +810,7 @@ require(['app'],function(app){
                 }else if (data.status == "1006"){
                     alert("该批次没找到该招生高校");
                 }else if (data.status == "1007"){
-                    alert("用户等级太低");
+                    alert("科目等级太低");
                 }else if (data.status == "1008"){
                     alert("未找到该专业");
                 }else if (data.status == "1006"){
@@ -889,7 +889,7 @@ require(['app'],function(app){
                 }else if (data.status == "1006"){
                     alert("该批次没找到该招生高校");
                 }else if (data.status == "1007"){
-                    alert("用户等级太低");
+                    alert("科目等级太低");
                 }else if (data.status == "1008"){
                     alert("未找到该专业");
                 }else if (data.status == "1006"){

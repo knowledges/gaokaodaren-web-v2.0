@@ -2323,11 +2323,11 @@
             <div class="modal-body" style="font-size:16px; text-indent: 2em;">
                 <p>符合您的高校有<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.total}}</span>所</p>
                 <p>系统为您推荐<span style="border-bottom: 1px solid #000;padding: 0 5px;">{{hope.recommend}}</span>所（包含优先选项最多和概率在50%以上的高校）</p>
-                <p ng-if="hope.table==1">
+                <p ng-if="hope.num==1">
                     1分推荐表
                 </p>
-                <p ng-if="hope.table>1 && hope.table<=3">前 {{hope.table}} 分推荐表可全部呈现（包含{{hope.recommend}}所不同的高校）</p>
-                <p ng-if="hope.table>3">可以推荐多份，其中前 3 分推荐表 包含{{hope.recommend}}所不同的高校 </p>
+                <p ng-if="hope.num>1 && hope.num<=3 ">前 {{hope.num}} 分推荐表可全部呈现（包含{{hope.num}}所不同的高校）</p>
+                <p ng-if="hope.num>3">可以推荐多份，其中前 3 分推荐表 包含{{hope.num}}所不同的高校 </p>
 
             </div>
             <div class="modal-footer">

@@ -13,7 +13,7 @@
             <tr ng-repeat="list in chance.list">
                 <td>
                     <a href="javascript:;;" style="color:#000;"
-                       ng-click="seeHope(list.orderId,list.flag)">第{{$index+1}}份概率表</a>
+                       ng-click="seeHope(list.orderId,list.flag)">第{{$index+1}}份概率表<span ng-if="list.paidId<=0">(未支付)</span></a>
                 </td>
             </tr>
             </tbody>
@@ -31,10 +31,10 @@
             <tbody>
             <tr ng-repeat="list in will.list">
                 <td ng-if="list.flag == 2">
-                    <a href="javascript:;;"  ng-click="seeHope(list.orderId,2)"  style="color:#000;">第{{$index+1}}份意向表</a>
+                    <a href="javascript:;;"  ng-click="seeHope(list.orderId,2)"  style="color:#000;">第{{$index+1}}份意向表 </a>
                 </td>
                 <td ng-if="list.flag == 3">
-                    <a href="javascript:;;" ng-click="seeHope(list.orderId,3)"  style="color:#000;"> 第{{$index+1}}份意向表</a><!--(自选表)-->
+                    <a href="javascript:;;" ng-click="seeHope(list.orderId,3)"  style="color:#000;"> 第{{$index+1}}份意向表 </a><!--(自选表)-->
                 </td>
             </tr>
             </tbody>
@@ -53,11 +53,11 @@
             <tr ng-repeat="list in refer.list">
                 <td ng-if="list.flag == 2">
                     <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=2" style="color:#000;"
-                            >第{{$index+1}}份推荐表</a>
+                            >第{{$index+1}}份推荐表 <span ng-if="list.paidId<=0">(未支付)</span></a>
                 </td>
                 <td ng-if="list.flag == 3">
                     <a href="#/refer?orderId={{list.orderId}}&type={{list.type}}&flag=3"  style="color:#000;"
-                            >第{{$index+1}}份推荐表(自选表)</a>
+                            >第{{$index+1}}份推荐表(自选表) <span ng-if="list.paidId<=0">(未支付)</span></a>
                 </td>
             </tr>
             </tbody>
@@ -75,7 +75,7 @@
             <tbody>
             <tr ng-repeat="list in depth.list">
                 <td>
-                    <a ui-sref="all.orderdepth({out_trade_no:list.orderId})" style="color:#000;">第{{$index+1}}份深度查询</a>
+                    <a ui-sref="all.orderdepth({out_trade_no:list.orderId})" style="color:#000;">第{{$index+1}}份深度查询 <span ng-if="list.paidId<=0">(未支付)</span> </a>
                 </td>
             </tr>
             </tbody>

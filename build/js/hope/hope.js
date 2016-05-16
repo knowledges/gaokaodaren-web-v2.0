@@ -3294,13 +3294,14 @@ require(['app'], function (app) {
             } else if (num == 2) {
                 $scope.finshparam.project[2] = "";
                 $scope.finshparam.project[3] = "";
-            } else if (num == 3) {
+            }
+            /*else if (num == 3) {
                 $.each($scope.coverage, function (i, v) {
                     if ($scope.coverage[idx - 1].id != v.id) {
                         $scope.finshparam.project[3] = v.id + "";
                     }
                 });
-            }
+            }*/
             //$scope.coverage[idx - 1].disabled = true;
             $("#schSoft,#departSoft,#citySoft,#perSoft").hide();
             var array = [];

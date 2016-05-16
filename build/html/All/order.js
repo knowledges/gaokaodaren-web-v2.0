@@ -18,22 +18,27 @@ require(['app'], function (app) {
                 if(data.status == "2"){
                     alert("订单失效");
                 }else if(data.status == "1004"){
-                    alert("未支付");
-                    $http.get(loocha + '/exam/' +data.response.request_id )
-                        .success(function (data) {
-                            if (data.status == 1) {
-                                alert('没有找到订单');
-                                return;
-                            }else if (data.status == 4){
-                                alert('您还没有登陆，先去登陆吧！');
-                                window.location.href = "#/login";
-                                return;
-                            }else if (data.status == 0){
-                                $scope.hope.order_id = data.response.order_id;
-                                $scope.hope.money = data.response.money;
-                                $('#modal-pay').modal('show');
-                            }
-                        });
+                    var result = confirm("未支付,请重新缴费");
+                    if(result){
+                        $http.get(loocha + '/exam/' +data.response.request_id )
+                            .success(function (data) {
+                                if (data.status == 1) {
+                                    alert('没有找到订单');
+                                    return;
+                                }else if (data.status == 4){
+                                    alert('您还没有登陆，先去登陆吧！');
+                                    window.location.href = "#/login";
+                                    return;
+                                }else if (data.status == 0){
+                                    $scope.hope.order_id = data.response.order_id;
+                                    $scope.hope.money = data.response.money;
+                                    $('#modal-pay').modal('show');
+                                }
+                            });
+                    }else{
+                        $window.location.reload()
+                    }
+
                 }else if(data.status == "0"){
                     $scope.order.conditions = data.response.conditions;
                 }
