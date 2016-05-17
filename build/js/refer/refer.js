@@ -253,8 +253,8 @@ require(['app'],function(app){
             $("#chanced").show();
         };
 
-        $scope.close = function(){
-            $("#chanced,#cased").hide();
+        $scope.closed = function(){
+            $("#chanced,#cased,#mask-points").hide();
         }
 
         $scope.showCase = function(){

@@ -72,8 +72,8 @@ require(['app'],function(app){
             });
         },600);
 
-         $scope.agreen = function(){
+        $scope.agreen = function(){
             $("#mask-register").fadeOut();
-         }
+        }
     }]);
 });

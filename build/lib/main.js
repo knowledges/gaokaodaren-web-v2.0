@@ -39,7 +39,7 @@ require.config({
         }
     }
     /*,
-    urlArgs: "bust=" + (new Date()).getTime()*/
+     urlArgs: "bust=" + (new Date()).getTime()*/
 });
 require(['angular','./app-routes'],function(angular){
     angular.element(document).ready(function(){

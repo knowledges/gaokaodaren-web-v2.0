@@ -20,8 +20,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    //app.constant("loocha","");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -155,12 +155,12 @@ define(['app'],function(app){
                 //url: "/chance",
                 url: "/chance/batch=:batch",
                 templateUrl: "html/chance/newChance.html",
-                controllerUrl:"js/chance/chance",
+                //controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/banner/bannerChance.js','js/chance/chance.js']);
+                        return $ocLazyLoad.load(['js/banner/bannerChance.js']);
                     }]
                 }
             })
@@ -178,16 +178,16 @@ define(['app'],function(app){
                 }
             })
             /*.state('example.nav',{
-                url:"/batch=:batch",
-                templateUrl:"html/nav/nav.html",
-                controller:"exampleNav",
-                data: { isPublic: true}
-                //resolve:{
-                //    deps:['$ocLazyLoad',function($ocLazyLoad){
-                //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
-                //    }]
-                //}
-            })*/
+             url:"/batch=:batch",
+             templateUrl:"html/nav/nav.html",
+             controller:"exampleNav",
+             data: { isPublic: true}
+             //resolve:{
+             //    deps:['$ocLazyLoad',function($ocLazyLoad){
+             //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
+             //    }]
+             //}
+             })*/
             .state("example.list",{
                 url:'/itemId=:itemId&param=:param&batch=:batch',
                 templateUrl:'html/recipe/recipe.html',
@@ -670,6 +670,13 @@ define(['app'],function(app){
                     }]
                 }
             })
+            .state("about",{
+                url:"/about",
+                templateUrl:"html/about/about.html",
+//                controllerUrl:"html/about/about",
+                controller:"aboutCtr",
+                data: { isPublic: true}
+            })
     }]);
     app.controller("appCtr",['$scope','$rootScope','$http','logoutURL',"loocha","getLoginUserInfo",function($scope,$rootScope,$http,logoutURL,loocha,getLoginUserInfo){
         $scope.user = {
@@ -760,10 +767,8 @@ define(['app'],function(app){
             $window.location.href = "#/depth/depthInfo/batch="+num;
             $window.location.reload(0);
         }
-        $scope.$on("$includeContentLoaded",function(){
-            setTimeout(function(){
-                $("input").placeholder();
-            },500);
-        });
+        setTimeout(function(){
+            $("input").placeholder();
+        },500);
     }]);
 });

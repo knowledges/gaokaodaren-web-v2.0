@@ -3,13 +3,12 @@
  */
 'use strict';
 
-angular.module("gaokaoAPP.about",['ngRoute'])
-.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/about', {
-        templateUrl: "html/about/about.html",
-        controller: "aboutCtr"
-    });
-}])
-.controller("aboutCtr", [function () {
-
-}]);
+require(['app'], function (app) {
+    app.controller("aboutCtr", ["$scope","$http","$sce","loocha",function ($scope,$http,$sce,loocha) {
+        $scope.insertHTML="";
+        $http.get(loocha+"/article/show/4451")
+            .success(function(data){
+                $scope.insertHTML = $sce.trustAsHtml(data);
+            });
+    }]);
+});

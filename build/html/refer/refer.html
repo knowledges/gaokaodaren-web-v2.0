@@ -65,11 +65,11 @@
                     <a ng-click="getReference()" class="btn btn-success btn-lg" ng-if="order.flag!=3">获取下一份推荐表</a>
                     <!--<a ng-click="getReference_1()" class="btn btn-success btn-lg" ng-if="order.flag==3">获取下一份自选表</a>-->
                 </div>
-                <div class="modal" role="dialog" aria-labelledby="myLargeModalLabel" ng-if="order.orderShow" style="display:block;">
+                <div id="mask-points" class="modal" role="dialog" aria-labelledby="myLargeModalLabel" ng-if="order.orderShow" style="display:block;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"  ng-click="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" ng-click="closed()"><span ng-click="closed()">&times;</span></button>
                                 <h4>支付</h4>
                             </div>
                             <div class="modal-body">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" ng-click="payChance()">同意</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">拒绝</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closed()">拒绝</button>
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="height: 600px;overflow-y: scroll;">
             <div class="container-fluid">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="close()">&times;</span></button>
+                <button type="button" class="close" ng-click="closed()"><span ng-click="closed()">&times;</span></button>
                 <table id="tab_yxb" border="1" width="870" cellpadding="0" cellspacing="0" table-layout="fixed" style="1px solid #000;">
                     <caption>
                         <h3 class="text-center">{{order.title}}</h3>
@@ -180,7 +180,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="height: 600px;overflow-y: scroll;">
             <div class="container-fluid">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="close()">&times;</span></button>
+                <button type="button" class="close" ng-click="closed()"><span ng-click="closed()">&times;</span></button>
                 <table id="tab_yxb" border="1" width="870" cellpadding="0" cellspacing="0" table-layout="fixed" style="1px solid #000;">
                     <caption>
                         <h3 class="text-center">{{order.title}}</h3>
