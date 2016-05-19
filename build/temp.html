@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>页面正在转载中..........</title>
 </head>
 <body>
@@ -17,27 +19,15 @@
             var param = {};
             param.j_username = $("#j_username").val();
             param.j_password = $("#j_password").val();
+            param.mobile = $("#mobile").val();
             param.code = $("#code").val();
 
-            $.post("/loocha/login",{j_username:$("#j_username").val(),j_password:$("#j_password").val(),code:$("#code").val()},function(data){
-                alert(data);
+            var url = "/loocha/login?time="+new Date().getTime();
+            $.getJSON(url,param,function(data){
+                alert(JSON.stringify(data));
             });
 
-//            $.ajax({
-//                url:"/loocha/login",// 跳转到 action
-//                data:{username: $("#j_username").val(),password:$("#j_password").val(),code:$("#code").val()},
-//                type:"post",
-//                cache:false,
-//                dataType:"html",
-//                success:function(data) {
-//                    alert(JSON.stringify(data));
-//                },
-//                error : function(data) {
-//                    alert(JSON.stringify(data));
-//                }
-//            });
         });
-
     });
 </script>
 </html>
