@@ -44,6 +44,7 @@ define(['app'],function(app){
                 }).error(function(e){
                     sessionStorage.removeItem('type');
                     sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('examScore');
                     sessionStorage.removeItem('user');
                     sessionStorage.removeItem('user_id');
                     sessionStorage.removeItem('usernumber');
@@ -170,7 +171,7 @@ define(['app'],function(app){
                 templateUrl:"html/temp/tempExample.html",
                 //controllerUrl:"js/example/example",
                 controller:"exampleAllCtr",
-                data: { isPublic: false},
+                data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
@@ -189,11 +190,11 @@ define(['app'],function(app){
              //}
              })*/
             .state("example.list",{
-                url:'/itemId=:itemId&param=:param&batch=:batch',
-                templateUrl:'html/recipe/recipe.html',
+                url:'/examList/batch=:batch',
+                templateUrl:'html/example/example.html',
                 //controllerUrl:"js/Controller/recipe/recipe",
-                controller:"recipeInfoCtr",
-                data: { isPublic: false},
+                controller:"examlistCtr",
+                data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
                         return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
@@ -654,7 +655,7 @@ define(['app'],function(app){
                 url:"/refer1",
                 templateUrl:"html/refer/refer1.html",
                 controllerUrl:"js/refer/refer1",
-                controller:'referCtr',
+                controller:'referCtr1',
                 data: { isPublic: true}
             })
 ////////////////////////////////全站搜索///////////////////////////////////////////////////////////////////////////////////////
@@ -719,9 +720,11 @@ define(['app'],function(app){
                     $scope.user.islogin = false;
                     $rootScope.isFromDepth = false;
                     $scope.user.name ="";
-                    sessionStorage.setItem('usernumber',"");
-                    sessionStorage.setItem('uScore',"");
-                    sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": false}));
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('examScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
                     localStorage.removeItem("orderList");
                     localStorage.removeItem("depthbatch");
                     localStorage.removeItem("depthmoney");

@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('exampleAllCtr',['$rootScope','$scope','$sce','$stateParams','$location','homeService','getLoginUserInfo',function($rootScope,$scope,$sce,$stateParams,$location,homeService,getLoginUserInfo){
+    app.controller('exampleAllCtr',['$rootScope','$scope','$sce','$stateParams','$location','$timeout','homeService','getLoginUserInfo',function($rootScope,$scope,$sce,$stateParams,$location,$timeout,homeService,getLoginUserInfo){
         $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";
@@ -23,8 +23,9 @@ require(['app'],function(app){
         init();
 
         function init(){
-            $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore"));
-            if($scope.userInfo.uScore != null){
+            var uScore = sessionStorage.getItem("uScore")|| sessionStorage.getItem("examScore");
+            if(uScore != null ){
+                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore")) || JSON.parse(sessionStorage.getItem("examScore"));
                 $scope.userInfo.subject =subStr($location.$$url.split("batch=")[1]);
                 $scope.userInfo.score = $scope.userInfo.uScore.score;
                 $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;
@@ -32,8 +33,14 @@ require(['app'],function(app){
                 $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
                 $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
             }else{
-                getLoginUserInfo.isLogoin();
-                getLoginUserInfo.isScores();
+                alert("请到首页志愿范例，添加成绩可查询范例");
+                $timeout(function(){
+                    window.location.href="#/home";
+                    $timeout(function() {
+                        $(".carousel-indicators li").eq(4).trigger('click');
+                    },500);
+                },500);
+
             }
 
             function subStr(str){

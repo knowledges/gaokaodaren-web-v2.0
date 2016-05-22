@@ -30,8 +30,14 @@ require(['app'],function(app){
 
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
 
     }]);
@@ -48,8 +54,14 @@ require(['app'],function(app){
         }
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LexampleNewCtl',['$scope','$sce','$http','loocha','exampleNewUrl','homeService',function($scope,$sce,$http,loocha,exampleNewUrl,homeService){
@@ -65,8 +77,14 @@ require(['app'],function(app){
         }
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RexampleNewCtl',['$scope','$sce','$http','loocha','exampleNewUrl','homeService',function($scope,$sce,$http,loocha,exampleNewUrl,homeService){
@@ -79,11 +97,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LonlineNewCtl',['$scope','$sce','$http','loocha','onlineUrl','homeService',function($scope,$sce,$http,loocha,onlineUrl,homeService){
@@ -96,11 +120,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RonlineNewCtl',['$scope','$sce','$http','loocha','onlineUrl','homeService',function($scope,$sce,$http,loocha,onlineUrl,homeService){
@@ -113,11 +143,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LcityNewCtl',['$scope','$sce','$http','loocha','cityNewUrl','homeService',function($scope,$sce,$http,loocha,cityNewUrl,homeService){
@@ -130,11 +166,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RcityNewCtl',['$scope','$sce','$http','loocha','cityNewUrl','homeService',function($scope,$sce,$http,loocha,cityNewUrl,homeService){
@@ -147,11 +189,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }])
     app.controller('LschoolNewCtl',['$scope','$sce','$http','loocha','schoolNewUrl','homeService',function($scope,$sce,$http,loocha,schoolNewUrl,homeService){
@@ -164,11 +212,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RschoolNewCtl',['$scope','$sce','$http','loocha','schoolNewUrl','homeService',function($scope,$sce,$http,loocha,schoolNewUrl,homeService){
@@ -181,11 +235,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LmarjorNewCtl',['$scope','$sce','$http','loocha','majorNewUrl','homeService',function($scope,$sce,$http,loocha,majorNewUrl,homeService){
@@ -198,11 +258,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RmarjorNewCtl',['$scope','$sce','$http','loocha','majorNewUrl','homeService',function($scope,$sce,$http,loocha,majorNewUrl,homeService){
@@ -215,11 +281,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LrecipeNewCtl',['$scope','$sce','$http','loocha','recipeNewUrl','homeService',function($scope,$sce,$http,loocha,recipeNewUrl,homeService){
@@ -232,11 +304,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RrecipeNewCtl',['$scope','$sce','$http','loocha','recipeNewUrl','homeService',function($scope,$sce,$http,loocha,recipeNewUrl,homeService){
@@ -249,11 +327,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LscoreNewCtl',['$scope','$sce','$http','loocha','scoreNewUrl','homeService',function($scope,$sce,$http,loocha,scoreNewUrl,homeService){
@@ -266,11 +350,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RscoreNewCtl',['$scope','$sce','$http','loocha','scoreNewUrl','homeService',function($scope,$sce,$http,loocha,scoreNewUrl,homeService){
@@ -283,11 +373,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LpolicyNewCtl',['$scope','$sce','$http','loocha','policyNewUrl','homeService',function($scope,$sce,$http,loocha,policyNewUrl,homeService){
@@ -300,11 +396,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RpolicyNewCtl',['$scope','$sce','$http','loocha','policyNewUrl','homeService',function($scope,$sce,$http,loocha,policyNewUrl,homeService){
@@ -317,7 +419,18 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
+        $scope.toggleOpen = function(e){
+            var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
+            $(".adv_collapse").removeClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
+        };
     }]);
     app.controller('LjobNewCtl',['$scope','$sce','$http','loocha','jobNewUrl','homeService',function($scope,$sce,$http,loocha,jobNewUrl,homeService){
         $scope.news = "";
@@ -329,11 +442,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RjobNewCtl',['$scope','$sce','$http','loocha','jobNewUrl','homeService',function($scope,$sce,$http,loocha,jobNewUrl,homeService){
@@ -346,11 +465,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('LuniqueNewCtl',['$scope','$sce','$http','loocha','uniqueNewUrl','homeService',function($scope,$sce,$http,loocha,uniqueNewUrl,homeService){
@@ -363,11 +488,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }]);
     app.controller('RuniqueNewCtl',['$scope','$sce','$http','loocha','uniqueNewUrl','homeService',function($scope,$sce,$http,loocha,uniqueNewUrl,homeService){
@@ -380,11 +511,17 @@ require(['app'],function(app){
             $http.get(loocha+'/article/show/'+id).success(function(data){
                 $scope.homeService.htmlPage=data;
             });
-        }
+        };
         $scope.toggleOpen = function(e){
             var that = $(e.target),_id = $(that).data("target");
+            var hasClass = false;
+            if($(_id).hasClass('in')){
+                hasClass = true;
+            }
             $(".adv_collapse").removeClass("in");
-            $(_id).addClass("in");
+            if(!hasClass){
+                $(_id).addClass("in");
+            }
         };
     }])
 });

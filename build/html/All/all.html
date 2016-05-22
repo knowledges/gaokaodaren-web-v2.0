@@ -13,7 +13,7 @@
             <tr ng-repeat="list in chance.list">
                 <td>
                     <a href="javascript:;;" style="color:#000;"
-                       ng-click="seeHope(list.orderId,list.flag)">第{{$index+1}}份概率表<span ng-if="list.paidId<=0">(未支付)</span></a>
+                       ng-click="seeHope(list.orderId,list.flag)" >第{{$index+1}}份概率表<span ng-if="list.paidId<=0">(未支付)</span></a>
                 </td>
             </tr>
             </tbody>

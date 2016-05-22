@@ -661,7 +661,7 @@ require(['app'], function (app) {
             }
         }
     });
-    app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope, classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
+    app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope','$q', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope,$q,classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
         $scope.hope = {
             number:"",
             citys:"",
@@ -927,7 +927,7 @@ require(['app'], function (app) {
 
                 if (type <= 6) {
                     /*专业大门类（13个）*/
-                    $http.get(loocha + '/depart/prop?type=0&depart_type=0').success(function (data) {
+                    getJsons(loocha + '/depart/prop?type=0&depart_type=0').then(function(data){
                         $.each(data.response, function (i, v) {
                             if (i < 13) {
                                 $scope.hope.depart.push(v);
@@ -936,13 +936,22 @@ require(['app'], function (app) {
                     });
                 } else {
                     /*专业大门类（13个）*/
-                    $http.get(loocha + '/depart/prop?type=0&depart_type=1').success(function (data) {
+                    getJsons(loocha + '/depart/prop?type=0&depart_type=1').then(function(data){
                         $.each(data.response, function (i, v) {
                             if (i < 19) {
                                 $scope.hope.depart.push(v);
                             }
                         });
                     });
+                }
+
+                function getJsons(url){
+                    var deferred = $q.defer();
+                    $http.get(url)
+                        .success(function(d){
+                            deferred.resolve(d);
+                        });
+                    return deferred.promise;
                 }
 
                 switch (parseInt(type)) {
@@ -980,7 +989,6 @@ require(['app'], function (app) {
                         break;
                 }
 
-                //var uScore = $scope.info.uScore = JSON.parse(sessionStorage.getItem('uScore'));
                 var uScore = sessionStorage.getItem('uScore');
                 if (uScore != "" && uScore!=null ) {
                     var uScore = $scope.info.uScore = JSON.parse(sessionStorage.getItem('uScore'));
@@ -992,10 +1000,22 @@ require(['app'], function (app) {
                     window.location.href = "#/all/allScore";
                 }
 
+                $q.all({
+                    first:$http.get(loocha + '/wish/area?batch=' + $scope.hope.batch),
+                    second: $http.get(loocha + '/schbath?type=' + $scope.hope.batch),
+                    third:$http.get(loocha + '/batch?type=' + $scope.hope.batch),
+                    fourth:$http.get(loocha + "/depart/personality")
+                }).then(function(data){
+                    getAreas(data.first.data);
+                    getSchlTypes(data.second.data);
+                    getDeparts(data.third.data);
+                    getPersonalitys(data.fourth.data);
+                });
+
                 /**
                  * 属地
                  */
-                $http.get(loocha + '/wish/area?batch=' + $scope.hope.batch).success(function (data) {
+                function getAreas(data){
                     $scope.hope.area = data.response.item1;
                     $scope.hope.js_province = data.response.item2;
                     $scope.hope.firstCities = data.response.item3;
@@ -1003,19 +1023,19 @@ require(['app'], function (app) {
                     $scope.hope.thirdCities = data.response.item5;
                     $scope.hope.fourthCities = data.response.item6;
                     $scope.hope.fifthCities = data.response.item7;
-                });
+                }
 
                 /**
                  * 院校属类
                  */
-                $http.get(loocha + '/schbath?type=' + $scope.hope.batch).success(function (data) {
+                function getSchlTypes(data){
                     $scope.hope.schbatch = data.response;
-                });
+                }
 
                 /**
                  * 获取具体专业
                  */
-                $http.get(loocha + '/batch?type=' + $scope.hope.batch).success(function (data) {
+                function getDeparts(data){
                     $scope.hope.firstDepart = data.response.item2;
                     $scope.hope.secondDepart = data.response.item3;
                     $scope.hope.thirdDepart = data.response.item4;
@@ -1026,7 +1046,7 @@ require(['app'], function (app) {
                     iterator_3($scope.hope.thirdDepart);
                     iterator_4($scope.hope.fourthDepart);
                     iterator_5($scope.hope.fifthDepart);
-                });
+                }
 
                 function iterator_1(list) {
                     $.each(list, function (i, v) {
@@ -1399,7 +1419,7 @@ require(['app'], function (app) {
                 /**
                  * 获取个性
                  */
-                $http.get(loocha + "/depart/personality").success(function (data) {
+                function getPersonalitys(data){
                     $scope.hope.personality_type1 = data.response.pmap.type1;
                     $scope.hope.personality_type2 = data.response.pmap.type2;
                     $scope.hope.personality_type3 = data.response.pmap.type3;
@@ -1434,7 +1454,7 @@ require(['app'], function (app) {
                             }
                         });
                     }
-                });
+                }
 
                 $(document).unbind('click').click(function (e) {
                     e = window.event || e;
@@ -3296,12 +3316,12 @@ require(['app'], function (app) {
                 $scope.finshparam.project[3] = "";
             }
             /*else if (num == 3) {
-                $.each($scope.coverage, function (i, v) {
-                    if ($scope.coverage[idx - 1].id != v.id) {
-                        $scope.finshparam.project[3] = v.id + "";
-                    }
-                });
-            }*/
+             $.each($scope.coverage, function (i, v) {
+             if ($scope.coverage[idx - 1].id != v.id) {
+             $scope.finshparam.project[3] = v.id + "";
+             }
+             });
+             }*/
             //$scope.coverage[idx - 1].disabled = true;
             $("#schSoft,#departSoft,#citySoft,#perSoft").hide();
             var array = [];
@@ -3517,14 +3537,17 @@ require(['app'], function (app) {
                 if (order_id == 0) {
                     alert("订单提交失败，请重新操作");
                 } else {
-                    $http.get(loocha + '/exam/' + order_id).success(function (result) {
-                        if (result.status == 1) {
+                    $http.get(loocha + '/exam/' + order_id).success(function (data) {
+                        if (data.status == 1) {
                             alert('没有找到订单');
                             return;
+                        }else if (data.status == "1017"){
+                            alert("订单获取了所有数量的推荐高校!");
+                            return;
                         }
-                        $scope.hope.order_id = result.response.order_id;
-                        $scope.hope.money = result.response.money;
-                        localStorage.setItem("type",$scope.hope.batch);
+                        $scope.hope.order_id = data.response.order_id;
+                        $scope.hope.money = data.response.money;
+                        localStorage.setItem("type",data.hope.batch);
                         $('#modal-pay').modal('show');
                     });
                 }
@@ -3577,6 +3600,9 @@ require(['app'], function (app) {
                             $scope.hope.money = data.response.money;
                             localStorage.setItem("type",$scope.hope.batch);
                             $('#modal-pay').modal('show');
+                        }else if (data.status == "1017"){
+                            alert("订单获取了所有数量的自选高校，请重新提交获取自选高校");
+                            return;
                         }
                     });
                 });

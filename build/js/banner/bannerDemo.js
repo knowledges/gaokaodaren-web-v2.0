@@ -50,7 +50,6 @@ require(['app'],function(app){
         });
 
         $scope.addScore = function(table){
-            getLoginUserInfo.isLogoin();
 
             if(table.score <=0){
                 alert('分数不能小于0！');
@@ -70,7 +69,7 @@ require(['app'],function(app){
             }
 
             var param = {};
-            param.user_id = sessionStorage.getItem("user_id");
+            //param.user_id = sessionStorage.getItem("user_id");
             param.type = $scope.table.batch;
             param.subject = $scope.table.subject;
             param.score = $scope.table.score;
@@ -99,20 +98,24 @@ require(['app'],function(app){
                 return str;
             }
 
-            $http({
-                method:'GET',
-                url:loocha+"/uscore/addscore",
-                params:param
-            }).success(function(data){
-                if(data.status == 0) {
-                    getLoginUserInfo.isScores();
-                    localStorage.setItem("type", $scope.table.batch);
-                    $window.location.href = "#/example/itemId=157&param=13&batch="+$scope.table.batch;
-                }else if (data.status == 4){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                }
-            });
+            sessionStorage.setItem("examScore",JSON.stringify(param));
+            localStorage.setItem("type", $scope.table.batch);
+            $window.location.href = "#/example/examList/batch="+$scope.table.batch;
+
+            //$http({
+            //    method:'GET',
+            //    url:loocha+"/uscore/addscore",
+            //    params:param
+            //}).success(function(data){
+            //    if(data.status == 0) {
+            //        getLoginUserInfo.isScores();
+            //        localStorage.setItem("type", $scope.table.batch);
+            //        $window.location.href = "#/example/itemId=157&param=13&batch="+$scope.table.batch;
+            //    }else if (data.status == 4){
+            //        alert('您还没有登陆，先去登陆吧！');
+            //        window.location.href = "#/login";
+            //    }
+            //});
         }
     }]);
 });

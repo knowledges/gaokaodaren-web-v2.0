@@ -96,6 +96,13 @@ require(['app'],function(app){
         $scope.getReference = function(){
             getNewOrderInfo($scope.order.requestId);
         };
+
+        $scope.update = function(){
+            localStorage.setItem("out_trade_no",$scope.order.orderId);
+            $window.location.href="#/refer1";
+            $window.location.reload(0);
+        }
+
         /**
          * 获取下一份
          */
@@ -124,11 +131,16 @@ require(['app'],function(app){
                         alert('您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                         return;
+                    }else if(data.status == "1017"){
+                        alert("订单获取了所有数量的推荐高校!点击修改重新编辑推荐表");
+                        $("#total").hide();
+                        return;
                     }
                     localStorage.setItem("type",$scope.order.type);
                     $scope.orderout_trade_no = data.response.order_id;
                     $scope.order.money = data.response.money;
                     $scope.order.orderShow = true;
+                    $("#mask-points").show();
                 });
             });
         };
@@ -166,12 +178,27 @@ require(['app'],function(app){
                 $scope.order.caption = caption [$scope.order.type];
                 getOrderInfo();
             }
+
+            /**
+             * 自选判断是否显示下一份自选
+             */
+            if($scope.order.flag == 3){
+                $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
+                    .success(function(data){
+                        var total = data.response.total;
+                        var num = data.response.schools.length;
+                        if(num>=total){
+                            $("#total").hide();
+                        }
+                    });
+            }
         }
 
         function getOrderInfo(){
             /*getLoginUserInfo.isLogoin();*/
             $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
                 .success(function(data,status){
+
                     if(data.status== 2){
                         alert('订单不存在！');
                         $window.location.href="#/all/reference";
@@ -184,7 +211,9 @@ require(['app'],function(app){
                         var result = confirm("未支付,请重新缴费");
                         $scope.loading = false;
                         if(result){
-                            getNewOrderInfo(data.response.intentionId);
+                            $scope.orderout_trade_no = data.response.orderId;
+                            $scope.order.money = data.response.money;
+                            $scope.order.orderShow = true;
                         }
                         return;
                     }else if (data.status == 4){

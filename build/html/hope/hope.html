@@ -1598,7 +1598,11 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4>
-                <i class="icon-fire"></i> 个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—灰色；其他：原色）
+                <i class="icon-building"></i> <span  ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle=" <br/>
+                <p>个性体检：</p>
+                <p>1.无明显个性特征的考生，无需填写（“点击”）</p>
+                <p>2.考生某一（或多个）个性显著时，“点击”对应款项</p>
+                ">个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—灰色；其他：原色）</span>
             </h4>
         </div>
         <div class="panel-body" id="character">
@@ -1609,7 +1613,7 @@
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
                         <ul class="nav nav-pills">
-                            <li class="dropdown" ng-repeat="list in hope.classify_1" ng-if="$index==0">
+                            <li class="dropdown" ng-repeat="lh4t in hope.classify_1" ng-if="$index==0">
                                 <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
                                    ng-click="showCharacter(list.id)">
                                     {{list.name}}<span class="caret"></span>
@@ -2326,13 +2330,12 @@
                 <p ng-if="hope.num==1">
                     1分推荐表
                 </p>
-                <p ng-if="hope.num>1 && hope.num<=3 ">前 {{hope.num}} 分推荐表可全部呈现（包含{{hope.num}}所不同的高校）</p>
-                <p ng-if="hope.num>3">可以推荐多份，其中前 3 分推荐表 包含{{hope.num}}所不同的高校 </p>
+                <p ng-if="hope.num>1 && hope.num<=3 ">前 {{hope.num}} 份推荐表可全部呈现（包含{{hope.recommend}}所不同的高校）</p>
+                <p ng-if="hope.num>3">可以推荐多份，其中前 3 份推荐表 包含{{hope.recommend}}所不同的高校 </p>
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" ng-click="readom()"
-                        data-target="#modal-pay">网站推荐
+                <button class="btn btn-primary" ng-click="readom()" >网站推荐
                 </button>
                 <a ng-click="manual()" class="btn btn-success">考生自选</a>
             </div>
@@ -2420,25 +2423,26 @@
                 </h4>
             </div>
             <div class="modal-body" style="text-indent: 2em;">
-                <p>填写（“点击”）《考生志愿意向表》后，获取《考生志愿推荐表》或《考生志愿自选表》</p>
+                <p>1.对高考志愿所要填报的高校和专业没有明确意向，并且无明显个性特征的考生，可将《考生志愿推荐表》页面下拉至出现“提交”，直接点击“提交”；</p>
+                <p>2.对高考志愿所要填报的高校和专业有意向或明显个性特征的考生，先填写（“点击”）《考生志愿意向表》后，获取《考生志愿推荐表》或《考生志愿自选表》</p>
                 <p>填写（“点击”）《考生志愿意向表》便捷流程：</p>
-                <p>一看、二拒、三优先、四具体</p>
-                <p>一看：“点击”志愿要素（“意向高校”（“院校属地”、“院校属类”）、“意向专业、“个性标签”）栏目内第一行或第二行中的“▼”</p>
+                <p><strong>一看、二拒、三优先、四具体</strong></p>
+                <p><strong>一看</strong> ：“点击”志愿要素（“意向高校”（“院校属地”、“院校属类”）、“意向专业、“个性标签”）栏目内第一行或第二行中的“▼”</p>
                 <p style="margin-left:15px;">看：地区中的省份</p>
                 <p style="margin-left:42px;">属类中的小类</p>
                 <p style="margin-left:42px;">学科中的专业类</p>
                 <p style="margin-left:42px;">个性归类中的小类</p>
-                <p>二拒：（“双击”—灰色）</p>
+                <p><strong>二拒</strong>：（“双击”—灰色）</p>
                 <p style="margin-left:15px;">拒绝：某“地区”、某“省”或某“线”城市或具体城市；</p>
                 <p style="margin-left:56px;">某“类”或某“分”高校或具体高校；</p>
                 <p style="margin-left:56px;">某“学科”、某“类”或某“门”专业或具体专业；</p>
                 <p style="margin-left:56px;">个性中的“弱”项、“限”项、不适合选项。</p>
-                <p>三优先：（“单击”—绿色）</p>
+                <p><strong>三优先</strong>：（“单击”—绿色）</p>
                 <p style="margin-left:15px;">优先选择：某“地区”、某“省”或某“线”城市或具体城市。</p>
                 <p style="margin-left:85px;">某“类”或某 “分”高校或具体高校。</p>
                 <p style="margin-left:85px;">某“学科”、某“类”或某“门”专业或具体专业。</p>
                 <p style="margin-left:85px;">个性中的“强”项、“是”项、“有”项。</p>
-                <p>四具体：</p>
+                <p><strong>四具体</strong>：</p>
                 <p style="margin-left:15px;">具体查看“优先选项”中的城市、高校、专业、个性是否不适合优先，对于不适合选项，“点击”恢复（原色），甚至拒绝（灰色）。</p>
                 <p style="margin-left:15px;">具体查看“拒绝选项”中的城市、高校、专业、个性是否可以不拒绝，对于不拒绝选项，“点击”恢复（原色），甚至优先（绿色）。</p>
             </div>

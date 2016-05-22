@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JSDRW,jsdrw,江苏达人网,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
+    <meta name="Keywords" content="JSDRW,jsdrw,江苏达人网,大数据建模,个性化定制,免费提供志愿咨询,免费提供志愿范例,直接推荐志愿,直接预测志愿,直接深度查询">
+    <meta name="fragment" content="!"/>
+    <meta name="baidu-site-verification" content="J6qe6Ox6BK" />
+    <meta name="sogou_site_verification" content="8luOQrhhrl"/>
+    <title>详情页面</title>
+    <link rel="stylesheet" href="css/details/details.css"/>
+    <style>
+        /*下面这个样式用来控制title属性显示的那个方框样式的*/
+        div#qTip {
+            padding:5px 25px 15px 25px ;
+            border: #abab98 1px solid;
+            display: none;
+            font-size: 16px;
+            z-index: 1200;
+            background: #fefeda;
+            color: #000;
+            line-height: 30px;
+            position: absolute;
+            text-indent: 2em;
+            text-align: left;
+            letter-spacing:2px;
+            margin-top:-4px;
+        }
+    </style>
+</head>
+<body>
+<div class="slider slider-first">
+    <div class="">
+        <a id="jump_1" href="./" title="<br/>本栏目免费向您提供高考志愿填报的有关咨询：<br/>
+                        1.填报高考志愿有哪些要领？（“填报要领”栏目）<br/>
+                        2.如何恰到好处地利用您的高考分数和名次填报高考志愿？（“分数分析”栏目） <br/>
+                        3.如何充分利用高校招生政策填报高考志愿？（“招生政策”栏目）<br/>
+                        4.您将要奔赴求学的大学长的啥样？（“高校介绍”栏目）  <br/>
+                        5.您将要在大学里学有成就，究竟能学到啥？（“专业介绍”栏目） <br/>
+                        6.您将要生活几年的那个城市长的啥样？（“城市介绍”栏目）<br/>
+                        7.您未来发展的前程路径可能怎样？（“毕业去向”栏目） <br/>
+                        8.如何充分利用您的个性特征填报高考志愿？（“个性特征”栏目） <br/>
+                        9.比较典型的填报高考志愿的模式有哪些？（“咨询线路”栏目） <br/>
+                        您可以尽享其中<br/>"></a>
+        <a id="jump_2" href="./#/example/examList/batch=1" title="本栏目免费向您提供与您科别相同、选测科目等级相同、高考分数相近、名次相近的考生，高考志愿填报成功的范例，供您参考。 "></a>
+        <a id="jump_3" href="./#/depth/depthInfo/batch=1" title="<br/> 本栏目将向您提供填报高考志愿需要深度查询的有关资料，请注意以下几点：<br/>
+                             1、多数资料属于内部资料，属于保密资料，不得下载，不得转录！<br/>
+                             2、多数资料属于本网站整理资料，解释权属于本网站！<br/>
+                             3、部分条款需要缴费。<br/>
+                             4、操作步骤如下：<br/>
+                                ①注册、登陆<br/>
+                                ②“点击”批次<br/>
+                                ③展开菜单，选择查询条款（一项或多项），并确认汇总<br/>
+                                ④缴费（免费条款除外，缴费条款2元起不等。）<br/>
+                                ⑤具体查询<br/>"></a>
+        <a id="jump_4" href="./#/hope/batch=1&out_trade_no=" title="<br/> 本栏目属于个性化服务栏目，量身定制。操作步骤如下：<br/>
+                                    1、注册、登陆<br/>
+                                    2、填写（“点击”）成绩等基本信息<br/>
+                                    3、填写（“点击”）《考生志愿意向表》，并将优先（如果有）排序后提交<br/>
+                                    4、确认（“点击”）“网站推荐”还是“考生自选”<br/>
+                                    5、缴费（10元/校•专业）<br/>
+                                    6、获取《考生志愿推荐表》或《考生志愿自选表》<br/>
+                                    7、查看：①推荐(自选)的高校、专业可能录取的概率情况<br/>
+                                            （计算概率没有意义的四类除外： i）  今年新招生的高校或专业；ii） 仅招生一年的高校或专业；iii）仅招生二年的高校或专业；iv） 压线考生。<br/>其中压线考生请查阅本网站“深度查询”栏目、“分数分析深度查询”专题、“压线考生深度查询”  条款）<br/>
+                                             ②《推荐表》（或《自选表》）与《意向表》的吻合情况<br/>
+                                    8、打印（非必需）<br/>
+                                    9、获取下一份（如果存在，一般获取1-3份《推荐表》参考就可以了，当然如果有多份也可以获取。）<br/>"></a>
+        <a id="jump_5"  href="./#/chance/batch=1" title="<br/> 本栏目一是帮您预测您所填报或将要填报的高校、专业，可能录取的概率情况，<br/>
+                                （计算概率没有意义的四类除外：<br/>
+                                i）  今年新招生的高校或专业；<br/>
+                                ii） 仅招生一年的高校或专业；<br/>
+                                iii）仅招生二年的高校或专业；<br/>
+                                iv） 压线考生。<br/>
+                                其中压线考生请查阅本网站“深度查询”栏目、“分数分析深度查询”专题、“压线考生深度查询”条款）让您心中有数；<br/>（根据高校或专业查概率）"></a>
+        <a id="jump_6" href="./"></a>
+    </div>
+
+</div>
+<div id="qTip" style="left:740px;top:350px;display: none;"></div>
+</body>
+<script src="js/alt.js"></script>
+<script>
+    var _h = window.innerHeight||window.screen.height;
+    document.body.style.height = _h + "px";
+</script>
+</html>

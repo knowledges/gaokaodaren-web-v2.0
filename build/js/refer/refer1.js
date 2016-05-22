@@ -2,7 +2,7 @@
  * Created by qbl on 2016/2/1.
  */
 require(['app'], function (app) {
-    app.controller('referCtr', ['$rootScope','$scope', '$http', '$stateParams','$window','loocha','getLoginUserInfo', function ($rootScope,$scope, $http, $stateParams,$window,loocha,getLoginUserInfo) {
+    app.controller('referCtr1', ['$rootScope','$scope', '$http', '$stateParams','$window','loocha','getLoginUserInfo', function ($rootScope,$scope, $http, $stateParams,$window,loocha,getLoginUserInfo) {
 
         $scope.info = {
             title: "",
@@ -572,7 +572,7 @@ require(['app'], function (app) {
 
 
         $scope.reqOrder = function () {
-            getLoginUserInfo.isLogoin();
+            //getLoginUserInfo.isLogoin();
 
             $scope.sub.a[0] = $scope.sub.b[0] = $scope.sub.c[0] = $scope.sub.d[0] = $scope.sub.e[0] = 0;
             var param = {};
@@ -582,7 +582,6 @@ require(['app'], function (app) {
                 param.c = $scope.sub.c;
                 param.d = $scope.sub.d;
                 param.e = $scope.sub.e;
-
 
             var tramsform = function (data) {
                 return $.param(data);

@@ -1,0 +1,100 @@
+<div class="container" style="border: 1px #ccc dashed;padding: 10px;">
+    <div class="row text-center" ng-if="title.list.length<=0">
+        暂时未找到和你成绩相近的范例
+    </div>
+    <div class="row" ng-if="title.list.length>0" ng-repeat="list in title.list" id="examList" on-finish-render="loading">
+        <div class="col-sm-12 text-left">
+            <li style="padding: 7px 0;font-size: 16px;">
+                <a href="javascript:;;" ng-click="showExample($index)" style="text-decoration: underline;color: #000;">
+                    范例{{$index+1}}
+                    <span ng-switch="list.type">
+                        <span ng-switch-when="1">文科本一</span>
+                        <span ng-switch-when="2">理科本一</span>
+                        <span ng-switch-when="3">文科本二</span>
+                        <span ng-switch-when="4">理科本二</span>
+                        <span ng-switch-when="5">文科本三</span>
+                        <span ng-switch-when="6">理科本三</span>
+                        <span ng-switch-when="7">文科高职</span>
+                        <span ng-switch-when="8">理科高职</span>
+                    </span>
+                    {{list.score}}分，等级{{list.level}}
+                </a>
+            </li>
+        </div>
+    </div>
+    <div class="col-sm-12" id="exam" style="display: none;">
+        <div class="row text-right">
+            <a ng-click="goback()" class="btn btn-success">返回</a>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <img src="{{userInfo.url}}/0.jpg" width="100%" alt="案例成绩">
+            </div>
+        </div>
+        <div class="row" id="thumbnail" style="margin-top: 20px;">
+            <div class="col-xs-6 col-md-4">
+                <a href="javascript:;;" class="thumbnail">
+                    <img src="{{userInfo.url}}/1.jpg" alt="意向高校">
+                </a>
+                <div class="caption">
+                    <h3>1.意向高校</h3>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <a href="javascript:;;" class="thumbnail">
+                    <img src="{{userInfo.url}}/2.jpg" alt="意向专业">
+                </a>
+                <div class="caption">
+                    <h3>2.意向专业</h3>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <a href="javascript:;;" class="thumbnail">
+                    <img src="{{userInfo.url}}/3.jpg" alt="个性标签">
+                </a>
+                <div class="caption">
+                    <h3>3.个性标签</h3>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <a href="javascript:;;" class="thumbnail">
+                    <img src="{{userInfo.url}}/4.jpg" alt="意向优先">
+                </a>
+                <div class="caption">
+                    <h3>4.意向优先</h3>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <a href="javascript:;;" class="thumbnail">
+                    <img src="{{userInfo.url}}/5.jpg" alt="推荐表">
+                </a>
+                <div class="caption">
+                    <h3>5.推荐表</h3>
+                </div>
+            </div>
+        </div>
+        <div id="showImg" class="showImg row" style="display: none;">
+            <div class="mask">
+                <button id="previous-button" style="display: none;">
+                    <svg width="44" height="60">
+                        <polyline points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" stroke-width="4" stroke-linecap="butt" fill="none" stroke-linejoin="round"></polyline>
+                    </svg>
+                </button>
+                <img src="" alt="大图"/>
+                <button id="close-button">
+                    <svg width="30" height="30">
+                        <g stroke="rgb(160, 160, 160)" stroke-width="4">
+                            <line x1="5" y1="5" x2="25" y2="25"></line>
+                            <line x1="5" y1="25" x2="25" y2="5"></line>
+                        </g>
+                    </svg>
+                </button>
+                <button id="next-button" style="display: none;">
+                    <svg width="44" height="60">
+                        <polyline points="14 10 34 30 14 50" stroke="rgba(255,255,255,0.5)" stroke-width="4" stroke-linecap="butt" fill="none" stroke-linejoin="round"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

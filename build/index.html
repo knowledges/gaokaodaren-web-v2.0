@@ -65,6 +65,7 @@
     <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
     <link rel="stylesheet" href="css/refer/refer.css"/>
     <link rel="stylesheet" href="css/pay/pay.css"/>
+    <link rel="stylesheet" href="css/example/example.css"/>
 </head>
 <body ng-cloak>
 
@@ -151,15 +152,15 @@
                 <li  class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿范例</a>
                     <ul class="dropdown-menu">
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:1})">文科本一</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:3})">文科本二</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:5})">文科本三</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:7})">文科高职</a></li>
+                        <li><a ui-sref="example.list({batch:1})">文科本一</a></li>
+                        <li><a ui-sref="example.list({batch:3})">文科本二</a></li>
+                        <li><a ui-sref="example.list({batch:5})">文科本三</a></li>
+                        <li><a ui-sref="example.list({batch:7})">文科高职</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:2})">理科本一</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:4})">理科本二</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:6})">理科本三</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:8})">理科高职</a></li>
+                        <li><a ui-sref="example.list({batch:2})">理科本一</a></li>
+                        <li><a ui-sref="example.list({batch:4})">理科本二</a></li>
+                        <li><a ui-sref="example.list({batch:6})">理科本三</a></li>
+                        <li><a ui-sref="example.list({batch:8})">理科高职</a></li>
                     </ul>
                 </li>
             </ul>
@@ -231,6 +232,7 @@
 <script src="lib/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/example/example.js"></script>
+<script src="js/example/examlist.js"></script>
 <script src="js/hope/hope.js"></script>
 <script src="js/chance/chance.js"></script>
 <script src="js/login/login.js"></script>
