@@ -140,23 +140,14 @@ define(['app'],function(app){
                 }
             })
             .state("hope", {/*意向*/
-                //url: "/hope",
                 url: "/hope/batch=:batch&out_trade_no=:out_trade_no",
                 templateUrl: "html/hope/hope.html",
-                //controllerUrl:"js/hope/hope",
                 controller:"hopeCtr",
                 data: { isPublic: true}
-                //resolve:{
-                //    deps:['$ocLazyLoad',function($ocLazyLoad){
-                //        return $ocLazyLoad.load(['js/hope/hope.js']);
-                //    }]
-                //}
             })
             .state("chance", {//预测
-                //url: "/chance",
                 url: "/chance/batch=:batch",
                 templateUrl: "html/chance/newChance.html",
-                //controllerUrl:"js/chance/chance",
                 controller:"chanceCtr",
                 data: { isPublic: true},
                 resolve:{
@@ -250,7 +241,6 @@ define(['app'],function(app){
             .state('city', {//城市介绍
                 url: '/city',
                 templateUrl:'html/temp/tempCity.html',
-                //controllerUrl:"js/city/city",
                 controller:"tempCtr",
                 data: { isPublic: true},
                 resolve:{
@@ -280,7 +270,6 @@ define(['app'],function(app){
             .state('school',{//學校
                 url:"/school",
                 templateUrl:"html/temp/tempSchool.html",
-                //controllerUrl:"js/school/school",
                 controller:"schlCtl",
                 data: { isPublic: true },
                 resolve:{
@@ -294,16 +283,10 @@ define(['app'],function(app){
                 templateUrl:"html/nav/nav.html",
                 controller:"schoolNav",
                 data: { isPublic: true }
-                //resolve: {
-                //    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
-                //    }]
-                //}
             })
             .state('school.list',{
                 url:"/{type:[0-9]{1,4}}",
                 templateUrl:"html/school/school.html",
-                //controllerUrl:"js/Controller/navbar/school",
                 controller:"schoolConCtl",
                 data: { isPublic: true },
             })
@@ -311,7 +294,6 @@ define(['app'],function(app){
                 abstract: true,
                 url:"/marjor",
                 templateUrl:"html/temp/tempMarjor.html",
-                //controllerUrl:"js/marjor/marjor",
                 controller:"marjorCtl",
                 data: { isPublic: true},
                 resolve:{
@@ -363,7 +345,6 @@ define(['app'],function(app){
             .state('recipe.list',{
                 url:'/itemId=:itemId&param=:param&active=:active',
                 templateUrl:'html/recipe/recipe.html',
-                //controllerUrl:"js/Controller/recipe/recipe",
                 controller:"recipeInfoCtr",
                 data: { isPublic: true },
                 resolve:{
@@ -409,7 +390,6 @@ define(['app'],function(app){
             .state('policy',{//招生政策
                 url:"/policy",
                 templateUrl:"html/temp/tempPolicy.html",
-                //controllerUrl:"js/policy/policy",
                 controller:"policyCtr",
                 data: { isPublic: true },
                 resolve:{
@@ -444,7 +424,6 @@ define(['app'],function(app){
             .state('job', {//毕业去向
                 url: "/job",
                 templateUrl: "html/temp/tempJob.html",
-                //controllerUrl:"js/job/job",
                 controller: "jobCtr",
                 data: {isPublic: true},
                 resolve:{
@@ -479,7 +458,6 @@ define(['app'],function(app){
             .state('unique',{//个性特征
                 url:"/unique",
                 templateUrl:"html/temp/tempUnique.html",
-                //controllerUrl:"js/unique/unique",
                 controller:"uniqueCtr",
                 data: { isPublic: true },
                 resolve:{
@@ -583,11 +561,6 @@ define(['app'],function(app){
                 controllerUrl:"html/All/all",
                 controller:"referenceCtr",
                 data: { isPublic: false},
-                /*resolve:{
-                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
-                 return $ocLazyLoad.load(['html/All/all.js']);
-                 }]
-                 }*/
             })
             .state('all.chance',{
                 url:'/allChance',
@@ -595,11 +568,6 @@ define(['app'],function(app){
                 controllerUrl:"html/All/all",
                 controller:"allChanceCtr",
                 data: { isPublic: false},
-                /*resolve:{
-                 loadMyCtrl:['$ocLazyLoad',function($ocLazyLoad){
-                 return $ocLazyLoad.load(['html/All/all.js']);
-                 }]
-                 }*/
             })
             .state('all.depth',{
                 url:'/allDepth',
@@ -611,7 +579,6 @@ define(['app'],function(app){
             .state("all.orderdepth",{
                 url:'/out_trade_no=:out_trade_no',
                 templateUrl:"html/All/order.html",
-                //controllerUrl:"html/All/order",
                 controller:"orderDepthCtr",
                 data:{isPublic:false}
             })
@@ -684,7 +651,6 @@ define(['app'],function(app){
             .state("about",{
                 url:"/about",
                 templateUrl:"html/about/about.html",
-//                controllerUrl:"html/about/about",
                 controller:"aboutCtr",
                 data: { isPublic: true}
             })
