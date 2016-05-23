@@ -7,7 +7,18 @@
         </div>
     </div>
 
-    <div ui-view></div>
+    <div class="container" ng-show="ishide">
+        <nav class="navbar menu-navbar">
+            <div class="collapse navbar-collapse">
+                <div class="col-md-3">
+                    <div ng-include="'templete/model-listGroup/groupExample.html'"></div>
+                </div>
+                <div class="col-md-9">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </nav>
+    </div>
 
     <!--<div ng-include="'templete/model-article/article.html'"></div>-->
 

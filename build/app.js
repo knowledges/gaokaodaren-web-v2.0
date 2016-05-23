@@ -22,6 +22,9 @@ define(function(require,exports,module){
     });
     //  拦截器
     app.run(['$rootScope','$state','$window','$location','userService','homeService','displayService',function ($rootScope, $state,$location ,$window , userService,homeService,displayService) {
+        $rootScope.$on('$stateChangeError',function (event, toState, toParams, fromState, error){
+            console.log(error);
+        });
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             homeService.htmlPage="";
             displayService.isShow = true;

@@ -100,7 +100,8 @@ require(['app'],function(app){
 
             sessionStorage.setItem("examScore",JSON.stringify(param));
             localStorage.setItem("type", $scope.table.batch);
-            $window.location.href = "#/example/examList/batch="+$scope.table.batch;
+            //$window.location.href = "#/example/examList/batch="+$scope.table.batch;
+            $window.location.href = "#/example/itemId=157&param=13&batch="+$scope.table.batch;
 
             //$http({
             //    method:'GET',

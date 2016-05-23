@@ -169,7 +169,6 @@ define(['app'],function(app){
             .state('example',{
                 url:'/example',
                 templateUrl:"html/temp/tempExample.html",
-                //controllerUrl:"js/example/example",
                 controller:"exampleAllCtr",
                 data: { isPublic: true},
                 resolve:{
@@ -178,22 +177,10 @@ define(['app'],function(app){
                     }]
                 }
             })
-            /*.state('example.nav',{
-             url:"/batch=:batch",
-             templateUrl:"html/nav/nav.html",
-             controller:"exampleNav",
-             data: { isPublic: true}
-             //resolve:{
-             //    deps:['$ocLazyLoad',function($ocLazyLoad){
-             //        return $ocLazyLoad.load(['js/Controller/navbar/nav.js']);
-             //    }]
-             //}
-             })*/
             .state("example.list",{
-                url:'/examList/batch=:batch',
-                templateUrl:'html/example/example.html',
-                //controllerUrl:"js/Controller/recipe/recipe",
-                controller:"examlistCtr",
+                url:'/itemId=:itemId&param=:param&batch=:batch',
+                templateUrl:'html/recipe/recipe.html',
+                controller:"recipeInfoCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
@@ -201,6 +188,29 @@ define(['app'],function(app){
                     }]
                 }
             })
+            //.state('example',{
+            //    url:'/example',
+            //    templateUrl:"html/temp/tempExample.html",
+            //    controller:"exampleAllCtr",
+            //    data: { isPublic: true},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
+            //        }]
+            //    }
+            //})
+            //.state("example.list",{
+            //    url:'/examList/batch=:batch',
+            //    templateUrl:'html/example/example.html',
+            //    //controllerUrl:"js/Controller/recipe/recipe",
+            //    controller:"examlistCtr",
+            //    data: { isPublic: true},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+            //        }]
+            //    }
+            //})
 ////////////////////////////////////志愿咨询Start////////////////////////////////////////////////////////////////////////////////////
             .state('online',{//咨询线路
                 url:"/online",
