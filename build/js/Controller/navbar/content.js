@@ -21,7 +21,7 @@ require(['app'],function(app){
 
             $scope.findCity = function(){
                 $scope.content.isfind = true;
-                $http.get('/city?key='+$scope.content.cityName)
+                $http.get('/city?key='+encodeURI($scope.content.cityName))
                     .success(function(data,status){
                         $scope.content.cityList = data.response.list;
                     });

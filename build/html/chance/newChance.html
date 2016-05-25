@@ -10,7 +10,7 @@
 
     <!--<div class="row">
         <div class="carousel-inner" role="listbox">
-            <div class="item active" ng-include="'templete/model-bander/banner-chance.html'" ng-controller="addchanceCtl"></div>
+            <div class="item active" ng-include="'tem\plete/model-bander/banner-chance.html'" ng-controller="addchanceCtl"></div>
         </div>
     </div>-->
 
@@ -102,15 +102,15 @@
             </caption>
             <thead>
             <tr>
-                <td>查询预测项目</td>
-                <td>高校名称</td>
-                <td>专业名称</td>
-                <td>概率</td>
+                <td><h4 class="text-left"><strong>查询预测项目</strong></h4></td>
+                <td><h4><strong>高校名称</strong></h4></td>
+                <td><h4><strong>专业名称</strong></h4></td>
+                <td><h4><strong>概率</strong></h4></td>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="list in modelInfo.model_2" ng-if="$index+1 == 1 && modelInfo.model_2.length>0">
-                <td>按院校属地预测高校录取概率：</td>
+                <td><h4 class="text-left">按院校属地预测高校录取概率：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -122,7 +122,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_3" ng-if="$index+1 == 1 && modelInfo.model_3.length>0">
-                <td>按院校属类预测高校录取概率：</td>
+                <td><h4 class="text-left">按院校属类预测高校录取概率：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -134,7 +134,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_4" ng-if="$index+1 == 1 && modelInfo.model_4.length>0">
-                <td>按具体院校招生专业预测专业录取概率：</td>
+                <td><h4 class="text-left">按具体院校招生专业预测专业录取概率：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -146,7 +146,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_5" ng-if="$index+1 == 1 && modelInfo.model_5.length>0">
-                <td>按具体专业招生高校预测高校录取概率：</td>
+                <td><h4 class="text-left">按具体专业招生高校预测高校录取概率：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -158,7 +158,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_6" ng-if="$index+1 == 1 && modelInfo.model_6.length>0">
-                <td>按满足个性的招生专业高校预测高校录取概率：</td>
+                <td><h4 class="text-left">按满足个性的招生专业高校预测高校录取概率：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -170,7 +170,7 @@
                 <td>{{list.admit}}</td>
             </tr>
             <tr ng-repeat="list in modelInfo.model_1" ng-if="$index+1 == 1 && modelInfo.model_1.length>0">
-                <td>按概率范围预测录取高校：</td>
+                <td><h4 class="text-left">按概率范围预测录取高校：</h4></td>
                 <td>{{list.school}}</td>
                 <td>{{list.depart}}</td>
                 <td>{{list.admit}}</td>
@@ -523,9 +523,9 @@
                                     ng-change="selectRange()">
                                 <option value="">==请选择概率范围==</option>
                                 <option value="7">小概率</option>
-                                <option value="8">25%↑~50%</option>
-                                <option value="9">50%↑~75%</option>
-                                <option value="10">75%↑~95%</option>
+                                <option value="8">25%~50%</option>
+                                <option value="9">50%~75%</option>
+                                <option value="10">75%~95%</option>
                                 <option value="11">95%以上</option>
                                 <option value="12">大概率</option>
                                 <option value="13">不确定</option>

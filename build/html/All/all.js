@@ -26,29 +26,21 @@ require(['app'], function (app) {
                 $scope.will.isShowWill = true;
             });
 
-        $scope.seeHope = function (orderId,flag) {
-            $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
-                .success(function (data) {
-                    if(flag == 4){
-                        localStorage.setItem("type",data.response.type);
-                        sessionStorage.setItem("admitFlag",data.response.admitFlag);
-                        sessionStorage.setItem("order_id",data.response.orderId);
-                        sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
-                        window.location.href = "#/chance/batch="+data.response.type;
-                    }else{
-                        $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
-                            if(data.status == "4"){
-                                alert('您还没有登陆，先去登陆吧！');
-                                window.location.href = "#/login";
-                                return;
-                            }
-                            localStorage.setItem("intention", JSON.stringify(data.response));
-                            localStorage.setItem("type", data.response.type);
-                            window.location.href = "#/hope/batch="+data.response.type+"&out_trade_no="+orderId;
-                            //window.location.hash = window.location.hash + "/see=" + data.response.type;
-                        });
+        $scope.seeHope = function (orderId,flag,type) {
+            if(flag == 4){
+                window.location.href = "#/chance/batch="+type+"&out_trade_no="+orderId;
+            }else{
+                $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
+                    if(data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
                     }
+                    localStorage.setItem("intention", JSON.stringify(data.response));
+                    localStorage.setItem("type", data.response.type);
+                    window.location.href = "#/hope/batch="+type+"&out_trade_no="+orderId;
                 });
+            }
         }
     }]);
     app.controller('willCtr', ['$scope', '$http', 'loocha', 'referUrl3', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl3, getLoginUserInfo) {
@@ -90,30 +82,21 @@ require(['app'], function (app) {
                 $scope.chance.isShowWill = true;
             });
 
-        $scope.seeHope = function (orderId,flag) {
-            $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)
-                .success(function (data) {
-                    if(flag == 4){
-                        localStorage.setItem("type",data.response.type);
-                        sessionStorage.setItem("admitFlag",data.response.admitFlag);
-                        sessionStorage.setItem("order_id",data.response.orderId);
-                        sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
-                        window.location.href = "#/chance/batch="+data.response.type;
-                    }else{
-                        //var intentionId = data.response.intentionId;
-                        $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
-                            if(data.status == "4"){
-                                alert('您还没有登陆，先去登陆吧！');
-                                window.location.href = "#/login";
-                                return;
-                            }
-                            localStorage.setItem("intention", JSON.stringify(data.response));
-                            localStorage.setItem("type", data.response.type);
-                            window.location.href = "#/hope/batch="+data.response.type+"&out_trade_no="+orderId;
-                            //window.location.hash = window.location.hash + "/see=" + data.response.type;
-                        });
+        $scope.seeHope = function (orderId,flag,type) {
+            if(flag == 4){
+                window.location.href = "#/chance/batch="+type+"&out_trade_no="+orderId;
+            }else{
+                $http.get(loocha + '/exam/intention?out_trade_no=' + orderId).success(function (data) {
+                    if(data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
                     }
+                    localStorage.setItem("intention", JSON.stringify(data.response));
+                    localStorage.setItem("type", data.response.type);
+                    window.location.href = "#/hope/batch="+type+"&out_trade_no="+orderId;
                 });
+            }
         }
     }]);
     app.controller('alldepthCtr', ['$scope', '$http', 'loocha', 'referUrl5', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl5, getLoginUserInfo) {

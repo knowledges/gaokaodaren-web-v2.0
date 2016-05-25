@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org" lang="en" id="ng-app">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -10,17 +10,8 @@
     <meta name="fragment" content="!"/>
     <meta name="baidu-site-verification" content="J6qe6Ox6BK" />
     <meta name="sogou_site_verification" content="8luOQrhhrl"/>
-    <title>江苏达人网_大数据建模_个性化定制_免费提供志愿咨询_免费提供志愿范例_直接推荐志愿_直接预测志愿_直接深度查询</title>
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
-    <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" id="bs-theme-stylesheet"/>-->
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
-    <link href="favicon.ico" rel="shortcut icon"/>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="lib/html5shiv.min.js"></script>
-    <script src="lib/respond.min.js"></script>
-    <![endif]-->
+    <title>详情页面</title>
+    <link rel="stylesheet" href="css/details/details.css"/>
     <style>
         /*下面这个样式用来控制title属性显示的那个方框样式的*/
         div#qTip {
@@ -39,248 +30,60 @@
             margin-top:-4px;
         }
     </style>
-    <!--[if lte IE 8]>
-    <script>
-        document.createElement('ng-include');
-        document.createElement('ng-pluralize');
-        document.createElement('ng-view');
-
-        // Optionally these for CSS
-        document.createElement('ng:include');
-        document.createElement('ng:pluralize');
-        document.createElement('ng:view');
-    </script>
-    <![endif]-->
-    <!--[if lte IE 7]>
-    <script src="lib/json2.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="css/global.css"/>
-    <link rel="stylesheet" href="css/home/home.css"/>
-    <link rel="stylesheet" href="css/home/homeContent.css"/>
-    <link rel="stylesheet" href="css/chance/chance.css"/>
-    <link rel="stylesheet" href="css/hope/hope.css"/>
-    <link rel="stylesheet" href="css/banner/bannerStl.css"/>
-    <link rel="stylesheet" href="css/login/login.css"/>
-    <link rel="stylesheet" href="css/city/city.css"/>
-    <link rel="stylesheet" href="templete/model-menu/modelMenu.css"/>
-    <link rel="stylesheet" href="css/refer/refer.css"/>
-    <link rel="stylesheet" href="css/pay/pay.css"/>
-    <link rel="stylesheet" href="css/example/example.css"/>
 </head>
-<body ng-cloak>
-
-<!--[if lt IE 9]>
-<div class="browser-happy">
-    <div class="content">
-        <p>童鞋，您的浏览器太OUT，为何不是试试更先进的浏览器呢～～</p>
-        <h4>注：如果使用360浏览器，请使用极速模式打开 <a href="http://se.360.cn/v6/help/help5.html" target="_blank">去了解极速模式</a></h4>
-        <a href="http://browsehappy.com/">立即更新</a>
+<body>
+<div class="slider slider-first">
+    <div class="">
+        <a id="jump_1" href="./home.html" title="<br/>本栏目免费向您提供高考志愿填报的有关咨询：<br/>
+                        1.填报高考志愿有哪些要领？（“填报要领”栏目）<br/>
+                        2.如何恰到好处地利用您的高考分数和名次填报高考志愿？（“分数分析”栏目） <br/>
+                        3.如何充分利用高校招生政策填报高考志愿？（“招生政策”栏目）<br/>
+                        4.您将要奔赴求学的大学长的啥样？（“高校介绍”栏目）  <br/>
+                        5.您将要在大学里学有成就，究竟能学到啥？（“专业介绍”栏目） <br/>
+                        6.您将要生活几年的那个城市长的啥样？（“城市介绍”栏目）<br/>
+                        7.您未来发展的前程路径可能怎样？（“毕业去向”栏目） <br/>
+                        8.如何充分利用您的个性特征填报高考志愿？（“个性特征”栏目） <br/>
+                        9.比较典型的填报高考志愿的模式有哪些？（“咨询线路”栏目） <br/>
+                        您可以尽享其中<br/>"></a>
+        <a id="jump_2" href="./home.html#/example/itemId=157&param=13&batch=1" title="本栏目免费向您提供与您科别相同、选测科目等级相同、高考分数相近、名次相近的考生，高考志愿填报成功的范例，供您参考。 "></a>
+        <a id="jump_3" href="./home.html#/depth/depthInfo/batch=1" title="<br/> 本栏目将向您提供填报高考志愿需要深度查询的有关资料，请注意以下几点：<br/>
+                             1、多数资料属于内部资料，属于保密资料，不得下载，不得转录！<br/>
+                             2、多数资料属于本网站整理资料，解释权属于本网站！<br/>
+                             3、部分条款需要缴费。<br/>
+                             4、操作步骤如下：<br/>
+                                ①注册、登陆<br/>
+                                ②“点击”批次<br/>
+                                ③展开菜单，选择查询条款（一项或多项），并确认汇总<br/>
+                                ④缴费（免费条款除外，缴费条款2元起不等。）<br/>
+                                ⑤具体查询<br/>"></a>
+        <a id="jump_4" href="./home.html#/hope/batch=1&out_trade_no=" title="<br/> 本栏目属于个性化服务栏目，量身定制。操作步骤如下：<br/>
+                                    1、注册、登陆<br/>
+                                    2、填写（“点击”）成绩等基本信息<br/>
+                                    3、填写（“点击”）《考生志愿意向表》，并将优先（如果有）排序后提交<br/>
+                                    4、确认（“点击”）“网站推荐”还是“考生自选”<br/>
+                                    5、缴费（10元/校•专业）<br/>
+                                    6、获取《考生志愿推荐表》或《考生志愿自选表》<br/>
+                                    7、查看：①推荐(自选)的高校、专业可能录取的概率情况<br/>
+                                            （计算概率没有意义的四类除外： i）  今年新招生的高校或专业；ii） 仅招生一年的高校或专业；iii）仅招生二年的高校或专业；iv） 压线考生。<br/>其中压线考生请查阅本网站“深度查询”栏目、“分数分析深度查询”专题、“压线考生深度查询”  条款）<br/>
+                                             ②《推荐表》（或《自选表》）与《意向表》的吻合情况<br/>
+                                    8、打印（非必需）<br/>
+                                    9、获取下一份（如果存在，一般获取1-3份《推荐表》参考就可以了，当然如果有多份也可以获取。）<br/>"></a>
+        <a id="jump_5"  href="./home.html#/chance/batch=1&out_trade_no=" title="<br/> 本栏目一是帮您预测您所填报或将要填报的高校、专业，可能录取的概率情况，<br/>
+                                （计算概率没有意义的四类除外：<br/>
+                                i）  今年新招生的高校或专业；<br/>
+                                ii） 仅招生一年的高校或专业；<br/>
+                                iii）仅招生二年的高校或专业；<br/>
+                                iv） 压线考生。<br/>
+                                其中压线考生请查阅本网站“深度查询”栏目、“分数分析深度查询”专题、“压线考生深度查询”条款）让您心中有数；<br/>（根据高校或专业查概率）"></a>
+        <a id="jump_6" href="./home.html"></a>
     </div>
+
 </div>
-<![endif]-->
-<nav class="navbar navbar-default head" id="head" style="min-height:62px!important;">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="home" style="padding: 0;margin: 0;">
-                <img alt="A志愿|全国唯一的高考志愿填报专门网" src="logo.png" style="margin-top: 5px;width: 140px;" title="A志愿|全国唯一的高考志愿填报专门网">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav" ng-controller="pageJumpCtr" >
-                <li><a ui-sref="home">首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿咨询
-                        <!--<span class="caret"></span>-->
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a ui-sref="online.nav">咨询线路</a></li>
-                        <li><a ui-sref="city.nav">城市介绍</a></li>
-                        <li><a ui-sref="school.nav">高校介绍</a></li>
-                        <li><a ui-sref="marjor.nav">专业介绍</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a ui-sref="recipe.nav">填报要领</a></li>
-                        <li><a ui-sref="score.nav">分数分析</a></li>
-                        <li><a ui-sref="policy.nav">招生政策</a></li>
-                        <li><a ui-sref="job.nav">毕业去向</a></li>
-                        <li><a ui-sref="unique.nav">个性特色</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;;"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">深度查询
-                        <!--<span class="caret"></span>-->
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a ng-click="jumpDepth(1)" style="cursor: pointer;">文科本一</a></li>
-                        <li><a ng-click="jumpDepth(3)" style="cursor: pointer;">文科本二</a></li>
-                        <li><a ng-click="jumpDepth(5)" style="cursor: pointer;">文科本三</a></li>
-                        <li><a ng-click="jumpDepth(7)" style="cursor: pointer;">文科高职</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a ng-click="jumpDepth(2)" style="cursor: pointer;">理科本一</a></li>
-                        <li><a ng-click="jumpDepth(4)" style="cursor: pointer;">理科本二</a></li>
-                        <li><a ng-click="jumpDepth(6)" style="cursor: pointer;">理科本三</a></li>
-                        <li><a ng-click="jumpDepth(8)" style="cursor: pointer;">理科高职</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;;" ng-click="jumpPage(2);">志愿推荐</a>
-                    <!-- <ul class="dropdown-menu">
-                         <li><a ui-sref="hope({batch:1})">文科本一</a></li>
-                         <li><a ui-sref="hope({batch:3})">文科本二</a></li>
-                         <li><a ui-sref="hope({batch:5})">文科本三</a></li>
-                         <li><a ui-sref="hope({batch:7})">文科高职</a></li>
-                         <li role="separator" class="divider"></li>
-                         <li><a ui-sref="hope({batch:2})">理科本一</a></li>
-                         <li><a ui-sref="hope({batch:4})">理科本二</a></li>
-                         <li><a ui-sref="hope({batch:6})">理科本三</a></li>
-                         <li><a ui-sref="hope({batch:8})">理科高职</a></li>
-                     </ul>-->
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;;" ng-click="jumpPage(3);">志愿预测</a>
-                    <!--<ul class="dropdown-menu">
-                        <li><a ui-sref="chance({batch:1})">文科本一</a></li>
-                        <li><a ui-sref="chance({batch:3})">文科本二</a></li>
-                        <li><a ui-sref="chance({batch:5})">文科本三</a></li>
-                        <li><a ui-sref="chance({batch:7})">文科高职</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a ui-sref="chance({batch:2})">理科本一</a></li>
-                        <li><a ui-sref="chance({batch:4})">理科本二</a></li>
-                        <li><a ui-sref="chance({batch:6})">理科本三</a></li>
-                        <li><a ui-sref="chance({batch:8})">理科高职</a></li>
-                    </ul>-->
-                </li>
-                <li  class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">志愿范例</a>
-                    <ul class="dropdown-menu">
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:1})">文科本一</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:3})">文科本二</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:5})">文科本三</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:7})">文科高职</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:2})">理科本一</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:4})">理科本二</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:6})">理科本三</a></li>
-                        <li><a ui-sref="example.list({itemId:157,param:13,batch:8})">理科高职</a></li>
-                    </ul>
-                    <!--<ul class="dropdown-menu">-->
-                        <!--<li><a ui-sref="example.list({batch:1})">文科本一</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:3})">文科本二</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:5})">文科本三</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:7})">文科高职</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a ui-sref="example.list({batch:2})">理科本一</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:4})">理科本二</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:6})">理科本三</a></li>-->
-                        <!--<li><a ui-sref="example.list({batch:8})">理科高职</a></li>-->
-                    <!--</ul>-->
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right" ng-controller="appCtr">
-                <form class="navbar-form navbar-left " action="javascript:;;" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" ng-model="user.search" placeholder="请输入搜索内容..." style="width: 150px!important;"/>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-                    <a href="javascript:;;" class="btn btn-default head-serche">
-                        <i class="glyphicon glyphicon-search" ng-click="totalSearch()"></i>
-                    </a>
-                </form>
-                <li>
-                    <a ui-sref="login" ng-if="!user.islogin" style="display: inline-block;padding-left: 0;padding-right: 5px;">登陆 /</a><a ui-sref="register" ng-if="!user.islogin" style="display: inline-block;padding-left: 5px;">注册</a><a style="padding-left:0;padding-right:0;" ng-if="user.islogin">{{user.name}}</a>
-                </li>
-                <li><a ui-sref="all.score" href="javascript:;;" style="text-decoration: underline;font-weight:700;" ng-if="user.islogin">我的足迹</a></li>
-                <li><a ng-if="user.islogin" href="javascript:;;"style="padding-left:0;padding-right:0;"  ng-click="logoff()">注销</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div ui-view id="content"></div>
-<div class="foolter alert alert-success text-center" id="footer">
-    <div class="text-center">
-        <p>
-            <span style="color:#333300;">友情链接：</span><a href="http://www.moe.edu.cn/" target="_blank">中华人民共和国教育部</a>&nbsp;&nbsp;<a href="http://www.neea.edu.cn/" target="_blank">教育部考试中心</a>&nbsp;&nbsp;<a href="http://www.ec.js.edu.cn/" target="_blank">江苏省教育厅</a>&nbsp;&nbsp;<a href="http://www.chsi.com.cn/" target="_blank">中国高等教育学生信息网</a>&nbsp;&nbsp;<a href="http://www.edu.cn/" target="_blank">中国教育科研网</a>
-        </p>
-        <p>
-            <a href="http://www.njzb.net/index.asp">南京</a>&nbsp;&nbsp;
-            <a href="http://www.wxjy.com.cn/Index.html">无锡</a>&nbsp;&nbsp;
-            <a href="http://www.xzszb.net/" target="_blank">徐州</a>&nbsp;&nbsp;
-            <a href="http://zk.czedu.gov.cn/" target="_blank">常州</a>&nbsp;&nbsp;
-            <a href="http://www.szzxks.net/" target="_blank">苏州</a>&nbsp;&nbsp;
-            <a href="http://www.ntzk.com/" target="_blank">南通</a>&nbsp;&nbsp;
-            <a href="http://www.lygzsks.cn/" target="_blank">连云港</a>&nbsp;&nbsp;
-            <a href="http://jyj.huaian.gov.cn/" target="_blank">淮安</a>&nbsp;&nbsp;
-            <a href="http://www.ycszkzx.cn/" target="_blank">盐城</a>&nbsp;&nbsp;
-            <a href="http://www.yzzkb.com.cn/" target="_blank">扬州</a>&nbsp;&nbsp;
-            <a href="http://zkb.zje.net.cn/" target="_blank">镇江</a>&nbsp;&nbsp;
-            <a href="http://www.tze.cn/" target="_blank">泰州</a>&nbsp;&nbsp;
-            <a href="http://www.sqeea.cn/" target="_blank">宿迁</a>&nbsp;&nbsp;
-        </p>
-    </div>
-    <p>江苏达人高考志愿填报网站工作室地址：南京市秦淮区中山门大街卫桥新村17座505</p>
-    <p>
-        <span>邮箱地址：jsdrcsl@163.com</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>联系电话：13914726090</span>
-    </p>
-    <p>
-        <span>微信公众号：drzyjsdrw</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>QQ：2930491038</span>
-    </p>
-    <p>江苏达人信息技术咨询服务有限公司 版权所有，侵权必究，<a
-            href="http://www.beianbeian.com/" style="color:#000;" target="_blank">苏ICP备15016324号</a> &nbsp;&nbsp;<a ui-sref="about">关于我们</a></p>
-    <!--<p style="color:#3c763d;"><a ui-sref="about.nav">关于我们</a> &nbsp;&nbsp;<a>联系我们</a>江苏达人信息技术咨询服务有限公司 版权所有，侵权必究，<a-->
-    <!--href="http://www.beianbeian.com/" style="color:#3c763d;" target="_blank">苏ICP备15016324号</a></p>-->
-</div>
-
+<div id="qTip" style="left:740px;top:350px;display: none;"></div>
 </body>
-<script src="lib/require.js"></script>
-<script src="lib/main.js"></script>
-<script src="js/json2.js"></script>
 <script src="js/alt.js"></script>
-<script src="lib/jquery.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="js/example/example.js"></script>
-<script src="js/example/examlist.js"></script>
-<script src="js/hope/hope.js"></script>
-<script src="js/chance/chance.js"></script>
-<script src="js/login/login.js"></script>
-<script src="js/login/register.js"></script>
-<script src="js/login/forget.js"></script>
-<script src="js/online/online.js"></script>
-<script src="js/city/city.js"></script>
-<script src="js/school/school.js"></script>
-<script src="js/marjor/marjor.js"></script>
-<script src="js/policy/policy.js"></script>
-<script src="js/score/score.js"></script>
-<script src="js/job/job.js"></script>
-<script src="js/recipe/recipe.js"></script>
-<script src="js/unique/unique.js"></script>
-<script src="js/refer/refer.js"></script>
-<script src="js/Controller/navbar/nav.js"></script>
-<script src="js/Controller/navbar/new.js"></script>
-<script src="js/Controller/navbar/city.js"></script>
-<script src="js/Controller/navbar/marjor.js"></script>
-<script src="js/Controller/navbar/school.js"></script>
-<script src="js/Controller/recipe/recipe.js"></script>
-<script src="js/Controller/listGroup/groupOnline.js"></script>
-<script src="js/Controller/listGroup/groupRecipe.js"></script>
-<script src="js/Controller/listGroup/groupScore.js"></script>
-<script src="js/Controller/listGroup/groupPolicy.js"></script>
-<script src="js/Controller/listGroup/groupJob.js"></script>
-<script src="js/Controller/listGroup/groupUnique.js"></script>
-<script src="js/pay/pay.js"></script>
-<script src="js/banner/bannerDemo.js"></script>
-<script src="html/All/all.js"></script>
-<script src="html/All/order.js"></script>
-<script src="html/about/about.js"></script>
-<script language="Javascript">
-    $(function () {
-        $('.dropdown-toggle').dropdown();
-    });
-    //    document.oncontextmenu=new Function("event.returnValue=false");
-    //    document.onselectstart=new Function("event.returnValue=false");
+<script>
+    var _h = window.innerHeight||window.screen.height;
+    document.body.style.height = _h + "px";
 </script>
 </html>

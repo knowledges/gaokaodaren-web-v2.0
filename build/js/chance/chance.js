@@ -21,7 +21,7 @@ require(['app'],function(app){
         $scope.isShow = false;
         $scope.isChance = $stateParams.batch;
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
-        $scope.order_id = "";
+        $scope.order_id = $stateParams.out_trade_no;
         $scope.money = "";
         $scope.forecast = {
             area:"",
@@ -75,7 +75,7 @@ require(['app'],function(app){
             model_4:[],
             model_5:[],
             model_6:[],
-        }
+        };
 
         $scope.userInfo = {
             uScore:"",
@@ -85,13 +85,19 @@ require(['app'],function(app){
             level_a:"",
             level_b:"",
             score:"",
-        }
+        };
 
         $scope.changePay = function(){
             $scope.isShow = true;
         };
 
         $('.dropdown-toggle').dropdown();
+
+        $scope.$on('$viewContentLoaded',function(){
+            $timeout(function(){
+                $("input").placeholder();
+            },1000);
+        });
 
         init ();
 
@@ -113,47 +119,12 @@ require(['app'],function(app){
                 window.location.href = "#/all/allScore";
             }
 
-            if($scope.isChance!= null){
-
-                if(sessionStorage.getItem("admitFlag")!=null){
-                    var flag = sessionStorage.getItem("admitFlag").split(",");
-                    flag.splice(0,1);
-                    flag.splice(flag.length-1,1);
-
-                    for(var i = 0 ; i< flag.length ; i++){
-                        for(var j = 0 ; j < $(".chance_").length ; j++){
-                            if(flag[i] == $(".chance_").eq(j).val()){
-                                $(".chance_").eq(j).attr("checked","true");
-                            }
-                        }
-                    }
-
-                    if(sessionStorage.getItem("admits")!="null" && sessionStorage.getItem("admits")!="undefined"){
-                        var adminlist = JSON.parse(sessionStorage.getItem("admits"));
-                        if(adminlist.length>0){
-                            $.each(adminlist,function(i,v){
-                                if(v.flag == 1){
-                                    $scope.modelInfo.model_1.push(v);
-                                }else if (v.flag == "2"){
-                                    $scope.modelInfo.model_2.push(v);
-                                }else if (v.flag == "3"){
-                                    $scope.modelInfo.model_3.push(v);
-                                }else if (v.flag == "4"){
-                                    $scope.modelInfo.model_4.push(v);
-                                }else if (v.flag == "5"){
-                                    $scope.modelInfo.model_5.push(v);
-                                }else {
-                                    $scope.modelInfo.model_6.push(v);
-                                }
-                            })
-                        }
-                    }
-                }
+            if($scope.order_id!= ""){
+                getOrderInfo();
             }else{
                 $("#recommend").modal('show');
                 return;
             }
-
             function subStr(str){
 
                 switch(parseInt(str)){
@@ -186,6 +157,59 @@ require(['app'],function(app){
 
         }
 
+        /**
+         * 请求已查询内容
+         */
+        function getOrderInfo(){
+            $timeout(function(){
+                $http.get(loocha+"/exam/order/info?out_trade_no="+ $scope.order_id+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        $scope.modelInfo = {
+                            model_1:[],
+                            model_2:[],
+                            model_3:[],
+                            model_4:[],
+                            model_5:[],
+                            model_6:[],
+                        };
+                        var item = data.response,flag = item.admitFlag.split(","),adminlist = item.admits;
+
+                        flag.splice(0,1);
+                        flag.splice(flag.length-1,1);
+
+                        for(var i = 0 ; i< flag.length ; i++){
+                            for(var j = 0 ; j < $(".chance_").length ; j++){
+                                if(flag[i] == $(".chance_").eq(j).val()){
+                                    $(".chance_").eq(j).attr("checked","true");
+                                }
+                            }
+                        }
+
+                        if(adminlist !="null" && adminlist !="undefined"){
+                            if(adminlist.length>0){
+                                $.each(adminlist,function(i,v){
+                                    if(v.flag == 1){
+                                        $scope.modelInfo.model_1.push(v);
+                                    }else if (v.flag == "2"){
+                                        $scope.modelInfo.model_2.push(v);
+                                    }else if (v.flag == "3"){
+                                        $scope.modelInfo.model_3.push(v);
+                                    }else if (v.flag == "4"){
+                                        $scope.modelInfo.model_4.push(v);
+                                    }else if (v.flag == "5"){
+                                        $scope.modelInfo.model_5.push(v);
+                                    }else {
+                                        $scope.modelInfo.model_6.push(v);
+                                    }
+                                })
+                            }
+                        }
+
+                    });
+            },500);
+
+        }
+
 ////////按概率范围预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          *  根据范围ID 获取学校列表
@@ -202,7 +226,7 @@ require(['app'],function(app){
                 param.admit_flag = $scope.forecast.range;
 
                 $http({
-                    url:loocha + "/exam/admit/school",
+                    url:loocha + "/exam/admit/school?t="+ new Date().getTime().toString(),
                     method:"GET",
                     params:param
                 }).success(function (data) {
@@ -236,8 +260,8 @@ require(['app'],function(app){
 
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
-                    //param.admit_flag = $scope.forecast.range;
+                    param.out_trade_no = $scope.order_id;
+                    //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     param.admit_flag = 1;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
@@ -248,7 +272,7 @@ require(['app'],function(app){
                     param.depart_code ="";
                     param.depart = "";
                 $http({
-                    url:loocha+'/exam/admit/result',
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
                     params:param,
                 }).success(function(data){
@@ -281,6 +305,7 @@ require(['app'],function(app){
                         return;
                     }else if(data.status == 0){
                         $scope.forecast.schChance_0 = data.response.admit;
+                        getOrderInfo()
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
                     }else if (data.status == "4" || data.status == "-1"){
@@ -315,7 +340,8 @@ require(['app'],function(app){
 
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                    param.out_trade_no = $scope.order_id;
+                    //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     param.admit_flag = $scope.forecast.range;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
@@ -326,7 +352,7 @@ require(['app'],function(app){
                     param.depart_code ="";
                     param.depart = "";
                 $http({
-                    url:loocha+'/exam/admit/result',
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
                     params:param,
                 }).success(function(data){
@@ -346,6 +372,7 @@ require(['app'],function(app){
                         alert("未知错误");
                     }
                     $scope.forecast.schChance_3 = data.response.admit;
+                    getOrderInfo()
                 })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
@@ -359,7 +386,7 @@ require(['app'],function(app){
 
             $scope.forecast.city_id ="";
             if($scope.forecast.area!=""){
-                $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area).success(function(data){
+                $http.get(loocha+'/wish/bytype?batch='+$scope.isChance+'&wish_id='+$scope.forecast.area+"&t="+( new Date() ).getTime().toString()).success(function(data){
                     $scope.forecast.cityArr = data.response;
                     $("#provinceBody").fadeIn(500);
                 });
@@ -369,7 +396,7 @@ require(['app'],function(app){
          * 获取高校列表
          */
         $scope.findSchoolList = function(){
-            $http.get(loocha+'/schbath/depart?cityId=' + $scope.forecast.city_id + '&type=' + $scope.isChance)
+            $http.get(loocha+'/schbath/depart?cityId=' + $scope.forecast.city_id + '&type=' + $scope.isChance+"&t="+( new Date() ).getTime().toString())
                 .success(function(data){
                     $scope.forecast.schoolArr = data.response;
                     $scope.forecast.school_id ="";
@@ -391,7 +418,8 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                    param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                    param.out_trade_no = $scope.order_id;
+                    //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                     param.admit_flag = 2;
                     param.type= $scope.isChance;
                     param.obl = levelNum($scope.uScore.level_a);
@@ -402,7 +430,7 @@ require(['app'],function(app){
                     param.depart_code ="";
                     param.depart = "";
                 $http({
-                    url:loocha+'/exam/admit/result',
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
                     params:param,
                 }).success(function(data){
@@ -435,6 +463,7 @@ require(['app'],function(app){
                         return;
                     }else if(data.status == 0){
                         $scope.forecast.schChance = data.response.admit;
+                        getOrderInfo()
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
                     }else if (data.status == "4" || data.status == "-1"){
@@ -479,7 +508,7 @@ require(['app'],function(app){
         $scope.getpersonalityId = function(){
             $scope.forecast.pDepart_id = "",$scope.forecast.pSchl_id = "";
             //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
-            $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id)
+            $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+"&t="+( new Date() ).getTime().toString())
                 .success(function(data){
                     if(data.response.length<=0){
                         alert("没有搜索到内容！");
@@ -493,7 +522,8 @@ require(['app'],function(app){
          * 根据专业id 获取高校列表
          */
         $scope.getDepartId = function(){
-            $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_name='+$("#departName option:selected").text())
+            var depart_name = $("#departName option:selected").text().trim();
+            $http.get(loocha+'/school/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+'&depart_name='+encodeURI(depart_name)+"&t="+( new Date() ).getTime().toString())
                 .success(function(data){
                     $scope.forecast.pSchool_Arr = data.response;
                     $scope.forecast.schChance_6 = "";
@@ -516,7 +546,8 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.out_trade_no = $scope.order_id;
+                //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 6;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -529,7 +560,7 @@ require(['app'],function(app){
                 param.depart_code = $scope.forecast.pDepart_id;
                 param.depart = $scope.forecast.pDepart_name;
                 $http({
-                    url:loocha+'/exam/admit/result',
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
                     params:param,
                 }).success(function(data){
@@ -562,6 +593,7 @@ require(['app'],function(app){
                         return;
                     }else if(data.status == 0){
                         $scope.forecast.schChance_6 = data.response.admit;
+                        getOrderInfo()
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
                     }else if (data.status == "4" || data.status == "-1"){
@@ -598,13 +630,13 @@ require(['app'],function(app){
             $scope.forecast.attr_id = $scope.forecast.style_School_id="";;
             var style_id = $scope.forecast.style_id;
             if(style_id == 0){
-                url=loocha+"/school/attr?type=" + $scope.isChance;
+                url=loocha+"/school/attr?type=" + $scope.isChance+"&t="+( new Date() ).getTime().toString();
             }else if(style_id == 1){
-                url=loocha+"/school/prop?type=1&depart_type=1";
+                url=loocha+"/school/prop?type=1&depart_type=1&t="+( new Date() ).getTime().toString();
             }else if(style_id == 2){
-                url=loocha+"/school/prop?type=2&depart_type=2";
+                url=loocha+"/school/prop?type=2&depart_type=2&t="+( new Date() ).getTime().toString();
             }else if(style_id == 3){
-                url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance;
+                url=loocha+"/school/prop?type=0&depart_type="+$scope.isChance+"&t="+( new Date() ).getTime().toString();
             }
             if(style_id !=""){
                 $http.get(url).success(function(data){
@@ -669,7 +701,8 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.out_trade_no= $scope.order_id;
+                //param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 3;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -680,7 +713,7 @@ require(['app'],function(app){
                 param.depart_code ="";
                 param.depart = "";
                 $http({
-                    url:loocha+'/exam/admit/result',
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
                     params:param,
                 }).success(function(data){
@@ -713,6 +746,7 @@ require(['app'],function(app){
                         return;
                     }else if(data.status == 0){
                         $scope.forecast.schChance_1 = data.response.admit;
+                        getOrderInfo()
                     }else if (data.status == "1009"){
                         alert("您是压线考生");
                     }else if (data.status == "4" || data.status == "-1"){
@@ -755,7 +789,8 @@ require(['app'],function(app){
                 return;
             }
             var param = {};
-            param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+            param.out_trade_no = $scope.order_id;
+            //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
             param.admit_flag = 4;
             param.type= $scope.isChance;
             param.obl = levelNum($scope.uScore.level_a);
@@ -766,7 +801,7 @@ require(['app'],function(app){
             param.depart_code = $scope.forecast.schl_departId;
             param.depart = $scope.forecast.schl_departName;
             $http({
-                url:loocha+'/exam/admit/result',
+                url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                 method: 'GET',
                 params:param,
             }).success(function(data){
@@ -802,6 +837,7 @@ require(['app'],function(app){
                     return;
                 }else if(data.status == 0){
                     $scope.forecast.departChance = data.response.admit;
+                    getOrderInfo();
                 }else if (data.status == "1009"){
                     alert("您是压线考生");
                 }else if (data.status == "4" || data.status == "-1"){
@@ -834,7 +870,8 @@ require(['app'],function(app){
         $scope.getSchlChance = function(){
 
             var param = {};
-                param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.out_trade_no= $scope.order_id;
+                //param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
                 param.admit_flag = 5;
                 param.type= $scope.isChance;
                 param.obl = levelNum($scope.uScore.level_a);
@@ -845,7 +882,7 @@ require(['app'],function(app){
                 param.depart_code = $scope.forecast.d_departId;
                 param.depart = $scope.forecast.d_departname;
             $http({
-                url:loocha+'/exam/admit/result',
+                url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                 method: 'GET',
                 params:param,
             }).success(function(data){
@@ -881,6 +918,7 @@ require(['app'],function(app){
                     return;
                 }else if(data.status == 0){
                     $scope.forecast.schChance_2 = data.response.admit;
+                    getOrderInfo();
                 }else if (data.status == "1009"){
                     alert("您是压线考生");
                 }else if (data.status == "4" || data.status == "-1"){
@@ -1007,7 +1045,7 @@ require(['app'],function(app){
          */
         $scope.showChanceSchInfo = function(e){
             var that = $(e.target),key = that.html();
-            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&code="+that.attr("article_id")+"&key="+key).success(function(data){
+            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&code="+that.attr("article_id")+"&key="+encodeURI(key)+"&t="+( new Date() ).getTime().toString()).success(function(data){
                 if(data.response.list.length<=0){
                     alert("该批次未找到该校信息");
                 }else{
@@ -1069,7 +1107,8 @@ require(['app'],function(app){
 
         $scope.$watch("forecast.schl_name",function(newvalue,oldvalue){
             if(newvalue!=oldvalue) {
-                $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + $scope.forecast.schl_name + "&index=0&limit=999").success(function (data) {
+                $scope.forecast.schl_departId = "";
+                $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
                     $scope.forecast.schl_departArr = data.response.list;
                 });
             }
@@ -1077,7 +1116,8 @@ require(['app'],function(app){
 
         $scope.$watch("forecast.d_departname",function(newvalue,oldvalue){
             if(newvalue!=oldvalue){
-                $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+newvalue).success(function(data){
+                $scope.forecast.d_schl_id = "";
+                $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI(newvalue)+"&t="+( new Date() ).getTime().toString()).success(function(data){
                     $scope.forecast.d_schlArr = data.response;
                 });
             }

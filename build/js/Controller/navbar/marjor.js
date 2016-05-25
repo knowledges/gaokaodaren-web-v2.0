@@ -56,7 +56,7 @@ require(['app','jquery'],function(app,jquery){
            $scope.marjor.seacrChCon = true;
            $scope.marjor.content = false;
            $scope.search = true;
-           $http.get(loocha+'/depart?depart_type='+$stateParams.type+'&key='+$scope.marjor.key)
+           $http.get(loocha+'/depart?depart_type='+$stateParams.type+'&key='+encodeURI($scope.marjor.key))
                .success(function(data,status){
                    $scope.findList =  data.response;
                });

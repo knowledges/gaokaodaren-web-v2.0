@@ -29,15 +29,21 @@ require(['app'],function(app){
                 });
             }
         }
-    })
+    });
     app.directive('pay',['$window','$location','loocha',function($window,$location,loocha){
         return function(scope, element, attrs){
             element.bind('click',function(element){
                 var out_trade_no = $location.$$search.order_id, order_type = $location.$$search.type;
                 var type = element.target.getAttribute("pay-type");
+                /***
+                 * /exam/buy
+                 * type:0 支付宝
+                 * type:1 网页
+                 * type:2 微信
+                 */
                 switch(type){
                     case "zhifubao":
-                        $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type="+order_type);
+                        $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0");
                         break;
                     case "bank":
                         var code = element.target.getAttribute("bank-code");

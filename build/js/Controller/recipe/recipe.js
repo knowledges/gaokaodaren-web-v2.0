@@ -48,7 +48,7 @@ require(['app'],function(app){
         $scope.title.breadcrumb_no = $stateParams.itemId;
 
         $scope.findSch = function(){
-            $http.get(loocha+"/school?key="+$scope.info.key+"&index=0&limit=20")
+            $http.get(loocha+"/school?key="+encodeURI($scope.info.key)+"&index=0&limit=20")
                 .success(function(data){
                     $scope.info.schools = data.response.list;
                 });

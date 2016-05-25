@@ -4,15 +4,15 @@
 'use strict';
 require(['app'],function(app){
     /*app.directive('isLoading',['$rootScope',function($rootScope){
-        return{
-            restrict: 'A',
-            link:function(scope){
-                if(scope.$last == true){
-                    $rootScope.loading=false;
-                }
-            }
-        }
-    }]);*/
+     return{
+     restrict: 'A',
+     link:function(scope){
+     if(scope.$last == true){
+     $rootScope.loading=false;
+     }
+     }
+     }
+     }]);*/
     app.factory("levelName", function () {
         return {
             ShowLevel: function (str) {
@@ -93,10 +93,6 @@ require(['app'],function(app){
     });
     app.controller("myScore", ['$scope','$window','$http','loocha','getLoginUserInfo','levelName','levelNumber','doorStr','inLine',function ($scope,$window,$http,loocha,getLoginUserInfo,levelName,levelNumber,doorStr,inLine) {
 
-     /*   $scope.$on("$includeContentLoaded",function(){
-            alert('加载ok');
-        })*/
-
         $scope.recommShow = false;
         $scope.table = {
             obl:"",
@@ -151,17 +147,17 @@ require(['app'],function(app){
                     sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
                     $("#obl option[value=''],#sel option[value='']").removeAttr("selected");
                     var obj = data.response[0];
-                        $scope.table.subject = obj.subject+"";
-                        $scope.table.obl = levelNumber.ShowLevel(obj.level_a);
-                        $scope.table.sel =  levelNumber.ShowLevel(obj.level_b);
-                        $("#obl option[value="+$scope.table.obl+"]").attr("selected","true");
-                        $("#sel option[value="+$scope.table.sel+"]").attr("selected","true");
-                        $scope.table.score =obj.score ;
-                        $scope.table.sub1 = obj.sub_a;
-                        $scope.table.sub2 = doorStr.ShowDoor(obj.sub_b);
-                        $scope.table.myScore = obj.score;
-                        $scope.table.newScore = obj.score;
-                        $scope.table.batch =obj.type+"" ;
+                    $scope.table.subject = obj.subject+"";
+                    $scope.table.obl = levelNumber.ShowLevel(obj.level_a);
+                    $scope.table.sel =  levelNumber.ShowLevel(obj.level_b);
+                    $("#obl option[value="+$scope.table.obl+"]").attr("selected","true");
+                    $("#sel option[value="+$scope.table.sel+"]").attr("selected","true");
+                    $scope.table.score =obj.score ;
+                    $scope.table.sub1 = obj.sub_a;
+                    $scope.table.sub2 = doorStr.ShowDoor(obj.sub_b);
+                    $scope.table.myScore = obj.score;
+                    $scope.table.newScore = obj.score;
+                    $scope.table.batch =obj.type+"" ;
                 }else{
                     $scope.loading = false;
                 }
@@ -241,7 +237,7 @@ require(['app'],function(app){
                             $window.location.href = "#/hope/batch="+$scope.table.batch+"&out_trade_no=";
                         }else if (num == 2){
                             inLine.scores($scope.table.batch,$scope.table.score);
-                            $window.location.href = "#/chance/batch="+$scope.table.batch;
+                            $window.location.href = "#/chance/batch="+$scope.table.batch+"&out_trade_no=";
                         }else{
                             $window.location.href="#/depth/depthInfo/batch="+$scope.table.batch;
                         }

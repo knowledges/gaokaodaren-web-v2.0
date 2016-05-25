@@ -129,7 +129,7 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == 4){
                         alert('您还没有登陆，先去登陆吧！');
-                        window.location.href = "#/login";
+                        $window.location.href = "#/login";
                         return;
                     }else if(data.status == "1017"){
                         alert("订单获取了所有数量的推荐高校!点击修改重新编辑推荐表");
@@ -148,7 +148,7 @@ require(['app'],function(app){
         $scope.payChance = function(){
             getLoginUserInfo.isLogoin();
             $scope.order.orderShow = false;
-            window.location.href="#/pay?order_id="+$scope.orderout_trade_no+"&money="+$scope.order.money+"&type="+$scope.order.type;
+            $window.location.href="#/pay?order_id="+$scope.orderout_trade_no+"&money="+$scope.order.money+"&type="+$scope.order.type;
         }
 
         $scope.close = function(){
@@ -162,20 +162,14 @@ require(['app'],function(app){
                 $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
                     .success(function (data) {
                         if(data.response.flag == 4){
-                            sessionStorage.setItem("admitFlag",data.response.admitFlag);
-                            localStorage.setItem("type",data.response.type);
-                            sessionStorage.setItem("order_id",data.response.orderId);
-                            sessionStorage.setItem("admits",JSON.stringify(data.response.admits));
-                            window.location.href = "#/chance/batch="+data.response.type;
-                            window.location.reload(0);
+                            $window.location.href = "#/chance/batch="+data.response.type+"&out_trade_no="+$scope.order.orderId;
+                            $window.location.reload(0);
                         }
                     });
 
             }else if($scope.order.flag == 5){
-                window.location.href = "#/all/out_trade_no="+$scope.order.orderId;
+                $window.location.href = "#/all/out_trade_no="+$scope.order.orderId;
             }else{
-                $scope.order.subtitle = yxb_title[$scope.order.type];
-                $scope.order.caption = caption [$scope.order.type];
                 getOrderInfo();
             }
 
@@ -206,6 +200,7 @@ require(['app'],function(app){
                     }else if (data.status == "1016"){
                         localStorage.setItem("out_trade_no",$scope.order.orderId);
                         $window.location.href="#/refer1";
+                        $window.location.reload(0);
                         return;
                     }else if(data.status == "1004"){
                         var result = confirm("未支付,请重新缴费");
@@ -218,7 +213,7 @@ require(['app'],function(app){
                         return;
                     }else if (data.status == 4){
                         alert("您还没有登陆或登陆失效，请重新登陆！");
-                        window.location.href="#/login";
+                        $window.location.href="#/login";
                     }else if(data.status == 0){
                         $scope.order.intentionId = data.response.intentionId;
                         $scope.order.type = data.response.type;
@@ -233,6 +228,8 @@ require(['app'],function(app){
                         $scope.order.schlArr_2 = data.response.list[2];
                         $scope.order.schlArr_3 = data.response.list[3];
                         $scope.order.schlArr_4 = data.response.list[4];
+                        $scope.order.subtitle = yxb_title[$scope.order.type];
+                        $scope.order.caption = caption [$scope.order.type];
                         if(data.response.list[0]!=undefined){
                             $scope.order.departArr_0 = data.response.list[0].departs;
                         }
@@ -258,7 +255,7 @@ require(['app'],function(app){
             $.post(loocha+"/exam/intention/auto",{id:id},function(data){
                 if(data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
+                    $window.location.href = "#/login";
                     return;
                 }
                 var list = JSON.parse(data),order_id = list.response.id;
@@ -291,7 +288,7 @@ require(['app'],function(app){
                 .success(function(data){
                     if (data.status == 4){
                         alert('您还没有登陆，先去登陆吧！');
-                        window.location.href = "#/login";
+                        $window.location.href = "#/login";
                         return;
                     }
                     var obj = data.response;

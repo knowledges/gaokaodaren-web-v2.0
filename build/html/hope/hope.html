@@ -1613,7 +1613,7 @@
                 <div class="col-sm-10 text-left">
                     <div class="col-sm-12" style="padding: 0;">
                         <ul class="nav nav-pills">
-                            <li class="dropdown" ng-repeat="lh4t in hope.classify_1" ng-if="$index==0">
+                            <li class="dropdown" ng-repeat="list in hope.classify_1" ng-if="$index==0">
                                 <a class="dropdown-toggle" href="javascript:;;" type_id="{{list.id}}"
                                    ng-click="showCharacter(list.id)">
                                     {{list.name}}<span class="caret"></span>
@@ -1941,7 +1941,7 @@
         </div>
     </div>
     <!-- 优先-->
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" ng-if="hope.schoolArr.length>0 || hopeClassify.genus.length>0 || hope.cityArr.length>0 || hopeClassify.terr.length>0 || hope.departArr.length>0 || hopeClassify.proCate.length>0 || hope.personalitylist.length>0 || hopeClassify.personals.length>0">
         <div class="panel-heading text-left">
             <h4 ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="亲，您的优先选项确定是这些吗？"><i class="icon-thumbs-up"></i> 意向优先汇总</h4>
         </div>
@@ -1953,8 +1953,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_school">
                         <li ng-repeat="list in hopeClassify.genus"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.schoolArr"><a
-                                href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.schoolArr"><a href="javascript:;;" idx="{{list.id}}">{{list.name}}<span aria-hidden="true" ng-click="removeArr($index,1,list.id)" style="color: #656565; padding: 5px;">&times;</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -1965,7 +1964,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_city">
                         <li ng-repeat="list in hopeClassify.terr"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.cityArr"><a href="javascript:;;">{{list.name}}</a>
+                        <li ng-repeat="list in hope.cityArr"><a href="javascript:;;"  idx="{{list.id}}">{{list.name}}<span aria-hidden="true" ng-click="removeArr($index,2,list.id)" style="color: #656565; padding: 5px;">&times;</span></a></li>
                         </li>
                     </ul>
                 </div>
@@ -1977,8 +1976,7 @@
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills" id="watch_depart">
                         <li ng-repeat="list in hopeClassify.proCate"><a href="javascript:;;">{{list.name}}</a></li>
-                        <li ng-repeat="list in hope.departArr"><a
-                                href="javascript:;;">{{list.name}}</a></li>
+                        <li ng-repeat="list in hope.departArr"><a href="javascript:;;" idx="{{list.id}}">{{list.name}}<span aria-hidden="true" ng-click="removeArr($index,3,list.id)" style="color: #656565; padding: 5px;">&times;</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -1989,8 +1987,9 @@
                 <div class="col-sm-10 text-left" id="watch_persona">
                     <ul class="nav nav-pills">
                         <!-- <li ng-repeat="list in hopeClassify.personals"><a href="javascript:;;">{{list.name}}</a></li>-->
-                        <li ng-repeat="list in hope.personalitylist"><a
-                                href="javascript:;;">{{list.parentname}} {{list.name}}</a></li>
+                        <li ng-repeat="list in hope.personalitylist">
+                            <a href="javascript:;;"  idx="{{list.id}}">{{list.parentname}} {{list.name}}<span aria-hidden="true" ng-click="removeArr($index,4,list.id)" style="color: #656565; padding: 5px;">&times;</span></a></li>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -2002,7 +2001,7 @@
             <h4 title=""><i class="icon-thumbs-up"></i>优先排序</h4>
         </div>
         <div class="panel panel-footer">
-            <div id="proSoft" class="row">
+            <div id="proSoft" class="row" ng-if="hope.schoolArr.length>0 || hope.departArr.length>0 || hope.cityArr.length>0 || hope.personalitylist.length>0" >
                 <div class="col-sm-2 text-right">
                     <h4 title="亲。在高校、专业、城市、个性确定方向，您更优先选择哪项？">要素</h4>
                 </div>
@@ -2310,10 +2309,12 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" ng-click="reqOrder()"
-                data-target="#myModal">提交
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#myModal">提交
         </button>
     </div>
+
+    <button  ng-if="hope.schoolArr.length<=0 && hopeClassify.genus.length<=0 && hope.cityArr.length<=0 && hopeClassify.terr.length<=0 && hope.departArr.length<=0 && hopeClassify.proCate.length<=0 && hope.personalitylist.length<=0 && hopeClassify.personals.length<=0" type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" ng-click="reqOrder()" data-target="#myModal">提交
+    </button>
 </div>
 <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel">

@@ -1496,7 +1496,7 @@ require(['app'], function (app) {
                         effectPrefer($scope.hope.school_prefer, $("#panel-footer a[school_id]"), "school_id", $scope.hope.schoolArr);
                         effectIgnore($scope.hope.school_ignore, $("#panel-footer a[school_id]"), "school_id");
 
-                        effectPrefer($scope.hope.depart_prefer, $("#depart a[depart_id]"), "depart_id", $scope.hope.depart_prefer);
+                        effectPrefer($scope.hope.depart_prefer, $("#depart a[depart_id]"), "depart_id", $scope.hope.departArr);
                         effectIgnore($scope.hope.depart_ignore, $("#depart a[depart_id]"), "depart_id");
 
                         effectPrefer($scope.hope.personality_prefer, $("#character a[s_id]"), "s_id", $scope.hope.personalityArr);
@@ -3547,7 +3547,7 @@ require(['app'], function (app) {
                         }
                         $scope.hope.order_id = data.response.order_id;
                         $scope.hope.money = data.response.money;
-                        localStorage.setItem("type",data.hope.batch);
+                        localStorage.setItem("type",$stateParams.batch);
                         $('#modal-pay').modal('show');
                     });
                 }
@@ -3662,6 +3662,10 @@ require(['app'], function (app) {
             a.click();
         }
 
+        $scope.$watch('hope.school_prefer', function (newValue, oldValue) {
+            console.log(JSON.stringify(newValue));
+        });
+
         $scope.$watch('hope.langue', function (newValue, oldValue) {
             arrPush()
         });
@@ -3703,6 +3707,29 @@ require(['app'], function (app) {
         };
 
 
+        $scope.removeArr = function(idx,type,id){
+            if(type == 1){
+                $scope.hope.schoolArr.splice(idx,1);
+                $("#panel-footer a[school_id="+id+"]").removeClass("agree");
+                $scope.hope.school_prefer.splice($scope.hope.school_prefer.indexOf(id+""),1);
+                $scope.finshparam.school_prefer[$scope.finshparam.school_prefer.indexOf(id+"")]="";
+            }else if (type == 2){
+                $scope.hope.cityArr.splice(idx,1);
+                $("#provnice button[city_id="+id+"]").removeClass("agree");
+                $scope.hope.city_prefer.splice($scope.hope.city_prefer.indexOf(id+""),1);
+                $scope.finshparam.city_prefer[$scope.finshparam.city_prefer.indexOf(id+"")]="";
+            }else if (type == 3){
+                $scope.hope.departArr.splice(idx,1);
+                $("#depart a[depart_id="+id+"]").removeClass("agree");
+                $scope.hope.depart_prefer.splice($scope.hope.depart_prefer.indexOf(id+""),1);
+                $scope.finshparam.depart_prefer[$scope.finshparam.depart_prefer.indexOf(id+"")]="";
+            }else if (type == 4){
+                $scope.hope.personalitylist.splice(idx,1);
+                $("#character a[s_id="+id+"]").removeClass("agree");
+                $scope.hope.personality_prefer.splice($scope.hope.personality_prefer.indexOf(id+""),1);
+                $scope.finshparam.personality_prefer[$scope.finshparam.personality_prefer.indexOf(id+"")]="";
+            }
+        }
     }]);
     app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
         return {

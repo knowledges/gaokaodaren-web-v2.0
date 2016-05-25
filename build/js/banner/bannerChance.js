@@ -107,7 +107,7 @@ require(['app'],function(app){
                 if(data.status == 0) {
                     getLoginUserInfo.isScores();
                     localStorage.setItem("type", $scope.table.batch);
-                    $window.location.href = "#/chance/batch="+$scope.table.batch;
+                    $window.location.href = "#/chance/batch="+$scope.table.batch+"&out_trade_no=";
                 }else if (data.status == 4){
                     alert('您还没有登陆，先去登陆吧！');
                     window.location.href = "#/login";

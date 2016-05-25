@@ -146,7 +146,7 @@ define(['app'],function(app){
                 data: { isPublic: true}
             })
             .state("chance", {//预测
-                url: "/chance/batch=:batch",
+                url: "/chance/batch=:batch&out_trade_no=:out_trade_no",
                 templateUrl: "html/chance/newChance.html",
                 controller:"chanceCtr",
                 data: { isPublic: true},
@@ -713,7 +713,7 @@ define(['app'],function(app){
         };
 
     }]);
-    app.controller("pageJumpCtr",["$scope","$window","getLoginUserInfo",function($scope,$window,getLoginUserInfo){
+    app.controller("pageJumpCtr",["$scope","$window","$timeout","getLoginUserInfo",function($scope,$window,$timeout,getLoginUserInfo){
 
         $(".dropdown-menu li a").click(function(e){
             $(".dropdown").removeClass("open");
@@ -731,13 +731,13 @@ define(['app'],function(app){
                 if (num == 2){
                     $window.location.href = "#/hope/batch="+type+"&out_trade_no=";
                 }else if (num == 3){
-                    $window.location.href = "#/chance/batch="+type;
+                    $window.location.href = "#/chance/batch="+type+"&out_trade_no=";
                 }
             }else{
                 if (num == 2){
                     $window.location.href = "#/hope/batch=0&out_trade_no=";
                 }else if (num == 3){
-                    $window.location.href = "#/chance/batch=0";
+                    $window.location.href = "#/chance/batch=0&out_trade_no=";
                 }
             }
         };
@@ -745,9 +745,11 @@ define(['app'],function(app){
         $scope.jumpDepth = function(num){
             $window.location.href = "#/depth/depthInfo/batch="+num;
             $window.location.reload(0);
-        }
-        setTimeout(function(){
+        };
+
+        $timeout(function(){
             $("input").placeholder();
         },500);
+
     }]);
 });

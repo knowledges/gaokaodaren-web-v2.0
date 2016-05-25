@@ -26,6 +26,7 @@ define(function(require,exports,module){
             console.log(error);
         });
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $(".modal-backdrop").hide();
             homeService.htmlPage="";
             displayService.isShow = true;
             $rootScope.loading = true;

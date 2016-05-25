@@ -17,7 +17,6 @@ require(['app'],function(app){
         }
     }]);
     app.controller('searchCtr',['$rootScope','$scope','$http','$location','$stateParams','$sce','loocha',function($rootScope,$scope,$http,$location,$stateParams,$sce,loocha){
-        console.log($stateParams);
         $scope.html={
             list:[],
             content:"",
@@ -25,7 +24,7 @@ require(['app'],function(app){
         };
         init();
         function init(){
-            $http.get(loocha+'/article/search?name='+$stateParams.key+'&index='+0+'&limit='+15).success(function(data,status){
+            $http.get(loocha+'/article/search?name='+encodeURI($stateParams.key)+'&index='+0+'&limit='+15).success(function(data,status){
                 $scope.html.list = data.response; $rootScope.loading = false;
                 $rootScope.loading = false;
                 //$scope.html.content =$sce.trustAsHtml($scope.html.list[0].content);

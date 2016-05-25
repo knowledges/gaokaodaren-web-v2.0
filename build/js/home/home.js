@@ -2,40 +2,44 @@
  * Created by qbl on 2015/11/25.
  */
 define(['app','jquery','bootstrap'],function(app,$,bootstrap){
-    app.directive('onFinishRender', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
+    app.directive('onFinishRender', ["$rootScope", function ($rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
 
                 if (scope.$last === true) {
                     $rootScope.loading = false;
-                    $timeout(function () {
-                        $('.carousel').carousel({
-                            interval: 5000
-                        });
-
-                        $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
-                        function handlerIn(){
-                            $('.carousel').carousel('pause');
-                            var num = $("#myCarousel ol li[class='active']").data("slide-to");
-                            $(".carousel-item").hide();
-                            $("#item"+num).show();
-                            if(num>0 && num <4){
-                                $(".floatAdv").hide();
-                            }else{
-                                $(".floatAdv").show();
-                            }
-                        }
-                        function handlerOut(){
-                            $('.carousel').carousel({'pause':"true"});
-                        }
-                        //scope.$emit(attr.onFinishRender);
-                    },1000);
                 }
             }
         }
     }]);
-    app.controller("homeCtrl",['$rootScope','$scope','$window','$sce','homeService','data_province','displayService',function($rootScope,$scope,$window,$sce,homeService,data_province,displayService) {
+    app.controller("homeCtrl",['$rootScope','$scope','$window','$sce','$timeout','homeService','data_province','displayService',function($rootScope,$scope,$window,$sce,$timeout,homeService,data_province,displayService) {
+
+        $scope.$on("$viewContentLoaded",function(e){
+            $timeout(function () {
+                $('.carousel').carousel({
+                    interval: 5000
+                });
+
+                $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
+                function handlerIn(){
+                    $('.carousel').carousel('pause');
+                    var num = $("#myCarousel ol li[class='active']").data("slide-to");
+                    $(".carousel-item").hide();
+                    $("#item"+num).show();
+                    if(num>0 && num <4){
+                        $(".floatAdv").hide();
+                    }else{
+                        $(".floatAdv").show();
+                    }
+                }
+                function handlerOut(){
+                    $('.carousel').carousel({'pause':"true"});
+                }
+                //scope.$emit(attr.onFinishRender);
+            },1000);
+        });
+
         $scope.table = {
             provincelist:"",
             economic:"",
