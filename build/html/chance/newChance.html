@@ -361,8 +361,8 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="forecast.schl_name" placeholder="请输入高校名称"/>
-                        <!--ng-keydown="findDepart($event)"-->
+                        <input type="text" class="form-control" ng-keydown="findDepart()" ng-model="forecast.schl_name" placeholder="请输入高校名称"/>
+                        <!---->
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -406,7 +406,7 @@
                 </div>-->
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="forecast.d_departname"
+                        <input ng-keydown="findSchl()" type="text" class="form-control" ng-model="forecast.d_departname"
                                placeholder="请输入专业名称"/>
                         <!--ng-keydown="findSchl($event)"-->
                     </div>
