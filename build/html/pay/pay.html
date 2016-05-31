@@ -1,21 +1,7 @@
+<div ng-include="'templete/model-loading/loading.html'"></div>
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-        <!-- 列表-->
-        <!--<div class="row">-->
-            <!--<div class="panel panel-primary">-->
-                <!--<div class="panel-heading text-left"> <i class="icon-group"></i> 购买列表名单</div>-->
-                <!--<div class="panel-body">-->
-                    <!--&lt;!&ndash;<MARQUEE behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="3" width="100"><SPAN unselectable="on">这里是要滚动的内容</SPAN></MARQUEE>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="5" width="500" onmouseover="this.stop();" onmouseout="this.start();"> <SPAN ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</SPAN></MARQUEE>&ndash;&gt;-->
-                    <!--<div class="row">-->
-                        <!--<div id="scrollObj"  style="white-space:nowrap;overflow:hidden;width:100%;">-->
-                            <!--<span ng-repeat="list in pay.list" unselectable="on">用户{{list.name}}，考生号{{list.number}}，获取参考表</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
         <!--订单标号-->
         <div class="row">
             <div class="panel panel-default">
@@ -34,11 +20,16 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
-                        <h4><i class="icon-credit-card" style="color:orange"></i> 第三方支付平台 </h4>
+                        <h4>
+                            <i class="icon-credit-card" style="color:orange"></i> 第三方支付平台
+                        </h4>
                         <div class="col-sm-12">
                             <ul class="nav nav-pills">
-                                <li><a href="javascript:;;" class="btn btn-default zhifubao" pay-type="zhifubao" pay></a></li>
-                            <ul>
+                                <li><a href="javascript:void(0);" class="btn btn-default zhifubao" pay-type="zhifubao" pay></a></li>
+                                <li style="display: none;">
+                                    <a href="javascript:void(0);" class="btn btn-default weixinzhifu" ng-click="weixinzhifu()"><i  class="weixinzhifu-icon"></i></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="row">
@@ -122,7 +113,36 @@
                 </div>
             </div>
         </div>
-
+        <div id="weixin" class="modal" style="background: rgba(0, 0, 0, 0.51)">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  ng-click="other()"><span
+                                aria-hidden="true"  ng-click="other()">&times;</span></button>
+                        <h4 class="modal-title text-left">支付{{pay.wxMoney/100}}元</h4>
+                    </div>
+                    <div class="modal-body text-center" ng-mouseenter="promptenter()" ng-mouseleave="promptleave()">
+                        <h3>微信扫码支付</h3>
+                        <div id="qrcode">
+                            <!--<img src="img/2weima.jpg" width="200" style="border:1px solid #ccc;" alt=""/>-->
+                        </div>
+                        <div ng-if="pay.expired" style="position: absolute;top: 70px;left: 49%;width: 212px;height: 212px;background: rgba(0, 0, 0, 0.51);margin-left: -100px;">
+                            <button style="margin-top: 80px;" class="btn btn-default" ng-click="again()">请重新获取</button>
+                        </div>
+                        <div>
+                            <p ng-if="!pay.expired"><span style="color: red;">{{countdown}}秒</span>后此二维码过期</p>
+                            <p ng-if="pay.expired" style="color: red;">二维码已过期，请重新获取二维码。</p>
+                        </div>
+                        <div style="position: absolute;top: 0;right: -50%;" ng-if="pay.sweep">
+                            <img src="img/direct-weixin-phone.png" alt=""/>
+                        </div>
+                    </div>
+                    <!--<div class="modal-footer">-->
+                        <!--<a href="javascript:;;" ng-click="other()">使用其他支付方式 ></a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-sm-3"></div>
 </div>

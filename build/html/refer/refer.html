@@ -38,17 +38,26 @@
                             <td rowspan="6" width="40" ng-if="$index == 3">{{'D'}}</td>
                             <td rowspan="6" width="40" ng-if="$index == 4">{{'E'}}</td>
                             <td rowspan="6" width="80">{{list.schoolCode}}</td>
-                            <td rowspan="6">{{list.schoolName}}<br></td>
+                            <td rowspan="6">
+                                <a href="javascript:;;" style="color: #000;" ng-click="showSchlInfo(list)">{{list.schoolName}}</a>
+                                <br>
+                            </td>
                             <td width="30">1</td>
                             <td width="100">{{list.departs[0].code}}</td>
-                            <td>{{list.departs[0].name}}</td>
+                            <td>
+                                <!--<a href="javascript:;;" style="color: #000;"  ng-click="showDepartInfo(list.departs[0])"></a>-->
+                                {{list.departs[0].name}}
+                            </td>
                             <!--<td>{{list.departs[0].admit}}</td>-->
                             <td rowspan="6">是</td>
                         </tr>
                         <tr ng-repeat="list in list.departs" ng-if="!$first && $index+1<=6">
                             <td>{{$index+1}}</td>
                             <td>{{list.code}}</td>
-                            <td>{{list.name}}</td>
+                            <td>
+                                <a href="javascript:;;" style="color: #000;"  ng-click="showDepartInfo(list)">{{list.name}}
+                                </a>
+                            </td>
                             <!--<td>{{list.admit}}</td>-->
                         </tr>
                     </tbody>
@@ -149,7 +158,7 @@
                                     <span ng-if="!list.pointUser && list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
                                 </span>
                                 <span ng-if="order.type==5 || order.type==6">
-                                    <span ng-if="list.departs[0].admit.length>0">{{departlist.admit}}</span>
+                                    <span ng-if="list.departs[0].admit.length>0">{{list.departs[0].admit}}</span>
                                     <span ng-if="list.departs[0].admit.length<=0" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)" tiptitle="该专业为新招生专业或者该专业仅招收1/2年，计算概率没有意义">不确定</span>
                                 </span>
                             </td>
@@ -235,4 +244,6 @@
         </div>
     </div>
 </div>
+<div ng-include="'templete/model-mask/mask-school.html'"></div>
+<div ng-include="'templete/model-mask/mask-depart.html'"></div>
 <div id="qTip" style="left:570px;top:92px;display: none;"></div>

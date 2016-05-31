@@ -1,0 +1,14 @@
+<div class="modal" id="mask-depart" style="display: none; background:rgba(0, 0, 0, 0.53);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closed()"><span
+                        aria-hidden="true"  ng-click="closed()">&times;</span></button>
+                <h4 class="modal-title">专业详情</h4>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: scroll;">
+                <div ng-bind-html="forecast.departInfo"></div>
+            </div>
+        </div>
+    </div>
+</div>

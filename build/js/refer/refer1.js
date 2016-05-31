@@ -2,7 +2,7 @@
  * Created by qbl on 2016/2/1.
  */
 require(['app'], function (app) {
-    app.controller('referCtr1', ['$rootScope','$scope', '$http', '$stateParams','$window','loocha','getLoginUserInfo', function ($rootScope,$scope, $http, $stateParams,$window,loocha,getLoginUserInfo) {
+    app.controller('referCtr1', ['$rootScope','$scope', '$http', '$stateParams','$window','$timeout','loocha','getLoginUserInfo', function ($rootScope,$scope, $http, $stateParams,$window,$timeout,loocha,getLoginUserInfo) {
 
         $scope.info = {
             title: "",
@@ -68,18 +68,26 @@ require(['app'], function (app) {
         function init() {
            /* getLoginUserInfo.isLogoin();*/
 
-            $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no"))
-                .success(function(data){
-                    if (data.status == 4){
-                        alert('您还没有登陆，先去登陆吧！');
-                        window.location.href = "#/login";
-                        return;
-                    }
-                    var manualInfo = data.response;
-                    $scope.persons = manualInfo.schools;
-                    $scope.sub.id = manualInfo.id;
-                    $rootScope.loading = false;
-                });
+            var _times = $timeout(function(){
+                $timeout.cancel(_times);
+                var times = new Date().getTime().toString();
+                $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no")+"&t="+times,{catch:false})
+                    .success(function(data){
+                        console.log(JSON.stringify(data));
+                        if (data.status == 4){
+                            alert('您还没有登陆，先去登陆吧！');
+                            window.location.href = "#/login";
+                            return;
+                        }else if (data.status == 0){
+                            var manualInfo = data.response;
+                            $scope.persons = manualInfo.schools;
+                            $scope.sub.id = manualInfo.id;
+                        }
+                        $rootScope.loading = false;
+                    });
+            });
+
+
 
             var type = localStorage.getItem('type') == null ? 1 : localStorage.getItem('type');
             switch (parseInt(type)) {
@@ -586,21 +594,26 @@ require(['app'], function (app) {
             var tramsform = function (data) {
                 return $.param(data);
             };
-
-            $http.post(loocha+"/exam/intention/manual/save", param, {
-                headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                transformRequest: tramsform
-            }).success(function (data) {
-                if(data.status == 3){
-                    alert("已提交");
-                }else if(data.status == 0){
-                    $window.location.href = "#/refer?orderId="+localStorage.getItem('out_trade_no')+"&type="+localStorage.getItem('type')+"&flag="+3;
-                    $window.location.reload(0);
-                }else if (data.status == 4){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                }
-            })
+            var _times = null;
+            _times = $timeout(function(){
+               $timeout.cancel(_times);
+                var times = new Date().getTime().toString();
+                $http.post(loocha+"/exam/intention/manual/save?t="+ times, param, {
+                    headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    transformRequest: tramsform
+                }).success(function (data) {
+                    if(data.status == 3){
+                        alert("已提交");
+                    }else if(data.status == 0){
+                        console.log("out_trade_no:"+localStorage.getItem('out_trade_no'));
+                        $window.location.href = "#/refer?orderId="+localStorage.getItem('out_trade_no')+"&type="+localStorage.getItem('type')+"&flag="+3;
+                        //$window.location.reload(0);
+                    }else if (data.status == 4){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }
+                })
+            });
         };
 
         $scope.pay = function(){

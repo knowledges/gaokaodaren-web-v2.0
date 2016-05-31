@@ -157,6 +157,8 @@ require(['app'],function(app){
                 alert(" 该内容同： \n 招生政策深度查询目录下 \n（一）平行志愿投档规则深度查询中\n 1、选科等级要求分类统计");
             }else if (idx == 78){
                 alert(" 该内容同： \n 招生政策深度查询目录下 \n（二）进档考生录取规则深度查询中\n 8、按专业录取附加条件分类统计");
+            }else if (idx == 86){
+                alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  2、各高校近三年招生计划对比表");
             }else if (idx == 111){
                 alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  7、在江苏招生仅三年的高校");
             }else if (idx == 112){
@@ -658,7 +660,7 @@ require(['app'],function(app){
                             }else if (data.status == 0){
                                 $scope.hope.order_id = data.response.order_id;
                                 $scope.hope.money = data.response.money;
-                                $('#modal-pay').modal('show');
+                                $('#modal-pay').show();
                                 localStorage.removeItem("orderList");
                                 localStorage.removeItem("depthbatch");
                                 localStorage.removeItem("depthmoney");
@@ -669,8 +671,8 @@ require(['app'],function(app){
 
         $scope.pay = function () {
             openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $location.$$url.split("batch=")[1]);
-            $('#modal-pay').modal('hide');
-            $("#tip").modal('show');
+            $('#modal-pay').hide();
+            $("#tip").show();
         };
 
         $scope.isPay = function () {
@@ -684,7 +686,7 @@ require(['app'],function(app){
                         localStorage.removeItem("depthmoney");
                         window.location.reload(0);
                     }
-                    $("#tip").modal('hide');
+                    $("#tip").hide();
                 });
         };
 

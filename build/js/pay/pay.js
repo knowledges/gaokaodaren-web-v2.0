@@ -9,90 +9,191 @@ require(['app'],function(app){
             replace:true,
             link:function(scope, element, attrs,controller){
                 element.bind('click',function(element){
-                    var type = element.target.getAttribute("data-type");
-                    if(type == 1){
-                        id(type).style.display = "block";
-                        id(2).style.display = "none";
-                        id(3).style.display = "none";
-                    }else if (type == 2){
-                        id(1).style.display = "none";
-                        id(3).style.display = "none";
-                        id(type).style.display = "block";
-                    }else if(type == 3){
-                        id(1).style.display = "none";
-                        id(2).style.display = "none";
-                        id(type).style.display = "block"
-                    }
-                    function id(id){
-                        return document.getElementById('div'+id);
-                    }
+                    scope.$apply(function(){
+                        var type = element.target.getAttribute("data-type");
+                        if(type == 1){
+                            id(type).style.display = "block";
+                            id(2).style.display = "none";
+                            id(3).style.display = "none";
+                        }else if (type == 2){
+                            id(1).style.display = "none";
+                            id(3).style.display = "none";
+                            id(type).style.display = "block";
+                        }else if(type == 3){
+                            id(1).style.display = "none";
+                            id(2).style.display = "none";
+                            id(type).style.display = "block"
+                        }
+                        function id(id){
+                            return document.getElementById('div'+id);
+                        }
+                    })
                 });
             }
         }
     });
-    app.directive('pay',['$window','$location','loocha',function($window,$location,loocha){
+    app.directive('pay',['$window','$location','$timeout','loocha',function($window,$location,$timeout,loocha){
         return function(scope, element, attrs){
-            element.bind('click',function(element){
-                var out_trade_no = $location.$$search.order_id, order_type = $location.$$search.type;
-                var type = element.target.getAttribute("pay-type");
-                /***
-                 * /exam/buy
-                 * type:0 支付宝
-                 * type:1 网页
-                 * type:2 微信
-                 */
-                switch(type){
-                    case "zhifubao":
-                        $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0");
-                        break;
-                    case "bank":
-                        var code = element.target.getAttribute("bank-code");
-                        window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
-                        break;
-                    case "yinhanghuikuan":
-                        document.getElementById('modal').style.display = "block";
-                        break;
-                }
-
+            element.bind('click',function(event){
+                scope.$apply(function(){
+                    var out_trade_no = $location.$$search.order_id;
+                    var type = event.target.getAttribute("pay-type");
+                    /***
+                     * /exam/buy
+                     * type:0 支付宝
+                     * type:1 网页
+                     * type:2 微信
+                     */
+                    switch(type){
+                        case "zhifubao":
+                            $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0");
+                            break;
+                        case "bank":
+                            var code = event.target.getAttribute("bank-code");
+                            window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
+                            break;
+                        case "yinhanghuikuan":
+                            document.getElementById('modal').style.display = "block";
+                            break;
+                    }
+                });
             })
-
         }
-    }])
-    app.controller('payCtr',['$scope','$location','$interval','$stateParams','$http','loocha',function($scope,$location,$interval,$stateParams,$http,loocha){
+    }]);
+    app.controller('payCtr',['$rootScope','$scope','$window','$location','$interval','$timeout','$http','loocha',function($rootScope,$scope,$window,$location,$interval,$timeout,$http,loocha){
 
         $scope.pay = {
             list:"",
             orderId:"",
-            money:""
-        }
+            money:"",
+            expired:false,
+            sweep:false,
+            wxMoney:"",
+        };
+
+        $scope.countdown = 60;
 
         init();
 
         $scope.close = function(){
             document.getElementById('modal').style.display = "none";
-        }
+        };
 
         function init(){
+            $rootScope.loading = false;
             $scope.pay.orderId = $location.$$search.order_id;
             $scope.pay.money = $location.$$search.money;
-            //getBuyInfo();
-        }
+            var interval;
+            var _zfbTimer  = null;
+            $scope.runTiming  = function(){
+                $timeout(function(){
+                    interval = $interval(function(){
+                        if ($scope.countdown <= 1) {
+                            $scope.stop();
+                        } else {
+                            $scope.countdown--;
+                        }
+                    },1000);
+                });
 
-        function getBuyInfo(){
-            $http.get(loocha+buyinfoURl)
-                .success(function(data){
-                    $scope.pay.list = data.response;
-                })
-        }
+                return interval;
+            };
 
-        //setInterval(function(){
-        //    var obj = document.getElementById('scrollObj');
-        //    var tmp = (obj.scrollLeft)++;
-        //    //当滚动条到达右边顶端时
-        //    if (obj.scrollLeft==tmp){obj.innerHTML+=obj.innerHTML}
-        //    ////当滚动条滚动了初始内容的宽度时滚动条回到最左端
-        //    //if (obj.scrollLeft>=obj.firstChild.offsetWidth){obj.scrollLeft=0;}
-        //},20);
+            $scope.stop = function(){
+                if(angular.isDefined(interval)){
+                    $scope.pay.expired = !$scope.pay.expired;
+                    $interval.cancel(interval);
+                    $timeout.cancel(_zfbTimer);
+                    interval = undefined;
+                }
+            };
+
+            $scope.again = function(){
+                if(angular.isDefined(interval)){
+                    return;
+                }
+
+                $http.get(loocha+"/weixin/qrcode?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
+                    .success(function(data){
+                        if(data.status == "-1"){
+                            alert("登陆失效，请重新登陆");
+                            $window.location.href="#/login"
+                        }else if(data.status==0){
+                            var url = data.response.code_url;
+                            $scope.countdown = 60;
+                            $scope.pay.wxMoney = data.response.money;
+                            $scope.pay.expired = !$scope.pay.expired;
+                            $scope.runTiming();
+                            $scope.qrcode.makeCode(url);
+                        }else {
+                            alert("获取失败!");
+                        }
+                    });
+                zhifubaoLoop();
+            };
+
+            $scope.promptenter = function(){
+                $scope.pay.sweep = !$scope.pay.sweep;
+            };
+
+            $scope.promptleave = function(){
+                $scope.pay.sweep = !$scope.pay.sweep;
+            };
+
+            $scope.weixinzhifu = function(){
+                $rootScope.loading = true;
+                $("#qrcode").empty();
+                $scope.qrcode = new QRCode(document.getElementById("qrcode"), {
+                    width : 200,//设置宽高
+                    height : 200
+                });
+
+                $http.get(loocha+"/weixin/qrcode?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
+                    .success(function(data){
+                        $rootScope.loading = false;
+                        if(data.status == "-1"){
+                            alert("登陆失效，请重新登陆");
+                            $window.location.href="#/login"
+                        }else if(data.status==0){
+                            var url = data.response.code_url;
+                            $scope.pay.wxMoney = data.response.money;
+                            $scope.qrcode.makeCode(url);
+                            $("#weixin").show();
+                            $scope.runTiming();
+                        }else {
+                            alert("获取失败!");
+                        }
+                    });
+
+                zhifubaoLoop();
+            };
+
+            function zhifubaoLoop(){
+                $http.get(loocha+"/weixin/qrcode/status?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
+                    .success(function(data){
+                        console.log(data.response);
+                        if(data.status == "-1"){
+                            alert("登陆失效，请重新登陆");
+                            $window.location.href="#/login"
+                        }else if(data.status =="1004"){
+                            _zfbTimer = $timeout(function(){
+                                zhifubaoLoop()
+                            },5000);
+                        }else if(data.status ==0){
+                            window.location.href="#"+data.response.split("#")[1];
+                            $timeout.cancel(_zfbTimer);
+                        }
+                    });
+            }
+            $scope.other = function(){
+                $scope.countdown = 60;
+                $scope.pay.expired = !$scope.pay.expired;
+                $interval.cancel(interval);
+                $timeout.cancel(_zfbTimer);
+                interval = undefined;
+                $("#weixin").hide();
+            };
+        }
     }]);
-})
+});
 

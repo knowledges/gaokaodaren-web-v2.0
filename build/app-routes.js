@@ -20,12 +20,12 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
-                return $http.get(loocha+'/user').success(function(data){
+                return $http.get(loocha+'/user?=t'+new Date().getTime().toString()).success(function(data){
                     if(data.status == "-1"){
                         sessionStorage.removeItem('type');
                         sessionStorage.removeItem('uScore');
@@ -54,7 +54,7 @@ define(['app'],function(app){
                 });
             },
             isScores:function(){
-                return $http.get(loocha+"/uscore").success(function(data){
+                return $http.get(loocha+"/uscore?=t"+new Date().getTime().toString()).success(function(data){
                     if(data.response!=null && data.response.length>0){
                         sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
                     }
@@ -144,6 +144,17 @@ define(['app'],function(app){
                 templateUrl: "html/hope/hope.html",
                 controller:"hopeCtr",
                 data: { isPublic: true}
+            })
+            .state("hopes", {/*意向*/
+                url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
+                templateUrl: "html/hope/backuphope.html",
+                controller:"recommendCtrl",
+                data: { isPublic: true},
+                resolve:{
+                    deps:['$ocLazyLoad',function($ocLazyLoad){
+                        return $ocLazyLoad.load(['js/hope/backuphopes.js']);
+                    }]
+                }
             })
             .state("chance", {//预测
                 url: "/chance/batch=:batch&out_trade_no=:out_trade_no",

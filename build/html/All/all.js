@@ -7,7 +7,7 @@ require(['app'], function (app) {
     app.constant('referUrl3', '/exam/order/all?flag=0&index=0&limit=999&type=1');
     app.constant('referUrl4', '/exam/order/all?flag=4&index=0&limit=999&type=1');
     app.constant('referUrl5', '/exam/order/all?flag=5&index=0&limit=999&type=1');
-    app.controller('referenceCtr', ['$scope', '$http', 'loocha', 'referUrl2', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl2, getLoginUserInfo) {
+    app.controller('referenceCtr', ['$scope', '$http','$timeout' ,'loocha', 'referUrl2', 'getLoginUserInfo', function ($scope, $http, $timeout,loocha, referUrl2, getLoginUserInfo) {
         $scope.will = {
             isShowWill: false,
             list: ""
@@ -15,16 +15,24 @@ require(['app'], function (app) {
 
         getLoginUserInfo.isLogoin();
 
-        $http.get(loocha + referUrl2)
-            .success(function (data) {
-                if(data.status == "4"){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                    return;
-                }
-                $scope.will.list = data.response.list;
-                $scope.will.isShowWill = true;
-            });
+        var _time = null;
+        _time = $timeout(function(){
+            $timeout.cancel(_time);
+            var times = new Date().getTime().toString();
+            console.log(times);
+            $http.get(loocha + referUrl2+"&t="+times)
+                .success(function (data) {
+                    if(data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
+                    $scope.will.list = data.response.list;
+                    $scope.will.isShowWill = true;
+                });
+
+        },100);
+
 
         $scope.seeHope = function (orderId,flag,type) {
             if(flag == 4){
@@ -43,7 +51,7 @@ require(['app'], function (app) {
             }
         }
     }]);
-    app.controller('willCtr', ['$scope', '$http', 'loocha', 'referUrl3', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl3, getLoginUserInfo) {
+    app.controller('willCtr', ['$scope', '$http','$timeout' ,'loocha', 'referUrl3', 'getLoginUserInfo', function ($scope, $http,$timeout, loocha, referUrl3, getLoginUserInfo) {
 
         $scope.refer = {
             isShowRefer: false,
@@ -51,36 +59,48 @@ require(['app'], function (app) {
         };
 
         getLoginUserInfo.isLogoin();
-
-        $http.get(loocha + referUrl3)
-            .success(function (data, status) {
-                if(data.status == "4"){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                    return;
-                }
-                $scope.refer.isShowRefer = true;
-                $scope.refer.list = data.response.list;
-            });
+        var _time = null;
+        _time = $timeout(function() {
+            $timeout.cancel(_time);
+            var times = new Date().getTime().toString();
+            console.log(times);
+            $http.get(loocha + referUrl3+"&t="+times)
+                .success(function (data, status) {
+                    if (data.status == "4") {
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
+                    $scope.refer.isShowRefer = true;
+                    $scope.refer.list = data.response.list;
+                });
+        },100);
     }]);
-    app.controller('allChanceCtr', ['$scope', '$http', 'loocha', 'referUrl4', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl4, getLoginUserInfo) {
+    app.controller('allChanceCtr', ['$scope', '$http', '$timeout','loocha', 'referUrl4', 'getLoginUserInfo', function ($scope, $http, $timeout,loocha, referUrl4, getLoginUserInfo) {
         $scope.chance = {
             isShowWill: false,
             list: ""
         };
 
         getLoginUserInfo.isLogoin();
+        var _time = null;
+        _time = $timeout(function(){
+            $timeout.cancel(_time);
+            var times = new Date().getTime().toString();
+            console.log(times);
+            $http.get(loocha + referUrl4+"&t="+times)
+                .success(function (data) {
+                    if(data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
+                    $scope.chance.list = data.response.list;
+                    $scope.chance.isShowWill = true;
+                });
 
-        $http.get(loocha + referUrl4)
-            .success(function (data) {
-                if(data.status == "4"){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                    return;
-                }
-                $scope.chance.list = data.response.list;
-                $scope.chance.isShowWill = true;
-            });
+        },100);
+
 
         $scope.seeHope = function (orderId,flag,type) {
             if(flag == 4){
@@ -99,24 +119,30 @@ require(['app'], function (app) {
             }
         }
     }]);
-    app.controller('alldepthCtr', ['$scope', '$http', 'loocha', 'referUrl5', 'getLoginUserInfo', function ($scope, $http, loocha, referUrl5, getLoginUserInfo) {
+    app.controller('alldepthCtr', ['$scope', '$http','$timeout' ,'loocha', 'referUrl5', 'getLoginUserInfo', function ($scope, $http, $timeout,loocha, referUrl5, getLoginUserInfo) {
         $scope.depth = {
             isShowWill: false,
             list: ""
         };
 
         getLoginUserInfo.isLogoin();
+        var _time = null;
+        _time = $timeout(function() {
+            $timeout.cancel(_time);
+            var times = new Date().getTime().toString();
+            console.log(times);
+            $http.get(loocha + referUrl5+"&t="+times)
+                .success(function (data) {
+                    if(data.status == "4"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                        return;
+                    }
+                    $scope.depth.list = data.response.list;
+                    $scope.depth.isShowWill = true;
+                });
+        },100);
 
-        $http.get(loocha + referUrl5)
-            .success(function (data) {
-                if(data.status == "4"){
-                    alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
-                    return;
-                }
-                $scope.depth.list = data.response.list;
-                $scope.depth.isShowWill = true;
-            });
 
         /*$scope.seeHope = function (orderId,flag) {
             $http.get(loocha + "/exam/order/info?out_trade_no=" + orderId)

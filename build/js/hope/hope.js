@@ -924,7 +924,14 @@ require(['app'], function (app) {
                 } else {
                     type = $scope.hope.batch == null ? 1 : $scope.hope.batch;
                 }
-
+                function getJsons(url){
+                    var deferred = $q.defer();
+                    $http.get(url)
+                        .success(function(d){
+                            deferred.resolve(d);
+                        });
+                    return deferred.promise;
+                }
                 if (type <= 6) {
                     /*专业大门类（13个）*/
                     getJsons(loocha + '/depart/prop?type=0&depart_type=0').then(function(data){
@@ -943,15 +950,6 @@ require(['app'], function (app) {
                             }
                         });
                     });
-                }
-
-                function getJsons(url){
-                    var deferred = $q.defer();
-                    $http.get(url)
-                        .success(function(d){
-                            deferred.resolve(d);
-                        });
-                    return deferred.promise;
                 }
 
                 switch (parseInt(type)) {
@@ -1001,10 +999,10 @@ require(['app'], function (app) {
                 }
 
                 $q.all({
-                    first:$http.get(loocha + '/wish/area?batch=' + $scope.hope.batch),
-                    second: $http.get(loocha + '/schbath?type=' + $scope.hope.batch),
-                    third:$http.get(loocha + '/batch?type=' + $scope.hope.batch),
-                    fourth:$http.get(loocha + "/depart/personality")
+                    first:$http.get(loocha + '/wish/area?batch=' + $scope.hope.batch,{cache: false}),
+                    second: $http.get(loocha + '/schbath?type=' + $scope.hope.batch,{cache: false}),
+                    third:$http.get(loocha + '/batch?type=' + $scope.hope.batch,{cache: false}),
+                    fourth:$http.get(loocha + "/depart/personality",{cache: false})
                 }).then(function(data){
                     getAreas(data.first.data);
                     getSchlTypes(data.second.data);
@@ -3455,6 +3453,7 @@ require(['app'], function (app) {
             clearArrayEmpty($scope.finshparam.depart_prefer);
             clearArrayEmpty($scope.finshparam.city_prefer);
             clearArrayEmpty($scope.finshparam.personality_prefer);
+
             var uScore = JSON.parse(sessionStorage.getItem('uScore'));
             var param = {};
             param.type = $scope.hope.batch;
@@ -3510,6 +3509,7 @@ require(['app'], function (app) {
                     $scope.hope.table = data.response.table;
                     $scope.hope.total = data.response.total;
                     $scope.hope.num = Math.ceil(data.response.recommend/5);
+                    $scope.hope.number = Math.ceil(data.response.total/5);
                     localStorage.setItem("manualInfo", JSON.stringify(data.response));
                     $('#myModal').modal('show');
                 }else {

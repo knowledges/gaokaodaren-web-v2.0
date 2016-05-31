@@ -361,7 +361,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-keydown="findDepart()" ng-model="forecast.schl_name" placeholder="请输入高校名称"/>
+                        <input type="text" class="form-control" ng-keyup="findDepart()" ng-model="forecast.schl_name" placeholder="请输入高校名称"/>
                         <!---->
                     </div>
                 </div>
@@ -406,7 +406,7 @@
                 </div>-->
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <input ng-keydown="findSchl()" type="text" class="form-control" ng-model="forecast.d_departname"
+                        <input ng-keyup="findSchl()" type="text" class="form-control" ng-model="forecast.d_departname"
                                placeholder="请输入专业名称"/>
                         <!--ng-keydown="findSchl($event)"-->
                     </div>
@@ -571,96 +571,8 @@
 
     </div>
 </div>
-<div class="modal" id="mask-school" style="display: none; background:rgba(0, 0, 0, 0.53);">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">院校详情</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <table width="828" border="0">
-                        <tr>
-                            <td width="150" rowspan="4" class="text-center">
-                                <img src="img/school.png" width="150" height="150" alt=""/>
-                            </td>
-                            <td height="44" colspan="4" style="border-bottom: 1px dashed #ccc;">
-                                <h3>
-                                    <a ng-click="gobike(schoolInfo.name)" href="javascript:;;" target="_blank">({{schoolInfo.unique_id}}){{schoolInfo.name}}</a>
-                                    <i class="schStyleBg_a" ng-if="schoolInfo.is_985==1">985</i>
-                                    <i class="schStyleBg_a" ng-if="schoolInfo.is_211==1">211</i>
-                                </h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 50px;" height="23">类别：{{schoolInfo.attr_name}}</td>
-                            <td>属地：{{schoolInfo.city_name}}</td>
-                            <td>
-                                <a href="{{schoolInfo.website}}" target="_blank" class="btn btn-info">去校园看看</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 50px;" height="23">类型：{{schoolInfo.style_name}}</td>
-                            <td></td>
-                            <!--招生计划：{{schoolInfo.artST2014}}-->
-                            <!--录取情况：{{schoolInfo.artST2014}}-->
-                            <td>
-                                <a ng-click="gobike(schoolInfo.name)" href="javascript:;;" target="_blank"
-                                   class="btn btn-info">简介</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <!--隶属：{{schoolInfo.belongs_name}}-->
-                            <td></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <ul class="nav nav-tabs">
-                            <!--<li class="active">-->
-                            <!--<a href="#panel-468191" data-toggle="tab">录取规则</a>-->
-                            <!--</li>-->
-                            <li class="active">
-                                <a href="#panel-574587" data-toggle="tab">招生章程</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <!--<div class="tab-pane active" id="panel-468191" style="overflow-y: scroll;height: 250px;">-->
-                            <!--<p>-->
-                            <!--第一部分内容.-->
-                            <!--</p>-->
-                            <!--</div>-->
-                            <div class="tab-pane active" id="panel-574587" style="overflow-y: scroll;height: 250px;"
-                                 ng-bind-html="schoolInfo.article_content">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal" id="mask-depart" style="display: none; background:rgba(0, 0, 0, 0.53);">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">专业详情</h4>
-            </div>
-            <div class="modal-body" style="height: 500px; overflow-y: scroll;">
-                <div ng-bind-html="forecast.departInfo"></div>
-            </div>
-        </div>
-    </div>
-</div>
+<div ng-include="'templete/model-mask/mask-school.html'"></div>
+<div ng-include="'templete/model-mask/mask-depart.html'"></div>
 <div class="modal fade" id="zyb_random" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">

@@ -1,5 +1,6 @@
 /**
- * Created by Administrator on 2015/12/2.
+ * Created by Administrator on 2016/5/26.
+ * 优化前
  */
 require(['app'],function(app){
     app.factory("arraysort",function(){
@@ -213,11 +214,13 @@ require(['app'],function(app){
         function getAdmits(param,type){
 
             $http({
-                url:loocha + "/exam/admit/result?t="+ new Date().getTime().toString(),
+                url:loocha + "/exam/admit/school?t="+ new Date().getTime().toString(),
                 method:"GET",
                 params:param
             }).success(function (data) {
-                if(data.status == 0) {
+                if(data.response.length<=0){
+                    alert("没有搜索到内容！")
+                }else if(data.status == 0) {
                     if(type == 1){
                         $scope.forecast.schChance_0 = data.response.admit;
                         getOrderInfo()
@@ -236,6 +239,10 @@ require(['app'],function(app){
                     }else if (type == 6){
                         $scope.forecast.schChance_6 = data.response.admit;
                         getOrderInfo()
+                    }else if(type>=7&&type<=13){
+                        $scope.forecast.rangeArr = data.response;
+                        $scope.forecast.cSchool_id = "";
+                        $("#chanceBody").show();
                     }
                 }else if(data.status == "1"){
                     alert("操作失败");
@@ -253,6 +260,8 @@ require(['app'],function(app){
                         $(".chance_[value=5]").attr("checked","true");
                     }else if (type == 6){
                         $(".chance_[value=6]").attr("checked","true");
+                    }else if(type>=7&&type<=13){
+                        $(".chance_[value=1]").attr("checked","true");
                     }
                     return;
                 }else if (data.status == "4" || data.status == "-1") {
@@ -275,6 +284,8 @@ require(['app'],function(app){
                         $(".chance_[value=5]").attr("checked","true");
                     }else if (type == 6){
                         $(".chance_[value=6]").attr("checked","true");
+                    }else if(type>=7&&type<=13){
+                        $(".chance_[value=1]").attr("checked","true");
                     }
                     return;
                 }else if(data.status == "1005") {
@@ -311,6 +322,8 @@ require(['app'],function(app){
                         $(".chance_[value=5]").attr("checked","true");
                     }else if (type == 6){
                         $(".chance_[value=6]").attr("checked","true");
+                    }else if(type>=7&&type<=13){
+                        $(".chance_[value=1]").attr("checked","true");
                     }
                     return;
                 }else{
@@ -341,7 +354,7 @@ require(['app'],function(app){
                 }).success(function (data) {
                     if (data.status == "2"){
                         alert("请确认‘预测项目’选项，缴费预测");
-                        $(".chance_[value=1]").attr("checked","true");
+                        $(".chance_[value=2]").attr("checked","true");
                         return;
                     }else if (data.status == 4 || data.status == "-1"){
                         alert('您还没有登陆，先去登陆吧！');
@@ -369,16 +382,16 @@ require(['app'],function(app){
 
             if($scope.uScore != null) {
                 var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = 1;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.cSchool_id;
-                    param.school = $scope.forecast.cSchool_name;
-                    param.depart_code ="";
-                    param.depart = "";
+                param.out_trade_no = $scope.order_id;
+                param.admit_flag = 1;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.cSchool_id;
+                param.school = $scope.forecast.cSchool_name;
+                param.depart_code ="";
+                param.depart = "";
                 $http({
                     url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
                     method: 'GET',
@@ -444,6 +457,51 @@ require(['app'],function(app){
             $scope.forecast.schChance_0 = "";
         }
 
+        /**
+         * 没有被执行
+         */
+        $scope.schChance_3 = function(){
+
+            if($scope.uScore != null) {
+                var param = {};
+                param.out_trade_no = $scope.order_id;
+                //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.admit_flag = $scope.forecast.range;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.range_sch_id;
+                param.school = $scope.forecast.range_sch_name;
+                param.depart_code ="";
+                param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert('订单号不存在！');
+                        return;
+                    }else if (data.status == "4" || data.status == "-1"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else{
+                        alert("未知错误");
+                    }
+                    $scope.forecast.schChance_3 = data.response.admit;
+                    getOrderInfo()
+                })
+            }else{
+                alert('请去我的足迹“设置”并“使用”成绩');
+            }
+        };
 ////////按院校属地预测高校录取概率///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /**
          * 查询城市列表
@@ -484,18 +542,71 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = 2;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.school_id;
-                    param.school = $scope.forecast.school_name;
-                    param.depart_code ="";
-                    param.depart = "";
-
-                    getAdmits(param,2);
+                param.out_trade_no = $scope.order_id;
+                //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.admit_flag = 2;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.school_id;
+                param.school = $scope.forecast.school_name;
+                param.depart_code ="";
+                param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该高校为新招高校，计算概率没有意义");
+                        return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance = data.response.admit;
+                        getOrderInfo()
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4" || data.status == "-1"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("科目等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
+                    }else{
+                        alert("未知错误");
+                    }
+                })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
             }
@@ -559,18 +670,74 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                    param.out_trade_no = $scope.order_id;
-                    param.admit_flag = 6;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.pSchl_id;
-                    param.school = $scope.forecast.pSchl_name;
-                    param.depart_code = $scope.forecast.pDepart_id;
-                    param.depart = $scope.forecast.pDepart_name;
+                param.out_trade_no = $scope.order_id;
+                //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.admit_flag = 6;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.pSchl_id;
+                param.school = $scope.forecast.pSchl_name;
+                //param.school_code = $("#pSchool_name option:selected").val();
+                //param.school = $("#pSchool_name option:selected").text();
+                param.depart_code = $scope.forecast.pDepart_id;
+                param.depart = $scope.forecast.pDepart_name;
+                $http({
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=6]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
+                        $(".chance_[value=6]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该专业为新招专业，计算概率没有意义");
+                        return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance_6 = data.response.admit;
+                        getOrderInfo()
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4" || data.status == "-1"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("科目等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1005"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
+                    }else{
+                        alert("未知错误");
+                    }
 
-                getAdmits(param,6);
+                })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
             }
@@ -631,12 +798,12 @@ require(['app'],function(app){
             }
 
             var param = {};
-                param.type = localStorage.getItem("type");
-                param.attr = attr_id;
-                param.belongs = belongs_id;
-                param.level = level_id;
-                param.style = style_id;
-                param.limit = 9999;
+            param.type = localStorage.getItem("type");
+            param.attr = attr_id;
+            param.belongs = belongs_id;
+            param.level = level_id;
+            param.style = style_id;
+            param.limit = 9999;
 
             $http({
                 url:loocha+'/school',
@@ -658,18 +825,71 @@ require(['app'],function(app){
 
             if($scope.uScore != null){
                 var param = {};
-                    param.out_trade_no= $scope.order_id;
-                    param.admit_flag = 3;
-                    param.type= $scope.isChance;
-                    param.obl = levelNum($scope.uScore.level_a);
-                    param.sel = levelNum($scope.uScore.level_b);
-                    param.score = $scope.uScore.score;
-                    param.school_code = $scope.forecast.style_School_id;
-                    param.school = $scope.forecast.style_School_name;
-                    param.depart_code ="";
-                    param.depart = "";
-
-                    getAdmits(param,3);
+                param.out_trade_no= $scope.order_id;
+                //param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+                param.admit_flag = 3;
+                param.type= $scope.isChance;
+                param.obl = levelNum($scope.uScore.level_a);
+                param.sel = levelNum($scope.uScore.level_b);
+                param.score = $scope.uScore.score;
+                param.school_code = $scope.forecast.style_School_id;
+                param.school = $scope.forecast.style_School_name;
+                param.depart_code ="";
+                param.depart = "";
+                $http({
+                    url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                    method: 'GET',
+                    params:param,
+                }).success(function(data){
+                    if(data.status == "1005"){
+                        alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                        return;
+                    }else if (data.status == "11"){
+                        alert('已查询！');
+                        return;
+                    }else if (data.status == "2"){
+                        alert("请确认‘预测项目’选项，缴费预测");
+                        $(".chance_[value=3]").attr("checked","true");
+                        return;
+                    }else if(data.status == "1015"){
+                        alert("本次预测个数已使用完，请重新缴费继续查询");
+                        $(".chance_[value=3]").attr("checked","true");
+                        return;
+                    }else if (data.status == "1013"){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1012"){
+                        alert("该高校仅招生一年，计算概率没有意义");
+                        return;
+                    }else if (data.status == "1010"){
+                        alert("该高校为新招高校，计算概率没有意义");
+                        return;
+                    }else if(data.status == "1004"){
+                        alert("订单已存在，请先支付继续查询");
+                        $(".chance_[value=2]").attr("checked","true");
+                        return;
+                    }else if(data.status == 0){
+                        $scope.forecast.schChance_1 = data.response.admit;
+                        getOrderInfo()
+                    }else if (data.status == "1009"){
+                        alert("您是压线考生");
+                    }else if (data.status == "4" || data.status == "-1"){
+                        alert('您还没有登陆，先去登陆吧！');
+                        window.location.href = "#/login";
+                    }else if (data.status == "1006"){
+                        alert("该批次没找到该招生高校");
+                    }else if (data.status == "1007"){
+                        alert("科目等级太低");
+                    }else if (data.status == "1008"){
+                        alert("未找到该专业");
+                    }else if (data.status == "1006"){
+                        alert("压线分数");
+                    }else if (data.status == "1"){
+                        alert("操作失败");
+                    }else{
+                        alert("未知错误");
+                    }
+                })
             }else{
                 alert('请去我的足迹“设置”并“使用”成绩');
             }
@@ -693,18 +913,74 @@ require(['app'],function(app){
                 return;
             }
             var param = {};
-                param.out_trade_no = $scope.order_id;
-                param.admit_flag = 4;
-                param.type= $scope.isChance;
-                param.obl = levelNum($scope.uScore.level_a);
-                param.sel = levelNum($scope.uScore.level_b);
-                param.score = $scope.uScore.score;
-                param.school_code = $scope.forecast.schl_id;
-                param.school = $scope.forecast.schl_name;
-                param.depart_code = $scope.forecast.schl_departId;
-                param.depart = $scope.forecast.schl_departName;
-
-                getAdmits(param,4);
+            param.out_trade_no = $scope.order_id;
+            //param.out_trade_no = $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+            param.admit_flag = 4;
+            param.type= $scope.isChance;
+            param.obl = levelNum($scope.uScore.level_a);
+            param.sel = levelNum($scope.uScore.level_b);
+            param.score = $scope.uScore.score;
+            param.school_code = $scope.forecast.schl_id;
+            param.school = $scope.forecast.schl_name;
+            param.depart_code = $scope.forecast.schl_departId;
+            param.depart = $scope.forecast.schl_departName;
+            $http({
+                url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                method: 'GET',
+                params:param,
+            }).success(function(data){
+                if(data.status == "1005"){
+                    alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                    return;
+                }else if (data.status == "11"){
+                    alert('已查询！');
+                    return;
+                }else if (data.status == "6"){
+                    alert('输入参数有错！');
+                    return;
+                }else if (data.status == "2"){
+                    alert("请确认‘预测项目’选项，缴费预测");
+                    $(".chance_[value=4]").attr("checked","true");
+                    return;
+                }else if(data.status == "1015"){
+                    alert("本次预测个数已使用完，请重新缴费继续查询");
+                    $(".chance_[value=4]").attr("checked","true");
+                    return;
+                }else if (data.status == "1013"){
+                    alert("该高校仅招生两年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1012"){
+                    alert("该高校仅招生一年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1010"){
+                    alert("该专业为新招专业，计算概率没有意义");
+                    return;
+                }else if(data.status == "1004"){
+                    alert("订单已存在，请先支付继续查询");
+                    $(".chance_[value=2]").attr("checked","true");
+                    return;
+                }else if(data.status == 0){
+                    $scope.forecast.departChance = data.response.admit;
+                    getOrderInfo();
+                }else if (data.status == "1009"){
+                    alert("您是压线考生");
+                }else if (data.status == "4" || data.status == "-1"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else if (data.status == "1006"){
+                    alert("该批次没找到该招生高校");
+                }else if (data.status == "1007"){
+                    alert("科目等级太低");
+                }else if (data.status == "1008"){
+                    alert("未找到该专业");
+                }else if (data.status == "1006"){
+                    alert("压线分数");
+                }else if (data.status == "1"){
+                    alert("操作失败");
+                }else{
+                    alert("未知错误");
+                }
+            })
         };
 
 ////////按具体专业预测高校录取概率/////////////////////////////////////////////////////////////////////////////////////
@@ -718,18 +994,74 @@ require(['app'],function(app){
         $scope.getSchlChance = function(){
 
             var param = {};
-                param.out_trade_no= $scope.order_id;
-                param.admit_flag = 5;
-                param.type= $scope.isChance;
-                param.obl = levelNum($scope.uScore.level_a);
-                param.sel = levelNum($scope.uScore.level_b);
-                param.score = $scope.uScore.score;
-                param.school_code = $scope.forecast.d_schl_id;
-                param.school = $scope.forecast.d_schl_name;
-                param.depart_code = $scope.forecast.d_departId;
-                param.depart = $scope.forecast.d_departname;
-
-                getAdmits(param,5);
+            param.out_trade_no= $scope.order_id;
+            //param.out_trade_no= $scope.order_id !="" ?  $scope.order_id : sessionStorage.getItem("order_id");
+            param.admit_flag = 5;
+            param.type= $scope.isChance;
+            param.obl = levelNum($scope.uScore.level_a);
+            param.sel = levelNum($scope.uScore.level_b);
+            param.score = $scope.uScore.score;
+            param.school_code = $scope.forecast.d_schl_id;
+            param.school = $scope.forecast.d_schl_name;
+            param.depart_code = $scope.forecast.d_departId;
+            param.depart = $scope.forecast.d_departname;
+            $http({
+                url:loocha+'/exam/admit/result?t='+ new Date().getTime().toString(),
+                method: 'GET',
+                params:param,
+            }).success(function(data){
+                if(data.status == "1005"){
+                    alert('分数线太低，请重现选择批次或者重新填写成绩！');
+                    return;
+                }else if (data.status == "11"){
+                    alert('已查询！');
+                    return;
+                }else if (data.status == "6"){
+                    alert('输入参数有错！');
+                    return;
+                }else if (data.status == "2"){
+                    alert("请确认‘预测项目’选项，缴费预测");
+                    $(".chance_[value=5]").attr("checked","true");
+                    return;
+                }else if(data.status == "1015"){
+                    alert("本次预测个数已使用完，请重新缴费继续查询");
+                    $(".chance_[value=5]").attr("checked","true");
+                    return;
+                }else if (data.status == "1013"){
+                    alert("该高校仅招生两年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1012"){
+                    alert("该高校仅招生一年，计算概率没有意义");
+                    return;
+                }else if (data.status == "1010"){
+                    alert("该专业为新招专业，计算概率没有意义");
+                    return;
+                }else if(data.status == "1004"){
+                    alert("订单已存在，请先支付继续查询");
+                    $(".chance_[value=2]").attr("checked","true");
+                    return;
+                }else if(data.status == 0){
+                    $scope.forecast.schChance_2 = data.response.admit;
+                    getOrderInfo();
+                }else if (data.status == "1009"){
+                    alert("您是压线考生");
+                }else if (data.status == "4" || data.status == "-1"){
+                    alert('您还没有登陆，先去登陆吧！');
+                    window.location.href = "#/login";
+                }else if (data.status == "1006"){
+                    alert("该批次没找到该招生高校");
+                }else if (data.status == "1007"){
+                    alert("科目等级太低");
+                }else if (data.status == "1008"){
+                    alert("未找到该专业");
+                }else if (data.status == "1006"){
+                    alert("压线分数");
+                }else if (data.status == "1"){
+                    alert("操作失败");
+                }else{
+                    alert("未知错误");
+                }
+            })
         };
 
 /////////其他操作//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -825,9 +1157,10 @@ require(['app'],function(app){
             a.click();
         }
 
-        $scope.closed = function(){
+
+        $(".close").unbind('click').click(function(e){
             $("#mask-school,#mask-depart").fadeOut(800);
-        };
+        });
 
         /**
          * 概率--点击高校名称查询高校信息
@@ -860,15 +1193,15 @@ require(['app'],function(app){
          */
         $scope.findDepartInfo = function(e){
             var that = $(e.target),article_id = that.attr("article_id");
-                if(article_id>0){
-                    $http.get(loocha+"/article/show/"+article_id).success(function(data){
-                        $scope.forecast.departInfo = $sce.trustAsHtml(data);
-                        $("#mask-depart").fadeIn(800);
-                        $("#mask-depart .modal-body").scrollTop(100);
-                    });
-                }else{
-                    alert("暂无关联文章");
-                }
+            if(article_id>0){
+                $http.get(loocha+"/article/show/"+article_id).success(function(data){
+                    $scope.forecast.departInfo = $sce.trustAsHtml(data);
+                    $("#mask-depart").fadeIn(800);
+                    $("#mask-depart .modal-body").scrollTop(100);
+                });
+            }else{
+                alert("暂无关联文章");
+            }
         };
 
         function levelNum(str){

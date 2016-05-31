@@ -13,7 +13,7 @@ require(['app'],function(app){
             }
         }
     }])
-    app.controller('referCtr',['$scope','$location','$window','$http','$stateParams','loocha','getLoginUserInfo',function($scope,$location,$window,$http,$stateParams,loocha,getLoginUserInfo){
+    app.controller('referCtr',['$scope','$location','$window','$http','$stateParams','$timeout','$sce','loocha','getLoginUserInfo',function($scope,$location,$window,$http,$stateParams,$timeout,$sce,loocha,getLoginUserInfo){
 
         $scope.order = {
                 orderId:"",
@@ -42,7 +42,7 @@ require(['app'],function(app){
                 intentionId:"",
 
         };
-
+        $scope.schoolInfo = "";
         $scope.order.orderId = $location.$$search.orderId;
         $scope.order.type = $location.$$search.type;
         $scope.order.flag = $location.$$search.flag!=undefined?$location.$$search.flag:window.location.hash.split("type=")[1];
@@ -123,7 +123,7 @@ require(['app'],function(app){
                 headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: tramsform
             }).success(function (responseDate) {
-                $http.get(loocha + '/exam/' +responseDate.response.id ).success(function (data) {
+                $http.get(loocha + '/exam/' +responseDate.response.id,{ cache:false}).success(function (data) {
                     if (data.status == 1) {
                         alert('没有找到订单');
                         return;
@@ -157,9 +157,8 @@ require(['app'],function(app){
 
         function init(){
             /*getLoginUserInfo.isLogoin();*/
-
             if($scope.order.flag == 4){
-                $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId)
+                $http.get(loocha + "/exam/order/info?out_trade_no=" +  $scope.order.orderId,{ cache:false})
                     .success(function (data) {
                         if(data.response.flag == 4){
                             $window.location.href = "#/chance/batch="+data.response.type+"&out_trade_no="+$scope.order.orderId;
@@ -177,7 +176,7 @@ require(['app'],function(app){
              * 自选判断是否显示下一份自选
              */
             if($scope.order.flag == 3){
-                $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
+                $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId,{ cache:false})
                     .success(function(data){
                         var total = data.response.total;
                         var num = data.response.schools.length;
@@ -189,66 +188,72 @@ require(['app'],function(app){
         }
 
         function getOrderInfo(){
-            /*getLoginUserInfo.isLogoin();*/
-            $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId)
-                .success(function(data,status){
+            var _times = null;
 
-                    if(data.status== 2){
-                        alert('订单不存在！');
-                        $window.location.href="#/all/reference";
-                        return;
-                    }else if (data.status == "1016"){
-                        localStorage.setItem("out_trade_no",$scope.order.orderId);
-                        $window.location.href="#/refer1";
-                        $window.location.reload(0);
-                        return;
-                    }else if(data.status == "1004"){
-                        var result = confirm("未支付,请重新缴费");
-                        $scope.loading = false;
-                        if(result){
-                            $scope.orderout_trade_no = data.response.orderId;
+            _times = $timeout(function(){
+                $timeout.cancel(_times);
+                var times = new Date().getTime().toString();
+                $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId+"&t="+times,{ cache:false})
+                    .success(function(data,status){
+                        if(data.status== 2){
+                            alert('订单不存在！');
+                            $window.location.href="#/all/reference";
+                            return;
+                        }else if (data.status == "1016"){
+                            console.log("out_trade_no:"+$scope.order.orderId);
+                            localStorage.setItem("out_trade_no",$scope.order.orderId);
+                            $window.location.href="#/refer1";
+                            //$window.location.reload(0);
+                            return;
+                        }else if(data.status == "1004"){
+                            var result = confirm("未支付,请重新缴费");
+                            $scope.loading = false;
+                            if(result){
+                                $scope.orderout_trade_no = data.response.orderId;
+                                $scope.order.money = data.response.money;
+                                $scope.order.orderShow = true;
+                            }
+                            return;
+                        }else if (data.status == 4){
+                            alert("您还没有登陆或登陆失效，请重新登陆！");
+                            $window.location.href="#/login";
+                        }else if(data.status == 0){
+                            $scope.order.intentionId = data.response.intentionId;
+                            $scope.order.type = data.response.type;
+                            $scope.order.name =data.response.name;
+                            $scope.order.number =data.response.number;
+                            $scope.order.city =data.response.city;
+                            $scope.order.area =data.response.area;
+                            $scope.order.data = data.response.list;
                             $scope.order.money = data.response.money;
-                            $scope.order.orderShow = true;
+                            $scope.order.schlArr_0 = data.response.list[0];
+                            $scope.order.schlArr_1 = data.response.list[1];
+                            $scope.order.schlArr_2 = data.response.list[2];
+                            $scope.order.schlArr_3 = data.response.list[3];
+                            $scope.order.schlArr_4 = data.response.list[4];
+                            $scope.order.subtitle = yxb_title[$scope.order.type];
+                            $scope.order.caption = caption [$scope.order.type];
+                            if(data.response.list[0]!=undefined){
+                                $scope.order.departArr_0 = data.response.list[0].departs;
+                            }
+                            if(data.response.list[1]!=undefined){
+                                $scope.order.departArr_1 = data.response.list[1].departs;
+                            }
+                            if(data.response.list[2]!=undefined){
+                                $scope.order.departArr_2 = data.response.list[2].departs;
+                            }
+                            if(data.response.list[3]!=undefined){
+                                $scope.order.departArr_3 = data.response.list[3].departs;
+                            }
+                            if(data.response.list[4]!=undefined){
+                                $scope.order.departArr_4 = data.response.list[4].departs;
+                            }
+                            $scope.order.requestId = data.response.intentionId;
                         }
-                        return;
-                    }else if (data.status == 4){
-                        alert("您还没有登陆或登陆失效，请重新登陆！");
-                        $window.location.href="#/login";
-                    }else if(data.status == 0){
-                        $scope.order.intentionId = data.response.intentionId;
-                        $scope.order.type = data.response.type;
-                        $scope.order.name =data.response.name;
-                        $scope.order.number =data.response.number;
-                        $scope.order.city =data.response.city;
-                        $scope.order.area =data.response.area;
-                        $scope.order.data = data.response.list;
-                        $scope.order.money = data.response.money;
-                        $scope.order.schlArr_0 = data.response.list[0];
-                        $scope.order.schlArr_1 = data.response.list[1];
-                        $scope.order.schlArr_2 = data.response.list[2];
-                        $scope.order.schlArr_3 = data.response.list[3];
-                        $scope.order.schlArr_4 = data.response.list[4];
-                        $scope.order.subtitle = yxb_title[$scope.order.type];
-                        $scope.order.caption = caption [$scope.order.type];
-                        if(data.response.list[0]!=undefined){
-                            $scope.order.departArr_0 = data.response.list[0].departs;
-                        }
-                        if(data.response.list[1]!=undefined){
-                            $scope.order.departArr_1 = data.response.list[1].departs;
-                        }
-                        if(data.response.list[2]!=undefined){
-                            $scope.order.departArr_2 = data.response.list[2].departs;
-                        }
-                        if(data.response.list[3]!=undefined){
-                            $scope.order.departArr_3 = data.response.list[3].departs;
-                        }
-                        if(data.response.list[4]!=undefined){
-                            $scope.order.departArr_4 = data.response.list[4].departs;
-                        }
-                        $scope.order.requestId = data.response.intentionId;
-                    }
 
-                });
+                    });
+            });
+
         }
 
         function getNewOrderInfo(id){
@@ -279,12 +284,57 @@ require(['app'],function(app){
             $("#chanced").show();
         };
 
-        $scope.closed = function(){
-            $("#chanced,#cased,#mask-points").hide();
+        $scope.showSchlInfo = function(obj){
+            $http.get(loocha+"/school/byname?type="+obj.type+"&code="+obj.schoolCode+"&key="+encodeURI(obj.schoolName)+"&t="+( new Date() ).getTime().toString()).success(function(data){
+                if(data.response.list.length<=0){
+                    alert("该批次未找到该校信息");
+                }else{
+                    $scope.schoolInfo = data.response.list[0];
+                    if($scope.schoolInfo.article_id>0){
+                        $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
+                            $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
+                            $("#mask-school").fadeIn(500);
+                        });
+                    }else{
+                        alert("没有找到相关文章");
+                    }
+                }
+
+            });
+        };
+        //TODO 目前专业中没有article_id
+        $scope.showDepartInfo = function(obj){
+            if(obj.article_id>0){
+                $http.get(loocha+"/article/show/"+obj.article_id).success(function(data){
+                    $scope.forecast.departInfo = $sce.trustAsHtml(data);
+                    $("#mask-depart").fadeIn(800);
+                    $("#mask-depart .modal-body").scrollTop(100);
+                });
+            }else {
+                alert("暂无关联文章");
+            }
+        };
+
+        $scope.gobike = function(name){
+            var item = name.split("(")[0].split("★")[0];
+            openwin("http://baike.baidu.com/item/"+item);
+        };
+
+        function openwin(url) {
+            var a = document.createElement("a");
+            a.setAttribute("href", url);
+            a.setAttribute("target", "_blank");
+            a.setAttribute("id", "openwin");
+            document.body.appendChild(a);
+            a.click();
         }
 
+        $scope.closed = function(){
+            $("#chanced,#cased,#mask-points,#mask-school,#mask-depart").hide();
+        };
+
         $scope.showCase = function(){
-            $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId)
+            $http.get(loocha+"/exam/intention?out_trade_no="+$scope.order.orderId,{ cache:false})
                 .success(function(data){
                     if (data.status == 4){
                         alert('您还没有登陆，先去登陆吧！');
