@@ -43,21 +43,21 @@ require(['app'], function (app) {
                                     scope.classify.marjors = data.response;
                                     obj.isRequest = true;
                                     angular.forEach(scope.classify.marjors,function(v,i){
-                                        iteratorSure(firsts,v,v.id,obj.state);
-                                        iteratorSure(seconds,v,v.id,obj.state);
-                                        iteratorSure(thirds,v,v.id,obj.state);
-                                        iteratorSure(fourths,v,v.id,obj.state);
-                                        iteratorSure(fifths,v,v.id,obj.state);
+                                        iteratorSureCls(firsts,obj,v);
+                                        iteratorSureCls(seconds,obj,v);
+                                        iteratorSureCls(thirds,obj,v);
+                                        iteratorSureCls(fourths,obj,v);
+                                        iteratorSureCls(fifths,obj,v);
                                     });
                                     obj.state = 1;
                                 })
                         }else {
                             angular.forEach(scope.classify.marjors,function(v,i){
-                                iteratorSure(firsts,v,v.id,obj.state);
-                                iteratorSure(seconds,v,v.id,obj.state);
-                                iteratorSure(thirds,v,v.id,obj.state);
-                                iteratorSure(fourths,v,v.id,obj.state);
-                                iteratorSure(fifths,v,v.id,obj.state);
+                                iteratorSureCls(firsts,obj,v);
+                                iteratorSureCls(seconds,obj,v);
+                                iteratorSureCls(thirds,obj,v);
+                                iteratorSureCls(fourths,obj,v);
+                                iteratorSureCls(fifths,obj,v);
                             });
                             if(obj.state ==0 || obj.state== undefined){
                                 obj.state = 1;
@@ -67,6 +67,44 @@ require(['app'], function (app) {
                         }
                         scope.showMe = !scope.showMe;
                     },500);
+                };
+
+                scope.rejectMarjorLClsClk = function(obj){
+                    $timeout.cancel(_times);
+                    var firsts = scope.hope.firstDepart,
+                        seconds = scope.hope.secondDepart,
+                        thirds = scope.hope.thirdDepart,
+                        fourths = scope.hope.fourthDepart,
+                        fifths = scope.hope.fifthDepart;
+                    if(obj.isRequest == undefined) {
+                        maskRequest.getMethod(loocha + '/depart/specific?course_id=' + obj.id + '&depart_type=' + scope.hope.type)
+                            .then(function (data) {
+                                scope.classify.marjors = data.response;
+                                obj.isRequest = true;
+                                angular.forEach(scope.classify.marjors,function(v,i){
+                                    iteratorCanelCls(firsts,obj,v);
+                                    iteratorCanelCls(seconds,obj,v);
+                                    iteratorCanelCls(thirds,obj,v);
+                                    iteratorCanelCls(fourths,obj,v);
+                                    iteratorCanelCls(fifths,obj,v);
+                                });
+                                obj.state = 2;
+                            })
+                    }else {
+                        angular.forEach(scope.classify.marjors,function(v,i){
+                            iteratorCanelCls(firsts,obj,v);
+                            iteratorCanelCls(seconds,obj,v);
+                            iteratorCanelCls(thirds,obj,v);
+                            iteratorCanelCls(fourths,obj,v);
+                            iteratorCanelCls(fifths,obj,v);
+                        });
+                        if(obj.state ==0 || obj.state== undefined){
+                            obj.state = 2;
+                        }else if (obj.state == 2){
+                            obj.state = 0;
+                        }
+                    }
+                    scope.showMe = !scope.showMe;
                 };
 
                 scope.toggleDown = function(obj){
@@ -118,16 +156,28 @@ require(['app'], function (app) {
                     scope.showMe = !scope.showMe;
                 };
 
-                function iteratorSureCls(list,parent,obj,child){
+                function iteratorSureCls(list,parent,child){
                     angular.forEach(list,function(v,i){
                         if(parent.state == undefined || parent.state == 0){
 
-                            if(obj.state!= 2){
-                                obj.state = 1;
+                            if(child.state!= 2){
+                                child.state = 1;
+
+                                if(child.id == v.class_id){
+                                    v.state = 1;
+                                }
                             }
 
                         }else if (parent.state == 1){
+                            if(child.state!= 2){
+                                child.state = 0;
 
+                                if(child.id == v.class_id){
+
+                                    v.state = 0;
+
+                                }
+                            }
 
                         }
                     });
@@ -149,6 +199,27 @@ require(['app'], function (app) {
                                     v.state = 0;
                                 }
                             }
+                        }
+                    });
+                }
+
+                function iteratorCanelCls(list,parent,child){
+                    angular.forEach(list,function(v,i){
+                        if(parent.state == undefined || parent.state == 0){
+
+                            child.state = 2;
+
+                            if(child.id == v.class_id){
+                                v.state = 2;
+                            }
+
+                        }else if (parent.state == 2){
+                            child.state = 0;
+
+                            if(child.id == v.class_id){
+                                v.state = 0;
+                            }
+
                         }
                     });
                 }

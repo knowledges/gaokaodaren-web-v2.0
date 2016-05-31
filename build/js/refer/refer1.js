@@ -66,12 +66,12 @@ require(['app'], function (app) {
         init();
 
         function init() {
-           /* getLoginUserInfo.isLogoin();*/
+            /* getLoginUserInfo.isLogoin();*/
 
             var _times = $timeout(function(){
                 $timeout.cancel(_times);
                 var times = new Date().getTime().toString();
-                $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no")+"&t="+times,{catch:false})
+                $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no")+"&t="+times,{cache:false})
                     .success(function(data){
                         console.log(JSON.stringify(data));
                         if (data.status == 4){
@@ -196,49 +196,49 @@ require(['app'], function (app) {
                 v.disabled = false;
             });
             if($scope.param.firSchName!=undefined && $scope.param.firSchName.indexOf(school_name)>0){
-                    $scope.param.firSchName ="";
-                    $scope.param.firDepart_1= "";
-                    $scope.param.firDepart_2= "";
-                    $scope.param.firDepart_3= "";
-                    $scope.param.firDepart_4="";
-                    $scope.param.firDepart_5="";
-                    $scope.param.firDepart_6="";
+                $scope.param.firSchName ="";
+                $scope.param.firDepart_1= "";
+                $scope.param.firDepart_2= "";
+                $scope.param.firDepart_3= "";
+                $scope.param.firDepart_4="";
+                $scope.param.firDepart_5="";
+                $scope.param.firDepart_6="";
             }
             if($scope.param.senSchName!=undefined && $scope.param.senSchName.indexOf(school_name)>0){
-                    $scope.param.senSchName="";
-                    $scope.param.senDepart_1= "";
-                    $scope.param.senDepart_2= "";
-                    $scope.param.senDepart_3= "";
-                    $scope.param.senDepart_4= "";
-                    $scope.param.senDepart_5= "";
-                    $scope.param.senDepart_6= "";
+                $scope.param.senSchName="";
+                $scope.param.senDepart_1= "";
+                $scope.param.senDepart_2= "";
+                $scope.param.senDepart_3= "";
+                $scope.param.senDepart_4= "";
+                $scope.param.senDepart_5= "";
+                $scope.param.senDepart_6= "";
             }
             if($scope.param.thiSchName!=undefined && $scope.param.thiSchName.indexOf(school_name)>0){
-                    $scope.param.thiSchName="";
-                    $scope.param.thiDepart_1= "";
-                    $scope.param.thiDepart_2= "";
-                    $scope.param.thiDepart_3= "";
-                    $scope.param.thiDepart_4= "";
-                    $scope.param.thiDepart_5= "";
-                    $scope.param.thiDepart_6= "";
+                $scope.param.thiSchName="";
+                $scope.param.thiDepart_1= "";
+                $scope.param.thiDepart_2= "";
+                $scope.param.thiDepart_3= "";
+                $scope.param.thiDepart_4= "";
+                $scope.param.thiDepart_5= "";
+                $scope.param.thiDepart_6= "";
             }
             if($scope.param.fourSchName!=undefined && $scope.param.fourSchName.indexOf(school_name)>0){
-                    $scope.param.fourSchName="";
-                    $scope.param.fourDepart_1= "";
-                    $scope.param.fourDepart_2= "";
-                    $scope.param.fourDepart_3= "";
-                    $scope.param.fourDepart_4= "";
-                    $scope.param.fourDepart_5= "";
-                    $scope.param.fourDepart_6= "";
+                $scope.param.fourSchName="";
+                $scope.param.fourDepart_1= "";
+                $scope.param.fourDepart_2= "";
+                $scope.param.fourDepart_3= "";
+                $scope.param.fourDepart_4= "";
+                $scope.param.fourDepart_5= "";
+                $scope.param.fourDepart_6= "";
             }
             if($scope.param.fifthSchName!=undefined && $scope.param.fifthSchName.indexOf(school_name)>0){
-                    $scope.param.fifthSchName="";
-                    $scope.param.fifthDepart_1="";
-                    $scope.param.fifthDepart_2="";
-                    $scope.param.fifthDepart_3="";
-                    $scope.param.fifthDepart_4="";
-                    $scope.param.fifthDepart_5="";
-                    $scope.param.fifthDepart_6="";
+                $scope.param.fifthSchName="";
+                $scope.param.fifthDepart_1="";
+                $scope.param.fifthDepart_2="";
+                $scope.param.fifthDepart_3="";
+                $scope.param.fifthDepart_4="";
+                $scope.param.fifthDepart_5="";
+                $scope.param.fifthDepart_6="";
             }
         }
 
@@ -584,19 +584,19 @@ require(['app'], function (app) {
 
             $scope.sub.a[0] = $scope.sub.b[0] = $scope.sub.c[0] = $scope.sub.d[0] = $scope.sub.e[0] = 0;
             var param = {};
-                param.out_trade_no = localStorage.getItem("out_trade_no");
-                param.a = $scope.sub.a;
-                param.b = $scope.sub.b;
-                param.c = $scope.sub.c;
-                param.d = $scope.sub.d;
-                param.e = $scope.sub.e;
+            param.out_trade_no = localStorage.getItem("out_trade_no");
+            param.a = $scope.sub.a;
+            param.b = $scope.sub.b;
+            param.c = $scope.sub.c;
+            param.d = $scope.sub.d;
+            param.e = $scope.sub.e;
 
             var tramsform = function (data) {
                 return $.param(data);
             };
             var _times = null;
             _times = $timeout(function(){
-               $timeout.cancel(_times);
+                $timeout.cancel(_times);
                 var times = new Date().getTime().toString();
                 $http.post(loocha+"/exam/intention/manual/save?t="+ times, param, {
                     headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
