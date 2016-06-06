@@ -21,7 +21,7 @@ require(['app'], function (app) {
             restrict:'EA',
             replace:true,
             transclude:true,
-            templateUrl:'templete/btn-group/btn-group-depart.html',
+            template:'templete/btn-group/btn-group-depart.html',
             link:function(scope,element,attrs){
                 scope.classify = {
                     marjors:""
@@ -240,9 +240,10 @@ require(['app'], function (app) {
                     });
                 }
             }
+
         }
     }]);
-    app.controller('recommendCtrl',['$rootScope','$scope','$http','$timeout','$stateParams','$q','$window','loocha','maskRequest',function($rootScope,$scope,$http,$timeout,$stateParams,$q,$window,loocha,maskRequest){
+    app.controller('recommendCtrl',['$rootScope','$scope','$http','$timeout','$stateParams','$state','$q','$window','loocha','maskRequest',function($rootScope,$scope,$http,$timeout,$stateParams,$state,$q,$window,loocha,maskRequest){
 
         $scope.hope = {
             type:$stateParams.batch,
@@ -296,11 +297,17 @@ require(['app'], function (app) {
             });
 
             function getDeparts(data){
-                $scope.hope.firstDepart = data.response.item2;
-                $scope.hope.secondDepart = data.response.item3;
-                $scope.hope.thirdDepart = data.response.item4;
-                $scope.hope.fourthDepart = data.response.item5;
-                $scope.hope.fifthDepart = data.response.item6;
+                if(data.status == "-1"){
+                    alert("登陆失效，请重新登陆");
+                    $state.go('login');
+                }else if(data.status == 0){
+                    $scope.hope.firstDepart = data.response.item2;
+                    $scope.hope.secondDepart = data.response.item3;
+                    $scope.hope.thirdDepart = data.response.item4;
+                    $scope.hope.fourthDepart = data.response.item5;
+                    $scope.hope.fifthDepart = data.response.item6;
+                }
+
             }
         }
 

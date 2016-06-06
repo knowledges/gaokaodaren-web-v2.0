@@ -1,0 +1,23 @@
+<div class="btn-group">
+    <button type="button"
+            ng-click="identityClk(item)"
+            class="btn btn-default">
+        {{item.name}}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" style="display: block"  ng-if="item.show">
+        <li ng-repeat="list in item.sublist">
+            <a href="javascript:;;" operation="{{list.operation}}" idx="{{list.id}}"
+               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+               ng-if="list.operation==3"
+               ng-click="identityAgreeClk(list)"
+               ng-dblclick="identityRejectClk(list)">
+                {{list.name}}
+            </a>
+            <a href="javascript:;;" operation="{{list.operation}}" idx="{{list.id}}"
+               ng-if="list.operation!=3">
+                {{list.name}}
+            </a>
+        </li>
+    </ul>
+</div>

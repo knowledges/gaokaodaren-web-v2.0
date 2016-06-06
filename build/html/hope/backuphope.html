@@ -1426,4 +1426,43 @@
             </div>
         </div>
     </div>
+
+    <!-- 优先-->
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4><i class="icon-thumbs-up"></i> 意向优先汇总</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>专业：</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills" id="watch_depart">
+                        <li ng-repeat="list in hope.marjorLargeCls | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.fifthDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
