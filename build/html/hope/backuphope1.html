@@ -2,6 +2,1433 @@
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4>
+                意向专业（优先：单击—绿色；拒绝：双击—灰色；可选择：原色）
+            </h4>
+        </div>
+        <div class="panel-body" id="depart">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <departs-toggle ng-repeat="item in hope.marjorLargeCls" ng-if="$index<=6">
+                    </departs-toggle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                </div>
+                <div class="col-sm-10 text-left">
+                    <departs-toggle ng-repeat="item in hope.marjorLargeCls" ng-if="$index>6">
+                    </departs-toggle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>
+                        <a href="javascript:;;" class="title-btn" wishid="2" ng-click="agreeDep($event)"
+                           ng-dblclick="rejectDep($event)" pub="8">热门专业</a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left nav-depart">
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.firstDepart|filter:{classify:1}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:1}">
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">{{list.name}}</a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout"  ng-if="(hope.firstDepart|filter:{classify:2}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:2}" >
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.firstDepart|filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:3}">
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.firstDepart|filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:4}">
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout"  ng-if="(hope.firstDepart|filter:{classify:5}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:5}">
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.firstDepart|filter:{classify:6}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{classify:6}">
+                            <a class="departClk wishId_2"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>
+                        <a href="javascript:;;" class="title-btn" wishid="3"  pub="9"
+                           ng-click="agreeDep($event)"
+                           ng-dblclick="rejectDep($event)">
+                            偏热专业
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left nav-depart">
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:1}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:1}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:2}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:2}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:3}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:3}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:4}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:5}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:5}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:6}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:6}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:7}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:7}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:8}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:8}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:9}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:9}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.secondDepart | filter:{classify:10}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{classify:10}" beifen>
+                            <a  class="departClk wishId_3"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="4" pub="10"
+                           ng-click="agreeDep($event)"
+                           ng-dblclick="rejectDep($event)">
+                        一般专业
+                    </a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left nav-depart nav-scroll">
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:1}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:1}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:2}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:2}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:3}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:3}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:4}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:5}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:5}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:6}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:6}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:7}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:7}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:8}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:8}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:9}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:9}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:10}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:10}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:11}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:11}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:12}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:12}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:13}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:13}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:14}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:14}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:15}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:15}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:16}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:16}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:17}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:17}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:18}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:18}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:19}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:19}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:20}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:20}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:21}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:21}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:22}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:22}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:23}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:23}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:24}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:24}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:25}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:25}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:26}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:26}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:27}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:27}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:28}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:28}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:29}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:29}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:30}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:30}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:31}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:31}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:32}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:32}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:33}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:33}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:34}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:34}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:35}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:35}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:36}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:36}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:37}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:37}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:38}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:38}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:39}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:39}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:40}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:40}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:41}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:41}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:42}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:42}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:43}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:43}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:44}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:44}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:45}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:45}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:46}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:46}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:47}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:47}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:48}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:48}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:49}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:49}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:50}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:50}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:51}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:51}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:52}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:52}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:53}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:53}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:54}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:54}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:55}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:55}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:56}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:56}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:57}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:57}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:58}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:58}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:59}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:59}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:60}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:60}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:61}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:61}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:62}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:62}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:63}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:63}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:64}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:64}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:65}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:65}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:66}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:66}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:67}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:67}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:68}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:68}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:69}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:69}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:70}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:70}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:71}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:71}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.thirdDepart | filter:{classify:72}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{classify:72}" beifen>
+                            <a  class="departClk wishId_4"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeDepart(list)"
+                                ng-dblclick="rejectDepart(list)"
+                                href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>
+                        <a href="javascript:;;" class="title-btn" wishid="5" pub="11"
+                           ng-click="agreeDep($event)"
+                           ng-dblclick="rejectDep($event)">偏冷专业</a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left nav-depart">
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:1}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:1}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:2}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:2}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:3}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:3}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:4}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:5}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:5}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:6}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:6}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:7}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:7}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:8}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:8}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:9}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:9}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:10}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:10}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:11}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:11}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fourthDepart | filter:{classify:12}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{classify:12}" beifen>
+                            <a class="departClk wishId_5"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               href="javascript:;;" depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>
+                        <a href="javascript:;;" class="title-btn" wishid="6" pub="12"
+                           ng-click="agreeDep($event)"
+                           ng-dblclick="rejectDep($event)">
+                            冷门专业
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left nav-depart">
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:1}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:1}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:2}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:2}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:3}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:3}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:4}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:4}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:5}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:5}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:6}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:6}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:7}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:7}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:8}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:8}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:9}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:9}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:10}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:10}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-pills bs-callout" ng-if="(hope.fifthDepart|filter:{classify:11}).length>0">
+                        <li class="bs-radio">●</li>
+                        <li ng-repeat="list in hope.fifthDepart|filter:{classify:11}" beifen>
+                            <a class="departClk wishId_6"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               href="javascript:;;"
+                               ng-click="agreeDepart(list)"
+                               ng-dblclick="rejectDepart(list)"
+                               depart_id="{{list.depart_id}}" parent_id="{{list.class_id}}">
+                                {{list.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4>
                 <i class="icon-building"></i>个性标签（是、有、强、优先：单击—绿色；弱、限项、拒绝：双击—灰色；其他：原色）
             </h4>
         </div>
@@ -236,11 +1663,42 @@
             </div>
         </div>
     </div>
+
     <div class="panel panel-primary">
         <div class="panel-heading text-left">
             <h4><i class="icon-thumbs-up"></i> 意向优先汇总</h4>
         </div>
         <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>专业：</h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills" id="watch_depart">
+                        <li ng-repeat="list in hope.marjorLargeCls | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.firstDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.secondDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.thirdDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.fourthDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                        <li ng-repeat="list in hope.fifthDepart | filter:{state:1}">
+                            <a href="">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-2 text-right">
                     <h4>个性：</h4>
