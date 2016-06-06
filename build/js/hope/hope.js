@@ -732,6 +732,7 @@ require(['app'], function (app) {
             table:"",
             total:"",
             recommend:"",
+            numbers:"",
             id:""
         };
 
@@ -3509,7 +3510,7 @@ require(['app'], function (app) {
                     $scope.hope.table = data.response.table;
                     $scope.hope.total = data.response.total;
                     $scope.hope.num = Math.ceil(data.response.recommend/5);
-                    $scope.hope.number = Math.ceil(data.response.total/5);
+                    $scope.hope.numbers = Math.ceil(data.response.total/5);
                     localStorage.setItem("manualInfo", JSON.stringify(data.response));
                     $('#myModal').modal('show');
                 }else {
@@ -3544,11 +3545,30 @@ require(['app'], function (app) {
                         }else if (data.status == "1017"){
                             alert("订单获取了所有数量的推荐高校!");
                             return;
+                        }else if(data.status == 0){
+                           var lists = data.response;
+
+                            $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                                .success(function(data){
+                                    var users = data.response;
+                                    if(users.free == 2){
+                                        if(users.remain<lists.money){
+                                            alert("该注册号余额已不足支付，请联系：13914726090");
+                                        }else{
+                                            $scope.hope.order_id = lists.order_id;
+                                            $scope.hope.money = lists.money;
+                                            localStorage.setItem("type",$stateParams.batch);
+                                            $('#modal-pay').modal('show');
+                                        }
+                                    }else{
+                                         $scope.hope.order_id = lists.order_id;
+                                         $scope.hope.money = lists.money;
+                                         localStorage.setItem("type",$stateParams.batch);
+                                         $('#modal-pay').modal('show');
+                                    }
+
+                                });
                         }
-                        $scope.hope.order_id = data.response.order_id;
-                        $scope.hope.money = data.response.money;
-                        localStorage.setItem("type",$stateParams.batch);
-                        $('#modal-pay').modal('show');
                     });
                 }
             });
@@ -3563,7 +3583,7 @@ require(['app'], function (app) {
         };
 
         $scope.newManual = function(){
-            if($scope.hope.number>0){
+            if($scope.hope.number>0 && $scope.hope.number<=15){
                 $("#payStart").modal("hide");
                 var param = {};
                 param.id =  $scope.hope.id;
@@ -3596,10 +3616,31 @@ require(['app'], function (app) {
                             window.location.href = "#/login";
                             return;
                         }else if (data.status == 0){
-                            $scope.hope.order_id = data.response.order_id;
-                            $scope.hope.money = data.response.money;
-                            localStorage.setItem("type",$scope.hope.batch);
-                            $('#modal-pay').modal('show');
+
+                            var lists = data.response;
+
+                            $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                                .success(function(data){
+                                    var users = data.response;
+                                    if(users.free == 2){
+                                        if(users.remain<lists.money){
+                                            alert("该注册号余额已不足支付，请联系：13914726090");
+                                        }else{
+                                            $scope.hope.order_id = lists.order_id;
+                                            $scope.hope.money = lists.money;
+                                            localStorage.setItem("type",$stateParams.batch);
+                                            $('#modal-pay').modal('show');
+                                        }
+
+                                    }else{
+                                        $scope.hope.order_id = lists.order_id;
+                                        $scope.hope.money = lists.money;
+                                        localStorage.setItem("type",$stateParams.batch);
+                                        $('#modal-pay').modal('show');
+                                    }
+
+                                });
+
                         }else if (data.status == "1017"){
                             alert("订单获取了所有数量的自选高校，请重新提交获取自选高校");
                             return;
@@ -3607,7 +3648,7 @@ require(['app'], function (app) {
                     });
                 });
             }else{
-                alert("请输入查询院校个数");
+                alert("院校个数不能为空，且最多只能15所！");
             }
         }
 

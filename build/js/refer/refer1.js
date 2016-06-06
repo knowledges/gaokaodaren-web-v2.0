@@ -73,7 +73,6 @@ require(['app'], function (app) {
                 var times = new Date().getTime().toString();
                 $http.get(loocha+"/exam/intention?out_trade_no="+localStorage.getItem("out_trade_no")+"&t="+times,{cache:false})
                     .success(function(data){
-                        console.log(JSON.stringify(data));
                         if (data.status == 4){
                             alert('您还没有登陆，先去登陆吧！');
                             window.location.href = "#/login";
@@ -92,35 +91,35 @@ require(['app'], function (app) {
             var type = localStorage.getItem('type') == null ? 1 : localStorage.getItem('type');
             switch (parseInt(type)) {
                 case 1:
-                    $scope.info.title = "文科本一考生志愿意向表";
+                    $scope.info.title = "文科本一考生志自选表";
                     $scope.info.subtitle = "【第一阶段填报文科类第一批本科院校志愿用表】";
                     break;
                 case 2:
-                    $scope.info.title = "理科本一考生志愿意向表";
+                    $scope.info.title = "理科本一考生志自选表";
                     $scope.info.subtitle = "【第一阶段填报理科类第一批本科院校志愿用表】";
                     break;
                 case 3:
-                    $scope.info.title = "文科本二考生志愿意向表";
+                    $scope.info.title = "文科本二考生志自选表";
                     $scope.info.subtitle = "【第一阶段填报文科类第二批本科院校志愿用表】";
                     break;
                 case 4:
-                    $scope.info.title = "理科本二考生志愿意向表";
+                    $scope.info.title = "理科本二考生志自选表";
                     $scope.info.subtitle = "【第一阶段填报理科类第二批本科院校志愿用表】";
                     break;
                 case 5:
-                    $scope.info.title = "文科本三考生志愿意向表";
+                    $scope.info.title = "文科本三考生志自选表";
                     $scope.info.subtitle = "【第二阶段填报文科类第三批本科院校志愿用表】";
                     break;
                 case 6:
-                    $scope.info.title = "理科本三考生志愿意向表";
+                    $scope.info.title = "理科本三考生志自选表";
                     $scope.info.subtitle = "【第二阶段填报理科类第三批本科院校志愿用表】";
                     break;
                 case 7:
-                    $scope.info.title = "文科高职(专科)考生志愿意向表";
+                    $scope.info.title = "文科高职(专科)考生志自选表";
                     $scope.info.subtitle = "【第二阶段填报文科类高职（专科）院校志愿用表】";
                     break;
                 case 8:
-                    $scope.info.title = "理科高职(专科)考生志愿意向表";
+                    $scope.info.title = "理科高职(专科)考生志自选表";
                     $scope.info.subtitle = "【第二阶段填报理科类高职（专科）院校志愿用表】";
                     break;
             }
@@ -605,7 +604,6 @@ require(['app'], function (app) {
                     if(data.status == 3){
                         alert("已提交");
                     }else if(data.status == 0){
-                        console.log("out_trade_no:"+localStorage.getItem('out_trade_no'));
                         $window.location.href = "#/refer?orderId="+localStorage.getItem('out_trade_no')+"&type="+localStorage.getItem('type')+"&flag="+3;
                         //$window.location.reload(0);
                     }else if (data.status == 4){

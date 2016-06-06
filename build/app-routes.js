@@ -145,14 +145,25 @@ define(['app'],function(app){
                 controller:"hopeCtr",
                 data: { isPublic: true}
             })
+            //.state("hopes", {/*意向*/
+            //    url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
+            //    templateUrl: "html/hope/backuphope.html",
+            //    controller:"recommendCtrl",
+            //    data: { isPublic: true},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/hope/backuphopes.js']);
+            //        }]
+            //    }
+            //})
             .state("hopes", {/*意向*/
                 url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
-                templateUrl: "html/hope/backuphope.html",
+                templateUrl: "html/hope/backuphope1.html",
                 controller:"recommendCtrl",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/backuphopes.js']);
+                        return $ocLazyLoad.load(['js/hope/backuphopes1.js']);
                     }]
                 }
             })
@@ -621,7 +632,7 @@ define(['app'],function(app){
             .state("pay",{
                 url:"/pay",
                 templateUrl:"html/pay/pay.html",
-                controllerUrl:"js/pay/pay",
+                //controllerUrl:"js/pay/pay",
                 controller:'payCtr',
                 data: { isPublic: false}
             })
@@ -642,7 +653,6 @@ define(['app'],function(app){
             .state('refer1',{
                 url:"/refer1",
                 templateUrl:"html/refer/refer1.html",
-                controllerUrl:"js/refer/refer1",
                 controller:'referCtr1',
                 data: { isPublic: true}
             })

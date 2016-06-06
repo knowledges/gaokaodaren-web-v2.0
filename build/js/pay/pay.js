@@ -32,30 +32,45 @@ require(['app'],function(app){
             }
         }
     });
-    app.directive('pay',['$window','$location','$timeout','loocha',function($window,$location,$timeout,loocha){
+    app.directive('pay',['$http','$window','$location','$timeout','loocha','baidubaike',function($http,$window,$location,$timeout,loocha,baidubaike){
         return function(scope, element, attrs){
             element.bind('click',function(event){
                 scope.$apply(function(){
                     var out_trade_no = $location.$$search.order_id;
                     var type = event.target.getAttribute("pay-type");
-                    /***
-                     * /exam/buy
-                     * type:0 支付宝
-                     * type:1 网页
-                     * type:2 微信
-                     */
-                    switch(type){
-                        case "zhifubao":
-                            $window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0");
-                            break;
-                        case "bank":
-                            var code = event.target.getAttribute("bank-code");
-                            window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
-                            break;
-                        case "yinhanghuikuan":
-                            document.getElementById('modal').style.display = "block";
-                            break;
-                    }
+                    $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                        .success(function(data){
+                            var users = data.response;
+                            if(users.free == 2){
+                                if(users.remain>=scope.pay.money){
+                                    window.location.href=loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=3";
+                                    return;
+                                }else{
+                                    alert("该注册号余额已不足支付，请联系：13914726090");
+                                    return;
+                                }
+                            }else{
+                                /***
+                                 * /exam/buy
+                                 * type:0 支付宝
+                                 * type:1 网页
+                                 * type:2 微信
+                                 */
+                                switch(type){
+                                    case "zhifubao":
+                                        window.location.href=loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0";
+                                        //baidubaike.openwin(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=0");
+                                        break;
+                                    case "bank":
+                                        var code = event.target.getAttribute("bank-code");
+                                        window.open(loocha+"/exam/buy?out_trade_no="+out_trade_no+"&type=1&bank="+code);
+                                        break;
+                                    case "yinhanghuikuan":
+                                        document.getElementById('modal').style.display = "block";
+                                        break;
+                                }
+                            }
+                        });
                 });
             })
         }
@@ -109,6 +124,7 @@ require(['app'],function(app){
             };
 
             $scope.again = function(){
+                $rootScope.loading = true;
                 if(angular.isDefined(interval)){
                     return;
                 }
@@ -122,14 +138,17 @@ require(['app'],function(app){
                             var url = data.response.code_url;
                             $scope.countdown = 60;
                             $scope.pay.wxMoney = data.response.money;
-                            $scope.pay.expired = !$scope.pay.expired;
+                            $scope.pay.expired = false;
                             $scope.runTiming();
                             $scope.qrcode.makeCode(url);
                         }else {
                             alert("获取失败!");
                         }
+                        $rootScope.loading = false;
                     });
-                zhifubaoLoop();
+                $timeout(function(){
+                    zhifubaoLoop();
+                },5100);
             };
 
             $scope.promptenter = function(){
@@ -142,43 +161,60 @@ require(['app'],function(app){
 
             $scope.weixinzhifu = function(){
                 $rootScope.loading = true;
-                $("#qrcode").empty();
-                $scope.qrcode = new QRCode(document.getElementById("qrcode"), {
-                    width : 200,//设置宽高
-                    height : 200
-                });
 
-                $http.get(loocha+"/weixin/qrcode?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
+                $http.get(loocha+"/user?t="+new Date().getTime().toString())
                     .success(function(data){
-                        $rootScope.loading = false;
-                        if(data.status == "-1"){
-                            alert("登陆失效，请重新登陆");
-                            $window.location.href="#/login"
-                        }else if(data.status==0){
-                            var url = data.response.code_url;
-                            $scope.pay.wxMoney = data.response.money;
-                            $scope.qrcode.makeCode(url);
-                            $("#weixin").show();
-                            $scope.runTiming();
-                        }else {
-                            alert("获取失败!");
+                        var users = data.response;
+                        if(users.free == 2){
+                            $rootScope.loading = false;
+                            if(users.remain>=$scope.pay.money){
+                                window.location.href=loocha+"/exam/buy?out_trade_no="+$scope.pay.orderId+"&type=3";
+                                return;
+                            }else{
+                                alert("该注册号余额已不足支付，请联系：13914726090");
+                                return;
+                            }
+                        }else{
+                            $("#qrcode").empty();
+                            $scope.qrcode = new QRCode(document.getElementById("qrcode"), {
+                                width : 200,//设置宽高
+                                height : 200
+                            });
+
+                            $http.get(loocha+"/weixin/qrcode?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
+                                .success(function(data){
+                                    $rootScope.loading = false;
+                                    if(data.status == "-1"){
+                                        alert("登陆失效，请重新登陆");
+                                        $window.location.href="#/login"
+                                    }else if(data.status==0){
+                                        var url = data.response.code_url;
+                                        $scope.pay.wxMoney = data.response.money;
+                                        $scope.qrcode.makeCode(url);
+                                        $("#weixin").show();
+                                        $scope.runTiming();
+                                    }else {
+                                        alert("获取失败!");
+                                    }
+                                });
+
+                            $timeout(function(){
+                                zhifubaoLoop();
+                            },5100);
                         }
                     });
-
-                zhifubaoLoop();
             };
 
             function zhifubaoLoop(){
                 $http.get(loocha+"/weixin/qrcode/status?out_trade_no="+$scope.pay.orderId+"&t="+new Date().getTime().toString())
                     .success(function(data){
-                        console.log(data.response);
                         if(data.status == "-1"){
                             alert("登陆失效，请重新登陆");
                             $window.location.href="#/login"
                         }else if(data.status =="1004"){
                             _zfbTimer = $timeout(function(){
                                 zhifubaoLoop()
-                            },5000);
+                            },5100);
                         }else if(data.status ==0){
                             window.location.href="#"+data.response.split("#")[1];
                             $timeout.cancel(_zfbTimer);
@@ -187,7 +223,7 @@ require(['app'],function(app){
             }
             $scope.other = function(){
                 $scope.countdown = 60;
-                $scope.pay.expired = !$scope.pay.expired;
+                $scope.pay.expired = false;
                 $interval.cancel(interval);
                 $timeout.cancel(_zfbTimer);
                 interval = undefined;

@@ -99,6 +99,7 @@ require(['app'],function(app){
 
         $scope.update = function(){
             localStorage.setItem("out_trade_no",$scope.order.orderId);
+            localStorage.setItem("type",$scope.order.type);
             $window.location.href="#/refer1";
             $window.location.reload(0);
         }
@@ -135,12 +136,32 @@ require(['app'],function(app){
                         alert("订单获取了所有数量的推荐高校!点击修改重新编辑推荐表");
                         $("#total").hide();
                         return;
+                    }else if (data.status == 0){
+
+                        var lists = data.response;
+
+                        $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                            .success(function(data){
+                                var users = data.response;
+                                if(users.free == 2){
+                                    if(users.remain<lists.money){
+                                        alert("该注册号余额已不足支付，请联系：13914726090");
+                                    }else{
+                                        localStorage.setItem("type",$scope.order.type);
+                                        $scope.orderout_trade_no = lists.order_id;
+                                        $scope.order.money = lists.money;
+                                        $scope.order.orderShow = true;
+                                        $("#mask-points").show();
+                                    }
+                                }else{
+                                    localStorage.setItem("type",$scope.order.type);
+                                    $scope.orderout_trade_no = lists.order_id;
+                                    $scope.order.money = lists.money;
+                                    $scope.order.orderShow = true;
+                                    $("#mask-points").show();
+                                }
+                            });
                     }
-                    localStorage.setItem("type",$scope.order.type);
-                    $scope.orderout_trade_no = data.response.order_id;
-                    $scope.order.money = data.response.money;
-                    $scope.order.orderShow = true;
-                    $("#mask-points").show();
                 });
             });
         };
@@ -192,15 +213,13 @@ require(['app'],function(app){
 
             _times = $timeout(function(){
                 $timeout.cancel(_times);
-                var times = new Date().getTime().toString();
-                $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId+"&t="+times,{ cache:false})
+                $http.get(loocha+"/exam/order/info?out_trade_no="+$scope.order.orderId+"&t="+new Date().getTime().toString())
                     .success(function(data,status){
                         if(data.status== 2){
                             alert('订单不存在！');
                             $window.location.href="#/all/reference";
                             return;
                         }else if (data.status == "1016"){
-                            console.log("out_trade_no:"+$scope.order.orderId);
                             localStorage.setItem("out_trade_no",$scope.order.orderId);
                             $window.location.href="#/refer1";
                             //$window.location.reload(0);
@@ -272,9 +291,29 @@ require(['app'],function(app){
                             alert('没有找到订单');
                             return;
                         }
-                        $scope.orderout_trade_no = data.response.order_id;
-                        $scope.order.money = data.response.money;
-                        $scope.order.orderShow = true;
+
+                        var lists = data.response;
+
+                        $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                            .success(function(data){
+                                var users = data.response;
+                                if(users.free == 2){
+                                    if(users.remain<lists.money){
+                                        alert("该注册号余额已不足支付，请联系：13914726090");
+                                    }else{
+                                        $scope.orderout_trade_no = lists.order_id;
+                                        $scope.order.money = lists.money;
+                                        $scope.order.orderShow = true;
+                                    }
+
+                                }else{
+                                    $scope.orderout_trade_no = lists.order_id;
+                                    $scope.order.money = lists.money;
+                                    $scope.order.orderShow = true;
+                                }
+
+                            });
+
                     });
                 }
             });

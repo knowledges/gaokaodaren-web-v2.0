@@ -55,8 +55,9 @@
                             <td>{{$index+1}}</td>
                             <td>{{list.code}}</td>
                             <td>
-                                <a href="javascript:;;" style="color: #000;"  ng-click="showDepartInfo(list)">{{list.name}}
-                                </a>
+                                {{list.name}}
+                                <!--<a href="javascript:;;" style="color: #000;"  ng-click="showDepartInfo(list)">
+                                </a>-->
                             </td>
                             <!--<td>{{list.admit}}</td>-->
                         </tr>
@@ -73,7 +74,7 @@
                     <a ng-click="print()" class="btn btn-success btn-lg">打印预览</a>
                     <a ng-click="getReference()" class="btn btn-success btn-lg" ng-if="order.flag!=3">获取下一份推荐表</a>
                     <a ng-click="update()" class="btn btn-success btn-lg" ng-if="order.flag==3">修改</a>
-                    <a ng-click="getReference_1()" id="total" class="btn btn-success btn-lg" ng-if="order.flag==3">获取下一份自选表</a>
+                    <a ng-click="getReference_1()" id="total" class="btn btn-success btn-lg" ng-if="order.flag==3">获取其他高校及专业</a>
                 </div>
                 <div id="mask-points" class="modal" role="dialog" aria-labelledby="myLargeModalLabel" ng-if="order.orderShow" style="display:block;">
                     <div class="modal-dialog">

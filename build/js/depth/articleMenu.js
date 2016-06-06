@@ -29,7 +29,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$location','$timeout','loocha','data_province','getLoginUserInfo',function($scope,$http,$sce,$stateParams,$location,$timeout,loocha,data_province,getLoginUserInfo){
+    app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$window','$location','$timeout','loocha','data_province','getLoginUserInfo',function($scope,$http,$sce,$stateParams,$window,$location,$timeout,loocha,data_province,getLoginUserInfo){
         $scope.menuArr = [];
         $scope.orderList=[];
         $scope.menuInfoArr = [];
@@ -658,12 +658,31 @@ require(['app'],function(app){
                                 window.location.href = "#/login";
                                 return;
                             }else if (data.status == 0){
-                                $scope.hope.order_id = data.response.order_id;
-                                $scope.hope.money = data.response.money;
-                                $('#modal-pay').show();
-                                localStorage.removeItem("orderList");
-                                localStorage.removeItem("depthbatch");
-                                localStorage.removeItem("depthmoney");
+                                var lists = data.response;
+
+                                $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                                    .success(function(data){
+                                        var users = data.response;
+                                        if(users.free == 2){
+                                            if(users.remain<lists.money){
+                                                alert("该注册号余额已不足支付，请联系：13914726090");
+                                            }else{
+                                                $scope.hope.order_id = lists.order_id;
+                                                $scope.hope.money = lists.money;
+                                                $('#modal-pay').show();
+                                                localStorage.removeItem("orderList");
+                                                localStorage.removeItem("depthbatch");
+                                                localStorage.removeItem("depthmoney");
+                                            }
+                                        }else{
+                                            $scope.hope.order_id = lists.order_id;
+                                            $scope.hope.money = lists.money;
+                                            $('#modal-pay').show();
+                                            localStorage.removeItem("orderList");
+                                            localStorage.removeItem("depthbatch");
+                                            localStorage.removeItem("depthmoney");
+                                        }
+                                    });
                             }
                         });
                 });
@@ -680,12 +699,13 @@ require(['app'],function(app){
                 .success(function (data) {
                     if (data.status == "1004") {
                         alert('交易失败');
-                        window.location.reload(0);
+
                     }else if(data.status == "0"){
                         localStorage.removeItem("orderList");
                         localStorage.removeItem("depthmoney");
-                        window.location.reload(0);
+
                     }
+                    window.location.reload(0);
                     $("#tip").hide();
                 });
         };

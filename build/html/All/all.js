@@ -19,7 +19,6 @@ require(['app'], function (app) {
         _time = $timeout(function(){
             $timeout.cancel(_time);
             var times = new Date().getTime().toString();
-            console.log(times);
             $http.get(loocha + referUrl2+"&t="+times)
                 .success(function (data) {
                     if(data.status == "4"){
@@ -63,7 +62,6 @@ require(['app'], function (app) {
         _time = $timeout(function() {
             $timeout.cancel(_time);
             var times = new Date().getTime().toString();
-            console.log(times);
             $http.get(loocha + referUrl3+"&t="+times)
                 .success(function (data, status) {
                     if (data.status == "4") {
@@ -87,7 +85,6 @@ require(['app'], function (app) {
         _time = $timeout(function(){
             $timeout.cancel(_time);
             var times = new Date().getTime().toString();
-            console.log(times);
             $http.get(loocha + referUrl4+"&t="+times)
                 .success(function (data) {
                     if(data.status == "4"){
@@ -130,7 +127,6 @@ require(['app'], function (app) {
         _time = $timeout(function() {
             $timeout.cancel(_time);
             var times = new Date().getTime().toString();
-            console.log(times);
             $http.get(loocha + referUrl5+"&t="+times)
                 .success(function (data) {
                     if(data.status == "4"){

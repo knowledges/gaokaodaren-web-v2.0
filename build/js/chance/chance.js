@@ -47,6 +47,8 @@ require(['app'],function(app){
             departChance:"",
             d_schl_id:"",
             d_schl_name:"",
+            d_departId:"",
+            d_departname:"",
             d_schlArr:"",
             schChance_2:"",
             personality_type1:"",
@@ -67,7 +69,9 @@ require(['app'],function(app){
             range_sch_name:"",
             rangeArr:"",
             schChance_3:"",
-        };
+
+
+    };
         $scope.modelInfo = {
             model_1:[],
             model_2:[],
@@ -155,6 +159,8 @@ require(['app'],function(app){
                 }
             }
 
+            $scope.loading = false;
+
         }
 
         /**
@@ -172,7 +178,7 @@ require(['app'],function(app){
                             model_5:[],
                             model_6:[],
                         };
-                        var item = data.response,flag = item.admitFlag.split(","),adminlist = item.admits;
+                        var item = data.response,flag = item.admitFlag.split(",");
 
                         flag.splice(0,1);
                         flag.splice(flag.length-1,1);
@@ -185,7 +191,9 @@ require(['app'],function(app){
                             }
                         }
 
-                        if(adminlist !="null" && adminlist !="undefined"){
+                        var adminlist = item.admits !=undefined ? item.admits : undefined;
+
+                        if(adminlist !="null" && adminlist !=undefined){
                             if(adminlist.length>0){
                                 $.each(adminlist,function(i,v){
                                     if(v.flag == 1){
@@ -205,6 +213,15 @@ require(['app'],function(app){
                             }
                         }
 
+                        if(item.paidId<=0){
+                            var result = confirm("未支付,请重新缴费");
+                            if(result){
+                                sessionStorage.setItem("order_id",data.response.order_id);
+                                $scope.order_id =data.response.order_id;
+                                $scope.money = data.response.money;
+                                $("#zyb_random").modal('show');
+                            }
+                        }
                     });
             },500);
 
@@ -520,15 +537,19 @@ require(['app'],function(app){
          */
         $scope.getpersonalityId = function(){
             $scope.forecast.pDepart_id = "",$scope.forecast.pSchl_id = "";
-            //$scope.forecast.pDepart_id = $scope.forecast.pSchool_id = "";
-            $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+"&t="+( new Date() ).getTime().toString())
-                .success(function(data){
-                    if(data.response.length<=0){
-                        alert("没有搜索到内容！");
-                    }
-                    $scope.forecast.pDepart_Arr = data.response;
-                    $scope.forecast.schChance_6 = "";
-                });
+            if($scope.isChance == 6 || $scope.isChance == 5){
+                alert("该批次没有对应的内容！");
+            }else{
+                $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        if(data.response.length<=0){
+                            alert("没有搜索到内容！");
+                        }
+                        $scope.forecast.pDepart_Arr = data.response;
+                        $scope.forecast.schChance_6 = "";
+                    });
+            }
+
         };
 
         /**
@@ -631,7 +652,7 @@ require(['app'],function(app){
             }
 
             var param = {};
-                param.type = localStorage.getItem("type");
+                param.type = $scope.isChance;
                 param.attr = attr_id;
                 param.belongs = belongs_id;
                 param.level = level_id;
@@ -717,6 +738,8 @@ require(['app'],function(app){
 
         $scope.getSchlChance = function(){
 
+
+
             var param = {};
                 param.out_trade_no= $scope.order_id;
                 param.admit_flag = 5;
@@ -772,10 +795,28 @@ require(['app'],function(app){
                     alert("先勾选选测条件");
                 }else if (data.status == 0){
                     $http.get(loocha+'/exam/' + data.response.id).success(function (data) {
-                        sessionStorage.setItem("order_id",data.response.order_id);
-                        $scope.order_id = data.response.order_id;
-                        $scope.money = data.response.money;
-                        $("#zyb_random").modal('show');
+
+                        var lists = data.response;
+
+                        $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                            .success(function(data){
+                                var users = data.response;
+                                if(users.free == 2){
+                                    if(users.remain<lists.money){
+                                        alert("该注册号余额已不足支付，请联系：13914726090");
+                                    }else{
+                                        sessionStorage.setItem("order_id",lists.order_id);
+                                        $scope.order_id = lists.order_id;
+                                        $scope.money = lists.money;
+                                        $("#zyb_random").modal('show');
+                                    }
+                                }else{
+                                    sessionStorage.setItem("order_id",lists.order_id);
+                                    $scope.order_id = lists.order_id;
+                                    $scope.money = lists.money;
+                                    $("#zyb_random").modal('show');
+                                }
+                            });
                     });
                 }else if(data.status == "1005" || data.status == "1009"){
                     show_confirm(param);
@@ -896,26 +937,37 @@ require(['app'],function(app){
             return num;
         }
 
-        var _times = null;
+     /*   $scope.findDepart = function(){
+            $scope.forecast.schl_departId = "";
+            $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
+                $scope.forecast.schl_departArr = data.response.list;
+            });
+        };*/
 
-        $scope.findDepart = function(){
-            $timeout.cancel(_times);
-            _times  = $timeout(function(){
+  /*      $scope.findSchl = function(){
+            $scope.forecast.d_schl_id = "";
+            $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
+                $scope.forecast.d_schlArr = data.response;
+            });
+        };*/
+
+        $scope.$watch('forecast.schl_name',function(newValue,oldValue){
+            if(newValue!="" && newValue!=oldValue){
                 $scope.forecast.schl_departId = "";
                 $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
                     $scope.forecast.schl_departArr = data.response.list;
                 });
-            },500);
-        };
+            }
+        });
 
-        $scope.findSchl = function(){
-            $timeout.cancel(_times);
-            _times= $timeout(function(){
+        $scope.$watch('forecast.d_departname',function(newValue,oldValue){
+            if(newValue!="" && newValue!=oldValue){
                 $scope.forecast.d_schl_id = "";
                 $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
                     $scope.forecast.d_schlArr = data.response;
                 });
-            },500)
-        };
+            }
+        });
+
     }]);
 });
