@@ -1,0 +1,16 @@
+<div class="btn-group">
+    <button type="button"
+            class="btn btn-default cancle"
+            parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"
+            ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[lists.state]"
+            ng-click="agreeCity($event)"
+            ng-dblclick="rejectCity($event)">{{lists.name}}
+    </button>
+    <button type="button" class="btn btn-default cancle" ng-click="getSchoolsByCitysId(lists)">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" ng-if="showMe" style="display:block;">
+        <li>
+            <a href="javascript:;;" ng-repeat="list in classify.schoolList">{{list.name}}</a></li>
+    </ul>
+</div>

@@ -1,0 +1,350 @@
+<div class="container text-center">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-left">
+            <h4>
+                <i class="icon-building"></i>
+                意向高校（优先：单击—绿色；拒绝：双击—灰色；可选择：原色）
+            </h4>
+        </div>
+        <div class="panel-footer" id="provnice" style="background: #FFF!important;">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4 data-toggle="tooltip" data-placement="left">
+                        院校属地
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <areas-toggle  ng-repeat="item in hope.area" ng-if="$index<4">
+
+                        </areas-toggle>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <areas-toggle  ng-repeat="item in hope.area" ng-if="$index>=4">
+
+                        </areas-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="2" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="8">江苏省</span></h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <citys-toggle  ng-repeat="lists in hope.js_province | filter:{classify:1}">
+
+                    </citys-toggle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="3" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="10">一线城市</span></h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <citys-toggle  ng-repeat="lists in hope.firstCities | filter:{classify:1}">
+
+                    </citys-toggle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="4" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="11">二线城市</span></h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.secondCities | filter:{classify:1}">
+
+                        </citys-toggle>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.secondCities | filter:{classify:2}">
+
+                        </citys-toggle>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.secondCities | filter:{classify:3}">
+
+                        </citys-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="5" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="12">三线城市</span></h4>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.thirdCities | filter:{classify:1}">
+
+                        </citys-toggle>
+                    </div>
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.thirdCities | filter:{classify:2}">
+
+                        </citys-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="6" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="13">四线城市</span></h4>
+                </div>
+                <div class="col-sm-10  text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <div class="col-sm-12" style="padding: 0;">
+                            <citys-toggle  ng-repeat="lists in hope.fourthCities | filter:{classify:1}">
+
+                            </citys-toggle>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><span class="title-btn" wishid="7" ng-click="agreePro($event)"
+                              ng-dblclick="rejectPro($event)" pub="14">五线城市</span></h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <div class="col-sm-12" style="padding: 0;">
+                        <citys-toggle  ng-repeat="lists in hope.fifthCities | filter:{classify:1}">
+
+                        </citys-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" id="panel-footer" style="border-top: 1px solid #ccc;">
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4>
+                        院校属类
+                        <!--<a href="javascript:;;" class="title-btn" ng-mouseenter="showTipTitle($event)" ng-mouseleave="hideTipTitle($event)"  tiptitle="
+                        亲：请将您心仪那些高校或哪类高校或哪所高校作为优先选择的高校，单击（绿色）&#10;亲：请将您不想上或不愿意上或决不上的哪所高校或那些高校或哪类高校，拒绝掉，双击（灰色）&#10;亲：对您可上可不上（可调节或可接受）的那类高校或那些高校或那所高校，保持原样。
+                        ">院校属类</a>-->
+                    </h4>
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="dropdown"  ng-if="hope.type != 5 && hope.type != 6">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="atrlistClk($event)">
+                                类别
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="attr1" ng-if="hope.attrs.isShow" style="display: block;">
+                                <li><a href="javascript:;;"
+                                       ng-repeat="list in hope.attrs"
+                                       ng-click=""
+                                       ng-dblclick="">
+                                        {{list.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown" >
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="stylistClk($event)">
+                                类型
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="style1" ng-if="hope.styles.isShow" style="display: block;">
+                                <li>
+                                    <a href="javascript:;;"
+                                       ng-repeat="list in hope.styles"
+                                       ng-click=""
+                                       ng-dblclick="">
+                                        {{list.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown"  ng-if="hope.type != 5 && hope.type != 6 ">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="proplistClk($event)">
+                                属性
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="prop1" ng-if="hope.props.isShow" style="display: block;">
+                                <li>
+                                    <a href="javascript:;;"
+                                       ng-repeat="list in hope.props"
+                                       ng-click=""
+                                       ng-dblclick="">
+                                        {{list.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" href="javascript:;;" ng-click="belongslistClk($event)">
+                                属管
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="belongs1" ng-if="hope.belongs.isShow" style="display: block;">
+                                <li>
+                                    <a href="javascript:;;"
+                                       ng-repeat="list in hope.belongs"
+                                       ng-click=""
+                                       ng-dblclick="">
+                                    {{list.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;"
+                           wishid="1"
+                           ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">高分高校</a></h4> <!--// -->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <!-- -->
+                        <li ng-repeat="list in hope.schools | filter:{swish_id:1}" beifen>
+                            <a href="javascript:;;"
+                               class="findSch wishId_1"
+                               city_id="{{list.city_id}}"
+                               attrs="{{list.attr}}"
+                               belongs="{{list.belongs}}"
+                               styles="{{list.style}}"
+                               prop3="{{list.prop3}}"
+                               prop4="{{list.prop4}}"
+                               prop5="{{list.prop5}}"
+                               prop6="{{list.prop6}}"
+                               prop7="{{list.prop7}}"
+                               prop8="{{list.prop8}}"
+                               prop9="{{list.prop9}}"
+                               school_id="{{list.s_id}}"
+                               state = {{list.state}}
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeSchool(list)"
+                               ng-dblclick="rejectSchool(list)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="2" pub="7" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">偏高高校</a></h4> <!--//-->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schools | filter:{swish_id:2}" beifen >
+                            <a href="javascript:;;"
+                               class="findSch wishId_2"
+                               city_id="{{list.city_id}}"
+                               attrs="{{list.attr}}"
+                               belongs="{{list.belongs}}"
+                               styles="{{list.style}}"
+                               prop3="{{list.prop3}}"
+                               prop4="{{list.prop4}}"
+                               prop5="{{list.prop5}}"
+                               prop6="{{list.prop6}}"
+                               prop7="{{list.prop7}}"
+                               prop8="{{list.prop8}}"
+                               prop9="{{list.prop9}}"
+                               school_id="{{list.s_id}}"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeSchool(list)"
+                               ng-dblclick="rejectSchool(list)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="3" pub="8" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">中分高校</a></h4> <!--//-->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schools | filter:{swish_id:3}" beifen>
+                            <a href="javascript:;;"
+                               class="findSch wishId_3"
+                               city_id="{{list.city_id}}"
+                               attrs="{{list.attr}}"
+                               belongs="{{list.belongs}}"
+                               styles="{{list.style}}"
+                               prop3="{{list.prop3}}"
+                               prop4="{{list.prop4}}"
+                               prop5="{{list.prop5}}"
+                               prop6="{{list.prop6}}"
+                               prop7="{{list.prop7}}"
+                               prop8="{{list.prop8}}"
+                               prop9="{{list.prop9}}"
+                               school_id="{{list.s_id}}"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeSchool(list)"
+                               ng-dblclick="rejectSchool(list)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="4" pub="9" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">偏低高校</a></h4> <!---->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schools | filter:{swish_id:4}" beifen>
+                            <a href="javascript:;;"
+                               class="findSch wishId_4"
+                               city_id="{{list.city_id}}"
+                               attrs="{{list.attr}}"
+                               belongs="{{list.belongs}}"
+                               styles="{{list.style}}"
+                               prop3="{{list.prop3}}"
+                               prop4="{{list.prop4}}"
+                               prop5="{{list.prop5}}"
+                               prop6="{{list.prop6}}"
+                               prop7="{{list.prop7}}"
+                               prop8="{{list.prop8}}"
+                               prop9="{{list.prop9}}"
+                               school_id="{{list.s_id}}"
+                               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                               ng-click="agreeSchool(list)"
+                               ng-dblclick="rejectSchool(list)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right">
+                    <h4><a href="javascript:;;" class="title-btn" wishid="5" pub="10" ng-click="agreeSchl($event)"
+                           ng-dblclick="rejectSchl($event)">低分高校</a></h4> <!---->
+                </div>
+                <div class="col-sm-10 text-left">
+                    <ul class="nav nav-pills">
+                        <li ng-repeat="list in hope.schools | filter:{swish_id:5}" on-finish-render="methodname">
+                            <a  href="javascript:;;"
+                                class="findSch wishId_5"
+                                city_id="{{list.city_id}}"
+                                attrs="{{list.attr}}"
+                                belongs="{{list.belongs}}"
+                                styles="{{list.style}}"
+                                prop3="{{list.prop3}}"
+                                prop4="{{list.prop4}}"
+                                prop5="{{list.prop5}}"
+                                prop6="{{list.prop6}}"
+                                prop7="{{list.prop7}}"
+                                prop8="{{list.prop8}}"
+                                prop9="{{list.prop9}}"
+                                school_id="{{list.s_id}}"
+                                ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+                                ng-click="agreeSchool(list)"
+                                ng-dblclick="rejectSchool(list)">{{list.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

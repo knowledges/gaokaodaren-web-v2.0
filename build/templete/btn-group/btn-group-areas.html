@@ -1,0 +1,20 @@
+<div class="btn-group">
+    <button type="button"
+            ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[item.state]"
+            class="btn cancle"
+            ng-click="preferCityLClsClk(item)"
+            ng-dblclick="rejectCityLClsClk(item)">{{item.name}}</button>
+    <button type="button" class="btn cancle" ng-click="toggleDown(item)">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" style="display: block" ng-show="showMe">
+        <li ng-repeat="list in classify.provinces">
+            <a href="javascript:;;"
+               ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
+               ng-click="preferCitySClsClk(list)"
+               ng-dblclick="rejectCitySClsClk(list)">
+                {{list.name}}
+            </a>
+        </li>
+    </ul>
+</div>

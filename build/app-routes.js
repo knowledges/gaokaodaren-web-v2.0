@@ -156,14 +156,25 @@ define(['app'],function(app){
             //        }]
             //    }
             //})
+            //.state("hopes", {/*意向*/
+            //    url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
+            //    templateUrl: "html/hope/backuphope1.html",
+            //    controller:"recommendCtrl",
+            //    data: { isPublic: true},
+            //    resolve:{
+            //        deps:['$ocLazyLoad',function($ocLazyLoad){
+            //            return $ocLazyLoad.load(['js/hope/backuphopes1.js']);
+            //        }]
+            //    }
+            //})
             .state("hopes", {/*意向*/
                 url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
-                templateUrl: "html/hope/backuphope1.html",
+                templateUrl: "html/hope/backuphope2.html",
                 controller:"recommendCtrl",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/backuphopes1.js']);
+                        return $ocLazyLoad.load(['js/hope/backuphopes2.js']);
                     }]
                 }
             })
