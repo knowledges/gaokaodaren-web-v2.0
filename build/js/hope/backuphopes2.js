@@ -42,7 +42,7 @@ require(['app'], function (app) {
 
         }
     }]);
-    app.directive('citysToggle',['$http','$timeout','loocha','maskRequest',function($http,$timeout,loocha,maskRequest){
+    app.directive('citysToggle',['$http','$q','$timeout','loocha','maskRequest',function($http,$q,$timeout,loocha,maskRequest){
         return{
             restrict:'EA',
             replace:true,
@@ -69,6 +69,53 @@ require(['app'], function (app) {
                         }
                     }
                 };
+
+                var _timer = null;
+                scope.agreeCityBySchools = function(obj){
+                    $timeout.cancel(_timer);
+                    _timer = $timeout(function(){
+                        if(obj.state == undefined || obj.state == 0){
+                            obj.state = 1;
+                        }else if (obj.state == 1){
+                            obj.state = 0;
+                        }
+                    },500);
+                };
+
+                scope.rejectCityBySchools = function(obj){
+                    $timeout.cancel(_timer);
+                    if(obj.state == undefined || obj.state == 0){
+                        obj.state = 2;
+
+                        var param = {};
+                        param.type = $scope.reject.batch;
+                        param.style = $scope.reject.style;
+                        param.belongs = $scope.reject.belongs;
+                        param.attr = $scope.reject.attribute;
+                        param.prop3 = $scope.reject.prop3;
+                        param.prop4 = $scope.reject.prop4;
+                        param.prop5 = $scope.reject.prop5;
+                        param.prop6 = $scope.reject.prop6;
+                        param.prop8 = $scope.reject.prop8;
+                        param.citys = $scope.reject.citys;
+                        //TODO 请求
+
+                    }else if (obj.state == 2){
+                        obj.state = 0;
+                    }
+                };
+
+                function getSchoolsArray(param){
+                    var deferred = $q.defer();
+                    $http({
+                        url:loocha+"/schbath",
+                        method:"GET",
+                        params:param
+                    }).success(function(data){
+                        deferred.resolve(data);
+                    });
+                    return deferred.promise;
+                }
             }
 
         }
@@ -90,6 +137,28 @@ require(['app'], function (app) {
             styles:"",
             props:"",
             belongs:"",
+        };
+        $scope.sure = {
+            attr:"",
+            belongs:"",
+            style:"",
+            prop3:"",
+            prop4:"",
+            prop5:"",
+            prop6:"",
+            prop8:"",
+            citys:"",
+        };
+        $scope.reject = {
+            attr:"",
+            belongs:"",
+            style:"",
+            prop3:"",
+            prop4:"",
+            prop5:"",
+            prop6:"",
+            prop8:"",
+            citys:"",
         };
 
         init();
@@ -194,7 +263,6 @@ require(['app'], function (app) {
                 }
             }
         };
-
 
         $scope.agreeSchool = function(obj){
             $timeout.cancel(_timer);

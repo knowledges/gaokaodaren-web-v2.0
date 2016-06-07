@@ -3,8 +3,8 @@
             class="btn btn-default cancle"
             parent_id="{{lists.parent_id}}" city_id="{{lists.city_id}}"
             ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[lists.state]"
-            ng-click="agreeCity($event)"
-            ng-dblclick="rejectCity($event)">{{lists.name}}
+            ng-click="agreeCityBySchools(lists)"
+            ng-dblclick="rejectCityBySchools(lists)">{{lists.name}}
     </button>
     <button type="button" class="btn btn-default cancle" ng-click="getSchoolsByCitysId(lists)">
         <span class="caret"></span>
