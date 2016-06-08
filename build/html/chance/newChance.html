@@ -408,8 +408,9 @@
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="forecast.d_departname"
                                placeholder="请输入专业名称"/>
-                        <!--ng-keyup="findSchl()"-->
-                        <!--ng-keydown="findSchl($event)"-->
+                        <listgroup-depart ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;">
+
+                        </listgroup-depart>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -546,7 +547,7 @@
                                 ng-model="forecast.cSchool_id"
                                 ng-change="findChaname()">
                             <option value="">==请选择高校==</option>
-                            <option ng-repeat="list in forecast.rangeArr" value="{{list.unique_id}}">{{list.name}}
+                            <option ng-repeat="list in forecast.rangeArr" value="{{list.unique_id}}">{{list.name}}({{list.unique_id}})
                             </option>
                         </select>
                         <ul class="nav nav-bar">

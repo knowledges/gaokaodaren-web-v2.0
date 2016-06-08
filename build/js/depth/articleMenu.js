@@ -61,9 +61,12 @@ require(['app'],function(app){
         $scope.hope = {
             order_id : "",
             money :""
-        }
-//        console.log($location.$$url.split("batch=")[1]);
+        };
+
+        $scope.search = "";
+
         init();
+
         function init(){
             localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             $("#depthModal").show();
@@ -427,13 +430,16 @@ require(['app'],function(app){
                     var year = 0;
                     switch (parseInt(v)){
                         case 0:
-                            year = 2012;
-                            break;
-                        case 1:
                             year = 2013;
                             break;
-                        case 2:
+                        case 1:
                             year = 2014;
+                            break;
+                        case 2:
+                            year = 2015;
+                            break;
+                        case 3:
+                            year = 2012;
                             break;
                     }
                     addOrders(++_count,condition.titleId,condition.title,type,year,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
@@ -559,12 +565,11 @@ require(['app'],function(app){
                     addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
                 }
             });
-
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));
             localStorage.setItem("depthmoney",$scope.money);
 
             $(".modal").hide();
-            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count=$scope.search="";
 
             function addOrders(id,titleId,title,type,year,schoolname,departname,money,city,subject,count,fee,sel){
                 var isTrue = true;
@@ -733,6 +738,23 @@ require(['app'],function(app){
                 });
             });
         });
+
+        $scope.$watch('condition.departName',function(newvalue,oldvalue){
+            if(newvalue!="" && newvalue!=oldvalue){
+
+                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        $scope.search = data.response;
+                    });
+
+            }else{
+                $scope.condition.departName = "";
+            }
+        });
+
+        $scope.departDisplace = function(obj){
+            $scope.condition.departName = obj.name;
+        }
 
     }]);
 });

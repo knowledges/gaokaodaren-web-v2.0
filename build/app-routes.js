@@ -174,7 +174,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/backuphopes2.js']);
+                        return $ocLazyLoad.load(['js/hope/backuphopes1.js']);
                     }]
                 }
             })

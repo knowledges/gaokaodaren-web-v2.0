@@ -16,7 +16,21 @@ require(['app'],function(app){
             }
         }
     });
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,getLoginUserInfo,loocha,arraysort,inLine){
+    app.directive('listgroupDepart',[function(){
+            return{
+                restrict:'EA',
+                replace:true,
+                transclude:true,
+                templateUrl:'templete/model-listGroup/list-group-depart.html',
+                link:function(scope,element,attrs){
+                    scope.departDisplace = function(obj){
+                        scope.forecast.d_departname = obj.name;
+                    }
+
+                }
+            }
+    }]);
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','$q','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,$q,getLoginUserInfo,loocha,arraysort,inLine){
         $scope.score = "";
         $scope.isShow = false;
         $scope.isChance = $stateParams.batch;
@@ -90,6 +104,8 @@ require(['app'],function(app){
             level_b:"",
             score:"",
         };
+
+        $scope.search = "";
 
         $scope.changePay = function(){
             $scope.isShow = true;
@@ -737,9 +753,7 @@ require(['app'],function(app){
         };
 
         $scope.getSchlChance = function(){
-
-
-
+            $scope.search="";
             var param = {};
                 param.out_trade_no= $scope.order_id;
                 param.admit_flag = 5;
@@ -963,11 +977,32 @@ require(['app'],function(app){
         $scope.$watch('forecast.d_departname',function(newValue,oldValue){
             if(newValue!="" && newValue!=oldValue){
                 $scope.forecast.d_schl_id = "";
-                $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
-                    $scope.forecast.d_schlArr = data.response;
+                $q.all({
+                    first:$http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()),
+                    second:$http.get(loocha+"/departlist/marjor?type="+$scope.isChance+"&marjorname="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString())
+                }).then(function(data){
+                    getDepartsBySchool(data.first.data);
+                    getdepartsName(data.second.data);
                 });
+                function getDepartsBySchool(data){
+                    $scope.forecast.d_schlArr = data.response;
+                }
+                function getdepartsName(data){
+                    $scope.search = data.response;
+                }
+
+
+                /*$http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
+                    $scope.forecast.d_schlArr = data.response;
+                });*/
+            }else{
+                $scope.forecast.d_schlArr = $scope.search = $scope.forecast.d_schl_id = "";
             }
         });
+
+        //$scope.departDisplace = function(obj){
+        //    $scope.forecast.d_departname = obj.name;
+        //}
 
     }]);
 });
