@@ -20,8 +20,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    //app.constant("loocha","");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -190,6 +190,28 @@ define(['app'],function(app){
                 }
             })
 /////////////////////////////志愿范例///////////////////////////////////////////////////////
+//            .state('example',{
+//                url:'/example',
+//                templateUrl:"html/temp/tempExample.html",
+//                controller:"exampleAllCtr",
+//                data: { isPublic: true},
+//                resolve:{
+//                    deps:['$ocLazyLoad',function($ocLazyLoad){
+//                        return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
+//                    }]
+//                }
+//            })
+//            .state("example.list",{
+//                url:'/itemId=:itemId&param=:param&batch=:batch',
+//                templateUrl:'html/recipe/recipe.html',
+//                controller:"recipeInfoCtr",
+//                data: { isPublic: true},
+//                resolve:{
+//                    deps:['$ocLazyLoad',function($ocLazyLoad){
+//                        return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
+//                    }]
+//                }
+//            })
             .state('example',{
                 url:'/example',
                 templateUrl:"html/temp/tempExample.html",
@@ -202,9 +224,10 @@ define(['app'],function(app){
                 }
             })
             .state("example.list",{
-                url:'/itemId=:itemId&param=:param&batch=:batch',
-                templateUrl:'html/recipe/recipe.html',
-                controller:"recipeInfoCtr",
+                url:'/examList/batch=:batch',
+                templateUrl:'html/example/example.html',
+                //controllerUrl:"js/Controller/recipe/recipe",
+                controller:"examlistCtr",
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
@@ -212,29 +235,6 @@ define(['app'],function(app){
                     }]
                 }
             })
-            //.state('example',{
-            //    url:'/example',
-            //    templateUrl:"html/temp/tempExample.html",
-            //    controller:"exampleAllCtr",
-            //    data: { isPublic: true},
-            //    resolve:{
-            //        deps:['$ocLazyLoad',function($ocLazyLoad){
-            //            return $ocLazyLoad.load(['js/example/example.js','js/Controller/listGroup/groupRecipe.js','js/Controller/recipe/recipe.js']);
-            //        }]
-            //    }
-            //})
-            //.state("example.list",{
-            //    url:'/examList/batch=:batch',
-            //    templateUrl:'html/example/example.html',
-            //    //controllerUrl:"js/Controller/recipe/recipe",
-            //    controller:"examlistCtr",
-            //    data: { isPublic: true},
-            //    resolve:{
-            //        deps:['$ocLazyLoad',function($ocLazyLoad){
-            //            return $ocLazyLoad.load(['js/Controller/recipe/recipe.js']);
-            //        }]
-            //    }
-            //})
 ////////////////////////////////////志愿咨询Start////////////////////////////////////////////////////////////////////////////////////
             .state('online',{//咨询线路
                 url:"/online",
@@ -636,7 +636,7 @@ define(['app'],function(app){
             })
             .state("depth.info",{
                 url:"/depthInfo/batch=:batch",
-                templateUrl:"html/depth/articleInfo.html",
+                templateUrl:"all",
                 data: { isPublic: true},
             })
 //////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////

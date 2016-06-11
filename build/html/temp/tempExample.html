@@ -6,21 +6,20 @@
             </h3>
         </div>
     </div>
-
-    <div class="container" ng-show="ishide">
-        <nav class="navbar menu-navbar">
-            <div class="collapse navbar-collapse">
-                <div class="col-md-3">
-                    <div ng-include="'templete/model-listGroup/groupExample.html'"></div>
-                </div>
-                <div class="col-md-9">
-                    <div ui-view></div>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <!--<div ng-include="'templete/model-article/article.html'"></div>-->
+    <div ui-view></div>
+    <!--<div class="container" ng-show="ishide">-->
+        <!--<nav class="navbar menu-navbar">-->
+            <!--<div class="collapse navbar-collapse">-->
+                <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div ng-include="'templete/model-listGroup/groupExample.html'"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="col-md-12">-->
+                    <!--<div ui-view></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</nav>-->
+    <!--</div>-->
+    <div ng-include="'templete/model-article/article.html'"></div>
 
     <div class="floatAdv floatAdv_left">
         <div ng-include="'templete/model-navbarCity/navbarADV.html'" ng-controller="LexampleNewCtl"></div>

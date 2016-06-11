@@ -68,9 +68,10 @@ require(['app'], function (app) {
             $rootScope.loading = true;
             var obj = $scope.order.conditions[num-1];
             var param = {};
-            param.type = obj.type
+            param.type = obj.type;
             param.out_trade_no  = $scope.order.out_trade_no;
             param.year = obj.year;
+            param.code = obj.code;
             param.school = obj.school;
             param.depart = obj.depart;
             param.subject = obj.subject;

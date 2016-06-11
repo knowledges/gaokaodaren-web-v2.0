@@ -52,7 +52,7 @@ require(['app'],function(app) {
                 $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
                 $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
 
-                $http.get(loocha+"/example?type="+$scope.userInfo.type+"&level="+($scope.userInfo.level_a+$scope.userInfo.level_b)+"&score="+$scope.userInfo.score)
+                $http.get(loocha+"/example?type="+$scope.userInfo.type+"&level="+encodeURI($scope.userInfo.level_a+$scope.userInfo.level_b)+"&score="+$scope.userInfo.score)
                     .success(function(data){
                         $scope.title.list = data.response;
                         angular.forEach(data.response,function(v,i){

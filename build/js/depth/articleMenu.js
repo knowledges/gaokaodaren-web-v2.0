@@ -39,6 +39,7 @@ require(['app'],function(app){
             type:$location.$$url.split("batch=")[1],
             inputTemplate : "",
             timer:"",
+            code:"",
             schlName:"",
             departName:"",
             level:"",
@@ -64,6 +65,7 @@ require(['app'],function(app){
         };
 
         $scope.search = "";
+        $scope.searchSchool = "";
 
         init();
 
@@ -243,6 +245,11 @@ require(['app'],function(app){
                     that.addClass("active");
                     alert("该批次中没有此内容");
                     return;
+                }else if (idx ==193||idx ==194){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
                 }
             }
 
@@ -397,20 +404,23 @@ require(['app'],function(app){
         $scope.baikeClk = function(){
             var url ="http://baike.baidu.com/item/";
             if($scope.condition.departName !=""){
-                url ="http://baike.baidu.com/item/"+$scope.condition.departName;
+                var str = $scope.condition.departName.split("(")[0];
+                url ="http://baike.baidu.com/item/"+str;
             }
             if($scope.condition.schlName !=""){
-                url ="http://baike.baidu.com/item/"+$scope.condition.schlName;
+                var str = $scope.condition.schlName.split("(")[0];
+                url ="http://baike.baidu.com/item/"+str;
             }
             openwin(url);
 
-            $timeout(function(){
-                $scope.condition.departName=$scope.condition.schlName="";
-            },500);
+            //$timeout(function(){
+            //    $scope.condition.departName=$scope.condition.schlName="";
+            //},500);
         };
 
         $scope.close = function(){
             $("#recommend,#depthModal,#baikeModal").hide();
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
         };
 
         var _count = 0;
@@ -419,10 +429,15 @@ require(['app'],function(app){
          */
         $scope.orderInfo = function(condition){
             var type = $location.$$url.split("batch=")[1];
+            var year = 2016;
+            if(condition.titleId>=60&&condition.titleId<=100){
+                year = "";
+            }
             if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
-                addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-                addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }
 
             angular.forEach(condition.timer,function(i,v){
@@ -442,7 +457,7 @@ require(['app'],function(app){
                             year = 2012;
                             break;
                     }
-                    addOrders(++_count,condition.titleId,condition.title,type,year,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                 }
             });
 
@@ -491,7 +506,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
                 }
             });
 
@@ -512,7 +527,7 @@ require(['app'],function(app){
                             fee  = "5";
                             break;
                     }
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
                 }
             });
 
@@ -540,7 +555,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
                 }
             });
 
@@ -569,9 +584,9 @@ require(['app'],function(app){
             localStorage.setItem("depthmoney",$scope.money);
 
             $(".modal").hide();
-            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count=$scope.search="";
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
 
-            function addOrders(id,titleId,title,type,year,schoolname,departname,money,city,subject,count,fee,sel){
+            function addOrders(id,titleId,title,type,year,code,schoolname,departname,money,city,subject,count,fee,sel){
                 var isTrue = true;
                 angular.forEach($scope.orderList,function(v,i){
                     /*TODO 如果好批次有关 就要把type 加上*/
@@ -587,6 +602,7 @@ require(['app'],function(app){
                     obj.name = title;
                     obj.type = type;
                     obj.year = year;
+                    obj.code = code;
                     obj.school = schoolname;
                     obj.depart = departname;
                     obj.money = money;
@@ -625,6 +641,7 @@ require(['app'],function(app){
                 obj.type = data.type;
                 obj.year = data.year;
                 if(data.school != undefined && data.school !="" ){
+                    obj.code = data.code;
                     obj.school = data.school;
                 }
                 if(data.depart != undefined && data.depart != ""){
@@ -714,6 +731,10 @@ require(['app'],function(app){
                     $("#tip").hide();
                 });
         };
+        $scope.closed = function(){
+            $("#tip,#modal-pay").hide();
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
+        };
 
         function openwin(url) {
             var a = document.createElement("a");
@@ -739,6 +760,20 @@ require(['app'],function(app){
             });
         });
 
+
+        $scope.$watch('condition.schlName',function(newvalue,oldvalue){
+            if(newvalue!="" && newvalue!=oldvalue){
+
+                $http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.condition.schlName)+"&limit=10&type="+$scope.condition.type+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        $scope.searchSchool = data.response.list;
+                    });
+
+            }else{
+                $scope.condition.schlName = "";
+            }
+        });
+
         $scope.$watch('condition.departName',function(newvalue,oldvalue){
             if(newvalue!="" && newvalue!=oldvalue){
 
@@ -751,6 +786,11 @@ require(['app'],function(app){
                 $scope.condition.departName = "";
             }
         });
+
+        $scope.schoolDisplace = function(obj){
+            $scope.condition.code = obj.unique_id;
+            $scope.condition.schlName = obj.name;
+        };
 
         $scope.departDisplace = function(obj){
             $scope.condition.departName = obj.name;

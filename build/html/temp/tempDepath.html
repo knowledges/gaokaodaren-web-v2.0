@@ -2,32 +2,32 @@
     <div class="row" ng-if="orderList.length>0" style="max-height: 400px;overflow-y: scroll; border: 1px solid #CCC;">
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <td style="display: none;">#</td>
-                    <td>标题</td>
-                    <td>高校名称</td>
-                    <td>专业名称</td>
-                    <td>城市</td>
-                    <td>等级</td>
-                    <td>加试</td>
-                    <td>个数</td>
-                    <td>收费标准</td>
-                    <td>年份</td>
-                    <td>金额</td>
-                    <td>状态</td>
-                </tr>
+            <tr>
+                <td style="display: none;">#</td>
+                <td>标题</td>
+                <td>高校名称</td>
+                <td>专业名称</td>
+                <td>城市</td>
+                <td>等级</td>
+                <td>加试</td>
+                <td>个数</td>
+                <td>收费标准</td>
+                <td>年份</td>
+                <td>金额</td>
+                <td>状态</td>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="list in orderList track by $index">
-                    <td style="display: none;">{{$index+1}}</td>
-                    <td>{{list.name}}{{list.title}}</td>
-                    <td>{{list.school}}</td>
-                    <td>{{list.depart}}</td>
-                    <td>{{list.city}}</td>
-                    <td>{{list.sel}}</td>
-                    <td>{{list.subject}}</td>
-                    <td>{{list.count}}</td>
-                    <td>
+            <tr ng-repeat="list in orderList track by $index">
+                <td style="display: none;">{{$index+1}}</td>
+                <td>{{list.name}}{{list.title}}</td>
+                <td>{{list.school}}</td>
+                <td>{{list.depart}}</td>
+                <td>{{list.city}}</td>
+                <td>{{list.sel}}</td>
+                <td>{{list.subject}}</td>
+                <td>{{list.count}}</td>
+                <td>
                         <span ng-switch="list.fee">
                             <span ng-switch-when="1">＜6000</span>
                             <span ng-switch-when="2">6000~10000</span>
@@ -35,11 +35,11 @@
                             <span ng-switch-when="4">15000~20000</span>
                             <span ng-switch-when="5">≥20000</span>
                         </span>
-                    </td>
-                    <td>{{list.year}}</td>
-                    <td>{{list.money/100}}</td>
-                    <td><a href="javascript:;;" class="btn btn-default" ng-click="remClk($index)">移除</a></td>
-                </tr>
+                </td>
+                <td>{{list.year}}</td>
+                <td>{{list.money/100}}</td>
+                <td><a href="javascript:;;" class="btn btn-default" ng-click="remClk($index)">移除</a></td>
+            </tr>
             </tbody>
         </table>
         <h4 class="text-center">总计：{{money}}元</h4>
@@ -86,7 +86,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <button type="button" class="close" ng-click="closed()"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">支付</h4>
             </div>
@@ -95,7 +95,7 @@
             </div>
             <div class="modal-footer">
                 <a ng-click="pay()" class="btn btn-primary">是</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                <button type="button" class="btn btn-default" ng-click="closed()" >否</button>
             </div>
         </div>
     </div>
@@ -105,8 +105,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" ng-click="closed()"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">交易提示</h4>
             </div>
             <div class="modal-body">
@@ -114,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" ng-click="isPay()">是</button>
-                <button class="btn btn-default" data-dismiss="modal">否</button>
+                <button class="btn btn-default" ng-click="closed()">否</button>
             </div>
         </div>
     </div>

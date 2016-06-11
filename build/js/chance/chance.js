@@ -30,6 +30,20 @@ require(['app'],function(app){
                 }
             }
     }]);
+    app.directive('listgroupSchool',[function(){
+        return{
+            restrict:'EA',
+            replace:true,
+            transclude:true,
+            templateUrl:'templete/model-listGroup/list-group-school.html',
+            link:function(scope,element,attrs){
+                scope.schoolDisplace = function(obj){
+                    scope.forecast.schl_id = obj.unique_id;
+                    scope.forecast.schl_name = obj.name;
+                }
+            }
+        }
+    }]);
     app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','$q','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,$q,getLoginUserInfo,loocha,arraysort,inLine){
         $scope.score = "";
         $scope.isShow = false;
@@ -106,6 +120,7 @@ require(['app'],function(app){
         };
 
         $scope.search = "";
+        $scope.searchSchool = "";
 
         $scope.changePay = function(){
             $scope.isShow = true;
@@ -968,9 +983,26 @@ require(['app'],function(app){
         $scope.$watch('forecast.schl_name',function(newValue,oldValue){
             if(newValue!="" && newValue!=oldValue){
                 $scope.forecast.schl_departId = "";
-                $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
-                    $scope.forecast.schl_departArr = data.response.list;
+                //$http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
+                //    $scope.forecast.schl_departArr = data.response.list;
+                //});
+                $q.all({
+                    first:$http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()),
+                    second:$http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.forecast.schl_name)+"&limit=10&type="+$scope.isChance+"&t="+( new Date() ).getTime().toString())
+                }).then(function(data){
+                    getSchoolBySchool(data.first.data);
+                    getSchoolsName(data.second.data);
                 });
+
+                function getSchoolBySchool(data){
+                    $scope.forecast.schl_departArr = data.response.list;
+                }
+
+                function getSchoolsName(data){
+                    $scope.searchSchool =  data.response.list;
+                }
+            }else{
+                $scope.forecast.schl_departId = $scope.forecast.schl_departArr = $scope.searchSchool = "";
             }
         });
 
