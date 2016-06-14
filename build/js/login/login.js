@@ -11,9 +11,9 @@ require(['app'],function(app){
     });
     app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'getLoginUserInfo','loocha',function ($scope, $rootScope, $window,$http,getLoginUserInfo,loocha) {
         $scope.$on("$includeContentLoaded",function(){
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $("input").placeholder();
-            },500);
+            },500);*/
         });
 
         $scope.user = {

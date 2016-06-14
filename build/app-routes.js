@@ -16,7 +16,31 @@ define(['app'],function(app){
             document.getElementById('content').style.minHeight = (clientHeight-50-54)+"px";
         }
     }]);
+    app.directive('placehold', ['$timeout', function($timeout){
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var insert = function() {
+                    $timeout(function(){
+                        element.val(attrs.placehold);
+                    });
+                };
 
+                element.bind('blur', function(){
+                    if(element.val() === '')
+                        insert();
+                });
+
+                element.bind('focus', function(){
+                    if(element.val() === attrs.placehold)
+                        element.val('');
+                });
+
+                if(element.val() === '')
+                    insert();
+            }
+        }
+    }]);
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
@@ -636,7 +660,7 @@ define(['app'],function(app){
             })
             .state("depth.info",{
                 url:"/depthInfo/batch=:batch",
-                templateUrl:"all",
+                templateUrl:"html/depth/articleInfo.html",
                 data: { isPublic: true},
             })
 //////////////////////////////支付///////////////////////////////////////////////////////////////////////////////////////
@@ -779,9 +803,9 @@ define(['app'],function(app){
             $window.location.reload(0);
         };
 
-        $timeout(function(){
-            $("input").placeholder();
-        },500);
+        //$timeout(function(){
+        //    $("input").placeholder();
+        //},500);
 
     }]);
 });

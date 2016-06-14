@@ -6,9 +6,9 @@ require(['app'],function(app){
     app.constant("registerURL", "/user/register");
     app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL","loocha",function ($scope, $rootScope,$window,$http,registerURL,loocha) {
         $scope.$on("$includeContentLoaded",function(){
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $("input").placeholder();
-            },500);
+            },500);*/
         });
         $scope.user = {
             username: "",

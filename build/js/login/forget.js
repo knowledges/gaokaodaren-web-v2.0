@@ -6,9 +6,9 @@ require(['app'],function(app){
     app.constant("referinURL", "/user/reset");
     app.controller("forgetCtr", ["$scope", "$rootScope","$http", "referinURL", "loocha", function ($scope, $rootScope, $http, referinURL, loocha) {
         $scope.$on("$includeContentLoaded",function(){
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $("input").placeholder();
-            },500);
+            },500);*/
         });
         $scope.user = {
             username: "",

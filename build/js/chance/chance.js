@@ -129,9 +129,9 @@ require(['app'],function(app){
         $('.dropdown-toggle').dropdown();
 
         $scope.$on('$viewContentLoaded',function(){
-            $timeout(function(){
+            /*$timeout(function(){
                 $("input").placeholder();
-            },1000);
+            },1000);*/
         });
 
         init ();

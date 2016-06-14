@@ -283,6 +283,12 @@ require(['app'],function(app){
                 return;
             }
 
+            if(idx == 236){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
+                alert('数据还在筹备中');
+                return;
+            }
             $scope.condition.titleId = idx;
             $scope.condition.title = name;
             $scope.condition.flag = flag;
@@ -577,7 +583,7 @@ require(['app'],function(app){
                             break;
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
                 }
             });
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));

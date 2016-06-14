@@ -7,20 +7,20 @@
                 登陆
             </h1>
             <label class="src-only" for="username"></label>
-            <input type="text" id="username" name="j_username" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placeholder="考生号/手机/邮箱" required autofocus>
+            <input type="text" id="username" name="j_username" ng-model="user.username" ng-minlength="6" ng-maxlength="20" ng-pattern="/^[\w]+$/" class="form-control login-input" placehold="考生号/手机/邮箱" required autofocus>
             <label ng-if="login.name.$error.required" class="red">用户名不能为空</label>
             <label ng-if="login.name.$error.minlength" class="red">输入格式至少是6位</label>
             <label ng-if="login.name.$error.maxlength" class="red">输入格式最大是20位</label>
             <label ng-if="login.name.$error.pattern" class="red">只能是字符、数字、下划线</label>
             <lable class="src-only" for="password"></lable>
-            <input type="password" id="password" name="j_password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placeholder="请输入密码">
+            <input type="password" id="password" name="j_password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placehold="请输入密码">
             <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
             <label ng-if="login.pwd.$error.minlength" class="red">密码最大12位数</label>
             <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
             <div class="row">
                 <div class="col-sm-5  login-input">
                     <lable class="src-only" for="validate"></lable>
-                    <input type="text" id="validate" name="code" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placeholder="请输入验证码" required>
+                    <input type="text" id="validate" name="code" ng-model="user.code" ng-minlength="4" ng-pattern="/^[\w]+$/" class="form-control" placehold="请输入验证码" required>
                 </div>
                 <div class="col-sm-4  login-input">
                     <img ng-src="{{user.img}}" alt="高考"/>
