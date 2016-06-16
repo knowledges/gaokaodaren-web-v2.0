@@ -45,15 +45,22 @@ require(['app'],function(app) {
 
         init();
         function init(){
-            var uScore = sessionStorage.getItem("uScore")|| sessionStorage.getItem("examScore");
+            var uScore = sessionStorage.getItem("uScore") || sessionStorage.getItem("examScore");
             if(uScore != null) {
                 $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore")) || JSON.parse(sessionStorage.getItem("examScore"));
                 $scope.userInfo.score = $scope.userInfo.uScore.score;
-                $scope.userInfo.level_a = $scope.userInfo.uScore.level_a;
-                $scope.userInfo.level_b = $scope.userInfo.uScore.level_b;
+                var str_ = $scope.userInfo.uScore.level_a+$scope.userInfo.uScore.level_b;
 
-                $http.get(loocha+"/example?type="+$scope.userInfo.type+"&level="+encodeURI($scope.userInfo.level_a+$scope.userInfo.level_b)+"&score="+$scope.userInfo.score)
-                    .success(function(data){
+                var param = {};
+                param.type =$scope.userInfo.type;
+                param.level = str_;
+                param.score = $scope.userInfo.score;
+                //$http.get(loocha+"/example?type="+$scope.userInfo.type+"&level="+encodeURI(str_)+"&score="+$scope.userInfo.score)
+                $http({
+                    method:'GET',
+                    url :loocha+"/example",
+                    params:param
+                }).success(function (data) {
                         $scope.title.list = data.response;
                         angular.forEach(data.response,function(v,i){
                             $scope.title.url[i] = "http://180.96.7.211:5480/upload/"+v.type+"/"+v.level+"/"+v.score;

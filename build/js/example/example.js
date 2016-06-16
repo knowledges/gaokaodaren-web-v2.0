@@ -86,5 +86,14 @@ require(['app'],function(app){
             $scope.ishide = true;
             $scope.insertHTML = "";
         };
+        $scope.findOther =function(){
+            console.log('1111');
+            $timeout(function(){
+                window.location.href="#/home";
+                $timeout(function() {
+                    $(".carousel-indicators li").eq(4).trigger('click');
+                },500);
+            },500);
+        };
     }]);
 })
