@@ -802,7 +802,14 @@ define(['app'],function(app){
             $window.location.href = "#/depth/depthInfo/batch="+num;
             $window.location.reload(0);
         };
-
+        $scope.other = function(){
+            $timeout(function(){
+                window.location.href="#/home";
+                $timeout(function() {
+                    $(".carousel-indicators li").eq(4).trigger('click');
+                },500);
+            },500);
+        };
         //$timeout(function(){
         //    $("input").placeholder();
         //},500);

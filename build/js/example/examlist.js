@@ -73,12 +73,12 @@ require(['app'],function(app) {
 
         $scope.showExample = function(num){
             $scope.userInfo.url = $scope.title.url[num];
-            $("#examList").hide();
+            //$("#examList").hide();
             $("#exam").show();
         };
 
         $scope.goback = function(){
-            $("#examList").show();
+            //$("#examList").show();
             $("#exam").hide();
         };
 

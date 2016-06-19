@@ -23,7 +23,7 @@ require(['app'],function(app){
         init();
 
         function init(){
-            var uScore = sessionStorage.getItem("uScore")|| sessionStorage.getItem("examScore");
+            var uScore = sessionStorage.getItem("examScore") || sessionStorage.getItem("uScore");
             if(uScore != null ){
                 $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore")) || JSON.parse(sessionStorage.getItem("examScore"));
                 $scope.userInfo.subject =subStr($location.$$url.split("batch=")[1]);
@@ -87,7 +87,6 @@ require(['app'],function(app){
             $scope.insertHTML = "";
         };
         $scope.findOther =function(){
-            console.log('1111');
             $timeout(function(){
                 window.location.href="#/home";
                 $timeout(function() {
