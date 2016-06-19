@@ -119,6 +119,9 @@ require(['app'],function(app){
             $("#menu-infolist").show(500);
         };
 
+        $scope.filterClk = function(){
+            $("#depthModal input[type='text']").removeAttr('disabled');
+        }
         /**
          *  leaf: 1：代表根节点 0：不是根节点，且有子节点，子节点同理
          *  money: 大于0 收费
@@ -361,7 +364,7 @@ require(['app'],function(app){
                     $("#depthModal").show();
                 }
                 //    TODO 所有参数都清空
-                $("input[type='checkbox']").attr("checked",false);
+                $("input[type='radio']").attr("checked",false);
 
             }
             e.stopPropagation();
@@ -445,28 +448,9 @@ require(['app'],function(app){
             }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
                 addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                 //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+            }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "24"){
+                addOrders(++_count,condition.titleId,condition.title,type,condition.timer,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }
-
-            angular.forEach(condition.timer,function(i,v){
-                if(i != undefined && i == true){
-                    var year = 0;
-                    switch (parseInt(v)){
-                        case 0:
-                            year = 2013;
-                            break;
-                        case 1:
-                            year = 2014;
-                            break;
-                        case 2:
-                            year = 2015;
-                            break;
-                        case 3:
-                            year = 2012;
-                            break;
-                    }
-                    addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-                }
-            });
 
             angular.forEach(condition.sel,function(i,v){
                 if(i != undefined && i == true){
@@ -784,7 +768,7 @@ require(['app'],function(app){
         $scope.$watch('condition.departName',function(newvalue,oldvalue){
             if(newvalue!="" && newvalue!=oldvalue){
 
-                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&t="+( new Date() ).getTime().toString())
+                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&year="+$scope.condition.timer+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
                         $scope.search = data.response;
                     });

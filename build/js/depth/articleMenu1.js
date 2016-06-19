@@ -29,7 +29,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$location','$timeout','loocha','data_province','getLoginUserInfo',function($scope,$http,$sce,$stateParams,$location,$timeout,loocha,data_province,getLoginUserInfo){
+    app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$window','$location','$timeout','loocha','data_province','getLoginUserInfo',function($scope,$http,$sce,$stateParams,$window,$location,$timeout,loocha,data_province,getLoginUserInfo){
         $scope.menuArr = [];
         $scope.orderList=[];
         $scope.menuInfoArr = [];
@@ -39,11 +39,14 @@ require(['app'],function(app){
             type:$location.$$url.split("batch=")[1],
             inputTemplate : "",
             timer:"",
+            code:"",
             schlName:"",
             departName:"",
             level:"",
             attr:"",
             flag:"",
+            count:"",
+            subject:"",
             departprop:"",
             city:"",
             fee:"",
@@ -59,9 +62,13 @@ require(['app'],function(app){
         $scope.hope = {
             order_id : "",
             money :""
-        }
-//        console.log($location.$$url.split("batch=")[1]);
+        };
+
+        $scope.search = "";
+        $scope.searchSchool = "";
+
         init();
+
         function init(){
             localStorage.setItem("depthbatch",$location.$$url.split("batch=")[1]);
             $("#depthModal").show();
@@ -119,6 +126,8 @@ require(['app'],function(app){
          * @param e
          */
         $scope.subClk = function(e){
+            $("#depathTHML").empty().prepend('<h2 class="text-content">请选择查询内容</h2>');
+            $("#condition").hide();
             var that = $(e.target),
                 flag = parseInt(that.attr("flag")),
                 money = parseInt(that.attr("money")),
@@ -126,11 +135,82 @@ require(['app'],function(app){
                 idx= parseInt(that.attr("idx")),
                 name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
-            if(idx == 65){
+
+            if (idx == 198){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
+                alert("该批次中没有此内容");
+                return;
+            }
+
+            if($scope.condition.type == 1){
+                if(idx >= 95 && idx<=96){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type >= 3 && $scope.condition.type <= 4 ){
+                if(idx >= 95 && idx<=97){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type >= 5 &&$scope.condition.type <= 6 ){
+                if(idx >= 29 && idx<=36){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }else if (idx ==193||idx ==194){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+
+            if($scope.condition.type >= 5){
+                if(idx >= 94 && idx<=97){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+
+                if(idx == 74 || idx == 145 || idx == 168){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+            if($scope.condition.type >= 7){
+                if(idx == 76 || idx == 170){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+            if(idx == 65 || idx == 136){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
                 alert(" 1.免费\n 2.请到志愿咨询栏目，高校介绍专题汇总中查询");
                 return;
             }
 
+            if(idx == 236){
+                $(".list-group-item").removeClass("active");
+                that.addClass("active");
+                alert('数据还在筹备中');
+                return;
+            }
             $scope.condition.titleId = idx;
             $scope.condition.title = name;
             $scope.condition.flag = flag;
@@ -151,8 +231,97 @@ require(['app'],function(app){
                 },0,false);
             }else{
                 that.addClass("active");
+                if (idx == 108 || idx == 150 ){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  1、近三年高校录取最低分排序表");
+                }else if (idx == 109 || idx == 151 ){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  2、近三年高校录取中点分排序表");
+                }else if (idx == 110 || idx == 152){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n （二）从考生考分在全省排名角度的深度查询中\n  3、近三年高校录取最高分排序表");
+                }else if(idx == 49){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n （三）压线考分考生的深度查询中\n  1、近三年高校录取分数线比省控线高3分的高校");
+                }else if(idx == 48){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  2、近三年高校录取分数线比省控线高2分的高校");
+                }else if (idx == 47){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  3、近三年高校录取分数线比省控线高1分的高校");
+                }else if (idx == 46){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  4、近三年高校录取分数线等于省控线的高校");
+                }else if (idx == 45){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  5、近三年降分录取高校");
+                }else if (idx == 43 || idx == 147){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  6、近三年一次录取人数不足（通过征求志愿录取）的高校、专业");
+                }else if (idx == 44 || idx == 104  || idx == 105 || idx == 148){
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  7、近三年征求志愿录取人数不足（通过服从录取）的高校、专业");
+                }else if (idx == 106 || idx == 149 || idx == 33) {
+                    alert(" 该内容同： \n 分数分析深度查询目录下 \n（三）压线考分考生的深度查询中\n  8、近三年服从志愿录取人数不足（降分录取）的高校、专业");
+                }else if (idx == 63 || idx == 102|| idx == 141){
+                    alert(" 该内容同： \n 招生政策深度查询目录下 \n（一）平行志愿投档规则深度查询中\n 1、选科等级要求分类统计");
+                }else if (idx == 78){
+                    alert(" 该内容同： \n 招生政策深度查询目录下 \n（二）进档考生录取规则深度查询中\n 8、按专业录取附加条件分类统计");
+                }else if (idx == 86){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  2、各高校近三年招生计划对比表");
+                }else if (idx == 111){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  7、在江苏招生仅三年的高校");
+                }else if (idx == 112){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  6、在江苏招生仅两年的高校");
+                }else if (idx == 113){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n  5、在江苏新招生的高校");
+                }else if (idx == 137){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n 4、高校行业归类统计");
+                }else if (idx == 142){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （一）按高校深度查询中\n 2、高校近三年招生计划对比表");
+                }else if (idx == 123){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  10、高校在江苏招生仅三年的专业");
+                }else if (idx == 124){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  9、高校在江苏招生仅两年的专业");
+                }else if (idx == 125){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n  8、高校在江苏第一次招生的专业");
+                }else if (idx == 171) {
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 6、专业录取要求满足本校自测条件或本校招生章程的高校、专业");
+                }else if(idx == 167||idx == 144){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 2、按大类招生的高校、专业");
+                }else if(idx == 168||idx == 145){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 3、招收试验班（预科班、基地班）的高校、专业");
+                }else if(idx == 169||idx == 146 ){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 4、招收中外合作办学班的高校、专业");
+                }else if(idx == 170 || idx == 197 || idx == 199 || idx == 200){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 5、专业录取加试的高校、专业");
+                }else if(idx == 172){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （二）按专业深度查询中\n 7、专业录取的附加条件归类");
+                }else if(idx == 185){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （三）按城市深度查询中\n 1、各城市在江苏省招生的高校");
+                }else if(idx == 186){
+                    alert(" 该内容同： \n 招生计划深度查询目录下 \n （三）按城市深度查询中\n 2、各城市在江苏省招生的专业");
+                }else if (idx == 143){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （一）按高校深度查询中\n 6、近三年高校招生录取情况录取数对比");
+                }else if (idx == 153 || idx == 178){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 5、近三年各高校录取专业排序");
+                }else if (idx == 174){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 1、近三年相同专业录取的高校录取数对比（排序）");
+                }else if (idx == 175){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 2、近三年相同专业录取的高校最低分排序");
+                }else if (idx == 176){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 3、近三年相同专业录取的高校中点分排序");
+                }else if (idx == 177) {
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （二）按专业深度查询中\n 4、近三年相同专业录取的高校最高分排序");
+                }else if (idx == 188){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 3、近三年各城市在江苏录取考生的人数排序");
+                }else if (idx == 189){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 1、近三年各城市在江苏录取考生的高校（按录取数排序）");
+                }else if (idx == 190){
+                    alert(" 该内容同： \n 资料汇编深度查询目录下 \n （三）按城市深度查询中\n 2、近三年各城市在江苏录取考生的专业（按录取数排序）");
+                }
+                $scope.condition.inputTemplate = inputTemplate;
                 /*直接展示的*/
-                if(money<=0 && flag == 1){
+                if(money<=0){
+
+                    if(idx >= 132 && idx <=135){
+                        $("#baikeModal").show();
+                        return;
+                    }else if (idx >=160&&idx<=163){
+                        $("#baikeModal").show();
+                        return;
+                    }
+
                     var param = {};
                     param.type = $location.$$url.split("batch=")[1];
                     param.year = year;
@@ -182,8 +351,15 @@ require(['app'],function(app){
                     return ;
                 }
 
-                $scope.condition.inputTemplate = inputTemplate;
-                $("#depthModal").show();
+                //$scope.condition.inputTemplate = inputTemplate;
+
+                if(idx >= 132 && idx <=135){
+                    $("#baikeModal").show();
+                }else if (idx >=160&&idx<=163){
+                    $("#baikeModal").show();
+                }else{
+                    $("#depthModal").show();
+                }
                 //    TODO 所有参数都清空
                 $("input[type='checkbox']").attr("checked",false);
 
@@ -230,89 +406,69 @@ require(['app'],function(app){
                 $scope.condition.level="";
             });
 
-        }
+        };
+
+        $scope.baikeClk = function(){
+            var url ="http://baike.baidu.com/item/";
+            if($scope.condition.departName !=""){
+                var str = $scope.condition.departName.split("(")[0];
+                url ="http://baike.baidu.com/item/"+str;
+            }
+            if($scope.condition.schlName !=""){
+                var str = $scope.condition.schlName.split("(")[0];
+                url ="http://baike.baidu.com/item/"+str;
+            }
+            openwin(url);
+
+            //$timeout(function(){
+            //    $scope.condition.departName=$scope.condition.schlName="";
+            //},500);
+        };
 
         $scope.close = function(){
             $("#recommend,#depthModal,#baikeModal").hide();
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
         };
 
         var _count = 0;
         /**
          * 提交信息
          */
-        $scope.subOrder = function(e){
-            ++_count;
-            if($scope.condition.inputTemplate == "98"){
-                var obj = new Object();
-                obj.id = _count;
-                obj.titleId = $scope.condition.titleId;
-                obj.name = $scope.condition.title;
-                obj.type = $location.$$url.split("batch=")[1];
-                obj.year = new Date().getFullYear()-1;
-                obj.school = "";
-                obj.depart = "";
-                obj.city = "";
-                obj.subject = "";
-                obj.fee =  "";
-                obj.count = "";
-                obj.sel = "";
-                obj.money = $scope.condition.money;
-                $scope.money+=($scope.condition.money/100);
-                $scope.orderList.push(obj);
+        $scope.orderInfo = function(condition){
+            var type = $location.$$url.split("batch=")[1];
+            var year = 2016;
+            if(condition.titleId>=60&&condition.titleId<=100){
+                year = "";
+            }
+            if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
+                addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-                var obj = new Object();
-                obj.id = _count;
-                obj.titleId = $scope.condition.titleId;
-                obj.name = $scope.condition.title;
-                obj.type = $location.$$url.split("batch=")[1];
-                obj.year = "";
-                obj.school = $scope.condition.schlName;
-                obj.depart = $scope.condition.departName;
-                obj.money = $scope.condition.money;
-                obj.city = $scope.condition.city;
-                obj.subject = "";
-                obj.fee =  "";
-                obj.count = "";
-                obj.sel = "";
-                $scope.money+=($scope.condition.money/100);
-                $scope.orderList.push(obj);
+                addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }
 
-            angular.forEach($scope.condition.timer,function(i,v){
+            angular.forEach(condition.timer,function(i,v){
                 if(i != undefined && i == true){
                     var year = 0;
                     switch (parseInt(v)){
                         case 0:
-                            year = 2012;
-                            break;
-                        case 1:
                             year = 2013;
                             break;
-                        case 2:
+                        case 1:
                             year = 2014;
                             break;
+                        case 2:
+                            year = 2015;
+                            break;
+                        case 3:
+                            year = 2012;
+                            break;
                     }
-
-                    var obj = new Object();
-                    obj.id = _count;
-                    obj.titleId = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = year;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.sel,function(i,v){
+            angular.forEach(condition.sel,function(i,v){
                 if(i != undefined && i == true){
                     var sel ="";
                     switch (parseInt(v)){
@@ -357,26 +513,11 @@ require(['app'],function(app){
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = _count;
-                    obj.titleId = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = sel;
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
                 }
             });
 
-            angular.forEach($scope.condition.fee,function(i,v){
+            angular.forEach(condition.fee,function(i,v){
                 if(i != undefined && i == true){
                     var fee ="";
                     switch (parseInt(v)){
@@ -393,28 +534,11 @@ require(['app'],function(app){
                             fee  = "5";
                             break;
                     }
-
-                    var obj = new Object();
-                    obj.id = _count;
-                    obj.titleId = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  fee;
-                    obj.sel = "";
-                    obj.subject = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.count,function(i,v){
+            angular.forEach(condition.count,function(i,v){
                 if(i != undefined && i == true){
                     var count ="";
                     switch (parseInt(v)){
@@ -438,27 +562,11 @@ require(['app'],function(app){
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = _count;
-                    obj.titleId = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = count;
-                    obj.fee =  "";
-                    obj.sel = "";
-                    obj.subject = "";
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
                 }
             });
 
-            angular.forEach($scope.condition.subject,function(i,v){
+            angular.forEach(condition.subject,function(i,v){
                 if(i != undefined && i == true){
                     var subject ="";
                     switch (parseInt(v)){
@@ -466,42 +574,54 @@ require(['app'],function(app){
                             subject  = "(口)";
                             break;
                         case 1:
-                            subject  = "美术";
+                            subject  = "艺术";
                             break;
                         case 2:
-                            subject  = "艺术";
+                            subject  = "美术";
                             break;
                         case 3:
                             subject  = "高水平运动员";
                             break;
                     }
 
-                    var obj = new Object();
-                    obj.id = _count;
-                    obj.titleId = $scope.condition.titleId;
-                    obj.name = $scope.condition.title;
-                    obj.type = $location.$$url.split("batch=")[1];
-                    obj.year = new Date().getFullYear()-1;
-                    obj.school = $scope.condition.schlName;
-                    obj.depart = $scope.condition.departName;
-                    obj.money = $scope.condition.money;
-                    obj.city = "";
-                    obj.subject = "";
-                    obj.count = "";
-                    obj.fee =  "";
-                    obj.sel = "";
-                    obj.subject = subject;
-                    $scope.money+=($scope.condition.money/100);
-                    $scope.orderList.push(obj);
+                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
                 }
             });
-
             localStorage.setItem("orderList",JSON.stringify($scope.orderList));
             localStorage.setItem("depthmoney",$scope.money);
-            $(".modal").hide();
 
-            $scope.condition.timer=[];
-            $scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count="";
+            $(".modal").hide();
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
+
+            function addOrders(id,titleId,title,type,year,code,schoolname,departname,money,city,subject,count,fee,sel){
+                var isTrue = true;
+                angular.forEach($scope.orderList,function(v,i){
+                    /*TODO 如果好批次有关 就要把type 加上*/
+                    if(v.titleId == titleId && v.year == year && v.school == schoolname && v.depart == departname && v.city == city && v.subject == subject && v.count == count && v.fee == fee && v.sel == sel){
+                        alert("该选项已存在订单中");
+                        isTrue = false;
+                    }
+                });
+                if(isTrue){
+                    var obj = new Object();
+                    obj.id = id;
+                    obj.titleId = titleId;
+                    obj.name = title;
+                    obj.type = type;
+                    obj.year = year;
+                    obj.code = code;
+                    obj.school = schoolname;
+                    obj.depart = departname;
+                    obj.money = money;
+                    obj.city = city;
+                    obj.subject = subject;
+                    obj.count = count;
+                    obj.fee =  fee;
+                    obj.sel = sel;
+                    $scope.money+=(money/100);
+                    $scope.orderList.push(obj);
+                }
+            };
         };
 
         /**
@@ -519,9 +639,8 @@ require(['app'],function(app){
          */
         $scope.payOrder = function(){
             getLoginUserInfo.isLogoin();
-
-            var type = $location.$$url.split("batch=")[1];
             var conditons = [];
+            var type = $location.$$url.split("batch=")[1];
             angular.forEach($scope.orderList,function(data){
                 var obj = new Object();
                 obj.id = data.titleId;
@@ -529,6 +648,7 @@ require(['app'],function(app){
                 obj.type = data.type;
                 obj.year = data.year;
                 if(data.school != undefined && data.school !="" ){
+                    obj.code = data.code;
                     obj.school = data.school;
                 }
                 if(data.depart != undefined && data.depart != ""){
@@ -567,12 +687,31 @@ require(['app'],function(app){
                                 window.location.href = "#/login";
                                 return;
                             }else if (data.status == 0){
-                                $scope.hope.order_id = data.response.order_id;
-                                $scope.hope.money = data.response.money;
-                                $('#modal-pay').modal('show');
-                                localStorage.removeItem("orderList");
-                                localStorage.removeItem("depthbatch");
-                                localStorage.removeItem("depthmoney");
+                                var lists = data.response;
+
+                                $http.get(loocha+"/user?t="+new Date().getTime().toString())
+                                    .success(function(data){
+                                        var users = data.response;
+                                        if(users.free == 2){
+                                            if(users.remain<lists.money){
+                                                alert("该注册号余额已不足支付，请联系：13914726090");
+                                            }else{
+                                                $scope.hope.order_id = lists.order_id;
+                                                $scope.hope.money = $scope.money = lists.money;
+                                                $('#modal-pay').show();
+                                                localStorage.removeItem("orderList");
+                                                localStorage.removeItem("depthbatch");
+                                                localStorage.removeItem("depthmoney");
+                                            }
+                                        }else{
+                                            $scope.hope.order_id = lists.order_id;
+                                            $scope.hope.money = lists.money;
+                                            $('#modal-pay').show();
+                                            localStorage.removeItem("orderList");
+                                            localStorage.removeItem("depthbatch");
+                                            localStorage.removeItem("depthmoney");
+                                        }
+                                    });
                             }
                         });
                 });
@@ -580,8 +719,8 @@ require(['app'],function(app){
 
         $scope.pay = function () {
             openwin('#/pay?order_id=' + $scope.hope.order_id + '&money=' + $scope.hope.money + '&type=' + $location.$$url.split("batch=")[1]);
-            $('#modal-pay').modal('hide');
-            $("#tip").modal('show');
+            $('#modal-pay').hide();
+            $("#tip").show();
         };
 
         $scope.isPay = function () {
@@ -589,13 +728,19 @@ require(['app'],function(app){
                 .success(function (data) {
                     if (data.status == "1004") {
                         alert('交易失败');
+
                     }else if(data.status == "0"){
                         localStorage.removeItem("orderList");
                         localStorage.removeItem("depthmoney");
-                        window.location.reload(0);
+
                     }
-                    $("#tip").modal('hide');
+                    window.location.reload(0);
+                    $("#tip").hide();
                 });
+        };
+        $scope.closed = function(){
+            $("#tip,#modal-pay").hide();
+            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
         };
 
         function openwin(url) {
@@ -621,6 +766,42 @@ require(['app'],function(app){
                 });
             });
         });
+
+
+        $scope.$watch('condition.schlName',function(newvalue,oldvalue){
+            if(newvalue!="" && newvalue!=oldvalue){
+
+                $http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.condition.schlName)+"&limit=10&type="+$scope.condition.type+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        $scope.searchSchool = data.response.list;
+                    });
+
+            }else{
+                $scope.condition.schlName = "";
+            }
+        });
+
+        $scope.$watch('condition.departName',function(newvalue,oldvalue){
+            if(newvalue!="" && newvalue!=oldvalue){
+
+                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&t="+( new Date() ).getTime().toString())
+                    .success(function(data){
+                        $scope.search = data.response;
+                    });
+
+            }else{
+                $scope.condition.departName = "";
+            }
+        });
+
+        $scope.schoolDisplace = function(obj){
+            $scope.condition.code = obj.unique_id;
+            $scope.condition.schlName = obj.name;
+        };
+
+        $scope.departDisplace = function(obj){
+            $scope.condition.departName = obj.name;
+        }
 
     }]);
 });

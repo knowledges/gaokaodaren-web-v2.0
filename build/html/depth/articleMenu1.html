@@ -39,948 +39,1054 @@
 <div class="modal" id="depthModal" style="margin-left:10%;">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">深度查询条件选择</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" ng-if="condition.inputTemplate == 0">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                                <td>选择</td>
-                            </tr>
-                            <tbody>
-                            <tr>
-                                <td>2012</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[0]" value="2012"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2012,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2013</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[1]" value="2013"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2014</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[2]" value="2014"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2" ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
+            <form name="order" ng-submit="orderInfo(condition)">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">深度查询条件选择</h4>
                 </div>
-                <div class="row" ng-if="condition.inputTemplate == 1">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" ng-minlength="1" placeholder="请输入高校名称"/>
-                        <span style="color: red;" class="text-left" ng-if="condition.schlName.length<=0">高校名称不能为空</span>
+                <div class="modal-body">
+                    <div class="row" ng-if="condition.inputTemplate == 0">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                    <td>选择</td>
+                                </tr>
+                                <tbody>
+                                <tr>
+                                    <td>2013</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2015</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[2]" value="2015"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2015,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2012</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[0]" value="2012"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2012,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2013</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[1]" value="2013"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2014</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[2]" value="2014"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2" ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 1">
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code"  required placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2013</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2015</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[2]" value="2015"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2015,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
 
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 2">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
                     </div>
-                    <div class="col-sm-6">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2012</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[0]" value="2012"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2012,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2013</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[1]" value="2013"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2014</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[2]" value="2014"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row" ng-if="condition.inputTemplate == 2">
+                        <div class="col-sm-4">
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName" required autofocus placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">专业名称不能为空</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2013</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2015</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[2]" value="2015"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2015,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2"  ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-2"  ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
+                    <div class="row" ng-if="condition.inputTemplate == 3"  style="max-height: 300px;overflow-y: scroll;">
+                        <div class="col-sm-3 text-right">
+                            <!-- <label>请选择选科等级:</label>-->
+                        </div>
+                        <div class="col-sm-4">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>分类</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="display: none;">
+                                    <td>A+,A+</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[0]" value="A%2bA%2b"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('A+A+',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=2">
+                                    <td>A+,A</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[1]" value="A%2bA"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('A+A',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=2">
+                                    <td>A,A</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[2]" value="AA"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('AA',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=2">
+                                    <td>A,B+</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[3]" value="AB%2b"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('AB+',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=2">
+                                    <td>A,B</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[4]" value="AB"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('AB',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type ==2">
+                                    <td>A,C</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[12]" value="AC"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('AC',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=4">
+                                    <td>B+,B+</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[5]" value="B%2bB%2b"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('B+B+',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=4">
+                                    <td>B+,B</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[6]" value="B%2bB"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('B+B',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=4">
+                                    <td>B,B</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[7]" value="BB"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('BB',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type <=6">
+                                    <td>B,C</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[8]" value="BC"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('BC',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type >=5">
+                                    <td>C,C</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[9]" value="CC"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('CC',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type >6">
+                                    <td>C,D</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[10]"  value="CD"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('CD',3)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="condition.type >6">
+                                    <td>不要求</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.sel[11]"   value=""/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo('',3)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 3"  style="max-height: 300px;overflow-y: scroll;">
-                    <div class="col-sm-3 text-right">
-                        <!-- <label>请选择选科等级:</label>-->
+                    <div class="row" ng-if="" style="max-height: 300px;overflow-y: scroll;">
+                        <div class="col-sm-3 text-right">
+                        </div>
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>归类</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>公办</td>
+                                    <td><input type="checkbox" value="17"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>民办</td>
+                                    <td><input type="checkbox" value="18"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>综合类</td>
+                                    <td><input type="checkbox" value="1"/></td>
+                                </tr>
+                                <tr>
+                                    <td>工科类</td>
+                                    <td><input type="checkbox" value="2"/></td>
+                                </tr>
+                                <tr>
+                                    <td>农业类</td>
+                                    <td><input type="checkbox" value="3"/></td>
+                                </tr>
+                                <tr>
+                                    <td>林业类</td>
+                                    <td><input type="checkbox" value="4"/></td>
+                                </tr>
+                                <tr>
+                                    <td>医药类</td>
+                                    <td><input type="checkbox" value="5"/></td>
+                                </tr>
+                                <tr>
+                                    <td>师范类</td>
+                                    <td><input type="checkbox" value="6"/></td>
+                                </tr>
+                                <tr>
+                                    <td>语言类</td>
+                                    <td><input type="checkbox" value="7"/></td>
+                                </tr>
+                                <tr>
+                                    <td>财经类</td>
+                                    <td><input type="checkbox" value="8"/></td>
+                                </tr>
+                                <tr>
+                                    <td>政法类</td>
+                                    <td><input type="checkbox" value="9"/></td>
+                                </tr>
+                                <tr>
+                                    <td>体育类</td>
+                                    <td><input type="checkbox" value="10"/></td>
+                                </tr>
+                                <tr>
+                                    <td>民族类</td>
+                                    <td><input type="checkbox" value="11"/></td>
+                                </tr>
+                                <tr>
+                                    <td>985工程高校</td>
+                                    <td><input type="checkbox" value="20"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>211工程高校</td>
+                                    <td><input type="checkbox" value="21"/></td>
+                                </tr>
+                                <tr>
+                                    <td>中外合作办</td>
+                                    <td><input type="checkbox" value="24"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>国家重点建设示范院校</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>国家实训基地院校</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>教育部直属</td>
+                                    <td><input type="checkbox" value="14"/></td>
+                                </tr>
+                                <tr>
+                                    <td>中央其他部委所属</td>
+                                    <td><input type="checkbox" value="15"/></td>
+                                </tr>
+                                <tr>
+                                    <td>地方所属</td>
+                                    <td><input type="checkbox" value="16"/></td>
+                                </tr>
+                                <tr>
+                                    <td>分校区(办学点)</td>
+                                    <td><input type="checkbox" value="32"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>分类</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr style="display: none;">
-                                <td>A+,A+</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[0]" value="A%2bA%2b"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('A+A+',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=2">
-                                <td>A+,A</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[1]" value="A%2bA"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('A+A',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=2">
-                                <td>A,A</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[2]" value="AA"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('AA',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=2">
-                                <td>A,B+</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[3]" value="AB%2b"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('AB+',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=2">
-                                <td>A,B</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[4]" value="AB"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('AB',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type ==2">
-                                <td>A,C</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[12]" value="AC"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('AC',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=4">
-                                <td>B+,B+</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[5]" value="B%2bB%2b"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('B+B+',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=4">
-                                <td>B+,B</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[6]" value="B%2bB"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('B+B',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=4">
-                                <td>B,B</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[7]" value="BB"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('BB',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type <=6">
-                                <td>B,C</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[8]" value="BC"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('BC',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type >=5">
-                                <td>C,C</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[9]" value="CC"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('CC',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type >6">
-                                <td>C,D</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[10]"  value="CD"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('CD',3)">查看</button>
-                                </td>
-                            </tr>
-                            <tr ng-if="condition.type >6">
-                                <td>不要求</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.sel[11]"   value=""/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo('',3)">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row" ng-if="">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择大类:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control timer">
+                                <option value="">==请选择大类==</option>
+                                <option ng-repeat="list in condition.departproplist" value="{{list.id}}">{{list.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
+                    <div class="row" ng-if="">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择年限:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control timer">
+                                <option value="">==请选择==</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <label>请选择城市:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control timer" ng-model="condition.city">
+                                <option value="">==请选择==</option>
+                                <option ng-repeat="list in condition.provincelist" value="{{list.id}}">{{list.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 4" style="max-height: 300px;overflow-y: scroll;">
-                    <div class="col-sm-3 text-right">
+                    <div class="row" ng-if="">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择收费标准:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control timer">
+                                <option value="">==请选择==</option>
+                                <option value="104">部分多收费</option>
+                                <option value="105">中外合作办学</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>归类</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>公办</td>
-                                <td><input type="checkbox" value="17"/> </td>
-                            </tr>
-                            <tr>
-                                <td>民办</td>
-                                <td><input type="checkbox" value="18"/> </td>
-                            </tr>
-                            <tr>
-                                <td>综合类</td>
-                                <td><input type="checkbox" value="1"/></td>
-                            </tr>
-                            <tr>
-                                <td>工科类</td>
-                                <td><input type="checkbox" value="2"/></td>
-                            </tr>
-                            <tr>
-                                <td>农业类</td>
-                                <td><input type="checkbox" value="3"/></td>
-                            </tr>
-                            <tr>
-                                <td>林业类</td>
-                                <td><input type="checkbox" value="4"/></td>
-                            </tr>
-                            <tr>
-                                <td>医药类</td>
-                                <td><input type="checkbox" value="5"/></td>
-                            </tr>
-                            <tr>
-                                <td>师范类</td>
-                                <td><input type="checkbox" value="6"/></td>
-                            </tr>
-                            <tr>
-                                <td>语言类</td>
-                                <td><input type="checkbox" value="7"/></td>
-                            </tr>
-                            <tr>
-                                <td>财经类</td>
-                                <td><input type="checkbox" value="8"/></td>
-                            </tr>
-                            <tr>
-                                <td>政法类</td>
-                                <td><input type="checkbox" value="9"/></td>
-                            </tr>
-                            <tr>
-                                <td>体育类</td>
-                                <td><input type="checkbox" value="10"/></td>
-                            </tr>
-                            <tr>
-                                <td>民族类</td>
-                                <td><input type="checkbox" value="11"/></td>
-                            </tr>
-                            <tr>
-                                <td>985工程高校</td>
-                                <td><input type="checkbox" value="20"/> </td>
-                            </tr>
-                            <tr>
-                                <td>211工程高校</td>
-                                <td><input type="checkbox" value="21"/></td>
-                            </tr>
-                            <tr>
-                                <td>中外合作办</td>
-                                <td><input type="checkbox" value="24"/> </td>
-                            </tr>
-                            <tr>
-                                <td>国家重点建设示范院校</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>国家实训基地院校</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>教育部直属</td>
-                                <td><input type="checkbox" value="14"/></td>
-                            </tr>
-                            <tr>
-                                <td>中央其他部委所属</td>
-                                <td><input type="checkbox" value="15"/></td>
-                            </tr>
-                            <tr>
-                                <td>地方所属</td>
-                                <td><input type="checkbox" value="16"/></td>
-                            </tr>
-                            <tr>
-                                <td>分校区(办学点)</td>
-                                <td><input type="checkbox" value="32"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row" ng-if="condition.inputTemplate == 8">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择城市:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="city" class="form-control" ng-model="condition.city" required autofocus placehold="请输入城市名称"/>
+                            <label ng-if="order.name.$error.required" class="red">城市名称不能为空</label>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
+                    <div class="row" ng-if="condition.inputTemplate == 9">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 5">
-                    <!--<div class="col-sm-3 text-right">
-                        <label>请输入:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 10">
+                        <div class="col-sm-3 text-right">
+                            <label>请输入:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName" required autofocus placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">专业名称不能为空</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departprop" placeholder="请输入大类名称"/>
-                    </div>-->
-                    <div class="col-sm-3 text-right">
-                        <label>请选择大类:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 11">
+                        <div class="col-sm-3 text-right">
+                            <label>请选择:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName" required autofocus placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">专业名称不能为空</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.departprop">
-                            <option value="">==请选择大类==</option>
-                            <option ng-repeat="list in condition.departproplist" value="{{list.id}}">{{list.name}}</option>
-                        </select>
+                    <div class="row" ng-if="condition.inputTemplate == 12">
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份转换</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2013 → 2016</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014 → 2016</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2015 → 2016</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[2]" value="2015"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2015,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2"  ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 6">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择年限:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 13">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>招生年数</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>今</td>
+                                    <td><input type="checkbox"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>二</td>
+                                    <td><input type="checkbox"/></td>
+                                </tr>
+                                <tr>
+                                    <td>三</td>
+                                    <td><input type="checkbox"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <select class="form-control timer" ng-model="condition.timer">
-                            <option value="">==请选择==</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                        </select>
+                    <div class="row" ng-if="condition.inputTemplate == 14">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>加上科目</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-if="condition.type<=6">
+                                    <td>口语</td>
+                                    <td><input type="checkbox" ng-model="condition.subject[0]"/> </td>
+                                </tr>
+                                <tr ng-if="condition.type==-1">
+                                    <td>艺术</td>
+                                    <td><input type="checkbox" ng-model="condition.subject[1]"/></td>
+                                </tr>
+                                <tr  ng-if="condition.type<=4 ||condition.type==6">
+                                    <td>美术</td>
+                                    <td><input type="checkbox" ng-model="condition.subject[2]"/></td>
+                                </tr>
+                                <tr  ng-if="condition.type<=4">
+                                    <td>高水平运动员</td>
+                                    <td><input type="checkbox" ng-model="condition.subject[3]"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-3 text-right">
-                        <label>请选择城市:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 15">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>学校数</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <select class="form-control timer" ng-model="condition.city">
-                            <option value="">==请选择==</option>
-                            <option ng-repeat="list in condition.provincelist" value="{{list.id}}">{{list.name}}</option>
-                        </select>
+                    <div class="row" ng-if="condition.inputTemplate == 16">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>招生数</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 7">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择收费标准:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 17">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>专业数</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <select class="form-control timer" ng-model="condition.charge">
-                            <option value="">==请选择==</option>
-                            <option value="104">部分多收费</option>
-                            <option value="105">中外合作办学</option>
-                        </select>
+                    <div class="row" ng-if="condition.inputTemplate == 18">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>学制</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>五</td>
+                                    <td><input type="checkbox" value="5"/> </td>
+                                </tr>
+                                <tr>
+                                    <td>六</td>
+                                    <td><input type="checkbox" value="6"/></td>
+                                </tr>
+                                <tr>
+                                    <td>七</td>
+                                    <td><input type="checkbox" value="7"/></td>
+                                </tr>
+                                <tr>
+                                    <td>八</td>
+                                    <td><input type="checkbox" value="8"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 8">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择城市:</label>
+                    <div class="row" ng-if="condition.inputTemplate == 19">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>标准（元/年）</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <!--本一、本二、高职-->
+                                <tbody>
+                                <tr ng-if="condition.type!=5 && condition.type!=6">
+                                    <td>6000~10000</td>
+                                    <td><input type="checkbox" ng-model="condition.fee[0]" value="2"/> </td>
+                                </tr>
+                                <tr ng-if="condition.type!=5 && condition.type!=6">
+                                    <td>10000~15000</td>
+                                    <td><input type="checkbox" ng-model="condition.fee[1]"  value="3"/></td>
+                                </tr>
+                                <tr>
+                                    <td>15000~20000</td>
+                                    <td><input type="checkbox" ng-model="condition.fee[2]"  value="4"/></td>
+                                </tr>
+                                <tr ng-if="condition.type!=5 && condition.type!=6">
+                                    <td>20000以上</td>
+                                    <td><input type="checkbox" ng-model="condition.fee[3]"  value="5"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  ng-model="condition.city" placeholder="请输入城市名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 9">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 10">
-                    <div class="col-sm-3 text-right">
-                        <label>请输入:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 11">
-                    <div class="col-sm-3 text-right">
-                        <label>请选择:</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称"/>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 12">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName" placeholder="请输入高校名称"/>
-                    </div>
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份转换</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2012 → 2015</td>
-                                <td  ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[0]" value="2012"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2012,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2013 → 2015</td>
-                                <td  ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[1]" value="2013"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2014 → 2015</td>
-                                <td  ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[2]" value="2014"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2"  ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 13">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>招生年数</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>今</td>
-                                <td><input type="checkbox"/> </td>
-                            </tr>
-                            <tr>
-                                <td>二</td>
-                                <td><input type="checkbox"/></td>
-                            </tr>
-                            <tr>
-                                <td>三</td>
-                                <td><input type="checkbox"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 14">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>加上科目</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-if="condition.type<=6">
-                                <td>口语</td>
-                                <td><input type="checkbox" ng-model="condition.subject[0]" value="97"/> </td>
-                            </tr>
-                            <tr ng-if="condition.type==-1">
-                                <td>艺术</td>
-                                <td><input type="checkbox" ng-model="condition.subject[1]" value="101"/></td>
-                            </tr>
-                            <tr  ng-if="condition.type<=4 ||condition.type==6">
-                                <td>美术</td>
-                                <td><input type="checkbox" ng-model="condition.subject[2]" value="102"/></td>
-                            </tr>
-                            <tr  ng-if="condition.type<=4">
-                                <td>高水平运动员</td>
-                                <td><input type="checkbox" ng-model="condition.subject[3]" value="98"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 15">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>学校数</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 16">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>招生数</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 17">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>专业数</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 18">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>学制</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>五</td>
-                                <td><input type="checkbox" value="5"/> </td>
-                            </tr>
-                            <tr>
-                                <td>六</td>
-                                <td><input type="checkbox" value="6"/></td>
-                            </tr>
-                            <tr>
-                                <td>七</td>
-                                <td><input type="checkbox" value="7"/></td>
-                            </tr>
-                            <tr>
-                                <td>八</td>
-                                <td><input type="checkbox" value="8"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 19">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>标准（元/年）</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <!--本一、本二、高职-->
-                            <tbody>
-                            <tr ng-if="condition.type!=5 && condition.type!=6">
-                                <td>6000~10000</td>
-                                <td><input type="checkbox" ng-model="condition.fee[0]" value="2"/> </td>
-                            </tr>
-                            <tr ng-if="condition.type!=5 && condition.type!=6">
-                                <td>10000~15000</td>
-                                <td><input type="checkbox" ng-model="condition.fee[1]"  value="3"/></td>
-                            </tr>
-                            <tr>
-                                <td>15000~20000</td>
-                                <td><input type="checkbox" ng-model="condition.fee[2]"  value="4"/></td>
-                            </tr>
-                            <tr ng-if="condition.type!=5 && condition.type!=6">
-                                <td>20000以上</td>
-                                <td><input type="checkbox" ng-model="condition.fee[3]"  value="5"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 20">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.schlName"  placeholder="请输入高校名称"/>
-                    </div>
-                    <div class="col-sm-6">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>项目</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>最低</td>
-                                <td>
-                                    <input type="checkbox"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>中点</td>
-                                <td>
-                                    <input type="checkbox"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>最高</td>
-                                <td>
-                                    <input type="checkbox"/>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 20">
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>项目</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>最低</td>
+                                    <td>
+                                        <input type="checkbox"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>中点</td>
+                                    <td>
+                                        <input type="checkbox"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>最高</td>
+                                    <td>
+                                        <input type="checkbox"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
 
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 21">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.city"  placeholder="请输入城市名称"/>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName"  placeholder="请输入专业名称"/>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 21">
+                        <div class="col-sm-4">
+                            <input type="text" name="city" class="form-control" ng-model="condition.city" required autofocus placehold="请输入城市名称"/>
+                            <label ng-if="order.name.$error.required" class="red">城市名称不能为空</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName" required autofocus placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">专业名称不能为空</label>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
 
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 22">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.city"  placeholder="请输入城市名称"/>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName"  placeholder="请输入专业名称"/>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 22">
+                        <div class="col-sm-4">
 
+                            <input type="text" name="city" class="form-control" ng-model="condition.city" required autofocus placehold="请输入城市名称"/>
+                            <label ng-if="order.name.$error.required" class="red">城市名称不能为空</label>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName" required autofocus placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">专业名称不能为空</label>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
+
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 23"> <!--模板不对-->
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" ng-model="condition.city"  placehold="请输入城市名称"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" ng-model="condition.departName"  placehold="请输入专业名称"/>
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 24">
+                        <div class="col-sm-4">
+                            <input type="text" name="city" class="form-control" ng-model="condition.city" required autofocus placehold="请输入城市名称"/>
+                            <label ng-if="order.name.$error.required" class="red">城市名称不能为空</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2013</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2015</td>
+                                    <td ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[2]" value="2015"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2015,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            {{condition.money/100}}元/条
+                        </div>
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 26">
+                        <div class="col-sm-4">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required autofocus placehold="请输入高校名称"/>
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
+                            <label ng-if="order.name.$error.required" class="red">高校名称不能为空</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                    <td>选择</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2012 → 2015</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[3]" value="2012"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2012,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2013 → 2015</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[0]" value="2013"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2013,0)">查看</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2014 → 2015</td>
+                                    <td  ng-if="condition.money/100>0">
+                                        <input type="checkbox" ng-model="condition.timer[1]" value="2014"/>
+                                    </td>
+                                    <td ng-if="condition.money/100<=0">
+                                        <button class="btn btn-primary" ng-click="showInfo(2014,0)">查看</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
+
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 96">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2015</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-5" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 97">
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <td>年份</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2014</td>
+                                </tr>
+                                <tr>
+                                    <td>2015</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-5" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
+                    </div>
+                    <div class="row" ng-if="condition.inputTemplate == 98">
+                        <div class="col-sm-5" ng-if="condition.money/100>0">
+                            {{condition.money/100}}元/条
+                        </div>
+                    </div>
                 </div>
-                <div class="row" ng-if="condition.inputTemplate == 23">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.city"  placeholder="请输入城市名称"/>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName"  placeholder="请输入专业名称"/>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="order.$invalid"  ng-if="condition.money/100 > 0" class="btn btn-primary" id="subInfo">提交订单</button> <!--ng-click="subOrder($event)"-->
+                    <button type="button" ng-if="condition.money/100 <= 0" class="btn btn-primary" ng-click="close()">关闭</button>
                 </div>
-                <div class="row" ng-if="condition.inputTemplate == 25">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="condition.departName"  placeholder="请输入专业名称"/>
-                    </div>
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                                <td>选择</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2012</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[0]" value="2012"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo()">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2013</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[1]" value="2013"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo()">查看</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2014</td>
-                                <td ng-if="condition.money/100>0">
-                                    <input type="checkbox" ng-model="condition.timer[2]" value="2014"/>
-                                </td>
-                                <td ng-if="condition.money/100<=0">
-                                    <button class="btn btn-primary" ng-click="showInfo()">查看</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-2">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 96">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2015</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-5" ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 97">
-                    <div class="col-sm-7">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <td>年份</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>2014</td>
-                            </tr>
-                            <tr>
-                                <td>2015</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-5" ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-                <div class="row" ng-if="condition.inputTemplate == 98">
-                    <div class="col-sm-5" ng-if="condition.money/100>0">
-                        {{condition.money/100}}元/条
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" ng-if="condition.money/100 > 0" class="btn btn-primary" id="subInfo" ng-click="subOrder($event)">提交订单</button>
-                <button type="button" ng-if="condition.money/100 <= 0" class="btn btn-primary" ng-click="close()">关闭</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-<div class="modal" id="baikeModal" style="background: rgba(0, 0, 0, 0.75);margin-left: 10%;">
+<div class="modal" id="baikeModal" style="margin-left: 10%;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -989,21 +1095,28 @@
             </div>
             <div class="modal-body">
                 <div class="row" ng-if="condition.inputTemplate == 22">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="condition.city" placeholder="请输入城市名称">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code"  required placehold="请输入高校代码"/>
+                            <input type="text" class="form-control" ng-model="condition.schlName" placehold="请输入高校名称">
+                            <div class="list-group">
+                                <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">查询</button>
+                                <button class="btn btn-default" ng-click="baikeClk()" type="button">查询</button>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="row" ng-if="condition.inputTemplate == 23">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="condition.departName" placeholder="请输入专业名称">
+                            <input type="text" class="form-control" ng-model="condition.departName" placehold="请输入专业名称">
+                            <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
+                                <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
+                            </div>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">查询</button>
+                                <button class="btn btn-default" ng-click="baikeClk()" type="button">查询</button>
                             </span>
                         </div>
                     </div>
