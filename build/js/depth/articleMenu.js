@@ -448,7 +448,7 @@ require(['app'],function(app){
             }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
                 addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                 //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-            }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "24"){
+            }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "24"||$scope.condition.inputTemplate == "26"){
                 addOrders(++_count,condition.titleId,condition.title,type,condition.timer,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
             }
 
