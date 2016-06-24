@@ -25,7 +25,7 @@ require(['app'],function(app){
         function init(){
             var uScore = sessionStorage.getItem("examScore") || sessionStorage.getItem("uScore");
             if(uScore != null ){
-                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore")) || JSON.parse(sessionStorage.getItem("examScore"));
+                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("examScore"))||JSON.parse(sessionStorage.getItem("uScore"));
                 $scope.userInfo.subject =subStr($location.$$url.split("batch=")[1]);
                 $scope.userInfo.score = $scope.userInfo.uScore.score;
                 $scope.userInfo.sub_a = $scope.userInfo.uScore.sub_a;

@@ -78,6 +78,12 @@ require(['app'],function(app){
             param.level_a = table.obl.name;
             param.level_b = table.sel.name;
             param.year = new Date().getFullYear();
+            if(table.obl.id<table.sel.id){
+                param.upsideDown = true;
+                param.level_a1 = table.obl.name;
+                param.level_b1 =  table.sel.name;
+                console.log('颠倒');
+            }
 
             function subStr(num){
                 var str ="";

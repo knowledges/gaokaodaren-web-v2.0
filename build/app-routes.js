@@ -23,6 +23,9 @@ define(['app'],function(app){
                 var insert = function() {
                     $timeout(function(){
                         element.val(attrs.placehold);
+                        if(element.attr('placehold')=='请输入密码' || element.attr('placehold')=='请输入确认密码'){
+                            element.attr('type','text');
+                        }
                     });
                 };
 
@@ -34,6 +37,11 @@ define(['app'],function(app){
                 element.bind('focus', function(){
                     if(element.val() === attrs.placehold)
                         element.val('');
+                });
+                element.bind('keyup',function(){
+                    if(element.attr('placehold')=='请输入密码' || element.attr('placehold')=='请输入确认密码'){
+                        element.attr('type','password');
+                    }
                 });
 
                 if(element.val() === '')
@@ -111,16 +119,20 @@ define(['app'],function(app){
                 var num = 0;
                 switch (parseInt(type)){
                     case 1:
-                        num  = score - 342;
+                        num  = score - 355;
+                        //num  = score - 342;
                         break;
                     case 2:
-                        num  = score - 344;
+                        num  = score - 353;
+                        //num  = score - 344;
                         break;
                     case 3:
-                        num  = score - 313;
+                        num  = score - 325;
+                        //num  = score - 313;
                         break;
                     case 4:
-                        num  = score - 310;
+                        num  = score - 315;
+                        //num  = score - 310;
                         break;
                     case 7:
                         num  = score - 215;
@@ -169,7 +181,7 @@ define(['app'],function(app){
                 controller:"hopeCtr",
                 data: { isPublic: true}
             })
-            //.state("hopes", {/*意向*/
+            //.state("hopes", {/*意向专业*/
             //    url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
             //    templateUrl: "html/hope/backuphope.html",
             //    controller:"recommendCtrl",
@@ -180,7 +192,7 @@ define(['app'],function(app){
             //        }]
             //    }
             //})
-            //.state("hopes", {/*意向*/
+            //.state("hopes", {/*意向专业+个性*/
             //    url: "/hopes/batch=:batch&out_trade_no=:out_trade_no",
             //    templateUrl: "html/hope/backuphope1.html",
             //    controller:"recommendCtrl",
@@ -198,7 +210,7 @@ define(['app'],function(app){
                 data: { isPublic: true},
                 resolve:{
                     deps:['$ocLazyLoad',function($ocLazyLoad){
-                        return $ocLazyLoad.load(['js/hope/backuphopes1.js']);
+                        return $ocLazyLoad.load(['js/hope/backuphopes2.js']);
                     }]
                 }
             })
@@ -750,7 +762,7 @@ define(['app'],function(app){
             $http.get(loocha+logoutURL)
                 .success(function(data,status){
                     $scope.user.islogin = false;
-                    $rootScope.isFromDepth = false;
+                    $scope.isFromDepth = false;
                     $scope.user.name ="";
                     sessionStorage.removeItem('uScore');
                     sessionStorage.removeItem('examScore');
@@ -758,7 +770,7 @@ define(['app'],function(app){
                     sessionStorage.removeItem('user_id');
                     sessionStorage.removeItem('usernumber');
                     localStorage.removeItem("orderList");
-                    localStorage.removeItem("depthbatch");
+                    //localStorage.removeItem("depthbatch");
                     localStorage.removeItem("depthmoney");
                     window.location.href = "#/home";
                 });

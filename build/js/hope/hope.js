@@ -769,7 +769,6 @@ require(['app'], function (app) {
         };
 
         $scope.rates = [];
-
         $scope.toggle = {
             now: false
         };
@@ -995,7 +994,7 @@ require(['app'], function (app) {
                     $scope.info.score = uScore.score;
                     $scope.info.level = uScore.level_a + "," + uScore.level_b;
                 }else{
-                    alert('请创建成绩！');
+                    alert('请先填成绩！');
                     window.location.href = "#/all/allScore";
                 }
 
@@ -2179,7 +2178,6 @@ require(['app'], function (app) {
                     var _time = null;
                     $(".findSchoolArt").unbind('dblclick').dblclick(function (e) {
                         $timeout.cancel(_time);
-                        console.log("城市："+$scope.reject.citys);
                         //1.先取消 同类型的当前优先参数
                         var that = $(this), status = that.attr("status"), attr_id = that.attr('attr_id');
                         var str = $scope.reject.attribute;
@@ -2249,7 +2247,6 @@ require(['app'], function (app) {
                                 pubMenthod(status, that);
                             });
                         }else{
-                            console.log("城市："+$scope.reject.citys);
                             //3.执行 拒绝 1.拒绝就并集 2.取消拒绝，把当前的参数取消，在把所有拒绝条件在执行一次
                             if(that.attr("status") == 0 || that.attr("status") == undefined){ // 并集
                                 $scope.reject.attribute = $scope.reject.attribute + that.attr("pub")+",";
@@ -3362,17 +3359,63 @@ require(['app'], function (app) {
          * @param num
          */
         $scope.selectSchol = function (idx, num) {
-            if (num == 1) {
-                $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
-            } else if (num == 2) {
-                $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
-            } else if (num == 3) {
-                $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
-            }else if (num == 4){
-                $scope.finshparam.school_prefer[4]  = "";
-            }
+            //if (num == 1) {
+            //    $scope.finshparam.school_prefer[1] = $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+            //} else if (num == 2) {
+            //    $scope.finshparam.school_prefer[2] = $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+            //} else if (num == 3) {
+            //    $scope.finshparam.school_prefer[3] = $scope.finshparam.school_prefer[4]  = "";
+            //}else if (num == 4){
+            //    $scope.finshparam.school_prefer[4]  = "";
+            //}
 
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == idx ){
+                    if(v.select == undefined||v.select == false){
+                        v.select = true;
+                    }else{
+                        alert('不可以重复选择同一选项');
+                        $scope.finshparam.school_prefer[num-1] = "";
+                    }
+                }
+            })
         };
+
+        $scope.$watch('finshparam.school_prefer[0]',function(newvalue,oldvalue){
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.school_prefer[1]',function(newvalue,oldvalue){
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.school_prefer[2]',function(newvalue,oldvalue){
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.school_prefer[3]',function(newvalue,oldvalue){
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.school_prefer[4]',function(newvalue,oldvalue){
+            angular.forEach($scope.hope.schoolArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
 
         /**
          *  意向专业优先排序 逻辑地方
@@ -3380,19 +3423,79 @@ require(['app'], function (app) {
          * @param num
          */
         $scope.selectDepart = function (idx, num) {
-            if (num == 1) {
-                $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
-            } else if (num == 2) {
-                $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
-            } else if (num == 3) {
-                $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
-            } else if (num == 4) {
-                $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
-            } else if (num == 5) {
-                $scope.finshparam.depart_prefer[5] = "";
-            }
+            //if (num == 1) {
+            //    $scope.finshparam.depart_prefer[1] = $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+            //} else if (num == 2) {
+            //    $scope.finshparam.depart_prefer[2] = $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+            //} else if (num == 3) {
+            //    $scope.finshparam.depart_prefer[3] = $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+            //} else if (num == 4) {
+            //    $scope.finshparam.depart_prefer[4] = $scope.finshparam.depart_prefer[5] = "";
+            //} else if (num == 5) {
+            //    $scope.finshparam.depart_prefer[5] = "";
+            //}
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == idx ){
+                    if(v.select == undefined||v.select == false){
+                        v.select = true;
+                    }else{
+                        alert('不可以重复选择同一选项');
+                        $scope.finshparam.depart_prefer[num-1] = "";
+                    }
+                }
+            })
 
         };
+
+        $scope.$watch('finshparam.depart_prefer[0]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.depart_prefer[1]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.depart_prefer[2]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.depart_prefer[3]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.depart_prefer[4]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.depart_prefer[5]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.departArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
 
         /**
          * 意向城市优先排序 逻辑地方
@@ -3400,16 +3503,67 @@ require(['app'], function (app) {
          * @param num
          */
         $scope.selectCity = function (idx, num) {
-            if (num == 1) {
-                $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] = $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
-            } else if (num == 2) {
-                $scope.finshparam.city_prefer[2]= $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
-            } else if (num == 3) {
-                $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
-            }else if (num == 4){
-                $scope.finshparam.city_prefer[4]  = "";
-            }
+            //if (num == 1) {
+            //    $scope.finshparam.city_prefer[1] = $scope.finshparam.city_prefer[2] = $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+            //} else if (num == 2) {
+            //    $scope.finshparam.city_prefer[2]= $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+            //} else if (num == 3) {
+            //    $scope.finshparam.city_prefer[3] = $scope.finshparam.city_prefer[4]  = "";
+            //}else if (num == 4){
+            //    $scope.finshparam.city_prefer[4]  = "";
+            //}
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == idx ){
+                    if(v.select == undefined||v.select == false){
+                        v.select = true;
+                    }else{
+                        alert('不可以重复选择同一选项');
+                        $scope.finshparam.city_prefer[num-1] = "";
+                    }
+                }
+            })
         };
+
+        $scope.$watch('finshparam.city_prefer[0]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.city_prefer[1]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.city_prefer[2]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.city_prefer[3]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.city_prefer[4]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.cityArr,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
 
         /**
          * 意向个性优先排序 逻辑地方
@@ -3417,44 +3571,110 @@ require(['app'], function (app) {
          * @param num
          */
         $scope.selectPerson = function (idx, num) {
-            if (num == 1) {
-                $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
-            } else if (num == 2) {
-                $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
-            } else if (num == 3) {
-                $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
-            } else if (num == 4) {
-                $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
-            } else if (num == 5) {
-                $scope.finshparam.personality_prefer[5] = "";
-            }
+            //if (num == 1) {
+            //    $scope.finshparam.personality_prefer[1] = $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+            //} else if (num == 2) {
+            //    $scope.finshparam.personality_prefer[2] = $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+            //} else if (num == 3) {
+            //    $scope.finshparam.personality_prefer[3] = $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+            //} else if (num == 4) {
+            //    $scope.finshparam.personality_prefer[4] = $scope.finshparam.personality_prefer[5] = "";
+            //} else if (num == 5) {
+            //    $scope.finshparam.personality_prefer[5] = "";
+            //}
 
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == idx ){
+                    if(v.select == undefined||v.select == false){
+                        v.select = true;
+                    }else{
+                        alert('不可以重复选择同一选项');
+                        $scope.finshparam.personality_prefer[num-1] = "";
+                    }
+                }
+            })
         };
+        $scope.$watch('finshparam.personality_prefer[0]',function(newvalue,oldvalue){
 
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.personality_prefer[1]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.personality_prefer[2]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.personality_prefer[3]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.personality_prefer[4]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
+        $scope.$watch('finshparam.personality_prefer[5]',function(newvalue,oldvalue){
+
+            angular.forEach($scope.hope.personalitylist,function(v,i){
+                if(v.id == oldvalue){
+                    v.select = false;
+                }
+            })
+        });
         /**
          * 确定
          * */
         $scope.reqOrder = function () {
             //getLoginUserInfo.isLogoin();
 
-            var projectSoft = [];
+            var projectSoft = [],count=0;
             $.each($scope.finshparam.project, function (i, v) {
                 if (v == 1) {//高校
                     projectSoft[0] = i + 1;
-                } else if (v == 2) { //专业
+                } else if (v ==  2) {//专业
                     projectSoft[1] = i + 1;
                 } else if (v == 3) {//城市
                     projectSoft[2] = i + 1;
-                } else {
+                } else if(v == 4){
                     projectSoft[3] = i + 1;
                 }
+                if (v == "") {
+                    count++;
+                }
             });
-
+            for (var j = 1; j <= count; j++) {
+                for (var i = 0; i < 4; i++) {
+                    if (projectSoft[i] == ""|| projectSoft[i] == undefined) {
+                        projectSoft[i] = 0;
+                    }
+                }
+            }
             clearArrayEmpty($scope.finshparam.school_prefer);
             clearArrayEmpty($scope.finshparam.depart_prefer);
             clearArrayEmpty($scope.finshparam.city_prefer);
             clearArrayEmpty($scope.finshparam.personality_prefer);
-
+            //clearArray(projectSoft);
             var uScore = JSON.parse(sessionStorage.getItem('uScore'));
             var param = {};
             param.type = $scope.hope.batch;
@@ -3546,7 +3766,7 @@ require(['app'], function (app) {
                             alert("订单获取了所有数量的推荐高校!");
                             return;
                         }else if(data.status == 0){
-                           var lists = data.response;
+                            var lists = data.response;
 
                             $http.get(loocha+"/user?t="+new Date().getTime().toString())
                                 .success(function(data){
@@ -3561,10 +3781,10 @@ require(['app'], function (app) {
                                             $('#modal-pay').modal('show');
                                         }
                                     }else{
-                                         $scope.hope.order_id = lists.order_id;
-                                         $scope.hope.money = lists.money;
-                                         localStorage.setItem("type",$stateParams.batch);
-                                         $('#modal-pay').modal('show');
+                                        $scope.hope.order_id = lists.order_id;
+                                        $scope.hope.money = lists.money;
+                                        localStorage.setItem("type",$stateParams.batch);
+                                        $('#modal-pay').modal('show');
                                     }
 
                                 });
@@ -3652,6 +3872,15 @@ require(['app'], function (app) {
             }
         }
 
+        function clearArray(arr){
+            var count = 0;
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i] == undefined){
+                    arr[i]=0;
+                }
+            }
+        }
+
         /**
          * 数组清空
          * @param arr
@@ -3702,10 +3931,6 @@ require(['app'], function (app) {
             document.body.appendChild(a);
             a.click();
         }
-
-        $scope.$watch('hope.school_prefer', function (newValue, oldValue) {
-            console.log(JSON.stringify(newValue));
-        });
 
         $scope.$watch('hope.langue', function (newValue, oldValue) {
             arrPush()

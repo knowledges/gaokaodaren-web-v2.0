@@ -577,6 +577,11 @@ require(['app'],function(app){
             $(".modal").hide();
             $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
 
+            $scope.condition.departName="请输入专业名称";
+            $scope.condition.code="请输入高校代码";
+            $scope.condition.schlName="请输入高校名称";
+            $scope.condition.city="请输入城市名称";
+
             function addOrders(id,titleId,title,type,year,code,schoolname,departname,money,city,subject,count,fee,sel){
                 var isTrue = true;
                 angular.forEach($scope.orderList,function(v,i){
@@ -594,10 +599,10 @@ require(['app'],function(app){
                     obj.type = type;
                     obj.year = year;
                     obj.code = code;
-                    obj.school = schoolname;
-                    obj.depart = departname;
+                    obj.school = schoolname != "请输入高校名称" ? schoolname : "";
+                    obj.depart = departname != "请输入专业名称" ? departname : "";
                     obj.money = money;
-                    obj.city = city;
+                    obj.city = city != "请输入城市名称" ? city : "";
                     obj.subject = subject;
                     obj.count = count;
                     obj.fee =  fee;
@@ -681,7 +686,8 @@ require(['app'],function(app){
                                                 alert("该注册号余额已不足支付，请联系：13914726090");
                                             }else{
                                                 $scope.hope.order_id = lists.order_id;
-                                                $scope.hope.money = $scope.money = lists.money;
+                                                $scope.hope.money  = lists.money;
+                                                $scope.money = lists.money/100;
                                                 $('#modal-pay').show();
                                                 localStorage.removeItem("orderList");
                                                 localStorage.removeItem("depthbatch");
@@ -690,6 +696,7 @@ require(['app'],function(app){
                                         }else{
                                             $scope.hope.order_id = lists.order_id;
                                             $scope.hope.money = lists.money;
+                                            $scope.money = lists.money/100;
                                             $('#modal-pay').show();
                                             localStorage.removeItem("orderList");
                                             localStorage.removeItem("depthbatch");
@@ -710,13 +717,15 @@ require(['app'],function(app){
         $scope.isPay = function () {
             $http.get(loocha + '/exam/order/info?out_trade_no=' + $scope.hope.order_id)
                 .success(function (data) {
-                    if (data.status == "1004") {
+                    if(data.status == "-1" ){
+                        alert('登录失效');
+                        localStorage.removeItem("orderList");
+                        localStorage.removeItem("depthmoney");
+                    }else if (data.status == "1004") {
                         alert('交易失败');
-
                     }else if(data.status == "0"){
                         localStorage.removeItem("orderList");
                         localStorage.removeItem("depthmoney");
-
                     }
                     window.location.reload(0);
                     $("#tip").hide();
@@ -753,7 +762,7 @@ require(['app'],function(app){
 
 
         $scope.$watch('condition.schlName',function(newvalue,oldvalue){
-            if(newvalue!="" && newvalue!=oldvalue){
+            if(newvalue!="" && newvalue!="请输入高校名称" && newvalue!=oldvalue){
 
                 $http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.condition.schlName)+"&limit=10&type="+$scope.condition.type+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
@@ -761,12 +770,12 @@ require(['app'],function(app){
                     });
 
             }else{
-                $scope.condition.schlName = "";
+                $scope.condition.schlName = "请输入高校名称";
             }
         });
 
         $scope.$watch('condition.departName',function(newvalue,oldvalue){
-            if(newvalue!="" && newvalue!=oldvalue){
+            if(newvalue!="" && newvalue!="请输入专业名称" && newvalue!=oldvalue){
 
                 $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&year="+$scope.condition.timer+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
@@ -774,7 +783,7 @@ require(['app'],function(app){
                     });
 
             }else{
-                $scope.condition.departName = "";
+                $scope.condition.departName = "请输入专业名称";
             }
         });
 

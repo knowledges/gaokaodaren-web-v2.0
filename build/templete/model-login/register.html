@@ -36,12 +36,12 @@
             <label ng-if="register.valid.$error.minlength" class="red">验证码个数至少4位数</label>
             <label ng-if="register.valid.$error.pattern" class="red">验证码输入有误</label>
             <lable class="src-only" for="password"></lable>
-            <input type="password" id="password" name="j_password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placehold="请输入密码">
+            <input type="text" id="password" name="j_password" ng-model="user.password" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/" class="form-control login-input" required placehold="请输入密码">
             <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
             <label ng-if="login.pwd.$error.minlength" class="red">密码最大12位数</label>
             <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>
             <lable class="src-only" for="newpwd"></lable>
-            <input type="password" id="newpwd" name="newpwd" ng-model="user.newpassword" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/"  class="form-control login-input" required placehold="请输入确认密码">
+            <input type="text" id="newpwd" name="newpwd" ng-model="user.newpassword" ng-minlength="6" ng-maxlength="12" ng-pattern="/^[\w]+$/"  class="form-control login-input" required placehold="请输入确认密码">
             <label ng-if="login.pwd.$error.minlength" class="red">密码至少6位数</label>
             <label ng-if="login.pwd.$error.minlength" class="red">密码最大12位数</label>
             <label ng-if="login.pwd.$error.pattern" class="red">只能是字符、数字、下划线</label>

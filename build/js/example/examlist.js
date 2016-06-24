@@ -45,11 +45,16 @@ require(['app'],function(app) {
 
         init();
         function init(){
-            var uScore = sessionStorage.getItem("uScore") || sessionStorage.getItem("examScore");
+            var uScore = sessionStorage.getItem("examScore")||sessionStorage.getItem("uScore");
             if(uScore != null) {
-                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("uScore")) || JSON.parse(sessionStorage.getItem("examScore"));
+                $scope.userInfo.uScore = JSON.parse(sessionStorage.getItem("examScore"))||JSON.parse(sessionStorage.getItem("uScore"));
                 $scope.userInfo.score = $scope.userInfo.uScore.score;
-                var str_ = $scope.userInfo.uScore.level_a+$scope.userInfo.uScore.level_b;
+                var str_ = "";
+                if($scope.userInfo.uScore.upsideDown == true){
+                    str_ = $scope.userInfo.uScore.level_b1+$scope.userInfo.uScore.level_a1;
+                }else{
+                    str_ = $scope.userInfo.uScore.level_a+$scope.userInfo.uScore.level_b;
+                }
 
                 var param = {};
                 param.type =$scope.userInfo.type;
