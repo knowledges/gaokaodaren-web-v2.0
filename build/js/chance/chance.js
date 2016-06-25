@@ -701,7 +701,7 @@ require(['app'],function(app){
         };
 
         $scope.getSchName = function(){
-            $scope.forecast.style_School_article = $("#sSchool_name option:selected").attr("article_id");
+            $scope.forecast.style_School_article = $("#sSchool_name option:selected").val();
             $scope.forecast.style_School_name = $("#sSchool_name option:selected").text().trim();
             $scope.forecast.schChance_1 = "";
         };
@@ -905,20 +905,26 @@ require(['app'],function(app){
          * @param e
          */
         $scope.showChanceSchInfo = function(e){
-            var that = $(e.target),key = that.html();
-            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&code="+that.attr("article_id")+"&key="+encodeURI(key)+"&t="+( new Date() ).getTime().toString()).success(function(data){
+            var that = $(e.target),key = that.html(),code = that.attr("article_id");
+            $http.get(loocha+"/school/byname?type="+$scope.isChance+"&code="+code+"&key="+encodeURI(key)+"&t="+( new Date() ).getTime().toString()).success(function(data){
                 if(data.response.list.length<=0){
                     alert("该批次未找到该校信息");
                 }else{
-                    $scope.schoolInfo = data.response.list[0];
-                    if($scope.schoolInfo.article_id>0){
-                        $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
-                            $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
-                            $("#mask-school").fadeIn(500);
-                        });
-                    }else{
-                        alert("没有找到相关文章");
-                    }
+                    angular.forEach(data.response.list,function(v,i){
+                        if(v.unique_id == code){
+                            $scope.schoolInfo = v;
+                            if($scope.schoolInfo.article_id>0){
+                                $http.get(loocha+"/article/"+$scope.schoolInfo.article_id).success(function(data){
+                                    $scope.schoolInfo.article_content = $sce.trustAsHtml(data.response.content);
+                                    $("#mask-school").fadeIn(500);
+                                });
+                            }else{
+                                alert("没有找到相关文章");
+                            }
+                        }
+                    });
+
+
                 }
 
             });

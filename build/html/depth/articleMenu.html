@@ -129,8 +129,8 @@
                             </table>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" disabled="true" required placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" disabled="true" required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" disabled="true" required placehold="请输入高校代码" placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" disabled="true" required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -180,7 +180,7 @@
                             </table>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  disabled="true" required placehold="请输入专业名称"/>
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  disabled="true" required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -331,7 +331,7 @@
                             <label>请选择城市:</label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称"/>
+                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称" placeholder="请输入城市名称"/>
                         </div>
                     </div>
                     <div class="row" ng-if="condition.inputTemplate == 9">
@@ -339,8 +339,8 @@
                             <label>请选择:</label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"  placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -351,7 +351,7 @@
                             <label>请输入:</label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称"/>
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -362,14 +362,14 @@
                             <label>请选择:</label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码" placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName" required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称"/>
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -416,8 +416,8 @@
                             </table>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码"  placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -677,8 +677,8 @@
                     </div>
                     <div class="row" ng-if="condition.inputTemplate == 20">
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required  placehold="请输入高校代码" placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -720,10 +720,10 @@
                     </div>
                     <div class="row" ng-if="condition.inputTemplate == 21">
                         <div class="col-sm-4">
-                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称"/>
+                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称" placeholder="请输入城市名称"/>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称"/>
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -735,10 +735,10 @@
                     </div>
                     <div class="row" ng-if="condition.inputTemplate == 22">
                         <div class="col-sm-4">
-                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称"/>
+                            <input type="text" name="city" class="form-control" ng-model="condition.city"  required placehold="请输入城市名称" placeholder="请输入城市名称"/>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称"/>
+                            <input type="text" name="departname" class="form-control" ng-model="condition.departName"  required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -750,10 +750,10 @@
                     </div>
                     <div class="row" ng-if="condition.inputTemplate == 23"> <!--模板不对-->
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="condition.city" required placehold="请输入城市名称"/>
+                            <input type="text" class="form-control" ng-model="condition.city" required placehold="请输入城市名称" placeholder="请输入城市名称"/>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" ng-model="condition.departName" required placehold="请输入专业名称"/>
+                            <input type="text" class="form-control" ng-model="condition.departName" required placehold="请输入专业名称" placeholder="请输入专业名称"/>
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -803,7 +803,7 @@
                             </table>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="city" class="form-control" ng-model="condition.city"  disabled="true"  required placehold="请输入城市名称"/>
+                            <input type="text" name="city" class="form-control" ng-model="condition.city"  disabled="true"  required placehold="请输入城市名称" placeholder="请输入城市名称"/>
                         </div>
                         <div class="col-sm-2">
                             {{condition.money/100}}元/条
@@ -850,8 +850,8 @@
                             </table>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码"/>
-                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称"/>
+                            <input type="text" name="code" class="form-control" ng-model="condition.code" required placehold="请输入高校代码" placeholder="请输入高校代码"/>
+                            <input type="text" name="schoolname" class="form-control" ng-model="condition.schlName"  required placehold="请输入高校名称" placeholder="请输入高校名称"/>
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -927,8 +927,8 @@
                 <div class="row" ng-if="condition.inputTemplate == 22">
                     <div class="col-lg-12">
                         <div class="input-group">
-                            <input type="text" name="code" class="form-control" ng-model="condition.code"   placehold="请输入高校代码"/>
-                            <input type="text" class="form-control" ng-model="condition.schlName" placehold="请输入高校名称">
+                            <input type="text" name="code" class="form-control" ng-model="condition.code"   placehold="请输入高校代码" placeholder="请输入高校代码"/>
+                            <input type="text" class="form-control" ng-model="condition.schlName" placehold="请输入高校名称" placeholder="请输入高校名称">
                             <div class="list-group">
                                 <a href="javascript:;;" ng-repeat="item in searchSchool" ng-click="schoolDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>
@@ -941,7 +941,7 @@
                 <div class="row" ng-if="condition.inputTemplate == 23">
                     <div class="col-lg-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="condition.departName" placehold="请输入专业名称">
+                            <input type="text" class="form-control" ng-model="condition.departName" placehold="请输入专业名称" placeholder="请输入专业名称">
                             <div class="list-group" ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;top:34px;">
                                 <a href="javascript:;;" ng-repeat="item in search" ng-click="departDisplace(item)" class="list-group-item">{{item.name}}</a>
                             </div>

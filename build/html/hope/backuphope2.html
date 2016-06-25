@@ -137,8 +137,9 @@
                             </a>
                             <ul class="dropdown-menu" id="attr1" ng-if="hope.attrs.isShow" style="display: block;">
                                 <li><a href="javascript:;;"
+                                       ng-class="{1:'agree',2:'reject',0:'cancle',undefined:'cancle'}[list.state]"
                                        ng-repeat="list in hope.attrs"
-                                       ng-click=""
+                                       ng-click="getCollegeByAttrClk(list,1)"
                                        ng-dblclick="">
                                         {{list.name}}
                                     </a>
