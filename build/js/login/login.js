@@ -99,9 +99,21 @@ require(['app'],function(app){
                 transformRequest:tramsform
             }).success(function(data){
                 if (data.status == -1){
-                    alert('验证码失效');
+                    alert('登录失败，重新登录！');
                     getCodes();
                     return ;
+                }else if (data.status == 1){
+                    alert('系统出错');
+                    getCodes();
+                    return ;
+                }else if (data.status == 12) {
+                    alert('验证码错误');
+                    getCodes();
+                    return;
+                }else if (data.status == 13){
+                    alert('用户名或密码错误');
+                    getCodes();
+                    return;
                 }
                 //路由权限
                 sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
