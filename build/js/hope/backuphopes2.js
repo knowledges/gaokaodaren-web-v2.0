@@ -337,6 +337,45 @@ require(['app'], function (app) {
             }
 
         };
+
+        $scope.getCollegeByAttrClk=function(obj,num){
+            if(num == 1){
+                $scope.sure.attrs = obj.id;
+            }else if (num == 2){
+                $scope.sure.style = obj.id;
+            }else if (num == 3){
+                $scope.sure.belongs = obj.id;
+            }
+
+            if(obj.state == undefined || obj.state == 0){
+
+                obj.state = 1;
+            }else if(obj.state == 1){
+                obj.state = 0;
+            }
+        };
+
+        function getCollegeMethod(){
+            var params = {};
+            params.attr = "";
+            params.style = "";
+            params.belongs = "";
+            params.prop3 = "";
+            params.prop4 = "";
+            params.prop5 = "";
+            params.prop6 = "";
+            params.prop8 = "";
+            params.type = $scope.hope.type;
+
+            $http({
+                url:loocha+'/schbath',
+                method:'GET',
+                param:params
+            }).success(function(data){
+
+            });
+        }
+
     }]);
 
 });

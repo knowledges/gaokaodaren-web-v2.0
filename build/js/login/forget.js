@@ -51,8 +51,15 @@ require(['app'],function(app){
             $http.post(loocha+referinURL,param,{
                 headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest:tramsform
-            }).success(function(promise){
-                $scope.showlogin();
+            }).success(function(data){
+                if(data.status == 2){
+                    alert('用户不存在');
+                }else if(data.status == 4||data.status == 6){
+                    alert('验证码错误');
+                }else if(data.status == 0){
+                    alert('修改成功');
+                    window.location.href="#/login";
+                }
             });
 
         };
