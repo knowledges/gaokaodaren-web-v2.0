@@ -52,8 +52,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    app.constant("loocha","");
-    //app.constant("loocha","/loocha");
+    //app.constant("loocha","");
+    app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){

@@ -75,8 +75,10 @@ require(['app'], function (app) {
                     $timeout.cancel(_timer);
                     _timer = $timeout(function(){
                         if(obj.state == undefined || obj.state == 0){
+                            console.log('0');
                             obj.state = 1;
                         }else if (obj.state == 1){
+                            console.log('1');
                             obj.state = 0;
                         }
                     },500);

@@ -739,7 +739,7 @@ require(['app'],function(app){
          * 获取专业的概率
          */
         $scope.getdepartChance = function(){
-
+            $scope.searchSchool = "";
             if($scope.forecast.schl_id==""){
                 alert("请填写高校代号");
                 return;

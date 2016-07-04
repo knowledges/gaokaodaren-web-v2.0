@@ -362,7 +362,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="forecast.schl_name" placehold="请输入高校名称" placeholder="请输入高校名称"/>
-                        <listgroup-school ng-if="searchSchool.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;">
+                        <listgroup-school ng-if="searchSchool.length>0" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;">
 
                         </listgroup-school>
                     </div>
@@ -410,7 +410,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="forecast.d_departname"
                                placehold="请输入专业名称" placeholder="请输入专业名称"/>
-                        <listgroup-depart ng-if="search.length>1" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;">
+                        <listgroup-depart ng-if="search.length>0" style="position: absolute; z-index: 999; width: 100%; max-height: 200px; overflow: scroll;">
 
                         </listgroup-depart>
                     </div>

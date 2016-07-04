@@ -48,9 +48,9 @@ require(['app'],function(app){
         $scope.title.breadcrumb_no = $stateParams.itemId;
 
         $scope.findSch = function(){
-            $http.get(loocha+"/school?key="+$scope.info.key+"&index=0&limit=20")
+            $http.get(loocha+"/school/match/school?name="+encodeURI($scope.info.key))
                 .success(function(data){
-                    $scope.info.schools = data.response.list;
+                    $scope.info.schools = data.response;
                 });
         };
 
@@ -130,9 +130,9 @@ require(['app'],function(app){
                 method:"GET",
                 params:parame
             })
-            .success(function (data, status) {
-                $scope.title.menuList = data.response.list;
-            });
+                .success(function (data, status) {
+                    $scope.title.menuList = data.response.list;
+                });
         }
 
         function showInfo(id){
