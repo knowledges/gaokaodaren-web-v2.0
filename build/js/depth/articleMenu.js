@@ -433,148 +433,163 @@ require(['app'],function(app){
          */
         $scope.orderInfo = function(condition){
             var type = $location.$$url.split("batch=")[1];
-            var year = 2016;
-            if(condition.titleId>=60&&condition.titleId<=100){
-                year = "";
-            }
-            if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
-                addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-            }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-                addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-                //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-            }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "12"||$scope.condition.inputTemplate == "24"||$scope.condition.inputTemplate == "26"){
-                addOrders(++_count,condition.titleId,condition.title,type,condition.timer,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-            }
-
-            angular.forEach(condition.sel,function(i,v){
-                if(i != undefined && i == true){
-                    var sel ="";
-                    switch (parseInt(v)){
-                        case 0:
-                            sel  = "A+A+";
-                            break;
-                        case 1:
-                            sel  = "A+A";
-                            break;
-                        case 2:
-                            sel  = "AA";
-                            break;
-                        case 3:
-                            sel  = "AB+";
-                            break;
-                        case 4:
-                            sel  = "AB";
-                            break;
-                        case 5:
-                            sel  = "B+B+";
-                            break;
-                        case 6:
-                            sel  = "B+B";
-                            break;
-                        case 7:
-                            sel  = "BB";
-                            break;
-                        case 8:
-                            sel  = "BC";
-                            break;
-                        case 9:
-                            sel  = "CC";
-                            break;
-                        case 10:
-                            sel  = "CD";
-                            break;
-                        case 11:
-                            sel  = "不要求";
-                            break;
-                        case 12:
-                            sel  = "AC";
-                            break;
+            var school = condition.schlName != "请输入高校名称" ? condition.schlName : "";
+            var code = condition.code !="请输入高校代码" ? condition.code : "";
+            var depart = condition.departName!= "请输入专业名称" ? condition.departName : "";
+            var city = condition.city != "请输入城市名称" ? condition.city : "";
+            var fee = condition.fee !=""?condition.fee : 0;
+            var count = condition.count !=""? condition.count :0;
+            var year = condition.timer != "" ? condition.timer : "2016";
+            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+school+'&code='+code+'&depart='+depart+'&sel='+condition.sel+'&city='+condition.city+'&fee='+fee+'&subject='+condition.subject+'&count='+count)
+                .success(function(data){
+                if(data.status!=0){
+                    alert('该内容的数据还在整理中.....');
+                    return;
+                }else{
+                    var year = 2016;
+                    if(condition.titleId>=60&&condition.titleId<=100){
+                        year = "";
+                    }
+                    if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
+                        addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                    }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
+                        addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                        //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                    }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "12"||$scope.condition.inputTemplate == "24"||$scope.condition.inputTemplate == "26"){
+                        addOrders(++_count,condition.titleId,condition.title,type,condition.timer,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
                     }
 
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
+                    angular.forEach(condition.sel,function(i,v){
+                        if(i != undefined && i == true){
+                            var sel ="";
+                            switch (parseInt(v)){
+                                case 0:
+                                    sel  = "A+A+";
+                                    break;
+                                case 1:
+                                    sel  = "A+A";
+                                    break;
+                                case 2:
+                                    sel  = "AA";
+                                    break;
+                                case 3:
+                                    sel  = "AB+";
+                                    break;
+                                case 4:
+                                    sel  = "AB";
+                                    break;
+                                case 5:
+                                    sel  = "B+B+";
+                                    break;
+                                case 6:
+                                    sel  = "B+B";
+                                    break;
+                                case 7:
+                                    sel  = "BB";
+                                    break;
+                                case 8:
+                                    sel  = "BC";
+                                    break;
+                                case 9:
+                                    sel  = "CC";
+                                    break;
+                                case 10:
+                                    sel  = "CD";
+                                    break;
+                                case 11:
+                                    sel  = "不要求";
+                                    break;
+                                case 12:
+                                    sel  = "AC";
+                                    break;
+                            }
+
+                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
+                        }
+                    });
+
+                    angular.forEach(condition.fee,function(i,v){
+                        if(i != undefined && i == true){
+                            var fee ="";
+                            switch (parseInt(v)){
+                                case 0:
+                                    fee  = "2";
+                                    break;
+                                case 1:
+                                    fee  = "3";
+                                    break;
+                                case 2:
+                                    fee  = "4";
+                                    break;
+                                case 3:
+                                    fee  = "5";
+                                    break;
+                            }
+                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
+                        }
+                    });
+
+                    angular.forEach(condition.count,function(i,v){
+                        if(i != undefined && i == true){
+                            var count ="";
+                            switch (parseInt(v)){
+                                case 0:
+                                    count  = "1";
+                                    break;
+                                case 1:
+                                    count  = "2";
+                                    break;
+                                case 2:
+                                    count  = "3";
+                                    break;
+                                case 3:
+                                    count  = "4";
+                                    break;
+                                case 4:
+                                    count  = "5";
+                                    break;
+                                case 5:
+                                    count  = "6";
+                                    break;
+                            }
+
+                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
+                        }
+                    });
+
+                    angular.forEach(condition.subject,function(i,v){
+                        if(i != undefined && i == true){
+                            var subject ="";
+                            switch (parseInt(v)){
+                                case 0:
+                                    subject  = "(口)";
+                                    break;
+                                case 1:
+                                    subject  = "艺术";
+                                    break;
+                                case 2:
+                                    subject  = "美术";
+                                    break;
+                                case 3:
+                                    subject  = "高水平运动员";
+                                    break;
+                            }
+
+                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
+                        }
+                    });
+                    localStorage.setItem("orderList",JSON.stringify($scope.orderList));
+                    localStorage.setItem("depthmoney",$scope.money);
+
+                    $(".modal").hide();
+                    $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
+
+                    $scope.condition.departName="请输入专业名称";
+                    $scope.condition.code="请输入高校代码";
+                    $scope.condition.schlName="请输入高校名称";
+                    $scope.condition.city="请输入城市名称";
                 }
             });
-
-            angular.forEach(condition.fee,function(i,v){
-                if(i != undefined && i == true){
-                    var fee ="";
-                    switch (parseInt(v)){
-                        case 0:
-                            fee  = "2";
-                            break;
-                        case 1:
-                            fee  = "3";
-                            break;
-                        case 2:
-                            fee  = "4";
-                            break;
-                        case 3:
-                            fee  = "5";
-                            break;
-                    }
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
-                }
-            });
-
-            angular.forEach(condition.count,function(i,v){
-                if(i != undefined && i == true){
-                    var count ="";
-                    switch (parseInt(v)){
-                        case 0:
-                            count  = "1";
-                            break;
-                        case 1:
-                            count  = "2";
-                            break;
-                        case 2:
-                            count  = "3";
-                            break;
-                        case 3:
-                            count  = "4";
-                            break;
-                        case 4:
-                            count  = "5";
-                            break;
-                        case 5:
-                            count  = "6";
-                            break;
-                    }
-
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
-                }
-            });
-
-            angular.forEach(condition.subject,function(i,v){
-                if(i != undefined && i == true){
-                    var subject ="";
-                    switch (parseInt(v)){
-                        case 0:
-                            subject  = "(口)";
-                            break;
-                        case 1:
-                            subject  = "艺术";
-                            break;
-                        case 2:
-                            subject  = "美术";
-                            break;
-                        case 3:
-                            subject  = "高水平运动员";
-                            break;
-                    }
-
-                    addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
-                }
-            });
-            localStorage.setItem("orderList",JSON.stringify($scope.orderList));
-            localStorage.setItem("depthmoney",$scope.money);
-
-            $(".modal").hide();
-            $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
-
-            $scope.condition.departName="请输入专业名称";
-            $scope.condition.code="请输入高校代码";
-            $scope.condition.schlName="请输入高校名称";
-            $scope.condition.city="请输入城市名称";
 
             function addOrders(id,titleId,title,type,year,code,schoolname,departname,money,city,subject,count,fee,sel){
                 var isTrue = true;
@@ -592,7 +607,7 @@ require(['app'],function(app){
                     obj.name = title;
                     obj.type = type;
                     obj.year = year;
-                    obj.code = code;
+                    obj.code = code != "请输入高校代码" ? code :"";
                     obj.school = schoolname != "请输入高校名称" ? schoolname : "";
                     obj.depart = departname != "请输入专业名称" ? departname : "";
                     obj.money = money;

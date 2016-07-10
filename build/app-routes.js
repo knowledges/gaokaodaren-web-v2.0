@@ -52,8 +52,8 @@ define(['app'],function(app){
     //注销
     app.constant("logoutURL","/logout");
     app.constant("provinceURL","/city/province");
-    //app.constant("loocha","");
-    app.constant("loocha","/loocha");
+    app.constant("loocha","");
+    //app.constant("loocha","/loocha");
     app.factory('getLoginUserInfo',['$http','loocha',function($http,loocha){
         var userInfo ={
             isLogoin:function(){
@@ -67,6 +67,7 @@ define(['app'],function(app){
                         alert('登陆失效或您还没有登陆，先去登陆吧！');
                         window.location.href = "#/login";
                         $(".modal-backdrop").hide();
+                        return;
                     }
                     if(data.response!=undefined && data.response.id!=undefined){
                         sessionStorage.setItem("user",JSON.stringify({"isAuthenticated":true}));
@@ -120,19 +121,15 @@ define(['app'],function(app){
                 switch (parseInt(type)){
                     case 1:
                         num  = score - 355;
-                        //num  = score - 342;
                         break;
                     case 2:
                         num  = score - 353;
-                        //num  = score - 344;
                         break;
                     case 3:
                         num  = score - 325;
-                        //num  = score - 313;
                         break;
                     case 4:
                         num  = score - 315;
-                        //num  = score - 310;
                         break;
                     case 7:
                         num  = score - 215;
@@ -781,7 +778,7 @@ define(['app'],function(app){
         };
 
     }]);
-    app.controller("pageJumpCtr",["$scope","$window","$timeout","getLoginUserInfo",function($scope,$window,$timeout,getLoginUserInfo){
+    app.controller("pageJumpCtr",["$scope","$state","$window","$timeout","$http","loocha",function($scope,$state,$window,$timeout,$http,loocha){
 
         $(".dropdown-menu li a").click(function(e){
             $(".dropdown").removeClass("open");
@@ -792,39 +789,55 @@ define(['app'],function(app){
          * @param num 1 深度 2 推荐 3 预测
          */
         $scope.jumpPage = function(num){
-            getLoginUserInfo.isLogoin();
-            var uScore = sessionStorage.getItem("uScore");
-            if(uScore != "" && uScore!=null ){
-                var type =JSON.parse(uScore).type;
-                if (num == 2){
-                    $window.location.href = "#/hope/batch="+type+"&out_trade_no=";
-                }else if (num == 3){
-                    $window.location.href = "#/chance/batch="+type+"&out_trade_no=";
+            $http.get(loocha+'/user?=t'+new Date().getTime().toString()).success(function(data){
+                if(data.status == "-1"){
+                    sessionStorage.removeItem('type');
+                    sessionStorage.removeItem('uScore');
+                    sessionStorage.removeItem('user');
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('usernumber');
+                    alert('登陆失效或您还没有登陆，先去登陆吧！');
+                    $state.go('login');
+                    //window.location.href = "#/login";
+                    $(".modal-backdrop").hide();
+                }else if(data.status == 0){
+                    var uScore = sessionStorage.getItem("uScore");
+                    if(uScore != "" && uScore!=null ){
+                        var type =JSON.parse(uScore).type;
+                        if (num == 2){
+                            $state.go('hope',{batch:type,out_trade_no:""});
+                            //$window.location.href = "#/hope/batch="+type+"&out_trade_no=";
+                        }else if (num == 3){
+                            $state.go('chance',{batch:type,out_trade_no:""});
+                            //$window.location.href = "#/chance/batch="+type+"&out_trade_no=";
+                        }
+                    }else{
+                        if (num == 2){
+                            $state.go('hope',{batch:0,out_trade_no:""});
+                            //$window.location.href = "#/hope/batch=0&out_trade_no=";
+                        }else if (num == 3){
+                            $state.go('chance',{batch:0,out_trade_no:""});
+                            //$window.location.href = "#/chance/batch=0&out_trade_no=";
+                        }
+                    }
                 }
-            }else{
-                if (num == 2){
-                    $window.location.href = "#/hope/batch=0&out_trade_no=";
-                }else if (num == 3){
-                    $window.location.href = "#/chance/batch=0&out_trade_no=";
-                }
-            }
+            });
         };
 
         $scope.jumpDepth = function(num){
-            $window.location.href = "#/depth/depthInfo/batch="+num;
-            $window.location.reload(0);
+            $state.go('depth.info',{batch:num});
+            //$window.location.href = "#/depth/depthInfo/batch="+num;
+            //$window.location.reload(0);
         };
         $scope.other = function(){
             $timeout(function(){
-                window.location.href="#/home";
+                $state.go('home');
+                //window.location.href="#/home";
                 $timeout(function() {
                     $(".carousel-indicators li").eq(4).trigger('click');
                 },500);
             },500);
         };
-        //$timeout(function(){
-        //    $("input").placeholder();
-        //},500);
 
     }]);
 });

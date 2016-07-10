@@ -3245,7 +3245,7 @@ require(['app'], function (app) {
         };
 
         $scope.agreePersonl = function(e){
-            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart .wishId_" + id +" a");
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $(".hopePart .wishId_" + id +" a");
             var mosaic = classifyClk.agreenClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr, $scope.hope.personalityObj,$scope.hopeClassify.personals);
             $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
             $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];
@@ -3255,7 +3255,7 @@ require(['app'], function (app) {
         }
 
         $scope.rejectPersonl = function(e){
-            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $("#hopePart .wishId_" + id +" a");
+            var that = $(e.target), status = that.attr('status'), id = that.attr("wishid"), list = $(".hopePart .wishId_" + id +" a");
             var mosaic = classifyDBClk.rejectClsEvent(status, that, list, $scope.hope.personality_prefer, $scope.hope.personality_ignore, "s_id", $scope.hope.personality_name, $scope.hope.personalityArr,$scope.hopeClassify.personals);
             $scope.hope.personality_prefer = mosaic.split("|")[0].length > 0 ? mosaic.split("|")[0].split(",") : [];
             $scope.hope.personality_ignore = mosaic.split("|")[1].length > 0 ? mosaic.split("|")[1].split(",") : [];

@@ -2,8 +2,14 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <h3>
-                {{userInfo.subject}} {{userInfo.score}}分
-                {{userInfo.sub_a}}{{userInfo.level_a}},{{userInfo.sub_b}}{{userInfo.level_b}}
+                <span ng-bind="userInfo.subject"></span>
+                <span ng-bind="userInfo.score"></span>分
+                <span ng-bind="userInfo.sub_a"></span>
+                <span ng-bind="userInfo.level_a"></span>,
+                <span ng-bind="userInfo.sub_b"></span>
+                <span ng-bind="userInfo.level_b"></span>
+                <!--{{userInfo.subject}} {{userInfo.score}}分-->
+                <!--{{userInfo.sub_a}}{{userInfo.level_a}},{{userInfo.sub_b}}{{userInfo.level_b}}-->
             </h3>
         </div>
     </div>

@@ -9,7 +9,7 @@ require(['app'],function(app){
             isSigin: ""
         }
     });
-    app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http",'getLoginUserInfo','loocha',function ($scope, $rootScope, $window,$http,getLoginUserInfo,loocha) {
+    app.controller("logCtr", ["$scope", "$rootScope", "$window", "$http","$state",'getLoginUserInfo','loocha',function ($scope, $rootScope, $window,$http,$state,getLoginUserInfo,loocha) {
         $scope.$on("$includeContentLoaded",function(){
             /*setTimeout(function(){
                 $("input").placeholder();
@@ -40,48 +40,6 @@ require(['app'],function(app){
                 $scope.user.img = data;
             });
         }
-
-        //window.setTimeout(function(){
-        //    $("#hiddenIframe_3").load(function(){
-        //        /* JSON.parse(this.contentWindow.document.body.innerText).status ;
-        //         JSON.parse(this.contentWindow.document.body.innerText).response ;*/
-        //        if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
-        //            alert('验证码失效');
-        //            $scope.user.code="";
-        //            getCodes();
-        //            return ;
-        //        }
-        //        //路由权限
-        //        sessionStorage.setItem('user',JSON.stringify({"isAuthenticated": true}));
-        //        sessionStorage.setItem('usernumber', JSON.parse(this.contentWindow.document.body.innerText).response.name);
-        //        sessionStorage.setItem('user_id',JSON.parse(this.contentWindow.document.body.innerText).response.id);
-        //        $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
-        //
-        //        $http.get(loocha+"/uscore").success(function(data){
-        //            if(data.response!=null && data.response.length>0){
-        //                sessionStorage.setItem('uScore',JSON.stringify(data.response[0]));
-        //            }
-        //        });
-        //        if($rootScope.isFromDepth == true){
-        //            window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");;
-        //        }else{
-        //            window.location.href = "#/home";
-        //        }
-        //
-        //
-        //        /*if(localStorage.getItem('score')!=null){
-        //         window.location.href = "#/home";
-        //         }else{
-        //         window.location.href="#/all/allScore";
-        //         }*/
-        //
-        //        /*   setInterval(function(){
-        //         getLoginUserInfo.isLogoin();
-        //         },600000);*/
-        //
-        //    });
-        //},400);
-
 
         $scope.signin = function () {
 
@@ -128,9 +86,11 @@ require(['app'],function(app){
                 });
 
                 if($rootScope.isFromDepth == true){
-                    window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
+                    $state.go('depth.info',{batch:localStorage.getItem("depthbatch")});
+                    //window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
                 }else{
-                    window.location.href = "#/home";
+                    $state.go('home');
+                    //window.location.href = "#/home";
                 }
 
             });

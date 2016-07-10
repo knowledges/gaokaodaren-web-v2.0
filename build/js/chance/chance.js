@@ -568,19 +568,43 @@ require(['app'],function(app){
          */
         $scope.getpersonalityId = function(){
             $scope.forecast.pDepart_id = "",$scope.forecast.pSchl_id = "";
-            if($scope.isChance == 6 || $scope.isChance == 5){
-                alert("该批次没有对应的内容！");
-            }else{
-                $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+"&t="+( new Date() ).getTime().toString())
-                    .success(function(data){
-                        if(data.response.length<=0){
-                            alert("没有搜索到内容！");
-                        }
-                        $scope.forecast.pDepart_Arr = data.response;
-                        $scope.forecast.schChance_6 = "";
-                    });
+
+            if($scope.isChance <7){
+                if($scope.forecast.personality_id == 121 || $scope.forecast.personality_id == 122 || $scope.forecast.personality_id == 123){
+                    alert("该批次没有对应的内容！");
+                    return;
+                }
+            }else if ($scope.isChance>6){
+                if($scope.forecast.personality_id == 86 || $scope.forecast.personality_id == 85 || $scope.forecast.personality_id == 109 || $scope.forecast.personality_id == 110 || $scope.forecast.personality_id == 111  || $scope.forecast.personality_id == 112){
+                    alert("该批次没有对应的内容！");
+                    return;
+                }
             }
 
+            if($scope.isChance >4 ){
+                if($scope.forecast.personality_id == 101 || $scope.forecast.personality_id==98){
+                    alert("该批次没有对应的内容！");
+                    return;
+                }
+            }
+            if( $scope.isChance == 5 || $scope.isChance == 7 || $scope.isChance == 8){
+                if($scope.forecast.personality_id == 102){
+                    alert("该批次没有对应的内容！");
+                    return;
+                }
+            }
+
+            $http.get(loocha+'/departlist/bypersonality?type='+$scope.isChance+'&personality_id='+$scope.forecast.personality_id+"&t="+( new Date() ).getTime().toString())
+                .success(function(data){
+                    if(data.status == -1){
+                        alert('登录失效！请重现登录');
+                        window.location.href="#/login";
+                    }else if(data.response.length<=0){
+                        alert("没有搜索到内容！");
+                    }
+                    $scope.forecast.pDepart_Arr = data.response;
+                    $scope.forecast.schChance_6 = "";
+                });
         };
 
         /**

@@ -131,7 +131,7 @@
                         </div>
                         <div>
                             <p ng-if="!pay.expired"><span style="color: red;">{{countdown}}秒</span>后此二维码过期</p>
-                            <p ng-if="pay.expired" style="color: red;">二维码已过期，请重新获取二维码。</p>
+                            <p ng-if="pay.expired" style="color: red;">二维码已过期，请重新获取二维码。<br/>(注意：如果您成功支付，且二维码过期，请您点击按钮“请重新获取”提示“获取失败”点击确定后耐心等待5秒)</p>
                         </div>
                         <div style="position: absolute;top: 0;right: -50%;" ng-if="pay.sweep">
                             <img src="img/direct-weixin-phone.png" alt=""/>
