@@ -42,7 +42,7 @@ require(['app'], function (app) {
 
         }
     }]);
-    app.directive('citysToggle',['$http','$q','$timeout','loocha','maskRequest',function($http,$q,$timeout,loocha,maskRequest){
+    app.directive('citysToggle',['$rootScope','$http','$stateParams','$state','$q','$timeout','loocha','maskRequest',function($rootScope,$http,$stateParams,$state,$q,$timeout,loocha,maskRequest){
         return{
             restrict:'EA',
             replace:true,
@@ -85,25 +85,73 @@ require(['app'], function (app) {
                 };
 
                 scope.rejectCityBySchools = function(obj){
+                    $rootScope.loading = true;
                     $timeout.cancel(_timer);
                     if(obj.state == undefined || obj.state == 0){
                         obj.state = 2;
 
-                        var param = {};
-                        param.type = $scope.reject.batch;
-                        param.style = $scope.reject.style;
-                        param.belongs = $scope.reject.belongs;
-                        param.attr = $scope.reject.attribute;
-                        param.prop3 = $scope.reject.prop3;
-                        param.prop4 = $scope.reject.prop4;
-                        param.prop5 = $scope.reject.prop5;
-                        param.prop6 = $scope.reject.prop6;
-                        param.prop8 = $scope.reject.prop8;
-                        param.citys = $scope.reject.citys;
-                        //TODO 请求
+                        var params = {};
+                            params.type = scope.reject.batch;
+                            params.style = scope.reject.style;
+                            params.belongs = scope.reject.belongs;
+                            params.attr = scope.reject.attr;
+                            params.prop3 = scope.reject.prop3;
+                            params.prop4 = scope.reject.prop4;
+                            params.prop5 = scope.reject.prop5;
+                            params.prop6 = scope.reject.prop6;
+                            params.prop8 = scope.reject.prop8;
+                            params.citys = addRejectCityOption(obj.city_id);
+
+                        getSchoolsArray(params).then(function(data){
+
+                            for(var i = 0; i<data.response.length;i++){
+
+                                for(var j = 0 ; j< scope.hope.schools.length;j++){
+
+                                    if(data.response[i].id == scope.hope.schools[j].id
+                                        && data.response[i].name == scope.hope.schools[j].name){
+                                        scope.hope.schools[j].state = 2;
+                                    }
+                                }
+                            }
+
+                            $rootScope.loading = false;
+
+                        });
 
                     }else if (obj.state == 2){
+
                         obj.state = 0;
+
+                        var params = {};
+                        params.type = scope.reject.batch;
+                        params.style = scope.reject.style;
+                        params.belongs = scope.reject.belongs;
+                        params.attr = scope.reject.attr;
+                        params.prop3 = scope.reject.prop3;
+                        params.prop4 = scope.reject.prop4;
+                        params.prop5 = scope.reject.prop5;
+                        params.prop6 = scope.reject.prop6;
+                        params.prop8 = scope.reject.prop8;
+                        params.citys = obj.city_id;
+                        removeRejectCityOption(obj.city_id);
+                        getSchoolsArray(params).then(function(data){
+
+                            for(var i = 0; i<data.response.length;i++){
+
+                                for(var j = 0 ; j< scope.hope.schools.length;j++){
+
+                                    if(data.response[i].id == scope.hope.schools[j].id
+                                        && data.response[i].name == scope.hope.schools[j].name){
+                                        scope.hope.schools[j].state = 0;
+                                    }
+                                }
+                            }
+
+                            $rootScope.loading = false;
+
+                        });
+
                     }
                 };
 
@@ -118,6 +166,24 @@ require(['app'], function (app) {
                     });
                     return deferred.promise;
                 }
+
+                function addRejectCityOption(str){
+                   return scope.reject.citys = scope.reject.citys+str+","
+                }
+
+                function removeRejectCityOption(str){
+                    var _idx = scope.reject.citys.indexOf(str);
+
+                    var arr = scope.reject.citys.split(_idx,1);
+                    var newStr= "";
+                    angular.forEach(arr,function(v,i){
+                        if(v!=""){
+                            newStr = newStr + v +","
+                        }
+                    });
+                    return newStr;
+                }
+
             }
 
         }
@@ -152,6 +218,7 @@ require(['app'], function (app) {
             citys:"",
         };
         $scope.reject = {
+            batch:$stateParams.batch,
             attr:"",
             belongs:"",
             style:"",
@@ -355,6 +422,14 @@ require(['app'], function (app) {
             }else if(obj.state == 1){
                 obj.state = 0;
             }
+        };
+
+        $scope.agreePro = function(){
+            alert('被点击');
+        };
+
+        $scope.rejectPro = function(){
+
         };
 
         function getCollegeMethod(){

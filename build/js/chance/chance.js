@@ -575,7 +575,7 @@ require(['app'],function(app){
                     return;
                 }
             }else if ($scope.isChance>6){
-                if($scope.forecast.personality_id == 86 || $scope.forecast.personality_id == 85 || $scope.forecast.personality_id == 109 || $scope.forecast.personality_id == 110 || $scope.forecast.personality_id == 111  || $scope.forecast.personality_id == 112){
+                if($scope.forecast.personality_id == 81 || $scope.forecast.personality_id == 83 ||$scope.forecast.personality_id == 86 || $scope.forecast.personality_id == 85 || $scope.forecast.personality_id == 109 || $scope.forecast.personality_id == 110 || $scope.forecast.personality_id == 111  || $scope.forecast.personality_id == 112){
                     alert("该批次没有对应的内容！");
                     return;
                 }

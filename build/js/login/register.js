@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.constant("registerURL", "/user/register");
-    app.controller("registerCtr", ["$scope","$rootScope","$window","$http","registerURL","loocha",function ($scope, $rootScope,$window,$http,registerURL,loocha) {
+    app.controller("registerCtr", ["$scope","$state","$rootScope","$window","$http","registerURL","loocha",function ($scope, $state, $rootScope,$window,$http,registerURL,loocha) {
         $scope.$on("$includeContentLoaded",function(){
             /*setTimeout(function(){
                 $("input").placeholder();
@@ -126,59 +126,15 @@ require(['app'],function(app){
                 });
 
                 if($rootScope.isFromDepth == true){
-                    window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
+                    $state.go('depth.info',{batch:localStorage.getItem("depthbatch")});
+                    //window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
                 }else{
-                    window.location.href = "#/home";
+                    $state.go('home');
+                    //window.location.href = "#/home";
                 }
 
             });
         };
-
-
-        //window.setTimeout(function(){
-        //    $("#hiddenIframe").load(function(){
-        //        $("#form_update_2").trigger("click");
-        //    });
-        //
-        //    $("#hiddenIframe_2").load(function(){
-        //        if (JSON.parse(this.contentWindow.document.body.innerText).status == -1){
-        //            alert('验证码失效');
-        //            $scope.user.code="";
-        //            getCodes();
-        //            return ;
-        //        }else if (JSON.parse(this.contentWindow.document.body.innerText).status == 1){
-        //            alert('系统错误');
-        //            $scope.user.code="";
-        //            getCodes();
-        //            return ;
-        //        }else if (JSON.parse(this.contentWindow.document.body.innerText).status == 3){
-        //            alert('用户已存在');
-        //            $scope.user.code="";
-        //            getCodes();
-        //            return ;
-        //        }else if (JSON.parse(this.contentWindow.document.body.innerText).status == 4||JSON.parse(this.contentWindow.document.body.innerText).status == 6){
-        //            alert('验证码错误');
-        //            $scope.user.code="";
-        //            getCodes();
-        //            return ;
-        //        }
-        //        //路由权限
-        //        sessionStorage.setItem("user",JSON.stringify({"isAuthenticated": true}));
-        //        sessionStorage.setItem("usernumber", JSON.parse(this.contentWindow.document.body.innerText).response.name);
-        //        sessionStorage.setItem("user_id",JSON.parse(this.contentWindow.document.body.innerText).response.id);
-        //        $rootScope.studentId = JSON.parse(this.contentWindow.document.body.innerText).response.name;
-        //        $http.get(loocha+"/uscore").success(function(data){
-        //            if(data.response!=null && data.response.length>0){
-        //                sessionStorage.setItem("uScore",JSON.stringify(data.response[0]));
-        //            }
-        //        });
-        //        if($rootScope.isFromDepth == true){
-        //            window.location.href = "#/depth/depthInfo/batch="+localStorage.getItem("depthbatch");
-        //        }else{
-        //            window.location.href = "#/all/allScore";
-        //        }
-        //    });
-        //},600);
 
         $scope.agreen = function(){
             $("#mask-register").fadeOut();

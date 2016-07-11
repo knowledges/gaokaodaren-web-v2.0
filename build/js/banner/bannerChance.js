@@ -2,7 +2,7 @@
  * Created by qbl on 2015/11/19.
  */
 require(['app'],function(app){
-    app.controller('addchanceCtl',['$scope','$http','$window','loocha','getLoginUserInfo',function($scope,$http,$window,loocha,getLoginUserInfo){
+    app.controller('addchanceCtl',['$scope','$state','$http','$window','loocha','getLoginUserInfo',function($scope,$state,$http,$window,loocha,getLoginUserInfo){
 
         $scope.recommShow = false;
         $scope.table = {
@@ -107,10 +107,12 @@ require(['app'],function(app){
                 if(data.status == 0) {
                     getLoginUserInfo.isScores();
                     localStorage.setItem("type", $scope.table.batch);
-                    $window.location.href = "#/chance/batch="+$scope.table.batch+"&out_trade_no=";
+                    //$window.location.href = "#/chance/batch="+$scope.table.batch+"&out_trade_no=";
+                    $state.go('chance',{batch:$scope.table.batch,out_trade_no:""});
                 }else if (data.status == 4){
                     alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
+                    $state.go('login');
+                    //window.location.href = "#/login";
                 }
             });
         }

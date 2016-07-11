@@ -2,7 +2,7 @@
  * Created by qbl on 2016/5/5.
  */
 require(['app'],function(app){
-    app.controller('adddemoCtl',['$scope','$http','$window','loocha','getLoginUserInfo',function($scope,$http,$window,loocha,getLoginUserInfo){
+    app.controller('adddemoCtl',['$scope','$state',function($scope,$state){
 
         $scope.recommShow = false;
         $scope.table = {
@@ -106,23 +106,10 @@ require(['app'],function(app){
 
             sessionStorage.setItem("examScore",JSON.stringify(param));
             localStorage.setItem("type", $scope.table.batch);
-            $window.location.href = "#/example/examList/batch="+$scope.table.batch;
+            //$window.location.href = "#/example/examList/batch="+$scope.table.batch;
+            $state.go('example.list',{batch:$scope.table.batch});
             //$window.location.href = "#/example/itemId=157&param=13&batch="+$scope.table.batch;
 
-            //$http({
-            //    method:'GET',
-            //    url:loocha+"/uscore/addscore",
-            //    params:param
-            //}).success(function(data){
-            //    if(data.status == 0) {
-            //        getLoginUserInfo.isScores();
-            //        localStorage.setItem("type", $scope.table.batch);
-            //        $window.location.href = "#/example/itemId=157&param=13&batch="+$scope.table.batch;
-            //    }else if (data.status == 4){
-            //        alert('您还没有登陆，先去登陆吧！');
-            //        window.location.href = "#/login";
-            //    }
-            //});
         }
     }]);
 });

@@ -2,7 +2,7 @@
  * Created by qbl on 2015/11/19.
  */
 require(['app'],function(app){
-    app.controller('addhopeCtl',['$scope','$http','$window','getLoginUserInfo','loocha',function($scope,$http,$window,getLoginUserInfo,loocha){
+    app.controller('addhopeCtl',['$scope','$state','$http','$window','getLoginUserInfo','loocha',function($scope,$state,$http,$window,getLoginUserInfo,loocha){
         $scope.table = {
             obl:"",
             sel:"",
@@ -105,10 +105,12 @@ require(['app'],function(app){
                 if(data.status == 0) {
                     getLoginUserInfo.isScores();
                     localStorage.setItem("type", $scope.table.batch);
-                    $window.location.href = "#/hope/batch="+$scope.table.batch+"&out_trade_no=";
+                    //$window.location.href = "#/hope/batch="+$scope.table.batch+"&out_trade_no=";
+                    $state.go('hope',{batch:$scope.table.batch,out_trade_no:""});
                 }else if (data.status == 4){
                     alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
+                    $state.go('login');
+                    //window.location.href = "#/login";
                 }
             });
         }

@@ -661,7 +661,7 @@ require(['app'], function (app) {
             }
         }
     });
-    app.controller('hopeCtr', ['$scope', '$window', '$http', '$timeout', '$stateParams', '$rootScope','$q', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $window, $http, $timeout, $stateParams, $rootScope,$q,classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
+    app.controller('hopeCtr', ['$scope', '$state','$window', '$http', '$timeout', '$stateParams', '$rootScope','$q', 'classifyClk', 'classifyDBClk', 'getLoginUserInfo', 'arraysort', 'loocha', 'matchLevel', function ($scope, $state,$window, $http, $timeout, $stateParams, $rootScope,$q,classifyClk, classifyDBClk, getLoginUserInfo, arraysort, loocha, matchLevel) {
         $scope.hope = {
             number:"",
             citys:"",
@@ -995,7 +995,8 @@ require(['app'], function (app) {
                     $scope.info.level = uScore.level_a + "," + uScore.level_b;
                 }else{
                     alert('请先填成绩！');
-                    window.location.href = "#/all/allScore";
+                    $state.go('all.score');
+                    //window.location.href = "#/all/allScore";
                 }
 
                 $q.all({
@@ -1475,7 +1476,8 @@ require(['app'], function (app) {
                     $http.get(loocha + '/exam/intention?out_trade_no=' + $scope.hope.out_trade_no).success(function (data) {
                         if(data.status == "4"){
                             alert('您还没有登陆，先去登陆吧！');
-                            window.location.href = "#/login";
+                            $state.go('login');
+                            //window.location.href = "#/login";
                             return;
                         }
                         var intention = data.response;
@@ -3716,14 +3718,16 @@ require(['app'], function (app) {
             }).success(function (data) {
                 if(data.status == "-1"){
                     alert("登陆失效，请重新登陆");
-                    $window.location.href="#/login";
+                    $state.go('login');
+                    //$window.location.href="#/login";
                     return ;
                 }
                 if (data.status == "1014") {
                     alert("符合的高校太少，请再选择一些");
                 }else if (data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
+                    $state.go('login');
+                    //window.location.href = "#/login";
                 }else if(data.status == "0"){
                     $scope.hope.id = data.response.id;
                     $scope.hope.recommend = data.response.recommend;
@@ -3746,12 +3750,14 @@ require(['app'], function (app) {
             $.post(loocha + "/exam/intention/auto", {id: $scope.hope.id}, function (data) {
                 if(data.status == "-1"){
                     alert("登陆失效，请重新登陆");
-                    $window.location.href="#/login";
+                    $state.go('login');
+                    //$window.location.href="#/login";
                     return ;
                 }
                 if(data.status == "4"){
                     alert('您还没有登陆，先去登陆吧！');
-                    window.location.href = "#/login";
+                    $state.go('login');
+                    //window.location.href = "#/login";
                     return;
                 }
                 var list = JSON.parse(data), order_id = list.response.id;
@@ -3824,7 +3830,8 @@ require(['app'], function (app) {
                 }).success(function (data) {
                     if(data.status == "-1"){
                         alert("登陆失效，请重新登陆");
-                        $window.location.href="#/login";
+                        $state.go('login');
+                        //$window.location.href="#/login";
                         return ;
                     }
                     $http.get(loocha + '/exam/' +data.response.id ).success(function (data) {
@@ -3833,7 +3840,8 @@ require(['app'], function (app) {
                             return;
                         }else if (data.status == 4){
                             alert('您还没有登陆，先去登陆吧！');
-                            window.location.href = "#/login";
+                            $state.go('login');
+                            //window.location.href = "#/login";
                             return;
                         }else if (data.status == 0){
 

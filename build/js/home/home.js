@@ -13,7 +13,7 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
             }
         }
     }]);
-    app.controller("homeCtrl",['$rootScope','$scope','$window','$sce','$timeout','homeService','data_province','displayService',function($rootScope,$scope,$window,$sce,$timeout,homeService,data_province,displayService) {
+    app.controller("homeCtrl",['$rootScope','$scope','$state','$window','$sce','$timeout','homeService','data_province','displayService',function($rootScope,$scope,$state,$window,$sce,$timeout,homeService,data_province,displayService) {
 
         $scope.$on("$viewContentLoaded",function(e){
             $timeout(function () {
@@ -68,14 +68,12 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
         };
         $scope.intoDepth = function(){
             if($scope.table.economic!=""){
-                $window.location.href="#/depth/depthInfo/batch="+$scope.table.economic;
+                $state.go('depth.info',{batch:$scope.table.economic});
+                //$window.location.href="#/depth/depthInfo/batch="+$scope.table.economic;
             }else{
                 alert("请选择批次");
             }
         };
 
-        $scope.$on("loading", function (ngRepeatFinishedEvent) {
-
-        });
     }]);
 });

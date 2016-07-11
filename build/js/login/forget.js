@@ -4,7 +4,7 @@
 'use strict';
 require(['app'],function(app){
     app.constant("referinURL", "/user/reset");
-    app.controller("forgetCtr", ["$scope", "$rootScope","$http", "referinURL", "loocha", function ($scope, $rootScope, $http, referinURL, loocha) {
+    app.controller("forgetCtr", ["$scope","$state" ,"$rootScope","$http", "referinURL", "loocha", function ($scope, $state, $rootScope, $http, referinURL, loocha) {
         $scope.$on("$includeContentLoaded",function(){
             /*setTimeout(function(){
                 $("input").placeholder();
@@ -58,7 +58,8 @@ require(['app'],function(app){
                     alert('验证码错误');
                 }else if(data.status == 0){
                     alert('修改成功');
-                    window.location.href="#/login";
+                    $state.go('login');
+                    //window.location.href="#/login";
                 }
             });
 
