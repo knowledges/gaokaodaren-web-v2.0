@@ -11,6 +11,65 @@ require(['app'], function (app) {
                         deferred.resolve(d);
                     });
                 return deferred.promise;
+            },
+            getSchoolsArray:function(url,param){
+                var deferred = $q.defer();
+                $http({
+                    url:url,
+                    method:"GET",
+                    params:param
+                }).success(function(data){
+                    deferred.resolve(data);
+                });
+            return deferred.promise;
+        }
+        }
+    }]);
+    app.factory('rejectMethod',['$timeout',function($timeout){
+        return{
+            add:function(data,array){
+                $timeout(function(){
+                    for(var i = 0; i<data.response.length;i++){
+
+                        for(var j = 0 ; j< array.length;j++){
+
+                            if(data.response[i].id == array[j].id
+                                && data.response[i].name == array[j].name){
+                                array[j].state = 2;
+                            }
+                        }
+                    }
+                });
+
+            },
+            remove:function(data,array){
+                $timeout(function(){
+                    for(var i = 0; i<data.response.length;i++){
+
+                        for(var j = 0 ; j< array.length;j++){
+
+                            if(data.response[i].id == array[j].id
+                                && data.response[i].name == array[j].name){
+                                array[j].state = 0;
+                            }
+                        }
+                    }
+                });
+            },
+            addOption:function(array,str){
+                return array = array + str + ","
+            },
+            removeOption:function(array,str){
+                var _idx = array.indexOf(str);
+
+                var arr = array.split(_idx,1);
+                var newStr= "";
+                angular.forEach(arr,function(v,i){
+                    if(v!=""){
+                        newStr = newStr + v +","
+                    }
+                });
+                return newStr;
             }
         }
     }]);
@@ -42,7 +101,7 @@ require(['app'], function (app) {
 
         }
     }]);
-    app.directive('citysToggle',['$rootScope','$http','$stateParams','$state','$q','$timeout','loocha','maskRequest',function($rootScope,$http,$stateParams,$state,$q,$timeout,loocha,maskRequest){
+    app.directive('citysToggle',['$rootScope','$http','$stateParams','$state','$q','$timeout','loocha','maskRequest','rejectMethod',function($rootScope,$http,$stateParams,$state,$q,$timeout,loocha,maskRequest,rejectMethod){
         return{
             restrict:'EA',
             replace:true,
@@ -100,23 +159,11 @@ require(['app'], function (app) {
                             params.prop5 = scope.reject.prop5;
                             params.prop6 = scope.reject.prop6;
                             params.prop8 = scope.reject.prop8;
-                            params.citys = addRejectCityOption(obj.city_id);
+                            params.citys =rejectMethod.addOption(scope.reject.citys,obj.city_id);
 
-                        getSchoolsArray(params).then(function(data){
-
-                            for(var i = 0; i<data.response.length;i++){
-
-                                for(var j = 0 ; j< scope.hope.schools.length;j++){
-
-                                    if(data.response[i].id == scope.hope.schools[j].id
-                                        && data.response[i].name == scope.hope.schools[j].name){
-                                        scope.hope.schools[j].state = 2;
-                                    }
-                                }
-                            }
-
+                        maskRequest.getSchoolsArray(loocha+"/schbath",params).then(function(data){
+                            rejectMethod.add(data,scope.hope.schools);
                             $rootScope.loading = false;
-
                         });
 
                     }else if (obj.state == 2){
@@ -134,61 +181,18 @@ require(['app'], function (app) {
                         params.prop6 = scope.reject.prop6;
                         params.prop8 = scope.reject.prop8;
                         params.citys = obj.city_id;
-                        removeRejectCityOption(obj.city_id);
-                        getSchoolsArray(params).then(function(data){
+                        rejectMethod.removeOption(scope.reject.citys,obj.city_id);
 
-                            for(var i = 0; i<data.response.length;i++){
-
-                                for(var j = 0 ; j< scope.hope.schools.length;j++){
-
-                                    if(data.response[i].id == scope.hope.schools[j].id
-                                        && data.response[i].name == scope.hope.schools[j].name){
-                                        scope.hope.schools[j].state = 0;
-                                    }
-                                }
-                            }
-
+                        maskRequest.getSchoolsArray(loocha+"/schbath",params).then(function(data){
+                            rejectMethod.remove(data,scope.hope.schools);
                             $rootScope.loading = false;
-
                         });
-
                     }
                 };
-
-                function getSchoolsArray(param){
-                    var deferred = $q.defer();
-                    $http({
-                        url:loocha+"/schbath",
-                        method:"GET",
-                        params:param
-                    }).success(function(data){
-                        deferred.resolve(data);
-                    });
-                    return deferred.promise;
-                }
-
-                function addRejectCityOption(str){
-                   return scope.reject.citys = scope.reject.citys+str+","
-                }
-
-                function removeRejectCityOption(str){
-                    var _idx = scope.reject.citys.indexOf(str);
-
-                    var arr = scope.reject.citys.split(_idx,1);
-                    var newStr= "";
-                    angular.forEach(arr,function(v,i){
-                        if(v!=""){
-                            newStr = newStr + v +","
-                        }
-                    });
-                    return newStr;
-                }
-
             }
-
         }
     }]);
-    app.controller('recommendCtrl',['$rootScope','$scope','$http','$timeout','$stateParams','$state','$q','$window','loocha','maskRequest',function($rootScope,$scope,$http,$timeout,$stateParams,$state,$q,$window,loocha,maskRequest){
+    app.controller('recommendCtrl',['$rootScope','$scope','$http','$timeout','$stateParams','$state','$q','$window','loocha','maskRequest','rejectMethod',function($rootScope,$scope,$http,$timeout,$stateParams,$state,$q,$window,loocha,maskRequest,rejectMethod){
 
         $scope.hope = {
             type:$stateParams.batch,
@@ -231,7 +235,6 @@ require(['app'], function (app) {
         };
 
         init();
-
 
         function init(){
 
@@ -417,41 +420,99 @@ require(['app'], function (app) {
             }
 
             if(obj.state == undefined || obj.state == 0){
-
                 obj.state = 1;
             }else if(obj.state == 1){
                 obj.state = 0;
             }
         };
 
-        $scope.agreePro = function(){
-            alert('被点击');
-        };
+        $scope.agreePro = function(e){
 
-        $scope.rejectPro = function(){
 
         };
 
-        function getCollegeMethod(){
-            var params = {};
-            params.attr = "";
-            params.style = "";
-            params.belongs = "";
-            params.prop3 = "";
-            params.prop4 = "";
-            params.prop5 = "";
-            params.prop6 = "";
-            params.prop8 = "";
-            params.type = $scope.hope.type;
+        /**
+         * 按1~5线拒绝
+         */
+        $scope.rejectPro = function(e){
+            //$rootScope.loading = true;
+            $timeout.cancel(_timer);
+            var that = $(e.target),wishid = $(that).attr('wishid'),state = that.attr("state");
+            switch(parseInt(wishid)){
+                case 2:
+                    rejectCityByTier($scope.hope.js_province);
+                    break;
+                case 3:
+                    rejectCityByTier($scope.hope.firstCities);
+                    break;
+                case 4:
+                    rejectCityByTier($scope.hope.secondCities);
+                    break;
+                case 5:
+                    rejectCityByTier($scope.hope.thirdCities);
+                    break;
+                case 6:
+                    rejectCityByTier($scope.hope.fourthCities);
+                    break;
+                case 7:
+                    rejectCityByTier($scope.hope.fifthCities);
+                    break;
+            }
 
-            $http({
-                url:loocha+'/schbath',
-                method:'GET',
-                param:params
-            }).success(function(data){
+            function rejectCityByTier(list){
+                $rootScope.loading = true;
+                angular.forEach(list,function(v,i){
+                    if(state == undefined || state == 0){
+                        v.state = 2;
 
-            });
-        }
+                        var params = {};
+                        params.type = $scope.reject.batch;
+                        params.style = $scope.reject.style;
+                        params.belongs = $scope.reject.belongs;
+                        params.attr = $scope.reject.attr;
+                        params.prop3 = $scope.reject.prop3;
+                        params.prop4 = $scope.reject.prop4;
+                        params.prop5 = $scope.reject.prop5;
+                        params.prop6 = $scope.reject.prop6;
+                        params.prop8 = $scope.reject.prop8;
+                        params.citys =rejectMethod.addOption($scope.reject.citys,v.city_id);
+
+                        maskRequest.getSchoolsArray(loocha+"/schbath",params).then(function(data){
+                            rejectMethod.add(data,$scope.hope.schools);
+                            $rootScope.loading = false;
+                        });
+
+
+                    }else if ( state == 2 ){
+                        v.state = 0;
+
+                        var params = {};
+                        params.type = $scope.reject.batch;
+                        params.style = $scope.reject.style;
+                        params.belongs = $scope.reject.belongs;
+                        params.attr = $scope.reject.attr;
+                        params.prop3 = $scope.reject.prop3;
+                        params.prop4 = $scope.reject.prop4;
+                        params.prop5 = $scope.reject.prop5;
+                        params.prop6 = $scope.reject.prop6;
+                        params.prop8 = $scope.reject.prop8;
+                        params.citys = v.city_id;
+                        rejectMethod.removeOption($scope.reject.citys,v.city_id);
+
+                        maskRequest.getSchoolsArray(loocha+"/schbath",params).then(function(data){
+                            rejectMethod.remove(data,$scope.hope.schools);
+                            $rootScope.loading = false;
+                        });
+                    }
+                });
+
+                if(state == undefined || state == 0){
+                    that.attr('state',2).removeClass('agree reject cancel').addClass('reject');
+                }else if ( state == 2 ){
+                    that.attr('state',0).removeClass('agree reject cancel').addClass('cancel');
+                }
+            }
+        };
 
     }]);
 
