@@ -86,7 +86,7 @@ require(['app'],function(app){
             wxMoney:"",
         };
 
-        $scope.countdown = 60;
+        $scope.countdown = 120;
 
         init();
 
@@ -136,7 +136,7 @@ require(['app'],function(app){
                             $window.location.href="#/login"
                         }else if(data.status==0){
                             var url = data.response.code_url;
-                            $scope.countdown = 60;
+                            $scope.countdown = 120;
                             $scope.pay.wxMoney = data.response.money;
                             $scope.pay.expired = false;
                             $scope.runTiming();
@@ -222,7 +222,7 @@ require(['app'],function(app){
                     });
             }
             $scope.other = function(){
-                $scope.countdown = 60;
+                $scope.countdown = 120;
                 $scope.pay.expired = false;
                 $interval.cancel(interval);
                 $timeout.cancel(_zfbTimer);
