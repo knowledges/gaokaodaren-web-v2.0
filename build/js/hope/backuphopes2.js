@@ -425,9 +425,12 @@ require(['app'], function (app) {
                 obj.state = 0;
             }
         };
-
+        /**
+         * 按1~5线优先
+         */
         $scope.agreePro = function(e){
-
+            $timeout.cancel(_timer);
+            _timer = $timeout(function(){ },500);
 
         };
 
@@ -513,6 +516,52 @@ require(['app'], function (app) {
                 }
             }
         };
+
+        /**
+         * 按省份优先
+         */
+        $scope.preferCitySClsClk = function(obj){
+            $timeout.cancel(_timer);
+            _timer = $timeout(function(){ },500);
+        };
+        /**
+         * 按省份拒绝
+         */
+        $scope.rejectCitySClsClk = function(obj){
+            $rootScope.loading = true;
+            $timeout.cancel(_timer);
+            var city_id = obj.city_id;
+            var list = $("#provnice button[parent_id="+city_id+"]"),state = obj.state;
+
+            if(state == undefined || state == 0){
+
+                angular.forEach(list,function(v,i){
+                    v.state = 2;
+                    $scope.reject.citys = $scope.reject.citys+ v.city_id+",";
+                });
+
+                var params = {};
+                    params.type = $scope.reject.batch;
+                    params.style = $scope.reject.style;
+                    params.belongs = $scope.reject.belongs;
+                    params.attr = $scope.reject.attr;
+                    params.prop3 = $scope.reject.prop3;
+                    params.prop4 = $scope.reject.prop4;
+                    params.prop5 = $scope.reject.prop5;
+                    params.prop6 = $scope.reject.prop6;
+                    params.prop8 = $scope.reject.prop8;
+                    params.citys =$scope.reject.citys;
+
+                maskRequest.getSchoolsArray(loocha+"/schbath",params).then(function(data){
+                    rejectMethod.add(data,$scope.hope.schools);
+                    $rootScope.loading = false;
+                });
+
+
+            }else if(state == 2){
+
+            }
+        }
 
     }]);
 

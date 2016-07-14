@@ -150,7 +150,7 @@ require(['app'],function(app){
                     inLine.scores($scope.isChance, $scope.userInfo.score);
                 },1000);
             }else{
-                alert('请创建成绩！');
+                alert('请填写成绩！');
                 window.location.href = "#/all/allScore";
             }
 
@@ -878,7 +878,7 @@ require(['app'],function(app){
             });
 
             function show_confirm(){
-                var result = confirm("您是压线考生，是否咨询缴费");
+                var result = confirm("您分数线太低，是否咨询缴费");
                 if(result){
                     $scope.startPay(1);
                 }

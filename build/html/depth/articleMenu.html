@@ -205,7 +205,7 @@
                                 <tr style="display: none;">
                                     <td>A+,A+</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[0]" value="A%2bA%2b"/>
+                                        <input type="radio" ng-model="condition.sel" value="0"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('A+A+',3)">查看</button>
@@ -214,7 +214,7 @@
                                 <tr ng-if="condition.type <=2">
                                     <td>A+,A</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[1]" value="A%2bA"/>
+                                        <input type="radio" ng-model="condition.sel" value="1"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('A+A',3)">查看</button>
@@ -223,7 +223,7 @@
                                 <tr ng-if="condition.type <=2">
                                     <td>A,A</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[2]" value="AA"/>
+                                        <input type="radio" ng-model="condition.sel" value="2"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('AA',3)">查看</button>
@@ -232,7 +232,7 @@
                                 <tr ng-if="condition.type <=2">
                                     <td>A,B+</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[3]" value="AB%2b"/>
+                                        <input type="radio" ng-model="condition.sel" value="3"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('AB+',3)">查看</button>
@@ -241,7 +241,7 @@
                                 <tr ng-if="condition.type <=2">
                                     <td>A,B</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[4]" value="AB"/>
+                                        <input type="radio" ng-model="condition.sel" value="4"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('AB',3)">查看</button>
@@ -250,7 +250,7 @@
                                 <tr ng-if="condition.type ==2">
                                     <td>A,C</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[12]" value="AC"/>
+                                        <input type="radio" ng-model="condition.sel" value="12"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('AC',3)">查看</button>
@@ -259,7 +259,7 @@
                                 <tr ng-if="condition.type <=4">
                                     <td>B+,B+</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[5]" value="B%2bB%2b"/>
+                                        <input type="radio" ng-model="condition.sel" value="5"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('B+B+',3)">查看</button>
@@ -268,7 +268,7 @@
                                 <tr ng-if="condition.type <=4">
                                     <td>B+,B</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[6]" value="B%2bB"/>
+                                        <input type="radio" ng-model="condition.sel" value="6"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('B+B',3)">查看</button>
@@ -277,7 +277,7 @@
                                 <tr ng-if="condition.type <=4">
                                     <td>B,B</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[7]" value="BB"/>
+                                        <input type="radio" ng-model="condition.sel" value="7"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('BB',3)">查看</button>
@@ -286,7 +286,7 @@
                                 <tr ng-if="condition.type <=6">
                                     <td>B,C</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[8]" value="BC"/>
+                                        <input type="radio" ng-model="condition.sel" value="8"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('BC',3)">查看</button>
@@ -295,7 +295,7 @@
                                 <tr ng-if="condition.type >=5">
                                     <td>C,C</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[9]" value="CC"/>
+                                        <input type="radio" ng-model="condition.sel" value="9"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('CC',3)">查看</button>
@@ -304,16 +304,16 @@
                                 <tr ng-if="condition.type >6">
                                     <td>C,D</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[10]"  value="CD"/>
+                                        <input type="radio" ng-model="condition.sel" value="10"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('CD',3)">查看</button>
                                     </td>
                                 </tr>
-                                <tr ng-if="condition.type >6">
+                                <tr ng-if="condition.type > 6">
                                     <td>不要求</td>
                                     <td ng-if="condition.money/100>0">
-                                        <input type="checkbox" ng-model="condition.sel[11]"   value=""/>
+                                        <input type="radio" ng-model="condition.sel" value="11"/>
                                     </td>
                                     <td ng-if="condition.money/100<=0">
                                         <button class="btn btn-primary" ng-click="showInfo('',3)">查看</button>
@@ -464,19 +464,19 @@
                                 <tbody>
                                 <tr ng-if="condition.type<=6">
                                     <td>口语</td>
-                                    <td><input type="checkbox" ng-model="condition.subject[0]"/> </td>
+                                    <td><input type="radio" ng-model="condition.subject"/> </td>
                                 </tr>
                                 <tr ng-if="condition.type==-1">
                                     <td>艺术</td>
-                                    <td><input type="checkbox" ng-model="condition.subject[1]"/></td>
+                                    <td><input type="radio" ng-model="condition.subject"/></td>
                                 </tr>
                                 <tr  ng-if="condition.type<=4 ||condition.type==6">
                                     <td>美术</td>
-                                    <td><input type="checkbox" ng-model="condition.subject[2]"/></td>
+                                    <td><input type="radio" ng-model="condition.subject"/></td>
                                 </tr>
                                 <tr  ng-if="condition.type<=4">
                                     <td>高水平运动员</td>
-                                    <td><input type="checkbox" ng-model="condition.subject[3]"/></td>
+                                    <td><input type="radio" ng-model="condition.subject"/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -497,27 +497,27 @@
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                    <td><input type="radio" ng-model="condition.count" value="1"/> </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="2"/></td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="3"/></td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="4"/></td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
-                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="5"/></td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
-                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="6"/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -538,27 +538,27 @@
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                    <td><input type="radio" ng-model="condition.count" value="1"/> </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="2"/></td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="3"/></td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="4"/></td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
-                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="5"/></td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
-                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="6"/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -579,27 +579,27 @@
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td><input type="checkbox" ng-model="condition.count[0]" value="1"/> </td>
+                                    <td><input type="radio" ng-model="condition.count" value="1"/> </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td><input type="checkbox" ng-model="condition.count[1]" value="2"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="2"/></td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td><input type="checkbox" ng-model="condition.count[2]" value="3"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="3"/></td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td><input type="checkbox" ng-model="condition.count[3]" value="4"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="4"/></td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
-                                    <td><input type="checkbox" ng-model="condition.count[4]" value="5"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="5"/></td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
-                                    <td><input type="checkbox" ng-model="condition.count[5]" value="6"/></td>
+                                    <td><input type="radio" ng-model="condition.count" value="6"/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -654,19 +654,19 @@
                                 <tbody>
                                 <tr ng-if="condition.type!=5 && condition.type!=6">
                                     <td>6000~10000</td>
-                                    <td><input type="checkbox" ng-model="condition.fee[0]" value="2"/> </td>
+                                    <td><input type="radio" ng-model="condition.fee" value="2"/> </td>
                                 </tr>
                                 <tr ng-if="condition.type!=5 && condition.type!=6">
                                     <td>10000~15000</td>
-                                    <td><input type="checkbox" ng-model="condition.fee[1]"  value="3"/></td>
+                                    <td><input type="radio" ng-model="condition.fee"  value="3"/></td>
                                 </tr>
                                 <tr>
                                     <td>15000~20000</td>
-                                    <td><input type="checkbox" ng-model="condition.fee[2]"  value="4"/></td>
+                                    <td><input type="radio" ng-model="condition.fee"  value="4"/></td>
                                 </tr>
                                 <tr ng-if="condition.type!=5 && condition.type!=6">
                                     <td>20000以上</td>
-                                    <td><input type="checkbox" ng-model="condition.fee[3]"  value="5"/></td>
+                                    <td><input type="radio" ng-model="condition.fee"  value="5"/></td>
                                 </tr>
                                 </tbody>
                             </table>

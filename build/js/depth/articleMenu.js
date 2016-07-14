@@ -414,22 +414,20 @@ require(['app'],function(app){
 
         $scope.baikeClk = function(){
             var url ="http://baike.baidu.com/item/";
-            if($scope.condition.departName !=""){
+            if($scope.condition.departName !="" && $scope.condition.departName !="请输入专业名称"){
                 var str = $scope.condition.departName.split("(")[0];
                 url ="http://baike.baidu.com/item/"+str;
             }
-            if($scope.condition.schlName !=""){
+            if($scope.condition.schlName !="" && $scope.condition.schlName !="请输入高校名称"){
                 var str = $scope.condition.schlName.split("(")[0];
                 url ="http://baike.baidu.com/item/"+str;
             }
+            console.log(url);
             openwin(url);
-
-            //$timeout(function(){
-            //    $scope.condition.departName=$scope.condition.schlName="";
-            //},500);
         };
 
         $scope.close = function(){
+            $("#tip,#modal-pay").hide();
             $("#recommend,#depthModal,#baikeModal").hide();
             $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
         };
@@ -444,10 +442,10 @@ require(['app'],function(app){
             var code = condition.code !="请输入高校代码" ? condition.code : "";
             var depart = condition.departName!= "请输入专业名称" ? encodeURI(condition.departName) : "";
             var city = condition.city != "请输入城市名称" ? encodeURI(condition.city) : "";
-            var fee = condition.fee !=""?condition.fee : 0;
-            var count = condition.count !=""? condition.count :0;
+            var newFee = condition.fee !=""? condition.fee : 0;
+            var newCount = condition.count !=""? condition.count :0;
             var year = condition.timer != "" ? condition.timer : "2016";
-            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+school+'&code='+code+'&depart='+depart+'&sel='+condition.sel+'&city='+condition.city+'&fee='+fee+'&subject='+condition.subject+'&count='+count+"&t="+new Date().getTime().toString())
+            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+school+'&code='+code+'&depart='+depart+'&sel='+condition.sel+'&city='+condition.city+'&fee='+newFee+'&subject='+condition.subject+'&count='+newCount+"&t="+new Date().getTime().toString())
                 .success(function(data){
                 if(data.status!=0){
                     alert('该内容的数据还在整理中.....');
@@ -458,16 +456,19 @@ require(['app'],function(app){
                         year = "";
                     }
                     if($scope.condition.inputTemplate == "98" || $scope.condition.inputTemplate == "96"||$scope.condition.inputTemplate == "97"){
-                        addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                        addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
                     }else if($scope.condition.inputTemplate == "8"||$scope.condition.inputTemplate == "9"|| $scope.condition.inputTemplate == "10" || $scope.condition.inputTemplate == "21"){
-                        addOrders(++_count,condition.titleId,condition.title,type,year,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
-                        //addOrders(++_count,condition.titleId,condition.title,type,"",condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                        addOrders(++_count,condition.titleId,condition.title,type,year,code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
                     }else if($scope.condition.inputTemplate == "0"||$scope.condition.inputTemplate == "1"||$scope.condition.inputTemplate == "2"||$scope.condition.inputTemplate == "12"||$scope.condition.inputTemplate == "24"||$scope.condition.inputTemplate == "26"){
-                        addOrders(++_count,condition.titleId,condition.title,type,condition.timer,condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,condition.sel);
+                        addOrders(++_count,condition.titleId,condition.title,type,condition.timer,code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
                     }
-
-                    angular.forEach(condition.sel,function(i,v){
-                        if(i != undefined && i == true){
+                    if(condition.count!=""){
+                        addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
+                    }
+                    if(condition.subject!=""){
+                        addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
+                    }
+                    angular.forEach(condition.sel,function(v,i){
                             var sel ="";
                             switch (parseInt(v)){
                                 case 0:
@@ -510,81 +511,10 @@ require(['app'],function(app){
                                     sel  = "AC";
                                     break;
                             }
-
-                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,condition.fee,sel);
-                        }
+                            addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,sel);
                     });
 
-                    angular.forEach(condition.fee,function(i,v){
-                        if(i != undefined && i == true){
-                            var fee ="";
-                            switch (parseInt(v)){
-                                case 0:
-                                    fee  = "2";
-                                    break;
-                                case 1:
-                                    fee  = "3";
-                                    break;
-                                case 2:
-                                    fee  = "4";
-                                    break;
-                                case 3:
-                                    fee  = "5";
-                                    break;
-                            }
-                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,condition.count,fee,condition.sel);
-                        }
-                    });
 
-                    angular.forEach(condition.count,function(i,v){
-                        if(i != undefined && i == true){
-                            var count ="";
-                            switch (parseInt(v)){
-                                case 0:
-                                    count  = "1";
-                                    break;
-                                case 1:
-                                    count  = "2";
-                                    break;
-                                case 2:
-                                    count  = "3";
-                                    break;
-                                case 3:
-                                    count  = "4";
-                                    break;
-                                case 4:
-                                    count  = "5";
-                                    break;
-                                case 5:
-                                    count  = "6";
-                                    break;
-                            }
-
-                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,condition.subject,count,condition.fee,condition.sel);
-                        }
-                    });
-
-                    angular.forEach(condition.subject,function(i,v){
-                        if(i != undefined && i == true){
-                            var subject ="";
-                            switch (parseInt(v)){
-                                case 0:
-                                    subject  = "(口)";
-                                    break;
-                                case 1:
-                                    subject  = "艺术";
-                                    break;
-                                case 2:
-                                    subject  = "美术";
-                                    break;
-                                case 3:
-                                    subject  = "高水平运动员";
-                                    break;
-                            }
-
-                            addOrders(++_count,condition.titleId,condition.title,type,"",condition.code,condition.schlName,condition.departName,condition.money,condition.city,subject,condition.count,condition.fee,condition.sel);
-                        }
-                    });
                     localStorage.setItem("orderList",JSON.stringify($scope.orderList));
                     localStorage.setItem("depthmoney",$scope.money);
 
@@ -750,6 +680,7 @@ require(['app'],function(app){
         $scope.closed = function(){
             $("#tip,#modal-pay").hide();
             $scope.condition.timer=$scope.condition.titleId = $scope.condition.title=$scope.condition.schlName=$scope.condition.departName = $scope.condition.money = $scope.condition.sel = $scope.condition.subject= $scope.condition.city= $scope.condition.fee= $scope.condition.count= $scope.condition.code=$scope.search=$scope.searchSchool="";
+            window.location.reload(0);
         };
 
         function openwin(url) {
