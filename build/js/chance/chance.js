@@ -44,9 +44,10 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','$q','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,$q,getLoginUserInfo,loocha,arraysort,inLine){
+    app.controller('chanceCtr',['$scope','$http','$sce','$timeout','$window','$stateParams','$state','$q','getLoginUserInfo','loocha','arraysort','inLine',function($scope,$http,$sce,$timeout,$window,$stateParams,$state,$q,getLoginUserInfo,loocha,arraysort,inLine){
         $scope.score = "";
         $scope.isShow = false;
+        $scope.btnShow = true;
         $scope.isChance = $stateParams.batch;
         $scope.uScore = JSON.parse(sessionStorage.getItem('uScore'));
         $scope.order_id = $stateParams.out_trade_no;
@@ -155,6 +156,7 @@ require(['app'],function(app){
             }
 
             if($scope.order_id!= ""){
+                $scope.btnShow = !$scope.btnShow;
                 getOrderInfo();
             }else{
                 $("#recommend").modal('show');
@@ -201,6 +203,9 @@ require(['app'],function(app){
             $timeout(function(){
                 $http.get(loocha+"/exam/order/info?out_trade_no="+ $scope.order_id+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
+                        if(data.status == '-1'){
+                            $state.go('login');
+                        }
                         $scope.modelInfo = {
                             model_1:[],
                             model_2:[],
@@ -219,6 +224,15 @@ require(['app'],function(app){
                                 if(flag[i] == $(".chance_").eq(j).val()){
                                     $(".chance_").eq(j).attr("checked","true");
                                 }
+                            }
+                        }
+
+                        for(var j = 0 ; j < $(".chance_").length ; j++){
+                            if(!$(".chance_").eq(j).is(':checked')){
+                                $(".table tbody tr").eq(j).hide();
+                                $(".chance_content").eq(j).hide();
+                            }else{
+                                $(".chance_").eq(j).attr("disabled","true");
                             }
                         }
 
@@ -346,20 +360,20 @@ require(['app'],function(app){
                     alert("该高校仅招生两年，计算概率没有意义");
                     return;
                 }else if(data.status == "1015") {
-                    alert("本次预测个数已使用完，请重新缴费继续查询");
-                    if(type == 1){
-                        $(".chance_[value=1]").attr("checked","true");
-                    }else if (type == 2){
-                        $(".chance_[value=2]").attr("checked","true");
-                    }else if (type == 3){
-                        $(".chance_[value=3]").attr("checked","true");
-                    }else if (type == 4){
-                        $(".chance_[value=4]").attr("checked","true");
-                    }else if (type == 5){
-                        $(".chance_[value=5]").attr("checked","true");
-                    }else if (type == 6){
-                        $(".chance_[value=6]").attr("checked","true");
-                    }
+                    alert("本次预测个数已使用完，请点击‘预测其他’继续预测");
+                    //if(type == 1){
+                    //    $(".chance_[value=1]").attr("checked","true");
+                    //}else if (type == 2){
+                    //    $(".chance_[value=2]").attr("checked","true");
+                    //}else if (type == 3){
+                    //    $(".chance_[value=3]").attr("checked","true");
+                    //}else if (type == 4){
+                    //    $(".chance_[value=4]").attr("checked","true");
+                    //}else if (type == 5){
+                    //    $(".chance_[value=5]").attr("checked","true");
+                    //}else if (type == 6){
+                    //    $(".chance_[value=6]").attr("checked","true");
+                    //}
                     return;
                 }else{
                     alert("未知错误");
@@ -443,8 +457,8 @@ require(['app'],function(app){
                         $(".chance_[value=1]").attr("checked","true");
                         return;
                     }else if(data.status == "1015"){
-                        alert("本次预测个数已使用完，请重新缴费继续查询");
-                        $(".chance_[value=1]").attr("checked","true");
+                        alert("本次预测个数已使用完，请点击‘预测其他’继续预测");
+                        //$(".chance_[value=1]").attr("checked","true");
                         return;
                     }else if (data.status == "1013"){
                         alert("该高校仅招生两年，计算概率没有意义");
@@ -893,6 +907,10 @@ require(['app'],function(app){
             openwin('#/pay?order_id='+$scope.order_id+'&money='+$scope.money+'&type='+$scope.isChance);
             $('#zyb_random').modal('hide');
             $("#tip").modal('show');
+        };
+
+        $scope.findOther = function(){
+            $state.go('chance',{batch:$scope.isChance,out_trade_no:""});
         };
 
         $scope.isPay = function () {

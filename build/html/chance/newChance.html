@@ -81,15 +81,17 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay(0)">确认缴费预测
+        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="startPay(0)" ng-if="btnShow">确认缴费预测
         </button>
+        <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:20px;" ng-click="findOther()"  ng-if="!btnShow">预测其他
+        <!--</button>-->
     </div>
 
     <div class="row text-center"
          ng-if="modelInfo.model_1.length > 0 || modelInfo.model_2.length > 0 || modelInfo.model_3.length > 0 || modelInfo.model_4.length > 0 || modelInfo.model_5.length > 0 || modelInfo.model_6.length > 0 ">
         <table class="table table-bordered">
             <caption class="text-center">
-                <h2>预测项目表</h2>
+                <h2>查询项目表</h2>
             </caption>
             <thead>
             <tr>
@@ -177,7 +179,7 @@
     </div>
 
     <!-- 按属地-->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-building"></i> 按院校属地预测高校录取概率</h4>
         </div>
@@ -236,7 +238,7 @@
         </div>
     </div>
     <!-- 按属类-->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-building"></i> 按院校属类预测高校录取概率</h4>
         </div>
@@ -339,7 +341,7 @@
         </div>
     </div>
     <!-- 按学校预测各专业录取概率 -->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-beaker"></i> 按具体院校招生专业预测专业录取概率</h4>
         </div>
@@ -386,7 +388,7 @@
         </div>
     </div>
     <!-- 按专业预测高校录取概率 -->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-tasks"></i> 按具体专业招生高校预测高校录取概率</h4>
         </div>
@@ -434,7 +436,7 @@
         </div>
     </div>
     <!-- 按个性标签预测学校概率 -->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-tasks"></i> 按满足个性的招生专业高校预测高校录取概率</h4>
         </div>
@@ -503,7 +505,7 @@
         </div>
     </div>
     <!-- 按概率-->
-    <div class="panel panel-default">
+    <div class="panel panel-default chance_content">
         <div class="panel-heading text-left">
             <h4><i class="icon-signal"></i> 按概率范围预测录取高校</h4>
         </div>
