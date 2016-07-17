@@ -438,14 +438,14 @@ require(['app'],function(app){
          */
         $scope.orderInfo = function(condition){
             var type = $location.$$url.split("batch=")[1];
-            var school = condition.schlName != "请输入高校名称" ? encodeURI(condition.schlName) : "";
+            var school = condition.schlName != "请输入高校名称" ? condition.schlName : "";
             var code = condition.code !="请输入高校代码" ? condition.code : "";
-            var depart = condition.departName!= "请输入专业名称" ? encodeURI(condition.departName) : "";
-            var city = condition.city != "请输入城市名称" ? encodeURI(condition.city) : "";
+            var depart = condition.departName!= "请输入专业名称" ? condition.departName : "";
+            var city = condition.city != "请输入城市名称" ? condition.city : "";
             var newFee = condition.fee !=""? condition.fee : 0;
             var newCount = condition.count !=""? condition.count :0;
             var year = condition.timer != "" ? condition.timer : "2016";
-            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+school+'&code='+code+'&depart='+depart+'&sel='+condition.sel+'&city='+condition.city+'&fee='+newFee+'&subject='+condition.subject+'&count='+newCount+"&t="+new Date().getTime().toString())
+            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+encodeURI(school)+'&code='+code+'&depart='+encodeURI(depart)+'&sel='+condition.sel+'&city='+encodeURI(condition.city)+'&fee='+newFee+'&subject='+condition.subject+'&count='+newCount+"&t="+new Date().getTime().toString())
                 .success(function(data){
                 if(data.status!=0){
                     alert('该内容的数据还在整理中.....');
@@ -711,7 +711,7 @@ require(['app'],function(app){
 
         $scope.$watch('condition.schlName',function(newvalue,oldvalue){
             if(newvalue!="" && newvalue!="请输入高校名称" && newvalue!=oldvalue){
-
+                var year =$scope.condition.timer!="" ? $scope.condition.timer: 2016;
                 $http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.condition.schlName)+"&limit=10&type="+$scope.condition.type+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
                         $scope.searchSchool = data.response.list;
@@ -724,8 +724,8 @@ require(['app'],function(app){
 
         $scope.$watch('condition.departName',function(newvalue,oldvalue){
             if(newvalue!="" && newvalue!="请输入专业名称" && newvalue!=oldvalue){
-
-                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&year="+$scope.condition.timer+"&t="+( new Date() ).getTime().toString())
+                var year =$scope.condition.timer!="" ? $scope.condition.timer: 2016;
+                $http.get(loocha+"/departlist/marjor?type="+$scope.condition.type+"&marjorname="+encodeURI($scope.condition.departName)+"&year="+year+"&t="+( new Date() ).getTime().toString())
                     .success(function(data){
                         $scope.search = data.response;
                     });
