@@ -825,9 +825,9 @@ define(['app'],function(app){
         };
 
         $scope.jumpDepth = function(num){
-            $state.go('depth.info',{batch:num});
-            //$window.location.href = "#/depth/depthInfo/batch="+num;
-            //$window.location.reload(0);
+            //$state.go('depth.info',{batch:num});
+            $window.location.href = "#/depth/depthInfo/batch="+num;
+            $window.location.reload(0);
         };
         $scope.other = function(){
             $timeout(function(){

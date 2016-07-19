@@ -29,7 +29,7 @@ require(['app'],function(app){
             }
         }
     }]);
-    app.controller('artCtr',["$scope",'$http','$sce','$stateParams','$window','$location','$timeout','loocha','data_province','getLoginUserInfo',function($scope,$http,$sce,$stateParams,$window,$location,$timeout,loocha,data_province,getLoginUserInfo){
+    app.controller('artCtr',["$rootScope","$scope",'$http','$sce','$stateParams','$window','$location','$timeout','loocha','data_province','getLoginUserInfo',function($rootScope,$scope,$http,$sce,$stateParams,$window,$location,$timeout,loocha,data_province,getLoginUserInfo){
         $scope.menuArr = [];
         $scope.orderList=[];
         $scope.menuInfoArr = [];
@@ -103,7 +103,7 @@ require(['app'],function(app){
                 $scope.orderList = JSON.parse(localStorage.getItem("orderList"));
                 $scope.money = parseInt(localStorage.getItem("depthmoney"));
             }
-
+            $rootScope.loading = false;
         }
 
         $http.get(loocha+"/depth/query")
@@ -184,7 +184,22 @@ require(['app'],function(app){
                     return;
                 }
             }
-
+            if($scope.condition.type == 5){
+                if(idx == 199  || idx == 200){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
+            if($scope.condition.type == 6){
+                if(idx == 200){
+                    $(".list-group-item").removeClass("active");
+                    that.addClass("active");
+                    alert("该批次中没有此内容");
+                    return;
+                }
+            }
             if($scope.condition.type >= 5){
                 if(idx >= 94 && idx<=97){
                     $(".list-group-item").removeClass("active");
@@ -201,7 +216,7 @@ require(['app'],function(app){
                 }
             }
             if($scope.condition.type >= 7){
-                if(idx == 76 || idx == 170){
+                if(idx == 76 || idx == 170 || idx == 197 || idx == 199  || idx == 200 || idx == 214){
                     $(".list-group-item").removeClass("active");
                     that.addClass("active");
                     alert("该批次中没有此内容");
@@ -437,6 +452,7 @@ require(['app'],function(app){
          * 提交信息
          */
         $scope.orderInfo = function(condition){
+            $rootScope.loading = true;
             var type = $location.$$url.split("batch=")[1];
             var school = condition.schlName != "请输入高校名称" ? condition.schlName : "";
             var code = condition.code !="请输入高校代码" ? condition.code : "";
@@ -445,8 +461,52 @@ require(['app'],function(app){
             var newFee = condition.fee !=""? condition.fee : 0;
             var newCount = condition.count !=""? condition.count :0;
             var year = condition.timer != "" ? condition.timer : "2016";
-            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+encodeURI(school)+'&code='+code+'&depart='+encodeURI(depart)+'&sel='+condition.sel+'&city='+encodeURI(condition.city)+'&fee='+newFee+'&subject='+condition.subject+'&count='+newCount+"&t="+new Date().getTime().toString())
+            var sel ="";
+            switch (parseInt(condition.sel)){
+                case 0:
+                    sel  = "A+A+";
+                    break;
+                case 1:
+                    sel  = "A+A";
+                    break;
+                case 2:
+                    sel  = "AA";
+                    break;
+                case 3:
+                    sel  = "AB+";
+                    break;
+                case 4:
+                    sel  = "AB";
+                    break;
+                case 5:
+                    sel  = "B+B+";
+                    break;
+                case 6:
+                    sel  = "B+B";
+                    break;
+                case 7:
+                    sel  = "BB";
+                    break;
+                case 8:
+                    sel  = "BC";
+                    break;
+                case 9:
+                    sel  = "CC";
+                    break;
+                case 10:
+                    sel  = "CD";
+                    break;
+                case 11:
+                    sel  = "";
+                    break;
+                case 12:
+                    sel  = "AC";
+                    break;
+            }
+
+            $http.get(loocha+'/depth/query/verify?id='+condition.titleId+'&type='+type+'&year='+year+'&school='+encodeURI(school)+'&code='+code+'&depart='+encodeURI(depart)+'&sel='+sel+'&city='+encodeURI(condition.city)+'&fee='+newFee+'&subject='+condition.subject+'&count='+newCount+"&t="+new Date().getTime().toString())
                 .success(function(data){
+                    $rootScope.loading = false;
                 if(data.status!=0){
                     alert('该内容的数据还在整理中.....');
                     return;
@@ -471,51 +531,51 @@ require(['app'],function(app){
                     if(condition.fee !=""){
                         addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,condition.sel);
                     }
-                    angular.forEach(condition.sel,function(v,i){
-                            var sel ="";
-                            switch (parseInt(v)){
-                                case 0:
-                                    sel  = "A+A+";
-                                    break;
-                                case 1:
-                                    sel  = "A+A";
-                                    break;
-                                case 2:
-                                    sel  = "AA";
-                                    break;
-                                case 3:
-                                    sel  = "AB+";
-                                    break;
-                                case 4:
-                                    sel  = "AB";
-                                    break;
-                                case 5:
-                                    sel  = "B+B+";
-                                    break;
-                                case 6:
-                                    sel  = "B+B";
-                                    break;
-                                case 7:
-                                    sel  = "BB";
-                                    break;
-                                case 8:
-                                    sel  = "BC";
-                                    break;
-                                case 9:
-                                    sel  = "CC";
-                                    break;
-                                case 10:
-                                    sel  = "CD";
-                                    break;
-                                case 11:
-                                    sel  = "不要求";
-                                    break;
-                                case 12:
-                                    sel  = "AC";
-                                    break;
-                            }
-                            addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,sel);
-                    });
+                    if(condition.sel!=""){
+                        var sel ="";
+                        switch (parseInt(condition.sel)){
+                            case 0:
+                                sel  = "A+A+";
+                                break;
+                            case 1:
+                                sel  = "A+A";
+                                break;
+                            case 2:
+                                sel  = "AA";
+                                break;
+                            case 3:
+                                sel  = "AB+";
+                                break;
+                            case 4:
+                                sel  = "AB";
+                                break;
+                            case 5:
+                                sel  = "B+B+";
+                                break;
+                            case 6:
+                                sel  = "B+B";
+                                break;
+                            case 7:
+                                sel  = "BB";
+                                break;
+                            case 8:
+                                sel  = "BC";
+                                break;
+                            case 9:
+                                sel  = "CC";
+                                break;
+                            case 10:
+                                sel  = "CD";
+                                break;
+                            case 11:
+                                sel  = "不要求";
+                                break;
+                            case 12:
+                                sel  = "AC";
+                                break;
+                        }
+                        addOrders(++_count,condition.titleId,condition.title,type,"",code,school,depart,condition.money,city,condition.subject,condition.count,condition.fee,sel);
+                    }
                     localStorage.setItem("orderList",JSON.stringify($scope.orderList));
                     localStorage.setItem("depthmoney",$scope.money);
 

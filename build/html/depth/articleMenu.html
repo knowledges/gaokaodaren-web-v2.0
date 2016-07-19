@@ -1,3 +1,4 @@
+<div ng-include="'templete/model-loading/loading.html'"></div>
 <div class="row">
     <div class="col-sm-3" style="padding: 0;display: none;">
         <ul class="nav nav-pills nav-stacked" id="doc" doclk>
@@ -464,19 +465,19 @@
                                 <tbody>
                                 <tr ng-if="condition.type<=6">
                                     <td>口语</td>
-                                    <td><input type="radio" ng-model="condition.subject"/> </td>
+                                    <td><input type="radio" ng-model="condition.subject" value="(口)"/></td>
                                 </tr>
                                 <tr ng-if="condition.type==-1">
                                     <td>艺术</td>
-                                    <td><input type="radio" ng-model="condition.subject"/></td>
+                                    <td><input type="radio" ng-model="condition.subject" value="艺术"/></td>
                                 </tr>
-                                <tr  ng-if="condition.type<=4 ||condition.type==6">
+                                <tr ng-if="condition.type<=4 ||condition.type==6">
                                     <td>美术</td>
-                                    <td><input type="radio" ng-model="condition.subject"/></td>
+                                    <td><input type="radio" ng-model="condition.subject" value="美术"/></td>
                                 </tr>
                                 <tr  ng-if="condition.type<=4">
                                     <td>高水平运动员</td>
-                                    <td><input type="radio" ng-model="condition.subject"/></td>
+                                    <td><input type="radio" ng-model="condition.subject" value="高水平运动员"/></td>
                                 </tr>
                                 </tbody>
                             </table>
