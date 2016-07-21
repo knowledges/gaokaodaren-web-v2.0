@@ -104,7 +104,6 @@ require(['app'],function(app){
                 url:loocha+"/uscore/addscore",
                 params:param
             }).success(function(data){
-                $('.carousel').carousel({'pause':"true"});
                 if(data.status == 0) {
                     getLoginUserInfo.isScores();
                     localStorage.setItem("type", $scope.table.batch);

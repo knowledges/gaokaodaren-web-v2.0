@@ -22,6 +22,23 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
                 });
 
                 $(".carousel").mouseover(handlerIn).mouseout(handlerOut);
+
+                $(".carousel-indicators li").click(function(){
+                    var num = $(this).data('slide-to');
+                    $(".carousel-indicators li").removeClass('active');
+                    $(".carousel-inner .item").removeClass('active');
+                    $(".carousel-indicators li").eq(num).addClass('active');
+                    $(".carousel-inner .item").eq(num).addClass('active');
+                });
+                //倒排序
+                $(".left").click(function(){
+                    $('.carousel').carousel('prev');
+                });
+                //正排序
+                $(".right").click(function(){
+                    $('.carousel').carousel('next');
+                });
+
                 function handlerIn(){
                     $('.carousel').carousel('pause');
                     var num = $("#myCarousel ol li[class='active']").data("slide-to");

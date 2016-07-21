@@ -255,7 +255,7 @@
                             </a>
                             <ul class="dropdown-menu" id="prop1" data-istrue="false"></ul>
                         </li>
-                        <li role="presentation" class="dropdown">
+                        <li role="presentation" class="dropdown" ng-if="hope.batch<5">
                             <a class="dropdown-toggle" href="javascript:;;" ng-click="belongslistClk($event)">
                                 属管
                                 <span class="caret"></span>
@@ -1823,44 +1823,56 @@
             </div>
             <div class="row" ng-repeat="list in hope.unEnglish">
                 <div class="col-sm-2 text-right" style="margin-top: 6px;">
-                    <h6>({{list.name}})</h6>
+                    <h6>(中学语种)</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
                         <div class="btn-group">
-                            <button type="button" title="中学外语不含英语的考生，在对应的语种上点击" class="btn btn-default"
-                                    id="languageShow" parentId="" s_id="">非英语
+                            <button type="button" title="中学外语不含英语的考生，在对应的语种上点击" class="btn btn-default" id="languageShow" parentid="" s_id="">非英语
                             </button>
-                            <button type="button" class="btn btn-default dropdown-toggle"
-                                    ng-click="showLanguage($event)">
+                            <button type="button" class="btn btn-default dropdown-toggle" ng-click="showLanguage($event)">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" id="langueList">
-                                <li ng-repeat="sublist in list.sublist">
-                                    <a href="javascript:;;" s_id="{{sublist.id}}"
-                                       parentId="{{sublist.parentId}}"
-                                       ng-click="findLanguage($event)">{{sublist.name}}</a>
+                            <ul class="dropdown-menu" id="langueList" style="display: none;">
+                                <li ng-if="hope.batch<8">
+                                    <a href="javascript:;;" s_id="108" parentid="107" ng-click="findLanguage($event)" class="ng-binding">日语</a>
+                                </li>
+                                <li ng-if="hope.batch<6">
+                                    <a href="javascript:;;" s_id="109" parentid="107" ng-click="findLanguage($event)" class="ng-binding">德语</a>
+                                </li>
+                                <li ng-if="hope.batch<7">
+                                    <a href="javascript:;;" s_id="110" parentid="107" ng-click="findLanguage($event)" class="ng-binding">法语</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;;" s_id="111" parentid="107" ng-click="findLanguage($event)" class="ng-binding">西班牙语</a>
+                                </li>
+                                <li ng-if="hope.batch<7">
+                                    <a href="javascript:;;" s_id="112" parentid="107" ng-click="findLanguage($event)" class="ng-binding">俄语</a>
                                 </li>
                             </ul>
                         </div>
                     </ul>
                 </div>
             </div>
-
-            <div class="row" ng-repeat="list in hope.personality_type2" ng-if="$index+1==5">
+            <!--ng-repeat="list in hope.personality_type2"-->
+            <div class="row" ng-if="hope.batch<7 ">
                 <div class="col-sm-2 text-right" style="margin-top: 6px;">
-                    <h6>({{list.name}})</h6>
+                    <h6>(加试科目)</h6>
                 </div>
                 <div class="col-sm-10 text-left">
                     <ul class="nav nav-pills">
-                        <li ng-repeat="sublist in list.sublist">
-                            <a href="javascript:;;" s_id="{{sublist.id}}"
-                               parentname="{{list.name}}"
-                               parentId="{{sublist.parentId}}"
-                               operation="{{list.operation}}"
-                               ng-click="agreePersonality($event)"
-                               ng-dblclick="rejecPersonality($event)">{{sublist.name}}</a>
+                        <li>
+                            <a href="javascript:;;" s_id="99" parentname="加试科目" parentid="97" operation="3" ng-click="agreePersonality($event)" ng-dblclick="rejecPersonality($event)" class="ng-binding">口语</a>
+                        </li>
+                        <li ng-if="hope.batch<5">
+                            <a href="javascript:;;" s_id="101" parentname="加试科目" parentid="97" operation="3" ng-click="agreePersonality($event)" ng-dblclick="rejecPersonality($event)" class="ng-binding">艺术</a>
+                        </li>
+                        <li ng-if="hope.batch<5 || hope.batch==6">
+                            <a href="javascript:;;" s_id="102" parentname="加试科目" parentid="97" operation="3" ng-click="agreePersonality($event)" ng-dblclick="rejecPersonality($event)" class="ng-binding">美术</a>
+                        </li>
+                        <li ng-if="hope.batch<5">
+                            <a href="javascript:;;" s_id="98" parentname="加试科目" parentid="97" operation="3" ng-click="agreePersonality($event)" ng-dblclick="rejecPersonality($event)" class="ng-binding">高水平运动员</a>
                         </li>
                     </ul>
                 </div>

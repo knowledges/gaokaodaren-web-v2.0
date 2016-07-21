@@ -289,7 +289,7 @@
                             <option value="14" ng-if="isChance < 5 ">教育部直属</option>
                             <option value="15" ng-if="isChance < 5 ">其他中央部委所属</option>
                             <option value="16">地方所属</option>
-                            <option value="32">分校(办学点)</option>
+                            <option value="32" ng-if="isChance < 5 ">分校(办学点)</option>
                         </select>
                         <select ng-if="forecast.style_id == 2"
                                 class="form-control"
@@ -443,18 +443,121 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <select class="form-control"
-                            ng-model="forecast.personality_id"
-                            ng-change="getpersonalityId()">
+                    <select class="form-control ng-pristine ng-valid ng-touched" ng-model="forecast.personality_id" ng-change="getpersonalityId()">
                         <option value="">==请选择个性标签==</option>
-                        <optgroup ng-repeat="list in forecast.personality_type2" label="{{list.name}}">
-                            <option ng-repeat="sublist in list.sublist" value="{{sublist.id}}">{{sublist.name}}</option>
+                        <optgroup label="家庭经济" class="ng-scope" ng-if="isChance<5 || isChance>6">
+                            <option value="5" class="ng-binding ng-scope">偏弱</option>
                         </optgroup>
-                        <optgroup ng-repeat="list in forecast.personality_type3" label="{{list.name}}">
-                            <option ng-repeat="sublist in list.sublist" value="{{sublist.id}}">{{sublist.name}}</option>
+                        <optgroup label="体检限项" class="ng-scope">
+                        <option value="14" class="ng-binding ng-scope">二、1：轻度色觉异常（俗称色弱）</option><option value="19" class="ng-binding ng-scope">二、2：色觉异常II度（俗称色盲）</option><option value="8" class="ng-binding ng-scope">二、3：不能准确识别红、黄、蓝、紫各种颜色中任何一种颜色的导线、按键、信号灯、几何图形</option><option value="20" class="ng-binding ng-scope">二、4：裸眼视力任何一眼低于5.0</option><option value="13" class="ng-binding ng-scope">二、5：裸眼视力任何一眼低于4.8</option><option value="11" class="ng-binding ng-scope">三、1：主要脏器：肺、肝、肾、脾、胃肠等动过大手术，功能恢复良好，或曾患有心肌炎、胃或十二指肠溃疡、慢性支气管炎、风湿性关节炎等病史，甲状腺机能亢进已治愈一年</option><option value="7" class="ng-binding ng-scope">三、2：先天性心脏病经手术治愈，或房间间隔缺损分流量少，动脉导管未闭返流血量少，经二级以上医院专科检查确定无需手术者</option><option value="18" class="ng-binding ng-scope">三、3：肢体残疾（不继续恶化）</option><option value="17" class="ng-binding ng-scope">三、4：屈光不正（近视眼或远视眼，下同）任何一眼矫正到4.8镜片度数大于400度</option><option value="9" class="ng-binding ng-scope">三、5：任何一眼矫正到4.8镜片度数大于800度</option><option value="10" class="ng-binding ng-scope">三、6：一眼失明另一眼矫正到4.8镜片度数大于400度</option><option value="15" class="ng-binding ng-scope">三、7：两耳听力均在3米以内，或一耳听力在5米另一耳全聋</option><option value="16" class="ng-binding ng-scope">三、8：嗅觉迟钝、口吃、步态异常、驼背、面部疤痕、血管瘤、 黑色素痣、白癜风</option><option value="12" class="ng-binding ng-scope">三、9：斜视、嗅觉迟钝、口吃</option>
                         </optgroup>
-                        <optgroup ng-repeat="list in forecast.personality_type4" label="{{list.name}}">
-                            <option ng-repeat="sublist in list.sublist" value="{{sublist.id}}">{{sublist.name}}</option>
+                        <!--<optgroup label="等级级差" class="ng-scope">-->
+                            <!--<option value="3" class="ng-binding ng-scope">加分</option>-->
+                        <!--</optgroup>-->
+                        <optgroup label="中学语种" class="ng-scope">
+                            <option value="108" class="ng-binding ng-scope" ng-if="isChance<8">日语</option>
+                            <option value="109" class="ng-binding ng-scope" ng-if="isChance<6">德语</option>
+                            <option value="110" class="ng-binding ng-scope" ng-if="isChance<7">法语</option>
+                            <option value="111" class="ng-binding ng-scope">西班牙语</option>
+                            <option value="112" class="ng-binding ng-scope" ng-if="isChance<7">俄语</option>
+                        </optgroup>
+                        <optgroup label="加试科目" class="ng-scope">
+                            <option value="99" class="ng-binding ng-scope">口语</option>
+                            <option ng-if="isChance<5" value="101" class="ng-binding ng-scope">艺术</option>
+                            <option ng-if="isChance<5 || isChance==6" value="102" class="ng-binding ng-scope">美术</option>
+                            <option ng-if="isChance<5" value="98" class="ng-binding ng-scope">高水平运动员</option>
+                        </optgroup>
+                        <optgroup label="高校收费" ng-if="isChance<5 || isChance>6" class="ng-scope">
+                            <option value="105" class="ng-binding ng-scope">中外合作办学</option>
+                            <option value="104" class="ng-binding ng-scope">阶段性多收费</option>
+                            <option value="106" class="ng-binding ng-scope">专业多收费</option>
+                        </optgroup>
+                        <optgroup label="中学强弱学科" class="ng-scope">
+                            <option value="27" class="ng-binding ng-scope">语文</option>
+                            <option value="31" class="ng-binding ng-scope">数学</option>
+                            <option value="25" class="ng-binding ng-scope">英语</option>
+                            <option value="28" class="ng-binding ng-scope">物理</option>
+                            <option value="29" class="ng-binding ng-scope">化学</option>
+                            <option value="24" class="ng-binding ng-scope">历史</option>
+                            <option value="30" class="ng-binding ng-scope">地理</option>
+                            <option value="26" class="ng-binding ng-scope">政治</option>
+                            <option value="23" class="ng-binding ng-scope">生物</option>
+                        </optgroup>
+                        <optgroup  label="就业方向" class="ng-scope">
+                            <option value="94" class="ng-binding ng-scope">公务员、办事员等人员方向</option>
+                            <option value="95" class="ng-binding ng-scope">专业技术等人员方向</option>
+                            <option value="88" class="ng-binding ng-scope">商业、经贸、服务等人员方向</option>
+                            <option value="92" class="ng-binding ng-scope">农林、地矿等人员方向</option>
+                            <option value="91" class="ng-binding ng-scope">生产、设备操作等人员方向</option>
+                            <option value="90" class="ng-binding ng-scope">教师、导游、社会工作、咨询等人员方向</option>
+                            <option value="89" class="ng-binding ng-scope">医疗卫生等人员方向</option>
+                            <option value="93" class="ng-binding ng-scope">文化、艺术、媒体等人员方向</option>
+                        </optgroup>
+                        <optgroup ng-if="isChance<7" label="考研方向" class="ng-scope">
+                            <option value="86" class="ng-binding ng-scope">国内考研</option>
+                            <option value="85" class="ng-binding ng-scope">国外考研</option>
+                        </optgroup>
+                        <optgroup  ng-if="isChance>6" label="专升本方向" class="ng-scope">
+                            <option value="121" class="ng-binding ng-scope">专转本</option>
+                            <option value="122" class="ng-binding ng-scope">海外本科直通车</option>
+                            <option value="123" class="ng-binding ng-scope">分段培养项目</option>
+                        </optgroup>
+                        <optgroup  label="出国境方向" class="ng-scope">
+                            <option ng-if="isChance<7"  value="83" class="ng-binding ng-scope">大学毕业后出国</option>
+                            <option value="82" class="ng-binding ng-scope">中外合作办学</option>
+                            <option ng-if="isChance<7"  value="81" class="ng-binding ng-scope">国外考研</option>
+                        </optgroup>
+                        <optgroup  label="学文方向" class="ng-scope">
+                            <option value="61" class="ng-binding ng-scope">哲学和历史</option>
+                            <option value="60" class="ng-binding ng-scope">法律和社会</option>
+                            <option value="58" class="ng-binding ng-scope">教育和心理</option>
+                            <option value="59" class="ng-binding ng-scope">语言和文化</option>
+                        </optgroup>
+                        <optgroup label="学理方向" class="ng-scope">
+                            <option value="53" class="ng-binding ng-scope">经济和管理</option>
+                            <option value="55" class="ng-binding ng-scope">理学</option>
+                            <option value="56" class="ng-binding ng-scope">自然</option>
+                            <option value="54" class="ng-binding ng-scope">医学</option>
+                        </optgroup>
+                        <optgroup  label="学工方向" class="ng-scope">
+                            <option value="64" class="ng-binding ng-scope">电子和电气</option>
+                            <option value="65" class="ng-binding ng-scope">工程</option>
+                            <option value="66" class="ng-binding ng-scope">建筑和土木</option>
+                            <option value="63" class="ng-binding ng-scope">生物和农业</option>
+                        </optgroup>
+                        <optgroup label="喜欢与物打交道" class="ng-scope">
+                            <option value="78" class="ng-binding ng-scope">习惯关注家具摆放、积木构造等</option>
+                            <option value="77" class="ng-binding ng-scope">习惯关注家里纺织用品、日用品、食品摆放和质量等</option>
+                            <option value="76" class="ng-binding ng-scope">习惯关注家用电器、电脑、手机、电视质量等</option>
+                            <option value="75" class="ng-binding ng-scope">习惯关注宠物、动物、植物、室内外自然环境、生态等</option>
+                        </optgroup>
+                        <optgroup label="喜欢与人打交道" class="ng-scope">
+                            <option value="69" class="ng-binding ng-scope">习惯关注家庭成员、师长、亲戚、同学、邻里之间关系等</option>
+                            <option value="70" class="ng-binding ng-scope">习惯关注家长、师长、亲戚、同学家里、邻里开公司、做生意等</option>
+                            <option value="71" class="ng-binding ng-scope">习惯关注家人、师长、亲戚、同学、邻里出行用什么交通工具等</option>
+                        </optgroup>
+                        <optgroup label="喜欢关注大小事" class="ng-scope">
+                            <option value="73" class="ng-binding ng-scope">习惯关注周边、校内外、国内外发生的大小事等</option>
+                        </optgroup>
+                        <optgroup label="能力强弱" class="ng-scope">
+                            <option value="46" class="ng-binding ng-scope">语言表达能力</option>
+                            <option value="43" class="ng-binding ng-scope">数学推理能力</option>
+                            <option value="50" class="ng-binding ng-scope">空间判断能力</option>
+                            <option value="49" class="ng-binding ng-scope">察觉细节能力</option>
+                            <option value="48" class="ng-binding ng-scope">书写能力</option>
+                            <option value="47" class="ng-binding ng-scope">动手能力</option>
+                            <option value="45" class="ng-binding ng-scope">社会交往能力</option>
+                            <option value="44" class="ng-binding ng-scope">组织管理能力</option>
+                        </optgroup>
+                        <optgroup label="外向型" class="ng-scope">
+                            <option value="37" class="ng-binding ng-scope">社会型</option>
+                            <option value="34" class="ng-binding ng-scope">艺术型</option>
+                            <option value="35" class="ng-binding ng-scope">经营型</option>
+                            <option value="36" class="ng-binding ng-scope">事务型</option>
+                        </optgroup>
+                        <optgroup label="内向型" class="ng-scope">
+                            <option value="39" class="ng-binding ng-scope">研究型</option>
+                            <option value="40" class="ng-binding ng-scope">技术型</option>
                         </optgroup>
                     </select>
                 </div>
