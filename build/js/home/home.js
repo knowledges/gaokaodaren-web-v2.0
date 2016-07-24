@@ -31,11 +31,11 @@ define(['app','jquery','bootstrap'],function(app,$,bootstrap){
                     $(".carousel-inner .item").eq(num).addClass('active');
                 });
                 //倒排序
-                $(".left").click(function(){
+                $(".glyphicon-chevron-left").click(function(e){
                     $('.carousel').carousel('prev');
                 });
                 //正排序
-                $(".right").click(function(){
+                $(".glyphicon-chevron-right").click(function(e){
                     $('.carousel').carousel('next');
                 });
 

@@ -3,7 +3,7 @@
  */
 'use strict';
 require(['app'],function(app){
-    app.controller('exampleAllCtr',['$rootScope','$scope','$sce','$stateParams','$location','$timeout','homeService','getLoginUserInfo',function($rootScope,$scope,$sce,$stateParams,$location,$timeout,homeService,getLoginUserInfo){
+    app.controller('exampleAllCtr',['$rootScope','$scope','$sce','$stateParams','$state','$location','$timeout','homeService','getLoginUserInfo',function($rootScope,$scope,$sce,$stateParams,$state,$location,$timeout,homeService,getLoginUserInfo){
         $scope.ishide = true;
         $scope.service = homeService;
         $scope.insertHTML = "";
@@ -86,13 +86,13 @@ require(['app'],function(app){
             $scope.ishide = true;
             $scope.insertHTML = "";
         };
+
         $scope.findOther =function(){
+            $state.go('home');
             $timeout(function(){
-                window.location.href="#/home";
-                $timeout(function() {
-                    $(".carousel-indicators li").eq(4).trigger('click');
-                },500);
-            },500);
+                $(".carousel-indicators li").eq(4).trigger('click');
+            },600,false);
         };
+
     }]);
 })

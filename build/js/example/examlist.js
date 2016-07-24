@@ -69,7 +69,6 @@ require(['app'],function(app) {
                         $scope.title.list = data.response;
                         angular.forEach(data.response,function(v,i){
                             $scope.title.url[i] = "http://180.96.7.211:5480/upload/"+v.type+"/"+v.level+"/"+v.score;
-                            console.log($scope.title.url[i]);
                         });
                     });
 
