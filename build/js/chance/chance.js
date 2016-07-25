@@ -351,29 +351,28 @@ require(['app'],function(app){
                 }else if (data.status == "1009") {
                     alert("您是压线考生");
                 }else if (data.status == "1010") {
-                    alert("该高校为新招高校，计算概率没有意义");
+                    if(type == 2 || type == 3){
+                        alert("该高校为新招高校，计算概率没有意义");
+                    }else{
+                        alert("该高校(专业)为新招高校(专业)，计算概率没有意义");
+                    }
                     return;
                 }else if (data.status == "1012"){
-                    alert("该高校仅招生一年，计算概率没有意义");
+                    if(type == 2 || type == 3){
+                        alert("该高校仅招生一年，计算概率没有意义");
+                    }else {
+                        alert("该高校(专业)仅招生一年，计算概率没有意义");
+                    }
                     return;
                 }else if (data.status == "1013"){
-                    alert("该高校仅招生两年，计算概率没有意义");
+                    if(type == 2 || type == 3){
+                        alert("该高校仅招生两年，计算概率没有意义");
+                    }else {
+                        alert("该高校(专业)仅招生两年，计算概率没有意义");
+                    }
                     return;
                 }else if(data.status == "1015") {
                     alert("本次预测个数已使用完，请点击‘预测其他’继续预测");
-                    //if(type == 1){
-                    //    $(".chance_[value=1]").attr("checked","true");
-                    //}else if (type == 2){
-                    //    $(".chance_[value=2]").attr("checked","true");
-                    //}else if (type == 3){
-                    //    $(".chance_[value=3]").attr("checked","true");
-                    //}else if (type == 4){
-                    //    $(".chance_[value=4]").attr("checked","true");
-                    //}else if (type == 5){
-                    //    $(".chance_[value=5]").attr("checked","true");
-                    //}else if (type == 6){
-                    //    $(".chance_[value=6]").attr("checked","true");
-                    //}
                     return;
                 }else{
                     alert("未知错误");
@@ -1014,26 +1013,9 @@ require(['app'],function(app){
             return num;
         }
 
-     /*   $scope.findDepart = function(){
-            $scope.forecast.schl_departId = "";
-            $http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
-                $scope.forecast.schl_departArr = data.response.list;
-            });
-        };*/
-
-  /*      $scope.findSchl = function(){
-            $scope.forecast.d_schl_id = "";
-            $http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
-                $scope.forecast.d_schlArr = data.response;
-            });
-        };*/
-
         $scope.$watch('forecast.schl_name',function(newValue,oldValue){
             if(newValue!="" && newValue!=oldValue){
                 $scope.forecast.schl_departId = "";
-                //$http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()).success(function (data) {
-                //    $scope.forecast.schl_departArr = data.response.list;
-                //});
                 $q.all({
                     first:$http.get(loocha + "/departlist?type=" + $scope.isChance + "&code=" + $scope.forecast.schl_id + "&name=" + encodeURI($scope.forecast.schl_name) + "&index=0&limit=999&t="+( new Date() ).getTime().toString()),
                     second:$http.get(loocha+"/school/search?index=0&key="+encodeURI($scope.forecast.schl_name)+"&limit=10&type="+$scope.isChance+"&t="+( new Date() ).getTime().toString())
@@ -1070,19 +1052,9 @@ require(['app'],function(app){
                 function getdepartsName(data){
                     $scope.search = data.response;
                 }
-
-
-                /*$http.get(loocha+"/school/bydepart?type="+$scope.isChance+"&depart_name="+encodeURI($scope.forecast.d_departname)+"&t="+( new Date() ).getTime().toString()).success(function(data){
-                    $scope.forecast.d_schlArr = data.response;
-                });*/
             }else{
                 $scope.forecast.d_schlArr = $scope.search = $scope.forecast.d_schl_id = "";
             }
         });
-
-        //$scope.departDisplace = function(obj){
-        //    $scope.forecast.d_departname = obj.name;
-        //}
-
     }]);
 });

@@ -139,12 +139,12 @@ require(['app'],function(app){
                 name=that.attr("titles"),
                 inputTemplate=that.attr("inputTemplate");
 
-            if (idx == 236 && $scope.condition.type > 4){
-                $(".list-group-item").removeClass("active");
-                that.addClass("active");
-                alert("数据还在筹备中.....");
-                return;
-            }
+            //if (idx == 236 && $scope.condition.type > 4){
+            //    $(".list-group-item").removeClass("active");
+            //    that.addClass("active");
+            //    alert("数据还在筹备中.....");
+            //    return;
+            //}
 
             if (idx == 198){
                 $(".list-group-item").removeClass("active");
@@ -614,7 +614,7 @@ require(['app'],function(app){
                     obj.count = count;
                     obj.fee =  fee;
                     obj.sel = sel;
-                    $scope.money+=(money/100);
+                    $scope.money +=(money/100);
                     $scope.orderList.push(obj);
                 }
             };
